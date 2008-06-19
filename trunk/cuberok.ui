@@ -1,0 +1,1871 @@
+<ui version="4.0" >
+ <class>CuberokClass</class>
+ <widget class="QMainWindow" name="CuberokClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>591</width>
+    <height>274</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Cuberok</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="resource.qrc" >:/icons/application.png</iconset>
+  </property>
+  <property name="dockNestingEnabled" >
+   <bool>true</bool>
+  </property>
+  <property name="dockOptions" >
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks|QMainWindow::VerticalTabs</set>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QVBoxLayout" >
+    <item>
+     <widget class="PlaylistContainer" native="1" name="listView" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="contextMenuPolicy" >
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+      <property name="acceptDrops" >
+       <bool>true</bool>
+      </property>
+      <property name="dragEnabled" stdset="0" >
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled" stdset="0" >
+       <bool>true</bool>
+      </property>
+      <property name="batchSize" stdset="0" >
+       <number>100</number>
+      </property>
+      <addaction name="actionQueueNext" />
+      <addaction name="actionEditTag" />
+      <addaction name="actionRemoveSong" />
+      <addaction name="actionClear_playlist" />
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QProgressBar" name="progressBar" >
+         <property name="maximum" >
+          <number>1000</number>
+         </property>
+         <property name="value" >
+          <number>0</number>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="volumeSlider" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+   <widget class="QFrame" name="equalizer" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="sizePolicy" >
+     <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="maximumSize" >
+     <size>
+      <width>16777215</width>
+      <height>100</height>
+     </size>
+    </property>
+    <property name="visible" >
+     <bool>false</bool>
+    </property>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QSlider" name="eqSlider1" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider2" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider3" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider4" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider5" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider6" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider7" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider8" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider9" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider10" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider11" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider12" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider13" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider14" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider15" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="eqSlider16" >
+       <property name="value" >
+        <number>99</number>
+       </property>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget1" >
+   <property name="features" >
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Collection</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents1" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>2</number>
+     </property>
+     <property name="leftMargin" >
+      <number>4</number>
+     </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="QToolBar" name="col_toolbar" >
+       <addaction name="actionArtistMode" />
+       <addaction name="actionAlbumMode" />
+       <addaction name="actionGenreMode" />
+       <addaction name="actionMarkMode" />
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_2" >
+       <property name="frameShape" >
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="lineWidth" >
+        <number>0</number>
+       </property>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>0</number>
+        </property>
+        <property name="leftMargin" >
+         <number>4</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>4</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="subsetLabel" >
+          <property name="text" >
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="subsetDisableButton" >
+          <property name="acceptDrops" >
+           <bool>false</bool>
+          </property>
+          <property name="autoFillBackground" >
+           <bool>true</bool>
+          </property>
+          <property name="text" >
+           <string>...</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="resource.qrc" >:/icons/images/emblem-noread.png</iconset>
+          </property>
+          <property name="iconSize" >
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="autoRaise" >
+           <bool>true</bool>
+          </property>
+          <property name="arrowType" >
+           <enum>Qt::NoArrow</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="filterLineEdit" >
+          <property name="toolTip" >
+           <string>Enter search substring</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="CollectionView" native="1" name="colView" >
+       <property name="contextMenuPolicy" >
+        <enum>Qt::ActionsContextMenu</enum>
+       </property>
+       <property name="acceptDrops" >
+        <bool>true</bool>
+       </property>
+       <property name="dragEnabled" stdset="0" >
+        <bool>true</bool>
+       </property>
+       <property name="isWrapping" stdset="0" >
+        <bool>true</bool>
+       </property>
+       <addaction name="actionAddToCollection" />
+       <addaction name="actionRemoveFromCollection" />
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget2" >
+   <property name="features" >
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Files</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents2" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="QTreeView" name="treeView_2" >
+       <property name="dragEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode" >
+        <enum>QAbstractItemView::DragOnly</enum>
+       </property>
+       <property name="selectionMode" >
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
+       <property name="verticalScrollMode" >
+        <enum>QAbstractItemView::ScrollPerItem</enum>
+       </property>
+       <property name="autoExpandDelay" >
+        <number>5</number>
+       </property>
+       <property name="uniformRowHeights" >
+        <bool>true</bool>
+       </property>
+       <property name="sortingEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="animated" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>591</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>File</string>
+    </property>
+    <addaction name="actionNewPlaylist" />
+    <addaction name="actionClosePlaylist" />
+    <addaction name="actionCorrectTag" />
+    <addaction name="separator" />
+    <addaction name="actionExit" />
+   </widget>
+   <widget class="QMenu" name="menuHelp" >
+    <property name="title" >
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout" />
+   </widget>
+   <widget class="QMenu" name="menuControl" >
+    <property name="title" >
+     <string>Control</string>
+    </property>
+    <addaction name="actionBreak" />
+    <addaction name="actionPrev" />
+    <addaction name="actionPause" />
+    <addaction name="actionPlay" />
+    <addaction name="actionNext" />
+    <addaction name="separator" />
+    <addaction name="actionShuffle" />
+    <addaction name="actionRepeat" />
+    <addaction name="actionEnableEqalizer" />
+    <addaction name="separator" />
+    <addaction name="actionClear_playlist" />
+   </widget>
+   <widget class="QMenu" name="menuView" >
+    <property name="title" >
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuColumns" >
+     <property name="title" >
+      <string>Columns</string>
+     </property>
+     <addaction name="actionViewFile" />
+     <addaction name="actionViewTrack" />
+     <addaction name="actionViewTitle" />
+     <addaction name="actionViewArtist" />
+     <addaction name="actionViewAlbum" />
+     <addaction name="actionViewGenre" />
+     <addaction name="actionViewYear" />
+     <addaction name="actionViewComment" />
+     <addaction name="actionViewLength" />
+    </widget>
+    <addaction name="actionEqalizer" />
+    <addaction name="menuColumns" />
+    <addaction name="actionLookFeel" />
+   </widget>
+   <addaction name="menuFile" />
+   <addaction name="menuView" />
+   <addaction name="menuControl" />
+   <addaction name="menuHelp" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <widget class="QLabel" name="listStatus" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>List</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="collectionStatus" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Collection</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar" >
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionBreak" />
+   <addaction name="separator" />
+   <addaction name="actionPrev" />
+   <addaction name="actionPause" />
+   <addaction name="actionPlay" />
+   <addaction name="actionNext" />
+   <addaction name="separator" />
+   <addaction name="actionShuffle" />
+   <addaction name="actionRepeat" />
+   <addaction name="actionEnableEqalizer" />
+   <addaction name="separator" />
+   <addaction name="actionClear_playlist" />
+   <addaction name="actionEditTag" />
+   <addaction name="separator" />
+  </widget>
+  <action name="actionAbout" >
+   <property name="icon" >
+    <iconset/>
+   </property>
+   <property name="text" >
+    <string>About</string>
+   </property>
+   <property name="statusTip" >
+    <string>About dialog</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+F1</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionBreak" >
+   <property name="checkable" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Break</string>
+   </property>
+  </action>
+  <action name="actionPrev" >
+   <property name="text" >
+    <string>Previous</string>
+   </property>
+   <property name="iconText" >
+    <string>&lt;&lt;</string>
+   </property>
+   <property name="toolTip" >
+    <string>Previous track</string>
+   </property>
+   <property name="statusTip" >
+    <string>Previous track</string>
+   </property>
+  </action>
+  <action name="actionNext" >
+   <property name="text" >
+    <string>Next</string>
+   </property>
+   <property name="iconText" >
+    <string>>></string>
+   </property>
+   <property name="toolTip" >
+    <string>Next track</string>
+   </property>
+   <property name="statusTip" >
+    <string>Next track</string>
+   </property>
+  </action>
+  <action name="actionPause" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Pause</string>
+   </property>
+   <property name="iconText" >
+    <string>||</string>
+   </property>
+   <property name="toolTip" >
+    <string>Pause</string>
+   </property>
+   <property name="statusTip" >
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionPlay" >
+   <property name="text" >
+    <string>Play</string>
+   </property>
+   <property name="iconText" >
+    <string>></string>
+   </property>
+   <property name="toolTip" >
+    <string>Play track</string>
+   </property>
+   <property name="statusTip" >
+    <string>Play track</string>
+   </property>
+  </action>
+  <action name="actionShuffle" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Shuffle</string>
+   </property>
+   <property name="statusTip" >
+    <string>Shuffle mode</string>
+   </property>
+  </action>
+  <action name="actionRepeat" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Repeat</string>
+   </property>
+   <property name="statusTip" >
+    <string>Repeat mode</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+   <property name="statusTip" >
+    <string>Close the program</string>
+   </property>
+  </action>
+  <action name="actionEqalizer" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Equalizer</string>
+   </property>
+   <property name="statusTip" >
+    <string>Show eqalizer widget</string>
+   </property>
+  </action>
+  <action name="actionEnableEqalizer" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Enable Eqalizer</string>
+   </property>
+   <property name="iconText" >
+    <string>EQ</string>
+   </property>
+   <property name="statusTip" >
+    <string>Enable Eqalizer</string>
+   </property>
+  </action>
+  <action name="actionClear_playlist" >
+   <property name="text" >
+    <string>Clear playlist</string>
+   </property>
+   <property name="iconText" >
+    <string>Clear</string>
+   </property>
+   <property name="statusTip" >
+    <string>Clear playlist</string>
+   </property>
+  </action>
+  <action name="actionQueueNext" >
+   <property name="text" >
+    <string>Queue as Next</string>
+   </property>
+  </action>
+  <action name="actionViewFile" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>File</string>
+   </property>
+  </action>
+  <action name="actionViewTrack" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Track</string>
+   </property>
+  </action>
+  <action name="actionViewTitle" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Title</string>
+   </property>
+  </action>
+  <action name="actionViewArtist" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Artist</string>
+   </property>
+  </action>
+  <action name="actionViewAlbum" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Album</string>
+   </property>
+  </action>
+  <action name="actionViewGenre" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Genre</string>
+   </property>
+  </action>
+  <action name="actionViewYear" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Year</string>
+   </property>
+  </action>
+  <action name="actionViewComment" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Comment</string>
+   </property>
+  </action>
+  <action name="actionCorrectTag" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Correct cp1251 in ID3v1</string>
+   </property>
+  </action>
+  <action name="actionViewLength" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Length</string>
+   </property>
+  </action>
+  <action name="actionEditTag" >
+   <property name="text" >
+    <string>Edit Tag</string>
+   </property>
+   <property name="iconText" >
+    <string>Tag</string>
+   </property>
+   <property name="toolTip" >
+    <string>Edit Tag</string>
+   </property>
+  </action>
+  <action name="actionNewPlaylist" >
+   <property name="text" >
+    <string>New playlist</string>
+   </property>
+  </action>
+  <action name="actionClosePlaylist" >
+   <property name="text" >
+    <string>Close playlist</string>
+   </property>
+  </action>
+  <action name="actionRemoveSong" >
+   <property name="text" >
+    <string>Remove song</string>
+   </property>
+  </action>
+  <action name="actionLookFeel" >
+   <property name="text" >
+    <string>Look and Feel</string>
+   </property>
+  </action>
+  <action name="actionArtistMode" >
+   <property name="text" >
+    <string>Artist</string>
+   </property>
+  </action>
+  <action name="actionAlbumMode" >
+   <property name="text" >
+    <string>Album</string>
+   </property>
+  </action>
+  <action name="actionGenreMode" >
+   <property name="text" >
+    <string>Genre</string>
+   </property>
+  </action>
+  <action name="actionMarkMode" >
+   <property name="text" >
+    <string>Mark</string>
+   </property>
+  </action>
+  <action name="actionAddToCollection" >
+   <property name="text" >
+    <string>Add Item</string>
+   </property>
+  </action>
+  <action name="actionRemoveFromCollection" >
+   <property name="text" >
+    <string>Remove Item</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlaylistContainer</class>
+   <extends>QWidget</extends>
+   <header>playlistcontainer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CollectionView</class>
+   <extends>QWidget</extends>
+   <header>collectionview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resource.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionAbout</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>on_AboutMenu()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>396</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionBreak</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>fillCancel()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>484</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPrev</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>prev()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>484</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNext</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>next()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>484</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPause</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>pause(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>484</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlay</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>play()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>484</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShuffle</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>shuffle(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRepeat</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>repeat(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>status(QString)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>message(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>425</x>
+     <y>152</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>246</x>
+     <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>246</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEqalizer</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>equalizer</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider1</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq1(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq2(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq3(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider4</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq4(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider5</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq5(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider6</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq6(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider7</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq7(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider8</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq8(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider9</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq9(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider10</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq10(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider11</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq11(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider12</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq12(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider13</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq13(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider14</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq14(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider15</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq15(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>eqSlider16</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>eq16(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>387</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEnableEqalizer</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>eqalizer(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClear_playlist</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionQueueNext</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>queueNext()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewAlbum</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewAlbum(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewArtist</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewArtist(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewComment</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewComment(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewFile</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewFile(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewGenre</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewGenre(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewTitle</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewTitle(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewTrack</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewTrack(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewYear</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewYear(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCorrectTag</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>correctTag(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewLength</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewLength(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEditTag</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>editTag()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNewPlaylist</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>addList()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClosePlaylist</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>delList()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>425</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemoveSong</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>removeSong()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>516</x>
+     <y>323</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLookFeel</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>lookAndFeel()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>544</x>
+     <y>454</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>songPosition(int)</signal>
+   <receiver>progressBar</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>516</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>415</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionArtistMode</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>artistMode()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>264</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAlbumMode</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>albumMode()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>264</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionGenreMode</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>genreMode()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>264</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionMarkMode</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>markMode()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>204</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAddToCollection</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>addItem()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>136</x>
+     <y>105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemoveFromCollection</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>removeItem()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>136</x>
+     <y>105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colView</sender>
+   <signal>status(QString)</signal>
+   <receiver>collectionStatus</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>136</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>49</x>
+     <y>380</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal></signal>
+   <receiver>listStatus</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>399</x>
+     <y>179</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>49</x>
+     <y>380</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filterLineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>colView</receiver>
+   <slot>filter(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>136</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>136</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colView</sender>
+   <signal>setVisibleSubsetWidgets(bool)</signal>
+   <receiver>subsetLabel</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>136</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>35</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colView</sender>
+   <signal>setVisibleSubsetWidgets(bool)</signal>
+   <receiver>subsetDisableButton</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>136</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>74</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>subsetDisableButton</sender>
+   <signal>clicked()</signal>
+   <receiver>colView</receiver>
+   <slot>clearSubset()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>74</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>136</x>
+     <y>138</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colView</sender>
+   <signal>setSubsetLabel(QString)</signal>
+   <receiver>subsetLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>127</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>35</x>
+     <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
