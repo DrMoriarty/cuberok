@@ -1,0 +1,423 @@
+<ui version="4.0" >
+ <class>LookAndFeelClass</class>
+ <widget class="QDialog" name="LookAndFeelClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>560</width>
+    <height>392</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>LookAndFeel</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_2" >
+      <attribute name="title" >
+       <string>Colors</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QLabel" name="label_4" >
+         <property name="text" >
+          <string>Style</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_style" />
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3" >
+         <property name="title" >
+          <string>Colors</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QLabel" name="label_2" >
+            <property name="text" >
+             <string>Group</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_group" />
+          </item>
+          <item>
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>Role</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_role" />
+          </item>
+          <item>
+           <widget class="QLabel" name="label_3" >
+            <property name="text" >
+             <string>Brush</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_brush" />
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_color" >
+            <property name="text" >
+             <string>Color</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_quick" >
+         <property name="text" >
+          <string>Quick colors</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3" >
+      <attribute name="title" >
+       <string>Fonts</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QFrame" name="frame" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="2" column="1" >
+       <widget class="QSpinBox" name="spinBox" />
+      </item>
+      <item row="1" column="1" colspan="2" >
+       <widget class="QComboBox" name="comboBox_2" />
+      </item>
+      <item row="2" column="2" >
+       <widget class="QPushButton" name="pushButton" >
+        <property name="text" >
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="2" >
+       <widget class="QScrollBar" name="horizontalScrollBar" >
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" colspan="2" >
+       <widget class="QSlider" name="horizontalSlider" >
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" colspan="2" >
+       <widget class="QTextBrowser" name="textBrowser" />
+      </item>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QLineEdit" name="lineEdit" >
+        <property name="text" >
+         <string>Line Edit</string>
+        </property>
+       </widget>
+      </item>
+      <item rowspan="3" row="0" column="0" >
+       <widget class="QGroupBox" name="groupBox" >
+        <property name="title" >
+         <string>GroupBox</string>
+        </property>
+        <layout class="QVBoxLayout" >
+         <item>
+          <widget class="QRadioButton" name="radioButton" >
+           <property name="text" >
+            <string>RadioButton</string>
+           </property>
+           <property name="checked" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_2" >
+           <property name="text" >
+            <string>RadioButton</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item rowspan="4" row="3" column="0" >
+       <widget class="QGroupBox" name="groupBox_2" >
+        <property name="title" >
+         <string>GroupBox</string>
+        </property>
+        <layout class="QVBoxLayout" >
+         <item>
+          <widget class="QCheckBox" name="checkBox" >
+           <property name="text" >
+            <string>CheckBox</string>
+           </property>
+           <property name="checked" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_2" >
+           <property name="text" >
+            <string>CheckBox</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_3" >
+           <property name="text" >
+            <string>CheckBox</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="5" column="1" colspan="2" >
+       <widget class="QProgressBar" name="progressBar" >
+        <property name="value" >
+         <number>55</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QFrame" name="frame_2" >
+     <property name="minimumSize" >
+      <size>
+       <width>16</width>
+       <height>48</height>
+      </size>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" >
+      <property name="leftMargin" >
+       <number>1</number>
+      </property>
+      <property name="topMargin" >
+       <number>1</number>
+      </property>
+      <property name="rightMargin" >
+       <number>1</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>1</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="pushButton_cancel" >
+        <property name="text" >
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_apply" >
+        <property name="text" >
+         <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_ok" >
+        <property name="text" >
+         <string>Ok</string>
+        </property>
+        <property name="default" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>166</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>48</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_ok</sender>
+   <signal>clicked()</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>acceptWithApply()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>549</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>424</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_apply</sender>
+   <signal>clicked()</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>applyAll()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>367</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>222</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_role</sender>
+   <signal>activated(int)</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>set_role(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>31</x>
+     <y>177</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>4</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_group</sender>
+   <signal>activated(int)</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>set_group(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>31</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>4</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_brush</sender>
+   <signal>activated(int)</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>set_brush(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>31</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>2</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_color</sender>
+   <signal>clicked()</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>set_color()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>31</x>
+     <y>249</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>3</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_style</sender>
+   <signal>activated(QString)</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>set_style(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>20</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>287</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_quick</sender>
+   <signal>clicked()</signal>
+   <receiver>LookAndFeelClass</receiver>
+   <slot>quick()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>82</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>3</x>
+     <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

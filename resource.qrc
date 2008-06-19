@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons" >
+        <file alias="def_mark.png" >images/emblem-distinguished.png</file>
+        <file>images/emblem-noread.png</file>
+        <file alias="def_genre.png" >images/gnome-audio.png</file>
+        <file>images/gnome-cdplayer-icon.png</file>
+        <file alias="def_album.png" >images/gnome-dev-cdrom-audio.png</file>
+        <file alias="application.png" >images/gnome-fs-executable.png</file>
+        <file>images/s_check_off.png</file>
+        <file>images/stock_notes.png</file>
+        <file alias="def_artist.png" >images/stock_person.png</file>
+    </qresource>
+</RCC>
