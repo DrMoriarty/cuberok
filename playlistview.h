@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <QtGui>
 #include "playlistmodel.h"
-#include "playerthread.h"
+#include "player.h"
 #include "main.h"
 
 using namespace audiere;
@@ -14,7 +14,7 @@ class PlaylistView : public QTreeView
     Q_OBJECT
 
 public:
-    PlaylistView(AudioDevicePtr *, QWidget *parent = 0);
+    PlaylistView(QWidget *parent = 0);
     ~PlaylistView();
     bool isPlaying();
     void dropEvent(QDropEvent *event);
@@ -25,25 +25,24 @@ private:
     QModelIndex prevItem();
     void resetTags(QModelIndex& ind);
     
-    QTimer *timer;
+    //QTimer *timer;
     PlaylistModel model;
     QModelIndex insindex;
     QModelIndex curindex;
     QModelIndex plindex;
 //    PlaylistFiller *filler;
-    PlayerThread *plthread;
+//    PlayerThread *plthread;
     QList<QModelIndex> queue;
     QList<QModelIndex> prev_queue;
-    bool repeat_mode;
-    bool shuffle_mode;
-    bool disable_signal;
-    QMutex mutexPause;
+    //bool repeat_mode;
+    //bool shuffle_mode;
+    //bool disable_signal;
+    //    QMutex mutexPause;
     int filedescr;
     QString info;
     bool correct;
-    AudioDevicePtr *device;
-    OutputStreamPtr stream;
-    int svolume;
+    //OutputStreamPtr stream;
+    //int svolume;
     bool playing;
     bool dragStarted;
     
@@ -53,10 +52,10 @@ private slots:
 	void playFinished();
 	void onClick( const QModelIndex & index );
 	void onDoubleClick( const QModelIndex & index );
-	void position(double pos1, double pos2);
+	void position(double pos);
 	//void tagready(QString, QString, QString, QString, QString, QString);
 	void tagready(QString);
-	void timerUpdate();
+	//void timerUpdate();
 	void updateTag(int);
 
 public slots:
@@ -64,11 +63,11 @@ public slots:
 	void prev();
 	void next();
 	void play();
-	void pause(bool);
+/* 	void pause(bool); */
 	void stop();
-	void repeat(bool mode);
-	void shuffle(bool mode);
-	void setVolume(int volume); 
+/* 	void repeat(bool mode); */
+/* 	void shuffle(bool mode); */
+/* 	void setVolume(int volume);  */
 	void eq1(int);
 	void eq2(int);
 	void eq3(int);

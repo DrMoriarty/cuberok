@@ -11,7 +11,7 @@ HEADERS += aboutdialog.h \
            database.h \
            lookandfeel.h \
            main.h \
-           playerthread.h \
+           player.h \
            playlistcontainer.h \
            playlistmodel.h \
            playlistview.h \
@@ -26,7 +26,7 @@ SOURCES += aboutdialog.cpp \
            database.cpp \
            lookandfeel.cpp \
            main.cpp \
-           playerthread.cpp \
+           player.cpp \
            playlistcontainer.cpp \
            playlistmodel.cpp \
            playlistview.cpp \

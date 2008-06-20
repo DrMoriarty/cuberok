@@ -7,14 +7,14 @@
  ************************/
 
 PlaylistContainer::PlaylistContainer(QWidget *parent) 
- : QWidget(parent), svolume(99), curlist(0), actlist(0), counter(0),
+ : QWidget(parent), /*svolume(99),*/ curlist(0), actlist(0), counter(0),
  rf(false), sf(false), alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true)
 {
 	vboxLayout = new QVBoxLayout(this);
 	tabs = new QTabWidget(this);
 	vboxLayout->addWidget(tabs);
-	device = OpenDevice();
-	device->registerCallback(this);
+	//device = OpenDevice();
+	//device->registerCallback(this);
 	addList();
 	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
 	connect(this, SIGNAL(internalnext()), this, SLOT(next()), Qt::QueuedConnection);
@@ -30,7 +30,7 @@ PlaylistContainer::~PlaylistContainer()
 	delete vboxLayout;
 }
 
-void PlaylistContainer::ref() {}
+/*void PlaylistContainer::ref() {}
 
 void PlaylistContainer::unref() {}
 
@@ -38,7 +38,7 @@ void PlaylistContainer::streamStopped(StopEvent* event)
 {
 	//if(actlist) actlist->next();
 	emit internalnext();
-}
+	}*/
 
 void PlaylistContainer::listStarted(PlaylistView* pl)
 {
@@ -55,7 +55,7 @@ void PlaylistContainer::listStarted(PlaylistView* pl)
 
 void PlaylistContainer::addList()
 {
-	PlaylistView *pl = new PlaylistView(&device, this); 
+	PlaylistView *pl = new PlaylistView(this); 
 	lists.append(pl);
 	tabs->addTab(lists.last(), "Playlist "+QString::number(++counter));
 	curlist = lists.last();
@@ -66,9 +66,9 @@ void PlaylistContainer::addList()
 	curlist->setDragDropMode(QAbstractItemView::DragDrop);
 	curlist->setDropIndicatorShown(true);
 	curlist->setSortingEnabled(false);
-	curlist->setVolume(svolume);
-	curlist->repeat(rf);
-	curlist->shuffle(sf);
+// 	curlist->setVolume(svolume);
+// 	curlist->repeat(rf);
+// 	curlist->shuffle(sf);
 	curlist->viewAlbum(alv);
 	curlist->viewArtist(arv);
 	curlist->viewComment(cov);
@@ -128,16 +128,24 @@ void PlaylistContainer::play()
 	}
 }
 void PlaylistContainer::pause(bool b)
-{ if(actlist) actlist->pause(b); }
+{ //if(actlist) actlist->pause(b); 
+    Player::Self().setPause(b);
+}
 void PlaylistContainer::repeat(bool mode)
-{ foreach(PlaylistView *pl, lists) pl->repeat(mode); 
-  rf = mode; }
+{ //foreach(PlaylistView *pl, lists) pl->repeat(mode); 
+    rf = mode; 
+    Player::Self().repeat_mode = mode;
+}
 void PlaylistContainer::shuffle(bool mode)
-{ foreach(PlaylistView *pl, lists) pl->shuffle(mode); 
-  sf = mode; }
+{ //foreach(PlaylistView *pl, lists) pl->shuffle(mode); 
+    sf = mode; 
+    Player::Self().shuffle_mode = mode;
+}
 void PlaylistContainer::setVolume(int volume)
-{ foreach(PlaylistView *pl, lists) pl->setVolume(volume);
-  svolume = volume; }
+{ //foreach(PlaylistView *pl, lists) pl->setVolume(volume);
+    //svolume = volume; 
+    Player::Self().setVolume(volume);
+}
 void PlaylistContainer::eq1(int) {}
 void PlaylistContainer::eq2(int) {}
 void PlaylistContainer::eq3(int) {}

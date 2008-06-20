@@ -8,18 +8,42 @@ PlayerThread::PlayerThread(int *fd, QString fname, QMutex &mp, QObject *parent)
 {
 	file = fname;
 	mutexPause = &mp;
+	count ++;
+	stream = OpenSound(device, fname, true);
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+	
 }
 
 PlayerThread::~PlayerThread()
 {
-	*fdescr = 0;
+    stream->stop();
+    timer->stop();
+    count --;
+    delete timer;
 }
 
 void PlayerThread::run()
 {
+    stream->setVolume(float(svolume)/100);
+    stream->play();
+    timer->start(500);
+    
 	//if(mpg) run_mpg123();
 	//else run_audiere();
 }
+
+void PlayerThread::timerUpdate()
+{
+	if(stream && stream->isPlaying()) {
+		long p = stream->getPosition();
+		long l = stream->getLength();
+		emit position(p,l);
+	} else {
+		timer->stop();
+	}
+}
+
 
 void PlayerThread::seek(double pos)
 {
