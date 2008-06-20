@@ -3,21 +3,21 @@
 
 #include "playlistview.h"
 
-class PlaylistContainer : public QWidget, StopCallback
+class PlaylistContainer : public QWidget//, StopCallback
 {
     Q_OBJECT
 
 public:
 	PlaylistContainer(QWidget *parent = 0);
     ~PlaylistContainer();
-    ADR_METHOD(void) streamStopped(StopEvent* event);
-    ADR_METHOD(void) ref();
-    ADR_METHOD(void) unref();
+/*     ADR_METHOD(void) streamStopped(StopEvent* event); */
+/*     ADR_METHOD(void) ref(); */
+/*     ADR_METHOD(void) unref(); */
     
 private:
     
-    AudioDevicePtr device;
-    int svolume;
+    //AudioDevicePtr device;
+    //    int svolume;
     QList<PlaylistView*> lists;
     QVBoxLayout *vboxLayout;
     QTabWidget *tabs;

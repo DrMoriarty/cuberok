@@ -8,10 +8,10 @@
  * 
  ***********************/ 
 
-PlaylistView::PlaylistView(AudioDevicePtr *dev, QWidget *parent)
-    : QTreeView(parent)/*, filler(0)*/, plthread(0), repeat_mode(false), 
-    shuffle_mode(false), disable_signal(false), filedescr(0), 
-    correct(false), svolume(99), playing(false), dragStarted(false)
+PlaylistView::PlaylistView(QWidget *parent)
+    : QTreeView(parent),/* filler(0), plthread(0), repeat_mode(false), 
+    shuffle_mode(false), disable_signal(false), filedescr(0), */
+    correct(false), /*svolume(99),*/ playing(false), dragStarted(false)
 {
 	setModel(&model);
 	setEditTriggers(QAbstractItemView::NoEditTriggers); 
@@ -19,28 +19,10 @@ PlaylistView::PlaylistView(AudioDevicePtr *dev, QWidget *parent)
 	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	hideColumn(PlaylistModel::Empty);
-
-	timer = new QTimer(this);
-	connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
-	
-	// init audiere
-	device = dev;
-	//device->registerCallback(this);
-	
 }
 
 PlaylistView::~PlaylistView()
 {
-	if(plthread) {
-		if(filedescr > 0) ::close(filedescr);
-		plthread->disconnect();
-		plthread->terminate();
-		plthread = 0;
-	}
-	
-	// clear audiere
-	device = 0;
-	
 }
 
 bool PlaylistView::isPlaying()
@@ -111,10 +93,10 @@ void PlaylistView::prev()
 
 void PlaylistView::next()
 {
-	if(disable_signal) {
+	/*if(disable_signal) {
 		disable_signal = false;
 		return;
-	}
+		}*/
 	//clearSelection();
 	if(plindex.row() >= 0) prev_queue.push_back(plindex);
 	QModelIndex next = nextItem();
@@ -123,59 +105,31 @@ void PlaylistView::next()
 	if(curindex.row() >= 0) play();
 }
 
-void PlaylistView::pause(bool pause)
+/*void PlaylistView::pause(bool pause)
 {
-	if(stream) {
-		if(pause) {
-			disable_signal = true;
-			stream->stop();
-		}
-		else {
-			stream->play();
-			timer->start();
-		}
-	} else {
-		if(pause) {
-			mutexPause.lock();
-		} else {
-			mutexPause.unlock();
-		}
-	}
-}
+    if(pause) {
+	mutexPause.lock();
+    } else {
+	mutexPause.unlock();
+    }
+    }*/
 
 void PlaylistView::play()
 {
 	if(curindex.row() < 0) return;
 	plindex = model.index(curindex.row(), PlaylistModel::File);
 	model.setCurrent(plindex.row());
-	if(plthread) {
-		disable_signal = true;
-		if(filedescr > 0) ::close(filedescr);
-		plthread->disconnect();
-		plthread->terminate();
-		plthread = 0;
-	}
-	if(stream && stream->isPlaying()) {
-		disable_signal = true;
-		stream->stop();
-		stream = 0;
-		timer->stop();
-	}
-	stream = OpenSound(*device, model.data(plindex, Qt::UserRole).toString().toLocal8Bit().constData(), true);
-	if(stream) {
-		stream->setVolume(float(svolume)/100);
-		stream->play();
-		timer->start(500);
-		playing = true;
-		emit started(this);
-	} else {
-		plthread = new PlayerThread(&filedescr, model.data(plindex, Qt::UserRole).toString()/*.insert(0, QChar('"')).append(QChar('"'))*/, mutexPause);
-		connect(plthread, SIGNAL(finished()), this, SLOT(playFinished()));
-		connect(plthread, SIGNAL(position(double, double)), this, SLOT(position(double, double)));
-		plthread->start();
-		playing = true;
-		emit started(this);
-	}
+	if(Player::Self().playing()) Player::Self().close();
+	//plthread = new PlayerThread(model.data(plindex, Qt::UserRole).toString()/*.insert(0, QChar('"')).append(QChar('"'))*/, mutexPause);
+	Player::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toString());
+	disconnect(&Player::Self(), SIGNAL(finish()), 0, 0);
+	disconnect(&Player::Self(), SIGNAL(position(double)), 0, 0);
+	connect(&Player::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
+	connect(&Player::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
+	//plthread->start();
+	Player::Self().play();
+	playing = true;
+	emit started(this);
 	//disable_signal = false;
 	//QMessageBox::information(this, tr(""), "message");
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
@@ -185,34 +139,12 @@ void PlaylistView::play()
 
 void PlaylistView::stop()
 {
-	if(plthread) {
-		if(filedescr > 0) ::close(filedescr);
-		plthread->disconnect();
-		delete plthread;
-		plthread = 0;
-		playing = false;
-	}
-	if(stream) {
-		stream->stop();
-		stream = 0;
-		timer->stop();
-		playing = false;
-	}
+    Player::Self().stop();
+    playing = false;
 }
 
 void PlaylistView::playFinished()
 {
-	if(disable_signal) {
-		disable_signal = false;
-		return;
-	}
-	if(plthread) {
-		if(filedescr > 0) ::close(filedescr);
-		plthread->disconnect();
-		delete plthread;
-		plthread = 0;
-		playing = false;
-	}
 	next();
 }
 
@@ -226,7 +158,7 @@ QModelIndex PlaylistView::nextItem()
 		model.setData(model.index(next.row(), PlaylistModel::Stat), "", Qt::EditRole);
 		for(int i=0; i<queue.count(); i++)
 			model.setData(model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
-	} else if(shuffle_mode) {
+	} else if(Player::Self().shuffle_mode) {
 		bool duplicate;
 		do {
 			if(plindex.row() >= 0) next = model.index((plindex.row()+rand())%model.rowCount(), 0);
@@ -246,7 +178,7 @@ QModelIndex PlaylistView::nextItem()
 		if(curindex.row() >= 0) 
 			next = model.index(curindex.row()+1, 0);
 		if(next.row() < 0) {
-			if(repeat_mode) next = model.index(0, 0);
+			if(Player::Self().repeat_mode) next = model.index(0, 0);
 			else next = model.index(-1, 0);
 		}
 	}
@@ -269,7 +201,7 @@ QModelIndex PlaylistView::prevItem()
 		return model.index(-1,0);
 }
 
-void PlaylistView::repeat(bool mode)
+/*void PlaylistView::repeat(bool mode)
 {
 	repeat_mode = mode;
 }
@@ -277,7 +209,7 @@ void PlaylistView::repeat(bool mode)
 void PlaylistView::shuffle(bool mode)
 {
 	shuffle_mode = mode;
-}
+	}*/
 
 void PlaylistView::onClick(const QModelIndex &index)
 {
@@ -292,7 +224,7 @@ void PlaylistView::onDoubleClick(const QModelIndex &index)
 	play();
 }
 
-void PlaylistView::position(double pos1, double pos2)
+void PlaylistView::position(double pos)
 {
 	//char buf[1000];
 	//sprintf(buf, " (playing) %02lu:%02u.%02u [%02lu:%02u.%02u]",
@@ -300,32 +232,16 @@ void PlaylistView::position(double pos1, double pos2)
 			//(unsigned long) pos2/60, (unsigned int)pos2%60, (unsigned int)(pos2*100)%100
 			//);
 	//emit status(QString(info).append(QString(buf)));
-	if(pos2 > 0) {
-		emit songPosition((int)(1000*pos1/pos2));
-	} else emit songPosition(0); 
+	//if(pos2 > 0) {
+		emit songPosition((int)(1000*pos));
+		//} else emit songPosition(0); 
 }
 
-void PlaylistView::timerUpdate()
-{
-	if(stream && stream->isPlaying()) {
-		long p = stream->getPosition();
-		long l = stream->getLength();
-		//char buf[1000];
-		//sprintf(buf, " (playing) %ld [%ld]", p, l);
-		//emit status(QString(info).append(QString(buf)));
-		if(l > 0) {
-			emit songPosition((int)(1000.0F*p/l));
-		} else emit songPosition(0); 
-	} else {
-		timer->stop();
-	}
-}
-
-void PlaylistView::setVolume(int volume)
+/*void PlaylistView::setVolume(int volume)
 {
 	svolume = volume;
 	if(stream) stream->setVolume(float(volume)/100);
-}
+	}*/
 
 #define eqalizer(n) void PlaylistView::eq##n(int value) {}
 

@@ -3,34 +3,36 @@
 
 #include <QtCore>
 #include <QtGui>
+#include "main.h"
 
 class PlayerThread : public QThread
 {
     Q_OBJECT
 
 public:
-	PlayerThread(int *fd, QString fname, QMutex &mp, QObject *parent = 0);
+	PlayerThread(QString fname, QMutex &mp, QObject *parent = 0);
     ~PlayerThread();
 
 protected:
     void run();
-    void run_mpg123();
     void prepareTags();
     QString prepareTag(char *);
     QMutex *mutexPause;
 
 public slots:
 	void seek(double pos);
+	void timerUpdate();
 
 signals:
 	void position(double pos1, double pos2);
-	//void tagready(QString, QString, QString, QString, QString, QString);
 	void tagready(QString);
 	
 private:
 	QString file;
-	int *fdescr;
-	bool tags;
+	static AudioDevicePtr device = OpenDevice();
+	static int count = 0;
+	OutputStreamPtr stream;
+	QTimer *timer;
 };
 
 #endif // PLAYERTHREAD_H
