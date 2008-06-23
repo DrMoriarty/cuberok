@@ -9,6 +9,7 @@ INPUT(
 ./win32/obj/playlistcontainer.o
 ./win32/obj/playlistmodel.o
 ./win32/obj/playlistview.o
+./win32/obj/progressbar.o
 ./win32/obj/tageditor.o
 ./win32/obj/tagger.o
 ./win32/obj/moc_aboutdialog.o
@@ -19,6 +20,7 @@ INPUT(
 ./win32/obj/moc_playlistcontainer.o
 ./win32/obj/moc_playlistmodel.o
 ./win32/obj/moc_playlistview.o
+./win32/obj/moc_progressbar.o
 ./win32/obj/moc_tageditor.o
 ./win32/obj/qrc_resource.o
 );

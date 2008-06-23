@@ -7,17 +7,26 @@
  ************************/
 
 PlaylistContainer::PlaylistContainer(QWidget *parent) 
- : QWidget(parent), /*svolume(99),*/ curlist(0), actlist(0), counter(0),
- rf(false), sf(false), alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true)
+ : QWidget(parent), curlist(0), actlist(0), counter(0),
+ alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true)
 {
 	vboxLayout = new QVBoxLayout(this);
 	tabs = new QTabWidget(this);
 	vboxLayout->addWidget(tabs);
-	//device = OpenDevice();
-	//device->registerCallback(this);
-	addList();
 	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
 	connect(this, SIGNAL(internalnext()), this, SLOT(next()), Qt::QueuedConnection);
+	int count = 0;
+	QDir dir(QDir::homePath() + "/.cuberok/");
+	QStringList filters;
+	filters << "*.plist";
+	dir.setNameFilters(filters);
+	foreach(QString file, dir.entryList()) {
+		int st = file.lastIndexOf('\\')+1;
+		QString plname = file.mid(st, file.lastIndexOf('.')-st);
+		newList(plname);
+		count ++;
+	}
+	if(!count) addList();
 }
 
 PlaylistContainer::~PlaylistContainer()
@@ -29,16 +38,6 @@ PlaylistContainer::~PlaylistContainer()
 	delete tabs;
 	delete vboxLayout;
 }
-
-/*void PlaylistContainer::ref() {}
-
-void PlaylistContainer::unref() {}
-
-void PlaylistContainer::streamStopped(StopEvent* event)
-{
-	//if(actlist) actlist->next();
-	emit internalnext();
-	}*/
 
 void PlaylistContainer::listStarted(PlaylistView* pl)
 {
@@ -55,9 +54,15 @@ void PlaylistContainer::listStarted(PlaylistView* pl)
 
 void PlaylistContainer::addList()
 {
-	PlaylistView *pl = new PlaylistView(this); 
+	newList();
+}
+
+void PlaylistContainer::newList(QString listname)
+{
+	if(!listname.size()) listname = "Playlist "+QString::number(++counter);
+	PlaylistView *pl = new PlaylistView(listname, this); 
 	lists.append(pl);
-	tabs->addTab(lists.last(), "Playlist "+QString::number(++counter));
+	tabs->addTab(lists.last(), listname);
 	curlist = lists.last();
 	tabs->setCurrentIndex(tabs->count()-1);
 	//curlist->setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -65,10 +70,7 @@ void PlaylistContainer::addList()
 	curlist->setDragEnabled(true);
 	curlist->setDragDropMode(QAbstractItemView::DragDrop);
 	curlist->setDropIndicatorShown(true);
-	curlist->setSortingEnabled(false);
-// 	curlist->setVolume(svolume);
-// 	curlist->repeat(rf);
-// 	curlist->shuffle(sf);
+	curlist->setSortingEnabled(true);
 	curlist->viewAlbum(alv);
 	curlist->viewArtist(arv);
 	curlist->viewComment(cov);
@@ -114,8 +116,6 @@ void PlaylistContainer::renameList()
 {
 	// TODO
 }
-void PlaylistContainer::fillCancel()
-{ if(curlist) curlist->fillCancel(); }
 void PlaylistContainer::prev()
 { if(actlist) actlist->prev(); }
 void PlaylistContainer::next()
@@ -128,42 +128,21 @@ void PlaylistContainer::play()
 	}
 }
 void PlaylistContainer::pause(bool b)
-{ //if(actlist) actlist->pause(b); 
+{ 
     Player::Self().setPause(b);
 }
 void PlaylistContainer::repeat(bool mode)
-{ //foreach(PlaylistView *pl, lists) pl->repeat(mode); 
-    rf = mode; 
+{ 
     Player::Self().repeat_mode = mode;
 }
 void PlaylistContainer::shuffle(bool mode)
-{ //foreach(PlaylistView *pl, lists) pl->shuffle(mode); 
-    sf = mode; 
+{ 
     Player::Self().shuffle_mode = mode;
 }
 void PlaylistContainer::setVolume(int volume)
-{ //foreach(PlaylistView *pl, lists) pl->setVolume(volume);
-    //svolume = volume; 
+{
     Player::Self().setVolume(volume);
 }
-void PlaylistContainer::eq1(int) {}
-void PlaylistContainer::eq2(int) {}
-void PlaylistContainer::eq3(int) {}
-void PlaylistContainer::eq4(int) {}
-void PlaylistContainer::eq5(int) {}
-void PlaylistContainer::eq6(int) {}
-void PlaylistContainer::eq7(int) {}
-void PlaylistContainer::eq8(int) {}
-void PlaylistContainer::eq9(int) {}
-void PlaylistContainer::eq10(int) {}
-void PlaylistContainer::eq11(int) {}
-void PlaylistContainer::eq12(int) {}
-void PlaylistContainer::eq13(int) {}
-void PlaylistContainer::eq14(int) {}
-void PlaylistContainer::eq15(int) {}
-void PlaylistContainer::eq16(int) {}
-void PlaylistContainer::eqalizer(bool b)
-{ foreach(PlaylistView *pl, lists) pl->eqalizer(b); }
 void PlaylistContainer::clear()
 { if(curlist) curlist->clear(); }
 void PlaylistContainer::queueNext()

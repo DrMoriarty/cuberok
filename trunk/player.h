@@ -33,7 +33,6 @@ class Player : public QObject, StopCallback
  private:
     Player();
     void sync_stop();
-    bool _play;
     int svolume;
     QString file;
     AudioDevicePtr device;

@@ -1,6 +1,7 @@
 #include "player.h"
+#define TIME 200
 
-Player::Player() : QObject(0), _play(false),  svolume(100), file(""), sync(false)
+Player::Player() : QObject(0), repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false)
 {
     device = OpenDevice();
     device->registerCallback(this);
@@ -37,7 +38,6 @@ bool Player::open(QString fname)
     file = fname;
     stream = OpenSound(device, file.toLocal8Bit(), true);
     if(stream) stream->setVolume(float(svolume)/100);
-    _play = false;
     return stream;
 }
 
@@ -45,8 +45,7 @@ bool Player::play()
 {
     if(stream) {
 	stream->play();
-	timer->start(500);
-	_play = true;
+	timer->start(TIME);
 	return true;
     }
     return false;
@@ -54,7 +53,7 @@ bool Player::play()
 
 bool Player::stop()
 {
-    if(stream && _play) {
+    if(stream && stream->isPlaying()) {
 	stream->reset();
 	return true;
     }
@@ -63,16 +62,14 @@ bool Player::stop()
 
 bool Player::setPause(bool p)
 {
-    if(p && stream && _play) {
+    if(p && stream && stream->isPlaying()) {
 	timer->stop();
-	_play = false;
 	sync_stop();
 	return true;
     }
-    if(!p && stream && !_play) {
+    if(!p && stream && !stream->isPlaying()) {
 	stream->play();
-	_play = true;
-	timer->start(500);
+	timer->start(TIME);
 	return true;
     }
     return false;
@@ -82,7 +79,6 @@ bool Player::close()
 {
     if(stream) {
 	timer->stop();
-	_play = false;
 	sync_stop();
 	stream = 0;
 	return true;
@@ -112,7 +108,7 @@ void Player::setVolume(int v)
 
 bool Player::playing()
 {
-    return _play;
+    return stream && stream->isPlaying();
 }
 
 void Player::timerUpdate()
