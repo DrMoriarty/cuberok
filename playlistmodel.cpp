@@ -215,7 +215,7 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
      return true;
  } 
 
-int PlaylistModel::current()
+/*int PlaylistModel::current()
 {
 	return _current;
 }
@@ -228,7 +228,7 @@ void PlaylistModel::setCurrent(int c)
 		emit dataChanged(index(oldcur, 0), index(oldcur, ColumnCount));
 	if(_current >= 0)
 		emit dataChanged(index(_current, 0), index(_current, ColumnCount));
-}
+		}*/
 
 /************************
  * 

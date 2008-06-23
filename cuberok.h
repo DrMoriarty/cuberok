@@ -27,7 +27,8 @@ private:
 private slots:
 	void on_AboutMenu();
 	void trayevent(QSystemTrayIcon::ActivationReason);
-	
+	void progressEvent(double);
+
 public slots:
 	void lookAndFeel();
 	void message(QString/*, QString**/);

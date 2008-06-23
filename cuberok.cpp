@@ -39,11 +39,12 @@ Cuberok::Cuberok(QWidget *parent)
 		ui.actionShuffle->trigger();
 	if(set.value("repeat", false).toBool())
 		ui.actionRepeat->trigger();
-	if(set.value("eqalizer", false).toBool())
-		ui.actionEnableEqalizer->trigger();
 	if(set.value("correctTag", false).toBool())
 		ui.actionCorrectTag->trigger();
 	
+	if(!connect(ui.progressBar, SIGNAL(userevent(double)), this, SLOT(progressEvent(double))))
+	    QMessageBox::information(0, "error", "connection error");
+
 	ui.statusbar->addPermanentWidget(ui.listStatus);
 	ui.statusbar->addPermanentWidget(ui.collectionStatus);
 }
@@ -72,6 +73,7 @@ void Cuberok::lookAndFeel()
 
 void Cuberok::message(QString title/*, QString* message*/)
 {
+    ui.progressBar->setFormat(title + " %p%");
 	trayIcon->showMessage(title, /**message*/QString(""), QSystemTrayIcon::NoIcon, 10);
 	setWindowTitle(QString(titlepref).append(title));
 	trayIcon->setToolTip(title);
@@ -85,4 +87,9 @@ void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 void Cuberok::correctTag(bool b)
 {
 	Tagger::setAutoCorrect(b);
+}
+
+void Cuberok::progressEvent(double pos)
+{
+    Player::Self().setPosition(pos);
 }

@@ -8,21 +8,56 @@
  * 
  ***********************/ 
 
-PlaylistView::PlaylistView(QWidget *parent)
-    : QTreeView(parent),/* filler(0), plthread(0), repeat_mode(false), 
-    shuffle_mode(false), disable_signal(false), filedescr(0), */
-    correct(false), /*svolume(99),*/ playing(false), dragStarted(false)
+PlaylistView::PlaylistView(QString &str, QWidget *parent)
+    : QTreeView(parent), correct(false), playing(false), dragStarted(false)
 {
+	plistname = str;
+    model.setDynamicSortFilter(true);
+    model.setSourceModel(&plmodel);
 	setModel(&model);
 	setEditTriggers(QAbstractItemView::NoEditTriggers); 
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
+	//setSortingEnabled(true);
 	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	hideColumn(PlaylistModel::Empty);
+	if(plistname.size()) {  // read stored playlist
+		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".plist";
+		if(QFile::exists(fname)) {
+			QFile file(fname);
+			if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+				QTextStream in(&file);
+				QMimeData data;
+				QList<QUrl> urls;
+				while (!in.atEnd()) {
+					QUrl url = QUrl::fromLocalFile(in.readLine());
+					urls << url;
+				} 
+				data.setUrls(urls);
+				plmodel.dropMimeData(&data, Qt::CopyAction, -1, -1, plmodel.index(plmodel.rowCount(), 0));
+				file.close();
+			}
+		}
+	}
 }
 
 PlaylistView::~PlaylistView()
 {
+	storeList();
+}
+
+void PlaylistView::storeList(QString fname)
+{
+	if(!fname.size())
+		fname = QDir::homePath() + "/.cuberok/" + plistname + ".plist";
+	QFile file(fname);
+	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+		QTextStream out(&file);
+		for(int i=0; i<model.rowCount(); i++) {
+			out << model.data(model.index(i, PlaylistModel::File), Qt::UserRole).toString() << endl;
+		}
+		file.close();
+	}
 }
 
 bool PlaylistView::isPlaying()
@@ -65,23 +100,6 @@ void PlaylistView::addItem(QString item, int id, QModelIndex* ind)
 	model.setData(ind->row()<0 ? model.index(model.rowCount()-1, id) : model.index(ind->row(), id), item, Qt::EditRole);
 }
 
-void PlaylistView::fillFinished()
-{
-//	if(filler) {
-//		delete filler;
-//		filler = 0;
-//	}
-}
-
-void PlaylistView::fillCancel()
-{
-//	if(filler) {
-//		filler->terminate();
-//		delete filler;
-//		filler = 0;
-//	}
-}
-
 void PlaylistView::prev()
 {
 	clearSelection();
@@ -93,11 +111,6 @@ void PlaylistView::prev()
 
 void PlaylistView::next()
 {
-	/*if(disable_signal) {
-		disable_signal = false;
-		return;
-		}*/
-	//clearSelection();
 	if(plindex.row() >= 0) prev_queue.push_back(plindex);
 	QModelIndex next = nextItem();
 	curindex = next;
@@ -105,32 +118,20 @@ void PlaylistView::next()
 	if(curindex.row() >= 0) play();
 }
 
-/*void PlaylistView::pause(bool pause)
-{
-    if(pause) {
-	mutexPause.lock();
-    } else {
-	mutexPause.unlock();
-    }
-    }*/
-
 void PlaylistView::play()
 {
 	if(curindex.row() < 0) return;
 	plindex = model.index(curindex.row(), PlaylistModel::File);
-	model.setCurrent(plindex.row());
+	//model.setCurrent(plindex.row());
 	if(Player::Self().playing()) Player::Self().close();
-	//plthread = new PlayerThread(model.data(plindex, Qt::UserRole).toString()/*.insert(0, QChar('"')).append(QChar('"'))*/, mutexPause);
 	Player::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toString());
 	disconnect(&Player::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&Player::Self(), SIGNAL(position(double)), 0, 0);
 	connect(&Player::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
 	connect(&Player::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
-	//plthread->start();
 	Player::Self().play();
 	playing = true;
 	emit started(this);
-	//disable_signal = false;
 	//QMessageBox::information(this, tr(""), "message");
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 	QString m = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString() + " - " + model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
@@ -201,16 +202,6 @@ QModelIndex PlaylistView::prevItem()
 		return model.index(-1,0);
 }
 
-/*void PlaylistView::repeat(bool mode)
-{
-	repeat_mode = mode;
-}
-
-void PlaylistView::shuffle(bool mode)
-{
-	shuffle_mode = mode;
-	}*/
-
 void PlaylistView::onClick(const QModelIndex &index)
 {
 	if(curindex.row() >= 0) prev_queue.push_back(curindex);
@@ -226,47 +217,7 @@ void PlaylistView::onDoubleClick(const QModelIndex &index)
 
 void PlaylistView::position(double pos)
 {
-	//char buf[1000];
-	//sprintf(buf, " (playing) %02lu:%02u.%02u [%02lu:%02u.%02u]",
-			//(unsigned long) pos1/60, (unsigned int)pos1%60, (unsigned int)(pos1*100)%100,
-			//(unsigned long) pos2/60, (unsigned int)pos2%60, (unsigned int)(pos2*100)%100
-			//);
-	//emit status(QString(info).append(QString(buf)));
-	//if(pos2 > 0) {
-		emit songPosition((int)(1000*pos));
-		//} else emit songPosition(0); 
-}
-
-/*void PlaylistView::setVolume(int volume)
-{
-	svolume = volume;
-	if(stream) stream->setVolume(float(volume)/100);
-	}*/
-
-#define eqalizer(n) void PlaylistView::eq##n(int value) {}
-
-eqalizer(1);
-eqalizer(2);
-eqalizer(3);
-eqalizer(4);
-eqalizer(5);
-eqalizer(6);
-eqalizer(7);
-eqalizer(8);
-eqalizer(9);
-eqalizer(10);
-eqalizer(11);
-eqalizer(12);
-eqalizer(13);
-eqalizer(14);
-eqalizer(15);
-eqalizer(16);
-
-#undef eqalizer
-
-void PlaylistView::eqalizer(bool enable)
-{
-//	mpg::have_eq_settings = (int)enable;
+	emit songPosition((int)(1000*pos));
 }
 
 void PlaylistView::clear()
@@ -281,11 +232,6 @@ void PlaylistView::queueNext()
 {
 	queue.append(curindex);
 	model.setData(model.index(curindex.row(), PlaylistModel::Stat), QVariant(queue.count()), Qt::EditRole);
-}
-
-void PlaylistView::tagready(QString t1/*, QString t2, QString t3, QString t4, QString t5, QString t6*/)
-{
-	info = t1;
 }
 
 void PlaylistView::viewAlbum(bool h)

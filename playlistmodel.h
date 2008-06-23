@@ -45,9 +45,9 @@ public:
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role);
 	bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
-    bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
-    void setCurrent(int c);
-    int current();
+	bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
+	//void setCurrent(int c);
+	//int current();
 
     enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, ColumnCount};
     

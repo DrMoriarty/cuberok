@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Fri 20. Jun 15:15:58 2008
+** Created: Mon 23. Jun 15:19:25 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -22,7 +22,6 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
-#include <QtGui/QProgressBar>
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
@@ -30,6 +29,7 @@
 #include <QtGui/QTreeView>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
+#include <progressbar.h>
 #include "collectionview.h"
 #include "playlistcontainer.h"
 
@@ -45,8 +45,6 @@ public:
     QAction *actionShuffle;
     QAction *actionRepeat;
     QAction *actionExit;
-    QAction *actionEqalizer;
-    QAction *actionEnableEqalizer;
     QAction *actionClear_playlist;
     QAction *actionQueueNext;
     QAction *actionViewFile;
@@ -71,36 +69,18 @@ public:
     QAction *actionAddToCollection;
     QAction *actionRemoveFromCollection;
     QWidget *centralwidget;
-    QFrame *equalizer;
-    QHBoxLayout *hboxLayout;
-    QSlider *eqSlider1;
-    QSlider *eqSlider2;
-    QSlider *eqSlider3;
-    QSlider *eqSlider4;
-    QSlider *eqSlider5;
-    QSlider *eqSlider6;
-    QSlider *eqSlider7;
-    QSlider *eqSlider8;
-    QSlider *eqSlider9;
-    QSlider *eqSlider10;
-    QSlider *eqSlider11;
-    QSlider *eqSlider12;
-    QSlider *eqSlider13;
-    QSlider *eqSlider14;
-    QSlider *eqSlider15;
-    QSlider *eqSlider16;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
     QFrame *frame;
-    QHBoxLayout *hboxLayout1;
-    QProgressBar *progressBar;
+    QHBoxLayout *hboxLayout;
+    ProgressBar *progressBar;
     QSlider *volumeSlider;
     QDockWidget *dockWidget1;
     QWidget *dockWidgetContents1;
     QVBoxLayout *vboxLayout1;
     QToolBar *col_toolbar;
     QFrame *frame_2;
-    QHBoxLayout *hboxLayout2;
+    QHBoxLayout *hboxLayout1;
     QLabel *subsetLabel;
     QToolButton *subsetDisableButton;
     QLineEdit *filterLineEdit;
@@ -153,13 +133,6 @@ public:
     actionRepeat->setCheckable(true);
     actionExit = new QAction(CuberokClass);
     actionExit->setObjectName(QString::fromUtf8("actionExit"));
-    actionEqalizer = new QAction(CuberokClass);
-    actionEqalizer->setObjectName(QString::fromUtf8("actionEqalizer"));
-    actionEqalizer->setCheckable(true);
-    actionEqalizer->setChecked(false);
-    actionEnableEqalizer = new QAction(CuberokClass);
-    actionEnableEqalizer->setObjectName(QString::fromUtf8("actionEnableEqalizer"));
-    actionEnableEqalizer->setCheckable(true);
     actionClear_playlist = new QAction(CuberokClass);
     actionClear_playlist->setObjectName(QString::fromUtf8("actionClear_playlist"));
     actionQueueNext = new QAction(CuberokClass);
@@ -228,139 +201,15 @@ public:
     actionRemoveFromCollection->setObjectName(QString::fromUtf8("actionRemoveFromCollection"));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-    equalizer = new QFrame(centralwidget);
-    equalizer->setObjectName(QString::fromUtf8("equalizer"));
-    equalizer->setGeometry(QRect(0, 0, 100, 30));
-    QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-    sizePolicy.setHorizontalStretch(0);
-    sizePolicy.setVerticalStretch(0);
-    sizePolicy.setHeightForWidth(equalizer->sizePolicy().hasHeightForWidth());
-    equalizer->setSizePolicy(sizePolicy);
-    equalizer->setMaximumSize(QSize(16777215, 100));
-    equalizer->setVisible(false);
-    hboxLayout = new QHBoxLayout(equalizer);
-    hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
-    eqSlider1 = new QSlider(equalizer);
-    eqSlider1->setObjectName(QString::fromUtf8("eqSlider1"));
-    eqSlider1->setValue(99);
-    eqSlider1->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider1);
-
-    eqSlider2 = new QSlider(equalizer);
-    eqSlider2->setObjectName(QString::fromUtf8("eqSlider2"));
-    eqSlider2->setValue(99);
-    eqSlider2->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider2);
-
-    eqSlider3 = new QSlider(equalizer);
-    eqSlider3->setObjectName(QString::fromUtf8("eqSlider3"));
-    eqSlider3->setValue(99);
-    eqSlider3->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider3);
-
-    eqSlider4 = new QSlider(equalizer);
-    eqSlider4->setObjectName(QString::fromUtf8("eqSlider4"));
-    eqSlider4->setValue(99);
-    eqSlider4->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider4);
-
-    eqSlider5 = new QSlider(equalizer);
-    eqSlider5->setObjectName(QString::fromUtf8("eqSlider5"));
-    eqSlider5->setValue(99);
-    eqSlider5->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider5);
-
-    eqSlider6 = new QSlider(equalizer);
-    eqSlider6->setObjectName(QString::fromUtf8("eqSlider6"));
-    eqSlider6->setValue(99);
-    eqSlider6->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider6);
-
-    eqSlider7 = new QSlider(equalizer);
-    eqSlider7->setObjectName(QString::fromUtf8("eqSlider7"));
-    eqSlider7->setValue(99);
-    eqSlider7->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider7);
-
-    eqSlider8 = new QSlider(equalizer);
-    eqSlider8->setObjectName(QString::fromUtf8("eqSlider8"));
-    eqSlider8->setValue(99);
-    eqSlider8->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider8);
-
-    eqSlider9 = new QSlider(equalizer);
-    eqSlider9->setObjectName(QString::fromUtf8("eqSlider9"));
-    eqSlider9->setValue(99);
-    eqSlider9->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider9);
-
-    eqSlider10 = new QSlider(equalizer);
-    eqSlider10->setObjectName(QString::fromUtf8("eqSlider10"));
-    eqSlider10->setValue(99);
-    eqSlider10->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider10);
-
-    eqSlider11 = new QSlider(equalizer);
-    eqSlider11->setObjectName(QString::fromUtf8("eqSlider11"));
-    eqSlider11->setValue(99);
-    eqSlider11->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider11);
-
-    eqSlider12 = new QSlider(equalizer);
-    eqSlider12->setObjectName(QString::fromUtf8("eqSlider12"));
-    eqSlider12->setValue(99);
-    eqSlider12->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider12);
-
-    eqSlider13 = new QSlider(equalizer);
-    eqSlider13->setObjectName(QString::fromUtf8("eqSlider13"));
-    eqSlider13->setValue(99);
-    eqSlider13->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider13);
-
-    eqSlider14 = new QSlider(equalizer);
-    eqSlider14->setObjectName(QString::fromUtf8("eqSlider14"));
-    eqSlider14->setValue(99);
-    eqSlider14->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider14);
-
-    eqSlider15 = new QSlider(equalizer);
-    eqSlider15->setObjectName(QString::fromUtf8("eqSlider15"));
-    eqSlider15->setValue(99);
-    eqSlider15->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider15);
-
-    eqSlider16 = new QSlider(equalizer);
-    eqSlider16->setObjectName(QString::fromUtf8("eqSlider16"));
-    eqSlider16->setValue(99);
-    eqSlider16->setOrientation(Qt::Vertical);
-
-    hboxLayout->addWidget(eqSlider16);
-
     vboxLayout = new QVBoxLayout(centralwidget);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
     listView = new PlaylistContainer(centralwidget);
     listView->setObjectName(QString::fromUtf8("listView"));
-    QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    sizePolicy1.setHorizontalStretch(0);
-    sizePolicy1.setVerticalStretch(0);
-    sizePolicy1.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
-    listView->setSizePolicy(sizePolicy1);
+    QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    sizePolicy.setHorizontalStretch(0);
+    sizePolicy.setVerticalStretch(0);
+    sizePolicy.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
+    listView->setSizePolicy(sizePolicy);
     listView->setContextMenuPolicy(Qt::ActionsContextMenu);
     listView->setAcceptDrops(true);
     listView->setProperty("dragEnabled", QVariant(true));
@@ -371,30 +220,33 @@ public:
 
     frame = new QFrame(centralwidget);
     frame->setObjectName(QString::fromUtf8("frame"));
-    QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Minimum);
-    sizePolicy2.setHorizontalStretch(0);
-    sizePolicy2.setVerticalStretch(0);
-    sizePolicy2.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-    frame->setSizePolicy(sizePolicy2);
+    QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    sizePolicy1.setHorizontalStretch(0);
+    sizePolicy1.setVerticalStretch(0);
+    sizePolicy1.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
+    frame->setSizePolicy(sizePolicy1);
     frame->setFrameShape(QFrame::StyledPanel);
     frame->setFrameShadow(QFrame::Raised);
-    hboxLayout1 = new QHBoxLayout(frame);
-    hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
-    progressBar = new QProgressBar(frame);
+    hboxLayout = new QHBoxLayout(frame);
+    hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+    progressBar = new ProgressBar(frame);
     progressBar->setObjectName(QString::fromUtf8("progressBar"));
     progressBar->setMaximum(1000);
     progressBar->setValue(0);
     progressBar->setAlignment(Qt::AlignCenter);
 
-    hboxLayout1->addWidget(progressBar);
+    hboxLayout->addWidget(progressBar);
 
     volumeSlider = new QSlider(frame);
     volumeSlider->setObjectName(QString::fromUtf8("volumeSlider"));
-    sizePolicy.setHeightForWidth(volumeSlider->sizePolicy().hasHeightForWidth());
-    volumeSlider->setSizePolicy(sizePolicy);
+    QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    sizePolicy2.setHorizontalStretch(0);
+    sizePolicy2.setVerticalStretch(0);
+    sizePolicy2.setHeightForWidth(volumeSlider->sizePolicy().hasHeightForWidth());
+    volumeSlider->setSizePolicy(sizePolicy2);
     volumeSlider->setOrientation(Qt::Horizontal);
 
-    hboxLayout1->addWidget(volumeSlider);
+    hboxLayout->addWidget(volumeSlider);
 
 
     vboxLayout->addWidget(frame);
@@ -418,14 +270,14 @@ public:
     frame_2->setObjectName(QString::fromUtf8("frame_2"));
     frame_2->setFrameShape(QFrame::NoFrame);
     frame_2->setLineWidth(0);
-    hboxLayout2 = new QHBoxLayout(frame_2);
-    hboxLayout2->setSpacing(0);
-    hboxLayout2->setObjectName(QString::fromUtf8("hboxLayout2"));
-    hboxLayout2->setContentsMargins(4, 0, 4, 0);
+    hboxLayout1 = new QHBoxLayout(frame_2);
+    hboxLayout1->setSpacing(0);
+    hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+    hboxLayout1->setContentsMargins(4, 0, 4, 0);
     subsetLabel = new QLabel(frame_2);
     subsetLabel->setObjectName(QString::fromUtf8("subsetLabel"));
 
-    hboxLayout2->addWidget(subsetLabel);
+    hboxLayout1->addWidget(subsetLabel);
 
     subsetDisableButton = new QToolButton(frame_2);
     subsetDisableButton->setObjectName(QString::fromUtf8("subsetDisableButton"));
@@ -436,12 +288,12 @@ public:
     subsetDisableButton->setAutoRaise(true);
     subsetDisableButton->setArrowType(Qt::NoArrow);
 
-    hboxLayout2->addWidget(subsetDisableButton);
+    hboxLayout1->addWidget(subsetDisableButton);
 
     filterLineEdit = new QLineEdit(frame_2);
     filterLineEdit->setObjectName(QString::fromUtf8("filterLineEdit"));
 
-    hboxLayout2->addWidget(filterLineEdit);
+    hboxLayout1->addWidget(filterLineEdit);
 
 
     vboxLayout1->addWidget(frame_2);
@@ -535,10 +387,8 @@ public:
     menuControl->addSeparator();
     menuControl->addAction(actionShuffle);
     menuControl->addAction(actionRepeat);
-    menuControl->addAction(actionEnableEqalizer);
     menuControl->addSeparator();
     menuControl->addAction(actionClear_playlist);
-    menuView->addAction(actionEqalizer);
     menuView->addAction(menuColumns->menuAction());
     menuView->addAction(actionLookFeel);
     menuColumns->addAction(actionViewFile);
@@ -559,7 +409,6 @@ public:
     toolBar->addSeparator();
     toolBar->addAction(actionShuffle);
     toolBar->addAction(actionRepeat);
-    toolBar->addAction(actionEnableEqalizer);
     toolBar->addSeparator();
     toolBar->addAction(actionClear_playlist);
     toolBar->addAction(actionEditTag);
@@ -576,24 +425,6 @@ public:
     QObject::connect(actionRepeat, SIGNAL(triggered(bool)), listView, SLOT(repeat(bool)));
     QObject::connect(listView, SIGNAL(status(QString)), CuberokClass, SLOT(message(QString)));
     QObject::connect(actionExit, SIGNAL(triggered()), CuberokClass, SLOT(close()));
-    QObject::connect(actionEqalizer, SIGNAL(triggered(bool)), equalizer, SLOT(setVisible(bool)));
-    QObject::connect(eqSlider1, SIGNAL(valueChanged(int)), listView, SLOT(eq1(int)));
-    QObject::connect(eqSlider2, SIGNAL(valueChanged(int)), listView, SLOT(eq2(int)));
-    QObject::connect(eqSlider3, SIGNAL(valueChanged(int)), listView, SLOT(eq3(int)));
-    QObject::connect(eqSlider4, SIGNAL(valueChanged(int)), listView, SLOT(eq4(int)));
-    QObject::connect(eqSlider5, SIGNAL(valueChanged(int)), listView, SLOT(eq5(int)));
-    QObject::connect(eqSlider6, SIGNAL(valueChanged(int)), listView, SLOT(eq6(int)));
-    QObject::connect(eqSlider7, SIGNAL(valueChanged(int)), listView, SLOT(eq7(int)));
-    QObject::connect(eqSlider8, SIGNAL(valueChanged(int)), listView, SLOT(eq8(int)));
-    QObject::connect(eqSlider9, SIGNAL(valueChanged(int)), listView, SLOT(eq9(int)));
-    QObject::connect(eqSlider10, SIGNAL(valueChanged(int)), listView, SLOT(eq10(int)));
-    QObject::connect(eqSlider11, SIGNAL(valueChanged(int)), listView, SLOT(eq11(int)));
-    QObject::connect(eqSlider12, SIGNAL(valueChanged(int)), listView, SLOT(eq12(int)));
-    QObject::connect(eqSlider13, SIGNAL(valueChanged(int)), listView, SLOT(eq13(int)));
-    QObject::connect(eqSlider14, SIGNAL(valueChanged(int)), listView, SLOT(eq14(int)));
-    QObject::connect(eqSlider15, SIGNAL(valueChanged(int)), listView, SLOT(eq15(int)));
-    QObject::connect(eqSlider16, SIGNAL(valueChanged(int)), listView, SLOT(eq16(int)));
-    QObject::connect(actionEnableEqalizer, SIGNAL(triggered(bool)), listView, SLOT(eqalizer(bool)));
     QObject::connect(actionClear_playlist, SIGNAL(triggered()), listView, SLOT(clear()));
     QObject::connect(actionQueueNext, SIGNAL(triggered()), listView, SLOT(queueNext()));
     QObject::connect(actionViewAlbum, SIGNAL(triggered(bool)), listView, SLOT(viewAlbum(bool)));
@@ -658,11 +489,6 @@ public:
     actionRepeat->setStatusTip(QApplication::translate("CuberokClass", "Repeat mode", 0, QApplication::UnicodeUTF8));
     actionExit->setText(QApplication::translate("CuberokClass", "Exit", 0, QApplication::UnicodeUTF8));
     actionExit->setStatusTip(QApplication::translate("CuberokClass", "Close the program", 0, QApplication::UnicodeUTF8));
-    actionEqalizer->setText(QApplication::translate("CuberokClass", "Equalizer", 0, QApplication::UnicodeUTF8));
-    actionEqalizer->setStatusTip(QApplication::translate("CuberokClass", "Show eqalizer widget", 0, QApplication::UnicodeUTF8));
-    actionEnableEqalizer->setText(QApplication::translate("CuberokClass", "Enable Eqalizer", 0, QApplication::UnicodeUTF8));
-    actionEnableEqalizer->setIconText(QApplication::translate("CuberokClass", "EQ", 0, QApplication::UnicodeUTF8));
-    actionEnableEqalizer->setStatusTip(QApplication::translate("CuberokClass", "Enable Eqalizer", 0, QApplication::UnicodeUTF8));
     actionClear_playlist->setText(QApplication::translate("CuberokClass", "Clear playlist", 0, QApplication::UnicodeUTF8));
     actionClear_playlist->setIconText(QApplication::translate("CuberokClass", "Clear", 0, QApplication::UnicodeUTF8));
     actionClear_playlist->setStatusTip(QApplication::translate("CuberokClass", "Clear playlist", 0, QApplication::UnicodeUTF8));
