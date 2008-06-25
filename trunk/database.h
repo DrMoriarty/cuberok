@@ -39,8 +39,8 @@ public:
 	QString GetAlbum(int);
 	QString GetGenre(int);
 	QString GetMark(int);
-	bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length);
-	bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year);
+	bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length);
+	bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
 	bool SetMark(QString file, QString mark);
 	
 	void clearSubset();
@@ -64,6 +64,7 @@ private:
 	void RenameAttribute(const QString attr, QString oldval, QString newval);
 	QMap<QString, int> Attributes(const QString attr, QString *patt = 0);
 	QString subsetFilter();
+	QMutex lock;
 };
 
 #endif /*DATABASE_H_*/

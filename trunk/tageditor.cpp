@@ -169,7 +169,7 @@ TagEditor::TagEditor(QString fname, QWidget *parent)
 	ui.comboBox_Genre->addItems(sl);
 	//ui.comboBox_Genre->setEditText(QS(fr.tag()->genre()));
 	QString title, artist, album, comment, genre, length;
-	int track, year;
+	int track, year, rating=0;
 	Tagger::readTags(fname, title, artist, album, comment, genre, track, year, length);
 	ui.label->setText(file);
 	ui.lineTitle->setText(title);
@@ -179,6 +179,9 @@ TagEditor::TagEditor(QString fname, QWidget *parent)
 	ui.spinBox_Track->setValue(track);
 	ui.spinBox_Year->setValue(year);
 	ui.comboBox_Genre->setEditText(genre);
+	if(Database::Self().GetTags(fname, title, artist, album, comment, genre, track, year, rating, length)) {
+		ui.spinBox_Rating->setValue(rating);
+	}
 	Tagger::setAutoCorrect(savedcor);
 }
 
@@ -208,7 +211,7 @@ void TagEditor::correct2()
 void TagEditor::save()
 {
 	Tagger::writeTags(file, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value());
-	Database::Self().SetTags(file, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value());
+	Database::Self().SetTags(file, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value(), ui.spinBox_Rating->value());
 	emit editComplete(index);
 	this->close();
 }

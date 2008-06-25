@@ -1,4 +1,6 @@
 #include "playlistcontainer.h"
+#include "playlistsettings.h"
+#include "playlistmodel.h"
 
 /************************
  * 
@@ -15,23 +17,23 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	vboxLayout->addWidget(tabs);
 	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
 	connect(this, SIGNAL(internalnext()), this, SLOT(next()), Qt::QueuedConnection);
-	int count = 0;
 	QDir dir(QDir::homePath() + "/.cuberok/");
 	QStringList filters;
-	filters << "*.plist";
+	filters << "*.m3u";
 	dir.setNameFilters(filters);
 	foreach(QString file, dir.entryList()) {
 		int st = file.lastIndexOf('\\')+1;
 		QString plname = file.mid(st, file.lastIndexOf('.')-st);
 		newList(plname);
-		count ++;
+		counter ++;
 	}
-	if(!count) addList();
+	if(!counter) addList();
 }
 
 PlaylistContainer::~PlaylistContainer()
 {
 	while(lists.count() > 0) {
+		lists.last()->setAutosave(true);
 		delete lists.last();
 		lists.pop_back();
 	}
@@ -71,15 +73,15 @@ void PlaylistContainer::newList(QString listname)
 	curlist->setDragDropMode(QAbstractItemView::DragDrop);
 	curlist->setDropIndicatorShown(true);
 	curlist->setSortingEnabled(true);
-	curlist->viewAlbum(alv);
-	curlist->viewArtist(arv);
-	curlist->viewComment(cov);
-	curlist->viewTrack(trv);
-	curlist->viewTitle(tiv);
-	curlist->viewYear(yev);
-	curlist->viewGenre(gev);
-	curlist->viewFile(fiv);
-	curlist->viewLength(lev);
+// 	curlist->viewAlbum(alv);
+// 	curlist->viewArtist(arv);
+// 	curlist->viewComment(cov);
+// 	curlist->viewTrack(trv);
+// 	curlist->viewTitle(tiv);
+// 	curlist->viewYear(yev);
+// 	curlist->viewGenre(gev);
+// 	curlist->viewFile(fiv);
+// 	curlist->viewLength(lev);
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
@@ -148,32 +150,50 @@ void PlaylistContainer::clear()
 void PlaylistContainer::queueNext()
 { if(curlist) curlist->queueNext(); }
 void PlaylistContainer::viewAlbum(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewAlbum(b); 
-  alv = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewAlbum(b); 
+  //alv = b; 
+	PLSet.setColumnVisible(PlaylistModel::Album, b);
+}
 void PlaylistContainer::viewArtist(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewArtist(b); 
-  arv = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewArtist(b); 
+  //arv = b; 
+	PLSet.setColumnVisible(PlaylistModel::Artist, b);
+}
 void PlaylistContainer::viewComment(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewComment(b); 
-  cov = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewComment(b); 
+  //cov = b; 
+	PLSet.setColumnVisible(PlaylistModel::Comment, b);
+}
 void PlaylistContainer::viewTrack(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewTrack(b); 
-  trv = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewTrack(b); 
+  //trv = b; 
+	PLSet.setColumnVisible(PlaylistModel::Track, b);
+}
 void PlaylistContainer::viewTitle(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewTitle(b); 
-  tiv = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewTitle(b); 
+  //tiv = b; 
+	PLSet.setColumnVisible(PlaylistModel::Title, b);
+}
 void PlaylistContainer::viewYear(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewYear(b); 
-  yev = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewYear(b); 
+  //yev = b; 
+	PLSet.setColumnVisible(PlaylistModel::Year, b);
+}
 void PlaylistContainer::viewGenre(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewGenre(b); 
-  gev = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewGenre(b); 
+  //gev = b; 
+	PLSet.setColumnVisible(PlaylistModel::Genre, b);
+}
 void PlaylistContainer::viewFile(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewFile(b); 
-  fiv = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewFile(b); 
+  //fiv = b; 
+	PLSet.setColumnVisible(PlaylistModel::File, b);
+}
 void PlaylistContainer::viewLength(bool b)
-{ foreach(PlaylistView *pl, lists) pl->viewLength(b); 
-  lev = b; }
+{ //foreach(PlaylistView *pl, lists) pl->viewLength(b); 
+  //lev = b; 
+	PLSet.setColumnVisible(PlaylistModel::Length, b);
+}
 void PlaylistContainer::editTag()
 { if(curlist) curlist->editTag(); }
 

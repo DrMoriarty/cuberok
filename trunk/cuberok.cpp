@@ -2,6 +2,7 @@
 #include "aboutdialog.h"
 #include "lookandfeel.h"
 #include "tagger.h"
+#include "playlistsettings.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent)
@@ -47,6 +48,15 @@ Cuberok::Cuberok(QWidget *parent)
 
 	ui.statusbar->addPermanentWidget(ui.listStatus);
 	ui.statusbar->addPermanentWidget(ui.collectionStatus);
+
+    if(PLSet.columnVisible(PlaylistModel::Track)) ui.actionViewTrack->trigger();
+    if(PLSet.columnVisible(PlaylistModel::Title)) ui.actionViewTitle->trigger();
+    if(PLSet.columnVisible(PlaylistModel::Artist)) ui.actionViewArtist->trigger();
+    if(PLSet.columnVisible(PlaylistModel::Album)) ui.actionViewAlbum->trigger();
+    if(PLSet.columnVisible(PlaylistModel::Genre)) ui.actionViewGenre->trigger();
+    if(PLSet.columnVisible(PlaylistModel::Year)) ui.actionViewYear->trigger();
+    if(PLSet.columnVisible(PlaylistModel::Comment)) ui.actionViewComment->trigger();
+	if(PLSet.columnVisible(PlaylistModel::File)) ui.actionViewFile->trigger();
 }
 
 Cuberok::~Cuberok()

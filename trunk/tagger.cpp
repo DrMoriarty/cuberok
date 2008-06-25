@@ -19,8 +19,8 @@ Tagger::~Tagger()
 
 bool Tagger::readTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length)
 {
-	if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, length)) 
-		return true;
+	//if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, length)) 
+	//	return true;
 	bool corrected = false;
 #define corstr(s) autoCorrect() ? correct8bit(s, &corrected) : s
 	TagLib::FileRef fr(file.toLocal8Bit().constData());

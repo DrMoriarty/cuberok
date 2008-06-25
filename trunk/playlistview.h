@@ -19,8 +19,12 @@ public:
     bool isPlaying();
     void dropEvent(QDropEvent *event);
     void startDrag(Qt::DropActions supportedActions);
-	void storeList(QString fname = "");
+	void storeList(QString fname);
+	void setAutosave(bool);
     
+protected:
+	virtual void hideEvent ( QHideEvent * event );
+
 private:
     QModelIndex nextItem();
     QModelIndex prevItem();
@@ -38,6 +42,7 @@ private:
     bool correct;
     bool playing;
     bool dragStarted;
+	bool autosave;
     
 private slots:
 	void addItem(QString item, int id, QModelIndex* ind = 0);
@@ -46,6 +51,8 @@ private slots:
 	void onDoubleClick( const QModelIndex & index );
 	void position(double pos);
 	void updateTag(int);
+	void setColVisible(int,bool);
+	void setColWidth(int,int);
 
 public slots:
 	void prev();
@@ -54,15 +61,15 @@ public slots:
 	void stop();
 	void clear();
 	void queueNext();
-	void viewAlbum(bool);
-	void viewArtist(bool);
-	void viewComment(bool);
-	void viewTrack(bool);
-	void viewTitle(bool);
-	void viewYear(bool);
-	void viewGenre(bool);
-	void viewFile(bool);
-	void viewLength(bool);
+/* 	void viewAlbum(bool); */
+/* 	void viewArtist(bool); */
+/* 	void viewComment(bool); */
+/* 	void viewTrack(bool); */
+/* 	void viewTitle(bool); */
+/* 	void viewYear(bool); */
+/* 	void viewGenre(bool); */
+/* 	void viewFile(bool); */
+/* 	void viewLength(bool); */
 	void editTag();
 	void removeSong();
 signals:
