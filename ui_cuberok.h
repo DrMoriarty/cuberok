@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Mon 23. Jun 15:19:25 2008
+** Created: Wed 25. Jun 09:49:48 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -140,35 +140,35 @@ public:
     actionViewFile = new QAction(CuberokClass);
     actionViewFile->setObjectName(QString::fromUtf8("actionViewFile"));
     actionViewFile->setCheckable(true);
-    actionViewFile->setChecked(true);
+    actionViewFile->setChecked(false);
     actionViewTrack = new QAction(CuberokClass);
     actionViewTrack->setObjectName(QString::fromUtf8("actionViewTrack"));
     actionViewTrack->setCheckable(true);
-    actionViewTrack->setChecked(true);
+    actionViewTrack->setChecked(false);
     actionViewTitle = new QAction(CuberokClass);
     actionViewTitle->setObjectName(QString::fromUtf8("actionViewTitle"));
     actionViewTitle->setCheckable(true);
-    actionViewTitle->setChecked(true);
+    actionViewTitle->setChecked(false);
     actionViewArtist = new QAction(CuberokClass);
     actionViewArtist->setObjectName(QString::fromUtf8("actionViewArtist"));
     actionViewArtist->setCheckable(true);
-    actionViewArtist->setChecked(true);
+    actionViewArtist->setChecked(false);
     actionViewAlbum = new QAction(CuberokClass);
     actionViewAlbum->setObjectName(QString::fromUtf8("actionViewAlbum"));
     actionViewAlbum->setCheckable(true);
-    actionViewAlbum->setChecked(true);
+    actionViewAlbum->setChecked(false);
     actionViewGenre = new QAction(CuberokClass);
     actionViewGenre->setObjectName(QString::fromUtf8("actionViewGenre"));
     actionViewGenre->setCheckable(true);
-    actionViewGenre->setChecked(true);
+    actionViewGenre->setChecked(false);
     actionViewYear = new QAction(CuberokClass);
     actionViewYear->setObjectName(QString::fromUtf8("actionViewYear"));
     actionViewYear->setCheckable(true);
-    actionViewYear->setChecked(true);
+    actionViewYear->setChecked(false);
     actionViewComment = new QAction(CuberokClass);
     actionViewComment->setObjectName(QString::fromUtf8("actionViewComment"));
     actionViewComment->setCheckable(true);
-    actionViewComment->setChecked(true);
+    actionViewComment->setChecked(false);
     actionCorrectTag = new QAction(CuberokClass);
     actionCorrectTag->setObjectName(QString::fromUtf8("actionCorrectTag"));
     actionCorrectTag->setCheckable(true);
@@ -176,7 +176,7 @@ public:
     actionViewLength = new QAction(CuberokClass);
     actionViewLength->setObjectName(QString::fromUtf8("actionViewLength"));
     actionViewLength->setCheckable(true);
-    actionViewLength->setChecked(true);
+    actionViewLength->setChecked(false);
     actionEditTag = new QAction(CuberokClass);
     actionEditTag->setObjectName(QString::fromUtf8("actionEditTag"));
     actionNewPlaylist = new QAction(CuberokClass);

@@ -31,8 +31,8 @@ void CollectionFiller::proceed(QString path)
 	} else {
 		if(attrname.length()) {
 			QString title, artist, album, comment, genre, length;
-			int track, year;
-			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, length);
+			int track, year, rating;
+			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length);
 			switch(mode) {
 				case M_ALBUM:
 					Tagger::updateAlbum(path, attrname);
@@ -50,7 +50,7 @@ void CollectionFiller::proceed(QString path)
 					Database::Self().SetMark(path, attrname);
 					return;
 			}
-			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year); 
+			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating); 
 			else Database::Self().AddFile(path);
 		} else Database::Self().AddFile(path);
 	}

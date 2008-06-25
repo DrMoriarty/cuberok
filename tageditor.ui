@@ -5,15 +5,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>388</width>
-    <height>356</height>
+    <width>322</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>TagEditor</string>
   </property>
   <layout class="QGridLayout" >
-   <item row="1" column="0" colspan="2" >
+   <item row="1" column="0" colspan="3" >
     <widget class="QLineEdit" name="label" >
      <property name="text" >
       <string>File</string>
@@ -30,7 +30,7 @@
      </property>
     </widget>
    </item>
-   <item row="13" column="1" >
+   <item row="13" column="2" >
     <widget class="QPushButton" name="pushButton_Save" >
      <property name="text" >
       <string>Save</string>
@@ -50,54 +50,54 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
+   <item row="0" column="2" >
     <widget class="QPushButton" name="pushButton_Correct2" >
      <property name="text" >
       <string>Correct 7bit cp1251</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2" >
+   <item row="3" column="0" colspan="3" >
     <widget class="QLineEdit" name="lineTitle" />
    </item>
-   <item row="5" column="0" colspan="2" >
+   <item row="5" column="0" colspan="3" >
     <widget class="QLineEdit" name="lineArtist" />
    </item>
-   <item row="7" column="0" colspan="2" >
+   <item row="7" column="0" colspan="3" >
     <widget class="QLineEdit" name="lineAlbum" />
    </item>
-   <item row="2" column="0" colspan="2" >
+   <item row="2" column="0" colspan="3" >
     <widget class="QLabel" name="label_2" >
      <property name="text" >
       <string>Title</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2" >
+   <item row="4" column="0" colspan="3" >
     <widget class="QLabel" name="label_3" >
      <property name="text" >
       <string>Artist</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="2" >
+   <item row="6" column="0" colspan="3" >
     <widget class="QLabel" name="label_4" >
      <property name="text" >
       <string>Album</string>
      </property>
     </widget>
    </item>
-   <item row="12" column="0" colspan="2" >
+   <item row="12" column="0" colspan="3" >
     <widget class="QLineEdit" name="lineComment" />
    </item>
-   <item row="11" column="0" colspan="2" >
+   <item row="11" column="0" colspan="3" >
     <widget class="QLabel" name="label_5" >
      <property name="text" >
       <string>Comment</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="1" >
+   <item row="8" column="1" colspan="2" >
     <widget class="QComboBox" name="comboBox_Genre" >
      <property name="editable" >
       <bool>true</bool>
@@ -136,6 +136,16 @@
     <widget class="QLabel" name="label_8" >
      <property name="text" >
       <string>Year</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="2" >
+    <widget class="QSpinBox" name="spinBox_Rating" />
+   </item>
+   <item row="9" column="2" >
+    <widget class="QLabel" name="label_9" >
+     <property name="text" >
+      <string>Rating</string>
      </property>
     </widget>
    </item>

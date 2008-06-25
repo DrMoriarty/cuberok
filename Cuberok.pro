@@ -14,8 +14,12 @@ HEADERS += aboutdialog.h \
            player.h \
            playlistcontainer.h \
            playlistmodel.h \
+           playlistsettings.h \
            playlistview.h \
            progressbar.h \
+           stardelegate.h \
+           stareditor.h \
+           starrating.h \
            tageditor.h \
            tagger.h 
 
@@ -30,8 +34,12 @@ SOURCES += aboutdialog.cpp \
            player.cpp \
            playlistcontainer.cpp \
            playlistmodel.cpp \
+           playlistsettings.cpp \
            playlistview.cpp \
            progressbar.cpp \
+           stardelegate.cpp \
+           stareditor.cpp \
+           starrating.cpp \
            tageditor.cpp \
            tagger.cpp
 RESOURCES += resource.qrc

@@ -6,6 +6,7 @@
 
 Database::Database() : subset(false)
 {
+	QMutexLocker locker(&lock);
 	db = QSqlDatabase::addDatabase("QSQLITE");
 	db.setDatabaseName(QDir::homePath()+"/.cuberok/collection.db");
 	if(QFile::exists(db.databaseName())) {
@@ -23,7 +24,7 @@ Database::Database() : subset(false)
 			QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
 			QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
 			QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-			QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Mark integer, Year integer, Comment varchar(200), Length varchar(20))", db);
+			QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Mark integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer)", db);
 			open = true;
 		}
 	}
@@ -36,13 +37,21 @@ Database::~Database()
 
 Database& Database::Self()
 {
-	static Database* instance = 0;
-	if(!instance) instance = new Database();
-	return *instance;
+	static QMutex mutex;
+	QMutexLocker locker(&mutex);
+	//mutex.lock();
+ 	//static Database* instance = 0;
+	static Database instance;
+ 	//if(!instance) instance = new Database();
+	//mutex.unlock();
+ 	//return *instance;
+	//Database &db = instance();
+	return instance;
 }
 
 int Database::AddFile(QString file)
 {
+	QMutexLocker locker(&lock);
 	QSqlQuery q0("", db);
 	q0.prepare("select ID from Song where File = :file");
 	q0.bindValue(":file", file);
@@ -229,6 +238,7 @@ void Database::RenameMark(QString oldval, QString newval)
 
 QMap<QString, int> Database::Attributes(const QString attr, QString *patt)
 {
+	QMutexLocker locker(&lock);
 	QMap<QString, int> res;
 	QSqlQuery q("", db);
 	if(subset) {
@@ -272,6 +282,7 @@ QMap<QString, int> Database::Marks(QString *patt)
 
 QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *ma)
 {
+	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
 	QString com = "select File from Song ";
 	if(ar || al || ge || ma || subset) {
@@ -346,10 +357,11 @@ QString Database::GetMark(int id)
 	else return "";
 }
 
-bool Database::GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length)
+bool Database::GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length)
 {
+	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
-	QString com = "select Title, Artist, Album, Comment, Genre, Track, Year, Length from Song where File = :file";
+	QString com = "select Title, Artist, Album, Comment, Genre, Track, Year, Rating, Length from Song where File = :file";
 	q.prepare(com);
 	q.bindValue(":file", file);
 	q.exec();
@@ -366,14 +378,16 @@ bool Database::GetTags(QString file, QString &title, QString &artist, QString &a
 		if(ok) genre = GetGenre(genreID);
 		track = q.value(5).toInt(&ok);
 		year = q.value(6).toInt(&ok);
-		length = q.value(7).toString();
+		rating = q.value(7).toInt(&ok);
+		length = q.value(8).toString();
 		return true;
 	}
 	return false;
 }
 
-bool Database::SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year)
+bool Database::SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating)
 {
+	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
 	q.prepare("select Artist, Album, Genre from Song where File = :file");
 	q.bindValue(":file", file);
@@ -400,7 +414,7 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
 			RefAttribute(nGenre, _genreID, -1);
 			RefAttribute(nGenre, genreID, 1);
 		}
-		q.prepare("update Song set Title = :title, Artist = "+QString::number(artistID)+", Album = "+QString::number(albumID)+", Comment = :comment, Genre = "+QString::number(genreID)+", Track = "+QString::number(track)+", Year = "+QString::number(year)+" where File = :file");
+		q.prepare("update Song set Title = :title, Artist = "+QString::number(artistID)+", Album = "+QString::number(albumID)+", Comment = :comment, Genre = "+QString::number(genreID)+", Track = "+QString::number(track)+", Year = "+QString::number(year)+", Rating = "+QString::number(rating)+" where File = :file");
 		q.bindValue(":title", title);
 		q.bindValue(":comment", comment);
 		q.bindValue(":file", file);

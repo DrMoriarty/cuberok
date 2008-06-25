@@ -49,26 +49,17 @@ public:
 	//void setCurrent(int c);
 	//int current();
 
-    enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, ColumnCount};
+    enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, ColumnCount};
     
 private slots:
 	void addItem(QString path, int *row, QList<QVariant>);
 
 private:
 	
-	//void addUrl(QString path, int &row);
-	/*struct sTag {
-		QString *empty, *selection, *title, *artist, *album, *comment, *genre, *year, *track, *file, *length;
-	};*/
-	
 	struct sData {
-		//union {
-			QString *values[ColumnCount];
-			//struct sTag tag;
-		//};
+		QVariant *values[ColumnCount];
 	};
 	
-    //QStringList stringList;
     QList<struct sData> _data;
     int _current;
 };

@@ -1,8 +1,10 @@
 #include "playlistmodel.h"
 #include "main.h"
+#include "database.h"
 #include "tagger.h"
+#include "starrating.h"
 
-static char *colnames[] = {"", "", "File", "Track", "Title", "Artist", "Album", "Comment", "Genre", "Year", "Length"};
+static char *colnames[] = {"", "", "File", "Track", "Title", "Artist", "Album", "Comment", "Genre", "Year", "Length", "Rating"};
 
 PlaylistModel::PlaylistModel(QObject *parent) : QAbstractListModel(parent),
 _current(1)
@@ -78,14 +80,15 @@ void PlaylistModel::addItem(QString path, int *ind, QList<QVariant> l)
 	    	insertRows(row, 1);
 	    	if(row >= rowCount()) row = rowCount() - 1; 
 	        *_data.at(row).values[File] = path;
-	        *_data.at(row).values[Title] = l[0].toString();
-			*_data.at(row).values[Artist] = l[1].toString();
-			*_data.at(row).values[Album] = l[2].toString();
-			*_data.at(row).values[Comment] = l[3].toString();
-			*_data.at(row).values[Genre] = l[4].toString();
-			*_data.at(row).values[Length] = l[5].toString();
-			*_data.at(row).values[Track] = l[6].toString();
-			*_data.at(row).values[Year] = l[7].toString();
+	        *_data.at(row).values[Title] = l[0];
+			*_data.at(row).values[Artist] = l[1];
+			*_data.at(row).values[Album] = l[2];
+			*_data.at(row).values[Comment] = l[3];
+			*_data.at(row).values[Genre] = l[4];
+			*_data.at(row).values[Length] = l[5];
+			*_data.at(row).values[Track] = l[6];
+			*_data.at(row).values[Year] = l[7];
+			*_data.at(row).values[Rating] = l[8];
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
 	        if(row < rowCount()) row++;
 		}
@@ -127,7 +130,7 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 
     if(index.column() == File) {
     	if(role == Qt::UserRole) return *_data.at(index.row()).values[index.column()];
-    	else if(role == Qt::DisplayRole) return QFileInfo(*_data.at(index.row()).values[index.column()]).fileName(); 
+    	else if(role == Qt::DisplayRole) return QFileInfo(_data.at(index.row()).values[index.column()]->toString()).fileName(); 
     }
     
     if(index.row() == _current) {
@@ -178,7 +181,7 @@ bool PlaylistModel::setData(const QModelIndex &index,
 {
     if (index.isValid() && role == Qt::EditRole) {
 
-        *_data.at(index.row()).values[index.column()] =  value.toString();
+        *_data.at(index.row()).values[index.column()] =  value;
         emit dataChanged(index, index);
         return true;
     }
@@ -191,7 +194,7 @@ bool PlaylistModel::insertRows(int position, int rows, const QModelIndex &parent
 
     for (int row = 0; row < rows; ++row) {
     	struct sData d;
-    	for(int i=0; i<ColumnCount; i++) d.values[i] = new QString();
+    	for(int i=0; i<ColumnCount; i++) d.values[i] = new QVariant();
     	if(position >= _data.count())
     		_data.append(d); 
     	else
@@ -261,8 +264,19 @@ void PlaylistFiller::proceedDir(QString path)
 	} else {
 		QList<QVariant> l;
 		QString title, artist, album, comment, genre, length;
-		int track, year;
-		if(Tagger::readTags(path, title, artist, album, comment, genre, track, year, length)) {
+		int track, year, rating;
+		if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
+			l.append(QVariant(title));
+			l.append(QVariant(artist));
+			l.append(QVariant(album));
+			l.append(QVariant(comment));
+			l.append(QVariant(genre));
+			l.append(QVariant(length));
+			l.append(QVariant(track));
+			l.append(QVariant(year));
+			l.append(qVariantFromValue(StarRating(rating)));
+		}
+		else if(Tagger::readTags(path, title, artist, album, comment, genre, track, year, length)) {
 			l.append(QVariant(title));
 			l.append(QVariant(artist));
 			l.append(QVariant(album));
@@ -271,6 +285,7 @@ void PlaylistFiller::proceedDir(QString path)
 			l.append(QVariant(length));
 			l.append(QVariant(/*QString::number(*/track));
 			l.append(QVariant(/*QString::number(*/year));
+			l.append(qVariantFromValue(StarRating(0)));
 		}
 		setTerminationEnabled(false);
 		emit sendFile(path, &index, l);
