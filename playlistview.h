@@ -61,15 +61,6 @@ public slots:
 	void stop();
 	void clear();
 	void queueNext();
-/* 	void viewAlbum(bool); */
-/* 	void viewArtist(bool); */
-/* 	void viewComment(bool); */
-/* 	void viewTrack(bool); */
-/* 	void viewTitle(bool); */
-/* 	void viewYear(bool); */
-/* 	void viewGenre(bool); */
-/* 	void viewFile(bool); */
-/* 	void viewLength(bool); */
 	void editTag();
 	void removeSong();
 signals:

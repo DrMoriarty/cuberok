@@ -53,31 +53,32 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
     if(data->hasUrls()) {
         int beginRow;
 
+		//QMessageBox::information(0, "dropped", QString::number(row));
         if (row != -1)
             beginRow = row; 
-        else if (parent.isValid())
-            beginRow = parent.row()+1; 
+        //else if (parent.isValid())
+		//    beginRow = parent.row()+1; 
         else
-            beginRow = rowCount(QModelIndex());
+            beginRow = rowCount();
         QStringList list;
     	foreach(QUrl url, data->urls()) {
     		//addUrl(url.toLocalFile(), beginRow);
     		list << url.toLocalFile();
     	}
     	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
-		if(!connect(filler, SIGNAL(sendFile(QString, int*, QList<QVariant>)), this, SLOT(addItem(QString, int*, QList<QVariant>)), Qt::QueuedConnection))
+		if(!connect(filler, SIGNAL(sendFile(QString, int, QList<QVariant>)), this, SLOT(addItem(QString, int, QList<QVariant>)), Qt::QueuedConnection))
 			QMessageBox::information(0, tr(""), "connection error");
-		filler->setPriority(QThread::IdlePriority);
-		filler->start();
+		//filler->setPriority();
+		filler->start(QThread::IdlePriority);
     }
 	return true;
 }
 
-void PlaylistModel::addItem(QString path, int *ind, QList<QVariant> l)
+void PlaylistModel::addItem(QString path, int row, QList<QVariant> l)
 {
-	int &row = *ind;
+	//QMessageBox::information(0, "insert position", QString::number(row));
 	try {
-		if(l.count() >= 8) {
+		if(l.count() >= 9) {
 	    	insertRows(row, 1);
 	    	if(row >= rowCount()) row = rowCount() - 1; 
 	        *_data.at(row).values[File] = path;
@@ -91,7 +92,6 @@ void PlaylistModel::addItem(QString path, int *ind, QList<QVariant> l)
 			*_data.at(row).values[Year] = l[7];
 			*_data.at(row).values[Rating] = l[8];
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
-	        if(row < rowCount()) row++;
 		}
 	} catch (char * mes) {
 		QMessageBox::information(0, tr("Error"), QString(mes));
@@ -264,6 +264,7 @@ void PlaylistFiller::run()
 void PlaylistFiller::proceedDir(QString path)
 {
 	if(cancel) return;
+	Indicator::Self().update();
 	QDir dir;
 	if(dir.cd(path)) {
 		foreach(QString file, dir.entryList()) {
@@ -297,8 +298,9 @@ void PlaylistFiller::proceedDir(QString path)
 			l.append(qVariantFromValue(StarRating(0)));
 		}
 		setTerminationEnabled(false);
-		emit sendFile(path, &index, l);
+		emit sendFile(path, index, l);
 		setTerminationEnabled(true);
+		index++;
 	}
 }
 

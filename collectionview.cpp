@@ -25,6 +25,7 @@ void CollectionFiller::run()
 {
 	int taskID = Indicator::Self().addTask("Collect music");
 	foreach(QUrl url, urls) {
+		if(cancel) break;
 		proceed(url.toLocalFile());
 	}
 	Indicator::Self().delTask(taskID);
@@ -32,6 +33,8 @@ void CollectionFiller::run()
 
 void CollectionFiller::proceed(QString path)
 {
+	if(cancel) return;
+	Indicator::Self().update();
 	QDir dir;
 	if(dir.cd(path)) {
 		foreach(QString file, dir.entryList()) {
@@ -56,8 +59,8 @@ void CollectionFiller::proceed(QString path)
 					Tagger::updateGenre(path, attrname);
 					genre = attrname;
 					break;
-				case M_MARK:
-					Database::Self().SetMark(path, attrname);
+				case M_SONG:
+					//Database::Self().SetMark(path, attrname);
 					return;
 			}
 			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating); 
@@ -109,9 +112,14 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		foreach(QString file, files) Tagger::updateGenre(file, newvalue);
 		Database::Self().RenameGenre(oldvalue, newvalue);
 		break;
-	case M_MARK:
-		Database::Self().RenameMark(oldvalue, newvalue);
+	case M_SONG: {
+// 		QString title, artist, album, comment, genre, length;
+// 		int track, year, rating;
+// 		if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length))
+// 			Database::Self().SetTags(path, newvalue, artist, album, comment, genre, track, year, rating); 
+		//Database::Self().RenameMark(oldvalue, newvalue);
 		break;
+	}
 	}
 	//QMessageBox::information(0, "", value.toString());
 	return QStandardItemModel::setData(index, value, role);
@@ -159,8 +167,21 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 	case M_GENRE:
 		res = Database::Self().Songs(0, 0, &s, 0);
 		break;
-	case M_MARK:
-		res = Database::Self().Songs(0, 0, 0, &s);
+	case M_SONG:
+		res = Database::Self().Songs(0, 0, 0, 0);
+		{
+			QString fname;
+			QString title, artist, album, comment, genre, length;
+			int track, year, rating;
+			foreach(QString f, res) {
+				if(Database::Self().GetTags(f, title, artist, album, comment, genre, track, year, rating, length) && title == s) {
+					fname = f;
+					break;
+				}
+			}
+			res.clear();
+			if(fname.size()) res << fname;
+		}
 		break;
 	}
 	QList<QUrl> urls;
@@ -228,13 +249,21 @@ void CollectionModel::updateMode(ListMode m)
 		icon = QIcon(":/icons/def_genre.png");
 		stat += QString::number(data.count())+QString(" ")+tr("genres");
 		break;
-	case M_MARK:
-		if(searchPattern.length()) data = Database::Self().Marks(&searchPattern);
-		else data = Database::Self().Marks();
-		//icon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
+	case M_SONG: {
+		// TODO if(searchPattern.length()) data = Database::Self().Songs(&searchPattern);
+		/*else*/ 
+		QList<QString> data = Database::Self().Songs();
 		icon = QIcon(":/icons/def_mark.png");
-		stat += QString::number(data.count())+QString(" ")+tr("marks");
-		break;
+		stat += QString::number(data.count())+QString(" ")+tr("songs");
+		foreach(QString it, data) {
+			QString title, artist, album, comment, genre, length;
+			int track, year, rating;
+			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length))
+				appendRow(new QStandardItem(icon, title));
+		}
+		emit status(stat);
+		return;
+	}
 	}
 	QString tt("");
 	QStandardItem *i;
@@ -399,9 +428,9 @@ void CollectionView::genreMode()
 	model.updateMode(M_GENRE);
 }
 
-void CollectionView::markMode()
+void CollectionView::songMode()
 {
-	model.updateMode(M_MARK);
+	model.updateMode(M_SONG);
 }
 
 void CollectionView::addItem()
@@ -416,9 +445,9 @@ void CollectionView::addItem()
 	case M_GENRE:
 		Database::Self().AddGenre(tr("New Genre"));
 		break;
-	case M_MARK:
-		Database::Self().AddMark(tr("New Mark"));
-		break;
+	case M_SONG:
+		//Database::Self().AddMark(tr("New Mark"));
+		return;
 	}
 	model.update();
 }
@@ -436,9 +465,9 @@ void CollectionView::removeItem()
 		case M_GENRE:
 			Database::Self().RemoveGenre(model.data(ind).toString());
 			break;
-		case M_MARK:
-			Database::Self().RemoveMark(model.data(ind).toString());
-			break;
+		case M_SONG:
+			//Database::Self().RemoveMark(model.data(ind).toString());
+			return;
 		}
     }
 	//model.updateMode(model.mode);
@@ -472,9 +501,9 @@ void CollectionView::applySubset(QModelIndex ind)
 	case M_GENRE:
 		Database::Self().subsetGenre(value);
 		break;
-	case M_MARK:
-		Database::Self().subsetMark(value);
-		break;
+	case M_SONG:
+		//Database::Self().subsetMark(value);
+		return;
 	}
 	model.update();
 }

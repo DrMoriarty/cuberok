@@ -10,5 +10,7 @@
         <file>images/stock_notes.png</file>
         <file alias="def_artist.png" >images/stock_person.png</file>
         <file alias="star.png" >images/star2s.png</file>
+        <file alias="newtab.png" >images/addtab.png</file>
+        <file alias="deltab.png" >images/closetab.png</file>
     </qresource>
 </RCC>
