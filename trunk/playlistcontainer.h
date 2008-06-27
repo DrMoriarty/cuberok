@@ -17,6 +17,8 @@ private:
     QList<PlaylistView*> lists;
     QVBoxLayout *vboxLayout;
     QTabWidget *tabs;
+	QToolButton *newButton;
+	QToolButton *closeButton;
     PlaylistView *curlist, *actlist;
     int counter;
     bool alv, arv, cov, trv, tiv, yev, gev, fiv, lev;

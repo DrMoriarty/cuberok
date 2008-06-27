@@ -130,7 +130,7 @@
        <addaction name="actionArtistMode" />
        <addaction name="actionAlbumMode" />
        <addaction name="actionGenreMode" />
-       <addaction name="actionMarkMode" />
+       <addaction name="actionSongMode" />
       </widget>
      </item>
      <item>
@@ -673,9 +673,9 @@
     <string>Genre</string>
    </property>
   </action>
-  <action name="actionMarkMode" >
+  <action name="actionSongMode" >
    <property name="text" >
-    <string>Mark</string>
+    <string>Song</string>
    </property>
   </action>
   <action name="actionAddToCollection" >
@@ -1202,10 +1202,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionMarkMode</sender>
+   <sender>actionSongMode</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
-   <slot>markMode()</slot>
+   <slot>songMode()</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>-1</x>

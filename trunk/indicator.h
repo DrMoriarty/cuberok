@@ -13,10 +13,13 @@ class Indicator: public QObject
 	void setWidget(QAbstractButton &w);
 	int  addTask(QString message);
 	void delTask(int ID);
-	void stop();
 
  signals:
 	void userStop();
+
+ public slots:
+	void stop();
+	void update();
 
  private:
 	Indicator();
@@ -27,16 +30,12 @@ class Indicator: public QObject
 		QString message;
 	};
 	QList<struct Task> tasks;
-	QTimer timer;
 	int counter;
 	QAbstractButton *widget;
 	QIcon icon;
-	QPixmap pxN, pxD, pxR[8];
+	QPixmap pxN, pxD, pxR[36];
 	int rot;
-
- private slots:
-	void timerUpdate();
-	void buttonPressed();
+	QTime time;
 };
 
 #endif //INDICATOR_H

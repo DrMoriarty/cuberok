@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 26. Jun 17:05:10 2008
+** Created: Fri 27. Jun 15:56:36 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -65,7 +65,7 @@ public:
     QAction *actionArtistMode;
     QAction *actionAlbumMode;
     QAction *actionGenreMode;
-    QAction *actionMarkMode;
+    QAction *actionSongMode;
     QAction *actionAddToCollection;
     QAction *actionRemoveFromCollection;
     QWidget *centralwidget;
@@ -193,8 +193,8 @@ public:
     actionAlbumMode->setObjectName(QString::fromUtf8("actionAlbumMode"));
     actionGenreMode = new QAction(CuberokClass);
     actionGenreMode->setObjectName(QString::fromUtf8("actionGenreMode"));
-    actionMarkMode = new QAction(CuberokClass);
-    actionMarkMode->setObjectName(QString::fromUtf8("actionMarkMode"));
+    actionSongMode = new QAction(CuberokClass);
+    actionSongMode->setObjectName(QString::fromUtf8("actionSongMode"));
     actionAddToCollection = new QAction(CuberokClass);
     actionAddToCollection->setObjectName(QString::fromUtf8("actionAddToCollection"));
     actionRemoveFromCollection = new QAction(CuberokClass);
@@ -366,7 +366,7 @@ public:
     col_toolbar->addAction(actionArtistMode);
     col_toolbar->addAction(actionAlbumMode);
     col_toolbar->addAction(actionGenreMode);
-    col_toolbar->addAction(actionMarkMode);
+    col_toolbar->addAction(actionSongMode);
     colView->addAction(actionAddToCollection);
     colView->addAction(actionRemoveFromCollection);
     menubar->addAction(menuFile->menuAction());
@@ -446,7 +446,7 @@ public:
     QObject::connect(actionArtistMode, SIGNAL(triggered()), colView, SLOT(artistMode()));
     QObject::connect(actionAlbumMode, SIGNAL(triggered()), colView, SLOT(albumMode()));
     QObject::connect(actionGenreMode, SIGNAL(triggered()), colView, SLOT(genreMode()));
-    QObject::connect(actionMarkMode, SIGNAL(triggered()), colView, SLOT(markMode()));
+    QObject::connect(actionSongMode, SIGNAL(triggered()), colView, SLOT(songMode()));
     QObject::connect(actionAddToCollection, SIGNAL(triggered()), colView, SLOT(addItem()));
     QObject::connect(actionRemoveFromCollection, SIGNAL(triggered()), colView, SLOT(removeItem()));
     QObject::connect(colView, SIGNAL(status(QString)), collectionStatus, SLOT(setText(QString)));
@@ -513,7 +513,7 @@ public:
     actionArtistMode->setText(QApplication::translate("CuberokClass", "Artist", 0, QApplication::UnicodeUTF8));
     actionAlbumMode->setText(QApplication::translate("CuberokClass", "Album", 0, QApplication::UnicodeUTF8));
     actionGenreMode->setText(QApplication::translate("CuberokClass", "Genre", 0, QApplication::UnicodeUTF8));
-    actionMarkMode->setText(QApplication::translate("CuberokClass", "Mark", 0, QApplication::UnicodeUTF8));
+    actionSongMode->setText(QApplication::translate("CuberokClass", "Song", 0, QApplication::UnicodeUTF8));
     actionAddToCollection->setText(QApplication::translate("CuberokClass", "Add Item", 0, QApplication::UnicodeUTF8));
     actionRemoveFromCollection->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));

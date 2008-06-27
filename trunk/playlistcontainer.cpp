@@ -17,6 +17,15 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	vboxLayout->addWidget(tabs);
 	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
 	connect(this, SIGNAL(internalnext()), this, SLOT(next()), Qt::QueuedConnection);
+	newButton = new QToolButton();
+	closeButton = new QToolButton();
+	newButton->setIcon(QIcon(":/icons/newtab.png"));
+	closeButton->setIcon(QIcon(":/icons/deltab.png"));
+	connect(newButton, SIGNAL(pressed()), this, SLOT(addList()));
+	connect(closeButton, SIGNAL(pressed()), this, SLOT(delList()));
+	tabs->setCornerWidget(newButton, Qt::TopLeftCorner);
+	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
+	
 	QDir dir(QDir::homePath() + "/.cuberok/");
 	QStringList filters;
 	filters << "*.m3u";
@@ -73,18 +82,10 @@ void PlaylistContainer::newList(QString listname)
 	curlist->setDragDropMode(QAbstractItemView::DragDrop);
 	curlist->setDropIndicatorShown(true);
 	curlist->setSortingEnabled(true);
-// 	curlist->viewAlbum(alv);
-// 	curlist->viewArtist(arv);
-// 	curlist->viewComment(cov);
-// 	curlist->viewTrack(trv);
-// 	curlist->viewTitle(tiv);
-// 	curlist->viewYear(yev);
-// 	curlist->viewGenre(gev);
-// 	curlist->viewFile(fiv);
-// 	curlist->viewLength(lev);
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
+	closeButton->setDisabled(false);
 }
 
 void PlaylistContainer::delList()
@@ -112,6 +113,7 @@ void PlaylistContainer::delList()
 		} else {
 			curlist = 0;
 		}
+		if(!lists.size()) closeButton->setDisabled(true);
 	}
 }
 void PlaylistContainer::renameList()

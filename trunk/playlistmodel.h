@@ -27,7 +27,7 @@ protected:
 	void cancelEvent();
 
 signals:
-	void sendFile(QString str, int *index, QList<QVariant>);
+	void sendFile(QString str, int index, QList<QVariant>);
 };
 
 class PlaylistModel: public QAbstractListModel
@@ -57,7 +57,7 @@ public:
     enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, ColumnCount};
     
 private slots:
-	void addItem(QString path, int *row, QList<QVariant>);
+	void addItem(QString path, int row, QList<QVariant>);
 
 private:
 	

@@ -4,7 +4,7 @@
 #include <QtGui>
 #include "ui_collectionview.h"
 
-typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_MARK} ListMode;
+typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG} ListMode;
 
 class CollectionFiller : public QThread
 {
@@ -70,7 +70,7 @@ public slots:
 	void artistMode();
 	void albumMode();
 	void genreMode();
-	void markMode();
+	void songMode();
 	void addItem();
 	void removeItem();
 	void renameItem();
