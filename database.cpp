@@ -80,9 +80,9 @@ int Database::AddFile(QString file)
 		q1.bindValue(":file", file);
 		q1.exec();
 		if (q1.next()) {
-			RefAttribute(nArtist, art, 1);
-			RefAttribute(nAlbum, alb, 1);
-			RefAttribute(nGenre, gen, 1);
+			RefAttribute(nArtist, art, 1, 0);
+			RefAttribute(nAlbum, alb, 1, 0);
+			RefAttribute(nGenre, gen, 1, 0);
 			return q.value(0).toString().toInt();
 		}
 	}
@@ -129,14 +129,15 @@ int Database::AddMark(QString mark)
 	return AddAttribute(nMark, mark);
 }
 
-void Database::RefAttribute(const QString attr, int id, int v)
+void Database::RefAttribute(const QString attr, int id, int v, int r)
 {
 	QSqlQuery q("", db);
-	q.prepare("select refs from "+attr+" where ID = "+QString::number(id));
+	q.prepare("select refs, rating from "+attr+" where ID = "+QString::number(id));
 	q.exec();
 	if( q.next() ) {
-		int r = q.value(0).toString().toInt() + v;
-		q.prepare("update "+attr+" set refs = "+QString::number(r)+" where ID = "+QString::number(id));
+		int refs = q.value(0).toString().toInt() + v;
+		int rating = q.value(1).toString().toInt() + r;
+		q.prepare("update "+attr+" set refs = "+QString::number(refs)+", rating = "+QString::number(rating)+" where ID = "+QString::number(id));
 		q.exec();
 	}
 }
@@ -144,18 +145,19 @@ void Database::RefAttribute(const QString attr, int id, int v)
 void Database::RemoveFile(QString file)
 {
 	QSqlQuery q("", db);
-	q.prepare("select Artist, Album, Genre, Mark from Song where File = :file");
+	q.prepare("select Artist, Album, Genre, Mark, Rating from Song where File = :file");
 	q.bindValue(":file", file);
 	q.exec();
 	if( q.next() ) {
-		RefAttribute(nArtist, q.value(0).toString().toInt(), -1);
-		RefAttribute(nAlbum, q.value(1).toString().toInt(), -1);
-		RefAttribute(nGenre, q.value(2).toString().toInt(), -1);
-		RefAttribute(nMark, q.value(3).toString().toInt(), -1);
+		int rating = q.value(4).toString().toInt();
+		RefAttribute(nArtist, q.value(0).toString().toInt(), -1, -rating);
+		RefAttribute(nAlbum, q.value(1).toString().toInt(), -1, -rating);
+		RefAttribute(nGenre, q.value(2).toString().toInt(), -1, -rating);
+		RefAttribute(nMark, q.value(3).toString().toInt(), -1, -rating);
+		q.prepare("delete from Song where File = :file");
+		q.bindValue(":file", file);
+		q.exec();
 	}
-	q.prepare("delete from Song where File = :file");
-	q.bindValue(":file", file);
-	q.exec();
 }
 
 void Database::RemoveAttribute(const QString attr, QString val)
@@ -200,11 +202,12 @@ void Database::RenameAttribute(const QString attr, QString oldval, QString newva
 			int oldID = AddAttribute(attr, oldval);
 			q.prepare("update Song set "+attr+" = "+QString::number(newID)+" where "+attr+" = "+QString::number(oldID));
 			q.exec();
-			q.prepare("select refs from "+attr+" where ID = "+QString::number(oldID));
+			q.prepare("select refs, rating from "+attr+" where ID = "+QString::number(oldID));
 			q.exec();
 			if(q.next()) {
 				int oldref = q.value(0).toString().toInt();
-				RefAttribute(attr, newID, oldref);
+				int oldrat = q.value(1).toString().toInt();
+				RefAttribute(attr, newID, oldref, oldrat);
 			}
 			RemoveAttribute(attr, oldval);
 		}
@@ -389,31 +392,32 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
 {
 	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
-	q.prepare("select Artist, Album, Genre from Song where File = :file");
+	q.prepare("select Artist, Album, Genre, Rating from Song where File = :file");
 	q.bindValue(":file", file);
 	q.exec();
 	if(q.next()) {
-		int _artistID, _albumID, _genreID;
+		int _artistID, _albumID, _genreID, _rating;
 		bool ok;
 		_artistID = q.value(0).toInt(&ok);
 		_albumID = q.value(1).toInt(&ok);
 		_genreID = q.value(2).toInt(&ok);
+		_rating  = q.value(3).toInt(&ok);
 		int artistID, albumID, genreID;
 		artistID = AddArtist(artist);
 		albumID = AddAlbum(album);
 		genreID = AddGenre(genre);
 		if(_artistID != artistID) {
-			RefAttribute(nArtist, _artistID, -1);
-			RefAttribute(nArtist, artistID, 1);
-		}
+			RefAttribute(nArtist, _artistID, -1, -_rating);
+			RefAttribute(nArtist, artistID, 1, rating);
+		} else RefAttribute(nArtist, artistID, 0, rating - _rating);
 		if(_albumID != albumID) {
-			RefAttribute(nAlbum, _albumID, -1);
-			RefAttribute(nAlbum, albumID, 1);
-		}
+			RefAttribute(nAlbum, _albumID, -1, -_rating);
+			RefAttribute(nAlbum, albumID, 1, rating);
+		} else RefAttribute(nAlbum, albumID, 0, rating - _rating);
 		if(_genreID != genreID) {
-			RefAttribute(nGenre, _genreID, -1);
-			RefAttribute(nGenre, genreID, 1);
-		}
+			RefAttribute(nGenre, _genreID, -1, -_rating);
+			RefAttribute(nGenre, genreID, 1, rating);
+		} else RefAttribute(nGenre, genreID, 0, rating - _rating);
 		q.prepare("update Song set Title = :title, Artist = "+QString::number(artistID)+", Album = "+QString::number(albumID)+", Comment = :comment, Genre = "+QString::number(genreID)+", Track = "+QString::number(track)+", Year = "+QString::number(year)+", Rating = "+QString::number(rating)+" where File = :file");
 		q.bindValue(":title", title);
 		q.bindValue(":comment", comment);
@@ -433,12 +437,12 @@ bool Database::SetMark(QString file, QString mark)
 	if(q.next()) {
 		bool ok;
 		int markID = q.value(0).toInt(&ok);
-		if(ok) RefAttribute(nMark, markID, -1);
+		if(ok) RefAttribute(nMark, markID, -1, 0);
 		markID = AddMark(mark);
 		q.prepare("update Song set Mark = "+QString::number(markID)+ " where File = :file");
 		q.bindValue(":file", file);
 		q.exec();
-		RefAttribute(nMark, markID, 1);
+		RefAttribute(nMark, markID, 1, 0);
 		return true;
 	}
 	return false;

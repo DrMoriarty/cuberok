@@ -58,7 +58,7 @@ private:
 	QString ssGenre;
 	QString ssMark;
 	QString ssFilter;
-	void RefAttribute(const QString attr, int id, int v);
+	void RefAttribute(const QString attr, int id, int v, int r);
 	int AddAttribute(const QString attr, QString val);
 	void RemoveAttribute(const QString attr, QString val);
 	void RenameAttribute(const QString attr, QString oldval, QString newval);

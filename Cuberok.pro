@@ -9,6 +9,7 @@ HEADERS += aboutdialog.h \
            collectionview.h \
            cuberok.h \
            database.h \
+           indicator.h \
            lookandfeel.h \
            main.h \
            player.h \
@@ -29,6 +30,7 @@ SOURCES += aboutdialog.cpp \
            collectionview.cpp \
            cuberok.cpp \
            database.cpp \
+           indicator.cpp \
            lookandfeel.cpp \
            main.cpp \
            player.cpp \

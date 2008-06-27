@@ -1,6 +1,7 @@
 #include "collectionview.h"
 #include "database.h"
 #include "tagger.h"
+#include "indicator.h"
 
 /************************
  *
@@ -11,13 +12,22 @@
 CollectionFiller::CollectionFiller(QList<QUrl> _urls, ListMode _mode, QString _attrname, QObject * parent) 
 : QThread(parent), urls(_urls), mode(_mode), attrname(_attrname)
 {
+	cancel = false;
+	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
+}
+
+CollectionFiller::~CollectionFiller()
+{
+	disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancel()));
 }
 
 void CollectionFiller::run()
 {
+	int taskID = Indicator::Self().addTask("Collect music");
 	foreach(QUrl url, urls) {
 		proceed(url.toLocalFile());
 	}
+	Indicator::Self().delTask(taskID);
 }
 
 void CollectionFiller::proceed(QString path)
@@ -54,6 +64,11 @@ void CollectionFiller::proceed(QString path)
 			else Database::Self().AddFile(path);
 		} else Database::Self().AddFile(path);
 	}
+}
+
+void CollectionFiller::cancelEvent()
+{
+	cancel = true;
 }
 
 /************************

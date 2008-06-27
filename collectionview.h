@@ -11,12 +11,17 @@ class CollectionFiller : public QThread
 	Q_OBJECT
 public:
 	CollectionFiller(QList<QUrl> _urls, ListMode _mode=M_ARTIST, QString _attrname=QString(""), QObject * parent = 0);
+	~CollectionFiller();
 	void run();
 private:
 	QList<QUrl> urls;
 	ListMode mode;
 	QString attrname;
 	void proceed(QString);
+	bool cancel;
+ private slots:
+	void cancelEvent();
+
 };
 
 class CollectionModel : public QStandardItemModel

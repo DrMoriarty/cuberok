@@ -3,6 +3,7 @@
 #include "lookandfeel.h"
 #include "tagger.h"
 #include "playlistsettings.h"
+#include "indicator.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent)
@@ -57,6 +58,8 @@ Cuberok::Cuberok(QWidget *parent)
     if(PLSet.columnVisible(PlaylistModel::Year)) ui.actionViewYear->trigger();
     if(PLSet.columnVisible(PlaylistModel::Comment)) ui.actionViewComment->trigger();
 	if(PLSet.columnVisible(PlaylistModel::File)) ui.actionViewFile->trigger();
+
+	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar->widgetForAction(ui.actionBreak)));
 }
 
 Cuberok::~Cuberok()

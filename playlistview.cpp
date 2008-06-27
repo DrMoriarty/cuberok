@@ -1,7 +1,9 @@
 #include "playlistview.h"
 #include "tageditor.h"
 #include "tagger.h"
+#include "database.h"
 #include "stardelegate.h"
+#include "starrating.h"
 #include "playlistsettings.h"
 
 /***********************
@@ -103,7 +105,7 @@ void PlaylistView::startDrag(Qt::DropActions supportedActions)
 
 // end drag&drop block
 
-void PlaylistView::addItem(QString item, int id, QModelIndex* ind)
+void PlaylistView::addItem(QVariant item, int id, QModelIndex* ind)
 {
 	//QMessageBox::information(0, tr(""), item);
 	//item.insert(0, QString::number(item.at(0).unicode()));
@@ -313,7 +315,7 @@ void PlaylistView::resetTags(QModelIndex& ind)
 {
 	QString path = model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toString();
 	QString title, artist, album, comment, genre, length;
-	int track, year;
+	int track, year, rating=0;
 	
 	Tagger::readTags(path, title, artist, album, comment, genre, track, year, length);
 	
@@ -324,6 +326,10 @@ void PlaylistView::resetTags(QModelIndex& ind)
 	addItem(comment, PlaylistModel::Comment, &ind);
 	addItem(QString::number(track), PlaylistModel::Track, &ind);
 	addItem(genre, PlaylistModel::Genre, &ind);
+
+	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
+		addItem(qVariantFromValue(StarRating(rating)), PlaylistModel::Rating, &ind);
+	}
 }
 
 void PlaylistView::removeSong()
