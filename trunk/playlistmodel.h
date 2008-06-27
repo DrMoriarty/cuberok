@@ -21,6 +21,11 @@ protected:
 	
 	QStringList paths;
 	int index;
+	bool cancel;
+
+ private slots:
+	void cancelEvent();
+
 signals:
 	void sendFile(QString str, int *index, QList<QVariant>);
 };

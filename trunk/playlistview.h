@@ -45,7 +45,7 @@ private:
 	bool autosave;
     
 private slots:
-	void addItem(QString item, int id, QModelIndex* ind = 0);
+	void addItem(QVariant item, int id, QModelIndex* ind = 0);
 	void playFinished();
 	void onClick( const QModelIndex & index );
 	void onDoubleClick( const QModelIndex & index );

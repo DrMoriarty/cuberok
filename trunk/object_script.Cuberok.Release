@@ -3,6 +3,7 @@ INPUT(
 ./win32/obj/collectionview.o
 ./win32/obj/cuberok.o
 ./win32/obj/database.o
+./win32/obj/indicator.o
 ./win32/obj/lookandfeel.o
 ./win32/obj/main.o
 ./win32/obj/player.o
@@ -19,6 +20,7 @@ INPUT(
 ./win32/obj/moc_aboutdialog.o
 ./win32/obj/moc_collectionview.o
 ./win32/obj/moc_cuberok.o
+./win32/obj/moc_indicator.o
 ./win32/obj/moc_lookandfeel.o
 ./win32/obj/moc_player.o
 ./win32/obj/moc_playlistcontainer.o

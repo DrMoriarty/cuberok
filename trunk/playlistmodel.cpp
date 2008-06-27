@@ -3,6 +3,7 @@
 #include "database.h"
 #include "tagger.h"
 #include "starrating.h"
+#include "indicator.h"
 
 static char *colnames[] = {"", "", "File", "Track", "Title", "Artist", "Album", "Comment", "Genre", "Year", "Length", "Rating"};
 
@@ -241,20 +242,28 @@ void PlaylistModel::setCurrent(int c)
 PlaylistFiller::PlaylistFiller(QStringList dir, int ind, QObject *parent) 
 : QThread(parent), paths(dir), index(ind)
 {
+	cancel = false;
+	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
 }
 
 PlaylistFiller::~PlaylistFiller()
 {
+	disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancel()));
 }
 
 void PlaylistFiller::run()
 {
-	foreach(QString s, paths)
+	int taskID = Indicator::Self().addTask("Filling playlist");
+	foreach(QString s, paths) {
+		if(cancel) break;
 		proceedDir(s);
+	}
+	Indicator::Self().delTask(taskID);
 }
 
 void PlaylistFiller::proceedDir(QString path)
 {
+	if(cancel) return;
 	QDir dir;
 	if(dir.cd(path)) {
 		foreach(QString file, dir.entryList()) {
@@ -291,4 +300,9 @@ void PlaylistFiller::proceedDir(QString path)
 		emit sendFile(path, &index, l);
 		setTerminationEnabled(true);
 	}
+}
+
+void PlaylistFiller::cancelEvent()
+{
+	cancel = true;
 }

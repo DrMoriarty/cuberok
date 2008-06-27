@@ -41,11 +41,11 @@
 
  #include "starrating.h"
 
- const int PaintingScaleFactor = 20;
+ const int PaintingScaleFactor = 14;
 
  StarRating::StarRating(int starCount, int maxStarCount)
  {
-     myStarCount = starCount;
+     myStarCount = starCount/10;
      myMaxStarCount = maxStarCount;
 
      starPolygon << QPointF(1.0, 0.5);
@@ -71,6 +71,7 @@
      painter->setRenderHint(QPainter::Antialiasing, true);
      painter->setPen(Qt::NoPen);
 
+	 QIcon icon(":/icons/star.png");
      if (mode == Editable) {
          painter->setBrush(palette.highlight());
      } else {
@@ -78,16 +79,19 @@
      }
 
      int yOffset = (rect.height() - PaintingScaleFactor) / 2;
+	 float step = (float)(rect.width() - PaintingScaleFactor) / (myMaxStarCount-1);
      painter->translate(rect.x(), rect.y() + yOffset);
-     painter->scale(PaintingScaleFactor, PaintingScaleFactor);
+     //painter->scale(PaintingScaleFactor, PaintingScaleFactor);
 
+	 QRect r(0,0,PaintingScaleFactor,PaintingScaleFactor);
      for (int i = 0; i < myMaxStarCount; ++i) {
          if (i < myStarCount) {
-             painter->drawPolygon(starPolygon, Qt::WindingFill);
+             //painter->drawPolygon(starPolygon, Qt::WindingFill);
+			 icon.paint(painter, r);
          } else if (mode == Editable) {
              painter->drawPolygon(diamondPolygon, Qt::WindingFill);
          }
-         painter->translate(1.0, 0.0);
+         painter->translate(0.7*PaintingScaleFactor, 0.0);
      }
 
      painter->restore();
