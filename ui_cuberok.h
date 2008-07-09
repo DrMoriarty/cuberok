@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Fri 27. Jun 15:56:36 2008
+** Created: Mon 7. Jul 16:50:47 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -29,9 +29,9 @@
 #include <QtGui/QTreeView>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
-#include <progressbar.h>
 #include "collectionview.h"
 #include "playlistcontainer.h"
+#include "progressbar.h"
 
 class Ui_CuberokClass
 {
@@ -231,8 +231,8 @@ public:
     hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
     progressBar = new ProgressBar(frame);
     progressBar->setObjectName(QString::fromUtf8("progressBar"));
-    progressBar->setMaximum(1000);
-    progressBar->setValue(0);
+    progressBar->setProperty("maximum", QVariant(1000));
+    progressBar->setProperty("value", QVariant(0));
     progressBar->setAlignment(Qt::AlignCenter);
 
     hboxLayout->addWidget(progressBar);
@@ -302,7 +302,8 @@ public:
     colView->setObjectName(QString::fromUtf8("colView"));
     colView->setContextMenuPolicy(Qt::ActionsContextMenu);
     colView->setAcceptDrops(true);
-    colView->setProperty("dragEnabled", QVariant(true));
+    colView->setDragEnabled(true);
+    colView->setFlow(QListView::TopToBottom);
     colView->setProperty("isWrapping", QVariant(true));
 
     vboxLayout1->addWidget(colView);

@@ -168,7 +168,7 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res = Database::Self().Songs(0, 0, &s, 0);
 		break;
 	case M_SONG:
-		res = Database::Self().Songs(0, 0, 0, 0);
+		/*res = Database::Self().Songs(0, 0, 0, 0);
 		{
 			QString fname;
 			QString title, artist, album, comment, genre, length;
@@ -181,7 +181,9 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 			}
 			res.clear();
 			if(fname.size()) res << fname;
-		}
+			}*/
+		res.clear();
+		res << itemFromIndex(i)->data().toString();
 		break;
 	}
 	QList<QUrl> urls;
@@ -222,44 +224,48 @@ Qt::DropActions CollectionModel::supportedDropActions() const
 
 void CollectionModel::updateMode(ListMode m)
 {
+	static QPixmap px_5(":/icons/stars5.png"), px_4(":/icons/stars4.png"), px_3(":/icons/stars3.png"), px_2(":/icons/stars2.png"), px_1(":/icons/stars1.png");
 	mode = m;
 	clear();
-	QMap<QString, int> data;
-	QIcon icon;
+	QList<struct Database::Attr> data;
+	QPixmap icon;
 	QString stat("Collection - ");
 	switch(m) {
 	case M_ARTIST:
 		if(searchPattern.length()) data = Database::Self().Artists(&searchPattern);
 		else data = Database::Self().Artists();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
-		icon = QIcon(":/icons/def_artist.png");
+		icon.load(":/icons/def_artist.png");
 		stat += QString::number(data.count())+QString(" ")+tr("artists");
 		break;
 	case M_ALBUM:
 		if(searchPattern.length()) data = Database::Self().Albums(&searchPattern);
 		else data = Database::Self().Albums();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_DriveCDIcon);
-		icon = QIcon(":/icons/def_album.png");
+		icon.load(":/icons/def_album.png");
 		stat += QString::number(data.count())+QString(" ")+tr("albums");
 		break;
 	case M_GENRE:
 		if(searchPattern.length()) data = Database::Self().Genres(&searchPattern);
 		else data = Database::Self().Genres();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
-		icon = QIcon(":/icons/def_genre.png");
+		icon.load(":/icons/def_genre.png");
 		stat += QString::number(data.count())+QString(" ")+tr("genres");
 		break;
 	case M_SONG: {
 		// TODO if(searchPattern.length()) data = Database::Self().Songs(&searchPattern);
 		/*else*/ 
 		QList<QString> data = Database::Self().Songs();
-		icon = QIcon(":/icons/def_mark.png");
+		QIcon icon(":/icons/def_mark.png");
 		stat += QString::number(data.count())+QString(" ")+tr("songs");
 		foreach(QString it, data) {
 			QString title, artist, album, comment, genre, length;
 			int track, year, rating;
-			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length))
-				appendRow(new QStandardItem(icon, title));
+			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length)) {
+				QStandardItem *row = new QStandardItem(icon, title);
+				row->setData(it);
+				appendRow(row);
+			}
 		}
 		emit status(stat);
 		return;
@@ -267,9 +273,18 @@ void CollectionModel::updateMode(ListMode m)
 	}
 	QString tt("");
 	QStandardItem *i;
-	for(QMap<QString, int>::const_iterator it = data.constBegin(); it != data.constEnd(); ++it) {
-		i = new QStandardItem(icon, it.key());
-		tt = QString::number(it.value()).append(QString(" ")+tr("songs"));
+	foreach(struct Database::Attr attr, data) {
+		QPixmap px2 = icon;
+		if(attr.rating >= 1) {
+			QPainter painter(&px2);
+			if(attr.rating >= 40) painter.drawPixmap(QPoint(0,0), px_5);
+			else if(attr.rating >= 30) painter.drawPixmap(QPoint(0,0), px_4);
+			else if(attr.rating >= 20) painter.drawPixmap(QPoint(0,0), px_3);
+			else if(attr.rating >= 10) painter.drawPixmap(QPoint(0,0), px_2);
+			else if(attr.rating >= 1)  painter.drawPixmap(QPoint(0,0), px_1);
+		}
+		i = new QStandardItem(QIcon(px2), attr.name);
+		tt = QString::number(attr.refs).append(QString(" ")+tr("songs"));
 		i->setToolTip(tt); 
 		appendRow(i);
 	}
@@ -290,8 +305,9 @@ CollectionView::CollectionView(QWidget *parent)
 	setModel(&model);
 	//setViewMode(QListView::IconMode);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
-	setWrapping(true);
-	//setFlow(QListView::TopToBottom);
+	//setWrapping(true);
+	setFlow(QListView::TopToBottom);
+	//setFlow(QListView::LeftToRight);
 	setLayoutMode(QListView::Batched);
 	setResizeMode(QListView::Adjust);
 	setAcceptDrops(true);
