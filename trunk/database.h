@@ -12,6 +12,11 @@ static const QString nArtist = "Artist",
 class Database
 {
 public:
+	struct Attr {
+		QString name;
+		int refs, rating;
+	};
+
 	static Database& Self();
 	virtual ~Database();
 	int AddFile(QString file);
@@ -30,10 +35,10 @@ public:
 	void RenameAlbum(QString oldval, QString newval);
 	void RenameGenre(QString oldval, QString newval);
 	void RenameMark(QString oldval, QString newval);
-	QMap<QString, int> Artists(QString *patt = 0);
-	QMap<QString, int> Albums(QString *patt = 0);
-	QMap<QString, int> Genres(QString *patt = 0);
-	QMap<QString, int> Marks(QString *patt = 0);
+	QList<struct Attr> Artists(QString *patt = 0);
+	QList<struct Attr> Albums(QString *patt = 0);
+	QList<struct Attr> Genres(QString *patt = 0);
+	QList<struct Attr> Marks(QString *patt = 0);
 	QList<QString> Songs(QString *ar = 0, QString *al = 0, QString *ge = 0, QString *ma = 0);
 	QString GetArtist(int);
 	QString GetAlbum(int);
@@ -62,7 +67,7 @@ private:
 	int AddAttribute(const QString attr, QString val);
 	void RemoveAttribute(const QString attr, QString val);
 	void RenameAttribute(const QString attr, QString oldval, QString newval);
-	QMap<QString, int> Attributes(const QString attr, QString *patt = 0);
+	QList<struct Attr> Attributes(const QString attr, QString *patt = 0);
 	QString subsetFilter();
 	QMutex lock;
 };

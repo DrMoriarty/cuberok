@@ -137,8 +137,13 @@ void Database::RefAttribute(const QString attr, int id, int v, int r)
 	if( q.next() ) {
 		int refs = q.value(0).toString().toInt() + v;
 		int rating = q.value(1).toString().toInt() + r;
-		q.prepare("update "+attr+" set refs = "+QString::number(refs)+", rating = "+QString::number(rating)+" where ID = "+QString::number(id));
-		q.exec();
+		if(refs > 0) {
+			q.prepare("update "+attr+" set refs = "+QString::number(refs)+", rating = "+QString::number(rating)+" where ID = "+QString::number(id));
+			q.exec();
+		} else {
+			q.prepare("delete from "+attr+" where ID = "+QString::number(id));
+			q.exec();
+		}
 	}
 }
 
@@ -239,46 +244,50 @@ void Database::RenameMark(QString oldval, QString newval)
 	RenameAttribute(nMark, oldval, newval);
 }
 
-QMap<QString, int> Database::Attributes(const QString attr, QString *patt)
+QList<struct Database::Attr> Database::Attributes(const QString attr, QString *patt)
 {
 	QMutexLocker locker(&lock);
-	QMap<QString, int> res;
+	QList<struct Database::Attr> res;
 	QSqlQuery q("", db);
 	if(subset) {
-		QString com = "select distinct A.value, A.refs from Song left join "+attr+" as A on Song."+attr+"=A.ID where "+ssFilter;
+		QString com = "select distinct A.value, A.refs, A.rating/A.refs as WR from Song left join "+attr+" as A on Song."+attr+"=A.ID where "+ssFilter;
 		if(patt)  com += " and A.value like :pattern ";
-		com += " order by A.value";
+		com += " order by WR DESC, A.value ASC";
 		q.prepare(com);
 		if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
 	} else {
 		if(patt) {
-			q.prepare("select value, refs from "+attr+" where value like :pattern order by value");
+			q.prepare("select value, refs, rating/refs as WR from "+attr+" where value like :pattern order by WR DESC, value ASC");
 			q.bindValue(":pattern", QString("%")+*patt+QString("%"));
-		} else q.prepare("select value, refs from "+attr+" order by value");
+		} else q.prepare("select value, refs, rating/refs as WR from "+attr+" order by WR DESC, value ASC");
 	}
 	q.exec();
 	while(q.next()) {
-		res[q.value(0).toString()] = q.value(1).toString().toInt();
+		struct Attr attr;
+		attr.name = q.value(0).toString();
+		attr.refs = q.value(1).toString().toInt();
+		attr.rating = q.value(2).toString().toInt();
+		res << attr;
 	}
 	return res;
 }
 
-QMap<QString, int> Database::Artists(QString *patt)
+QList<struct Database::Attr> Database::Artists(QString *patt)
 {
 	return Attributes(nArtist, patt);
 }
 
-QMap<QString, int> Database::Albums(QString *patt)
+QList<struct Database::Attr> Database::Albums(QString *patt)
 {
 	return Attributes(nAlbum, patt);
 }
 
-QMap<QString, int> Database::Genres(QString *patt)
+QList<struct Database::Attr> Database::Genres(QString *patt)
 {
 	return Attributes(nGenre, patt);
 }
 
-QMap<QString, int> Database::Marks(QString *patt)
+QList<struct Database::Attr> Database::Marks(QString *patt)
 {
 	return Attributes(nMark, patt);
 }

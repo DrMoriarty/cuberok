@@ -25,6 +25,7 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	//setSortingEnabled(true);
 	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
+	sortByColumn(PlaylistModel::Artist, Qt::AscendingOrder);
 	if(plistname.size()) {  // read stored playlist
 		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
 		if(QFile::exists(fname)) {

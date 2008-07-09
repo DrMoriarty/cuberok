@@ -68,11 +68,11 @@
       </property>
       <layout class="QHBoxLayout" >
        <item>
-        <widget class="ProgressBar" name="progressBar" >
-         <property name="maximum" >
+        <widget class="ProgressBar" native="1" name="progressBar" >
+         <property name="maximum" stdset="0" >
           <number>1000</number>
          </property>
-         <property name="value" >
+         <property name="value" stdset="0" >
           <number>0</number>
          </property>
          <property name="alignment" >
@@ -203,15 +203,18 @@
       </widget>
      </item>
      <item>
-      <widget class="CollectionView" native="1" name="colView" >
+      <widget class="CollectionView" name="colView" >
        <property name="contextMenuPolicy" >
         <enum>Qt::ActionsContextMenu</enum>
        </property>
        <property name="acceptDrops" >
         <bool>true</bool>
        </property>
-       <property name="dragEnabled" stdset="0" >
+       <property name="dragEnabled" >
         <bool>true</bool>
+       </property>
+       <property name="flow" >
+        <enum>QListView::TopToBottom</enum>
        </property>
        <property name="isWrapping" stdset="0" >
         <bool>true</bool>
@@ -696,8 +699,13 @@
    <header>playlistcontainer.h</header>
   </customwidget>
   <customwidget>
+   <class>ProgressBar</class>
+   <extends>QProgressBar</extends>
+   <header>progressbar.h</header>
+  </customwidget>
+  <customwidget>
    <class>CollectionView</class>
-   <extends>QWidget</extends>
+   <extends>QListView</extends>
    <header>collectionview.h</header>
   </customwidget>
  </customwidgets>

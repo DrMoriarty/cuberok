@@ -12,5 +12,10 @@
         <file alias="star.png" >images/star2s.png</file>
         <file alias="newtab.png" >images/addtab.png</file>
         <file alias="deltab.png" >images/closetab.png</file>
+        <file alias="stars1.png" >images/rating1.png</file>
+        <file alias="stars2.png" >images/rating2.png</file>
+        <file alias="stars3.png" >images/rating3.png</file>
+        <file alias="stars4.png" >images/rating4.png</file>
+        <file alias="stars5.png" >images/rating5.png</file>
     </qresource>
 </RCC>
