@@ -70,7 +70,7 @@ void PlaylistContainer::addList()
 
 void PlaylistContainer::newList(QString listname)
 {
-	if(!listname.size()) listname = "Playlist "+QString::number(++counter);
+	if(!listname.size()) listname = tr("Playlist")+" "+QString::number(++counter);
 	PlaylistView *pl = new PlaylistView(listname, this); 
 	lists.append(pl);
 	tabs->addTab(lists.last(), listname);

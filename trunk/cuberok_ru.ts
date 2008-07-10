@@ -36,22 +36,63 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="src/collectionview.cpp" line="239"/>
         <source>artists</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">исполнителей</translation>
     </message>
     <message>
         <location filename="src/collectionview.cpp" line="246"/>
         <source>albums</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">альбомов</translation>
     </message>
     <message>
         <location filename="src/collectionview.cpp" line="253"/>
         <source>genres</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">жанров</translation>
     </message>
     <message>
         <location filename="src/collectionview.cpp" line="287"/>
         <source>songs</source>
-        <translation type="unfinished"></translation>
+        <translation>композиций</translation>
+    </message>
+    <message>
+        <location filename="src/collectionview.cpp" line="232"/>
+        <source>Collection</source>
+        <translation type="obsolete">Коллекция</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="src/collectionview.cpp" line="239"/>
+        <source>Collection - %n artist(s)</source>
+        <translation>
+            <numerusform>Коллекция - %n исполнитель</numerusform>
+            <numerusform>Коллекция - %n исполнителя</numerusform>
+            <numerusform>Коллекция - %n исполнителей</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="src/collectionview.cpp" line="246"/>
+        <source>Collection - %n album(s)</source>
+        <translation>
+            <numerusform>Коллекция - %n альбом</numerusform>
+            <numerusform>Коллекция - %n альбома</numerusform>
+            <numerusform>Коллекция - %n альбомов</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="src/collectionview.cpp" line="253"/>
+        <source>Collection - %n genre(s)</source>
+        <translation>
+            <numerusform>Коллекция - %n жанр</numerusform>
+            <numerusform>Коллекция - %n жанра</numerusform>
+            <numerusform>Коллекция - %n жанров</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="src/collectionview.cpp" line="260"/>
+        <source>Collection - %n song(s)</source>
+        <translation>
+            <numerusform>Коллекция - %n композиция</numerusform>
+            <numerusform>Коллекция - %n композиции</numerusform>
+            <numerusform>Коллекция - %n композиций</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -136,8 +177,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="src/cuberok.ui" line="367"/>
-        <source>toolBar</source>
-        <translation type="unfinished"></translation>
+        <source>Toolbar</source>
+        <translation>Инструменты</translation>
     </message>
     <message>
         <location filename="src/cuberok.ui" line="395"/>
@@ -449,16 +490,69 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>PlaylistContainer</name>
+    <message>
+        <location filename="src/playlistcontainer.cpp" line="73"/>
+        <source>Playlist</source>
+        <translation>Список</translation>
+    </message>
+</context>
+<context>
     <name>PlaylistModel</name>
     <message>
-        <location filename="src/playlistmodel.cpp" line="97"/>
+        <location filename="src/playlistmodel.cpp" line="95"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="src/playlistmodel.cpp" line="70"/>
-        <source></source>
-        <translation type="unfinished"></translation>
+        <location filename="src/playlistmodel.cpp" line="160"/>
+        <source>File</source>
+        <translation>Файл</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="161"/>
+        <source>Track</source>
+        <translation>Трек</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="162"/>
+        <source>Title</source>
+        <translation>Название</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="163"/>
+        <source>Artist</source>
+        <translation>Исполнитель</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="164"/>
+        <source>Album</source>
+        <translation>Альбом</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="165"/>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="166"/>
+        <source>Genre</source>
+        <translation>Жанр</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="167"/>
+        <source>Year</source>
+        <translation>Год</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="168"/>
+        <source>Length</source>
+        <translation>Длительность</translation>
+    </message>
+    <message>
+        <location filename="src/playlistmodel.cpp" line="169"/>
+        <source>Rating</source>
+        <translation>Рэйтинг</translation>
     </message>
 </context>
 <context>

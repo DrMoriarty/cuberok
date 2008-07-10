@@ -1,26 +1,26 @@
 <RCC>
     <qresource prefix="/icons" >
-        <file alias="def_mark.png" >images/emblem-distinguished.png</file>
-        <file>images/emblem-noread.png</file>
-        <file alias="def_genre.png" >images/gnome-audio.png</file>
-        <file>images/gnome-cdplayer-icon.png</file>
-        <file alias="def_album.png" >images/gnome-dev-cdrom-audio.png</file>
-        <file alias="application.png" >images/MatieresExplosives.png</file>
-        <file>images/s_check_off.png</file>
-        <file>images/stock_notes.png</file>
-        <file alias="def_artist.png" >images/stock_person.png</file>
-        <file alias="star.png" >images/star2s.png</file>
-        <file alias="newtab.png" >images/addtab.png</file>
-        <file alias="deltab.png" >images/closetab.png</file>
-        <file alias="stars1.png" >images/rating1.png</file>
-        <file alias="stars2.png" >images/rating2.png</file>
-        <file alias="stars3.png" >images/rating3.png</file>
-        <file alias="stars4.png" >images/rating4.png</file>
-        <file alias="stars5.png" >images/rating5.png</file>
-        <file alias="butt_backward.png" >images/gray_backward.png</file>
-        <file alias="butt_forward.png" >images/gray_forward.png</file>
-        <file alias="butt_play.png" >images/gray_play.png</file>
-        <file alias="butt_pause.png" >images/gray_pause.png</file>
-        <file alias="butt_stop.png" >images/gray_stop.png</file>
+        <file alias="def_mark.png" >../images/emblem-distinguished.png</file>
+        <file>../images/emblem-noread.png</file>
+        <file alias="def_genre.png" >../images/gnome-audio.png</file>
+        <file>../images/gnome-cdplayer-icon.png</file>
+        <file alias="def_album.png" >../images/gnome-dev-cdrom-audio.png</file>
+        <file alias="application.png" >../images/MatieresExplosives.png</file>
+        <file>../images/s_check_off.png</file>
+        <file>../images/stock_notes.png</file>
+        <file alias="def_artist.png" >../images/stock_person.png</file>
+        <file alias="star.png" >../images/star2s.png</file>
+        <file alias="newtab.png" >../images/addtab.png</file>
+        <file alias="deltab.png" >../images/closetab.png</file>
+        <file alias="stars1.png" >../images/rating1.png</file>
+        <file alias="stars2.png" >../images/rating2.png</file>
+        <file alias="stars3.png" >../images/rating3.png</file>
+        <file alias="stars4.png" >../images/rating4.png</file>
+        <file alias="stars5.png" >../images/rating5.png</file>
+        <file alias="butt_backward.png" >../images/gray_backward.png</file>
+        <file alias="butt_forward.png" >../images/gray_forward.png</file>
+        <file alias="butt_play.png" >../images/gray_play.png</file>
+        <file alias="butt_pause.png" >../images/gray_pause.png</file>
+        <file alias="butt_stop.png" >../images/gray_stop.png</file>
     </qresource>
 </RCC>
