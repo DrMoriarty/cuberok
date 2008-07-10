@@ -5,8 +5,6 @@
 #include "starrating.h"
 #include "indicator.h"
 
-static char *colnames[] = {"", "", "File", "Track", "Title", "Artist", "Album", "Comment", "Genre", "Year", "Length", "Rating"};
-
 PlaylistModel::PlaylistModel(QObject *parent) : QAbstractListModel(parent),
 _current(1)
 {
@@ -67,7 +65,7 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
     	}
     	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
 		if(!connect(filler, SIGNAL(sendFile(QString, int, QList<QVariant>)), this, SLOT(addItem(QString, int, QList<QVariant>)), Qt::QueuedConnection))
-			QMessageBox::information(0, tr(""), "connection error");
+			QMessageBox::information(0, "", "connection error");
 		//filler->setPriority();
 		filler->start(QThread::IdlePriority);
     }
@@ -158,7 +156,20 @@ QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation,
         return QVariant();
 
     if (orientation == Qt::Horizontal)
-        return QString("%1").arg(colnames[section]);
+		switch(section) {
+		case 2: return tr("File");
+		case 3: return tr("Track");
+		case 4: return tr("Title");
+		case 5: return tr("Artist");
+		case 6: return tr("Album");
+		case 7: return tr("Comment");
+		case 8: return tr("Genre");
+		case 9: return tr("Year");
+		case 10: return tr("Length");
+		case 11: return tr("Rating");
+		default: return "";
+		}
+		//return tr(colnames[section]);
     else
         return QString("%1").arg(section);
 } 

@@ -229,35 +229,35 @@ void CollectionModel::updateMode(ListMode m)
 	clear();
 	QList<struct Database::Attr> data;
 	QPixmap icon;
-	QString stat("Collection - ");
+	QString stat;
 	switch(m) {
 	case M_ARTIST:
 		if(searchPattern.length()) data = Database::Self().Artists(&searchPattern);
 		else data = Database::Self().Artists();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
 		icon.load(":/icons/def_artist.png");
-		stat += QString::number(data.count())+QString(" ")+tr("artists");
+		stat = tr("Collection - %n artist(s)", "", data.count());
 		break;
 	case M_ALBUM:
 		if(searchPattern.length()) data = Database::Self().Albums(&searchPattern);
 		else data = Database::Self().Albums();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_DriveCDIcon);
 		icon.load(":/icons/def_album.png");
-		stat += QString::number(data.count())+QString(" ")+tr("albums");
+		stat = tr("Collection - %n album(s)", "", data.count());
 		break;
 	case M_GENRE:
 		if(searchPattern.length()) data = Database::Self().Genres(&searchPattern);
 		else data = Database::Self().Genres();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
 		icon.load(":/icons/def_genre.png");
-		stat += QString::number(data.count())+QString(" ")+tr("genres");
+		stat = tr("Collection - %n genre(s)", "", data.count());
 		break;
 	case M_SONG: {
 		// TODO if(searchPattern.length()) data = Database::Self().Songs(&searchPattern);
 		/*else*/ 
 		QList<QString> data = Database::Self().Songs();
 		QIcon icon(":/icons/def_mark.png");
-		stat += QString::number(data.count())+QString(" ")+tr("songs");
+		stat = tr("Collection - %n song(s)", "", data.count());
 		foreach(QString it, data) {
 			QString title, artist, album, comment, genre, length;
 			int track, year, rating;
@@ -510,18 +510,21 @@ void CollectionView::applySubset(QModelIndex ind)
 	switch(model.mode) {
 	case M_ALBUM:
 		Database::Self().subsetAlbum(value);
+		model.updateMode(M_SONG);
 		break;
 	case M_ARTIST:
 		Database::Self().subsetArtist(value);
+		model.updateMode(M_ALBUM);
 		break;
 	case M_GENRE:
 		Database::Self().subsetGenre(value);
+		model.updateMode(M_ARTIST);
 		break;
 	case M_SONG:
 		//Database::Self().subsetMark(value);
 		return;
 	}
-	model.update();
+	//model.update();
 }
 
 void CollectionView::clearSubset()

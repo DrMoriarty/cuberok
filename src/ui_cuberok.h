@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 10. Jul 10:35:29 2008
+** Created: Thu 10. Jul 12:45:29 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -541,7 +541,7 @@ public:
     menuColumns->setTitle(QApplication::translate("CuberokClass", "Columns", 0, QApplication::UnicodeUTF8));
     listStatus->setText(QApplication::translate("CuberokClass", "List", 0, QApplication::UnicodeUTF8));
     collectionStatus->setText(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
-    toolBar->setWindowTitle(QApplication::translate("CuberokClass", "toolBar", 0, QApplication::UnicodeUTF8));
+    toolBar->setWindowTitle(QApplication::translate("CuberokClass", "Toolbar", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
