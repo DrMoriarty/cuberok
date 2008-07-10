@@ -68,11 +68,11 @@
       </property>
       <layout class="QHBoxLayout" >
        <item>
-        <widget class="ProgressBar" native="1" name="progressBar" >
-         <property name="maximum" stdset="0" >
+        <widget class="ProgressBar" name="progressBar" >
+         <property name="maximum" >
           <number>1000</number>
          </property>
-         <property name="value" stdset="0" >
+         <property name="value" >
           <number>0</number>
          </property>
          <property name="alignment" >
@@ -298,7 +298,6 @@
     <property name="title" >
      <string>Control</string>
     </property>
-    <addaction name="actionBreak" />
     <addaction name="actionPrev" />
     <addaction name="actionPause" />
     <addaction name="actionPlay" />
@@ -376,8 +375,9 @@
    <addaction name="actionBreak" />
    <addaction name="separator" />
    <addaction name="actionPrev" />
-   <addaction name="actionPause" />
    <addaction name="actionPlay" />
+   <addaction name="actionPause" />
+   <addaction name="actionStop" />
    <addaction name="actionNext" />
    <addaction name="separator" />
    <addaction name="actionShuffle" />
@@ -416,6 +416,9 @@
    </property>
   </action>
   <action name="actionPrev" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/butt_backward.png</iconset>
+   </property>
    <property name="text" >
     <string>Previous</string>
    </property>
@@ -430,6 +433,9 @@
    </property>
   </action>
   <action name="actionNext" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/butt_forward.png</iconset>
+   </property>
    <property name="text" >
     <string>Next</string>
    </property>
@@ -447,6 +453,9 @@
    <property name="checkable" >
     <bool>true</bool>
    </property>
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/butt_pause.png</iconset>
+   </property>
    <property name="text" >
     <string>Pause</string>
    </property>
@@ -461,6 +470,9 @@
    </property>
   </action>
   <action name="actionPlay" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/butt_play.png</iconset>
+   </property>
    <property name="text" >
     <string>Play</string>
    </property>
@@ -689,6 +701,20 @@
   <action name="actionRemoveFromCollection" >
    <property name="text" >
     <string>Remove Item</string>
+   </property>
+  </action>
+  <action name="actionStop" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/butt_stop.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Stop</string>
+   </property>
+   <property name="iconText" >
+    <string>[]</string>
+   </property>
+   <property name="statusTip" >
+    <string>Stop</string>
    </property>
   </action>
  </widget>
@@ -1366,6 +1392,22 @@
     <hint type="destinationlabel" >
      <x>35</x>
      <y>109</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionStop</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>stop()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>435</x>
+     <y>128</y>
     </hint>
    </hints>
   </connection>

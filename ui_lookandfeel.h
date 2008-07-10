@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'lookandfeel.ui'
 **
-** Created: Mon 28. Jan 14:17:40 2008
+** Created: Thu 10. Jul 11:20:14 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -84,6 +84,7 @@ public:
     if (LookAndFeelClass->objectName().isEmpty())
         LookAndFeelClass->setObjectName(QString::fromUtf8("LookAndFeelClass"));
     LookAndFeelClass->resize(560, 392);
+    LookAndFeelClass->setWindowIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     gridLayout = new QGridLayout(LookAndFeelClass);
     gridLayout->setSpacing(6);
     gridLayout->setMargin(11);

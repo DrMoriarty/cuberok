@@ -35,6 +35,7 @@ public slots:
 	void next();
 	void play();
 	void pause(bool);
+	void stop();
 	void repeat(bool mode);
 	void shuffle(bool mode);
 	void setVolume(int volume); 

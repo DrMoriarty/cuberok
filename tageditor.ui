@@ -12,6 +12,9 @@
   <property name="windowTitle" >
    <string>TagEditor</string>
   </property>
+  <property name="windowIcon" >
+   <iconset resource="resource.qrc" >:/icons/application.png</iconset>
+  </property>
   <layout class="QGridLayout" >
    <item row="1" column="0" colspan="3" >
     <widget class="QLineEdit" name="label" >
@@ -152,7 +155,9 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
- <resources/>
+ <resources>
+  <include location="resource.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>pushButton_Save</sender>

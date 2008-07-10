@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'tageditor.ui'
 **
-** Created: Wed 25. Jun 14:26:56 2008
+** Created: Thu 10. Jul 11:20:14 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -53,6 +53,7 @@ public:
     if (TagEditorClass->objectName().isEmpty())
         TagEditorClass->setObjectName(QString::fromUtf8("TagEditorClass"));
     TagEditorClass->resize(322, 382);
+    TagEditorClass->setWindowIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     gridLayout = new QGridLayout(TagEditorClass);
     gridLayout->setSpacing(6);
     gridLayout->setMargin(11);
