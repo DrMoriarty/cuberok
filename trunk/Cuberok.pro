@@ -5,46 +5,47 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . 
 # Input
-HEADERS += aboutdialog.h \
-           collectionview.h \
-           cuberok.h \
-           database.h \
-           indicator.h \
-           lookandfeel.h \
-           main.h \
-           player.h \
-           playlistcontainer.h \
-           playlistmodel.h \
-           playlistsettings.h \
-           playlistview.h \
-           progressbar.h \
-           stardelegate.h \
-           stareditor.h \
-           starrating.h \
-           tageditor.h \
-           tagger.h 
+HEADERS += src/aboutdialog.h \
+           src/collectionview.h \
+           src/cuberok.h \
+           src/database.h \
+           src/indicator.h \
+           src/lookandfeel.h \
+           src/main.h \
+           src/player.h \
+           src/playlistcontainer.h \
+           src/playlistmodel.h \
+           src/playlistsettings.h \
+           src/playlistview.h \
+           src/progressbar.h \
+           src/stardelegate.h \
+           src/stareditor.h \
+           src/starrating.h \
+           src/tageditor.h \
+           src/tagger.h 
 
-FORMS += aboutdialog.ui collectionview.ui cuberok.ui lookandfeel.ui tageditor.ui
+FORMS += src/aboutdialog.ui src/collectionview.ui src/cuberok.ui src/lookandfeel.ui src/tageditor.ui
+TRANSLATIONS = cuberok_ru.ts
 
-SOURCES += aboutdialog.cpp \
-           collectionview.cpp \
-           cuberok.cpp \
-           database.cpp \
-           indicator.cpp \
-           lookandfeel.cpp \
-           main.cpp \
-           player.cpp \
-           playlistcontainer.cpp \
-           playlistmodel.cpp \
-           playlistsettings.cpp \
-           playlistview.cpp \
-           progressbar.cpp \
-           stardelegate.cpp \
-           stareditor.cpp \
-           starrating.cpp \
-           tageditor.cpp \
-           tagger.cpp
-RESOURCES += resource.qrc
+SOURCES += src/aboutdialog.cpp \
+           src/collectionview.cpp \
+           src/cuberok.cpp \
+           src/database.cpp \
+           src/indicator.cpp \
+           src/lookandfeel.cpp \
+           src/main.cpp \
+           src/player.cpp \
+           src/playlistcontainer.cpp \
+           src/playlistmodel.cpp \
+           src/playlistsettings.cpp \
+           src/playlistview.cpp \
+           src/progressbar.cpp \
+           src/stardelegate.cpp \
+           src/stareditor.cpp \
+           src/starrating.cpp \
+           src/tageditor.cpp \
+           src/tagger.cpp
+RESOURCES += src/resource.qrc
 
 win32 {
     DESTDIR = ./win32
@@ -85,3 +86,4 @@ unix {
 OBJECTS_DIR = $${DESTDIR}/obj
 MOC_DIR = $${DESTDIR}/obj
 RCC_DIR = $${DESTDIR}/obj
+UI_DIR = src
