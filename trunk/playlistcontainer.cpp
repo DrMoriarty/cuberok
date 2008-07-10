@@ -135,6 +135,10 @@ void PlaylistContainer::pause(bool b)
 { 
     Player::Self().setPause(b);
 }
+void PlaylistContainer::stop()
+{
+	if(actlist) actlist->stop();
+}
 void PlaylistContainer::repeat(bool mode)
 { 
     Player::Self().repeat_mode = mode;

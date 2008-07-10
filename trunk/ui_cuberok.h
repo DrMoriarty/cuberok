@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Mon 7. Jul 16:50:47 2008
+** Created: Thu 10. Jul 10:35:29 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -68,6 +68,7 @@ public:
     QAction *actionSongMode;
     QAction *actionAddToCollection;
     QAction *actionRemoveFromCollection;
+    QAction *actionStop;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -118,13 +119,17 @@ public:
     actionBreak->setCheckable(false);
     actionPrev = new QAction(CuberokClass);
     actionPrev->setObjectName(QString::fromUtf8("actionPrev"));
+    actionPrev->setIcon(QIcon(QString::fromUtf8(":/icons/butt_backward.png")));
     actionNext = new QAction(CuberokClass);
     actionNext->setObjectName(QString::fromUtf8("actionNext"));
+    actionNext->setIcon(QIcon(QString::fromUtf8(":/icons/butt_forward.png")));
     actionPause = new QAction(CuberokClass);
     actionPause->setObjectName(QString::fromUtf8("actionPause"));
     actionPause->setCheckable(true);
+    actionPause->setIcon(QIcon(QString::fromUtf8(":/icons/butt_pause.png")));
     actionPlay = new QAction(CuberokClass);
     actionPlay->setObjectName(QString::fromUtf8("actionPlay"));
+    actionPlay->setIcon(QIcon(QString::fromUtf8(":/icons/butt_play.png")));
     actionShuffle = new QAction(CuberokClass);
     actionShuffle->setObjectName(QString::fromUtf8("actionShuffle"));
     actionShuffle->setCheckable(true);
@@ -199,6 +204,9 @@ public:
     actionAddToCollection->setObjectName(QString::fromUtf8("actionAddToCollection"));
     actionRemoveFromCollection = new QAction(CuberokClass);
     actionRemoveFromCollection->setObjectName(QString::fromUtf8("actionRemoveFromCollection"));
+    actionStop = new QAction(CuberokClass);
+    actionStop->setObjectName(QString::fromUtf8("actionStop"));
+    actionStop->setIcon(QIcon(QString::fromUtf8(":/icons/butt_stop.png")));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
@@ -231,8 +239,8 @@ public:
     hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
     progressBar = new ProgressBar(frame);
     progressBar->setObjectName(QString::fromUtf8("progressBar"));
-    progressBar->setProperty("maximum", QVariant(1000));
-    progressBar->setProperty("value", QVariant(0));
+    progressBar->setMaximum(1000);
+    progressBar->setValue(0);
     progressBar->setAlignment(Qt::AlignCenter);
 
     hboxLayout->addWidget(progressBar);
@@ -380,7 +388,6 @@ public:
     menuFile->addSeparator();
     menuFile->addAction(actionExit);
     menuHelp->addAction(actionAbout);
-    menuControl->addAction(actionBreak);
     menuControl->addAction(actionPrev);
     menuControl->addAction(actionPause);
     menuControl->addAction(actionPlay);
@@ -404,8 +411,9 @@ public:
     toolBar->addAction(actionBreak);
     toolBar->addSeparator();
     toolBar->addAction(actionPrev);
-    toolBar->addAction(actionPause);
     toolBar->addAction(actionPlay);
+    toolBar->addAction(actionPause);
+    toolBar->addAction(actionStop);
     toolBar->addAction(actionNext);
     toolBar->addSeparator();
     toolBar->addAction(actionShuffle);
@@ -457,6 +465,7 @@ public:
     QObject::connect(colView, SIGNAL(setVisibleSubsetWidgets(bool)), subsetDisableButton, SLOT(setVisible(bool)));
     QObject::connect(subsetDisableButton, SIGNAL(clicked()), colView, SLOT(clearSubset()));
     QObject::connect(colView, SIGNAL(setSubsetLabel(QString)), subsetLabel, SLOT(setText(QString)));
+    QObject::connect(actionStop, SIGNAL(triggered()), listView, SLOT(stop()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -517,6 +526,9 @@ public:
     actionSongMode->setText(QApplication::translate("CuberokClass", "Song", 0, QApplication::UnicodeUTF8));
     actionAddToCollection->setText(QApplication::translate("CuberokClass", "Add Item", 0, QApplication::UnicodeUTF8));
     actionRemoveFromCollection->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
+    actionStop->setText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
+    actionStop->setIconText(QApplication::translate("CuberokClass", "[]", 0, QApplication::UnicodeUTF8));
+    actionStop->setStatusTip(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setText(QApplication::translate("CuberokClass", "...", 0, QApplication::UnicodeUTF8));

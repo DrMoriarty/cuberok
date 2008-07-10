@@ -40,6 +40,7 @@ class Player : public QObject, StopCallback
     QTimer *timer;
     QSemaphore sem;
     bool sync;
+	bool paused;
 
  private slots:
     void timerUpdate();

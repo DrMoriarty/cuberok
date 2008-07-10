@@ -1,7 +1,7 @@
 #include "player.h"
 #define TIME 200
 
-Player::Player() : QObject(0), repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false)
+Player::Player() : QObject(0), repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false), paused(false)
 {
     device = OpenDevice();
     device->registerCallback(this);
@@ -28,8 +28,8 @@ void Player::unref() {}
 void Player::streamStopped(StopEvent* event)
 {
     if(sync) {
-	sync = false;
-	sem.release();
+		sync = false;
+		sem.release();
     } else emit finish();
 }
 
@@ -44,9 +44,9 @@ bool Player::open(QString fname)
 bool Player::play()
 {
     if(stream) {
-	stream->play();
-	timer->start(TIME);
-	return true;
+		stream->play();
+		timer->start(TIME);
+		return true;
     }
     return false;
 }
@@ -54,8 +54,9 @@ bool Player::play()
 bool Player::stop()
 {
     if(stream && stream->isPlaying()) {
-	stream->reset();
-	return true;
+		sync_stop();
+		stream->reset();
+		return true;
     }
     return false;
 }
@@ -63,14 +64,16 @@ bool Player::stop()
 bool Player::setPause(bool p)
 {
     if(p && stream && stream->isPlaying()) {
-	timer->stop();
-	sync_stop();
-	return true;
+		timer->stop();
+		sync_stop();
+		paused = true;
+		return true;
     }
-    if(!p && stream && !stream->isPlaying()) {
-	stream->play();
-	timer->start(TIME);
-	return true;
+    if(!p && stream && paused) {
+		stream->play();
+		timer->start(TIME);
+		paused = false;
+		return true;
     }
     return false;
 }
@@ -78,10 +81,10 @@ bool Player::setPause(bool p)
 bool Player::close()
 {
     if(stream) {
-	timer->stop();
-	sync_stop();
-	stream = 0;
-	return true;
+		timer->stop();
+		sync_stop();
+		stream = 0;
+		return true;
     }
     return false;
 }
@@ -89,7 +92,7 @@ bool Player::close()
 bool Player::setPosition(double pos)
 {
     if(stream && stream->isSeekable()) {
-	stream->setPosition(stream->getLength()*pos);
+		stream->setPosition(stream->getLength()*pos);
 	return true;
     }
     return false;
@@ -114,19 +117,19 @@ bool Player::playing()
 void Player::timerUpdate()
 {
     if(stream && stream->isPlaying()) {
-	long p = stream->getPosition();
-	long l = stream->getLength();
-	if(l > 0) emit position((double)p/l);
+		long p = stream->getPosition();
+		long l = stream->getLength();
+		if(l > 0) emit position((double)p/l);
     } else {
-	timer->stop();
+		timer->stop();
     }
 }
 
 void Player::sync_stop()
 {
     if(stream) {
-	sync = true;
-	stream->stop();
-	sem.acquire();
+		sync = true;
+		stream->stop();
+		sem.acquire();
     }
 }

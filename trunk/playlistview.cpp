@@ -158,6 +158,8 @@ void PlaylistView::stop()
 {
     Player::Self().stop();
     playing = false;
+	emit status("");
+	emit songPosition(0);
 }
 
 void PlaylistView::playFinished()
