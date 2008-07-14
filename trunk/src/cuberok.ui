@@ -176,7 +176,7 @@
            <string>...</string>
           </property>
           <property name="icon" >
-           <iconset resource="resource.qrc" >:/icons/images/emblem-noread.png</iconset>
+           <iconset resource="resource.qrc" >:/icons/clear_filter.png</iconset>
           </property>
           <property name="iconSize" >
            <size>
@@ -283,6 +283,8 @@
      <string>File</string>
     </property>
     <addaction name="actionNewPlaylist" />
+    <addaction name="actionLoadPlaylist" />
+    <addaction name="actionSavePlaylist" />
     <addaction name="actionClosePlaylist" />
     <addaction name="actionCorrectTag" />
     <addaction name="separator" />
@@ -293,6 +295,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout" />
+    <addaction name="actionAboutQt" />
    </widget>
    <widget class="QMenu" name="menuControl" >
     <property name="title" >
@@ -411,6 +414,9 @@
    <property name="checkable" >
     <bool>false</bool>
    </property>
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/star.png</iconset>
+   </property>
    <property name="text" >
     <string>Break</string>
    </property>
@@ -431,6 +437,12 @@
    <property name="statusTip" >
     <string>Previous track</string>
    </property>
+   <property name="shortcut" >
+    <string>Alt+Z</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
   </action>
   <action name="actionNext" >
    <property name="icon" >
@@ -447,6 +459,12 @@
    </property>
    <property name="statusTip" >
     <string>Next track</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+B</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
   <action name="actionPause" >
@@ -468,6 +486,12 @@
    <property name="statusTip" >
     <string>Pause</string>
    </property>
+   <property name="shortcut" >
+    <string>Alt+C</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
   </action>
   <action name="actionPlay" >
    <property name="icon" >
@@ -484,6 +508,12 @@
    </property>
    <property name="statusTip" >
     <string>Play track</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+X</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
   <action name="actionShuffle" >
@@ -715,6 +745,33 @@
    </property>
    <property name="statusTip" >
     <string>Stop</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+V</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionSavePlaylist" >
+   <property name="text" >
+    <string>Save playlist</string>
+   </property>
+   <property name="toolTip" >
+    <string>Save playlist into file</string>
+   </property>
+  </action>
+  <action name="actionLoadPlaylist" >
+   <property name="text" >
+    <string>Open playlist</string>
+   </property>
+   <property name="toolTip" >
+    <string>Load playlist from a file</string>
+   </property>
+  </action>
+  <action name="actionAboutQt" >
+   <property name="text" >
+    <string>About Qt</string>
    </property>
   </action>
  </widget>
@@ -1408,6 +1465,54 @@
     <hint type="destinationlabel" >
      <x>435</x>
      <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLoadPlaylist</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>loadList()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>435</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSavePlaylist</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>saveList()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>435</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAboutQt</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>on_AboutQtMenu()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>295</x>
+     <y>136</y>
     </hint>
    </hints>
   </connection>

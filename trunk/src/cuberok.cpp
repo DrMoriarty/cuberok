@@ -95,6 +95,7 @@ void Cuberok::message(QString title/*, QString* message*/)
 void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 {
 	if(r == QSystemTrayIcon::Trigger) setVisible(!isVisible());
+	if(isVisible()) activateWindow();
 }
 
 void Cuberok::correctTag(bool b)
@@ -105,4 +106,9 @@ void Cuberok::correctTag(bool b)
 void Cuberok::progressEvent(double pos)
 {
     Player::Self().setPosition(pos);
+}
+
+void Cuberok::on_AboutQtMenu()
+{
+	QApplication::aboutQt();
 }

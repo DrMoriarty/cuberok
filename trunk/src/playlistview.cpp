@@ -17,9 +17,9 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 {
 	setItemDelegate(new StarDelegate);
 	plistname = str;
-    model.setDynamicSortFilter(true);
-    model.setSourceModel(&plmodel);
-	setModel(&model);
+    pmodel.setDynamicSortFilter(true);
+    pmodel.setSourceModel(&model);
+	setModel(&pmodel);
 	setEditTriggers(QAbstractItemView::NoEditTriggers); 
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	//setSortingEnabled(true);
@@ -28,23 +28,7 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	sortByColumn(PlaylistModel::Artist, Qt::AscendingOrder);
 	if(plistname.size()) {  // read stored playlist
 		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-		if(QFile::exists(fname)) {
-			QFile file(fname);
-			if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-				QTextStream in(&file);
-				QMimeData data;
-				QList<QUrl> urls;
-				while (!in.atEnd()) {
-					QString line = in.readLine();
-					if(line[0] == '#') continue;
-					QUrl url = QUrl::fromLocalFile(line);
-					urls << url;
-				} 
-				data.setUrls(urls);
-				plmodel.dropMimeData(&data, Qt::CopyAction, -1, -1, plmodel.index(plmodel.rowCount(), 0));
-				file.close();
-			}
-		}
+		loadList(fname);
 	}
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
 		setColumnHidden(i, !PLSet.columnVisible(i));
@@ -73,6 +57,28 @@ void PlaylistView::storeList(QString fname)
 			out << model.data(model.index(i, PlaylistModel::File), Qt::UserRole).toString() << endl;
 		}
 		file.close();
+	}
+}
+
+void PlaylistView::loadList(QString fname)
+{
+	if(QFile::exists(fname)) {
+		while(model.rowCount()) model.removeRow(0);
+		QFile file(fname);
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			QTextStream in(&file);
+			QMimeData data;
+			QList<QUrl> urls;
+			while (!in.atEnd()) {
+				QString line = in.readLine();
+				if(line[0] == '#') continue;
+				QUrl url = QUrl::fromLocalFile(line);
+				urls << url;
+			} 
+			data.setUrls(urls);
+			model.dropMimeData(&data, Qt::CopyAction, -1, -1, model.index(model.rowCount(), 0));
+			file.close();
+		}
 	}
 }
 
@@ -120,7 +126,7 @@ void PlaylistView::prev()
 {
 	clearSelection();
 	QModelIndex prev = prevItem(); 
-	setCurrentIndex(prev);
+	setCurrentIndex(pmodel.mapFromSource(prev));
 	curindex = prev;
 	play();
 }
@@ -130,7 +136,7 @@ void PlaylistView::next()
 	if(plindex.row() >= 0) prev_queue.push_back(plindex);
 	QModelIndex next = nextItem();
 	curindex = next;
-	setCurrentIndex(curindex);
+	setCurrentIndex(pmodel.mapFromSource(curindex));
 	if(curindex.row() >= 0) play();
 }
 
@@ -223,13 +229,13 @@ QModelIndex PlaylistView::prevItem()
 void PlaylistView::onClick(const QModelIndex &index)
 {
 	if(curindex.row() >= 0) prev_queue.push_back(curindex);
-	curindex = index;
+	curindex = pmodel.mapToSource(index);
 }
 
 void PlaylistView::onDoubleClick(const QModelIndex &index)
 {
 	if(curindex.row() >= 0) prev_queue.push_back(curindex);
-	curindex = index;
+	curindex = pmodel.mapToSource(index);
 	play();
 }
 
@@ -364,4 +370,18 @@ void PlaylistView::hideEvent ( QHideEvent * event )
 		PLSet.setColumnWidth(i, columnWidth(i));
 	}
 	QTreeView::hideEvent(event);
+}
+
+QString PlaylistView::getName()
+{
+	return plistname;
+}
+
+void PlaylistView::setName(QString newname)
+{
+	if(plistname != newname) {
+		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
+		QFile::remove(fname);
+		plistname = newname;
+	}
 }

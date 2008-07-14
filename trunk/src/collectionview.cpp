@@ -284,7 +284,8 @@ void CollectionModel::updateMode(ListMode m)
 			else if(attr.rating >= 1)  painter.drawPixmap(QPoint(0,0), px_1);
 		}
 		i = new QStandardItem(QIcon(px2), attr.name);
-		tt = QString::number(attr.refs).append(QString(" ")+tr("songs"));
+		tt = tr("%n song(s)", "", attr.refs);
+		//tt = QString::number(attr.refs).append(QString(" ")+tr("songs"));
 		i->setToolTip(tt); 
 		appendRow(i);
 	}

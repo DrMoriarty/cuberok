@@ -26,6 +26,7 @@ private:
 
 private slots:
 	void on_AboutMenu();
+	void on_AboutQtMenu();
 	void trayevent(QSystemTrayIcon::ActivationReason);
 	void progressEvent(double);
 
