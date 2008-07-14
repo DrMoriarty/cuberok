@@ -31,6 +31,8 @@ public slots:
 	void addList();
 	void delList();
 	void renameList();
+	void loadList();
+	void saveList();
 	void prev();
 	void next();
 	void play();

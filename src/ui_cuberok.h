@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 10. Jul 12:45:29 2008
+** Created: Mon 14. Jul 11:43:42 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -69,6 +69,9 @@ public:
     QAction *actionAddToCollection;
     QAction *actionRemoveFromCollection;
     QAction *actionStop;
+    QAction *actionSavePlaylist;
+    QAction *actionLoadPlaylist;
+    QAction *actionAboutQt;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -117,19 +120,24 @@ public:
     actionBreak = new QAction(CuberokClass);
     actionBreak->setObjectName(QString::fromUtf8("actionBreak"));
     actionBreak->setCheckable(false);
+    actionBreak->setIcon(QIcon(QString::fromUtf8(":/icons/star.png")));
     actionPrev = new QAction(CuberokClass);
     actionPrev->setObjectName(QString::fromUtf8("actionPrev"));
     actionPrev->setIcon(QIcon(QString::fromUtf8(":/icons/butt_backward.png")));
+    actionPrev->setShortcutContext(Qt::ApplicationShortcut);
     actionNext = new QAction(CuberokClass);
     actionNext->setObjectName(QString::fromUtf8("actionNext"));
     actionNext->setIcon(QIcon(QString::fromUtf8(":/icons/butt_forward.png")));
+    actionNext->setShortcutContext(Qt::ApplicationShortcut);
     actionPause = new QAction(CuberokClass);
     actionPause->setObjectName(QString::fromUtf8("actionPause"));
     actionPause->setCheckable(true);
     actionPause->setIcon(QIcon(QString::fromUtf8(":/icons/butt_pause.png")));
+    actionPause->setShortcutContext(Qt::ApplicationShortcut);
     actionPlay = new QAction(CuberokClass);
     actionPlay->setObjectName(QString::fromUtf8("actionPlay"));
     actionPlay->setIcon(QIcon(QString::fromUtf8(":/icons/butt_play.png")));
+    actionPlay->setShortcutContext(Qt::ApplicationShortcut);
     actionShuffle = new QAction(CuberokClass);
     actionShuffle->setObjectName(QString::fromUtf8("actionShuffle"));
     actionShuffle->setCheckable(true);
@@ -207,6 +215,13 @@ public:
     actionStop = new QAction(CuberokClass);
     actionStop->setObjectName(QString::fromUtf8("actionStop"));
     actionStop->setIcon(QIcon(QString::fromUtf8(":/icons/butt_stop.png")));
+    actionStop->setShortcutContext(Qt::ApplicationShortcut);
+    actionSavePlaylist = new QAction(CuberokClass);
+    actionSavePlaylist->setObjectName(QString::fromUtf8("actionSavePlaylist"));
+    actionLoadPlaylist = new QAction(CuberokClass);
+    actionLoadPlaylist->setObjectName(QString::fromUtf8("actionLoadPlaylist"));
+    actionAboutQt = new QAction(CuberokClass);
+    actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
@@ -291,7 +306,7 @@ public:
     subsetDisableButton->setObjectName(QString::fromUtf8("subsetDisableButton"));
     subsetDisableButton->setAcceptDrops(false);
     subsetDisableButton->setAutoFillBackground(true);
-    subsetDisableButton->setIcon(QIcon(QString::fromUtf8(":/icons/images/emblem-noread.png")));
+    subsetDisableButton->setIcon(QIcon(QString::fromUtf8(":/icons/clear_filter.png")));
     subsetDisableButton->setIconSize(QSize(24, 24));
     subsetDisableButton->setAutoRaise(true);
     subsetDisableButton->setArrowType(Qt::NoArrow);
@@ -383,11 +398,14 @@ public:
     menubar->addAction(menuControl->menuAction());
     menubar->addAction(menuHelp->menuAction());
     menuFile->addAction(actionNewPlaylist);
+    menuFile->addAction(actionLoadPlaylist);
+    menuFile->addAction(actionSavePlaylist);
     menuFile->addAction(actionClosePlaylist);
     menuFile->addAction(actionCorrectTag);
     menuFile->addSeparator();
     menuFile->addAction(actionExit);
     menuHelp->addAction(actionAbout);
+    menuHelp->addAction(actionAboutQt);
     menuControl->addAction(actionPrev);
     menuControl->addAction(actionPause);
     menuControl->addAction(actionPlay);
@@ -466,6 +484,9 @@ public:
     QObject::connect(subsetDisableButton, SIGNAL(clicked()), colView, SLOT(clearSubset()));
     QObject::connect(colView, SIGNAL(setSubsetLabel(QString)), subsetLabel, SLOT(setText(QString)));
     QObject::connect(actionStop, SIGNAL(triggered()), listView, SLOT(stop()));
+    QObject::connect(actionLoadPlaylist, SIGNAL(triggered()), listView, SLOT(loadList()));
+    QObject::connect(actionSavePlaylist, SIGNAL(triggered()), listView, SLOT(saveList()));
+    QObject::connect(actionAboutQt, SIGNAL(triggered()), CuberokClass, SLOT(on_AboutQtMenu()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -481,18 +502,22 @@ public:
     actionPrev->setIconText(QApplication::translate("CuberokClass", "<<", 0, QApplication::UnicodeUTF8));
     actionPrev->setToolTip(QApplication::translate("CuberokClass", "Previous track", 0, QApplication::UnicodeUTF8));
     actionPrev->setStatusTip(QApplication::translate("CuberokClass", "Previous track", 0, QApplication::UnicodeUTF8));
+    actionPrev->setShortcut(QApplication::translate("CuberokClass", "Alt+Z", 0, QApplication::UnicodeUTF8));
     actionNext->setText(QApplication::translate("CuberokClass", "Next", 0, QApplication::UnicodeUTF8));
     actionNext->setIconText(QApplication::translate("CuberokClass", ">>", 0, QApplication::UnicodeUTF8));
     actionNext->setToolTip(QApplication::translate("CuberokClass", "Next track", 0, QApplication::UnicodeUTF8));
     actionNext->setStatusTip(QApplication::translate("CuberokClass", "Next track", 0, QApplication::UnicodeUTF8));
+    actionNext->setShortcut(QApplication::translate("CuberokClass", "Alt+B", 0, QApplication::UnicodeUTF8));
     actionPause->setText(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
     actionPause->setIconText(QApplication::translate("CuberokClass", "||", 0, QApplication::UnicodeUTF8));
     actionPause->setToolTip(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
     actionPause->setStatusTip(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
+    actionPause->setShortcut(QApplication::translate("CuberokClass", "Alt+C", 0, QApplication::UnicodeUTF8));
     actionPlay->setText(QApplication::translate("CuberokClass", "Play", 0, QApplication::UnicodeUTF8));
     actionPlay->setIconText(QApplication::translate("CuberokClass", ">", 0, QApplication::UnicodeUTF8));
     actionPlay->setToolTip(QApplication::translate("CuberokClass", "Play track", 0, QApplication::UnicodeUTF8));
     actionPlay->setStatusTip(QApplication::translate("CuberokClass", "Play track", 0, QApplication::UnicodeUTF8));
+    actionPlay->setShortcut(QApplication::translate("CuberokClass", "Alt+X", 0, QApplication::UnicodeUTF8));
     actionShuffle->setText(QApplication::translate("CuberokClass", "Shuffle", 0, QApplication::UnicodeUTF8));
     actionShuffle->setStatusTip(QApplication::translate("CuberokClass", "Shuffle mode", 0, QApplication::UnicodeUTF8));
     actionRepeat->setText(QApplication::translate("CuberokClass", "Repeat", 0, QApplication::UnicodeUTF8));
@@ -529,6 +554,12 @@ public:
     actionStop->setText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
     actionStop->setIconText(QApplication::translate("CuberokClass", "[]", 0, QApplication::UnicodeUTF8));
     actionStop->setStatusTip(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
+    actionStop->setShortcut(QApplication::translate("CuberokClass", "Alt+V", 0, QApplication::UnicodeUTF8));
+    actionSavePlaylist->setText(QApplication::translate("CuberokClass", "Save playlist", 0, QApplication::UnicodeUTF8));
+    actionSavePlaylist->setToolTip(QApplication::translate("CuberokClass", "Save playlist into file", 0, QApplication::UnicodeUTF8));
+    actionLoadPlaylist->setText(QApplication::translate("CuberokClass", "Open playlist", 0, QApplication::UnicodeUTF8));
+    actionLoadPlaylist->setToolTip(QApplication::translate("CuberokClass", "Load playlist from a file", 0, QApplication::UnicodeUTF8));
+    actionAboutQt->setText(QApplication::translate("CuberokClass", "About Qt", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setText(QApplication::translate("CuberokClass", "...", 0, QApplication::UnicodeUTF8));

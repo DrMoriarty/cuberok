@@ -25,7 +25,8 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	connect(closeButton, SIGNAL(pressed()), this, SLOT(delList()));
 	tabs->setCornerWidget(newButton, Qt::TopLeftCorner);
 	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
-	
+	setContextMenuPolicy(Qt::ActionsContextMenu);
+
 	QDir dir(QDir::homePath() + "/.cuberok/");
 	QStringList filters;
 	filters << "*.m3u";
@@ -70,13 +71,25 @@ void PlaylistContainer::addList()
 
 void PlaylistContainer::newList(QString listname)
 {
-	if(!listname.size()) listname = tr("Playlist")+" "+QString::number(++counter);
+	if(!listname.size()) {
+		QString str = tr("Playlist")+" ";
+		int i = 1;
+		bool found = false;
+		do {
+			listname = str+QString::number(i++);
+			foreach(PlaylistView *p, lists) if(p->getName() == listname) {
+				found = true;
+				break;
+			}
+		} while(found);
+	}
 	PlaylistView *pl = new PlaylistView(listname, this); 
 	lists.append(pl);
 	tabs->addTab(lists.last(), listname);
 	curlist = lists.last();
 	tabs->setCurrentIndex(tabs->count()-1);
-	//curlist->setContextMenuPolicy(Qt::ActionsContextMenu);
+	curlist->setContextMenuPolicy(Qt::ActionsContextMenu);
+	curlist->actions() << actions();
 	curlist->setAcceptDrops(true);
 	curlist->setDragEnabled(true);
 	curlist->setDragDropMode(QAbstractItemView::DragDrop);
@@ -210,5 +223,27 @@ void PlaylistContainer::tabChanged(int i)
 {
 	if(i < lists.count()) {
 		curlist = lists[i];
+	}
+}
+
+void PlaylistContainer::loadList()
+{
+	QString filename = QFileDialog::getOpenFileName(this, tr("Open playlist"), QDir::homePath(), "*.m3u");
+	if(filename.size()) {
+		newList(QFileInfo(filename).baseName());
+		curlist->loadList(filename);
+	}
+}
+
+void PlaylistContainer::saveList()
+{
+	if(curlist) {
+		QString filename = QFileDialog::getSaveFileName(this, tr("Save playlist"), QDir::homePath(), "*.m3u");
+		if(filename.size()) {
+			curlist->storeList(filename);
+			QString listname = QFileInfo(filename).baseName();
+			curlist->setName(listname);
+			tabs->setTabText(tabs->currentIndex(), listname);
+		}
 	}
 }

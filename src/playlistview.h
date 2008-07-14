@@ -20,7 +20,10 @@ public:
     void dropEvent(QDropEvent *event);
     void startDrag(Qt::DropActions supportedActions);
 	void storeList(QString fname);
+	void loadList(QString fname);
 	void setAutosave(bool);
+	QString getName();
+	void setName(QString newname);
     
 protected:
 	virtual void hideEvent ( QHideEvent * event );
@@ -31,8 +34,8 @@ private:
     void resetTags(QModelIndex& ind);
     
 	QString plistname;
-    PlaylistModel plmodel;
-    QSortFilterProxyModel model;
+    PlaylistModel model;
+    QSortFilterProxyModel pmodel;
     QModelIndex insindex;
     QModelIndex curindex;
     QModelIndex plindex;
