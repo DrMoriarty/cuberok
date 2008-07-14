@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Mon 14. Jul 11:43:42 2008
-**      by: Qt User Interface Compiler version 4.3.1
+** Created: Mon Jul 14 13:53:22 2008
+**      by: Qt User Interface Compiler version 4.3.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
@@ -443,7 +443,6 @@ public:
 
     retranslateUi(CuberokClass);
     QObject::connect(actionAbout, SIGNAL(triggered()), CuberokClass, SLOT(on_AboutMenu()));
-    QObject::connect(actionBreak, SIGNAL(triggered()), listView, SLOT(fillCancel()));
     QObject::connect(actionPrev, SIGNAL(triggered()), listView, SLOT(prev()));
     QObject::connect(actionNext, SIGNAL(triggered()), listView, SLOT(next()));
     QObject::connect(actionPause, SIGNAL(triggered(bool)), listView, SLOT(pause(bool)));

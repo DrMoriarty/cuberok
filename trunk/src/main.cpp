@@ -13,7 +13,10 @@ void storeState(Cuberok *win)
 {
 	QSettings set;
 	set.setValue("style", style_name);
-	set.setValue("palette", QApplication::palette());
+#ifdef WIN32
+	// FIXME qt bug?
+	set.setValue("palette", (QVariant)QApplication::palette());
+#endif
 	set.setValue("winstate", win->saveState(ver));
 	set.setValue("wingeometry", win->saveGeometry());
 	/*QFile file(QDir::homePath()+"/.cuberock/state.dat");
@@ -31,7 +34,12 @@ void restoreState(Cuberok *win)
 {
 	QSettings set;
 	style_name = set.value("style").toString();
+#ifdef WIN32
+	// FIXME qt bug?
 	QPalette p = set.value("palette").value<QPalette>();
+#else
+	QPalette p;
+#endif
 	win->restoreState(set.value("winstate").toByteArray(), ver);
 	win->restoreGeometry(set.value("wingeometry").toByteArray());
 	QApplication::setStyle(style_name);
