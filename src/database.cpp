@@ -11,13 +11,15 @@ Database::Database() : subset(false)
 	db.setDatabaseName(QDir::homePath()+"/.cuberok/collection.db");
 	if(QFile::exists(db.databaseName())) {
 		if(!db.open()) {
-			QMessageBox::information(0, "Error", "Can not open database");
+			//QMessageBox::information(0, "Error", "Can not open database");
+			qDebug("Can not open database");
 			open = false;
 		} else
 			open = true;
 	} else {
 		if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !db.open()) {
-			QMessageBox::information(0, "Error", "Can not open database");
+			//QMessageBox::information(0, "Error", "Can not open database");
+			qDebug("Can not create database");
 			open = false;
 		} else {
 			QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
@@ -51,6 +53,7 @@ Database& Database::Self()
 
 int Database::AddFile(QString file)
 {
+	if(!open) return 0;
 	QMutexLocker locker(&lock);
 	QSqlQuery q0("", db);
 	q0.prepare("select ID from Song where File = :file");
@@ -91,6 +94,7 @@ int Database::AddFile(QString file)
 
 int Database::AddAttribute(QString attr, QString val)
 {
+	if(!open) return 0;
 	if(!val.length()) val = " ";
 	QSqlQuery q("", db);
 	q.prepare("select ID from "+attr+" where value = :val");
@@ -131,6 +135,7 @@ int Database::AddMark(QString mark)
 
 void Database::RefAttribute(const QString attr, int id, int v, int r)
 {
+	if(!open) return;
 	QSqlQuery q("", db);
 	q.prepare("select refs, rating from "+attr+" where ID = "+QString::number(id));
 	q.exec();
@@ -149,6 +154,7 @@ void Database::RefAttribute(const QString attr, int id, int v, int r)
 
 void Database::RemoveFile(QString file)
 {
+	if(!open) return;
 	QSqlQuery q("", db);
 	q.prepare("select Artist, Album, Genre, Mark, Rating from Song where File = :file");
 	q.bindValue(":file", file);
@@ -167,6 +173,7 @@ void Database::RemoveFile(QString file)
 
 void Database::RemoveAttribute(const QString attr, QString val)
 {
+	if(!open) return;
 	int id = AddAttribute(attr, val);
 	if(id > 0) {
 		QSqlQuery q0("delete from Song where "+attr+" = "+QString::number(id), db);
@@ -196,6 +203,7 @@ void Database::RemoveMark(QString mark)
 
 void Database::RenameAttribute(const QString attr, QString oldval, QString newval)
 {
+	if(!open) return;
 	QSqlQuery q("", db);
 	q.prepare("select ID from "+attr+" where value = :newval");
 	q.bindValue(":newval", newval);
@@ -246,6 +254,7 @@ void Database::RenameMark(QString oldval, QString newval)
 
 QList<struct Database::Attr> Database::Attributes(const QString attr, QString *patt)
 {
+	if(!open) return QList<struct Database::Attr>();
 	QMutexLocker locker(&lock);
 	QList<struct Database::Attr> res;
 	QSqlQuery q("", db);
@@ -294,6 +303,7 @@ QList<struct Database::Attr> Database::Marks(QString *patt)
 
 QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *ma)
 {
+	if(!open) return QList<QString>();
 	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
 	QString com = "select File from Song ";
@@ -343,6 +353,7 @@ QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *m
 
 QString Database::GetArtist(int id)
 {
+	if(!open) return "";
 	QSqlQuery q("select value from Artist where ID = "+QString::number(id), db);
 	if(q.next()) return q.value(0).toString();
 	else return "";
@@ -350,6 +361,7 @@ QString Database::GetArtist(int id)
 
 QString Database::GetAlbum(int id)
 {
+	if(!open) return "";
 	QSqlQuery q("select value from Album where ID = "+QString::number(id), db);
 	if(q.next()) return q.value(0).toString();
 	else return "";
@@ -357,6 +369,7 @@ QString Database::GetAlbum(int id)
 
 QString Database::GetGenre(int id)
 {
+	if(!open) return "";
 	QSqlQuery q("select value from Genre where ID = "+QString::number(id), db);
 	if(q.next()) return q.value(0).toString();
 	else return "";
@@ -364,6 +377,7 @@ QString Database::GetGenre(int id)
 
 QString Database::GetMark(int id)
 {
+	if(!open) return "";
 	QSqlQuery q("select value from Mark where ID = "+QString::number(id), db);
 	if(q.next()) return q.value(0).toString();
 	else return "";
@@ -371,6 +385,7 @@ QString Database::GetMark(int id)
 
 bool Database::GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length)
 {
+	if(!open) return false;
 	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
 	QString com = "select Title, Artist, Album, Comment, Genre, Track, Year, Rating, Length from Song where File = :file";
@@ -399,6 +414,7 @@ bool Database::GetTags(QString file, QString &title, QString &artist, QString &a
 
 bool Database::SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating)
 {
+	if(!open) return false;
 	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
 	q.prepare("select Artist, Album, Genre, Rating from Song where File = :file");
@@ -439,6 +455,7 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
 
 bool Database::SetMark(QString file, QString mark)
 {
+	if(!open) return false;
 	QSqlQuery q("", db);
 	q.prepare("select Mark from Song where File = :file");
 	q.bindValue(":file", file);

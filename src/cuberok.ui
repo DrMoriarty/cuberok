@@ -813,22 +813,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionBreak</sender>
-   <signal>triggered()</signal>
-   <receiver>listView</receiver>
-   <slot>fillCancel()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>484</x>
-     <y>260</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionPrev</sender>
    <signal>triggered()</signal>
    <receiver>listView</receiver>
