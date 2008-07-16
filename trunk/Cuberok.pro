@@ -86,7 +86,7 @@ unix {
     documentation.path = /usr/share/doc/cuberok
     documentation.files = README ChangeLog
     locale.path = /usr/share/cuberok/locale
-    locale.files = *.qm
+    locale.files = locale/*.qm
     INSTALLS += target documentation locale
 }
 OBJECTS_DIR = $${DESTDIR}/obj
