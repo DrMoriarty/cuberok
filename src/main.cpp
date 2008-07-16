@@ -66,7 +66,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QString locale = QLocale::system().name();
     QTranslator translator;
-    translator.load(QString("cuberok_") + locale);
+	QString loc_path;
+#ifndef WIN32
+	loc_path = "/usr/share/cuberok/locale/";
+#endif
+    translator.load(loc_path + QString("cuberok_") + locale);
     a.installTranslator(&translator); 
 
     QCoreApplication::setOrganizationName("DrMoriarty");

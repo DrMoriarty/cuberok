@@ -82,6 +82,12 @@ unix {
 	INCLUDEPATH += $$system(audiere-config --cxxflags)
         LIBS += $$system(audiere-config --libs)
     }
+    target.path = /usr/bin
+    documentation.path = /usr/share/doc/cuberok
+    documentation.files = README ChangeLog
+    locale.path = /usr/share/cuberok/locale
+    locale.files = *.qm
+    INSTALLS += target documentation locale
 }
 OBJECTS_DIR = $${DESTDIR}/obj
 MOC_DIR = $${DESTDIR}/obj
