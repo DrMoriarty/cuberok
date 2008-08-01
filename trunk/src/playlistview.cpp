@@ -253,7 +253,7 @@ QModelIndex PlaylistView::nextItem()
 		if(pmodel.mapFromSource(curindex).row() >= 0) 
 			next = pmodel.mapToSource(pmodel.index(pmodel.mapFromSource(curindex).row()+1, 0));
 		if(next.row() < 0) {
-			if(PlayerManager::Self().repeat_mode) next = model.index(0, 0);
+			if(PlayerManager::Self().repeat_mode) next = pmodel.mapToSource(pmodel.index(0, 0));
 			else next = model.index(-1, 0);
 		}
 	}
