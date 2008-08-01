@@ -1,8 +1,28 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "database.h"
 #include <QtGui>
 #include "main.h"
 #include "tagger.h"
 
+#define DB_VERSION 1
 
 Database::Database() : subset(false)
 {
@@ -14,19 +34,33 @@ Database::Database() : subset(false)
 			//QMessageBox::information(0, "Error", "Can not open database");
 			qDebug("Can not open database");
 			open = false;
-		} else
+		} else {
 			open = true;
+			QSqlQuery q1("select value from Version", db);
+			int ver = 0;
+			if(q1.next()) ver = q1.value(0).toString().toInt();
+			if(ver < DB_VERSION) {
+				open = updateDatabase(ver);
+				if(!open) db.close();
+			} else if(ver > DB_VERSION) {
+				open = false;
+				db.close();
+				qDebug("Wrong database version (%d)", ver);
+			}
+		}
 	} else {
 		if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !db.open()) {
 			//QMessageBox::information(0, "Error", "Can not open database");
 			qDebug("Can not create database");
 			open = false;
 		} else {
-			QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-			QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-			QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-			QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-			QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Mark integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer)", db);
+			QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
+			QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
+			QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
+			//QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
+			QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer)", db);
+			QSqlQuery q5("create table Version (value integer)", db);
+			QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
 			open = true;
 		}
 	}
@@ -35,6 +69,23 @@ Database::Database() : subset(false)
 Database::~Database()
 {
 	db.close();
+}
+
+bool Database::updateDatabase(int fromver)
+{
+	switch (fromver) {
+	case 0: {
+		QSqlQuery q0("create table Version (value integer)", db);
+		QSqlQuery q1("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
+		QSqlQuery q3("alter table Artist add column art varchar(250)", db);
+		QSqlQuery q4("alter table Album add column art varchar(250)", db);
+		QSqlQuery q5("alter table Genre add column art varchar(250)", db);
+		QSqlQuery q6("alter table Song drop column Mark", db);
+		QSqlQuery q2("drop table Mark", db);
+		qDebug("Update database from version 0");
+	}
+	}
+	return true;
 }
 
 Database& Database::Self()
@@ -86,7 +137,7 @@ int Database::AddFile(QString file)
 			RefAttribute(nArtist, art, 1, 0);
 			RefAttribute(nAlbum, alb, 1, 0);
 			RefAttribute(nGenre, gen, 1, 0);
-			return q.value(0).toString().toInt();
+			return q1.value(0).toString().toInt();
 		}
 	}
 	return -1;
@@ -128,10 +179,10 @@ int Database::AddGenre(QString genre)
 	return AddAttribute(nGenre, genre);
 }
 
-int Database::AddMark(QString mark)
-{
-	return AddAttribute(nMark, mark);
-}
+// int Database::AddMark(QString mark)
+// {
+// 	return AddAttribute(nMark, mark);
+// }
 
 void Database::RefAttribute(const QString attr, int id, int v, int r)
 {
@@ -156,15 +207,15 @@ void Database::RemoveFile(QString file)
 {
 	if(!open) return;
 	QSqlQuery q("", db);
-	q.prepare("select Artist, Album, Genre, Mark, Rating from Song where File = :file");
+	q.prepare("select Artist, Album, Genre, Rating from Song where File = :file");
 	q.bindValue(":file", file);
 	q.exec();
 	if( q.next() ) {
-		int rating = q.value(4).toString().toInt();
+		int rating = q.value(3).toString().toInt();
 		RefAttribute(nArtist, q.value(0).toString().toInt(), -1, -rating);
 		RefAttribute(nAlbum, q.value(1).toString().toInt(), -1, -rating);
 		RefAttribute(nGenre, q.value(2).toString().toInt(), -1, -rating);
-		RefAttribute(nMark, q.value(3).toString().toInt(), -1, -rating);
+		//RefAttribute(nMark, q.value(3).toString().toInt(), -1, -rating);
 		q.prepare("delete from Song where File = :file");
 		q.bindValue(":file", file);
 		q.exec();
@@ -176,8 +227,14 @@ void Database::RemoveAttribute(const QString attr, QString val)
 	if(!open) return;
 	int id = AddAttribute(attr, val);
 	if(id > 0) {
-		QSqlQuery q0("delete from Song where "+attr+" = "+QString::number(id), db);
-		QSqlQuery q1("delete from "+attr+" where ID = "+QString::number(id), db);
+		QSqlQuery q("", db);
+		q.prepare("select File from Song where "+attr+" = "+QString::number(id));
+		q.exec();
+		while(q.next()) {
+			RemoveFile(q.value(0).toString());
+		}
+		//QSqlQuery q0("delete from Song where "+attr+" = "+QString::number(id), db);
+		//QSqlQuery q1("delete from "+attr+" where ID = "+QString::number(id), db);
 	}
 }
 
@@ -196,10 +253,10 @@ void Database::RemoveGenre(QString genre)
 	RemoveAttribute(nGenre, genre);
 }
 
-void Database::RemoveMark(QString mark)
-{
-	RemoveAttribute(nMark, mark);
-}
+// void Database::RemoveMark(QString mark)
+// {
+// 	RemoveAttribute(nMark, mark);
+// }
 
 void Database::RenameAttribute(const QString attr, QString oldval, QString newval)
 {
@@ -247,10 +304,10 @@ void Database::RenameGenre(QString oldval, QString newval)
 	RenameAttribute(nGenre, oldval, newval);
 }
 
-void Database::RenameMark(QString oldval, QString newval)
-{
-	RenameAttribute(nMark, oldval, newval);
-}
+// void Database::RenameMark(QString oldval, QString newval)
+// {
+// 	RenameAttribute(nMark, oldval, newval);
+// }
 
 QList<struct Database::Attr> Database::Attributes(const QString attr, QString *patt)
 {
@@ -259,16 +316,16 @@ QList<struct Database::Attr> Database::Attributes(const QString attr, QString *p
 	QList<struct Database::Attr> res;
 	QSqlQuery q("", db);
 	if(subset) {
-		QString com = "select distinct A.value, A.refs, A.rating/A.refs as WR from Song left join "+attr+" as A on Song."+attr+"=A.ID where "+ssFilter;
+		QString com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art from Song left join "+attr+" as A on Song."+attr+"=A.ID where "+ssFilter;
 		if(patt)  com += " and A.value like :pattern ";
 		com += " order by WR DESC, A.value ASC";
 		q.prepare(com);
 		if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
 	} else {
 		if(patt) {
-			q.prepare("select value, refs, rating/refs as WR from "+attr+" where value like :pattern order by WR DESC, value ASC");
+			q.prepare("select value, refs, rating/refs as WR, art from "+attr+" where value like :pattern order by WR DESC, value ASC");
 			q.bindValue(":pattern", QString("%")+*patt+QString("%"));
-		} else q.prepare("select value, refs, rating/refs as WR from "+attr+" order by WR DESC, value ASC");
+		} else q.prepare("select value, refs, rating/refs as WR, art from "+attr+" order by WR DESC, value ASC");
 	}
 	q.exec();
 	while(q.next()) {
@@ -276,6 +333,7 @@ QList<struct Database::Attr> Database::Attributes(const QString attr, QString *p
 		attr.name = q.value(0).toString();
 		attr.refs = q.value(1).toString().toInt();
 		attr.rating = q.value(2).toString().toInt();
+		attr.art = q.value(3).toString();
 		res << attr;
 	}
 	return res;
@@ -296,18 +354,43 @@ QList<struct Database::Attr> Database::Genres(QString *patt)
 	return Attributes(nGenre, patt);
 }
 
-QList<struct Database::Attr> Database::Marks(QString *patt)
+// QList<struct Database::Attr> Database::Marks(QString *patt)
+// {
+// 	return Attributes(nMark, patt);
+// }
+
+void Database::ArtForAttribute(const QString attr, QString val, QString art)
 {
-	return Attributes(nMark, patt);
+	if(!open) return;
+	QSqlQuery q("", db);
+	q.prepare("update "+attr+" set art = :art where value = :val");
+	q.bindValue(":art", art);
+	q.bindValue(":val", val);
+	q.exec();
 }
 
-QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *ma)
+void Database::ArtForArtist(QString val, QString art)
+{
+	return ArtForAttribute(nArtist, val, art);
+}
+
+void Database::ArtForAlbum(QString val, QString art)
+{
+	return ArtForAttribute(nAlbum, val, art);
+}
+
+void Database::ArtForGenre(QString val, QString art)
+{
+	return ArtForAttribute(nGenre, val, art);
+}
+
+QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *so)
 {
 	if(!open) return QList<QString>();
 	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
 	QString com = "select File from Song ";
-	if(ar || al || ge || ma || subset) {
+	if(ar || al || ge || so || subset) {
 		com += " where ";
 		bool andf = false;
 		if(subset) com += ssFilter, andf = true;
@@ -329,10 +412,9 @@ QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *m
 			else com += " Genre is null ";
 			andf = true;
 		}
-		if(ma) {
-			if(andf) com += " and ";
-			if(ma->length() > 0) com += " Mark = :ma ";
-			else com += " Mark is null ";
+		if(so) {
+			if(andf && so->length()) com += " and ";
+			if(so->length()) com += " Title like :so ";
 			andf = true;
 		}
 	}
@@ -341,7 +423,7 @@ QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *m
 	if(ar && ar->length() > 0) q.bindValue(":ar", AddArtist(*ar));
 	if(al && al->length() > 0) q.bindValue(":al", AddAlbum(*al));
 	if(ge && ge->length() > 0) q.bindValue(":ge", AddGenre(*ge));
-	if(ma && ma->length() > 0) q.bindValue(":ma", AddMark(*ma));
+	if(so && so->length() > 0) q.bindValue(":so", "%"+(*so)+"%");
 	q.exec();
 	
 	QList<QString> res;
@@ -375,13 +457,13 @@ QString Database::GetGenre(int id)
 	else return "";
 }
 
-QString Database::GetMark(int id)
-{
-	if(!open) return "";
-	QSqlQuery q("select value from Mark where ID = "+QString::number(id), db);
-	if(q.next()) return q.value(0).toString();
-	else return "";
-}
+// QString Database::GetMark(int id)
+// {
+// 	if(!open) return "";
+// 	QSqlQuery q("select value from Mark where ID = "+QString::number(id), db);
+// 	if(q.next()) return q.value(0).toString();
+// 	else return "";
+// }
 
 bool Database::GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length)
 {
@@ -453,26 +535,26 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
 	return false;
 }
 
-bool Database::SetMark(QString file, QString mark)
-{
-	if(!open) return false;
-	QSqlQuery q("", db);
-	q.prepare("select Mark from Song where File = :file");
-	q.bindValue(":file", file);
-	q.exec();
-	if(q.next()) {
-		bool ok;
-		int markID = q.value(0).toInt(&ok);
-		if(ok) RefAttribute(nMark, markID, -1, 0);
-		markID = AddMark(mark);
-		q.prepare("update Song set Mark = "+QString::number(markID)+ " where File = :file");
-		q.bindValue(":file", file);
-		q.exec();
-		RefAttribute(nMark, markID, 1, 0);
-		return true;
-	}
-	return false;
-}
+// bool Database::SetMark(QString file, QString mark)
+// {
+// 	if(!open) return false;
+// 	QSqlQuery q("", db);
+// 	q.prepare("select Mark from Song where File = :file");
+// 	q.bindValue(":file", file);
+// 	q.exec();
+// 	if(q.next()) {
+// 		bool ok;
+// 		int markID = q.value(0).toInt(&ok);
+// 		if(ok) RefAttribute(nMark, markID, -1, 0);
+// 		markID = AddMark(mark);
+// 		q.prepare("update Song set Mark = "+QString::number(markID)+ " where File = :file");
+// 		q.bindValue(":file", file);
+// 		q.exec();
+// 		RefAttribute(nMark, markID, 1, 0);
+// 		return true;
+// 	}
+// 	return false;
+// }
 
 void Database::clearSubset()
 {
@@ -480,7 +562,7 @@ void Database::clearSubset()
 	ssAlbum = "";
 	ssArtist = "";
 	ssGenre = "";
-	ssMark = "";
+// 	ssMark = "";
 }
 
 void Database::subsetAlbum(QString v)
@@ -504,12 +586,12 @@ void Database::subsetGenre(QString v)
 	ssFilter = subsetFilter(); 
 }
 
-void Database::subsetMark(QString v)
-{
-	ssMark = v;
-	if(ssMark.length()) subset = true;
-	ssFilter = subsetFilter(); 
-}
+// void Database::subsetMark(QString v)
+// {
+// 	ssMark = v;
+// 	if(ssMark.length()) subset = true;
+// 	ssFilter = subsetFilter(); 
+// }
 
 QString Database::subsetFilter()
 {
@@ -519,7 +601,7 @@ QString Database::subsetFilter()
 		if(ssAlbum.length()) filter += " Album = "+QString::number(AddAlbum(ssAlbum))+" ", andf = true;
 		if(ssArtist.length()) filter += QString(andf?" and ":"")+" Artist = "+QString::number(AddArtist(ssArtist))+" ", andf = true;
 		if(ssGenre.length()) filter += QString(andf?" and ":"")+" Genre = "+QString::number(AddGenre(ssGenre))+" ", andf = true;
-		if(ssMark.length()) filter += QString(andf?" and ":"")+" Mark = "+QString::number(AddMark(ssMark))+" ", andf = true;
+// 		if(ssMark.length()) filter += QString(andf?" and ":"")+" Mark = "+QString::number(AddMark(ssMark))+" ", andf = true;
 	}
 	return filter;
 }

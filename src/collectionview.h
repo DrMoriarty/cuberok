@@ -1,3 +1,22 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #ifndef COLLECTIONVIEW_H
 #define COLLECTIONVIEW_H
 
@@ -17,7 +36,7 @@ private:
 	QList<QUrl> urls;
 	ListMode mode;
 	QString attrname;
-	void proceed(QString);
+	int  proceed(QString);
 	bool cancel;
  private slots:
 	void cancelEvent();
@@ -44,6 +63,7 @@ public slots:
 	void update();
 signals:
 	void status(QString);
+	void modeChanged(int);
 };
 
 class CollectionView : public QListView//QAbstractItemView
@@ -64,6 +84,7 @@ private:
 	//void dropEvent(QDropEvent *event);
 	//void mousePressEvent(QMouseEvent *event);
 	QList<QUrl> SelectByItem(QModelIndex i);
+	QString commonPath(QString path1, QString path2);
 	QString subsetLabel;
 	
 public slots:
@@ -73,14 +94,16 @@ public slots:
 	void songMode();
 	void addItem();
 	void removeItem();
-	void renameItem();
 	void filter(QString);
 	void applySubset(QModelIndex);
 	void clearSubset();
+	void setImage();
+	void iconView(bool);
 signals:
 	void status(QString);
 	void setVisibleSubsetWidgets(bool);
 	void setSubsetLabel(QString);
+	void modeChanged(int);
 };
 
 #endif // COLLECTIONVIEW_H

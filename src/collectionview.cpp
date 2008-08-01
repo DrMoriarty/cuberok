@@ -1,3 +1,22 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "collectionview.h"
 #include "database.h"
 #include "tagger.h"
@@ -23,7 +42,7 @@ CollectionFiller::~CollectionFiller()
 
 void CollectionFiller::run()
 {
-	int taskID = Indicator::Self().addTask("Collect music");
+	int taskID = Indicator::Self().addTask(tr("Collect music"));
 	foreach(QUrl url, urls) {
 		if(cancel) break;
 		proceed(url.toLocalFile());
@@ -31,18 +50,71 @@ void CollectionFiller::run()
 	Indicator::Self().delTask(taskID);
 }
 
-void CollectionFiller::proceed(QString path)
+int CollectionFiller::proceed(QString path)
 {
-	if(cancel) return;
+	if(cancel) return -1;
 	Indicator::Self().update();
 	QDir dir;
 	if(dir.cd(path)) {
+		int count = 0;
+		QString _album, _artist;
+		QStringList covers;
 		foreach(QString file, dir.entryList()) {
 			if(file == "." || file == "..") continue;
-			proceed(dir.filePath(file));
+			if(proceed(dir.filePath(file)) > 0) {
+				count ++;
+				QString title, artist, album, comment, genre, length;
+				int track, year, rating;
+				Database::Self().GetTags(dir.filePath(file), title, artist, album, comment, genre, track, year, rating, length);
+				if(count > 1) {
+					if(_album != album) _album = "";
+					if(_artist != artist) _artist = "";
+				} else {
+					_album = album;
+					_artist = artist;
+				}
+			} else {
+				QString p2 = file.toLower();
+				if(p2.endsWith(".jpg") || p2.endsWith(".png") || p2.endsWith(".gif") || p2.endsWith(".bmp")) {
+					covers << dir.filePath(file);
+				}
+			}
+		}
+		QString cover;
+		qint64 fsize = 0;
+		foreach(QString cvr, covers) {
+			qint64 s2 = QFileInfo(cvr).size();
+			if(s2 > fsize) {
+				fsize = s2;
+				cover = cvr;
+			}
+		}
+		if(cover.size() && _album.size() && _album != " ") {
+			Database::Self().ArtForAlbum(_album, cover);
+			//QMessageBox::information(0, "set album cover", cover);
+		} else if(cover.size() && _artist.size() && _artist != " ") {
+			Database::Self().ArtForArtist(_artist, cover);
+			//QMessageBox::information(0, "set artist cover", cover);
 		}
 	} else {
 		if(attrname.length()) {
+			QString p2 = path.toLower();
+			if(p2.endsWith(".jpg") || p2.endsWith(".png") || p2.endsWith(".gif") || p2.endsWith(".bmp")) {
+				switch(mode) {
+				case M_ALBUM:
+					Database::Self().ArtForAlbum(attrname, path);
+					break;
+				case M_ARTIST:
+					Database::Self().ArtForArtist(attrname, path);
+					break;
+				case M_GENRE:
+					Database::Self().ArtForGenre(attrname, path);
+					break;
+				case M_SONG:
+					break;
+				}
+				return -1;
+			}
 			QString title, artist, album, comment, genre, length;
 			int track, year, rating;
 			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length);
@@ -61,12 +133,13 @@ void CollectionFiller::proceed(QString path)
 					break;
 				case M_SONG:
 					//Database::Self().SetMark(path, attrname);
-					return;
+					return -1;
 			}
 			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating); 
-			else Database::Self().AddFile(path);
-		} else Database::Self().AddFile(path);
+			else return Database::Self().AddFile(path);
+		} else return Database::Self().AddFile(path);
 	}
+	return -1;
 }
 
 void CollectionFiller::cancelEvent()
@@ -168,20 +241,6 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res = Database::Self().Songs(0, 0, &s, 0);
 		break;
 	case M_SONG:
-		/*res = Database::Self().Songs(0, 0, 0, 0);
-		{
-			QString fname;
-			QString title, artist, album, comment, genre, length;
-			int track, year, rating;
-			foreach(QString f, res) {
-				if(Database::Self().GetTags(f, title, artist, album, comment, genre, track, year, rating, length) && title == s) {
-					fname = f;
-					break;
-				}
-			}
-			res.clear();
-			if(fname.size()) res << fname;
-			}*/
 		res.clear();
 		res << itemFromIndex(i)->data().toString();
 		break;
@@ -255,41 +314,57 @@ void CollectionModel::updateMode(ListMode m)
 	case M_SONG: {
 		// TODO if(searchPattern.length()) data = Database::Self().Songs(&searchPattern);
 		/*else*/ 
-		QList<QString> data = Database::Self().Songs();
-		QIcon icon(":/icons/def_mark.png");
+		QList<QString> data;
+		if(searchPattern.length()) data = Database::Self().Songs(0, 0, 0, &searchPattern);
+		else data = Database::Self().Songs();
+		icon.load(":/icons/def_song.png");
 		stat = tr("Collection - %n song(s)", "", data.count());
 		foreach(QString it, data) {
 			QString title, artist, album, comment, genre, length;
 			int track, year, rating;
 			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length)) {
-				QStandardItem *row = new QStandardItem(icon, title);
+				QPixmap px2 = icon;
+				if(rating >= 10) {
+					QPainter painter(&px2);
+					if(rating >= 50) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_5, QRect(0, 0, px_5.width(), px_5.height()));
+					else if(rating >= 40) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_4, QRect(0, 0, px_4.width(), px_4.height()));
+					else if(rating >= 30) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_3, QRect(0, 0, px_3.width(), px_3.height()));
+					else if(rating >= 20) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_2, QRect(0, 0, px_2.width(), px_2.height()));
+					else if(rating >= 10) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_1, QRect(0, 0, px_1.width(), px_1.height()));
+				}
+				QStandardItem *row = new QStandardItem(QIcon(px2), title);
 				row->setData(it);
+				row->setToolTip(title+"\n"+tr("%1, album \"%2\"").arg(artist).arg(album));
 				appendRow(row);
 			}
 		}
 		emit status(stat);
+		emit modeChanged(mode);
 		return;
 	}
 	}
 	QString tt("");
 	QStandardItem *i;
 	foreach(struct Database::Attr attr, data) {
-		QPixmap px2 = icon;
+		QPixmap px2;
+		if(!attr.art.size() || !px2.load(attr.art))
+			px2 = icon;
 		if(attr.rating >= 1) {
 			QPainter painter(&px2);
-			if(attr.rating >= 40) painter.drawPixmap(QPoint(0,0), px_5);
-			else if(attr.rating >= 30) painter.drawPixmap(QPoint(0,0), px_4);
-			else if(attr.rating >= 20) painter.drawPixmap(QPoint(0,0), px_3);
-			else if(attr.rating >= 10) painter.drawPixmap(QPoint(0,0), px_2);
-			else if(attr.rating >= 1)  painter.drawPixmap(QPoint(0,0), px_1);
+			if(attr.rating >= 40) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_5, QRect(0, 0, px_5.width(), px_5.height()));
+			else if(attr.rating >= 30) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_4, QRect(0, 0, px_4.width(), px_4.height()));
+			else if(attr.rating >= 20) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_3, QRect(0, 0, px_3.width(), px_3.height()));
+			else if(attr.rating >= 10) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_2, QRect(0, 0, px_2.width(), px_2.height()));
+			else if(attr.rating >= 1)  painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_1, QRect(0, 0, px_1.width(), px_1.height()));
 		}
 		i = new QStandardItem(QIcon(px2), attr.name);
-		tt = tr("%n song(s)", "", attr.refs);
+		tt = attr.name+"\n"+tr("%n song(s)", "", attr.refs);
 		//tt = QString::number(attr.refs).append(QString(" ")+tr("songs"));
 		i->setToolTip(tt); 
 		appendRow(i);
 	}
 	emit status(stat);
+	emit modeChanged(mode);
 }
 
 
@@ -318,7 +393,8 @@ CollectionView::CollectionView(QWidget *parent)
 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	if(!connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex))))
 		QMessageBox::information(0, "", "connection error");
-	model.updateMode(M_ARTIST);
+	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
+	model.updateMode(M_GENRE);
 }
 
 CollectionView::~CollectionView()
@@ -492,10 +568,6 @@ void CollectionView::removeItem()
     model.update();
 }
 
-void CollectionView::renameItem()
-{
-}
-
 void CollectionView::filter(QString patt)
 {
 	model.searchPattern = patt;
@@ -535,4 +607,83 @@ void CollectionView::clearSubset()
 	subsetLabel = "";
 	emit setSubsetLabel(subsetLabel);
 	model.update();
+}
+
+void CollectionView::setImage()
+{
+	if(model.mode == M_SONG || !this->selectedIndexes().size()) return;
+	QList<QString> data;
+	switch(model.mode) {
+	case M_ALBUM:
+		data = Database::Self().Songs(0, &model.data(this->selectedIndexes()[0]).toString(), 0);
+		break;
+	case M_ARTIST:
+		data = Database::Self().Songs(&model.data(this->selectedIndexes()[0]).toString(), 0, 0);
+		break;
+	case M_GENRE:
+		data = Database::Self().Songs(0, 0, &model.data(this->selectedIndexes()[0]).toString());
+		break;
+	case M_SONG:
+		return;
+	}
+	QString path = "";
+	if(data.size()) {
+		path = QFileInfo(data[0]).canonicalPath();
+		foreach(QString str, data) {
+			path = commonPath(path, QFileInfo(str).canonicalPath());
+		}
+	} 
+	if(path == "") path = QDir::homePath();
+	QString filename = QFileDialog::getOpenFileName(this, tr("Open image"), path, tr("Images (*.jpg *.gif *.png *.bmp)"));
+	if(filename.size()) {
+		foreach(QModelIndex ind, this->selectedIndexes()) {
+			switch(model.mode) {
+			case M_ALBUM:
+				Database::Self().ArtForAlbum(model.data(ind).toString(), filename);
+				break;
+			case M_ARTIST:
+				Database::Self().ArtForArtist(model.data(ind).toString(), filename);
+				break;
+			case M_GENRE:
+				Database::Self().ArtForGenre(model.data(ind).toString(), filename);
+				break;
+			case M_SONG:
+				return;
+			}
+		}
+		model.update();
+	}
+}
+
+QString CollectionView::commonPath(QString path1, QString path2)
+{
+	if(!path1.size() || !path2.size()) return "";
+	QDir dir1(path1), dir2(path2);
+	if(dir1.isRoot() || dir2.isRoot()) return "";
+	path1 = dir1.canonicalPath();
+	while(!dir2.isRoot()) {
+		if(path1.startsWith(dir2.canonicalPath())) return dir2.canonicalPath();
+		dir2.cdUp();
+	}
+	return "";
+}
+
+void CollectionView::iconView(bool b)
+{
+	if(b) {
+		setViewMode(QListView::IconMode);
+		setFlow(QListView::LeftToRight);
+		//setGridSize(QSize(64, 64));
+		setGridSize(QSize(80, 80));
+		setIconSize(QSize(64, 64));
+	} else {
+		setViewMode(QListView::ListMode);
+		setFlow(QListView::TopToBottom);
+		setGridSize(QSize(128, -1));
+		setIconSize(QSize(-1, -1));
+	}
+	setAcceptDrops(true);
+	setDragEnabled(true);
+	setDragDropMode(QAbstractItemView::DragDrop);
+	setDropIndicatorShown(true);
 }

@@ -1,3 +1,22 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "playlistmodel.h"
 #include "main.h"
 #include "database.h"
@@ -37,7 +56,7 @@ QMimeData * PlaylistModel::mimeData( const QModelIndexList & indexes ) const
     	if(none) rows << ind.row();
     }
     foreach(int r, rows) {
-		list.append(QUrl::fromLocalFile(data(index(r, File), Qt::UserRole).toString()));
+		list.append(data(index(r, File), Qt::UserRole).toUrl());
     }
 	mime->setUrls(list);
 	return mime;
@@ -58,21 +77,20 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
 		//    beginRow = parent.row()+1; 
         else
             beginRow = rowCount();
-        QStringList list;
-    	foreach(QUrl url, data->urls()) {
+        //QStringList list;
+    	//foreach(QUrl url, data->urls()) {
     		//addUrl(url.toLocalFile(), beginRow);
-    		list << url.toLocalFile();
-    	}
-    	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
-		if(!connect(filler, SIGNAL(sendFile(QString, int, QList<QVariant>)), this, SLOT(addItem(QString, int, QList<QVariant>)), Qt::QueuedConnection))
+    		//list << url.toLocalFile();
+    	//}
+    	PlaylistFiller *filler = new PlaylistFiller(data->urls(), beginRow);
+		if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>)), this, SLOT(addItem(QUrl, int, QList<QVariant>)), Qt::QueuedConnection))
 			QMessageBox::information(0, "", "connection error");
-		//filler->setPriority();
 		filler->start(QThread::IdlePriority);
     }
 	return true;
 }
 
-void PlaylistModel::addItem(QString path, int row, QList<QVariant> l)
+void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l)
 {
 	//QMessageBox::information(0, "insert position", QString::number(row));
 	try {
@@ -128,8 +146,11 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if(index.column() == File) {
-    	if(role == Qt::UserRole) return *_data.at(index.row()).values[index.column()];
-    	else if(role == Qt::DisplayRole) return QFileInfo(_data.at(index.row()).values[index.column()]->toString()).fileName(); 
+    	if(role == Qt::UserRole) 
+			return *_data.at(index.row()).values[index.column()];
+		else if(role == Qt::DisplayRole) 
+			//return QFileInfo(_data.at(index.row()).values[index.column()]->toUrl().toLocalFile()).fileName(); 
+			return _data.at(index.row()).values[File]->toUrl().toString();
     }
     
     if(index.row() == _current) {
@@ -202,6 +223,8 @@ bool PlaylistModel::setData(const QModelIndex &index,
 
 bool PlaylistModel::insertRows(int position, int rows, const QModelIndex &parent)
 {
+	if(position > _data.count()) position = _data.count();
+	if(position < 0) position = 0;
     beginInsertRows(QModelIndex(), position, position+rows-1);
 
     for (int row = 0; row < rows; ++row) {
@@ -218,17 +241,19 @@ bool PlaylistModel::insertRows(int position, int rows, const QModelIndex &parent
 } 
 
 bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent)
- {
-     beginRemoveRows(QModelIndex(), position, position+rows-1);
-
-     for (int row = 0; row < rows; ++row) {
-    	 for(int i=0; i<9; i++) delete _data.at(position).values[i];
-         _data.removeAt(position);
-     }
-
-     endRemoveRows();
-     return true;
- } 
+{
+	if(position > _data.count()) position = _data.count();
+	if(position < 0) position = 0;
+	beginRemoveRows(QModelIndex(), position, position+rows-1);
+	
+	for (int row = 0; row < rows; ++row) {
+		for(int i=0; i<ColumnCount; i++) delete _data.at(position).values[i];
+		_data.removeAt(position);
+	}
+	
+	endRemoveRows();
+	return true;
+} 
 
 /*int PlaylistModel::current()
 {
@@ -250,7 +275,7 @@ void PlaylistModel::setCurrent(int c)
  * PlaylistFiller
  * 
  ************************/
-PlaylistFiller::PlaylistFiller(QStringList dir, int ind, QObject *parent) 
+PlaylistFiller::PlaylistFiller(QList<QUrl> dir, int ind, QObject *parent) 
 : QThread(parent), paths(dir), index(ind)
 {
 	cancel = false;
@@ -264,10 +289,14 @@ PlaylistFiller::~PlaylistFiller()
 
 void PlaylistFiller::run()
 {
-	int taskID = Indicator::Self().addTask("Filling playlist");
-	foreach(QString s, paths) {
+	int taskID = Indicator::Self().addTask(tr("Filling playlist"));
+	foreach(QUrl s, paths) {
 		if(cancel) break;
-		proceedDir(s);
+		if(s.toLocalFile().size())
+			proceedDir(s.toLocalFile());
+		else {
+			// add url without tags
+		}
 	}
 	Indicator::Self().delTask(taskID);
 }
@@ -309,7 +338,7 @@ void PlaylistFiller::proceedDir(QString path)
 			l.append(qVariantFromValue(StarRating(0)));
 		}
 		setTerminationEnabled(false);
-		emit sendFile(path, index, l);
+		emit sendFile(QUrl::fromLocalFile(path), index, l);
 		setTerminationEnabled(true);
 		index++;
 	}

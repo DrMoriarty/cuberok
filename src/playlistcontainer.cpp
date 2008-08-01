@@ -1,3 +1,22 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "playlistcontainer.h"
 #include "playlistsettings.h"
 #include "playlistmodel.h"
@@ -38,10 +57,26 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 		counter ++;
 	}
 	if(!counter) addList();
+	
+	QSettings set;
+	QString curlistname = set.value("curlist", "").toString();
+	if(set.value("playing", false).toBool() && curlistname.size()) {
+		foreach(PlaylistView *p, lists) if(p->getName() == curlistname) {
+			actlist = p;
+			actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
+		}
+	}
 }
 
 PlaylistContainer::~PlaylistContainer()
 {
+	QSettings set;
+	if(actlist && actlist->isPlaying()) {
+		set.setValue("playing", 1);
+		set.setValue("curlist", actlist->getName());
+		set.setValue("curindex", actlist->curIndex());
+		set.setValue("curpos", actlist->curPosition());
+	} else set.setValue("playing", 0);
 	while(lists.count() > 0) {
 		lists.last()->setAutosave(true);
 		delete lists.last();
@@ -60,7 +95,7 @@ void PlaylistContainer::listStarted(PlaylistView* pl)
 			} else
 				actlist = p;
 		}
-		else p->stop();
+		//else p->stop();
 	}
 }
 
@@ -73,10 +108,11 @@ void PlaylistContainer::newList(QString listname)
 {
 	if(!listname.size()) {
 		QString str = tr("Playlist")+" ";
-		int i = 1;
-		bool found = false;
+		int i = 0;
+		bool found;
 		do {
-			listname = str+QString::number(i++);
+			found = false;
+			listname = str+QString::number(++i);
 			foreach(PlaylistView *p, lists) if(p->getName() == listname) {
 				found = true;
 				break;
@@ -95,7 +131,9 @@ void PlaylistContainer::newList(QString listname)
 	curlist->setDragDropMode(QAbstractItemView::DragDrop);
 	curlist->setDropIndicatorShown(true);
 	curlist->setSortingEnabled(true);
+	curlist->setToolTip(tr("Drag'n'Drop files to the playlist"));
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
+	connect(pl, SIGNAL(message(QString)), this, SIGNAL(message(QString)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
 	closeButton->setDisabled(false);
@@ -146,7 +184,7 @@ void PlaylistContainer::play()
 }
 void PlaylistContainer::pause(bool b)
 { 
-    Player::Self().setPause(b);
+    PlayerManager::Self().setPause(b);
 }
 void PlaylistContainer::stop()
 {
@@ -154,15 +192,15 @@ void PlaylistContainer::stop()
 }
 void PlaylistContainer::repeat(bool mode)
 { 
-    Player::Self().repeat_mode = mode;
+    PlayerManager::Self().repeat_mode = mode;
 }
 void PlaylistContainer::shuffle(bool mode)
 { 
-    Player::Self().shuffle_mode = mode;
+    PlayerManager::Self().shuffle_mode = mode;
 }
 void PlaylistContainer::setVolume(int volume)
 {
-    Player::Self().setVolume(volume);
+    PlayerManager::Self().setVolume(volume);
 }
 void PlaylistContainer::clear()
 { if(curlist) curlist->clear(); }
@@ -213,11 +251,18 @@ void PlaylistContainer::viewLength(bool b)
   //lev = b; 
 	PLSet.setColumnVisible(PlaylistModel::Length, b);
 }
+void PlaylistContainer::viewRating(bool b)
+{
+	PLSet.setColumnVisible(PlaylistModel::Rating, b);
+}
 void PlaylistContainer::editTag()
 { if(curlist) curlist->editTag(); }
 
 void PlaylistContainer::removeSong()
 { if(curlist) curlist->removeSong(); }
+
+void PlaylistContainer::reloadTags()
+{ if(curlist) curlist->reloadTags(); }
 
 void PlaylistContainer::tabChanged(int i)
 {

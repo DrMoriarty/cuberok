@@ -1,9 +1,29 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "cuberok.h"
 #include "aboutdialog.h"
 #include "lookandfeel.h"
 #include "tagger.h"
 #include "playlistsettings.h"
 #include "indicator.h"
+#include "settings.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent)
@@ -23,10 +43,11 @@ Cuberok::Cuberok(QWidget *parent)
 	trayIcon->setIcon(this->windowIcon());
 	trayIcon->show();
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayevent(QSystemTrayIcon::ActivationReason)));
+	connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(setFocus()));
 	
 	QSettings set;
 	//ui.line->restoreState(set.value("splitter").toByteArray());
-	dirmodel.setFilter(QDir::AllDirs);
+	dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
 	this->findChild<QTreeView*> ("treeView_2")->setModel(&dirmodel);
 	ui.treeView_2->hideColumn(1);
 	ui.treeView_2->hideColumn(2);
@@ -42,7 +63,10 @@ Cuberok::Cuberok(QWidget *parent)
 	if(set.value("repeat", false).toBool())
 		ui.actionRepeat->trigger();
 	if(set.value("correctTag", false).toBool())
-		ui.actionCorrectTag->trigger();
+		Tagger::setAutoCorrect(true);
+	if(set.value("saveCorrected", false).toBool())
+		Tagger::setSaveCorrected(true);
+	//ui.actionCorrectTag->trigger();
 	
 	if(!connect(ui.progressBar, SIGNAL(userevent(double)), this, SLOT(progressEvent(double))))
 	    QMessageBox::information(0, "error", "connection error");
@@ -58,8 +82,27 @@ Cuberok::Cuberok(QWidget *parent)
     if(PLSet.columnVisible(PlaylistModel::Year)) ui.actionViewYear->trigger();
     if(PLSet.columnVisible(PlaylistModel::Comment)) ui.actionViewComment->trigger();
 	if(PLSet.columnVisible(PlaylistModel::File)) ui.actionViewFile->trigger();
+	if(PLSet.columnVisible(PlaylistModel::Length)) ui.actionViewLength->trigger();
+	if(PLSet.columnVisible(PlaylistModel::Rating)) ui.actionViewRating->trigger();
 
 	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar->widgetForAction(ui.actionBreak)));
+
+	QString engine = set.value("engine", "").toString();
+	if(engine.size()) PlayerManager::Self().setPrefferedPlayer(engine);
+
+	QActionGroup *colmodeGroup = new QActionGroup(this);
+    colmodeGroup->addAction(ui.actionGenreMode);
+    colmodeGroup->addAction(ui.actionArtistMode);
+    colmodeGroup->addAction(ui.actionAlbumMode);
+    colmodeGroup->addAction(ui.actionSongMode);
+    ui.actionGenreMode->setChecked(true);
+	connect(ui.colView, SIGNAL(modeChanged(int)), this, SLOT(colmodeChanged(int)));
+
+	ui.toolBar->addAction(QWhatsThis::createAction(this));
+	if(set.value("iconview", false).toBool())
+		ui.actionIconView->trigger();
+	if(set.value("autoRating", false).toBool())
+		PLSet.autoRating = true;
 }
 
 Cuberok::~Cuberok()
@@ -67,9 +110,9 @@ Cuberok::~Cuberok()
 	QSettings set;
 	//set.setValue("splitter", ui.line->saveState());
 	set.setValue("volume", ui.volumeSlider->value());
-	set.setValue("correctTag", ui.actionCorrectTag->isChecked());
 	set.setValue("repeat", ui.actionRepeat->isChecked());
 	set.setValue("shuffle", ui.actionShuffle->isChecked());
+	set.setValue("iconview", ui.actionIconView->isChecked());
 }
 
 void Cuberok::on_AboutMenu()
@@ -94,21 +137,50 @@ void Cuberok::message(QString title/*, QString* message*/)
 
 void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 {
-	if(r == QSystemTrayIcon::Trigger) setVisible(!isVisible());
-	if(isVisible()) activateWindow();
-}
-
-void Cuberok::correctTag(bool b)
-{
-	Tagger::setAutoCorrect(b);
+	bool vis = !isVisible();
+	if(r == QSystemTrayIcon::Trigger) {
+		setVisible(vis);
+		foreach (QWidget *widget, QApplication::allWidgets()) {
+			QDialog *d = qobject_cast<QDialog*>(widget);
+			if(d) d->setVisible(vis);	
+		}
+	}
+	if(vis) activateWindow();
 }
 
 void Cuberok::progressEvent(double pos)
 {
-    Player::Self().setPosition(pos);
+    PlayerManager::Self().setPosition(pos);
 }
 
 void Cuberok::on_AboutQtMenu()
 {
 	QApplication::aboutQt();
+}
+
+void Cuberok::settings()
+{
+	Settings set(this);
+	set.exec();
+}
+
+void Cuberok::colmodeChanged(int m)
+{
+	ui.actionAddToCollection->setDisabled(m == M_SONG);
+	ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
+	ui.actionSetImage->setDisabled(m == M_SONG);
+	switch(m) {
+	case M_ARTIST:
+		ui.actionArtistMode->setChecked(true);
+		break;
+	case M_ALBUM:
+		ui.actionAlbumMode->setChecked(true);
+		break;
+	case M_GENRE:
+		ui.actionGenreMode->setChecked(true);
+		break;
+	case M_SONG:
+		ui.actionSongMode->setChecked(true);
+		break;
+	}
 }
