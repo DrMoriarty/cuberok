@@ -1,135 +1,167 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include "player.h"
-#define TIME 200
 
-Player::Player() : QObject(0), repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false), paused(false)
+#ifdef AUDIERE
+#include "player_audiere.h"
+#endif
+
+#ifdef GSTREAMER
+#include "player_gst.h"
+#endif
+
+#include "player_void.h"
+
+#include <QtGui>
+
+PlayerManager::PlayerManager() : player(0)
 {
-    device = OpenDevice();
-    device->registerCallback(this);
-    stream = 0;
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+#ifdef AUDIERE
+	players.push_back(new PlayerAudiere());
+	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+#endif
+#ifdef GSTREAMER
+	players.push_back(new PlayerGst());
+	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+#endif
+	players.push_back(new PlayerVoid());
+	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 }
 
-Player::~Player()
+PlayerManager::~PlayerManager()
 {
-    delete timer;
+	while(players.size()) {
+		delete players.last();
+		players.pop_back();
+	}
 }
 
-Player &Player::Self()
+bool PlayerManager::prepare()
 {
-    static Player* player = new Player();
+	if(player) player->stop();
+	int curweight = 0;
+	foreach(Player *pl, players) if(pl->weight() > curweight) {
+		if(pl->ready() ||  pl->prepare()) {
+			curweight = pl->weight();
+			player = pl;
+		}
+	}
+	//QMessageBox::information(0, "Selected engine", player->name());
+	qDebug("Selected engine %s", (const char*)player->name().toLocal8Bit());
+	return player;
+}
+
+bool PlayerManager::ready()
+{
+	return player;
+}
+
+PlayerManager &PlayerManager::Self()
+{
+    static PlayerManager* player = new PlayerManager();
+	if(!player->ready()) player->prepare();
     return *player;
 }
 
-void Player::ref() {}
-
-void Player::unref() {}
-
-void Player::streamStopped(StopEvent* event)
+bool PlayerManager::open(QUrl fname)
 {
-    if(sync) {
-		sync = false;
-		sem.release();
-    } else emit finish();
+    return player ? player->open(fname) : false;
 }
 
-bool Player::open(QString fname)
+bool PlayerManager::play()
 {
-    file = fname;
-    stream = OpenSound(device, file.toLocal8Bit(), true);
-    if(stream) stream->setVolume(float(svolume)/100);
-    return stream;
+    return player ? player->play() : false;
 }
 
-bool Player::play()
+bool PlayerManager::stop()
 {
-    if(stream) {
-		stream->play();
-		timer->start(TIME);
-		return true;
-    }
-    return false;
+    return player ? player->stop() : false;
 }
 
-bool Player::stop()
+bool PlayerManager::setPause(bool p)
 {
-    if(stream && stream->isPlaying()) {
-		sync_stop();
-		stream->reset();
-		return true;
-    }
-    return false;
+    return player ? player->setPause(p) : false;
 }
 
-bool Player::setPause(bool p)
+bool PlayerManager::close()
 {
-    if(p && stream && stream->isPlaying()) {
-		timer->stop();
-		sync_stop();
-		paused = true;
-		return true;
-    }
-    if(!p && stream && paused) {
-		stream->play();
-		timer->start(TIME);
-		paused = false;
-		return true;
-    }
-    return false;
+    return player ? player->close() : false;
 }
 
-bool Player::close()
+bool PlayerManager::setPosition(double pos)
 {
-    if(stream) {
-		timer->stop();
-		sync_stop();
-		stream = 0;
-		return true;
-    }
-    return false;
+    return player ? player->setPosition(pos) : false;
 }
 
-bool Player::setPosition(double pos)
+double PlayerManager::getPosition()
 {
-    if(stream && stream->isSeekable()) {
-		stream->setPosition(stream->getLength()*pos);
-	return true;
-    }
-    return false;
+    return player ? player->getPosition() : 0.0;
 }
 
-int  Player::volume()
+int  PlayerManager::volume()
 {
-    return svolume;
+    return player ? player->volume() : 0;
 }
 
-void Player::setVolume(int v)
+void PlayerManager::setVolume(int v)
 {
-    svolume = v;
-    if(stream) stream->setVolume(float(svolume)/100);
+	foreach(Player *pl, players)
+		pl->setVolume(v);
 }
 
-bool Player::playing()
+bool PlayerManager::playing()
 {
-    return stream && stream->isPlaying();
+    return player ? player->playing() : false;
 }
 
-void Player::timerUpdate()
+int PlayerManager::weight()
 {
-    if(stream && stream->isPlaying()) {
-		long p = stream->getPosition();
-		long l = stream->getLength();
-		if(l > 0) emit position((double)p/l);
-    } else {
-		timer->stop();
-    }
+	return 0;
 }
 
-void Player::sync_stop()
+QString PlayerManager::name()
 {
-    if(stream) {
-		sync = true;
-		stream->stop();
-		sem.acquire();
-    }
+	return player? player->name() : "no engine";
+}
+
+QStringList PlayerManager::getPlayers()
+{
+	QStringList res;
+	foreach(Player *pl, players)
+		if(pl->ready() || pl->prepare())
+			res << pl->name();
+	return res;
+}
+
+bool PlayerManager::setPrefferedPlayer(QString name)
+{
+	if(player && name == player->name()) return true;
+	if(player) player->stop();
+	foreach(Player *pl, players) 
+		if(pl->name() == name && ( pl->ready() || pl->prepare() )) {
+			player = pl;
+			return true;
+		}
+	QMessageBox::warning(0, tr("Error"), tr("Can't start engine %1").arg(name));
+	return false;
 }

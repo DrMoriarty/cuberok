@@ -1,3 +1,22 @@
+/* Cuberok
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ *
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this software; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
 #ifndef PLAYLISTMODEL_H_
 #define PLAYLISTMODEL_H_
 
@@ -13,13 +32,13 @@ class PlaylistFiller : public QThread
 {
     Q_OBJECT
 public:
-	PlaylistFiller ( QStringList paths, int ind, QObject * parent = 0 );
+	PlaylistFiller ( QList<QUrl> paths, int ind, QObject * parent = 0 );
 	~PlaylistFiller();
     void run();
 protected:
 	void proceedDir(QString path);
 	
-	QStringList paths;
+	QList<QUrl> paths;
 	int index;
 	bool cancel;
 
@@ -27,7 +46,7 @@ protected:
 	void cancelEvent();
 
 signals:
-	void sendFile(QString str, int index, QList<QVariant>);
+	void sendFile(QUrl str, int index, QList<QVariant>);
 };
 
 class PlaylistModel: public QAbstractListModel
@@ -57,7 +76,7 @@ public:
     enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, ColumnCount};
     
 private slots:
-	void addItem(QString path, int row, QList<QVariant>);
+	void addItem(QUrl path, int row, QList<QVariant>);
 
 private:
 	

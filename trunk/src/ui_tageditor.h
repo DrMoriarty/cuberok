@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'tageditor.ui'
 **
-** Created: Thu 10. Jul 11:20:14 2008
+** Created: Mon 28. Jul 17:25:29 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -161,6 +161,8 @@ public:
 
     spinBox_Rating = new QSpinBox(TagEditorClass);
     spinBox_Rating->setObjectName(QString::fromUtf8("spinBox_Rating"));
+    spinBox_Rating->setMinimum(-99);
+    spinBox_Rating->setValue(0);
 
     gridLayout->addWidget(spinBox_Rating, 10, 2, 1, 1);
 
