@@ -26,7 +26,7 @@ class Player : public QObject
 {
     Q_OBJECT
  public:
-    Player() {};
+    Player(): QObject(0), repeat_mode(false), shuffle_mode(false) {};
     ~Player() {};
 
 	virtual bool prepare() = 0;
