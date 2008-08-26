@@ -46,7 +46,7 @@ protected:
 	void cancelEvent();
 
 signals:
-	void sendFile(QUrl str, int index, QList<QVariant>);
+	void sendFile(QUrl str, int index, QList<QVariant>, long, long);
 };
 
 class PlaylistModel: public QAbstractListModel
@@ -73,10 +73,10 @@ public:
 	//void setCurrent(int c);
 	//int current();
 
-    enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, ColumnCount};
+    enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, CueStart, CueLength, DBIndex, ColumnCount};
     
 private slots:
-	void addItem(QUrl path, int row, QList<QVariant>);
+	void addItem(QUrl path, int row, QList<QVariant>, long, long);
 
 private:
 	

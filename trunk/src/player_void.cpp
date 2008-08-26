@@ -37,7 +37,7 @@ bool PlayerVoid::ready()
 	return true;
 }
 
-bool PlayerVoid::open(QUrl fname)
+bool PlayerVoid::open(QUrl fname, long start, long length)
 {
     return false;
 }

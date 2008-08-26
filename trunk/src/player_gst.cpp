@@ -20,14 +20,39 @@
 #include "player_gst.h"
 #define TIME 200
 
+#include <QtGui>
+
 PlayerGst * gstplayer = 0;
+
+#define sync_set_state(element, state) 	{ GstStateChangeReturn res; \
+	res = gst_element_set_state (GST_ELEMENT (element), state); \
+	if(res == GST_STATE_CHANGE_FAILURE) return false; \
+	if(res == GST_STATE_CHANGE_ASYNC) { \
+		GstState state; \
+		do { \
+			res = gst_element_get_state(GST_ELEMENT (element), &state, NULL, 1000000000/*GST_CLOCK_TIME_NONE*/); \
+			if(res == GST_STATE_CHANGE_FAILURE) return false;			\
+		} while(res == GST_STATE_CHANGE_ASYNC); \
+	} }
+
+#define sync_set_state2(element, state) 	{ GstStateChangeReturn res; \
+	res = gst_element_set_state (GST_ELEMENT (element), state); \
+	if(res == GST_STATE_CHANGE_FAILURE) return; \
+	if(res == GST_STATE_CHANGE_ASYNC) { \
+		GstState state; \
+		do { \
+			res = gst_element_get_state(GST_ELEMENT (element), &state, NULL, 1000000000/*GST_CLOCK_TIME_NONE*/); \
+			if(res == GST_STATE_CHANGE_FAILURE) return; \
+		} while(res == GST_STATE_CHANGE_ASYNC); \
+	} }
+
 
 static void gst_finish(GstElement* object, gpointer userdata)
 {
 	if(gstplayer) gstplayer->need_finish();
 }
 
-PlayerGst::PlayerGst() : player(0), paused(false), playflag(false)
+PlayerGst::PlayerGst() : player(0), paused(false), playflag(false), needseektoavoidgstbug(false)
 {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
@@ -37,24 +62,21 @@ PlayerGst::PlayerGst() : player(0), paused(false), playflag(false)
 PlayerGst::~PlayerGst()
 {
     delete timer;
-	gst_object_unref(G_OBJECT(player));
+	if(player) gst_object_unref(G_OBJECT(player));
+	gst_deinit();
 }
 
 bool PlayerGst::prepare()
 {
-	//int argc = 0;
-	//char *arg1 = "";
-	//char **argv = &arg1;
-	//gst_init (&argc, &argv);
 	gst_init (0, 0);
 // 	GstElementFactory *	fact = gst_element_factory_find("playbin");
 // 	if(fact)
 // 		player = gst_element_factory_create (fact, "player");
 	player = gst_element_factory_make ("playbin2", "player");
-	if(player)
-		g_signal_connect(player, "about-to-finish", G_CALLBACK(gst_finish), NULL);
-	else
-		player = gst_element_factory_make ("playbin", "player");
+	if(player) g_signal_connect(player, "about-to-finish", G_CALLBACK(gst_finish), NULL);
+	else player = gst_element_factory_make ("playbin", "player");
+	//sync_set_state(player, GST_STATE_NULL);
+	gst_element_set_state (GST_ELEMENT (player), GST_STATE_NULL);
 
 	return player;
 }
@@ -64,23 +86,53 @@ bool PlayerGst::ready()
 	return player;
 }
 
-bool PlayerGst::open(QUrl fname)
+bool PlayerGst::open(QUrl fname, long start, long length)
 {
 	g_object_set (player, "uri", (const char*)fname.toString().toLocal8Bit(), NULL);
+	gst_element_set_state (GST_ELEMENT (player), GST_STATE_PAUSED);
+	//sync_set_state(player, GST_STATE_PAUSED);
+// 	GstStateChangeReturn res;
+// 	res = gst_element_set_state (GST_ELEMENT (player), GST_STATE_PAUSED);
+// 	if(res == GST_STATE_CHANGE_FAILURE) return false;
+// 	if(res == GST_STATE_CHANGE_ASYNC) {
+// 		GstState state;
+// 		do {
+// 			res = gst_element_get_state(GST_ELEMENT (player), &state, NULL, GST_CLOCK_TIME_NONE);
+// 			if(res == GST_STATE_CHANGE_FAILURE) return false;
+// 		} while(res == GST_STATE_CHANGE_ASYNC);
+// 	}
+	Gstart = start;
+	Gstart *= 1000000000 / 75;
+	Glength = length;
+	Glength *= 1000000000 / 75;
+	gint64 all=0;
+	GstFormat fmt = GST_FORMAT_TIME;
+	while(!gst_element_query_duration(player, &fmt, &all)) {}  // don't do that again, bad boy
+	if(!Glength) {
+		Glength = all - Gstart;
+	}
+	//QMessageBox::information(0, "", QString("start = %1, length = %2, stream = %3").arg(QString::number((qlonglong)Gstart), QString::number((qlonglong)Glength), QString::number((qlonglong)all)));
     return true;
 }
 
 bool PlayerGst::play()
 {
-	gst_element_set_state (GST_ELEMENT (player), GST_STATE_PLAYING);
+	gst_element_seek(player, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, Gstart, GST_SEEK_TYPE_SET, Gstart + Glength);
+	sync_set_state(player, GST_STATE_PLAYING);
+// 	if(gst_element_set_state (GST_ELEMENT (player), GST_STATE_PLAYING) == GST_STATE_CHANGE_ASYNC) {
+// 		GstState state;
+// 		while(gst_element_get_state(GST_ELEMENT (player), &state, NULL, GST_CLOCK_TIME_NONE) == GST_STATE_CHANGE_ASYNC) {}
+// 	}
 	timer->start(TIME);
 	playflag = true;
+	//needseektoavoidgstbug = true;
     return true;
 }
 
 bool PlayerGst::stop()
 {
-	gst_element_set_state (GST_ELEMENT (player), GST_STATE_READY);
+	sync_set_state(player, GST_STATE_READY);
+	//gst_element_set_state (GST_ELEMENT (player), GST_STATE_READY);
 	timer->stop();
 	playflag = false;
     return true;
@@ -90,13 +142,15 @@ bool PlayerGst::setPause(bool p)
 {
     if(p && playing()) {
 		timer->stop();
-		gst_element_set_state (GST_ELEMENT (player), GST_STATE_PAUSED);
+		sync_set_state(player, GST_STATE_PAUSED);
+		//gst_element_set_state (GST_ELEMENT (player), GST_STATE_PAUSED);
 		paused = true;
 		return true;
     }
     if(!p && paused) {
 		timer->start(TIME);
-		gst_element_set_state (GST_ELEMENT (player), GST_STATE_PLAYING);
+		sync_set_state(player, GST_STATE_PLAYING);
+		//gst_element_set_state (GST_ELEMENT (player), GST_STATE_PLAYING);
 		paused = false;
 		return true;
     }
@@ -114,20 +168,22 @@ bool PlayerGst::close()
 bool PlayerGst::setPosition(double pos)
 {
 	gint64 time;
-	GstFormat fmt = GST_FORMAT_TIME;
-	gst_element_query_duration(player, &fmt, &time);
-	time = pos * time;
-    return gst_element_seek(player, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, time, GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
+	time = Glength;
+	time *= pos;
+	time += Gstart;
+    return gst_element_seek(player, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, time, GST_SEEK_TYPE_SET, Gstart + Glength);
 }
 
 double PlayerGst::getPosition()
 {
     if(playing()) {
-		gint64 p, l;
+		gint64 p;
 		GstFormat fmt = GST_FORMAT_TIME;
 		gst_element_query_position(player, &fmt, &p);
-		gst_element_query_duration(player, &fmt, &l);
-		return (double)p/l;
+		p -= Gstart;
+		p *= 100;
+		p /= Glength;
+		return (double)p/100;
 	}
 	return 0.0;
 }
@@ -165,11 +221,14 @@ QString PlayerGst::name()
 void PlayerGst::timerUpdate()
 {
     if(playing()) {
-		gint64 p, l;
+		gint64 p;
 		GstFormat fmt = GST_FORMAT_TIME;
 		gst_element_query_position(player, &fmt, &p);
-		gst_element_query_duration(player, &fmt, &l);
-		emit position((double)p/l);
+		emit position((double)(p - Gstart) / Glength);
+		if(needseektoavoidgstbug) {
+			setPosition(0.0f);
+			needseektoavoidgstbug = false;
+		}
     } else if(playflag) {
 // 		timer->stop();
 // 		playflag = false;
@@ -179,6 +238,8 @@ void PlayerGst::timerUpdate()
 
 void PlayerGst::need_finish()
 {
-	gst_element_set_state (GST_ELEMENT (player), GST_STATE_READY);
+	timer->stop();
+	sync_set_state2(player, GST_STATE_NULL);
+	//gst_element_set_state (GST_ELEMENT (player), GST_STATE_READY);
 	emit finish();
 }

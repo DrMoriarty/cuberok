@@ -21,6 +21,8 @@
 #include "main.h"
 #include "database.h"
 
+//#include "QtGui"
+
 Tagger::Tagger()
 {
 }
@@ -205,6 +207,93 @@ QString Tagger::correctBrokenUnicode(QString str, bool *corrected)
 	return str;
 }
 
+QList<CueEntry> Tagger::readCue(QString filename)
+{
+	QList<CueEntry> list;
+	CueEntry item;
+	QString file, artist, artist2, album, title;
+	long start;
+	int track, ID = 0;
+	bool entry = false, skip = false;
+	QString path = QFileInfo(filename).path();
+	
+	QFile f(filename);
+	if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		QTextStream in(&f);
+		while (!in.atEnd()) {
+			QString line = in.readLine(), word;
+			while(line.size()) {
+				word = getWord(line);
+				if(skip && word != "TRACK") break;
+				if(word == "TITLE") {
+					if(entry) title = getWord(line);
+					else album = getWord(line);
+				}
+				else if(word == "PERFORMER") {
+					if(entry) artist2 = getWord(line);
+					else artist = getWord(line);
+				}
+				else if(word == "FILE") {
+					file = getWord(line);
+					if(QFileInfo(file).isRelative()) file = path + QDir::separator() + file;
+					getWord(line); // type
+				}
+				else if(word == "TRACK") {
+					skip = false;
+					if(entry) {
+						item.file = file;
+						item.start = start;
+						item.length = 0;//length;
+						item.artist = artist2.size() ? artist2 : artist;
+						item.album = album;
+						item.title = title.size() ? title : QString("Track ")+QString::number(++ID);
+						item.track = track;
+						list << item;
+						item.start = 0;
+						item.length = 0;
+						item.artist = "";
+						item.album = "";
+						item.title = "";
+						item.track = 0;
+					}
+					entry = true;
+					track = getWord(line).toInt();
+					if(getWord(line) != "AUDIO") 
+						skip = true;
+				}
+				else if(word == "INDEX") {
+					getWord(line); // index number
+					QString ind = getWord(line);
+					start = ind.section(':', 0, 0).toInt() * 4500 + ind.section(':', 1, 1).toInt() * 75 + ind.section(':', 2, 2).toInt();
+				}
+				else {
+					// SYNTAX ERROR
+				}
+			}
+		}
+		if(entry && !skip) {
+			item.file = file;
+			item.start = start;
+			item.length = 0;//length;
+			item.artist = artist2.size() ? artist2 : artist;
+			item.album = album;
+			item.title = title.size() ? title : QString("Track ")+QString::number(++ID);
+			item.track = track;
+			list << item;
+		}
+		for(int i = 0; i<list.size()-1; i++) {
+			list[i].length = list[i+1].start - list[i].start;
+		}
+		TagLib::FileRef fr(file.toLocal8Bit().constData());
+		if(!fr.isNull() && fr.audioProperties()) {
+			long len = fr.audioProperties()->length() * 75;
+			list.last().length = len - list.last().start;
+		}
+	}
+
+	return list;
+}
+
 bool Tagger::autoCorrect()
 {
 	return _autoCorrect;
@@ -225,3 +314,28 @@ void Tagger::setSaveCorrected(bool b)
 	_saveCorrected = b;
 }
 
+QString Tagger::getWord(QString &str)
+{
+	QString word;
+	str = str.trimmed();
+	if(str[0] == '\"') {
+		int i = str.indexOf('"', 1);
+		if(i >= 0) {
+			word = str.mid(1, i-1);
+			str = str.mid(i+1);
+		} else { 
+			word = str.mid(1);
+			str = "";
+		}
+	} else {
+		int i = str.indexOf(' ', 1);
+		if(i >= 0) {
+			word = str.mid(0, i);
+			str = str.mid(i+1);
+		} else { 
+			word = str;
+			str = "";
+		}
+	}
+	return word;
+}

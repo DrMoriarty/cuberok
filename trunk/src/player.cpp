@@ -83,9 +83,9 @@ PlayerManager &PlayerManager::Self()
     return *player;
 }
 
-bool PlayerManager::open(QUrl fname)
+bool PlayerManager::open(QUrl fname, long start, long length)
 {
-    return player ? player->open(fname) : false;
+    return player ? player->open(fname, start, length) : false;
 }
 
 bool PlayerManager::play()

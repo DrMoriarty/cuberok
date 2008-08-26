@@ -57,12 +57,14 @@
      int maxStarCount() const { return myMaxStarCount; }
      void setStarCount(int starCount) { myStarCount = starCount; }
      void setMaxStarCount(int maxStarCount) { myMaxStarCount = maxStarCount; }
+	 int rating() const { return _rating; }
 
  private:
      QPolygonF starPolygon;
      QPolygonF diamondPolygon;
      int myStarCount;
      int myMaxStarCount;
+	 int _rating;
  };
 
  Q_DECLARE_METATYPE(StarRating)

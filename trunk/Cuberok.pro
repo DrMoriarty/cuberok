@@ -1,5 +1,5 @@
 CONFIG += qt 
-QT += sql
+QT += sql xml
 
 TEMPLATE = app
 TARGET = 
