@@ -20,6 +20,8 @@
 #include "player_audiere.h"
 #define TIME 200
 
+//#include <QtGui>
+
 PlayerAudiere::PlayerAudiere() : repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false), paused(false)
 {
     stream = 0;
@@ -56,17 +58,30 @@ void PlayerAudiere::streamStopped(StopEvent* event)
     } else emit finish();
 }
 
-bool PlayerAudiere::open(QUrl fname)
+bool PlayerAudiere::open(QUrl fname, long start, long length)
 {
     file = fname.toLocalFile();
-    stream = OpenSound(device, file.toLocal8Bit(), true);
-    if(stream) stream->setVolume(float(svolume)/100);
+	SampleSource* source = OpenSampleSource(file.toLocal8Bit(), FF_AUTODETECT);
+    stream = OpenSound(device, source, true);
+    if(stream) {
+		int ch, sr;
+		SampleFormat sf;
+		source->getFormat(ch, sr, sf);
+		stream->setVolume(float(svolume)/100);
+		_start = start * sr / 75;
+		_length = length * sr / 75;
+		if(!_length) _length = stream->getLength() - _start;
+	} else {
+		_start = _length = 0;
+	}
     return stream;
 }
 
 bool PlayerAudiere::play()
 {
     if(stream) {
+		if(_start && stream->isSeekable()) 
+			stream->setPosition(_start);
 		stream->play();
 		timer->start(TIME);
 		return true;
@@ -116,7 +131,7 @@ bool PlayerAudiere::close()
 bool PlayerAudiere::setPosition(double pos)
 {
     if(stream && stream->isSeekable()) {
-		stream->setPosition(stream->getLength()*pos);
+		stream->setPosition(_start + _length*pos);
 		return true;
     }
     return false;
@@ -126,8 +141,7 @@ double PlayerAudiere::getPosition()
 {
     if(stream && stream->isPlaying()) {
 		long p = stream->getPosition();
-		long l = stream->getLength();
-		if(l > 0) return (double)p/l;
+		if(_length) return (double)(p - _start) / _length;
     }
 	return 0.0;
 }
@@ -162,8 +176,12 @@ void PlayerAudiere::timerUpdate()
 {
     if(stream && stream->isPlaying()) {
 		long p = stream->getPosition();
-		long l = stream->getLength();
-		if(l > 0) emit position((double)p/l);
+		if(_length) {
+			if(p - _start >= _length) 
+				stream->stop();
+			else
+				emit position((double)(p - _start) / _length);
+		}
     } else {
 		timer->stop();
     }

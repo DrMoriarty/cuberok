@@ -83,14 +83,14 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
     		//list << url.toLocalFile();
     	//}
     	PlaylistFiller *filler = new PlaylistFiller(data->urls(), beginRow);
-		if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>)), this, SLOT(addItem(QUrl, int, QList<QVariant>)), Qt::QueuedConnection))
+		if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>, long, long)), this, SLOT(addItem(QUrl, int, QList<QVariant>, long, long)), Qt::QueuedConnection))
 			QMessageBox::information(0, "", "connection error");
 		filler->start(QThread::IdlePriority);
     }
 	return true;
 }
 
-void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l)
+void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, long length)
 {
 	//QMessageBox::information(0, "insert position", QString::number(row));
 	try {
@@ -107,6 +107,9 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l)
 			*_data.at(row).values[Track] = l[6];
 			*_data.at(row).values[Year] = l[7];
 			*_data.at(row).values[Rating] = l[8];
+			*_data.at(row).values[CueStart] = QVariant((qlonglong)start);
+			*_data.at(row).values[CueLength] = QVariant((qlonglong)length);
+			*_data.at(row).values[DBIndex] = QVariant((qlonglong)0);
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
 		}
 	} catch (char * mes) {
@@ -315,7 +318,29 @@ void PlaylistFiller::proceedDir(QString path)
 		QList<QVariant> l;
 		QString title, artist, album, comment, genre, length;
 		int track, year, rating;
-		if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
+		if(path.toLower().endsWith(".cue")) {
+			QList<CueEntry> cuelist = Tagger::readCue(path);
+			foreach(CueEntry item, cuelist) {
+				length = QString::number((item.length%4500)/75);
+				length = QString("%1:%2").arg(QString::number(item.length/4500), length.size()<2 ? "0"+length : length);
+				l.clear();
+				l.append(QVariant(item.title));
+				l.append(QVariant(item.artist));
+				l.append(QVariant(item.album));
+				l.append(QVariant(""));
+				l.append(QVariant(""));
+				l.append(QVariant(length));
+				l.append(QVariant(item.track));
+				l.append(QVariant(0));
+				l.append(qVariantFromValue(StarRating(0)));
+				setTerminationEnabled(false);
+				emit sendFile(QUrl::fromLocalFile(item.file), index, l, item.start, item.length);
+				setTerminationEnabled(true);
+				index++;
+			}
+			return;
+		}
+		else if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
 			l.append(QVariant(title));
 			l.append(QVariant(artist));
 			l.append(QVariant(album));
@@ -338,7 +363,7 @@ void PlaylistFiller::proceedDir(QString path)
 			l.append(qVariantFromValue(StarRating(0)));
 		}
 		setTerminationEnabled(false);
-		emit sendFile(QUrl::fromLocalFile(path), index, l);
+		emit sendFile(QUrl::fromLocalFile(path), index, l, 0, 0);
 		setTerminationEnabled(true);
 		index++;
 	}

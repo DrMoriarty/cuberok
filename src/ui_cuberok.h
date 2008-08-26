@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Wed 23. Jul 16:44:10 2008
+** Created: Tue 19. Aug 08:09:27 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -112,7 +112,7 @@ public:
     {
     if (CuberokClass->objectName().isEmpty())
         CuberokClass->setObjectName(QString::fromUtf8("CuberokClass"));
-    CuberokClass->resize(591, 292);
+    CuberokClass->resize(591, 306);
     CuberokClass->setWindowIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     CuberokClass->setDockNestingEnabled(true);
     CuberokClass->setDockOptions(QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks|QMainWindow::VerticalTabs);
@@ -254,7 +254,9 @@ public:
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
+    vboxLayout->setSpacing(4);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+    vboxLayout->setContentsMargins(4, 4, 4, 4);
     listView = new PlaylistContainer(centralwidget);
     listView->setObjectName(QString::fromUtf8("listView"));
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -280,7 +282,9 @@ public:
     frame->setFrameShape(QFrame::StyledPanel);
     frame->setFrameShadow(QFrame::Raised);
     hboxLayout = new QHBoxLayout(frame);
+    hboxLayout->setSpacing(2);
     hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+    hboxLayout->setContentsMargins(4, 4, 4, 4);
     progressBar = new ProgressBar(frame);
     progressBar->setObjectName(QString::fromUtf8("progressBar"));
     progressBar->setMaximum(1000);
@@ -325,7 +329,7 @@ public:
     hboxLayout1 = new QHBoxLayout(frame_2);
     hboxLayout1->setSpacing(0);
     hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
-    hboxLayout1->setContentsMargins(4, 0, 4, 0);
+    hboxLayout1->setContentsMargins(0, 0, 0, 0);
     subsetLabel = new QLabel(frame_2);
     subsetLabel->setObjectName(QString::fromUtf8("subsetLabel"));
 
@@ -368,8 +372,9 @@ public:
     dockWidgetContents2 = new QWidget(dockWidget2);
     dockWidgetContents2->setObjectName(QString::fromUtf8("dockWidgetContents2"));
     vboxLayout2 = new QVBoxLayout(dockWidgetContents2);
+    vboxLayout2->setSpacing(2);
     vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
-    vboxLayout2->setContentsMargins(0, 0, 0, 0);
+    vboxLayout2->setContentsMargins(4, 4, 4, 4);
     treeView_2 = new QTreeView(dockWidgetContents2);
     treeView_2->setObjectName(QString::fromUtf8("treeView_2"));
     treeView_2->setDragEnabled(true);

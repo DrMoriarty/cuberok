@@ -24,6 +24,9 @@
 #include "stardelegate.h"
 #include "starrating.h"
 #include "playlistsettings.h"
+#include <QtXml>
+
+const QString XMLNS("http://code.google.com/p/cuberok");
 
 /***********************
  * 
@@ -46,8 +49,12 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	sortByColumn(PlaylistModel::Artist, Qt::AscendingOrder);
 	if(plistname.size()) {  // read stored playlist
-		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-		loadList(fname);
+		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
+		if(QFile::exists(fname)) loadListXSPF(fname);
+		else {
+			fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
+			if(QFile::exists(fname)) loadListM3U(fname);
+		}
 	}
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
 		setColumnHidden(i, !PLSet.columnVisible(i));
@@ -62,12 +69,12 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 
 PlaylistView::~PlaylistView()
 {
-	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-	if(autosave) storeList(fname);
+	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
+	if(autosave) storeListXSPF(fname);
 	else QFile::remove(fname);
 }
 
-void PlaylistView::storeList(QString fname)
+void PlaylistView::storeListM3U(QString fname)
 {
 	if(!fname.size()) return;
 	QFile file(fname);
@@ -81,7 +88,7 @@ void PlaylistView::storeList(QString fname)
 	}
 }
 
-void PlaylistView::loadList(QString fname)
+void PlaylistView::loadListM3U(QString fname)
 {
 	if(QFile::exists(fname)) {
 		while(model.rowCount()) model.removeRow(0);
@@ -99,6 +106,144 @@ void PlaylistView::loadList(QString fname)
 			data.setUrls(urls);
 			model.dropMimeData(&data, Qt::CopyAction, -1, -1, model.index(model.rowCount(), 0));
 			file.close();
+		}
+	}
+}
+
+void PlaylistView::storeListXSPF(QString fname)
+{
+	QFile file(fname);
+	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+		QXmlStreamWriter xml(&file);
+		//xml.setAutoFormatting(true);
+		xml.writeStartDocument();
+		xml.writeStartElement("playlist");
+		xml.writeAttribute("version", "1");
+		xml.writeDefaultNamespace("http://xspf.org/ns/0/");
+		xml.writeNamespace(XMLNS, "cuberok");
+		xml.writeTextElement("title", QFileInfo(fname).baseName());
+		xml.writeTextElement("creator", "Cuberok");
+		xml.writeTextElement("date", QDateTime::currentDateTime().toUTC().toString("yyyy-MM-dd'T'hh:mm:ss"));
+		xml.writeStartElement("trackList");
+		for(int i=0; i<model.rowCount(); i++) {
+			xml.writeStartElement("track");
+			xml.writeTextElement("location", model.data(model.index(i, PlaylistModel::File), Qt::UserRole).toUrl().toString());
+			xml.writeTextElement("title", model.data(model.index(i, PlaylistModel::Title), Qt::DisplayRole).toString());
+			xml.writeTextElement("creator", model.data(model.index(i, PlaylistModel::Artist), Qt::DisplayRole).toString());
+			xml.writeTextElement("annotation", model.data(model.index(i, PlaylistModel::Comment), Qt::DisplayRole).toString());
+			xml.writeTextElement("album", model.data(model.index(i, PlaylistModel::Album), Qt::DisplayRole).toString());
+			xml.writeTextElement("trackNum", QString::number(model.data(model.index(i, PlaylistModel::Track), Qt::DisplayRole).toInt()));
+			xml.writeStartElement("extension");
+			xml.writeAttribute("application", XMLNS);
+			xml.writeTextElement(XMLNS, "cuestart", QString::number(model.data(model.index(i, PlaylistModel::CueStart), Qt::DisplayRole).toLongLong()));
+			xml.writeTextElement(XMLNS, "cuelength", QString::number(model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong()));
+			xml.writeTextElement(XMLNS, "dbindex", QString::number(model.data(model.index(i, PlaylistModel::DBIndex), Qt::DisplayRole).toLongLong()));
+			xml.writeTextElement(XMLNS, "genre", model.data(model.index(i, PlaylistModel::Genre), Qt::DisplayRole).toString());
+			xml.writeTextElement(XMLNS, "length", model.data(model.index(i, PlaylistModel::Length), Qt::DisplayRole).toString());
+			xml.writeTextElement(XMLNS, "year", QString::number(model.data(model.index(i, PlaylistModel::Year), Qt::DisplayRole).toInt()));
+			xml.writeTextElement(XMLNS, "rating", QString::number(qVariantValue<StarRating>(model.data(model.index(i, PlaylistModel::Rating), Qt::DisplayRole)).rating()));
+			xml.writeEndElement(); //extension
+			xml.writeEndElement(); //track
+		}
+		xml.writeEndElement(); // trackList
+		xml.writeEndElement(); //playlist
+		xml.writeEndDocument();
+	}
+}
+
+void PlaylistView::loadListXSPF(QString fname)
+{
+	QString location, title, artist, comment, album, genre, length;
+	int track, dbindex, year, rating;
+	long cuestart, cuelength;
+	if(QFile::exists(fname)) {
+		while(model.rowCount()) model.removeRow(0);
+		QFile file(fname);
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			QXmlStreamReader xml(&file);
+			int step = 0;
+			while (!xml.atEnd()) {
+				//while(xml.readNext() != QXmlStreamReader::StartDocument) {}
+				QXmlStreamReader::TokenType tt = xml.readNext();
+				if(tt == QXmlStreamReader::EndDocument || tt == QXmlStreamReader::Invalid)
+					break;
+				else if(tt == QXmlStreamReader::StartElement) {
+					if(xml.name() == "playlist") {
+						if(xml.namespaceUri() != "http://xspf.org/ns/0/") break;
+						if(xml.attributes().value("version").toString() != "1") break;
+						if(!step) step ++;
+					} else if(xml.name() == "trackList" && step == 1) {
+						step ++;
+					} else if(xml.name() == "track" && step == 2) {
+						step ++;
+						location = title = artist = comment = album = genre = length = "";
+						track = dbindex = year = rating = 0;
+						cuestart = cuelength = 0;
+					} else if(xml.name() == "location" && step == 3) {
+						location = xml.readElementText();
+					} else if(xml.name() == "title" && step == 3) {
+						title = xml.readElementText();
+					} else if(xml.name() == "creator" && step == 3) {
+						artist = xml.readElementText();
+					} else if(xml.name() == "annotation" && step == 3) {
+						comment = xml.readElementText();
+					} else if(xml.name() == "album" && step == 3) {
+						album = xml.readElementText();
+					} else if(xml.name() == "trackNum" && step == 3) {
+						track = xml.readElementText().toInt();
+					} else if(xml.name() == "extension") {
+						if(xml.attributes().value(QString("application")).toString() == XMLNS) {
+							while(tt=xml.readNext(), !xml.atEnd()) {
+								if(tt == QXmlStreamReader::StartElement) {
+									if(xml.name() == "cuestart") {
+										cuestart = xml.readElementText().toLongLong();
+									} else if(xml.name() == "cuelength") {
+										cuelength = xml.readElementText().toLongLong();
+									} else if(xml.name() == "dbindex") {
+										dbindex = xml.readElementText().toInt();
+									} else if(xml.name() == "genre") {
+										genre = xml.readElementText();
+									} else if(xml.name() == "length") {
+										length = xml.readElementText();
+									} else if(xml.name() == "year") {
+										year = xml.readElementText().toInt();
+									} else if(xml.name() == "rating") {
+										rating = xml.readElementText().toInt();
+									}
+								} else if(tt == QXmlStreamReader::EndElement && xml.name() == "extension") break;
+							}
+							}
+					}
+				} else if(tt == QXmlStreamReader::EndElement) {
+					if(xml.name() == "playlist") {
+						if(step == 1) step --;
+					} else if(xml.name() == "trackList") {
+						if(step == 2) step --;
+					} else if(xml.name() == "track") {
+						if(step == 3) step --;
+						// insert
+						int row = model.rowCount();
+						model.insertRow(row);
+						model.setData(model.index(row, PlaylistModel::File), QUrl(location), Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Title), title, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Artist), artist, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Comment), comment, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Album), album, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Track), track, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::CueStart), (qlonglong)cuestart, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::CueLength), (qlonglong)cuelength, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::DBIndex), dbindex, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Genre), genre, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Length), length, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Year), year, Qt::EditRole);
+						model.setData(model.index(row, PlaylistModel::Rating), qVariantFromValue(StarRating(rating)), Qt::EditRole);
+					}
+				}
+			}
+			if (xml.hasError()) {
+				QString err = tr("There is error in XSPF playlist:\nLine number %1, column %2\n%3").arg(xml.errorString(), QString::number(xml.lineNumber()), QString::number(xml.columnNumber()));
+				QMessageBox::warning(this, "Error", err);
+			} 
 		}
 	}
 }
@@ -191,7 +336,7 @@ void PlaylistView::play()
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
-	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()))
+	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong()))
 		QMessageBox::warning(0, tr("Error"), tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));

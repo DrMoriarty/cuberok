@@ -25,6 +25,16 @@
 static bool _autoCorrect = false;
 static bool _saveCorrected = false;
 
+typedef struct {
+	QString file;
+	long start;
+	long length;
+	QString artist;
+	QString album;
+	QString title;
+	int track;
+} CueEntry;
+
 class Tagger
 {
 public:
@@ -38,6 +48,8 @@ public:
 	static bool updateGenre(QString file, QString genre);
 	static QString correct8bit(QString str, bool *corrected = 0);
 	static QString correctBrokenUnicode(QString str, bool *corrected = 0);
+
+	static QList<CueEntry> readCue(QString file);
 	
 	static bool autoCorrect();
 	static void setAutoCorrect(bool);
@@ -46,6 +58,8 @@ public:
 	
 private:
 	Tagger();
+
+	static QString getWord(QString &str);
 	
 	//static bool corrected = false;
 	

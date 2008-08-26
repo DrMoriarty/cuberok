@@ -33,7 +33,7 @@ class PlayerVoid : public Player
 	virtual bool prepare();
 	virtual bool ready();
 
-    virtual bool open(QUrl fname);
+    virtual bool open(QUrl fname, long start = 0, long length = 0);
     virtual bool play();
     virtual bool stop();
     virtual bool setPause(bool p);

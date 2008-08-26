@@ -129,10 +129,16 @@ void Cuberok::lookAndFeel()
 
 void Cuberok::message(QString title/*, QString* message*/)
 {
-    ui.progressBar->setFormat(title + " %p%");
-	trayIcon->showMessage(title, /**message*/QString(""), QSystemTrayIcon::NoIcon, 10);
-	setWindowTitle(QString(titlepref).append(title));
-	trayIcon->setToolTip(title);
+	if(title.size()) {
+		ui.progressBar->setFormat(title + " %p%");
+		trayIcon->showMessage(title, /**message*/QString(""), QSystemTrayIcon::NoIcon, 10);
+		setWindowTitle(QString(titlepref).append(title));
+		trayIcon->setToolTip(title);
+	} else {
+		ui.progressBar->setFormat("%p%");
+		setWindowTitle("Cuberok");
+		trayIcon->setToolTip("Cuberok");
+	}
 }
 
 void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)

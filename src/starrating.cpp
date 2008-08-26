@@ -45,7 +45,8 @@
 
  StarRating::StarRating(int starCount, int maxStarCount)
  {
-     myStarCount = starCount/10;
+	 _rating = starCount;
+     myStarCount = _rating/10;
      myMaxStarCount = maxStarCount;
 
      starPolygon << QPointF(1.0, 0.5);

@@ -32,6 +32,8 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
  alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true)
 {
 	vboxLayout = new QVBoxLayout(this);
+	vboxLayout->setContentsMargins(0,0,0,0);
+	vboxLayout->setSpacing(2);
 	tabs = new QTabWidget(this);
 	vboxLayout->addWidget(tabs);
 	connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
@@ -49,12 +51,14 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	QDir dir(QDir::homePath() + "/.cuberok/");
 	QStringList filters;
 	filters << "*.m3u";
+	filters << "*.xspf";
 	dir.setNameFilters(filters);
 	foreach(QString file, dir.entryList()) {
-		int st = file.lastIndexOf('\\')+1;
-		QString plname = file.mid(st, file.lastIndexOf('.')-st);
-		newList(plname);
+		//int st = file.lastIndexOf('\\')+1;
+		//QString plname = file.mid(st, file.lastIndexOf('.')-st);
+		newList(QFileInfo(file).baseName());
 		counter ++;
+		if(file.toLower().endsWith(".m3u")) QFile::remove(file);
 	}
 	if(!counter) addList();
 	
@@ -273,19 +277,26 @@ void PlaylistContainer::tabChanged(int i)
 
 void PlaylistContainer::loadList()
 {
-	QString filename = QFileDialog::getOpenFileName(this, tr("Open playlist"), QDir::homePath(), "*.m3u");
+	QString filename = QFileDialog::getOpenFileName(this, tr("Open playlist"), QDir::homePath(), "*.xspf *.m3u");
 	if(filename.size()) {
 		newList(QFileInfo(filename).baseName());
-		curlist->loadList(filename);
+		if(filename.toLower().endsWith(".m3u"))
+			curlist->loadListM3U(filename);
+		else if(filename.toLower().endsWith(".xspf"))
+			curlist->loadListXSPF(filename);
 	}
 }
 
 void PlaylistContainer::saveList()
 {
+	QString filter;
 	if(curlist) {
-		QString filename = QFileDialog::getSaveFileName(this, tr("Save playlist"), QDir::homePath(), "*.m3u");
+		QString filename = QFileDialog::getSaveFileName(this, tr("Save playlist"), QDir::homePath(), "*.xspf\n*.m3u", &filter);
 		if(filename.size()) {
-			curlist->storeList(filename);
+			if(filter == "*.m3u")
+				curlist->storeListM3U(filename);
+			else if(filter == "*.xspf")
+				curlist->storeListXSPF(filename);
 			QString listname = QFileInfo(filename).baseName();
 			curlist->setName(listname);
 			tabs->setTabText(tabs->currentIndex(), listname);

@@ -32,7 +32,7 @@ class Player : public QObject
 	virtual bool prepare() = 0;
 	virtual bool ready() = 0;
 
-    virtual bool open(QUrl fname) = 0;
+    virtual bool open(QUrl fname, long start = 0, long length = 0) = 0;
     virtual bool play() = 0;
     virtual bool stop() = 0;
     virtual bool setPause(bool p) = 0;
@@ -52,6 +52,10 @@ class Player : public QObject
  signals:
     void position(double);
     void finish();
+
+ protected:
+	long _start;
+	long _length;
 };
 
 class PlayerManager : public Player
@@ -64,7 +68,7 @@ class PlayerManager : public Player
 	virtual bool prepare();
 	virtual bool ready();
 
-    virtual bool open(QUrl fname);
+    virtual bool open(QUrl fname, long start = 0, long length = 0);
     virtual bool play();
     virtual bool stop();
     virtual bool setPause(bool p);
