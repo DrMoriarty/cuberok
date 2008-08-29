@@ -68,6 +68,8 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 		foreach(PlaylistView *p, lists) if(p->getName() == curlistname) {
 			actlist = p;
 			actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
+			tabs->setCurrentIndex(tabs->indexOf(p));
+			break;
 		}
 	}
 }

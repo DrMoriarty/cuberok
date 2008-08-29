@@ -39,6 +39,7 @@ QStringList PlaylistModel::mimeTypes() const
 {
 	QStringList list;
 	list.append("text/uri-list");
+	list.append("text/plain");
 	return list;
 }
 
@@ -67,26 +68,24 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
     if (action == Qt::IgnoreAction)
         return true;
     
-    if(data->hasUrls()) {
-        int beginRow;
+	int beginRow;
+	QList<QUrl> list;
+	if(data->hasUrls()) 
+		list = data->urls();
+	else if(data->hasText())
+		list << QUrl(data->text());
+	else return true;
 
-		//QMessageBox::information(0, "dropped", QString::number(row));
-        if (row != -1)
-            beginRow = row; 
-        //else if (parent.isValid())
-		//    beginRow = parent.row()+1; 
-        else
-            beginRow = rowCount();
-        //QStringList list;
-    	//foreach(QUrl url, data->urls()) {
-    		//addUrl(url.toLocalFile(), beginRow);
-    		//list << url.toLocalFile();
-    	//}
-    	PlaylistFiller *filler = new PlaylistFiller(data->urls(), beginRow);
-		if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>, long, long)), this, SLOT(addItem(QUrl, int, QList<QVariant>, long, long)), Qt::QueuedConnection))
-			QMessageBox::information(0, "", "connection error");
-		filler->start(QThread::IdlePriority);
-    }
+	if (row != -1)
+		beginRow = row; 
+	//else if (parent.isValid())
+	//    beginRow = parent.row()+1; 
+	else
+		beginRow = rowCount();
+	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
+	if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>, long, long)), this, SLOT(addItem(QUrl, int, QList<QVariant>, long, long)), Qt::QueuedConnection))
+		QMessageBox::information(0, "", "connection error");
+	filler->start(QThread::IdlePriority);
 	return true;
 }
 
@@ -299,6 +298,20 @@ void PlaylistFiller::run()
 			proceedDir(s.toLocalFile());
 		else {
 			// add url without tags
+			QList<QVariant> l;
+			l.append(QVariant(s.toString()));
+			l.append(QVariant(""));
+			l.append(QVariant(""));
+			l.append(QVariant(""));
+			l.append(QVariant(""));
+			l.append(QVariant(""));
+			l.append(QVariant(0));
+			l.append(QVariant(0));
+			l.append(qVariantFromValue(StarRating(0)));
+			setTerminationEnabled(false);
+			emit sendFile(s, index, l, 0, 0);
+			setTerminationEnabled(true);
+			index++;
 		}
 	}
 	Indicator::Self().delTask(taskID);

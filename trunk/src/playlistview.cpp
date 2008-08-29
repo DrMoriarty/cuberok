@@ -318,9 +318,11 @@ void PlaylistView::play(int index, double pos)
 {
 	if(index >= 0 && index < model.rowCount()) {
 		curindex = model.index(index, 0);
+		setCurrentIndex(pmodel.mapFromSource(curindex));
 		play();
 		if(pos >= 0 && pos <= 1)
-			position(pos);
+			PlayerManager::Self().setPosition(pos);
+			//position(pos);
 	} else {
 		delayedPlay = true;
 		delayedIndex = index;
@@ -336,8 +338,11 @@ void PlaylistView::play()
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
-	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong()))
+	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
 		QMessageBox::warning(0, tr("Error"), tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
+		playing = false;
+		return;
+	}
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
 	PlayerManager::Self().play();
