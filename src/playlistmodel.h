@@ -36,7 +36,7 @@ public:
 	~PlaylistFiller();
     void run();
 protected:
-	void proceedDir(QString path);
+	void proceedUrl(QUrl url);
 	
 	QList<QUrl> paths;
 	int index;

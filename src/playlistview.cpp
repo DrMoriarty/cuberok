@@ -50,10 +50,10 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	sortByColumn(PlaylistModel::Artist, Qt::AscendingOrder);
 	if(plistname.size()) {  // read stored playlist
 		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
-		if(QFile::exists(fname)) loadListXSPF(fname);
+		if(QFile::exists(fname)) loadList(fname);
 		else {
 			fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-			if(QFile::exists(fname)) loadListM3U(fname);
+			if(QFile::exists(fname)) loadList(fname);
 		}
 	}
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
@@ -85,28 +85,6 @@ void PlaylistView::storeListM3U(QString fname)
 			out << model.data(model.index(i, PlaylistModel::File), Qt::UserRole).toUrl().toString() << endl;
 		}
 		file.close();
-	}
-}
-
-void PlaylistView::loadListM3U(QString fname)
-{
-	if(QFile::exists(fname)) {
-		while(model.rowCount()) model.removeRow(0);
-		QFile file(fname);
-		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-			QTextStream in(&file);
-			QMimeData data;
-			QList<QUrl> urls;
-			while (!in.atEnd()) {
-				QString line = in.readLine();
-				if(line[0] == '#') continue;
-				QUrl url(line);
-				urls << url;
-			} 
-			data.setUrls(urls);
-			model.dropMimeData(&data, Qt::CopyAction, -1, -1, model.index(model.rowCount(), 0));
-			file.close();
-		}
 	}
 }
 
@@ -151,100 +129,26 @@ void PlaylistView::storeListXSPF(QString fname)
 	}
 }
 
-void PlaylistView::loadListXSPF(QString fname)
+void PlaylistView::loadList(QString fname)
 {
-	QString location, title, artist, comment, album, genre, length;
-	int track, dbindex, year, rating;
-	long cuestart, cuelength;
-	if(QFile::exists(fname)) {
-		while(model.rowCount()) model.removeRow(0);
-		QFile file(fname);
-		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-			QXmlStreamReader xml(&file);
-			int step = 0;
-			while (!xml.atEnd()) {
-				//while(xml.readNext() != QXmlStreamReader::StartDocument) {}
-				QXmlStreamReader::TokenType tt = xml.readNext();
-				if(tt == QXmlStreamReader::EndDocument || tt == QXmlStreamReader::Invalid)
-					break;
-				else if(tt == QXmlStreamReader::StartElement) {
-					if(xml.name() == "playlist") {
-						if(xml.namespaceUri() != "http://xspf.org/ns/0/") break;
-						if(xml.attributes().value("version").toString() != "1") break;
-						if(!step) step ++;
-					} else if(xml.name() == "trackList" && step == 1) {
-						step ++;
-					} else if(xml.name() == "track" && step == 2) {
-						step ++;
-						location = title = artist = comment = album = genre = length = "";
-						track = dbindex = year = rating = 0;
-						cuestart = cuelength = 0;
-					} else if(xml.name() == "location" && step == 3) {
-						location = xml.readElementText();
-					} else if(xml.name() == "title" && step == 3) {
-						title = xml.readElementText();
-					} else if(xml.name() == "creator" && step == 3) {
-						artist = xml.readElementText();
-					} else if(xml.name() == "annotation" && step == 3) {
-						comment = xml.readElementText();
-					} else if(xml.name() == "album" && step == 3) {
-						album = xml.readElementText();
-					} else if(xml.name() == "trackNum" && step == 3) {
-						track = xml.readElementText().toInt();
-					} else if(xml.name() == "extension") {
-						if(xml.attributes().value(QString("application")).toString() == XMLNS) {
-							while(tt=xml.readNext(), !xml.atEnd()) {
-								if(tt == QXmlStreamReader::StartElement) {
-									if(xml.name() == "cuestart") {
-										cuestart = xml.readElementText().toLongLong();
-									} else if(xml.name() == "cuelength") {
-										cuelength = xml.readElementText().toLongLong();
-									} else if(xml.name() == "dbindex") {
-										dbindex = xml.readElementText().toInt();
-									} else if(xml.name() == "genre") {
-										genre = xml.readElementText();
-									} else if(xml.name() == "length") {
-										length = xml.readElementText();
-									} else if(xml.name() == "year") {
-										year = xml.readElementText().toInt();
-									} else if(xml.name() == "rating") {
-										rating = xml.readElementText().toInt();
-									}
-								} else if(tt == QXmlStreamReader::EndElement && xml.name() == "extension") break;
-							}
-							}
-					}
-				} else if(tt == QXmlStreamReader::EndElement) {
-					if(xml.name() == "playlist") {
-						if(step == 1) step --;
-					} else if(xml.name() == "trackList") {
-						if(step == 2) step --;
-					} else if(xml.name() == "track") {
-						if(step == 3) step --;
-						// insert
-						int row = model.rowCount();
-						model.insertRow(row);
-						model.setData(model.index(row, PlaylistModel::File), QUrl(location), Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Title), title, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Artist), artist, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Comment), comment, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Album), album, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Track), track, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::CueStart), (qlonglong)cuestart, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::CueLength), (qlonglong)cuelength, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::DBIndex), dbindex, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Genre), genre, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Length), length, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Year), year, Qt::EditRole);
-						model.setData(model.index(row, PlaylistModel::Rating), qVariantFromValue(StarRating(rating)), Qt::EditRole);
-					}
-				}
-			}
-			if (xml.hasError()) {
-				QString err = tr("There is error in XSPF playlist:\nLine number %1, column %2\n%3").arg(xml.errorString(), QString::number(xml.lineNumber()), QString::number(xml.columnNumber()));
-				QMessageBox::warning(this, "Error", err);
-			} 
-		}
+	while(model.rowCount()) model.removeRow(0);
+	QList<TagEntry> list = Tagger::readEntry(QUrl::fromLocalFile(fname));
+	foreach(TagEntry tag, list) {
+		int row = model.rowCount();
+		model.insertRow(row);
+		model.setData(model.index(row, PlaylistModel::File), tag.url, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Title), tag.title, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Artist), tag.artist, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Comment), tag.comment, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Album), tag.album, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Track), tag.track, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::CueStart), (qlonglong)tag.start, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::CueLength), (qlonglong)tag.length, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::DBIndex), (qlonglong)tag.dbindex, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Genre), tag.genre, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Length), tag.slength, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Year), tag.year, Qt::EditRole);
+		model.setData(model.index(row, PlaylistModel::Rating), qVariantFromValue(StarRating(tag.rating)), Qt::EditRole);
 	}
 }
 
@@ -510,8 +414,8 @@ void PlaylistView::resetTags(QModelIndex& ind)
 
 void PlaylistView::removeSong()
 {
-	foreach(QModelIndex ind, this->selectedIndexes()) {
-		model.removeRows(pmodel.mapToSource(ind).row(), 1);
+	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/this->selectedIndexes()) {
+		pmodel.removeRows(/*pmodel.mapToSource(*/ind.row(), 1);
 	}
 }
 

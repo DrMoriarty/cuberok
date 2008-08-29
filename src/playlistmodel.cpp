@@ -294,91 +294,110 @@ void PlaylistFiller::run()
 	int taskID = Indicator::Self().addTask(tr("Filling playlist"));
 	foreach(QUrl s, paths) {
 		if(cancel) break;
-		if(s.toLocalFile().size())
-			proceedDir(s.toLocalFile());
-		else {
-			// add url without tags
-			QList<QVariant> l;
-			l.append(QVariant(s.toString()));
-			l.append(QVariant(""));
-			l.append(QVariant(""));
-			l.append(QVariant(""));
-			l.append(QVariant(""));
-			l.append(QVariant(""));
-			l.append(QVariant(0));
-			l.append(QVariant(0));
-			l.append(qVariantFromValue(StarRating(0)));
-			setTerminationEnabled(false);
-			emit sendFile(s, index, l, 0, 0);
-			setTerminationEnabled(true);
-			index++;
-		}
+// 		if(s.toLocalFile().size())
+			proceedUrl(s);
+// 		else {
+// 			// add url
+// 			QList<TagEntry> tags = Tagger::readEntry(s);
+// 			foreach(TagEntry tag, tags) {
+// 				QList<QVariant> l;
+// 				l.append(QVariant(tag.title));
+// 				l.append(QVariant(tag.artist));
+// 				l.append(QVariant(tag.album));
+// 				l.append(QVariant(tag.comment));
+// 				l.append(QVariant(tag.genre));
+// 				l.append(QVariant(tag.slength));
+// 				l.append(QVariant(tag.track));
+// 				l.append(QVariant(tag.year));
+// 				l.append(qVariantFromValue(StarRating(tag.rating)));
+// 				setTerminationEnabled(false);
+// 				emit sendFile(tag.url, index, l, tag.start, tag.length);
+// 				setTerminationEnabled(true);
+// 				index++;
+// 			}
+// 		}
 	}
 	Indicator::Self().delTask(taskID);
 }
 
-void PlaylistFiller::proceedDir(QString path)
+void PlaylistFiller::proceedUrl(QUrl url)
 {
 	if(cancel) return;
 	Indicator::Self().update();
 	QDir dir;
-	if(dir.cd(path)) {
-		foreach(QString file, dir.entryList()) {
-			if(file == "." || file == "..") continue;
-			proceedDir(dir.filePath(file));
-		}
-	} else {
-		QList<QVariant> l;
-		QString title, artist, album, comment, genre, length;
-		int track, year, rating;
-		if(path.toLower().endsWith(".cue")) {
-			QList<CueEntry> cuelist = Tagger::readCue(path);
-			foreach(CueEntry item, cuelist) {
-				length = QString::number((item.length%4500)/75);
-				length = QString("%1:%2").arg(QString::number(item.length/4500), length.size()<2 ? "0"+length : length);
-				l.clear();
-				l.append(QVariant(item.title));
-				l.append(QVariant(item.artist));
-				l.append(QVariant(item.album));
-				l.append(QVariant(""));
-				l.append(QVariant(""));
-				l.append(QVariant(length));
-				l.append(QVariant(item.track));
-				l.append(QVariant(0));
-				l.append(qVariantFromValue(StarRating(0)));
+	QString path = url.toLocalFile();
+	if(!path.size() || !dir.cd(path)) {
+			QList<TagEntry> tags = Tagger::readEntry(url);
+			foreach(TagEntry tag, tags) {
+				QList<QVariant> l;
+				l.append(QVariant(tag.title));
+				l.append(QVariant(tag.artist));
+				l.append(QVariant(tag.album));
+				l.append(QVariant(tag.comment));
+				l.append(QVariant(tag.genre));
+				l.append(QVariant(tag.slength));
+				l.append(QVariant(tag.track));
+				l.append(QVariant(tag.year));
+				l.append(qVariantFromValue(StarRating(tag.rating)));
 				setTerminationEnabled(false);
-				emit sendFile(QUrl::fromLocalFile(item.file), index, l, item.start, item.length);
+				emit sendFile(tag.url, index, l, tag.start, tag.length);
 				setTerminationEnabled(true);
 				index++;
 			}
-			return;
+// 		QList<QVariant> l;
+// 		QString title, artist, album, comment, genre, length;
+// 		int track, year, rating;
+// 		if(path.toLower().endsWith(".cue")) {
+// 			QList<CueEntry> cuelist = Tagger::readCue(path);
+// 			foreach(CueEntry item, cuelist) {
+// 				l.clear();
+// 				l.append(QVariant(item.title));
+// 				l.append(QVariant(item.artist));
+// 				l.append(QVariant(item.album));
+// 				l.append(QVariant(""));
+// 				l.append(QVariant(""));
+// 				l.append(QVariant(item.slength));
+// 				l.append(QVariant(item.track));
+// 				l.append(QVariant(0));
+// 				l.append(qVariantFromValue(StarRating(0)));
+// 				setTerminationEnabled(false);
+// 				emit sendFile(item.url, index, l, item.start, item.length);
+// 				setTerminationEnabled(true);
+// 				index++;
+// 			}
+// 			return;
+// 		}
+// 		else if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
+// 			l.append(QVariant(title));
+// 			l.append(QVariant(artist));
+// 			l.append(QVariant(album));
+// 			l.append(QVariant(comment));
+// 			l.append(QVariant(genre));
+// 			l.append(QVariant(length));
+// 			l.append(QVariant(track));
+// 			l.append(QVariant(year));
+// 			l.append(qVariantFromValue(StarRating(rating)));
+// 		}
+// 		else if(Tagger::readTags(path, title, artist, album, comment, genre, track, year, length)) {
+// 			l.append(QVariant(title));
+// 			l.append(QVariant(artist));
+// 			l.append(QVariant(album));
+// 			l.append(QVariant(comment));
+// 			l.append(QVariant(genre));
+// 			l.append(QVariant(length));
+// 			l.append(QVariant(/*QString::number(*/track));
+// 			l.append(QVariant(/*QString::number(*/year));
+// 			l.append(qVariantFromValue(StarRating(0)));
+// 		}
+// 		setTerminationEnabled(false);
+// 		emit sendFile(QUrl::fromLocalFile(path), index, l, 0, 0);
+// 		setTerminationEnabled(true);
+// 		index++;
+	} else /*if(dir.cd(path))*/ {
+		foreach(QString file, dir.entryList()) {
+			if(file == "." || file == "..") continue;
+			proceedUrl(QUrl::fromLocalFile(dir.filePath(file)));
 		}
-		else if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
-			l.append(QVariant(title));
-			l.append(QVariant(artist));
-			l.append(QVariant(album));
-			l.append(QVariant(comment));
-			l.append(QVariant(genre));
-			l.append(QVariant(length));
-			l.append(QVariant(track));
-			l.append(QVariant(year));
-			l.append(qVariantFromValue(StarRating(rating)));
-		}
-		else if(Tagger::readTags(path, title, artist, album, comment, genre, track, year, length)) {
-			l.append(QVariant(title));
-			l.append(QVariant(artist));
-			l.append(QVariant(album));
-			l.append(QVariant(comment));
-			l.append(QVariant(genre));
-			l.append(QVariant(length));
-			l.append(QVariant(/*QString::number(*/track));
-			l.append(QVariant(/*QString::number(*/year));
-			l.append(qVariantFromValue(StarRating(0)));
-		}
-		setTerminationEnabled(false);
-		emit sendFile(QUrl::fromLocalFile(path), index, l, 0, 0);
-		setTerminationEnabled(true);
-		index++;
 	}
 }
 

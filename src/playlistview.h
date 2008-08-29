@@ -37,9 +37,8 @@ public:
     void dropEvent(QDropEvent *event);
     void startDrag(Qt::DropActions supportedActions);
 	void storeListM3U(QString fname);
-	void loadListM3U(QString fname);
 	void storeListXSPF(QString fname);
-	void loadListXSPF(QString fname);
+	void loadList(QString fname);
 	void setAutosave(bool);
 	QString getName();
 	void setName(QString newname);
