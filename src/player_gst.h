@@ -50,15 +50,20 @@ class PlayerGst : public Player
 	virtual QString name();
 
 	void need_finish();
+	void newpad (GstElement *decodebin, GstPad *pad, gboolean last, gpointer data);
 
  private slots:
     void timerUpdate();
 
  private:
-	GstElement *player;
-	bool paused, playflag, needseektoavoidgstbug;
+	GstElement *pipeline;
+	GstBus *bus;
+	bool paused;
     QTimer *timer;
 	gint64 Gstart, Glength;
+	int link;
+
+	void setLink(int, QUrl&);
 };
 
 

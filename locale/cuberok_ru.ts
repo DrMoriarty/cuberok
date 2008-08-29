@@ -637,17 +637,17 @@
 <context>
     <name>PlaylistContainer</name>
     <message>
-        <location filename="../src/playlistcontainer.cpp" line="112"/>
+        <location filename="../src/playlistcontainer.cpp" line="114"/>
         <source>Playlist</source>
         <translation>Список</translation>
     </message>
     <message>
-        <location filename="../src/playlistcontainer.cpp" line="278"/>
+        <location filename="../src/playlistcontainer.cpp" line="280"/>
         <source>Open playlist</source>
         <translation>Открыть список</translation>
     </message>
     <message>
-        <location filename="../src/playlistcontainer.cpp" line="292"/>
+        <location filename="../src/playlistcontainer.cpp" line="294"/>
         <source>Save playlist</source>
         <translation>Записать список</translation>
     </message>
@@ -657,7 +657,7 @@
         <translation type="obsolete">Перетащите файлы в список</translation>
     </message>
     <message>
-        <location filename="../src/playlistcontainer.cpp" line="136"/>
+        <location filename="../src/playlistcontainer.cpp" line="138"/>
         <source>Drag&apos;n&apos;Drop files to the playlist</source>
         <translation>Перетащите файлы в список</translation>
     </message>
@@ -665,7 +665,7 @@
 <context>
     <name>PlaylistFiller</name>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="294"/>
+        <location filename="../src/playlistmodel.cpp" line="295"/>
         <source>Filling playlist</source>
         <translation>Заполнение списка</translation>
     </message>
@@ -673,57 +673,57 @@
 <context>
     <name>PlaylistModel</name>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="187"/>
+        <location filename="../src/playlistmodel.cpp" line="188"/>
         <source>Album</source>
         <translation>Альбом</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="186"/>
+        <location filename="../src/playlistmodel.cpp" line="187"/>
         <source>Artist</source>
         <translation>Исполнитель</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="188"/>
+        <location filename="../src/playlistmodel.cpp" line="189"/>
         <source>Comment</source>
         <translation>Комментарий</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="115"/>
+        <location filename="../src/playlistmodel.cpp" line="116"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="183"/>
+        <location filename="../src/playlistmodel.cpp" line="184"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="189"/>
+        <location filename="../src/playlistmodel.cpp" line="190"/>
         <source>Genre</source>
         <translation>Жанр</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="191"/>
+        <location filename="../src/playlistmodel.cpp" line="192"/>
         <source>Length</source>
         <translation>Длительность</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="192"/>
+        <location filename="../src/playlistmodel.cpp" line="193"/>
         <source>Rating</source>
         <translation>Рейтинг</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="185"/>
+        <location filename="../src/playlistmodel.cpp" line="186"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="184"/>
+        <location filename="../src/playlistmodel.cpp" line="185"/>
         <source>Track</source>
         <translation>Трек</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="190"/>
+        <location filename="../src/playlistmodel.cpp" line="191"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
@@ -731,7 +731,7 @@
 <context>
     <name>PlaylistView</name>
     <message numerus="yes">
-        <location filename="../src/playlistview.cpp" line="442"/>
+        <location filename="../src/playlistview.cpp" line="561"/>
         <source>Playlist - %n song(s)</source>
         <translation>
             <numerusform>Список - %n композиция</numerusform>
@@ -740,14 +740,21 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/playlistview.cpp" line="221"/>
+        <location filename="../src/playlistview.cpp" line="340"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../src/playlistview.cpp" line="221"/>
+        <location filename="../src/playlistview.cpp" line="340"/>
         <source>Can not open %1</source>
         <translation>Не могу открыть %1</translation>
+    </message>
+    <message>
+        <location filename="../src/playlistview.cpp" line="244"/>
+        <source>There is error in XSPF playlist:
+Line number %1, column %2
+%3</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

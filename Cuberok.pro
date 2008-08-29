@@ -73,7 +73,7 @@ win32 {
     }
     gstreamer {
         INCLUDEPATH += gstreamer/include gstreamer/include/glib-2.0
-    	LIBS += gstreamer/lib/libgstreamer-0.10.lib gstreamer/lib/gobject-2.0.lib
+    	LIBS += gstreamer/lib/libgstreamer-0.10.lib gstreamer/lib/gobject-2.0.lib "C:\Program Files\Mono-1.2.4\lib\libglib-2.0.dll.a"
     }
 }
 unix {
