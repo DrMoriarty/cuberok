@@ -21,15 +21,18 @@
 #include "main.h"
 #include "database.h"
 
-//#include "QtGui"
+#include "QtGui"
+#include <QtXml>
 
-Tagger::Tagger()
-{
-}
+const QString XMLNS("http://code.google.com/p/cuberok");
 
-Tagger::~Tagger()
-{
-}
+// Tagger::Tagger()
+// {
+// }
+
+// Tagger::~Tagger()
+// {
+// }
 
 /*Tagger& Tagger::Self()
 {
@@ -212,8 +215,8 @@ QList<CueEntry> Tagger::readCue(QString filename)
 	QList<CueEntry> list;
 	CueEntry item;
 	QString file, artist, artist2, album, title;
-	long start;
-	int track, ID = 0;
+	long start=0;
+	int track=0, ID = 0;
 	bool entry = false, skip = false;
 	QString path = QFileInfo(filename).path();
 	
@@ -241,7 +244,7 @@ QList<CueEntry> Tagger::readCue(QString filename)
 				else if(word == "TRACK") {
 					skip = false;
 					if(entry) {
-						item.file = file;
+						item.url = QUrl::fromLocalFile(file);
 						item.start = start;
 						item.length = 0;//length;
 						item.artist = artist2.size() ? artist2 : artist;
@@ -272,7 +275,7 @@ QList<CueEntry> Tagger::readCue(QString filename)
 			}
 		}
 		if(entry && !skip) {
-			item.file = file;
+			item.url = QUrl::fromLocalFile(file);
 			item.start = start;
 			item.length = 0;//length;
 			item.artist = artist2.size() ? artist2 : artist;
@@ -283,11 +286,15 @@ QList<CueEntry> Tagger::readCue(QString filename)
 		}
 		for(int i = 0; i<list.size()-1; i++) {
 			list[i].length = list[i+1].start - list[i].start;
+			list[i].slength = QString::number((list[i].length%4500)/75);
+			list[i].slength = QString("%1:%2").arg(QString::number(list[i].length/4500), list[i].slength.size()<2 ? "0"+list[i].slength : list[i].slength);
 		}
 		TagLib::FileRef fr(file.toLocal8Bit().constData());
 		if(!fr.isNull() && fr.audioProperties()) {
 			long len = fr.audioProperties()->length() * 75;
 			list.last().length = len - list.last().start;
+			list.last().slength = QString::number((list.last().length%4500)/75);
+			list.last().slength = QString("%1:%2").arg(QString::number(list.last().length/4500), list.last().slength.size()<2 ? "0"+list.last().slength : list.last().slength);
 		}
 	}
 
@@ -338,4 +345,181 @@ QString Tagger::getWord(QString &str)
 		}
 	}
 	return word;
+}
+
+TagEntry Tagger::readTags(QUrl &url)
+{
+	TagEntry tags;
+// 	tags.start = 0;
+// 	tags.length = 0;
+// 	tags.dbindex = 0;
+// 	tags.rating = 0;
+// 	tags.track = 0;
+// 	tags.year = 0;
+	tags.url = url;
+	QString file = url.toLocalFile();
+	if(file.size()) {
+		QString title, artist, album, comment, genre, length;
+		int track, year, rating;
+		if(readTags(file, title, artist, album, comment, genre, track, year, length)) {
+			tags.title = title;
+			tags.artist = artist;
+			tags.album = album;
+			tags.comment = comment;
+			tags.genre = genre;
+			tags.track = track;
+			tags.year = year;
+			tags.slength = length;
+			if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length)) {
+				tags.rating = rating;
+			}
+		} else {
+			tags.title = QFileInfo(file).baseName();
+		}
+	} else { // cant read tags from remote source
+		tags.title = url.toString();
+	}
+	return tags;
+}
+
+QList<TagEntry> Tagger::readM3U(QString fname)
+{
+	QList<TagEntry> list;
+	if(QFile::exists(fname)) {
+		QFile file(fname);
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			QTextStream in(&file);
+			QMimeData data;
+			QList<QUrl> urls;
+			while (!in.atEnd()) {
+				QString line = in.readLine();
+				if(line[0] == '#' || !line.size()) continue;
+				QUrl url(line);
+				list << readTags(url);
+			} 
+			file.close();
+		}
+	}
+	return list;
+}
+
+QList<TagEntry> Tagger::readXSPF(QString fname)
+{
+	QList<TagEntry> list;
+	TagEntry tags;
+	//QString location, title, artist, comment, album, genre, length;
+	//int track, dbindex, year, rating;
+	//long cuestart, cuelength;
+	if(QFile::exists(fname)) {
+		QFile file(fname);
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			QXmlStreamReader xml(&file);
+			int step = 0;
+			while (!xml.atEnd()) {
+				QXmlStreamReader::TokenType tt = xml.readNext();
+				if(tt == QXmlStreamReader::EndDocument || tt == QXmlStreamReader::Invalid)
+					break;
+				else if(tt == QXmlStreamReader::StartElement) {
+					if(xml.name() == "playlist") {
+						if(xml.namespaceUri() != "http://xspf.org/ns/0/") break;
+						if(xml.attributes().value("version").toString() != "1") break;
+						if(!step) step ++;
+					} else if(xml.name() == "trackList" && step == 1) {
+						step ++;
+					} else if(xml.name() == "track" && step == 2) {
+						step ++;
+						tags.url = "";
+						tags.title = tags.artist = tags.comment = tags.album = tags.genre = tags.slength = "";
+						tags.track = tags.dbindex = tags.year = tags.rating = 0;
+						tags.start = tags.length = 0;
+					} else if(xml.name() == "location" && step == 3) {
+						tags.url = xml.readElementText();
+					} else if(xml.name() == "title" && step == 3) {
+						tags.title = xml.readElementText();
+					} else if(xml.name() == "creator" && step == 3) {
+						tags.artist = xml.readElementText();
+					} else if(xml.name() == "annotation" && step == 3) {
+						tags.comment = xml.readElementText();
+					} else if(xml.name() == "album" && step == 3) {
+						tags.album = xml.readElementText();
+					} else if(xml.name() == "trackNum" && step == 3) {
+						tags.track = xml.readElementText().toInt();
+					} else if(xml.name() == "extension") {
+						if(xml.attributes().value(QString("application")).toString() == XMLNS) {
+							while(tt=xml.readNext(), !xml.atEnd()) {
+								if(tt == QXmlStreamReader::StartElement) {
+									if(xml.name() == "cuestart") {
+										tags.start = xml.readElementText().toLongLong();
+									} else if(xml.name() == "cuelength") {
+										tags.length = xml.readElementText().toLongLong();
+									} else if(xml.name() == "dbindex") {
+										tags.dbindex = xml.readElementText().toInt();
+									} else if(xml.name() == "genre") {
+										tags.genre = xml.readElementText();
+									} else if(xml.name() == "length") {
+										tags.slength = xml.readElementText();
+									} else if(xml.name() == "year") {
+										tags.year = xml.readElementText().toInt();
+									} else if(xml.name() == "rating") {
+										tags.rating = xml.readElementText().toInt();
+									}
+								} else if(tt == QXmlStreamReader::EndElement && xml.name() == "extension") break;
+							}
+							}
+					}
+				} else if(tt == QXmlStreamReader::EndElement) {
+					if(xml.name() == "playlist") {
+						if(step == 1) step --;
+					} else if(xml.name() == "trackList") {
+						if(step == 2) step --;
+					} else if(xml.name() == "track") {
+						if(step == 3) step --;
+						// insert
+						if(!tags.title.size()) tags.title = tags.url.toString();
+						list << tags;
+					}
+				}
+			}
+			if (xml.hasError()) {
+				QString err = QString("There is error in XSPF playlist:\nLine number %1, column %2\n%3").arg(xml.errorString(), QString::number(xml.lineNumber()), QString::number(xml.columnNumber()));
+				QMessageBox::warning(0, "Error", err);
+			} 
+		}
+	}
+	return list;
+}
+
+
+QList<TagEntry> Tagger::readEntry(QUrl url)
+{
+	QString file = url.toLocalFile();
+	if(!file.size()) { // need to download first
+		return QList<TagEntry>();
+	}
+	if(file.toLower().endsWith(".m3u"))
+		return readM3U(file);
+	else if(file.toLower().endsWith(".xspf"))
+		return readXSPF(file);
+	else if(file.toLower().endsWith(".cue")) {
+		QList<TagEntry> tlist;
+		QList<CueEntry> clist = readCue(file);
+		TagEntry t = readTags(url);
+		foreach(CueEntry cue, clist) {
+			TagEntry tt = t;
+			tt.url = cue.url;
+			tt.start = cue.start;
+			tt.length = cue.length;
+			tt.artist = cue.artist;
+			tt.album = cue.album;
+			tt.title = cue.title;
+			tt.track = cue.track;
+			tt.slength = cue.slength;
+			tlist << tt;
+		}
+		return tlist;
+	}
+	// this is not a playlist
+	QList<TagEntry> list;
+	list << readTags(url);
+	return list;
 }

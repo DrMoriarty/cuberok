@@ -283,9 +283,9 @@ void PlaylistContainer::loadList()
 	if(filename.size()) {
 		newList(QFileInfo(filename).baseName());
 		if(filename.toLower().endsWith(".m3u"))
-			curlist->loadListM3U(filename);
+			curlist->loadList(filename);
 		else if(filename.toLower().endsWith(".xspf"))
-			curlist->loadListXSPF(filename);
+			curlist->loadList(filename);
 	}
 }
 
