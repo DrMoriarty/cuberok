@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Tue 19. Aug 08:09:27 2008
+** Created: Tue 2. Sep 10:06:11 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -30,6 +30,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 #include "collectionview.h"
+#include "libraryview.h"
 #include "playlistcontainer.h"
 #include "progressbar.h"
 
@@ -66,7 +67,9 @@ public:
     QAction *actionGenreMode;
     QAction *actionSongMode;
     QAction *actionAddToCollection;
+    QAction *actionAddToLibrary;
     QAction *actionRemoveFromCollection;
+    QAction *actionRemoveFromLibrary;
     QAction *actionStop;
     QAction *actionSavePlaylist;
     QAction *actionLoadPlaylist;
@@ -75,7 +78,9 @@ public:
     QAction *actionViewRating;
     QAction *actionSettings;
     QAction *actionSetImage;
+    QAction *actionLibrarySetImage;
     QAction *actionIconView;
+    QAction *actionOpenUrl;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -97,6 +102,10 @@ public:
     QWidget *dockWidgetContents2;
     QVBoxLayout *vboxLayout2;
     QTreeView *treeView_2;
+    QDockWidget *dockWidget3;
+    QWidget *dockWidgetContents3;
+    QVBoxLayout *vboxLayout3;
+    LibraryView *libView;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -198,12 +207,15 @@ public:
     actionEditTag->setIcon(QIcon(QString::fromUtf8(":/icons/edittag.png")));
     actionNewPlaylist = new QAction(CuberokClass);
     actionNewPlaylist->setObjectName(QString::fromUtf8("actionNewPlaylist"));
+    actionNewPlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/newtab.png")));
     actionClosePlaylist = new QAction(CuberokClass);
     actionClosePlaylist->setObjectName(QString::fromUtf8("actionClosePlaylist"));
+    actionClosePlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/deltab.png")));
     actionRemoveSong = new QAction(CuberokClass);
     actionRemoveSong->setObjectName(QString::fromUtf8("actionRemoveSong"));
     actionLookFeel = new QAction(CuberokClass);
     actionLookFeel->setObjectName(QString::fromUtf8("actionLookFeel"));
+    actionLookFeel->setIcon(QIcon(QString::fromUtf8(":/icons/looknfeel.png")));
     actionArtistMode = new QAction(CuberokClass);
     actionArtistMode->setObjectName(QString::fromUtf8("actionArtistMode"));
     actionArtistMode->setCheckable(true);
@@ -223,17 +235,25 @@ public:
     actionAddToCollection = new QAction(CuberokClass);
     actionAddToCollection->setObjectName(QString::fromUtf8("actionAddToCollection"));
     actionAddToCollection->setIcon(QIcon(QString::fromUtf8(":/icons/col_add.png")));
+    actionAddToLibrary = new QAction(CuberokClass);
+    actionAddToLibrary->setObjectName(QString::fromUtf8("actionAddToLibrary"));
+    actionAddToLibrary->setIcon(QIcon(QString::fromUtf8(":/icons/col_add.png")));
     actionRemoveFromCollection = new QAction(CuberokClass);
     actionRemoveFromCollection->setObjectName(QString::fromUtf8("actionRemoveFromCollection"));
     actionRemoveFromCollection->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
+    actionRemoveFromLibrary = new QAction(CuberokClass);
+    actionRemoveFromLibrary->setObjectName(QString::fromUtf8("actionRemoveFromLibrary"));
+    actionRemoveFromLibrary->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
     actionStop = new QAction(CuberokClass);
     actionStop->setObjectName(QString::fromUtf8("actionStop"));
     actionStop->setIcon(QIcon(QString::fromUtf8(":/icons/butt_stop.png")));
     actionStop->setShortcutContext(Qt::ApplicationShortcut);
     actionSavePlaylist = new QAction(CuberokClass);
     actionSavePlaylist->setObjectName(QString::fromUtf8("actionSavePlaylist"));
+    actionSavePlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/save.png")));
     actionLoadPlaylist = new QAction(CuberokClass);
     actionLoadPlaylist->setObjectName(QString::fromUtf8("actionLoadPlaylist"));
+    actionLoadPlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/open.png")));
     actionAboutQt = new QAction(CuberokClass);
     actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
     actionReloadTags = new QAction(CuberokClass);
@@ -244,13 +264,20 @@ public:
     actionViewRating->setChecked(false);
     actionSettings = new QAction(CuberokClass);
     actionSettings->setObjectName(QString::fromUtf8("actionSettings"));
+    actionSettings->setIcon(QIcon(QString::fromUtf8(":/icons/settings.png")));
     actionSetImage = new QAction(CuberokClass);
     actionSetImage->setObjectName(QString::fromUtf8("actionSetImage"));
     actionSetImage->setIcon(QIcon(QString::fromUtf8(":/icons/col_art.png")));
+    actionLibrarySetImage = new QAction(CuberokClass);
+    actionLibrarySetImage->setObjectName(QString::fromUtf8("actionLibrarySetImage"));
+    actionLibrarySetImage->setIcon(QIcon(QString::fromUtf8(":/icons/col_art.png")));
     actionIconView = new QAction(CuberokClass);
     actionIconView->setObjectName(QString::fromUtf8("actionIconView"));
     actionIconView->setCheckable(true);
     actionIconView->setIcon(QIcon(QString::fromUtf8(":/icons/iconview.png")));
+    actionOpenUrl = new QAction(CuberokClass);
+    actionOpenUrl->setObjectName(QString::fromUtf8("actionOpenUrl"));
+    actionOpenUrl->setIcon(QIcon(QString::fromUtf8(":/icons/open.png")));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
@@ -390,6 +417,27 @@ public:
 
     dockWidget2->setWidget(dockWidgetContents2);
     CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget2);
+    dockWidget3 = new QDockWidget(CuberokClass);
+    dockWidget3->setObjectName(QString::fromUtf8("dockWidget3"));
+    dockWidget3->setFeatures(QDockWidget::AllDockWidgetFeatures);
+    dockWidgetContents3 = new QWidget(dockWidget3);
+    dockWidgetContents3->setObjectName(QString::fromUtf8("dockWidgetContents3"));
+    vboxLayout3 = new QVBoxLayout(dockWidgetContents3);
+    vboxLayout3->setSpacing(2);
+    vboxLayout3->setObjectName(QString::fromUtf8("vboxLayout3"));
+    vboxLayout3->setContentsMargins(4, 4, 4, 4);
+    libView = new LibraryView(dockWidgetContents3);
+    libView->setObjectName(QString::fromUtf8("libView"));
+    libView->setContextMenuPolicy(Qt::ActionsContextMenu);
+    libView->setAcceptDrops(true);
+    libView->setDragEnabled(true);
+    libView->setFlow(QListView::TopToBottom);
+    libView->setProperty("isWrapping", QVariant(true));
+
+    vboxLayout3->addWidget(libView);
+
+    dockWidget3->setWidget(dockWidgetContents3);
+    CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget3);
     menubar = new QMenuBar(CuberokClass);
     menubar->setObjectName(QString::fromUtf8("menubar"));
     menubar->setGeometry(QRect(0, 0, 591, 19));
@@ -435,10 +483,14 @@ public:
     colView->addAction(actionAddToCollection);
     colView->addAction(actionRemoveFromCollection);
     colView->addAction(actionSetImage);
+    libView->addAction(actionAddToLibrary);
+    libView->addAction(actionRemoveFromLibrary);
+    libView->addAction(actionLibrarySetImage);
     menubar->addAction(menuFile->menuAction());
     menubar->addAction(menuView->menuAction());
     menubar->addAction(menuControl->menuAction());
     menubar->addAction(menuHelp->menuAction());
+    menuFile->addAction(actionOpenUrl);
     menuFile->addAction(actionNewPlaylist);
     menuFile->addAction(actionLoadPlaylist);
     menuFile->addAction(actionSavePlaylist);
@@ -533,6 +585,10 @@ public:
     QObject::connect(actionSettings, SIGNAL(triggered()), CuberokClass, SLOT(settings()));
     QObject::connect(actionSetImage, SIGNAL(triggered()), colView, SLOT(setImage()));
     QObject::connect(actionIconView, SIGNAL(triggered(bool)), colView, SLOT(iconView(bool)));
+    QObject::connect(actionOpenUrl, SIGNAL(triggered()), listView, SLOT(openUrl()));
+    QObject::connect(actionAddToLibrary, SIGNAL(triggered()), libView, SLOT(addItem()));
+    QObject::connect(actionRemoveFromLibrary, SIGNAL(triggered()), libView, SLOT(removeItem()));
+    QObject::connect(actionLibrarySetImage, SIGNAL(triggered()), libView, SLOT(setImage()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -596,7 +652,9 @@ public:
     actionGenreMode->setText(QApplication::translate("CuberokClass", "Genre", 0, QApplication::UnicodeUTF8));
     actionSongMode->setText(QApplication::translate("CuberokClass", "Song", 0, QApplication::UnicodeUTF8));
     actionAddToCollection->setText(QApplication::translate("CuberokClass", "Add Item", 0, QApplication::UnicodeUTF8));
+    actionAddToLibrary->setText(QApplication::translate("CuberokClass", "Add Item", 0, QApplication::UnicodeUTF8));
     actionRemoveFromCollection->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
+    actionRemoveFromLibrary->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
     actionStop->setText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
     actionStop->setIconText(QApplication::translate("CuberokClass", "[]", 0, QApplication::UnicodeUTF8));
     actionStop->setStatusTip(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
@@ -610,7 +668,9 @@ public:
     actionViewRating->setText(QApplication::translate("CuberokClass", "Rating", 0, QApplication::UnicodeUTF8));
     actionSettings->setText(QApplication::translate("CuberokClass", "Preferences", 0, QApplication::UnicodeUTF8));
     actionSetImage->setText(QApplication::translate("CuberokClass", "Set Image", 0, QApplication::UnicodeUTF8));
+    actionLibrarySetImage->setText(QApplication::translate("CuberokClass", "Set Image", 0, QApplication::UnicodeUTF8));
     actionIconView->setText(QApplication::translate("CuberokClass", "Icon View", 0, QApplication::UnicodeUTF8));
+    actionOpenUrl->setText(QApplication::translate("CuberokClass", "Open Url", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));
@@ -618,6 +678,8 @@ public:
     filterLineEdit->setToolTip(QApplication::translate("CuberokClass", "Enter search substring", 0, QApplication::UnicodeUTF8));
     colView->setToolTip(QApplication::translate("CuberokClass", "Drag'n'Drop files to the collection", 0, QApplication::UnicodeUTF8));
     dockWidget2->setWindowTitle(QApplication::translate("CuberokClass", "Files", 0, QApplication::UnicodeUTF8));
+    dockWidget3->setWindowTitle(QApplication::translate("CuberokClass", "Library", 0, QApplication::UnicodeUTF8));
+    libView->setToolTip(QApplication::translate("CuberokClass", "Drag'n'Drop playlists to the library", 0, QApplication::UnicodeUTF8));
     menuFile->setTitle(QApplication::translate("CuberokClass", "File", 0, QApplication::UnicodeUTF8));
     menuHelp->setTitle(QApplication::translate("CuberokClass", "Help", 0, QApplication::UnicodeUTF8));
     menuControl->setTitle(QApplication::translate("CuberokClass", "Control", 0, QApplication::UnicodeUTF8));

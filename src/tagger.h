@@ -70,12 +70,15 @@ public:
 	static QList<CueEntry> readCue(QString file);
 	static QList<TagEntry> readM3U(QString file);
 	static QList<TagEntry> readXSPF(QString file);
+	static QList<TagEntry> readASX(QString file);
 	static QList<TagEntry> readEntry(QUrl url);
 	
 	static bool autoCorrect();
 	static void setAutoCorrect(bool);
 	static bool saveCorrected();
 	static void setSaveCorrected(bool);
+
+	static bool playlistDetected(QUrl);
 	
 private:
 	Tagger() {}

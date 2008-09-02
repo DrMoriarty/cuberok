@@ -24,7 +24,8 @@
 
 static const QString nArtist = "Artist",
 	nAlbum = "Album",
-	nGenre = "Genre";
+	nGenre = "Genre",
+    nPlaylist = "Playlist";
 //	nMark = "Mark";
 
 
@@ -43,6 +44,7 @@ public:
 	int AddArtist(QString artist);
 	int AddAlbum(QString album);
 	int AddGenre(QString genre);
+	int AddPlaylist(QString list);
 	//int AddMark(QString mark);
 	void Increment(int ar, int al, int ge);
 	void Decrement(int ar, int al, int ge);
@@ -50,18 +52,22 @@ public:
 	void RemoveArtist(QString artist);
 	void RemoveAlbum(QString album);
 	void RemoveGenre(QString genre);
+	void RemovePlaylist(QString list);
 	//void RemoveMark(QString mark);
 	void RenameArtist(QString oldval, QString newval);
 	void RenameAlbum(QString oldval, QString newval);
 	void RenameGenre(QString oldval, QString newval);
+	void RenamePlaylist(QString oldval, QString newval);
 	//void RenameMark(QString oldval, QString newval);
 	QList<struct Attr> Artists(QString *patt = 0);
 	QList<struct Attr> Albums(QString *patt = 0);
 	QList<struct Attr> Genres(QString *patt = 0);
+	QList<struct Attr> Playlists(QString *patt = 0);
 	//QList<struct Attr> Marks(QString *patt = 0);
 	void ArtForArtist(QString val, QString art);
 	void ArtForAlbum(QString val, QString art);
 	void ArtForGenre(QString val, QString art);
+	void ArtForPlaylist(QString val, QString art);
 	QList<QString> Songs(QString *ar = 0, QString *al = 0, QString *ge = 0, QString *so = 0);
 	QString GetArtist(int);
 	QString GetAlbum(int);

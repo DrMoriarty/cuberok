@@ -328,6 +328,61 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget3" >
+   <property name="features" >
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Library</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents3" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>2</number>
+     </property>
+     <property name="leftMargin" >
+      <number>4</number>
+     </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="LibraryView" name="libView" >
+       <property name="contextMenuPolicy" >
+        <enum>Qt::ActionsContextMenu</enum>
+       </property>
+       <property name="acceptDrops" >
+        <bool>true</bool>
+       </property>
+       <property name="toolTip" >
+        <string>Drag'n'Drop playlists to the library</string>
+       </property>
+       <property name="dragEnabled" >
+        <bool>true</bool>
+       </property>
+       <property name="flow" >
+        <enum>QListView::TopToBottom</enum>
+       </property>
+       <property name="isWrapping" stdset="0" >
+        <bool>true</bool>
+       </property>
+       <addaction name="actionAddToLibrary" />
+       <addaction name="actionRemoveFromLibrary" />
+       <addaction name="actionLibrarySetImage" />
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
@@ -341,6 +396,7 @@
     <property name="title" >
      <string>File</string>
     </property>
+    <addaction name="actionOpenUrl" />
     <addaction name="actionNewPlaylist" />
     <addaction name="actionLoadPlaylist" />
     <addaction name="actionSavePlaylist" />
@@ -748,11 +804,17 @@
    </property>
   </action>
   <action name="actionNewPlaylist" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/newtab.png</iconset>
+   </property>
    <property name="text" >
     <string>New playlist</string>
    </property>
   </action>
   <action name="actionClosePlaylist" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/deltab.png</iconset>
+   </property>
    <property name="text" >
     <string>Close playlist</string>
    </property>
@@ -763,6 +825,9 @@
    </property>
   </action>
   <action name="actionLookFeel" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/looknfeel.png</iconset>
+   </property>
    <property name="text" >
     <string>Look and Feel</string>
    </property>
@@ -819,7 +884,23 @@
     <string>Add Item</string>
    </property>
   </action>
+  <action name="actionAddToLibrary" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/col_add.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Add Item</string>
+   </property>
+  </action>
   <action name="actionRemoveFromCollection" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Remove Item</string>
+   </property>
+  </action>
+  <action name="actionRemoveFromLibrary" >
    <property name="icon" >
     <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
    </property>
@@ -848,6 +929,9 @@
    </property>
   </action>
   <action name="actionSavePlaylist" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/save.png</iconset>
+   </property>
    <property name="text" >
     <string>Save playlist</string>
    </property>
@@ -856,6 +940,9 @@
    </property>
   </action>
   <action name="actionLoadPlaylist" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/open.png</iconset>
+   </property>
    <property name="text" >
     <string>Open playlist</string>
    </property>
@@ -885,11 +972,22 @@
    </property>
   </action>
   <action name="actionSettings" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/settings.png</iconset>
+   </property>
    <property name="text" >
     <string>Preferences</string>
    </property>
   </action>
   <action name="actionSetImage" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Set Image</string>
+   </property>
+  </action>
+  <action name="actionLibrarySetImage" >
    <property name="icon" >
     <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
    </property>
@@ -908,6 +1006,14 @@
     <string>Icon View</string>
    </property>
   </action>
+  <action name="actionOpenUrl" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/open.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Open Url</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -924,6 +1030,11 @@
    <class>CollectionView</class>
    <extends>QListView</extends>
    <header>collectionview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LibraryView</class>
+   <extends>QListView</extends>
+   <header>libraryview.h</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -1695,6 +1806,70 @@
     <hint type="destinationlabel" >
      <x>149</x>
      <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOpenUrl</sender>
+   <signal>triggered()</signal>
+   <receiver>listView</receiver>
+   <slot>openUrl()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>434</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAddToLibrary</sender>
+   <signal>triggered()</signal>
+   <receiver>libView</receiver>
+   <slot>addItem()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>141</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemoveFromLibrary</sender>
+   <signal>triggered()</signal>
+   <receiver>libView</receiver>
+   <slot>removeItem()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>141</x>
+     <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLibrarySetImage</sender>
+   <signal>triggered()</signal>
+   <receiver>libView</receiver>
+   <slot>setImage()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>141</x>
+     <y>259</y>
     </hint>
    </hints>
   </connection>

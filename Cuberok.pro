@@ -10,6 +10,7 @@ HEADERS += src/aboutdialog.h \
            src/cuberok.h \
            src/database.h \
            src/indicator.h \
+           src/libraryview.h \
            src/lookandfeel.h \
            src/main.h \
            src/player.h \
@@ -24,9 +25,10 @@ HEADERS += src/aboutdialog.h \
            src/stareditor.h \
            src/starrating.h \
            src/tageditor.h \
-           src/tagger.h 
+           src/tagger.h \
+           src/url_open.h
 
-FORMS += src/aboutdialog.ui src/collectionview.ui src/cuberok.ui src/lookandfeel.ui src/tageditor.ui src/settings.ui
+FORMS += src/aboutdialog.ui src/cuberok.ui src/lookandfeel.ui src/tageditor.ui src/settings.ui src/url_open.ui
 TRANSLATIONS = cuberok_ru.ts
 
 SOURCES += src/aboutdialog.cpp \
@@ -34,6 +36,7 @@ SOURCES += src/aboutdialog.cpp \
            src/cuberok.cpp \
            src/database.cpp \
            src/indicator.cpp \
+           src/libraryview.cpp \
            src/lookandfeel.cpp \
            src/main.cpp \
            src/player.cpp \
@@ -48,7 +51,8 @@ SOURCES += src/aboutdialog.cpp \
            src/stareditor.cpp \
            src/starrating.cpp \
            src/tageditor.cpp \
-           src/tagger.cpp
+           src/tagger.cpp \
+           src/url_open.cpp
 RESOURCES += src/resource.qrc
 
 win32 {

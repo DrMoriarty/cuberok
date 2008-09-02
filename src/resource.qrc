@@ -4,6 +4,7 @@
         <file alias="newtab.png" >../images/addtab.png</file>
         <file alias="deltab.png" >../images/closetab.png</file>
         <file alias="clear_filter.png" >../images/emblem-noread.png</file>
+        <file alias="def_list.png" >../images/stock_playlist.png</file>
         <file alias="def_genre.png" >../images/gnome-audio.png</file>
         <file alias="def_artist.png" >../images/stock_person.png</file>
         <file alias="def_album.png" >../images/gnome-dev-cdrom-audio.png</file>
@@ -18,7 +19,6 @@
         <file alias="stars3.png" >../images/rating3.png</file>
         <file alias="stars4.png" >../images/rating4.png</file>
         <file alias="stars5.png" >../images/rating5.png</file>
-        <file>../images/s_check_off.png</file>
         <file alias="star.png" >../images/star2s.png</file>
         <file alias="col_art.png" >../images/emblem-art.png</file>
         <file alias="col_add.png" >../images/emblem-new.png</file>
@@ -28,5 +28,9 @@
         <file alias="edittag.png" >../images/stock_edit.png</file>
         <file alias="clearlist.png" >../images/gnome-fs-regular.png</file>
         <file alias="iconview.png" >../images/stock_preview-four-pages.png</file>
+        <file alias="settings.png" >../images/gnome-settings.png</file>
+        <file alias="open.png" >../images/stock_open.png</file>
+        <file alias="save.png" >../images/stock_save.png</file>
+        <file alias="looknfeel.png" >../images/gnome-settings-theme.png</file>
     </qresource>
 </RCC>

@@ -21,9 +21,8 @@
 #define COLLECTIONVIEW_H
 
 #include <QtGui>
-#include "ui_collectionview.h"
 
-typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG} ListMode;
+typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_LIST} ListMode;
 
 class CollectionFiller : public QThread
 {
@@ -75,7 +74,6 @@ public:
 	~CollectionView();
 	
 private:
-	Ui::collectionviewClass ui;
 	CollectionModel model;
 	
 	//void dragEnterEvent(QDragEnterEvent *event);

@@ -1,1 +1,14 @@
- 
+Version 0.0.3	2.09.08
+	CUE support (experimental)
+	Shoutcast/icecast support (experimental)
+	New playlist formats support, XSPF for reading/writing, ASX(ASP) for reading only
+	Make library for CUE files and playlists
+	GStreamer backend rewritten (volume control don't work :-(
+
+Version 0.0.2	1.08.08
+	Make auto rating for songs and attributes (artist, album, genre).
+	Art for songs and attributes.
+	GStreamer backend (very simple)
+
+Version 0.0.1	  14.07.08
+	The Cuberok is very ugly music player :-)
