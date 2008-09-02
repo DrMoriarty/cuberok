@@ -504,7 +504,12 @@ QList<TagEntry> Tagger::readEntry(QUrl url)
 	QList<TagEntry> list;
 	if(!url.isValid() || url.isEmpty()) return list;
 	QString file = url.toLocalFile();
-	if(!file.size()) { // need to download first
+	if(!file.size()) { 
+		// TODO url to playlist
+		TagEntry tags;
+		tags.url = url;
+		tags.title = url.toString();
+		list << tags;
 		return list;
 	}
 	if(file.toLower().endsWith(".m3u"))
