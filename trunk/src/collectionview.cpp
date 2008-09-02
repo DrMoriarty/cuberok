@@ -97,8 +97,14 @@ int CollectionFiller::proceed(QString path)
 			//QMessageBox::information(0, "set artist cover", cover);
 		}
 	} else {
+		QString p2 = path.toLower();
+		// check playlists
+		if(p2.endsWith(".m3u") || p2.endsWith(".xspf") || p2.endsWith(".asx") || p2.endsWith(".asp") || p2.endsWith(".cue")) {
+			return Database::Self().AddPlaylist(path);
+		}
+		// drop into item
 		if(attrname.length()) {
-			QString p2 = path.toLower();
+			// check images
 			if(p2.endsWith(".jpg") || p2.endsWith(".png") || p2.endsWith(".gif") || p2.endsWith(".bmp")) {
 				switch(mode) {
 				case M_ALBUM:
@@ -112,9 +118,13 @@ int CollectionFiller::proceed(QString path)
 					break;
 				case M_SONG:
 					break;
+				case M_LIST:
+					Database::Self().ArtForPlaylist(attrname, path);
+					break;
 				}
 				return -1;
 			}
+			// check songs
 			QString title, artist, album, comment, genre, length;
 			int track, year, rating;
 			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length);
@@ -133,6 +143,9 @@ int CollectionFiller::proceed(QString path)
 					break;
 				case M_SONG:
 					//Database::Self().SetMark(path, attrname);
+					return -1;
+				case M_LIST:
+					// TODO
 					return -1;
 			}
 			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating); 
@@ -193,6 +206,14 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		//Database::Self().RenameMark(oldvalue, newvalue);
 		break;
 	}
+	case M_LIST: {
+		QString file1 = itemFromIndex(index)->data().toString();
+		QString file2 = QFileInfo(file1).absolutePath() + QDir::separator() + newvalue + "." + QFileInfo(file1).completeSuffix();
+		QFile::rename(file1, file2);
+		Database::Self().RenamePlaylist(file1, file2);
+		itemFromIndex(index)->setData(file2);
+		break;
+	}
 	}
 	//QMessageBox::information(0, "", value.toString());
 	return QStandardItemModel::setData(index, value, role);
@@ -241,6 +262,7 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res = Database::Self().Songs(0, 0, &s, 0);
 		break;
 	case M_SONG:
+	case M_LIST:
 		res.clear();
 		res << itemFromIndex(i)->data().toString();
 		break;
@@ -257,7 +279,12 @@ bool CollectionModel::dropMimeData ( const QMimeData * data, Qt::DropAction acti
 {
     if (data->hasUrls()) {
     	QString attrname("");
-    	if(parent.isValid()) attrname = this->data(parent, Qt::DisplayRole).toString();
+    	if(parent.isValid()) {
+			if(mode == M_LIST)
+				attrname = this->itemFromIndex(parent)->data().toString();
+			else
+				attrname = this->data(parent, Qt::DisplayRole).toString();
+		}
     	QList<QUrl> urls = data->urls();
     	CollectionFiller * cf = new CollectionFiller(urls, mode, attrname);
     	connect(cf, SIGNAL(finished()), this, SLOT(update()));
@@ -342,6 +369,36 @@ void CollectionModel::updateMode(ListMode m)
 		emit modeChanged(mode);
 		return;
 	}
+	case M_LIST:
+		data = Database::Self().Playlists();
+		icon.load(":/icons/def_list.png");
+		stat = tr("Collection - %n lists(s)", "", data.count());
+		QString tt("");
+		QStandardItem *i;
+		foreach(struct Database::Attr attr, data) {
+			QPixmap px2;
+			if(!attr.art.size() || !px2.load(attr.art))
+				px2 = icon;
+			if(attr.rating >= 1) {
+				QPainter painter(&px2);
+				if(attr.rating >= 40) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_5, QRect(0, 0, px_5.width(), px_5.height()));
+				else if(attr.rating >= 30) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_4, QRect(0, 0, px_4.width(), px_4.height()));
+				else if(attr.rating >= 20) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_3, QRect(0, 0, px_3.width(), px_3.height()));
+				else if(attr.rating >= 10) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_2, QRect(0, 0, px_2.width(), px_2.height()));
+				else if(attr.rating >= 1)  painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_1, QRect(0, 0, px_1.width(), px_1.height()));
+			}
+			if(QFileInfo(attr.name).exists()) 
+				i = new QStandardItem(QIcon(px2), QFileInfo(attr.name).baseName());
+			else
+				i = new QStandardItem(QIcon(px2), attr.name);
+			i->setData(attr.name);
+			tt = attr.name+"\n"+tr("%n song(s)", "", attr.refs);
+			i->setToolTip(tt); 
+			appendRow(i);
+		}
+		emit status(stat);
+		emit modeChanged(mode);
+		return;
 	}
 	QString tt("");
 	QStandardItem *i;
@@ -377,7 +434,6 @@ void CollectionModel::updateMode(ListMode m)
 CollectionView::CollectionView(QWidget *parent)
     : QListView(parent)
 {
-	ui.setupUi(this);
 	setModel(&model);
 	//setViewMode(QListView::IconMode);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);

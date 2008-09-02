@@ -75,6 +75,7 @@ public slots:
 	void editTag();
 	void removeSong();
 	void reloadTags();
+	void openUrl();
 signals:
 	void status(QString);
 	void message(QString);

@@ -132,7 +132,13 @@ void PlaylistView::storeListXSPF(QString fname)
 void PlaylistView::loadList(QString fname)
 {
 	while(model.rowCount()) model.removeRow(0);
-	QList<TagEntry> list = Tagger::readEntry(QUrl::fromLocalFile(fname));
+	addUrl(QUrl::fromLocalFile(fname));
+}
+
+void PlaylistView::addUrl(QUrl url)
+{
+	//QMessageBox::information(0, "", url.toString());
+	QList<TagEntry> list = Tagger::readEntry(url);
 	foreach(TagEntry tag, list) {
 		int row = model.rowCount();
 		model.insertRow(row);

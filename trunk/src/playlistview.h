@@ -95,6 +95,7 @@ public slots:
 	void editTag();
 	void removeSong();
 	void reloadTags();
+	void addUrl(QUrl);
 signals:
 	void status(QString);
 	void message(QString/*, QString**/);

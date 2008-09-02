@@ -350,6 +350,7 @@ QString Tagger::getWord(QString &str)
 TagEntry Tagger::readTags(QUrl &url)
 {
 	TagEntry tags;
+	if(!url.isValid() || url.isEmpty()) return tags;
 // 	tags.start = 0;
 // 	tags.length = 0;
 // 	tags.dbindex = 0;
@@ -394,8 +395,12 @@ QList<TagEntry> Tagger::readM3U(QString fname)
 			while (!in.atEnd()) {
 				QString line = in.readLine();
 				if(line[0] == '#' || !line.size()) continue;
+				if(QFileInfo(line).exists()) line = QUrl::fromLocalFile(line).toString();
 				QUrl url(line);
-				list << readTags(url);
+				if(playlistDetected(url))
+					list << readEntry(url);
+				else
+					list << readTags(url);
 			} 
 			file.close();
 		}
@@ -476,14 +481,18 @@ QList<TagEntry> Tagger::readXSPF(QString fname)
 						if(step == 3) step --;
 						// insert
 						if(!tags.title.size()) tags.title = tags.url.toString();
-						list << tags;
+						if(playlistDetected(tags.url))
+							list << readEntry(tags.url);
+						else
+							list << tags;
 					}
 				}
 			}
 			if (xml.hasError()) {
-				QString err = QString("There is error in XSPF playlist:\nLine number %1, column %2\n%3").arg(xml.errorString(), QString::number(xml.lineNumber()), QString::number(xml.columnNumber()));
+				QString err = QString("There is error in XSPF playlist:\nLine number %1, column %2\n%3").arg(QString::number(xml.lineNumber()), QString::number(xml.columnNumber()), xml.errorString());
 				QMessageBox::warning(0, "Error", err);
 			} 
+			file.close();
 		}
 	}
 	return list;
@@ -492,14 +501,18 @@ QList<TagEntry> Tagger::readXSPF(QString fname)
 
 QList<TagEntry> Tagger::readEntry(QUrl url)
 {
+	QList<TagEntry> list;
+	if(!url.isValid() || url.isEmpty()) return list;
 	QString file = url.toLocalFile();
 	if(!file.size()) { // need to download first
-		return QList<TagEntry>();
+		return list;
 	}
 	if(file.toLower().endsWith(".m3u"))
 		return readM3U(file);
 	else if(file.toLower().endsWith(".xspf"))
 		return readXSPF(file);
+	else if(file.toLower().endsWith(".asx") || file.toLower().endsWith(".asp"))
+		return readASX(file);
 	else if(file.toLower().endsWith(".cue")) {
 		QList<TagEntry> tlist;
 		QList<CueEntry> clist = readCue(file);
@@ -519,7 +532,73 @@ QList<TagEntry> Tagger::readEntry(QUrl url)
 		return tlist;
 	}
 	// this is not a playlist
-	QList<TagEntry> list;
 	list << readTags(url);
 	return list;
+}
+
+QList<TagEntry> Tagger::readASX(QString fname)
+{
+	QList<TagEntry> list;
+	TagEntry tags;
+	if(QFile::exists(fname)) {
+		QFile file(fname);
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			QXmlStreamReader xml(&file);
+			int step = 0;
+			while (!xml.atEnd()) {
+				QXmlStreamReader::TokenType tt = xml.readNext();
+				if(tt == QXmlStreamReader::EndDocument || tt == QXmlStreamReader::Invalid)
+					break;
+				else if(tt == QXmlStreamReader::StartElement) {
+					if(xml.name().toString().toLower() == "asx") {
+						if(xml.attributes().value("version").toString() != "3.0") break;
+						if(!step) step ++;
+					} else if(xml.name().toString().toLower() == "entry" && step == 1) {
+						step ++;
+					} else if(xml.name().toString().toLower() == "title" && step == 2) {
+						tags.title = xml.readElementText();
+					} else if(xml.name().toString().toLower() == "author" && step == 2) {
+						tags.artist = xml.readElementText();
+					} else if(xml.name().toString().toLower() == "copyright" && step == 2) {
+						tags.comment = xml.readElementText();
+					} else if(xml.name().toString().toLower() == "ref" && step == 2) {
+						tags.url = xml.attributes().value("href").toString();
+						if(tags.url.isEmpty())
+							tags.url = xml.attributes().value("HREF").toString();
+					}
+				} else if(tt == QXmlStreamReader::EndElement) {
+					if(xml.name().toString().toLower() == "asx" && step == 1) {
+						step --;
+					} else if(xml.name().toString().toLower() == "entry" && step == 2) {
+						step --;
+					} else if(xml.name().toString().toLower() == "ref" && step == 2) {
+						if(playlistDetected(tags.url))
+							list << readEntry(tags.url);
+						else
+							list << tags;
+					}
+				}
+			}
+			if (xml.hasError()) {
+				QString err = QString("There is error in ASX playlist:\nLine number %1, column %2\n%3").arg(QString::number(xml.lineNumber()), QString::number(xml.columnNumber()), xml.errorString());
+				QMessageBox::warning(0, "Error", err);
+			} 
+			file.close();
+		}
+	}
+	return list;
+}
+
+bool Tagger::playlistDetected(QUrl url)
+{
+	QString file = url.toString();
+	if(file.toLower().endsWith(".m3u"))
+		return true;
+	else if(file.toLower().endsWith(".xspf"))
+		return true;
+	else if(file.toLower().endsWith(".asx") || file.toLower().endsWith(".asp"))
+		return true;
+	else if(file.toLower().endsWith(".cue")) 
+		return true;
+	return false;
 }

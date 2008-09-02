@@ -20,6 +20,7 @@
 #include "playlistcontainer.h"
 #include "playlistsettings.h"
 #include "playlistmodel.h"
+#include "url_open.h"
 
 /************************
  * 
@@ -303,5 +304,15 @@ void PlaylistContainer::saveList()
 			curlist->setName(listname);
 			tabs->setTabText(tabs->currentIndex(), listname);
 		}
+	}
+}
+
+void PlaylistContainer::openUrl()
+{
+	if(curlist) {
+		UrlOpen *u = new UrlOpen(this);
+		if(!connect(u, SIGNAL(append(QUrl)), curlist, SLOT(addUrl(QUrl))))
+			QMessageBox::information(this, "Error", "Can not connect UrlOpen");
+		u->show();
 	}
 }

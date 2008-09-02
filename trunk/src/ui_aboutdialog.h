@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'aboutdialog.ui'
 **
-** Created: Fri 1. Aug 10:17:06 2008
+** Created: Tue 2. Sep 10:20:09 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -103,7 +103,7 @@ public:
     AboutDialogClass->setWindowTitle(QApplication::translate("AboutDialogClass", "AboutDialog", 0, QApplication::UnicodeUTF8));
     label->setText(QString());
     label_2->setText(QApplication::translate("AboutDialogClass", "Cuberok", 0, QApplication::UnicodeUTF8));
-    label_3->setText(QApplication::translate("AboutDialogClass", "v 0.0.2", 0, QApplication::UnicodeUTF8));
+    label_3->setText(QApplication::translate("AboutDialogClass", "v 0.0.3", 0, QApplication::UnicodeUTF8));
     label_4->setText(QApplication::translate("AboutDialogClass", "Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>", 0, QApplication::UnicodeUTF8));
     Q_UNUSED(AboutDialogClass);
     } // retranslateUi
