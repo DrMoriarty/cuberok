@@ -54,7 +54,7 @@
         <translation type="obsolete">Коллекция</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="327"/>
+        <location filename="../src/collectionview.cpp" line="332"/>
         <source>Collection - %n album(s)</source>
         <translation>
             <numerusform>Коллекция - %n альбом</numerusform>
@@ -63,7 +63,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="320"/>
+        <location filename="../src/collectionview.cpp" line="325"/>
         <source>Collection - %n artist(s)</source>
         <translation>
             <numerusform>Коллекция - %n исполнитель</numerusform>
@@ -72,7 +72,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="334"/>
+        <location filename="../src/collectionview.cpp" line="339"/>
         <source>Collection - %n genre(s)</source>
         <translation>
             <numerusform>Коллекция - %n жанр</numerusform>
@@ -81,7 +81,7 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="343"/>
+        <location filename="../src/collectionview.cpp" line="348"/>
         <source>Collection - %n song(s)</source>
         <translation>
             <numerusform>Коллекция - %n композиция</numerusform>
@@ -95,7 +95,7 @@
         <translation type="obsolete">жанров</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="413"/>
+        <location filename="../src/collectionview.cpp" line="418"/>
         <source>%n song(s)</source>
         <translation>
             <numerusform>%n композиция</numerusform>
@@ -109,12 +109,12 @@
         <translation type="obsolete">%1, альбом %2 </translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="359"/>
+        <location filename="../src/collectionview.cpp" line="364"/>
         <source>%1, album &quot;%2&quot;</source>
         <translation>%1, альбом &quot;%2&quot;</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="370"/>
+        <location filename="../src/collectionview.cpp" line="375"/>
         <source>Collection - %n lists(s)</source>
         <translation>
             <numerusform>Коллекция - %n список</numerusform>
@@ -126,27 +126,27 @@
 <context>
     <name>CollectionView</name>
     <message>
-        <location filename="../src/collectionview.cpp" line="584"/>
+        <location filename="../src/collectionview.cpp" line="589"/>
         <source>New Album</source>
         <translation>Новый Альбом</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="587"/>
+        <location filename="../src/collectionview.cpp" line="592"/>
         <source>New Artist</source>
         <translation>Новый Исполнитель</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="590"/>
+        <location filename="../src/collectionview.cpp" line="595"/>
         <source>New Genre</source>
         <translation>Новый Жанр</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="688"/>
+        <location filename="../src/collectionview.cpp" line="693"/>
         <source>Open image</source>
         <translation>Открыть изображение</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="688"/>
+        <location filename="../src/collectionview.cpp" line="693"/>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
         <translation>Изображения (*.jpg *.gif *.png *.bmp)</translation>
     </message>
@@ -773,7 +773,7 @@
 <context>
     <name>PlaylistView</name>
     <message numerus="yes">
-        <location filename="../src/playlistview.cpp" line="476"/>
+        <location filename="../src/playlistview.cpp" line="479"/>
         <source>Playlist - %n song(s)</source>
         <translation>
             <numerusform>Список - %n композиция</numerusform>
@@ -782,12 +782,12 @@
         </translation>
     </message>
     <message>
-        <location filename="../src/playlistview.cpp" line="252"/>
+        <location filename="../src/playlistview.cpp" line="255"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../src/playlistview.cpp" line="252"/>
+        <location filename="../src/playlistview.cpp" line="255"/>
         <source>Can not open %1</source>
         <translation>Не могу открыть %1</translation>
     </message>
@@ -810,7 +810,7 @@
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="100"/>
+        <location filename="../src/settings.ui" line="110"/>
         <source>Engine Settings</source>
         <translation>Настройки звука</translation>
     </message>
@@ -838,6 +838,16 @@
         <location filename="../src/settings.ui" line="84"/>
         <source>Enable auto rating</source>
         <translation>Включить авто-рейтинг</translation>
+    </message>
+    <message>
+        <location filename="../src/settings.cpp" line="30"/>
+        <source>Local</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settings.ui" line="91"/>
+        <source>Codepage for CUE sheets</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

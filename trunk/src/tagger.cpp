@@ -20,6 +20,7 @@
 #include "tagger.h"
 #include "main.h"
 #include "database.h"
+#include "playlistsettings.h"
 
 #include "QtGui"
 #include <QtXml>
@@ -225,6 +226,10 @@ QList<CueEntry> Tagger::readCue(QString filename)
 		QTextStream in(&f);
 		while (!in.atEnd()) {
 			QString line = in.readLine(), word;
+			if(PLSet.cue_codepage.size()) {
+				QTextCodec *codec = QTextCodec::codecForName(PLSet.cue_codepage.toLocal8Bit());
+				line = codec->toUnicode(line.toLocal8Bit());  
+			}
 			while(line.size()) {
 				word = getWord(line);
 				if(skip && word != "TRACK") break;

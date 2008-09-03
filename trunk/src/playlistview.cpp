@@ -61,6 +61,9 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 		setColumnWidth(i, PLSet.columnWidth(i));
 	}
 	hideColumn(PlaylistModel::Empty);
+	hideColumn(PlaylistModel::CueStart);
+	hideColumn(PlaylistModel::CueLength);
+	hideColumn(PlaylistModel::DBIndex);
 	connect(&PLSet, SIGNAL(visibleChanged(int,bool)), this, SLOT(setColVisible(int,bool)));
 	connect(&PLSet, SIGNAL(widthChanged(int,int)), this, SLOT(setColWidth(int,int)));
 	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
@@ -420,8 +423,14 @@ void PlaylistView::resetTags(QModelIndex& ind)
 
 void PlaylistView::removeSong()
 {
+	QList<int> list;
 	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/this->selectedIndexes()) {
-		pmodel.removeRows(/*pmodel.mapToSource(*/ind.row(), 1);
+		if(!list.contains(ind.row())) 
+			list << /*pmodel.mapToSource(*/ind.row();
+	}
+	qSort(list.begin(), list.end(), qGreater<int>());
+	foreach(int ind, list) {
+		pmodel.removeRows(ind, 1);
 	}
 }
 

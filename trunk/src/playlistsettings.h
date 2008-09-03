@@ -34,7 +34,10 @@ Q_OBJECT
 	int  columnWidth(int col);
 	int  setColumnWidth(int col, int wid);
 
+	void save();
+
 	bool autoRating;
+	QString cue_codepage;
 
  signals:
 	void visibleChanged(int, bool);
