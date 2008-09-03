@@ -101,8 +101,6 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.toolBar->addAction(QWhatsThis::createAction(this));
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
-	if(set.value("autoRating", false).toBool())
-		PLSet.autoRating = true;
 }
 
 Cuberok::~Cuberok()

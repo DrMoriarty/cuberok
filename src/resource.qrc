@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/icons" >
-        <file alias="application.png" >../images/MatieresExplosives.png</file>
+        <file alias="application.png" >../images/cuberok.png</file>
         <file alias="newtab.png" >../images/addtab.png</file>
         <file alias="deltab.png" >../images/closetab.png</file>
         <file alias="clear_filter.png" >../images/emblem-noread.png</file>

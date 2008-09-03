@@ -42,6 +42,16 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 
 	if(PLSet.autoRating)
 		ui.checkBox_autorating->setCheckState(Qt::Checked);
+
+	QStringList sl;
+	foreach(QByteArray it, QTextCodec::availableCodecs ()) {
+		sl << QString(it);
+	}
+	sl.sort();
+	ui.comboBox_cue->addItems(sl);
+	QString cue_codepage = set.value("cue_codepage", "System").toString();
+	if(!cue_codepage.size()) cue_codepage = "System";
+	ui.comboBox_cue->setCurrentIndex(ui.comboBox_cue->findText(cue_codepage));
 }
 
 Settings::~Settings()
@@ -67,7 +77,9 @@ void Settings::accept()
 	set.setValue("saveCorrected", Tagger::saveCorrected());
 	
 	PLSet.autoRating = ui.checkBox_autorating->checkState() == Qt::Checked;
-	set.setValue("autoRating", PLSet.autoRating);
 
+	PLSet.cue_codepage = ui.comboBox_cue->currentText();
+
+	PLSet.save();
 	QDialog::accept();
 }

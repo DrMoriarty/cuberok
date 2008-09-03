@@ -27,15 +27,24 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false)
 		_data[i].v = (bool)set.value("colvisible"+QString::number(i), 1).toInt(0);
 		_data[i].w = set.value("colwidth"+QString::number(i), 30).toInt(0);
 	}
+	autoRating = set.value("autoRating", false).toBool();
+	cue_codepage = set.value("cue_codepage", "System").toString();
 }
 
 PlaylistSettings::~PlaylistSettings()
+{
+	save();
+}
+
+void PlaylistSettings::save()
 {
 	QSettings set;
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
 		set.setValue("colvisible"+QString::number(i), (int)_data[i].v);
 		set.setValue("colwidth"+QString::number(i), _data[i].w);
 	}
+	set.setValue("autoRating", autoRating);
+	set.setValue("cue_codepage", cue_codepage);
 }
 
 PlaylistSettings& PlaylistSettings::Self()

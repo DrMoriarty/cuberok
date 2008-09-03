@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Wed 23. Jul 16:44:10 2008
+** Created: Wed 3. Sep 11:36:04 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -40,6 +40,8 @@ public:
     QCheckBox *checkBox_autofix8bit;
     QCheckBox *checkBox_autosave;
     QCheckBox *checkBox_autorating;
+    QLabel *label_3;
+    QComboBox *comboBox_cue;
     QWidget *page_2;
     QDialogButtonBox *buttonBox;
 
@@ -79,7 +81,7 @@ public:
 
     spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem, 4, 0, 1, 1);
+    gridLayout->addItem(spacerItem, 5, 0, 1, 1);
 
     checkBox_autofix8bit = new QCheckBox(page);
     checkBox_autofix8bit->setObjectName(QString::fromUtf8("checkBox_autofix8bit"));
@@ -95,6 +97,16 @@ public:
     checkBox_autorating->setObjectName(QString::fromUtf8("checkBox_autorating"));
 
     gridLayout->addWidget(checkBox_autorating, 3, 0, 1, 1);
+
+    label_3 = new QLabel(page);
+    label_3->setObjectName(QString::fromUtf8("label_3"));
+
+    gridLayout->addWidget(label_3, 4, 0, 1, 1);
+
+    comboBox_cue = new QComboBox(page);
+    comboBox_cue->setObjectName(QString::fromUtf8("comboBox_cue"));
+
+    gridLayout->addWidget(comboBox_cue, 4, 1, 1, 1);
 
     toolBox->addItem(page, QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
     page_2 = new QWidget();
@@ -132,6 +144,7 @@ public:
     checkBox_autofix8bit->setText(QApplication::translate("Settings", "Fix local 8 bit codepage in id3v2", 0, QApplication::UnicodeUTF8));
     checkBox_autosave->setText(QApplication::translate("Settings", "Auto save fixed tags", 0, QApplication::UnicodeUTF8));
     checkBox_autorating->setText(QApplication::translate("Settings", "Enable auto rating", 0, QApplication::UnicodeUTF8));
+    label_3->setText(QApplication::translate("Settings", "Codepage for CUE sheets", 0, QApplication::UnicodeUTF8));
     toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
     toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
     Q_UNUSED(Settings);
