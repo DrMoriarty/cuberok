@@ -21,6 +21,7 @@
 #include "main.h"
 #include "database.h"
 #include "playlistsettings.h"
+#include "downloader.h"
 
 #include "QtGui"
 #include <QtXml>
@@ -510,12 +511,21 @@ QList<TagEntry> Tagger::readEntry(QUrl url)
 	if(!url.isValid() || url.isEmpty()) return list;
 	QString file = url.toLocalFile();
 	if(!file.size()) { 
-		// TODO url to playlist
-		TagEntry tags;
-		tags.url = url;
-		tags.title = url.toString();
-		list << tags;
-		return list;
+		if(playlistDetected(url)) {
+			// download playlist
+			SyncDownloader dl(url, &file);
+			dl.start();
+			dl.wait();
+			//file = dl.download(url);
+			if(!file.size())  // error
+				return list;
+		} else {
+			TagEntry tags;
+			tags.url = url;
+			tags.title = url.toString();
+			list << tags;
+			return list;
+		}
 	}
 	if(file.toLower().endsWith(".m3u"))
 		return readM3U(file);
@@ -601,14 +611,25 @@ QList<TagEntry> Tagger::readASX(QString fname)
 
 bool Tagger::playlistDetected(QUrl url)
 {
-	QString file = url.toString();
-	if(file.toLower().endsWith(".m3u"))
-		return true;
-	else if(file.toLower().endsWith(".xspf"))
-		return true;
-	else if(file.toLower().endsWith(".asx") || file.toLower().endsWith(".asp"))
-		return true;
-	else if(file.toLower().endsWith(".cue")) 
-		return true;
+	QString file = url.path().toLower();
+	if(!url.hasQuery()) {
+		if(file.endsWith(".m3u"))
+			return true;
+		else if(file.endsWith(".xspf"))
+			return true;
+		else if(file.endsWith(".asx") || file.endsWith(".asp"))
+			return true;
+		else if(file.endsWith(".cue")) 
+			return true;
+	} else {
+		if(file.contains(".m3u"))
+			return true;
+		else if(file.contains(".xspf"))
+			return true;
+		else if(file.contains(".asx") || file.contains(".asp"))
+			return true;
+		else if(file.contains(".cue")) 
+			return true;
+	}
 	return false;
 }
