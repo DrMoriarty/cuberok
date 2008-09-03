@@ -545,6 +545,57 @@
     </message>
 </context>
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../src/authenticationdialog.ui" line="13"/>
+        <source>Http authentication required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/authenticationdialog.ui" line="19"/>
+        <source>You need to supply a Username and a Password to access this site</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/authenticationdialog.ui" line="29"/>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/authenticationdialog.ui" line="39"/>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/authenticationdialog.ui" line="59"/>
+        <source>Site:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/authenticationdialog.ui" line="72"/>
+        <source>%1 at %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Downloader</name>
+    <message>
+        <location filename="../src/downloader.cpp" line="124"/>
+        <source>Error</source>
+        <translation type="unfinished">Ошибка</translation>
+    </message>
+    <message>
+        <location filename="../src/downloader.cpp" line="57"/>
+        <source>Unable to save the file %1: %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloader.cpp" line="126"/>
+        <source>Download failed: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Indicator</name>
     <message>
         <location filename="../src/indicator.cpp" line="103"/>
@@ -773,7 +824,7 @@
 <context>
     <name>PlaylistView</name>
     <message numerus="yes">
-        <location filename="../src/playlistview.cpp" line="479"/>
+        <location filename="../src/playlistview.cpp" line="485"/>
         <source>Playlist - %n song(s)</source>
         <translation>
             <numerusform>Список - %n композиция</numerusform>
@@ -838,11 +889,6 @@
         <location filename="../src/settings.ui" line="84"/>
         <source>Enable auto rating</source>
         <translation>Включить авто-рейтинг</translation>
-    </message>
-    <message>
-        <location filename="../src/settings.cpp" line="30"/>
-        <source>Local</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="91"/>

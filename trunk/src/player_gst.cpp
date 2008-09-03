@@ -29,10 +29,8 @@ PlayerGst * gstplayer = 0;
 	if(res == GST_STATE_CHANGE_FAILURE) return false; \
 	if(res == GST_STATE_CHANGE_ASYNC) { \
 		GstState state; \
-		do { \
 			res = gst_element_get_state(GST_ELEMENT (element), &state, NULL, 1000000000/*GST_CLOCK_TIME_NONE*/); \
-			if(res == GST_STATE_CHANGE_FAILURE) return false;			\
-		} while(res == GST_STATE_CHANGE_ASYNC); \
+			if(res == GST_STATE_CHANGE_FAILURE || res == GST_STATE_CHANGE_ASYNC) return false;			\
 	} }
 
 #define sync_set_state2(element, state) 	{ GstStateChangeReturn res; \
@@ -40,10 +38,8 @@ PlayerGst * gstplayer = 0;
 	if(res == GST_STATE_CHANGE_FAILURE) return; \
 	if(res == GST_STATE_CHANGE_ASYNC) { \
 		GstState state; \
-		do { \
 			res = gst_element_get_state(GST_ELEMENT (element), &state, NULL, 1000000000/*GST_CLOCK_TIME_NONE*/); \
-			if(res == GST_STATE_CHANGE_FAILURE) return; \
-		} while(res == GST_STATE_CHANGE_ASYNC); \
+			if(res == GST_STATE_CHANGE_FAILURE || res == GST_STATE_CHANGE_ASYNC) return; \
 	} }
 
 

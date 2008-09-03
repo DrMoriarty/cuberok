@@ -22,6 +22,7 @@
 
 #include <QtGui>
 #include "ui_url_open.h"
+#include "downloader.h"
 
 class UrlOpen : public QDialog
 {
@@ -37,8 +38,14 @@ class UrlOpen : public QDialog
  signals:
 	void append(QUrl);
 
+ private slots:
+	void dlComplete(QString);
+	void dlCancel(QString);
+	void dlProgress(int, int);
+
  private:
     Ui::UrlOpen ui;
+	Downloader *dl;
 };
 
 #endif // URL_APPEND_H

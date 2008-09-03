@@ -1,5 +1,5 @@
 CONFIG += qt 
-QT += sql xml
+QT += sql xml network
 
 TEMPLATE = app
 TARGET = 
@@ -9,6 +9,7 @@ HEADERS += src/aboutdialog.h \
            src/collectionview.h \
            src/cuberok.h \
            src/database.h \
+           src/downloader.h \
            src/indicator.h \
            src/libraryview.h \
            src/lookandfeel.h \
@@ -28,13 +29,14 @@ HEADERS += src/aboutdialog.h \
            src/tagger.h \
            src/url_open.h
 
-FORMS += src/aboutdialog.ui src/cuberok.ui src/lookandfeel.ui src/tageditor.ui src/settings.ui src/url_open.ui
+FORMS += src/aboutdialog.ui src/cuberok.ui src/lookandfeel.ui src/tageditor.ui src/settings.ui src/url_open.ui src/authenticationdialog.ui
 TRANSLATIONS = cuberok_ru.ts
 
 SOURCES += src/aboutdialog.cpp \
            src/collectionview.cpp \
            src/cuberok.cpp \
            src/database.cpp \
+           src/downloader.cpp \
            src/indicator.cpp \
            src/libraryview.cpp \
            src/lookandfeel.cpp \

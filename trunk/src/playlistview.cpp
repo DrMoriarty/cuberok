@@ -141,6 +141,14 @@ void PlaylistView::loadList(QString fname)
 void PlaylistView::addUrl(QUrl url)
 {
 	//QMessageBox::information(0, "", url.toString());
+// 	if(url.scheme().toLower() == "http") {
+// 		QMimeData data;
+// 		QList<QUrl> list;
+// 		list << url;
+// 		data.setUrls(list);
+// 		model.dropMimeData(&data, Qt::CopyAction, model.rowCount(), 0, QModelIndex());
+// 		return;
+// 	}
 	QList<TagEntry> list = Tagger::readEntry(url);
 	foreach(TagEntry tag, list) {
 		int row = model.rowCount();

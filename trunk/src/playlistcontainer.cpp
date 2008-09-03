@@ -311,7 +311,7 @@ void PlaylistContainer::openUrl()
 {
 	if(curlist) {
 		UrlOpen *u = new UrlOpen(this);
-		if(!connect(u, SIGNAL(append(QUrl)), curlist, SLOT(addUrl(QUrl))))
+		if(!connect(u, SIGNAL(append(QUrl)), curlist, SLOT(addUrl(QUrl)), Qt::QueuedConnection))
 			QMessageBox::information(this, "Error", "Can not connect UrlOpen");
 		u->show();
 	}

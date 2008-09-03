@@ -23,14 +23,46 @@
 UrlOpen::UrlOpen(QWidget *parent): QDialog(parent)
 {
 	ui.setupUi(this);
+	dl = 0;
 }
 
 UrlOpen::~UrlOpen()
 {
+	if(dl) delete dl;
 }
 
 void UrlOpen::accept()
 {
-	emit append(QUrl(ui.lineEdit->text()));
+	if(dl) return;
+	QUrl url(ui.lineEdit->text());
+	if(url.scheme().toLower() == "file") {
+		emit append(url);
+		QDialog::accept();
+	} else {
+		dl = new Downloader();
+		connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+		connect(dl, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+		connect(dl, SIGNAL(progress(int, int)), this, SLOT(dlProgress(int, int)));
+		if(!dl->download(url)) {
+			delete dl;
+			QDialog::reject();
+		}
+	}
+}
+
+void UrlOpen::dlComplete(QString file)
+{
+	emit append(QUrl::fromLocalFile(file));
 	QDialog::accept();
+}
+
+void UrlOpen::dlCancel(QString err)
+{
+	QMessageBox::warning(this, tr("Error"), err);
+	QDialog::reject();
+}
+
+void UrlOpen::dlProgress(int a, int b)
+{
+	ui.label->setText(tr("Downloading... %1/%2 bytes.").arg(QString::number(a), QString::number(b)));
 }
