@@ -26,6 +26,7 @@
 class PlayerVoid : public Player
 {
     Q_OBJECT
+	Q_INTERFACES(Player) 
  public:
     PlayerVoid();
     ~PlayerVoid();

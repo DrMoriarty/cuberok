@@ -21,6 +21,7 @@
 #define COLLECTIONVIEW_H
 
 #include <QtGui>
+#include "downloader.h"
 
 typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_LIST} ListMode;
 
@@ -45,7 +46,7 @@ private:
 class CollectionModel : public QStandardItemModel
 {
 	Q_OBJECT
-public:
+ public:
     ListMode mode;
     QString searchPattern;
 	
@@ -58,9 +59,11 @@ public:
 	void updateMode(ListMode m);
     QList<QUrl> SelectByItem(QModelIndex i) const;
     virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-public slots:
+ private:
+	void drawStars(QPixmap &bg, int rating, bool song);
+ public slots:
 	void update();
-signals:
+ signals:
 	void status(QString);
 	void modeChanged(int);
 };
@@ -83,7 +86,12 @@ private:
 	//void mousePressEvent(QMouseEvent *event);
 	QList<QUrl> SelectByItem(QModelIndex i);
 	QString commonPath(QString path1, QString path2);
+	void doRequest();
 	QString subsetLabel;
+	QVector< QList<QString> > request_stack;
+	bool wait_response;
+	Downloader downloader;
+	QString lfmArtist, lfmAlbum;
 	
 public slots:
 	void artistMode();
@@ -97,6 +105,11 @@ public slots:
 	void clearSubset();
 	void setImage();
 	void iconView(bool);
+	void loadImage();
+private slots:
+	void infoResponse(QString);
+	void dlComplete(QString);
+	void dlCancel(QString);
 signals:
 	void status(QString);
 	void setVisibleSubsetWidgets(bool);

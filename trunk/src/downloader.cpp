@@ -18,15 +18,19 @@
  */
 
 
-#include <QtGui>
+#include <QtCore>
 
 #include "downloader.h"
 #include "ui_authenticationdialog.h"
 #include "indicator.h"
+#include "playlistsettings.h"
 
-Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(false)
+Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true)
 {
 	http = new QHttp(this);
+	if(PLSet.proxyEnabled) {
+		http->setProxy(PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword);
+	}
 	
 	connect(http, SIGNAL(requestFinished(int, bool)),
 			this, SLOT(httpRequestFinished(int, bool)));
@@ -45,10 +49,14 @@ Downloader::~Downloader()
 	disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelDownload()));
 }
 
-bool Downloader::download(QUrl url)
+bool Downloader::download(QUrl url, QString f)
 {
 	QFileInfo fileInfo(url.path());
-	QString fileName = fileInfo.fileName();
+	QString fileName;
+	if(f.size())
+		fileName = f;
+	else 
+		fileName = fileInfo.fileName();
 	if (fileName.isEmpty())
 		fileName = "index.html";
 
@@ -61,13 +69,15 @@ bool Downloader::download(QUrl url)
 	
 	file = new QFile(tmpath+fileName);
 	if (!file->open(QIODevice::WriteOnly)) {
-		QMessageBox::warning(0, tr("Error"),
-                                  tr("Unable to save the file %1: %2.")
-                                  .arg(tmpath+fileName).arg(file->errorString()));
+// 		QMessageBox::warning(0, tr("Error"),
+//                                   tr("Unable to save the file %1: %2.")
+//                                   .arg(tmpath+fileName).arg(file->errorString()));
 		delete file;
 		file = 0;
 		return false;
 	}
+
+	finished = false;
 	
 	QHttp::ConnectionMode mode = url.scheme().toLower() == "https" ? QHttp::ConnectionModeHttps : QHttp::ConnectionModeHttp;
 	http->setHost(url.host(), mode, url.port() == -1 ? 0 : url.port());
@@ -124,9 +134,9 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 	
 	if (error) {
 		file->remove();
-		QMessageBox::warning(0, tr("Error"),
-								 tr("Download failed: %1.")
-								 .arg(http->errorString()));
+// 		QMessageBox::warning(0, tr("Error"),
+// 								 tr("Download failed: %1.")
+// 								 .arg(http->errorString()));
 		httpRequestAborted = true;
 		emit cancel(tr("Download failed: %1.").arg(http->errorString()));
 	} else {
@@ -142,9 +152,9 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 void Downloader::readResponseHeader(const QHttpResponseHeader &responseHeader)
 {
 	if (responseHeader.statusCode() != 200) {
-		QMessageBox::warning(0, tr("Error"),
-							 tr("Download failed: %1.")
-							 .arg(responseHeader.reasonPhrase()));
+// 		QMessageBox::warning(0, tr("Error"),
+// 							 tr("Download failed: %1.")
+// 							 .arg(responseHeader.reasonPhrase()));
 		httpRequestAborted = true;
 		http->abort();
 		emit cancel(tr("Download failed: %1.").arg(responseHeader.reasonPhrase()));

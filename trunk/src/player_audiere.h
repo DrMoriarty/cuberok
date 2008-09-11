@@ -22,7 +22,7 @@
 
 #include <QtCore>
 #include "player.h"
-#include "main.h"
+//#include "main.h"
 #include <audiere.h>
 
 using namespace audiere;
@@ -30,6 +30,7 @@ using namespace audiere;
 class PlayerAudiere : public Player, StopCallback
 {
     Q_OBJECT
+	Q_INTERFACES(Player) 
  public:
     PlayerAudiere();
     ~PlayerAudiere();

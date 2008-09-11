@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>591</width>
-    <height>306</height>
+    <width>610</width>
+    <height>378</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -168,6 +168,7 @@
        <addaction name="actionRemoveFromCollection" />
        <addaction name="separator" />
        <addaction name="actionSetImage" />
+       <addaction name="actionGetImageFromLastFM" />
       </widget>
      </item>
      <item>
@@ -388,7 +389,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>591</width>
+     <width>610</width>
      <height>19</height>
     </rect>
    </property>
@@ -820,6 +821,9 @@
    </property>
   </action>
   <action name="actionRemoveSong" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
+   </property>
    <property name="text" >
     <string>Remove song</string>
    </property>
@@ -1012,6 +1016,14 @@
    </property>
    <property name="text" >
     <string>Open Url</string>
+   </property>
+  </action>
+  <action name="actionGetImageFromLastFM" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Load image from Last.FM</string>
    </property>
   </action>
  </widget>
@@ -1870,6 +1882,22 @@
     <hint type="destinationlabel" >
      <x>141</x>
      <y>259</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionGetImageFromLastFM</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>loadImage()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>141</x>
+     <y>156</y>
     </hint>
    </hints>
   </connection>

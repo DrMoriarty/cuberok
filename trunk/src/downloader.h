@@ -30,7 +30,7 @@ class Downloader : public QObject
 	Downloader();
 	~Downloader();
 
-	bool download(QUrl);
+	bool download(QUrl, QString file = "");
 	bool done();
  
  signals:

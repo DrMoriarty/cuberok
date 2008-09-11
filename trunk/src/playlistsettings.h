@@ -39,6 +39,16 @@ Q_OBJECT
 	bool autoRating;
 	QString cue_codepage;
 
+	bool    proxyEnabled;
+	QString proxyHost;
+	int     proxyPort;
+	QString proxyUser;
+	QString proxyPassword;
+
+	bool    lastfmScrobbler;
+	QString lastfmUser;
+	QString lastfmPassword;
+
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);
