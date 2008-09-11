@@ -448,6 +448,7 @@
     </widget>
     <addaction name="menuColumns" />
     <addaction name="actionLookFeel" />
+    <addaction name="actionConsole" />
    </widget>
    <addaction name="menuFile" />
    <addaction name="menuView" />
@@ -1024,6 +1025,11 @@
    </property>
    <property name="text" >
     <string>Load image from Last.FM</string>
+   </property>
+  </action>
+  <action name="actionConsole" >
+   <property name="text" >
+    <string>Messages</string>
    </property>
   </action>
  </widget>
@@ -1898,6 +1904,22 @@
     <hint type="destinationlabel" >
      <x>141</x>
      <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionConsole</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>viewConsole()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>304</x>
+     <y>188</y>
     </hint>
    </hints>
   </connection>

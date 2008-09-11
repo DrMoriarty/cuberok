@@ -18,7 +18,7 @@
  */
 
 #include "url_open.h"
-
+#include "console.h"
 
 UrlOpen::UrlOpen(QWidget *parent): QDialog(parent)
 {
@@ -58,7 +58,7 @@ void UrlOpen::dlComplete(QString file)
 
 void UrlOpen::dlCancel(QString err)
 {
-	QMessageBox::warning(this, tr("Error"), err);
+	Console::Self().warning("Cancel: " + err);
 	QDialog::reject();
 }
 

@@ -21,6 +21,7 @@
 #include <QtGui>
 #include "main.h"
 #include "tagger.h"
+#include "console.h"
 
 #define DB_VERSION 2
 
@@ -31,8 +32,8 @@ Database::Database() : subset(false)
 	db.setDatabaseName(QDir::homePath()+"/.cuberok/collection.db");
 	if(QFile::exists(db.databaseName())) {
 		if(!db.open()) {
-			//QMessageBox::information(0, "Error", "Can not open database");
 			qDebug("Can not open database");
+			Console::Self().error("Can not open database");
 			open = false;
 		} else {
 			open = true;
@@ -46,12 +47,13 @@ Database::Database() : subset(false)
 				open = false;
 				db.close();
 				qDebug("Wrong database version (%d)", ver);
+				Console::Self().error("Wrong database version -" + QString::number(ver));
 			}
 		}
 	} else {
 		if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !db.open()) {
-			//QMessageBox::information(0, "Error", "Can not open database");
 			qDebug("Can not create database");
+			Console::Self().error("Can not create database");
 			open = false;
 		} else {
 			QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
@@ -65,6 +67,7 @@ Database::Database() : subset(false)
 			open = true;
 		}
 	}
+	if(open) Console::Self().message("Database ready");
 }
 
 Database::~Database()
@@ -76,7 +79,6 @@ bool Database::updateDatabase(int fromver)
 {
 	switch (fromver) {
 	case 0: {
-		QMessageBox::information(0, "", "update "+QString::number(fromver));
 		QSqlQuery q0("create table Version (value integer)", db);
 		//QSqlQuery q1("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
 		QSqlQuery q3("alter table Artist add column art varchar(250)", db);
@@ -85,11 +87,12 @@ bool Database::updateDatabase(int fromver)
 		QSqlQuery q6("alter table Song drop column Mark", db);
 		QSqlQuery q2("drop table Mark", db);
 		qDebug("Update database from version 0");
+		Console::Self().message("Database update from version "+QString::number(fromver));
 	}
 	case 1: {
-		QMessageBox::information(0, "", "update "+QString::number(fromver));
 		QSqlQuery q0("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
 		qDebug("Update database from version 1");
+		Console::Self().message("Database update from version "+QString::number(fromver));
 	}
 	}
 	QSqlQuery q1("delete from Version");

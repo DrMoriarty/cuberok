@@ -18,6 +18,7 @@
  */
 
 #include "player_manager.h"
+#include "console.h"
 
 #ifdef AUDIERE
 //Q_IMPORT_PLUGIN(player_audiere)
@@ -91,8 +92,8 @@ bool PlayerManager::prepare()
 			player = pl;
 		}
 	}
-	//QMessageBox::information(0, "Selected engine", player->name());
 	qDebug("Selected engine %s", (const char*)player->name().toLocal8Bit());
+	Console::Self().message("Selected engine: " + player->name());
 	return player;
 }
 
@@ -185,8 +186,9 @@ bool PlayerManager::setPrefferedPlayer(QString name)
 	foreach(Player *pl, players) 
 		if(pl->name() == name && ( pl->ready() || pl->prepare() )) {
 			player = pl;
+			Console::Self().message("User select engine: " + player->name());
 			return true;
 		}
-	QMessageBox::warning(0, tr("Error"), tr("Can't start engine %1").arg(name));
+	Console::Self().error(tr("Can't start engine %1").arg(name));
 	return false;
 }

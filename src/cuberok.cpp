@@ -25,10 +25,16 @@
 #include "indicator.h"
 #include "settings.h"
 #include "player_manager.h"
+#include "console.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent)
 {
+	QSettings set;
+
+	QString engine = set.value("engine", "").toString();
+	if(engine.size()) PlayerManager::Self().setPrefferedPlayer(engine);
+
 	ui.setupUi(this);
 	ui.subsetLabel->setVisible(false);
 	ui.subsetDisableButton->setVisible(false);
@@ -46,7 +52,6 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayevent(QSystemTrayIcon::ActivationReason)));
 	connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(setFocus()));
 	
-	QSettings set;
 	//ui.line->restoreState(set.value("splitter").toByteArray());
 	dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
 	this->findChild<QTreeView*> ("treeView_2")->setModel(&dirmodel);
@@ -70,7 +75,7 @@ Cuberok::Cuberok(QWidget *parent)
 	//ui.actionCorrectTag->trigger();
 	
 	if(!connect(ui.progressBar, SIGNAL(userevent(double)), this, SLOT(progressEvent(double))))
-	    QMessageBox::information(0, "error", "connection error");
+		Console::Self().error("connection error (progressEvent)");
 
 	ui.statusbar->addPermanentWidget(ui.listStatus);
 	ui.statusbar->addPermanentWidget(ui.collectionStatus);
@@ -87,9 +92,6 @@ Cuberok::Cuberok(QWidget *parent)
 	if(PLSet.columnVisible(PlaylistModel::Rating)) ui.actionViewRating->trigger();
 
 	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar->widgetForAction(ui.actionBreak)));
-
-	QString engine = set.value("engine", "").toString();
-	if(engine.size()) PlayerManager::Self().setPrefferedPlayer(engine);
 
 	QActionGroup *colmodeGroup = new QActionGroup(this);
     colmodeGroup->addAction(ui.actionGenreMode);
@@ -188,4 +190,10 @@ void Cuberok::colmodeChanged(int m)
 		ui.actionSongMode->setChecked(true);
 		break;
 	}
+}
+
+void Cuberok::viewConsole()
+{
+	ConsoleView *cv = new ConsoleView(this);
+	cv->show();
 }

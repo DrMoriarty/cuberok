@@ -24,6 +24,7 @@
 #include "tagger.h"
 #include "indicator.h"
 #include "lastfm.h"
+#include "console.h"
 
 /************************
  *
@@ -94,10 +95,10 @@ int CollectionFiller::proceed(QString path)
 		}
 		if(cover.size() && _album.size() && _album != " ") {
 			Database::Self().ArtForAlbum(_album, cover);
-			//QMessageBox::information(0, "set album cover", cover);
+			Console::Self().log("set album cover" + cover);
 		} else if(cover.size() && _artist.size() && _artist != " ") {
 			Database::Self().ArtForArtist(_artist, cover);
-			//QMessageBox::information(0, "set artist cover", cover);
+			Console::Self().log("set artist cover" + cover);
 		}
 	} else {
 		QString p2 = path.toLower();
@@ -218,7 +219,6 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		break;
 	}
 	}
-	//QMessageBox::information(0, "", value.toString());
 	return QStandardItemModel::setData(index, value, role);
 }
 
@@ -236,7 +236,6 @@ QMimeData *CollectionModel::mimeData( const QModelIndexList & indexes ) const
     foreach(QModelIndex ind, indexes) {
 		list += SelectByItem(ind);
     }
-    //QMessageBox::information(this, "", QString::number(list.count()));
     mimeData->setUrls(list);
     /*QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
@@ -470,7 +469,7 @@ CollectionView::CollectionView(QWidget *parent)
 	setDropIndicatorShown(true);
 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	if(!connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex))))
-		QMessageBox::information(0, "", "connection error");
+		Console::Self().error("connection error (doubleClicked)");
 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
@@ -800,12 +799,12 @@ void CollectionView::doRequest()
 	
 	if(item.size() == 1) {  // artist
 		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
-			QMessageBox::warning(0, "", "Unable connection to xmlInfo");
+			Console::Self().error("Unable connection to xmlInfo");
 		wait_response = true;
 		LastFM::Self().artistInfo(item[0]);
 	} else if(item.size() == 2) {  // album
 		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
-			QMessageBox::warning(0, "", "Unable connection to xmlInfo");
+			Console::Self().error("Unable connection to xmlInfo");
 		wait_response = true;
 		LastFM::Self().albumInfo(item[0], item[1]);
 	}
@@ -842,7 +841,7 @@ void CollectionView::infoResponse(QString info)
 					}
 					if(!img2.size()) img2 = img1;
 					if(!img3.size()) img3 = img2;
-					//QMessageBox::information(0, "Image URL", img3);
+					Console::Self().log("Image URL" + img3);
 					if(downloader.done()) {
 						lfmArtist = name;
 						lfmAlbum = "";
@@ -858,16 +857,16 @@ void CollectionView::infoResponse(QString info)
 				}
 			} else if(s == "failed") {
 				// TODO error message
-				QMessageBox::information(0, "", "Can't take info from Last.FM");
+				Console::Self().error("Can't take info from Last.FM");
 			} else {
 				// unknown error
-				QMessageBox::information(0, "", "Unknown error");
+				Console::Self().error("Last.FM: Unknown error");
 			}
 		} else {
-			QMessageBox::information(0, "", "Element lfm not found");
+			Console::Self().error("Last.FM: Element lfm not found");
 		}
 	} else {
-		QMessageBox::information(0, "", "XML error");
+		Console::Self().error("Last.FM: XML error");
 	}
 
 	if(request_stack.size())

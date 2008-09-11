@@ -21,6 +21,7 @@
 #include "lastfm.h"
 #include "playlistsettings.h"
 #include <QtGui>
+#include "console.h"
 
 const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
 
@@ -59,7 +60,7 @@ void LastFM::handshake(QString user, QString password)
 	cr.addData((QString(cr_p.result().toHex())+QString::number(time)).toLocal8Bit());
 	QString token = QString(cr.result().toHex());
 
-	QUrl url("/?");
+	QUrl url("http://post.audioscrobbler.com/?");
 	url.addQueryItem("hs", "true");
 	url.addQueryItem("p", "1.2.1");
 	url.addQueryItem("c", "cub");
@@ -74,21 +75,20 @@ void LastFM::handshake(QString user, QString password)
 
 void LastFM::requestStarted(int id)
 {
-	//QMessageBox::information(0, "", http.currentRequest().toString());
+	Console::Self().log("Last.FM: Request started " + http.currentRequest().toString());
 }
 
 void LastFM::requestFinished(int id, bool err)
 {
 	if(err) {
-		QMessageBox::warning(0, tr("Last.FM"), tr("Request failed: %1.").arg(http.errorString()));
+		Console::Self().error(QString("Last.FM: Request failed: %1.").arg(http.errorString()));
 		if(httpGetId == id) httpGetId = 0;
 		if(httpPostId == id) httpPostId = 0;
 	} else {
 		if(httpGetId == id) {
 			httpGetId = 0;
 			if(needInfo) {
-				//QMessageBox::information(0, "Last.FM response", QString(http.lastResponse().toString()/*http.readAll()*/));
-				//QMessageBox::information(0, "Last.FM response", http.readAll());
+				Console::Self().log("Last.FM response:" + http.readAll());
 				emit xmlInfo(QString::fromUtf8((const char*)http.readAll()));
 				needInfo = false;
 			} else {
@@ -99,20 +99,23 @@ void LastFM::requestFinished(int id, bool err)
 					nowPlayingUrl = request.section('\n', 2, 2);
 					submissionUrl = request.section('\n', 3, 3);
 					connected = true;
+
+					Console::Self().log("Last.FM: handshake complete");
 				} else if(status.startsWith("BANNED")) {
-					QMessageBox::warning(0, tr("Last.FM"), "I am banned at Last.FM, I am don't need to live any more.");
+					Console::Self().error("Last.FM: I am banned at Last.FM, I am don't need to live any more.");
 					connected = false;
 				} else if(status.startsWith("BADAUTH")) {
-					QMessageBox::warning(0, tr("Last.FM"), "Incorrect user name or password.");
+					Console::Self().error("Last.FM: Incorrect user name or password.");
 					connected = false;
 				} else if(status.startsWith("BADTIME")) {
-					QMessageBox::warning(0, tr("Last.FM"), "Incorrect time. The system clock must be corrected.");
+					Console::Self().error("Last.FM: Incorrect time. The system clock must be corrected.");
 					connected = false;
 				} else if(status.startsWith("FAILED")) {
-					QMessageBox::warning(0, tr("Last.FM"), status);
+					Console::Self().error("Last.FM: " + status);
 					connected = false;
 				} else {
 					connected = false;
+					Console::Self().warning("Last.FM: Unknown response:  " + status);
 				}
 			}
 		} else if(httpPostId == id) {
@@ -122,14 +125,15 @@ void LastFM::requestFinished(int id, bool err)
 				// nothing to do
 			} else if(request.startsWith("BADSESSION")) {
 				connected = false;
-				QMessageBox::warning(0, tr("Last.FM"), "Bad session identifier. Need for reconnect to the server.");
+				Console::Self().error("Last.FM: Bad session identifier. Need for reconnect to the server.");
 			} else if(request.startsWith("FAILED")) {
-				QMessageBox::warning(0, tr("Last.FM"), request);
+				Console::Self().error("Last.FM: " + request);
 			} else {
+				Console::Self().warning("Last.FM: Unknown response:  " + request);
 			}
 		}
 	}
-	if(stack.size()) {
+	if(stack.size() && !httpGetId && !httpPostId) {
 		QList<QVariant> &item = *stack.begin();
 		if(item.size() == 0) {
 			if(!httpGetId) {
@@ -187,7 +191,6 @@ void LastFM::nowplaying(QString artist, QString title, QString album, int sec, i
 	url.addQueryItem("l", QString::number(sec));
 	url.addQueryItem("n", QString::number(track));
 	url.addQueryItem("m", mb);
-	//QMessageBox::information(0, "", QString(url.toEncoded().remove(0,1)));
 	
 	QHttp::ConnectionMode mode = u.scheme().toLower() == "https" ? QHttp::ConnectionModeHttps : QHttp::ConnectionModeHttp;
 	http.setHost(u.host(), mode, u.port(80));
@@ -235,7 +238,6 @@ void LastFM::submission(QString artist, QString title, int time, QString album, 
 	url.addQueryItem("b[0]", album);
 	url.addQueryItem("n[0]", QString::number(track));
 	url.addQueryItem("m[0]", mb);
-	//QMessageBox::information(0, "", QString(url.toString().toUtf8().remove(0,1)));
 	
 	QHttp::ConnectionMode mode = u.scheme().toLower() == "https" ? QHttp::ConnectionModeHttps : QHttp::ConnectionModeHttp;
 	http.setHost(u.host(), mode, u.port(80));

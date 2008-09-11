@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Wed 10. Sep 14:20:48 2008
+** Created: Thu 11. Sep 11:51:16 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -82,6 +82,7 @@ public:
     QAction *actionIconView;
     QAction *actionOpenUrl;
     QAction *actionGetImageFromLastFM;
+    QAction *actionConsole;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -283,6 +284,8 @@ public:
     actionGetImageFromLastFM = new QAction(CuberokClass);
     actionGetImageFromLastFM->setObjectName(QString::fromUtf8("actionGetImageFromLastFM"));
     actionGetImageFromLastFM->setIcon(QIcon(QString::fromUtf8(":/icons/col_art.png")));
+    actionConsole = new QAction(CuberokClass);
+    actionConsole->setObjectName(QString::fromUtf8("actionConsole"));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
@@ -517,6 +520,7 @@ public:
     menuControl->addAction(actionClear_playlist);
     menuView->addAction(menuColumns->menuAction());
     menuView->addAction(actionLookFeel);
+    menuView->addAction(actionConsole);
     menuColumns->addAction(actionViewFile);
     menuColumns->addAction(actionViewTrack);
     menuColumns->addAction(actionViewTitle);
@@ -596,6 +600,7 @@ public:
     QObject::connect(actionRemoveFromLibrary, SIGNAL(triggered()), libView, SLOT(removeItem()));
     QObject::connect(actionLibrarySetImage, SIGNAL(triggered()), libView, SLOT(setImage()));
     QObject::connect(actionGetImageFromLastFM, SIGNAL(triggered()), colView, SLOT(loadImage()));
+    QObject::connect(actionConsole, SIGNAL(triggered()), CuberokClass, SLOT(viewConsole()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -679,6 +684,7 @@ public:
     actionIconView->setText(QApplication::translate("CuberokClass", "Icon View", 0, QApplication::UnicodeUTF8));
     actionOpenUrl->setText(QApplication::translate("CuberokClass", "Open Url", 0, QApplication::UnicodeUTF8));
     actionGetImageFromLastFM->setText(QApplication::translate("CuberokClass", "Load image from Last.FM", 0, QApplication::UnicodeUTF8));
+    actionConsole->setText(QApplication::translate("CuberokClass", "Messages", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));
