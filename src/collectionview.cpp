@@ -17,10 +17,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <QtXml>
+
 #include "collectionview.h"
 #include "database.h"
 #include "tagger.h"
 #include "indicator.h"
+#include "lastfm.h"
 
 /************************
  *
@@ -310,7 +313,6 @@ Qt::DropActions CollectionModel::supportedDropActions() const
 
 void CollectionModel::updateMode(ListMode m)
 {
-	static QPixmap px_5(":/icons/stars5.png"), px_4(":/icons/stars4.png"), px_3(":/icons/stars3.png"), px_2(":/icons/stars2.png"), px_1(":/icons/stars1.png");
 	mode = m;
 	clear();
 	QList<struct Database::Attr> data;
@@ -351,14 +353,7 @@ void CollectionModel::updateMode(ListMode m)
 			int track, year, rating;
 			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length)) {
 				QPixmap px2 = icon;
-				if(rating >= 10) {
-					QPainter painter(&px2);
-					if(rating >= 50) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_5, QRect(0, 0, px_5.width(), px_5.height()));
-					else if(rating >= 40) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_4, QRect(0, 0, px_4.width(), px_4.height()));
-					else if(rating >= 30) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_3, QRect(0, 0, px_3.width(), px_3.height()));
-					else if(rating >= 20) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_2, QRect(0, 0, px_2.width(), px_2.height()));
-					else if(rating >= 10) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_1, QRect(0, 0, px_1.width(), px_1.height()));
-				}
+				drawStars(px2, rating, true);
 				QStandardItem *row = new QStandardItem(QIcon(px2), title);
 				row->setData(it);
 				row->setToolTip(title+"\n"+tr("%1, album \"%2\"").arg(artist).arg(album));
@@ -379,14 +374,7 @@ void CollectionModel::updateMode(ListMode m)
 			QPixmap px2;
 			if(!attr.art.size() || !px2.load(attr.art))
 				px2 = icon;
-			if(attr.rating >= 1) {
-				QPainter painter(&px2);
-				if(attr.rating >= 40) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_5, QRect(0, 0, px_5.width(), px_5.height()));
-				else if(attr.rating >= 30) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_4, QRect(0, 0, px_4.width(), px_4.height()));
-				else if(attr.rating >= 20) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_3, QRect(0, 0, px_3.width(), px_3.height()));
-				else if(attr.rating >= 10) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_2, QRect(0, 0, px_2.width(), px_2.height()));
-				else if(attr.rating >= 1)  painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_1, QRect(0, 0, px_1.width(), px_1.height()));
-			}
+			drawStars(px2, attr.rating, false);
 			if(QFileInfo(attr.name).exists()) 
 				i = new QStandardItem(QIcon(px2), QFileInfo(attr.name).baseName());
 			else
@@ -406,14 +394,7 @@ void CollectionModel::updateMode(ListMode m)
 		QPixmap px2;
 		if(!attr.art.size() || !px2.load(attr.art))
 			px2 = icon;
-		if(attr.rating >= 1) {
-			QPainter painter(&px2);
-			if(attr.rating >= 40) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_5, QRect(0, 0, px_5.width(), px_5.height()));
-			else if(attr.rating >= 30) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_4, QRect(0, 0, px_4.width(), px_4.height()));
-			else if(attr.rating >= 20) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_3, QRect(0, 0, px_3.width(), px_3.height()));
-			else if(attr.rating >= 10) painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_2, QRect(0, 0, px_2.width(), px_2.height()));
-			else if(attr.rating >= 1)  painter.drawPixmap(QRect(0, 0, px2.width(), px2.height()), px_1, QRect(0, 0, px_1.width(), px_1.height()));
-		}
+		drawStars(px2, attr.rating, false);
 		i = new QStandardItem(QIcon(px2), attr.name);
 		tt = attr.name+"\n"+tr("%n song(s)", "", attr.refs);
 		//tt = QString::number(attr.refs).append(QString(" ")+tr("songs"));
@@ -424,6 +405,47 @@ void CollectionModel::updateMode(ListMode m)
 	emit modeChanged(mode);
 }
 
+void CollectionModel::drawStars(QPixmap &bg, int rating, bool song)
+{
+	static QPixmap px_5(":/icons/stars5.png"), px_4(":/icons/stars4.png"), px_3(":/icons/stars3.png"), px_2(":/icons/stars2.png"), px_1(":/icons/stars1.png");
+	QPixmap px(px_1.width(), px_1.height());
+	px.fill(QColor(0,0,0,0));
+	QPainter painter(&px);
+	int x=0, y=0, w, h;
+	float s;
+	w = bg.width();
+	h = bg.height();
+	s = h;
+	if(w > h) {
+		y = (w - h) / 2;
+		s = w;
+	} else if(h > w) {
+		x = (h - w) / 2;
+		s = h;
+	}
+	s = (float)px.width() / s;
+	x = s * x;
+	y = s * y;
+	w = s * w;
+	h = s * h;
+	painter.drawPixmap(QRect(x, y, w, h), bg, QRect(0, 0, bg.width(), bg.height()));
+	QPixmap *st = 0;
+	if(song) {
+		if(rating >= 50) st = &px_5;
+		else if(rating >= 40) st = &px_4;
+		else if(rating >= 30) st = &px_3;
+		else if(rating >= 20) st = &px_2;
+		else if(rating >= 10) st = &px_1;
+	} else {
+		if(rating >= 40) st = &px_5;
+		else if(rating >= 30) st = &px_4;
+		else if(rating >= 20) st = &px_3;
+		else if(rating >= 10) st = &px_2;
+		else if(rating >= 1)  st = &px_1;
+	}
+	if(st) painter.drawPixmap(0, 0, *st);
+	bg = px;
+}
 
 /***********************
  * 
@@ -432,7 +454,7 @@ void CollectionModel::updateMode(ListMode m)
  ***********************/
 
 CollectionView::CollectionView(QWidget *parent)
-    : QListView(parent)
+    : QListView(parent), wait_response(false)
 {
 	setModel(&model);
 	//setViewMode(QListView::IconMode);
@@ -450,6 +472,8 @@ CollectionView::CollectionView(QWidget *parent)
 	if(!connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex))))
 		QMessageBox::information(0, "", "connection error");
 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
+	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 	model.updateMode(M_GENRE);
 }
 
@@ -742,4 +766,155 @@ void CollectionView::iconView(bool b)
 	setDragEnabled(true);
 	setDragDropMode(QAbstractItemView::DragDrop);
 	setDropIndicatorShown(true);
+}
+
+void CollectionView::loadImage()
+{
+	QList<int> list;
+	foreach(QModelIndex ind, this->selectedIndexes()) {
+		if(list.contains(ind.row())) continue;
+		switch(model.mode) {
+		case M_ALBUM:
+			// TODO
+			break;
+		case M_ARTIST: {
+			QList<QString> item;
+			item << model.data(ind).toString();
+			request_stack << item;
+			break;
+		}
+		case M_GENRE:
+		case M_SONG:
+		case M_LIST:
+			return;
+		}
+		list << ind.row();
+	}
+	if(!wait_response) doRequest();
+}
+
+void CollectionView::doRequest()
+{
+	if(wait_response) return;
+	QList<QString> &item = *request_stack.begin();
+	
+	if(item.size() == 1) {  // artist
+		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
+			QMessageBox::warning(0, "", "Unable connection to xmlInfo");
+		wait_response = true;
+		LastFM::Self().artistInfo(item[0]);
+	} else if(item.size() == 2) {  // album
+		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
+			QMessageBox::warning(0, "", "Unable connection to xmlInfo");
+		wait_response = true;
+		LastFM::Self().albumInfo(item[0], item[1]);
+	}
+
+	request_stack.pop_front();
+}
+
+void CollectionView::infoResponse(QString info)
+{
+	wait_response = false;
+	disconnect(&LastFM::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(infoResponse(QString)));
+
+	QDomDocument doc;
+	QDomElement el, el2;
+	QDomNodeList list;
+	if(doc.setContent(info)) {
+		el = doc.documentElement();
+		//el = el.firstChildElement("lfm");
+		if(!el.isNull()) {
+			QString s = el.attribute("status");
+			if(s == "ok") {
+				el2 = el.firstChildElement("artist");
+				if(!el2.isNull()) {  // proceed artist info
+					QString name, img1, img2, img3;
+					el = el2;
+					el2 = el.firstChildElement("name");
+					if(!el2.isNull()) name = el2.firstChild().nodeValue();
+					list = el.elementsByTagName("image");
+					for(int i=0; i<list.size(); i++) {
+						QDomElement el3 = list.at(i).toElement();
+						if(el3.attribute("size") == "small") img1 = el3.firstChild().nodeValue();
+						if(el3.attribute("size") == "medium") img2 = el3.firstChild().nodeValue();
+						if(el3.attribute("size") == "large") img3 = el3.firstChild().nodeValue();
+					}
+					if(!img2.size()) img2 = img1;
+					if(!img3.size()) img3 = img2;
+					//QMessageBox::information(0, "Image URL", img3);
+					if(downloader.done()) {
+						lfmArtist = name;
+						lfmAlbum = "";
+						downloader.download(img3);
+					} else { // download queue
+					}
+				} else {
+					el2 = el.firstChildElement("album");
+					if(!el2.isNull()) {  // proceed album info
+					} else {
+						// something else
+					}
+				}
+			} else if(s == "failed") {
+				// TODO error message
+				QMessageBox::information(0, "", "Can't take info from Last.FM");
+			} else {
+				// unknown error
+				QMessageBox::information(0, "", "Unknown error");
+			}
+		} else {
+			QMessageBox::information(0, "", "Element lfm not found");
+		}
+	} else {
+		QMessageBox::information(0, "", "XML error");
+	}
+
+	if(request_stack.size())
+		doRequest();
+}
+
+void CollectionView::dlComplete(QString file)
+{
+	QList<QString> data;
+	if(lfmAlbum.size())
+		data = Database::Self().Songs(0, &lfmAlbum, 0);
+	else
+		data = Database::Self().Songs(&lfmArtist, 0, 0);
+	QString path = "";
+	if(data.size()) {
+		path = QFileInfo(data[0]).canonicalPath();
+		foreach(QString str, data) {
+			path = commonPath(path, QFileInfo(str).canonicalPath());
+		}
+		path += QDir::separator();
+	} 
+	if(path == "" || path == "/") path = QDir::homePath() + "/.cuberok/artcache/";
+	QDir dir;
+	if(dir.mkpath(path)) {
+		QString file2 = path + lfmArtist;
+		if(lfmAlbum.size()) file2 += "-"+lfmAlbum;
+		file2 += "."+QFileInfo(file).suffix();
+		if(QFile::copy(file, file2)) {
+			QFile::remove(file);
+			if(lfmAlbum.size()) {  // cover for album
+				Database::Self().ArtForAlbum(lfmAlbum, file2);
+				if(model.mode == M_ALBUM)
+					model.update();
+			} else {  // image for artist
+				Database::Self().ArtForArtist(lfmArtist, file2);
+				if(model.mode == M_ARTIST)
+					model.update();
+			}
+		}
+	}
+
+	lfmAlbum = "";
+	lfmArtist = "";
+}
+
+void CollectionView::dlCancel(QString)
+{
+	lfmAlbum = "";
+	lfmArtist = "";
 }

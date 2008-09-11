@@ -18,7 +18,7 @@
  */
 
 #include "settings.h"
-#include "player.h"
+#include "player_manager.h"
 #include "tagger.h"
 #include "playlistsettings.h"
 
@@ -52,6 +52,16 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	QString cue_codepage = set.value("cue_codepage", "System").toString();
 	if(!cue_codepage.size()) cue_codepage = "System";
 	ui.comboBox_cue->setCurrentIndex(ui.comboBox_cue->findText(cue_codepage));
+
+	if(PLSet.proxyEnabled) ui.checkBox_proxyEnabled->setCheckState(Qt::Checked);
+	ui.lineEdit_proxyHost->setText(PLSet.proxyHost);
+	ui.spinBox_proxyPort->setValue(PLSet.proxyPort);
+	ui.lineEdit_proxyUser->setText(PLSet.proxyUser);
+	ui.lineEdit_proxyPassword->setText(PLSet.proxyPassword);
+
+	if(PLSet.lastfmScrobbler) ui.checkBox_lastfmScrobbling->setCheckState(Qt::Checked);
+	ui.lineEdit_lastfmUser->setText(PLSet.lastfmUser);
+	ui.lineEdit_lastfmPassword->setText(PLSet.lastfmPassword);
 }
 
 Settings::~Settings()
@@ -79,6 +89,16 @@ void Settings::accept()
 	PLSet.autoRating = ui.checkBox_autorating->checkState() == Qt::Checked;
 
 	PLSet.cue_codepage = ui.comboBox_cue->currentText();
+
+	PLSet.proxyEnabled = ui.checkBox_proxyEnabled->checkState() == Qt::Checked;
+	PLSet.proxyHost = ui.lineEdit_proxyHost->text();
+	PLSet.proxyPort = ui.spinBox_proxyPort->value();
+	PLSet.proxyUser = ui.lineEdit_proxyUser->text();
+	PLSet.proxyPassword = ui.lineEdit_proxyPassword->text();
+
+	PLSet.lastfmScrobbler = ui.checkBox_lastfmScrobbling->checkState() == Qt::Checked;
+	PLSet.lastfmUser = ui.lineEdit_lastfmUser->text();
+	PLSet.lastfmPassword = ui.lineEdit_lastfmPassword->text();
 
 	PLSet.save();
 	QDialog::accept();

@@ -29,6 +29,7 @@
 class PlayerGst : public Player
 {
     Q_OBJECT
+	Q_INTERFACES(Player) 
  public:
     PlayerGst();
     ~PlayerGst();

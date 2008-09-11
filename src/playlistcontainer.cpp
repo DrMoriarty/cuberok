@@ -20,7 +20,9 @@
 #include "playlistcontainer.h"
 #include "playlistsettings.h"
 #include "playlistmodel.h"
+#include "player_manager.h"
 #include "url_open.h"
+#include "lastfm.h"
 
 /************************
  * 

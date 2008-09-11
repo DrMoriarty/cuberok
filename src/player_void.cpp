@@ -19,6 +19,8 @@
 
 #include "player_void.h"
 
+Q_EXPORT_PLUGIN2(player_void, PlayerVoid) 
+
 PlayerVoid::PlayerVoid()
 {
 }

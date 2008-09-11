@@ -380,6 +380,10 @@ TagEntry Tagger::readTags(QUrl &url)
 			if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length)) {
 				tags.rating = rating;
 			}
+			TagLib::FileRef fr(file.toLocal8Bit().constData());
+			if(!fr.isNull() && fr.audioProperties()) {
+				tags.length = fr.audioProperties()->length() * 75;
+			}
 		} else {
 			tags.title = QFileInfo(file).baseName();
 		}

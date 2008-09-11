@@ -17,35 +17,60 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "player.h"
+#include "player_manager.h"
 
 #ifdef AUDIERE
-#include "player_audiere.h"
+//Q_IMPORT_PLUGIN(player_audiere)
+//#include "player_audiere.h"
 #endif
 
 #ifdef GSTREAMER
-#include "player_gst.h"
+//#include "player_gst.h"
 #endif
 
-#include "player_void.h"
+//#include "player_void.h"
 
 #include <QtGui>
 
+Q_IMPORT_PLUGIN(player_void)
+
 PlayerManager::PlayerManager() : player(0)
 {
+	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
+		Player *pl = qobject_cast<Player *>(plugin);
+		if (pl) {
+			players.push_back(pl);
+			connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+		}
+	}
+	QDir pluginsDir = QDir(qApp->applicationDirPath());
+	pluginsDir.cd("plugins"); 
+	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+		QObject *plugin = loader.instance();
+		if (plugin) {
+			Player *pl = qobject_cast<Player *>(plugin);
+			if (pl) {
+				players.push_back(pl);
+				connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+				connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+			}
+		}
+	} 
 #ifdef AUDIERE
-	players.push_back(new PlayerAudiere());
-	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+// 	players.push_back(new PlayerAudiere());
+// 	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+// 	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 #endif
 #ifdef GSTREAMER
-	players.push_back(new PlayerGst());
-	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+// 	players.push_back(new PlayerGst());
+// 	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+// 	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 #endif
-	players.push_back(new PlayerVoid());
-	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+// 	players.push_back(new PlayerVoid());
+// 	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+// 	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 }
 
 PlayerManager::~PlayerManager()

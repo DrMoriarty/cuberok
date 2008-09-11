@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'lookandfeel.ui'
 **
-** Created: Thu 10. Jul 11:20:14 2008
+** Created: Wed 10. Sep 09:37:22 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!

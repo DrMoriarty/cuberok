@@ -24,6 +24,7 @@
 #include "playlistsettings.h"
 #include "indicator.h"
 #include "settings.h"
+#include "player_manager.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent)

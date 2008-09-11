@@ -5,11 +5,11 @@ INPUT(
 ./win32/obj/database.o
 ./win32/obj/downloader.o
 ./win32/obj/indicator.o
+./win32/obj/lastfm.o
 ./win32/obj/libraryview.o
 ./win32/obj/lookandfeel.o
 ./win32/obj/main.o
 ./win32/obj/player.o
-./win32/obj/player_void.o
 ./win32/obj/playlistcontainer.o
 ./win32/obj/playlistmodel.o
 ./win32/obj/playlistsettings.o
@@ -29,10 +29,10 @@ INPUT(
 ./win32/obj/moc_cuberok.o
 ./win32/obj/moc_downloader.o
 ./win32/obj/moc_indicator.o
+./win32/obj/moc_lastfm.o
 ./win32/obj/moc_libraryview.o
 ./win32/obj/moc_lookandfeel.o
 ./win32/obj/moc_player.o
-./win32/obj/moc_player_void.o
 ./win32/obj/moc_playlistcontainer.o
 ./win32/obj/moc_playlistmodel.o
 ./win32/obj/moc_playlistsettings.o

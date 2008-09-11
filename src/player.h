@@ -58,36 +58,6 @@ class Player : public QObject
 	long _length;
 };
 
-class PlayerManager : public Player
-{
-    Q_OBJECT
- public:
-    ~PlayerManager();
-    static PlayerManager& Self();
-
-	virtual bool prepare();
-	virtual bool ready();
-
-    virtual bool open(QUrl fname, long start = 0, long length = 0);
-    virtual bool play();
-    virtual bool stop();
-    virtual bool setPause(bool p);
-    virtual bool close();
-    virtual bool setPosition(double pos);
-    virtual double getPosition();
-    virtual int  volume();
-    virtual void setVolume(int v);
-    virtual bool playing();
-	virtual int  weight();	
-	virtual QString name();
-
-	QStringList getPlayers();
-	bool setPrefferedPlayer(QString);
-
- private:
-    PlayerManager();
-	QList<Player*> players;
-	Player *player;
-};
+Q_DECLARE_INTERFACE(Player, "Cuberok.Player/1.0")
 
 #endif // PLAYER_H

@@ -20,7 +20,7 @@
 #include "playlistsettings.h"
 #include <QtGui>
 
-PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false)
+PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabled(false), proxyPort(0)
 {
 	QSettings set;
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
@@ -29,6 +29,16 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false)
 	}
 	autoRating = set.value("autoRating", false).toBool();
 	cue_codepage = set.value("cue_codepage", "System").toString();
+
+	proxyEnabled = set.value("proxyEnabled", false).toBool();
+	proxyHost = set.value("proxyHost", "").toString();
+	proxyPort = set.value("proxyPort", 0).toInt();
+	proxyUser = set.value("proxyUser", "").toString();
+	proxyPassword = set.value("proxyPassword", "").toString();
+
+	lastfmScrobbler = set.value("lastfmScrobbler", false).toBool();
+	lastfmUser = set.value("lastfmUser", "").toString();
+	lastfmPassword = set.value("lastfmPassword", "").toString();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -45,6 +55,15 @@ void PlaylistSettings::save()
 	}
 	set.setValue("autoRating", autoRating);
 	set.setValue("cue_codepage", cue_codepage);
+	set.setValue("proxyEnabled", proxyEnabled);
+	set.setValue("proxyHost", proxyHost);
+	set.setValue("proxyPort", proxyPort);
+	set.setValue("proxyUser", proxyUser);
+	set.setValue("proxyPassword", proxyPassword);
+
+	set.setValue("lastfmScrobbler", lastfmScrobbler);
+	set.setValue("lastfmUser", lastfmUser);
+	set.setValue("lastfmPassword", lastfmPassword);
 }
 
 PlaylistSettings& PlaylistSettings::Self()

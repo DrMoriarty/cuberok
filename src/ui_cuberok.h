@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Tue 2. Sep 10:06:11 2008
+** Created: Wed 10. Sep 14:20:48 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -81,6 +81,7 @@ public:
     QAction *actionLibrarySetImage;
     QAction *actionIconView;
     QAction *actionOpenUrl;
+    QAction *actionGetImageFromLastFM;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -121,7 +122,7 @@ public:
     {
     if (CuberokClass->objectName().isEmpty())
         CuberokClass->setObjectName(QString::fromUtf8("CuberokClass"));
-    CuberokClass->resize(591, 306);
+    CuberokClass->resize(610, 378);
     CuberokClass->setWindowIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     CuberokClass->setDockNestingEnabled(true);
     CuberokClass->setDockOptions(QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks|QMainWindow::VerticalTabs);
@@ -213,6 +214,7 @@ public:
     actionClosePlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/deltab.png")));
     actionRemoveSong = new QAction(CuberokClass);
     actionRemoveSong->setObjectName(QString::fromUtf8("actionRemoveSong"));
+    actionRemoveSong->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
     actionLookFeel = new QAction(CuberokClass);
     actionLookFeel->setObjectName(QString::fromUtf8("actionLookFeel"));
     actionLookFeel->setIcon(QIcon(QString::fromUtf8(":/icons/looknfeel.png")));
@@ -278,6 +280,9 @@ public:
     actionOpenUrl = new QAction(CuberokClass);
     actionOpenUrl->setObjectName(QString::fromUtf8("actionOpenUrl"));
     actionOpenUrl->setIcon(QIcon(QString::fromUtf8(":/icons/open.png")));
+    actionGetImageFromLastFM = new QAction(CuberokClass);
+    actionGetImageFromLastFM->setObjectName(QString::fromUtf8("actionGetImageFromLastFM"));
+    actionGetImageFromLastFM->setIcon(QIcon(QString::fromUtf8(":/icons/col_art.png")));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
@@ -440,7 +445,7 @@ public:
     CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget3);
     menubar = new QMenuBar(CuberokClass);
     menubar->setObjectName(QString::fromUtf8("menubar"));
-    menubar->setGeometry(QRect(0, 0, 591, 19));
+    menubar->setGeometry(QRect(0, 0, 610, 19));
     menuFile = new QMenu(menubar);
     menuFile->setObjectName(QString::fromUtf8("menuFile"));
     menuHelp = new QMenu(menubar);
@@ -480,6 +485,7 @@ public:
     col_toolbar->addAction(actionRemoveFromCollection);
     col_toolbar->addSeparator();
     col_toolbar->addAction(actionSetImage);
+    col_toolbar->addAction(actionGetImageFromLastFM);
     colView->addAction(actionAddToCollection);
     colView->addAction(actionRemoveFromCollection);
     colView->addAction(actionSetImage);
@@ -589,6 +595,7 @@ public:
     QObject::connect(actionAddToLibrary, SIGNAL(triggered()), libView, SLOT(addItem()));
     QObject::connect(actionRemoveFromLibrary, SIGNAL(triggered()), libView, SLOT(removeItem()));
     QObject::connect(actionLibrarySetImage, SIGNAL(triggered()), libView, SLOT(setImage()));
+    QObject::connect(actionGetImageFromLastFM, SIGNAL(triggered()), colView, SLOT(loadImage()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -671,6 +678,7 @@ public:
     actionLibrarySetImage->setText(QApplication::translate("CuberokClass", "Set Image", 0, QApplication::UnicodeUTF8));
     actionIconView->setText(QApplication::translate("CuberokClass", "Icon View", 0, QApplication::UnicodeUTF8));
     actionOpenUrl->setText(QApplication::translate("CuberokClass", "Open Url", 0, QApplication::UnicodeUTF8));
+    actionGetImageFromLastFM->setText(QApplication::translate("CuberokClass", "Load image from Last.FM", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));

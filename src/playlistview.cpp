@@ -18,12 +18,14 @@
  */
 
 #include "playlistview.h"
+#include "player_manager.h"
 #include "tageditor.h"
 #include "tagger.h"
 #include "database.h"
 #include "stardelegate.h"
 #include "starrating.h"
 #include "playlistsettings.h"
+#include "lastfm.h"
 #include <QtXml>
 
 const QString XMLNS("http://code.google.com/p/cuberok");
@@ -64,10 +66,12 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	hideColumn(PlaylistModel::CueStart);
 	hideColumn(PlaylistModel::CueLength);
 	hideColumn(PlaylistModel::DBIndex);
+	hideColumn(PlaylistModel::StartTime);
 	connect(&PLSet, SIGNAL(visibleChanged(int,bool)), this, SLOT(setColVisible(int,bool)));
 	connect(&PLSet, SIGNAL(widthChanged(int,int)), this, SLOT(setColWidth(int,int)));
 	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
 	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
+
 }
 
 PlaylistView::~PlaylistView()
@@ -269,10 +273,19 @@ void PlaylistView::play()
 	PlayerManager::Self().play();
 	playing = true;
 	emit started(this);
+	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
 	//QMessageBox::information(this, tr(""), "message");
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 	QString m = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString() + " - " + model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
 	emit message(info/*, &m*/);
+	if(PLSet.lastfmScrobbler) {
+		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+		if(a.size())
+			LastFM::Self().nowplaying(a, t, b, 0, n);
+	}
 }
 
 void PlaylistView::stop()
@@ -286,6 +299,15 @@ void PlaylistView::stop()
 
 void PlaylistView::playFinished()
 {
+	if(PLSet.lastfmScrobbler) {
+		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
+		LastFM::Self().submission(a, t, start, b, len, "P", "", n);
+	}	
 	next();
 }
 

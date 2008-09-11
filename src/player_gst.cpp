@@ -18,9 +18,12 @@
  */
 
 #include "player_gst.h"
+#include "playlistsettings.h"
 #define TIME 200
 
 #include <QtGui>
+
+Q_EXPORT_PLUGIN2(player_gst, PlayerGst) 
 
 PlayerGst * gstplayer = 0; 
 
@@ -190,9 +193,14 @@ void PlayerGst::setLink(int l, QUrl &url)
 		link = l;
 	}
 	switch(link) {
-	case 2: // http
+	case 2: {// http
 		g_object_set (G_OBJECT (http_src), "location", (const char*)url.toString().toLocal8Bit(), NULL);
+		QString proxy;
+// 		if(PLSet.proxyEnabled) 
+// 			proxy = PLSet.proxyHost + ":" + QString::number(PLSet.proxyPort);
+		g_object_set (G_OBJECT (http_src), "proxy", (const char*)proxy.toLocal8Bit(), NULL);
 		break;
+	}
 	case 1: // file
 		g_object_set (G_OBJECT (l_src), "location", (const char*)url.toLocalFile().toLocal8Bit(), NULL);
 		break;
@@ -352,7 +360,8 @@ void PlayerGst::timerUpdate()
 			break;
 		}
 		case GST_MESSAGE_EOS:
-			need_finish();
+			//need_finish();
+			QMessageBox::information(0, "", "EOS");
 			return;
 		default:
 			break;

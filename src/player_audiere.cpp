@@ -22,6 +22,8 @@
 
 //#include <QtGui>
 
+Q_EXPORT_PLUGIN2(player_audiere, PlayerAudiere) 
+
 PlayerAudiere::PlayerAudiere() : repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false), paused(false)
 {
     stream = 0;
