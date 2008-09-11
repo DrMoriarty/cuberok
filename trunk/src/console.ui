@@ -1,0 +1,287 @@
+<ui version="4.0" >
+ <class>ConsoleWindow</class>
+ <widget class="QDialog" name="ConsoleWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>384</width>
+    <height>279</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Console</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="spacing" >
+    <number>0</number>
+   </property>
+   <property name="leftMargin" >
+    <number>4</number>
+   </property>
+   <property name="topMargin" >
+    <number>4</number>
+   </property>
+   <property name="rightMargin" >
+    <number>4</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>4</number>
+   </property>
+   <item>
+    <widget class="QWidget" native="1" name="centralwidget" />
+   </item>
+   <item>
+    <widget class="QMenuBar" name="menubar" >
+     <widget class="QMenu" name="menuView" >
+      <property name="title" >
+       <string>View</string>
+      </property>
+      <addaction name="actionAll" />
+      <addaction name="actionMessages" />
+      <addaction name="actionWarnings" />
+      <addaction name="actionErrors" />
+      <addaction name="actionFatal_Errors" />
+     </widget>
+     <widget class="QMenu" name="menuCommand" >
+      <property name="title" >
+       <string>Command</string>
+      </property>
+      <addaction name="actionRefresh" />
+      <addaction name="actionAuto_Refresh" />
+      <addaction name="actionClear" />
+      <addaction name="separator" />
+      <addaction name="actionExit" />
+     </widget>
+     <addaction name="menuCommand" />
+     <addaction name="menuView" />
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="textEdit" >
+     <property name="undoRedoEnabled" >
+      <bool>false</bool>
+     </property>
+     <property name="lineWrapMode" >
+      <enum>QTextEdit::NoWrap</enum>
+     </property>
+     <property name="readOnly" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionAll" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>All</string>
+   </property>
+  </action>
+  <action name="actionMessages" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Messages</string>
+   </property>
+  </action>
+  <action name="actionWarnings" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Warnings</string>
+   </property>
+  </action>
+  <action name="actionErrors" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Errors</string>
+   </property>
+  </action>
+  <action name="actionFatal_Errors" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Fatal Errors</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionRefresh" >
+   <property name="text" >
+    <string>Refresh</string>
+   </property>
+  </action>
+  <action name="actionAuto_Refresh" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Auto Refresh</string>
+   </property>
+  </action>
+  <action name="actionClear" >
+   <property name="text" >
+    <string>Clear</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAuto_Refresh</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>autorefresh(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRefresh</sender>
+   <signal>triggered()</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>refresh()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAll</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>all(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionMessages</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>message(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionWarnings</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>warning(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionErrors</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>error(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionFatal_Errors</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>fatal(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>242</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClear</sender>
+   <signal>triggered()</signal>
+   <receiver>ConsoleWindow</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>191</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

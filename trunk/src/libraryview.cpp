@@ -35,8 +35,7 @@ LibraryView::LibraryView(QWidget *parent): QListView(parent)
 	setDragDropMode(QAbstractItemView::DragDrop);
 	setDropIndicatorShown(true);
 // 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
-// 	if(!connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex))))
-// 		QMessageBox::information(0, "", "connection error");
+// 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
 // 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	model.updateMode(M_LIST);
 }

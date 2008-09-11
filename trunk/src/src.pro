@@ -14,6 +14,7 @@ DEFINES += CUBEROK_VERSION_BUI=4
 # Input
 HEADERS += aboutdialog.h \
            collectionview.h \
+           console.h \
            cuberok.h \
            database.h \
            downloader.h \
@@ -37,11 +38,12 @@ HEADERS += aboutdialog.h \
            tagger.h \
            url_open.h
 
-FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui
+FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
            collectionview.cpp \
+           console.cpp \
            cuberok.cpp \
            database.cpp \
            downloader.cpp \

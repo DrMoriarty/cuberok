@@ -26,6 +26,7 @@
 #include "starrating.h"
 #include "playlistsettings.h"
 #include "lastfm.h"
+#include "console.h"
 #include <QtXml>
 
 const QString XMLNS("http://code.google.com/p/cuberok");
@@ -144,7 +145,7 @@ void PlaylistView::loadList(QString fname)
 
 void PlaylistView::addUrl(QUrl url)
 {
-	//QMessageBox::information(0, "", url.toString());
+	Console::Self().log("Add URL: "+url.toString());
 // 	if(url.scheme().toLower() == "http") {
 // 		QMimeData data;
 // 		QList<QUrl> list;
@@ -205,8 +206,6 @@ void PlaylistView::startDrag(Qt::DropActions supportedActions)
 
 void PlaylistView::addItem(QVariant item, int id, QModelIndex* ind)
 {
-	//QMessageBox::information(0, tr(""), item);
-	//item.insert(0, QString::number(item.at(0).unicode()));
 	if(!ind) ind = &insindex;
 	if(id == PlaylistModel::File)
 		model.insertRows(ind->row()<0 ? model.rowCount() : ind->row(), 1);
@@ -264,7 +263,7 @@ void PlaylistView::play()
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
 	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
-		QMessageBox::warning(0, tr("Error"), tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
+		Console::Self().error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
 		playing = false;
 		return;
 	}
@@ -274,7 +273,6 @@ void PlaylistView::play()
 	playing = true;
 	emit started(this);
 	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
-	//QMessageBox::information(this, tr(""), "message");
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 	QString m = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString() + " - " + model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
 	emit message(info/*, &m*/);
@@ -539,7 +537,7 @@ void PlaylistView::rateSong(QModelIndex &ind, int r)
 		r = r * (5 - abs(rating/10));
 		Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating+r);
 	}
-	//QMessageBox::information(0, r>0?"rate up":"rate down", title);
+	Console::Self().log((r>0?"rate up ":"rate down ") + title);
 }
 
 int PlaylistView::curIndex()

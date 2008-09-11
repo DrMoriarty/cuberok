@@ -24,6 +24,7 @@
 #include "ui_authenticationdialog.h"
 #include "indicator.h"
 #include "playlistsettings.h"
+#include "console.h"
 
 Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true)
 {
@@ -69,9 +70,7 @@ bool Downloader::download(QUrl url, QString f)
 	
 	file = new QFile(tmpath+fileName);
 	if (!file->open(QIODevice::WriteOnly)) {
-// 		QMessageBox::warning(0, tr("Error"),
-//                                   tr("Unable to save the file %1: %2.")
-//                                   .arg(tmpath+fileName).arg(file->errorString()));
+		Console::Self().error(QString("Unable to save the file %1: %2.").arg(tmpath+fileName).arg(file->errorString()));
 		delete file;
 		file = 0;
 		return false;
@@ -134,9 +133,7 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 	
 	if (error) {
 		file->remove();
-// 		QMessageBox::warning(0, tr("Error"),
-// 								 tr("Download failed: %1.")
-// 								 .arg(http->errorString()));
+		Console::Self().error(QString("Download failed: %1.").arg(http->errorString()));
 		httpRequestAborted = true;
 		emit cancel(tr("Download failed: %1.").arg(http->errorString()));
 	} else {
@@ -152,9 +149,7 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 void Downloader::readResponseHeader(const QHttpResponseHeader &responseHeader)
 {
 	if (responseHeader.statusCode() != 200) {
-// 		QMessageBox::warning(0, tr("Error"),
-// 							 tr("Download failed: %1.")
-// 							 .arg(responseHeader.reasonPhrase()));
+		Console::Self().error(QString("Download failed: %1.").arg(responseHeader.reasonPhrase()));
 		httpRequestAborted = true;
 		http->abort();
 		emit cancel(tr("Download failed: %1.").arg(responseHeader.reasonPhrase()));

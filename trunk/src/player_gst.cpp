@@ -360,8 +360,8 @@ void PlayerGst::timerUpdate()
 			break;
 		}
 		case GST_MESSAGE_EOS:
-			//need_finish();
-			QMessageBox::information(0, "", "EOS");
+			need_finish();
+			//QMessageBox::information(0, "", "EOS");
 			return;
 		default:
 			break;

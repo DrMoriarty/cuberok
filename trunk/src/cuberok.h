@@ -54,6 +54,7 @@ private slots:
 public slots:
 	void lookAndFeel();
 	void message(QString/*, QString**/);
+	void viewConsole();
 };
 
 #endif // CUBEROK_H

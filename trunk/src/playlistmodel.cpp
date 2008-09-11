@@ -23,6 +23,7 @@
 #include "tagger.h"
 #include "starrating.h"
 #include "indicator.h"
+#include "console.h"
 
 PlaylistModel::PlaylistModel(QObject *parent) : QAbstractListModel(parent),
 _current(1)
@@ -84,14 +85,13 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
 		beginRow = rowCount();
 	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
 	if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>, long, long)), this, SLOT(addItem(QUrl, int, QList<QVariant>, long, long)), Qt::QueuedConnection))
-		QMessageBox::information(0, "", "connection error");
+		Console::Self().error("connection error (addItem)");
 	filler->start(QThread::IdlePriority);
 	return true;
 }
 
 void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, long length)
 {
-	//QMessageBox::information(0, "insert position", QString::number(row));
 	try {
 		if(l.count() >= 9) {
 	    	insertRows(row, 1);
@@ -112,7 +112,7 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, l
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
 		}
 	} catch (char * mes) {
-		QMessageBox::information(0, tr("Error"), QString(mes));
+		Console::Self().error(QString(mes));
 	}
 }
 

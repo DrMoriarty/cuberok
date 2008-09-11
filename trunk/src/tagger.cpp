@@ -22,6 +22,7 @@
 #include "database.h"
 #include "playlistsettings.h"
 #include "downloader.h"
+#include "console.h"
 
 #include "QtGui"
 #include <QtXml>
@@ -500,7 +501,7 @@ QList<TagEntry> Tagger::readXSPF(QString fname)
 			}
 			if (xml.hasError()) {
 				QString err = QString("There is error in XSPF playlist:\nLine number %1, column %2\n%3").arg(QString::number(xml.lineNumber()), QString::number(xml.columnNumber()), xml.errorString());
-				QMessageBox::warning(0, "Error", err);
+				Console::Self().error(err);
 			} 
 			file.close();
 		}
@@ -605,7 +606,7 @@ QList<TagEntry> Tagger::readASX(QString fname)
 			}
 			if (xml.hasError()) {
 				QString err = QString("There is error in ASX playlist:\nLine number %1, column %2\n%3").arg(QString::number(xml.lineNumber()), QString::number(xml.columnNumber()), xml.errorString());
-				QMessageBox::warning(0, "Error", err);
+				Console::Self().error(err);
 			} 
 			file.close();
 		}
