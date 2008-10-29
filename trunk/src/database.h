@@ -78,6 +78,8 @@ public:
 	//bool SetMark(QString file, QString mark);
 	
 	void clearSubset();
+	void pushSubset();
+	void popSubset();
 	void subsetAlbum(QString);
 	void subsetArtist(QString);
 	void subsetGenre(QString);
@@ -91,6 +93,7 @@ private:
 	QString ssArtist;
 	QString ssGenre;
 	//QString ssMark;
+	QVector < QList<QString> > sstack;
 	QString ssFilter;
 	void RefAttribute(const QString attr, int id, int v, int r);
 	int AddAttribute(const QString attr, QString val);

@@ -18,6 +18,7 @@ HEADERS += aboutdialog.h \
            cuberok.h \
            database.h \
            downloader.h \
+           infowidget.h \
            indicator.h \
            lastfm.h \
            libraryview.h \
@@ -47,6 +48,7 @@ SOURCES += aboutdialog.cpp \
            cuberok.cpp \
            database.cpp \
            downloader.cpp \
+           infowidget.cpp \
            indicator.cpp \
            lastfm.cpp \
            libraryview.cpp \

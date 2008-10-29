@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>378</height>
+    <width>651</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -19,7 +19,7 @@
    <bool>true</bool>
   </property>
   <property name="dockOptions" >
-   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks|QMainWindow::VerticalTabs</set>
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QVBoxLayout" >
@@ -279,7 +279,7 @@
     <string>Files</string>
    </property>
    <attribute name="dockWidgetArea" >
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents2" >
     <layout class="QVBoxLayout" >
@@ -337,7 +337,7 @@
     <string>Library</string>
    </property>
    <attribute name="dockWidgetArea" >
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents3" >
     <layout class="QVBoxLayout" >
@@ -384,18 +384,84 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget4" >
+   <property name="windowTitle" >
+    <string>Information</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents4" >
+    <layout class="QVBoxLayout" >
+     <property name="spacing" >
+      <number>4</number>
+     </property>
+     <property name="leftMargin" >
+      <number>4</number>
+     </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="InfoWidget" name="infoWidget" >
+       <property name="editTriggers" >
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="iconSize" >
+        <size>
+         <width>128</width>
+         <height>128</height>
+        </size>
+       </property>
+       <property name="verticalScrollMode" >
+        <enum>QAbstractItemView::ScrollPerPixel</enum>
+       </property>
+       <property name="rootIsDecorated" >
+        <bool>false</bool>
+       </property>
+       <property name="animated" >
+        <bool>true</bool>
+       </property>
+       <property name="allColumnsShowFocus" >
+        <bool>true</bool>
+       </property>
+       <column>
+        <property name="text" >
+         <string>1</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>610</width>
+     <width>651</width>
      <height>19</height>
     </rect>
    </property>
+   <property name="defaultUp" >
+    <bool>false</bool>
+   </property>
    <widget class="QMenu" name="menuFile" >
+    <property name="tearOffEnabled" >
+     <bool>true</bool>
+    </property>
     <property name="title" >
      <string>File</string>
+    </property>
+    <property name="separatorsCollapsible" >
+     <bool>true</bool>
     </property>
     <addaction name="actionOpenUrl" />
     <addaction name="actionNewPlaylist" />
@@ -407,15 +473,27 @@
     <addaction name="actionExit" />
    </widget>
    <widget class="QMenu" name="menuHelp" >
+    <property name="tearOffEnabled" >
+     <bool>true</bool>
+    </property>
     <property name="title" >
      <string>Help</string>
+    </property>
+    <property name="separatorsCollapsible" >
+     <bool>true</bool>
     </property>
     <addaction name="actionAbout" />
     <addaction name="actionAboutQt" />
    </widget>
    <widget class="QMenu" name="menuControl" >
+    <property name="tearOffEnabled" >
+     <bool>true</bool>
+    </property>
     <property name="title" >
      <string>Control</string>
+    </property>
+    <property name="separatorsCollapsible" >
+     <bool>true</bool>
     </property>
     <addaction name="actionPrev" />
     <addaction name="actionPause" />
@@ -428,12 +506,24 @@
     <addaction name="actionClear_playlist" />
    </widget>
    <widget class="QMenu" name="menuView" >
+    <property name="tearOffEnabled" >
+     <bool>true</bool>
+    </property>
     <property name="title" >
      <string>View</string>
     </property>
+    <property name="separatorsCollapsible" >
+     <bool>true</bool>
+    </property>
     <widget class="QMenu" name="menuColumns" >
+     <property name="tearOffEnabled" >
+      <bool>true</bool>
+     </property>
      <property name="title" >
       <string>Columns</string>
+     </property>
+     <property name="separatorsCollapsible" >
+      <bool>true</bool>
      </property>
      <addaction name="actionViewFile" />
      <addaction name="actionViewTrack" />
@@ -449,6 +539,7 @@
     <addaction name="menuColumns" />
     <addaction name="actionLookFeel" />
     <addaction name="actionConsole" />
+    <addaction name="separator" />
    </widget>
    <addaction name="menuFile" />
    <addaction name="menuView" />
@@ -1020,8 +1111,11 @@
    </property>
   </action>
   <action name="actionGetImageFromLastFM" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/download_art.png</iconset>
    </property>
    <property name="text" >
     <string>Load image from Last.FM</string>
@@ -1053,6 +1147,11 @@
    <class>LibraryView</class>
    <extends>QListView</extends>
    <header>libraryview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>InfoWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>infowidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -1086,8 +1185,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>484</x>
-     <y>260</y>
+     <x>376</x>
+     <y>317</y>
     </hint>
    </hints>
   </connection>
@@ -1102,8 +1201,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>484</x>
-     <y>260</y>
+     <x>376</x>
+     <y>317</y>
     </hint>
    </hints>
   </connection>
@@ -1118,8 +1217,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>484</x>
-     <y>260</y>
+     <x>376</x>
+     <y>317</y>
     </hint>
    </hints>
   </connection>
@@ -1134,8 +1233,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>484</x>
-     <y>260</y>
+     <x>376</x>
+     <y>317</y>
     </hint>
    </hints>
   </connection>
@@ -1150,8 +1249,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>202</y>
+     <x>376</x>
+     <y>259</y>
     </hint>
    </hints>
   </connection>
@@ -1166,20 +1265,20 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>202</y>
+     <x>376</x>
+     <y>259</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>listView</sender>
-   <signal>message(QString)</signal>
+   <signal>message(QString,QString,QString)</signal>
    <receiver>CuberokClass</receiver>
-   <slot>message(QString)</slot>
+   <slot>message(QString,QString,QString)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>425</x>
-     <y>152</y>
+     <x>376</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel" >
      <x>246</x>
@@ -1214,8 +1313,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1230,8 +1329,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1246,8 +1345,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1262,8 +1361,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1278,8 +1377,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1294,8 +1393,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1310,8 +1409,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1326,8 +1425,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1342,8 +1441,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1358,8 +1457,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1374,8 +1473,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1390,8 +1489,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1406,8 +1505,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1422,8 +1521,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>425</x>
-     <y>158</y>
+     <x>376</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -1438,8 +1537,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>516</x>
-     <y>323</y>
+     <x>376</x>
+     <y>380</y>
     </hint>
    </hints>
   </connection>
@@ -1466,12 +1565,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>516</x>
-     <y>323</y>
+     <x>376</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>415</x>
-     <y>360</y>
+     <x>357</x>
+     <y>495</y>
     </hint>
    </hints>
   </connection>
@@ -1486,8 +1585,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>264</x>
-     <y>108</y>
+     <x>268</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1502,8 +1601,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>264</x>
-     <y>108</y>
+     <x>268</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1518,8 +1617,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>264</x>
-     <y>108</y>
+     <x>268</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1534,8 +1633,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>204</x>
-     <y>108</y>
+     <x>208</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1550,8 +1649,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>136</x>
-     <y>105</y>
+     <x>140</x>
+     <y>216</y>
     </hint>
    </hints>
   </connection>
@@ -1566,8 +1665,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>136</x>
-     <y>105</y>
+     <x>140</x>
+     <y>216</y>
     </hint>
    </hints>
   </connection>
@@ -1578,12 +1677,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>136</x>
-     <y>103</y>
+     <x>140</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel" >
      <x>49</x>
-     <y>380</y>
+     <y>535</y>
     </hint>
    </hints>
   </connection>
@@ -1594,12 +1693,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>399</x>
-     <y>179</y>
+     <x>376</x>
+     <y>236</y>
     </hint>
     <hint type="destinationlabel" >
      <x>49</x>
-     <y>380</y>
+     <y>535</y>
     </hint>
    </hints>
   </connection>
@@ -1610,12 +1709,12 @@
    <slot>filter(QString)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>136</x>
-     <y>111</y>
+     <x>217</x>
+     <y>128</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>136</x>
-     <y>101</y>
+     <x>140</x>
+     <y>212</y>
     </hint>
    </hints>
   </connection>
@@ -1674,12 +1773,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>127</x>
-     <y>62</y>
+     <x>131</x>
+     <y>173</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>35</x>
-     <y>109</y>
+     <x>39</x>
+     <y>128</y>
     </hint>
    </hints>
   </connection>
@@ -1694,8 +1793,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>435</x>
-     <y>128</y>
+     <x>376</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>
@@ -1710,8 +1809,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>435</x>
-     <y>128</y>
+     <x>376</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>
@@ -1726,8 +1825,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>435</x>
-     <y>128</y>
+     <x>376</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>
@@ -1758,8 +1857,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>435</x>
-     <y>128</y>
+     <x>376</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>
@@ -1774,8 +1873,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>435</x>
-     <y>128</y>
+     <x>376</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>
@@ -1838,8 +1937,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>434</x>
-     <y>150</y>
+     <x>376</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -1854,8 +1953,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>141</x>
-     <y>259</y>
+     <x>532</x>
+     <y>501</y>
     </hint>
    </hints>
   </connection>
@@ -1870,8 +1969,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>141</x>
-     <y>259</y>
+     <x>532</x>
+     <y>501</y>
     </hint>
    </hints>
   </connection>
@@ -1886,8 +1985,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>141</x>
-     <y>259</y>
+     <x>532</x>
+     <y>501</y>
     </hint>
    </hints>
   </connection>

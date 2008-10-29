@@ -67,12 +67,14 @@ Section "Qt4 library"
   File "win32\QtNetwork4.dll"
   File "win32\QtSql4.dll"
   File "win32\QtXml4.dll"
+  CreateDirectory $INSTDIR\sqldrivers
+  File /oname=sqldrivers\qsqlite4.dll "win32\sqldrivers\qsqlite4.dll"
 SectionEnd
 
 Section "Audiere plugin"
   CreateDirectory $INSTDIR\plugins
   File "win32\audiere.dll"
-  File /oname=plugins\audiere.dll "win32\plugins\player_audiere.dll"
+  File /oname=plugins\player_audiere.dll "win32\plugins\player_audiere.dll"
 SectionEnd
 
 Section "GStreamer plugin"
@@ -96,12 +98,16 @@ Section "Uninstall"
   ; Remove files and uninstaller
   Delete $INSTDIR\uninstall.exe
   Delete "$INSTDIR\*.*"
+  Delete "$INSTDIR\plugins\*.*"
+  Delete "$INSTDIR\sqldrivers\*.*"
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\Cuberok\*.*"
 
   ; Remove directories used
   RMDir "$SMPROGRAMS\Cuberok"
+  RMDir "$INSTDIR\plugins"
+  RMDir "$INSTDIR\sqldrivers"
   RMDir "$INSTDIR"
 SectionEnd
 

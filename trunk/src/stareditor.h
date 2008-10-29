@@ -55,6 +55,7 @@
          myStarRating = starRating;
      }
      StarRating starRating() { return myStarRating; }
+	 void noEdit() { noedit = true; }
 
  signals:
      void editingFinished();
@@ -68,6 +69,7 @@
      int starAtPosition(int x);
 
      StarRating myStarRating;
+	 bool noedit;
  };
 
  #endif 

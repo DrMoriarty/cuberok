@@ -410,6 +410,7 @@ void CollectionModel::drawStars(QPixmap &bg, int rating, bool song)
 	QPixmap px(px_1.width(), px_1.height());
 	px.fill(QColor(0,0,0,0));
 	QPainter painter(&px);
+	painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform /*| QPainter::HighQualityAntialiasing*/);
 	int x=0, y=0, w, h;
 	float s;
 	w = bg.width();
@@ -657,7 +658,7 @@ void CollectionView::applySubset(QModelIndex ind)
 {
 	emit setVisibleSubsetWidgets(true);
 	QString value = model.data(ind).toString();
-	subsetLabel += QString(subsetLabel.length()?" - ":"") + value;
+	subsetLabel += QDir::separator() + value;
 	emit setSubsetLabel(subsetLabel);
 	switch(model.mode) {
 	case M_ALBUM:
@@ -794,7 +795,7 @@ void CollectionView::loadImage()
 
 void CollectionView::doRequest()
 {
-	if(wait_response) return;
+	if(wait_response || !request_stack.size()) return;
 	QList<QString> &item = *request_stack.begin();
 	
 	if(item.size() == 1) {  // artist
@@ -833,7 +834,7 @@ void CollectionView::infoResponse(QString info)
 					el2 = el.firstChildElement("name");
 					if(!el2.isNull()) name = el2.firstChild().nodeValue();
 					list = el.elementsByTagName("image");
-					for(int i=0; i<list.size(); i++) {
+					for(int i=0; i<list.size() && i<3; i++) {
 						QDomElement el3 = list.at(i).toElement();
 						if(el3.attribute("size") == "small") img1 = el3.firstChild().nodeValue();
 						if(el3.attribute("size") == "medium") img2 = el3.firstChild().nodeValue();
@@ -894,6 +895,7 @@ void CollectionView::dlComplete(QString file)
 		QString file2 = path + lfmArtist;
 		if(lfmAlbum.size()) file2 += "-"+lfmAlbum;
 		file2 += "."+QFileInfo(file).suffix();
+		if(QFile::exists(file2)) QFile::remove(file2);
 		if(QFile::copy(file, file2)) {
 			QFile::remove(file);
 			if(lfmAlbum.size()) {  // cover for album

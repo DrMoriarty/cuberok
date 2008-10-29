@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 11. Sep 11:51:16 2008
+** Created: Wed 24. Sep 16:49:56 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -30,6 +30,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 #include "collectionview.h"
+#include "infowidget.h"
 #include "libraryview.h"
 #include "playlistcontainer.h"
 #include "progressbar.h"
@@ -108,6 +109,10 @@ public:
     QWidget *dockWidgetContents3;
     QVBoxLayout *vboxLayout3;
     LibraryView *libView;
+    QDockWidget *dockWidget4;
+    QWidget *dockWidgetContents4;
+    QVBoxLayout *vboxLayout4;
+    InfoWidget *infoWidget;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -123,10 +128,10 @@ public:
     {
     if (CuberokClass->objectName().isEmpty())
         CuberokClass->setObjectName(QString::fromUtf8("CuberokClass"));
-    CuberokClass->resize(610, 378);
+    CuberokClass->resize(651, 525);
     CuberokClass->setWindowIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     CuberokClass->setDockNestingEnabled(true);
-    CuberokClass->setDockOptions(QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks|QMainWindow::VerticalTabs);
+    CuberokClass->setDockOptions(QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs);
     actionAbout = new QAction(CuberokClass);
     actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
     actionAbout->setIcon(QIcon());
@@ -283,7 +288,8 @@ public:
     actionOpenUrl->setIcon(QIcon(QString::fromUtf8(":/icons/open.png")));
     actionGetImageFromLastFM = new QAction(CuberokClass);
     actionGetImageFromLastFM->setObjectName(QString::fromUtf8("actionGetImageFromLastFM"));
-    actionGetImageFromLastFM->setIcon(QIcon(QString::fromUtf8(":/icons/col_art.png")));
+    actionGetImageFromLastFM->setEnabled(false);
+    actionGetImageFromLastFM->setIcon(QIcon(QString::fromUtf8(":/icons/download_art.png")));
     actionConsole = new QAction(CuberokClass);
     actionConsole->setObjectName(QString::fromUtf8("actionConsole"));
     centralwidget = new QWidget(CuberokClass);
@@ -424,7 +430,7 @@ public:
     vboxLayout2->addWidget(treeView_2);
 
     dockWidget2->setWidget(dockWidgetContents2);
-    CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget2);
+    CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockWidget2);
     dockWidget3 = new QDockWidget(CuberokClass);
     dockWidget3->setObjectName(QString::fromUtf8("dockWidget3"));
     dockWidget3->setFeatures(QDockWidget::AllDockWidgetFeatures);
@@ -445,20 +451,52 @@ public:
     vboxLayout3->addWidget(libView);
 
     dockWidget3->setWidget(dockWidgetContents3);
-    CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget3);
+    CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockWidget3);
+    dockWidget4 = new QDockWidget(CuberokClass);
+    dockWidget4->setObjectName(QString::fromUtf8("dockWidget4"));
+    dockWidgetContents4 = new QWidget(dockWidget4);
+    dockWidgetContents4->setObjectName(QString::fromUtf8("dockWidgetContents4"));
+    vboxLayout4 = new QVBoxLayout(dockWidgetContents4);
+    vboxLayout4->setSpacing(4);
+    vboxLayout4->setObjectName(QString::fromUtf8("vboxLayout4"));
+    vboxLayout4->setContentsMargins(4, 4, 4, 4);
+    infoWidget = new InfoWidget(dockWidgetContents4);
+    infoWidget->setObjectName(QString::fromUtf8("infoWidget"));
+    infoWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    infoWidget->setIconSize(QSize(128, 128));
+    infoWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    infoWidget->setRootIsDecorated(false);
+    infoWidget->setAnimated(true);
+    infoWidget->setAllColumnsShowFocus(true);
+
+    vboxLayout4->addWidget(infoWidget);
+
+    dockWidget4->setWidget(dockWidgetContents4);
+    CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget4);
     menubar = new QMenuBar(CuberokClass);
     menubar->setObjectName(QString::fromUtf8("menubar"));
-    menubar->setGeometry(QRect(0, 0, 610, 19));
+    menubar->setGeometry(QRect(0, 0, 651, 19));
+    menubar->setDefaultUp(false);
     menuFile = new QMenu(menubar);
     menuFile->setObjectName(QString::fromUtf8("menuFile"));
+    menuFile->setTearOffEnabled(true);
+    menuFile->setSeparatorsCollapsible(true);
     menuHelp = new QMenu(menubar);
     menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
+    menuHelp->setTearOffEnabled(true);
+    menuHelp->setSeparatorsCollapsible(true);
     menuControl = new QMenu(menubar);
     menuControl->setObjectName(QString::fromUtf8("menuControl"));
+    menuControl->setTearOffEnabled(true);
+    menuControl->setSeparatorsCollapsible(true);
     menuView = new QMenu(menubar);
     menuView->setObjectName(QString::fromUtf8("menuView"));
+    menuView->setTearOffEnabled(true);
+    menuView->setSeparatorsCollapsible(true);
     menuColumns = new QMenu(menuView);
     menuColumns->setObjectName(QString::fromUtf8("menuColumns"));
+    menuColumns->setTearOffEnabled(true);
+    menuColumns->setSeparatorsCollapsible(true);
     CuberokClass->setMenuBar(menubar);
     statusbar = new QStatusBar(CuberokClass);
     statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -521,6 +559,7 @@ public:
     menuView->addAction(menuColumns->menuAction());
     menuView->addAction(actionLookFeel);
     menuView->addAction(actionConsole);
+    menuView->addSeparator();
     menuColumns->addAction(actionViewFile);
     menuColumns->addAction(actionViewTrack);
     menuColumns->addAction(actionViewTitle);
@@ -554,7 +593,7 @@ public:
     QObject::connect(actionPlay, SIGNAL(triggered()), listView, SLOT(play()));
     QObject::connect(actionShuffle, SIGNAL(triggered(bool)), listView, SLOT(shuffle(bool)));
     QObject::connect(actionRepeat, SIGNAL(triggered(bool)), listView, SLOT(repeat(bool)));
-    QObject::connect(listView, SIGNAL(message(QString)), CuberokClass, SLOT(message(QString)));
+    QObject::connect(listView, SIGNAL(message(QString,QString,QString)), CuberokClass, SLOT(message(QString,QString,QString)));
     QObject::connect(actionExit, SIGNAL(triggered()), CuberokClass, SLOT(close()));
     QObject::connect(actionClear_playlist, SIGNAL(triggered()), listView, SLOT(clear()));
     QObject::connect(actionQueueNext, SIGNAL(triggered()), listView, SLOT(queueNext()));
@@ -694,6 +733,8 @@ public:
     dockWidget2->setWindowTitle(QApplication::translate("CuberokClass", "Files", 0, QApplication::UnicodeUTF8));
     dockWidget3->setWindowTitle(QApplication::translate("CuberokClass", "Library", 0, QApplication::UnicodeUTF8));
     libView->setToolTip(QApplication::translate("CuberokClass", "Drag'n'Drop playlists to the library", 0, QApplication::UnicodeUTF8));
+    dockWidget4->setWindowTitle(QApplication::translate("CuberokClass", "Information", 0, QApplication::UnicodeUTF8));
+    infoWidget->headerItem()->setText(0, QApplication::translate("CuberokClass", "1", 0, QApplication::UnicodeUTF8));
     menuFile->setTitle(QApplication::translate("CuberokClass", "File", 0, QApplication::UnicodeUTF8));
     menuHelp->setTitle(QApplication::translate("CuberokClass", "Help", 0, QApplication::UnicodeUTF8));
     menuControl->setTitle(QApplication::translate("CuberokClass", "Control", 0, QApplication::UnicodeUTF8));

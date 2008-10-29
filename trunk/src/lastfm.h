@@ -40,17 +40,20 @@ class LastFM : public QObject
 
  private:
 	LastFM();
+	void doQueue();
 	
 	QHttp http;
 	int httpGetId, httpPostId;
 	QString session, nowPlayingUrl, submissionUrl;
 	bool connected;
 	QVector< QList<QVariant> > stack;
-	bool needInfo;
+	bool needInfo, delayed;
+	int try_count;
 
  private slots:
 	void requestFinished(int, bool);
 	void requestStarted(int);
+	void timerConnect();
 
  signals:
 	void xmlInfo(QString);

@@ -53,13 +53,13 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	if(!cue_codepage.size()) cue_codepage = "System";
 	ui.comboBox_cue->setCurrentIndex(ui.comboBox_cue->findText(cue_codepage));
 
-	if(PLSet.proxyEnabled) ui.checkBox_proxyEnabled->setCheckState(Qt::Checked);
+	ui.checkBox_proxyEnabled->setChecked(PLSet.proxyEnabled);
 	ui.lineEdit_proxyHost->setText(PLSet.proxyHost);
 	ui.spinBox_proxyPort->setValue(PLSet.proxyPort);
 	ui.lineEdit_proxyUser->setText(PLSet.proxyUser);
 	ui.lineEdit_proxyPassword->setText(PLSet.proxyPassword);
 
-	if(PLSet.lastfmScrobbler) ui.checkBox_lastfmScrobbling->setCheckState(Qt::Checked);
+	ui.checkBox_lastfmScrobbling->setChecked(PLSet.lastfmScrobbler);
 	ui.lineEdit_lastfmUser->setText(PLSet.lastfmUser);
 	ui.lineEdit_lastfmPassword->setText(PLSet.lastfmPassword);
 }
@@ -90,13 +90,13 @@ void Settings::accept()
 
 	PLSet.cue_codepage = ui.comboBox_cue->currentText();
 
-	PLSet.proxyEnabled = ui.checkBox_proxyEnabled->checkState() == Qt::Checked;
+	PLSet.proxyEnabled = ui.checkBox_proxyEnabled->isChecked();
 	PLSet.proxyHost = ui.lineEdit_proxyHost->text();
 	PLSet.proxyPort = ui.spinBox_proxyPort->value();
 	PLSet.proxyUser = ui.lineEdit_proxyUser->text();
 	PLSet.proxyPassword = ui.lineEdit_proxyPassword->text();
 
-	PLSet.lastfmScrobbler = ui.checkBox_lastfmScrobbling->checkState() == Qt::Checked;
+	PLSet.lastfmScrobbler = ui.checkBox_lastfmScrobbling->isChecked();
 	PLSet.lastfmUser = ui.lineEdit_lastfmUser->text();
 	PLSet.lastfmPassword = ui.lineEdit_lastfmPassword->text();
 

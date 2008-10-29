@@ -25,14 +25,25 @@
 
 const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
 
-LastFM::LastFM() : QObject(), httpGetId(0), httpPostId(0), connected(false), needInfo(false)
+LastFM::LastFM() : QObject(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
 {
 	connect(&http, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(requestStarted(int)));
+	QFile file(QDir::homePath()+"/.cuberok/queue.lastfm");
+	if(!file.exists()) return;
+	file.open(QIODevice::ReadOnly);
+	QDataStream in(&file);
+	in >> stack;
+	if(stack.size())
+		doQueue();
 }
 
 LastFM::~LastFM()
 {
+	QFile file(QDir::homePath()+"/.cuberok/queue.lastfm");
+	file.open(QIODevice::WriteOnly);
+	QDataStream out(&file);
+	out << stack;
 }
 
 LastFM& LastFM::Self()
@@ -43,7 +54,7 @@ LastFM& LastFM::Self()
 
 void LastFM::handshake(QString user, QString password)
 {
-	if(connected) return;
+	if(connected || delayed) return;
 	if(httpPostId) {
 		QList<QVariant> item;
 		stack << item;
@@ -51,6 +62,13 @@ void LastFM::handshake(QString user, QString password)
 	}
 	if(PLSet.proxyEnabled) {
 		http.setProxy(PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword);
+	}
+
+	try_count ++;
+	if(try_count > 3) {
+		delayed = true;
+		QTimer::singleShot(300000, this, SLOT(timerConnect()));  // 5 minutes before continue
+		return;
 	}
 
 	uint time = QDateTime::currentDateTime().toTime_t();
@@ -88,8 +106,9 @@ void LastFM::requestFinished(int id, bool err)
 		if(httpGetId == id) {
 			httpGetId = 0;
 			if(needInfo) {
-				Console::Self().log("Last.FM response:" + http.readAll());
-				emit xmlInfo(QString::fromUtf8((const char*)http.readAll()));
+				QByteArray arr = http.readAll();
+				Console::Self().log("Last.FM response:" + arr);
+				emit xmlInfo(QString::fromUtf8((const char*)arr));
 				needInfo = false;
 			} else {
 				QString request = http.readAll();
@@ -102,7 +121,7 @@ void LastFM::requestFinished(int id, bool err)
 
 					Console::Self().log("Last.FM: handshake complete");
 				} else if(status.startsWith("BANNED")) {
-					Console::Self().error("Last.FM: I am banned at Last.FM, I am don't need to live any more.");
+					Console::Self().error("Last.FM: I was banned at Last.FM, I don't need to live any more.");
 					connected = false;
 				} else if(status.startsWith("BADAUTH")) {
 					Console::Self().error("Last.FM: Incorrect user name or password.");
@@ -133,33 +152,28 @@ void LastFM::requestFinished(int id, bool err)
 			}
 		}
 	}
+	doQueue();
+}
+
+void LastFM::doQueue()
+{
 	if(stack.size() && !httpGetId && !httpPostId) {
 		QList<QVariant> &item = *stack.begin();
 		if(item.size() == 0) {
-			if(!httpGetId) {
-				handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
-				stack.pop_front();
-			}
+			handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
+			stack.pop_front();
 		} else if(item.size() == 1) {
-			if(!httpGetId) {
-				artistInfo(item[0].toString());
-				stack.pop_front();
-			}
+			artistInfo(item[0].toString());
+			stack.pop_front();
 		} else if(item.size() == 2) {
-			if(!httpGetId) {
-				albumInfo(item[0].toString(), item[1].toString());
-				stack.pop_front();
-			}
+			albumInfo(item[0].toString(), item[1].toString());
+			stack.pop_front();
 		} else if(item.size() == 6) {
-			if(!httpPostId) {
-				nowplaying(item[0].toString(), item[1].toString(), item[2].toString(), item[3].toInt(), item[4].toInt(), item[5].toString());
-				stack.pop_front();
-			}
+			nowplaying(item[0].toString(), item[1].toString(), item[2].toString(), item[3].toInt(), item[4].toInt(), item[5].toString());
+			stack.pop_front();
 		} else if(item.size() == 9) {
-			if(!httpPostId) {
-				submission(item[0].toString(), item[1].toString(), item[2].toInt(), item[3].toString(), item[4].toInt(), item[5].toString(), item[6].toString(), item[7].toInt(), item[8].toString());
-				stack.pop_front();
-			}
+			submission(item[0].toString(), item[1].toString(), item[2].toInt(), item[3].toString(), item[4].toInt(), item[5].toString(), item[6].toString(), item[7].toInt(), item[8].toString());
+			stack.pop_front();
 		}
 	}
 }
@@ -297,3 +311,9 @@ void LastFM::albumInfo(QString artist, QString album)
 	httpGetId = http.get(QString(url.toEncoded()));
 }
 
+void LastFM::timerConnect()
+{
+	delayed = false;
+	try_count = 0;
+	handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
+}

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'aboutdialog.ui'
 **
-** Created: Wed 10. Sep 09:37:21 2008
+** Created: Wed 24. Sep 16:49:56 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -18,22 +18,23 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QTextBrowser>
 
 class Ui_AboutDialogClass
 {
 public:
     QGridLayout *gridLayout;
     QLabel *label;
-    QLabel *label_2;
-    QLabel *label_3;
+    QLabel *label_name;
+    QLabel *label_version;
     QDialogButtonBox *buttonBox;
-    QLabel *label_4;
+    QTextBrowser *textBrowser;
 
     void setupUi(QDialog *AboutDialogClass)
     {
     if (AboutDialogClass->objectName().isEmpty())
         AboutDialogClass->setObjectName(QString::fromUtf8("AboutDialogClass"));
-    AboutDialogClass->resize(344, 284);
+    AboutDialogClass->resize(342, 276);
     QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     sizePolicy.setHorizontalStretch(0);
     sizePolicy.setVerticalStretch(0);
@@ -49,47 +50,51 @@ public:
     label->setPixmap(QPixmap(QString::fromUtf8(":/icons/application.png")));
     label->setAlignment(Qt::AlignCenter);
 
-    gridLayout->addWidget(label, 0, 0, 2, 1);
+    gridLayout->addWidget(label, 0, 0, 3, 1);
 
-    label_2 = new QLabel(AboutDialogClass);
-    label_2->setObjectName(QString::fromUtf8("label_2"));
+    label_name = new QLabel(AboutDialogClass);
+    label_name->setObjectName(QString::fromUtf8("label_name"));
     QFont font;
     font.setFamily(QString::fromUtf8("Arial"));
     font.setPointSize(20);
     font.setBold(true);
     font.setWeight(75);
-    label_2->setFont(font);
-    label_2->setTextFormat(Qt::AutoText);
-    label_2->setScaledContents(true);
-    label_2->setAlignment(Qt::AlignCenter);
-    label_2->setWordWrap(true);
+    label_name->setFont(font);
+    label_name->setLayoutDirection(Qt::LeftToRight);
+    label_name->setTextFormat(Qt::AutoText);
+    label_name->setScaledContents(true);
+    label_name->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+    label_name->setWordWrap(true);
 
-    gridLayout->addWidget(label_2, 0, 1, 1, 2);
+    gridLayout->addWidget(label_name, 0, 1, 1, 2);
 
-    label_3 = new QLabel(AboutDialogClass);
-    label_3->setObjectName(QString::fromUtf8("label_3"));
+    label_version = new QLabel(AboutDialogClass);
+    label_version->setObjectName(QString::fromUtf8("label_version"));
     QFont font1;
     font1.setFamily(QString::fromUtf8("Arial"));
     font1.setPointSize(15);
     font1.setBold(true);
     font1.setWeight(75);
-    label_3->setFont(font1);
+    label_version->setFont(font1);
+    label_version->setLayoutDirection(Qt::LeftToRight);
+    label_version->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-    gridLayout->addWidget(label_3, 1, 2, 1, 1);
+    gridLayout->addWidget(label_version, 1, 1, 1, 2);
 
     buttonBox = new QDialogButtonBox(AboutDialogClass);
     buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
     buttonBox->setStandardButtons(QDialogButtonBox::Ok);
 
-    gridLayout->addWidget(buttonBox, 4, 0, 1, 3);
+    gridLayout->addWidget(buttonBox, 6, 0, 1, 3);
 
-    label_4 = new QLabel(AboutDialogClass);
-    label_4->setObjectName(QString::fromUtf8("label_4"));
-    label_4->setTextFormat(Qt::AutoText);
-    label_4->setScaledContents(false);
-    label_4->setWordWrap(true);
+    textBrowser = new QTextBrowser(AboutDialogClass);
+    textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+    textBrowser->setFrameShape(QFrame::Box);
+    textBrowser->setFrameShadow(QFrame::Raised);
+    textBrowser->setOpenExternalLinks(true);
+    textBrowser->setOpenLinks(true);
 
-    gridLayout->addWidget(label_4, 2, 0, 1, 3);
+    gridLayout->addWidget(textBrowser, 3, 0, 3, 3);
 
 
     retranslateUi(AboutDialogClass);
@@ -102,9 +107,13 @@ public:
     {
     AboutDialogClass->setWindowTitle(QApplication::translate("AboutDialogClass", "AboutDialog", 0, QApplication::UnicodeUTF8));
     label->setText(QString());
-    label_2->setText(QApplication::translate("AboutDialogClass", "Cuberok", 0, QApplication::UnicodeUTF8));
-    label_3->setText(QApplication::translate("AboutDialogClass", "v 0.0.3", 0, QApplication::UnicodeUTF8));
-    label_4->setText(QApplication::translate("AboutDialogClass", "Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>", 0, QApplication::UnicodeUTF8));
+    label_name->setText(QApplication::translate("AboutDialogClass", "Cuberok", 0, QApplication::UnicodeUTF8));
+    label_version->setText(QApplication::translate("AboutDialogClass", "v 0.0.0", 0, QApplication::UnicodeUTF8));
+    textBrowser->setHtml(QApplication::translate("AboutDialogClass", "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\">Copyright (C) 2008 Vasiliy Makarov &lt;<a href=\"mailto:drmoriarty.0@gmail.com\"><span style=\" text-decoration: underline; color:#0000ff;\">drmoriarty.0@gmail.com</span></a>&gt;</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; text-decoration: underline; color:#0000ff;\"><a href=\"http://code.google.com/p/cuberok/\">http://code.google.com/p/cuberok/</a><br /></p></body></html>", 0, QApplication::UnicodeUTF8));
     Q_UNUSED(AboutDialogClass);
     } // retranslateUi
 

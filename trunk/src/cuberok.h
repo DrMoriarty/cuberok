@@ -53,7 +53,7 @@ private slots:
 
 public slots:
 	void lookAndFeel();
-	void message(QString/*, QString**/);
+	void message(QString, QString, QString);
 	void viewConsole();
 };
 

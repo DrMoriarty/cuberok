@@ -17,17 +17,37 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "aboutdialog.h"
+#ifndef INFOWIDGET_H
+#define INFOWIDGET_H
 
-AboutDialog::AboutDialog(QWidget *parent)
-    : QDialog(parent)
+#include <QtGui>
+#include "starrating.h"
+#include "stareditor.h"
+
+class ItemWidget : public QWidget
 {
-	ui.setupUi(this);
-	QString ver = QString("v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
-	ui.label_version->setText(ver);
-}
+	Q_OBJECT
+ public:
+	ItemWidget(const QPixmap &pm, QString n, QString a, const StarRating &r, int level, QWidget *parent=0);
 
-AboutDialog::~AboutDialog()
+ public:
+	QLabel *pic, *name, *appendix;
+	StarEditor *rating;
+};
+
+class InfoWidget : public QTreeWidget
 {
+	Q_OBJECT
+ public:
+	InfoWidget(QWidget *parent = 0);
 
-}
+ public slots:
+	void setArtist(QString ar);
+	void setAlbum(QString al);
+
+ private:
+	QString artist, album;
+	QTreeWidgetItem *ar, *al;
+};
+
+#endif //INFOWIDGET_H

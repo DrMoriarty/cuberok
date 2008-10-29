@@ -75,6 +75,7 @@ class ConsoleView: public QDialog
  private:
 	Ui::ConsoleWindow ui;
 	Console::C_TYPE type;
+	QTimer *timer;
 };
 
 #endif // CONSOLE_H

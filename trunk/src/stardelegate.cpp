@@ -48,8 +48,12 @@
      if (qVariantCanConvert<StarRating>(index.data())) {
          StarRating starRating = qVariantValue<StarRating>(index.data());
 
-         if (option.state & QStyle::State_Selected)
-             painter->fillRect(option.rect, option.palette.highlight());
+		 if (option.state & QStyle::State_Selected) {
+			 if(option.state & QStyle::State_Active)
+				 painter->fillRect(option.rect, option.palette.highlight());
+			 else 
+				 painter->fillRect(option.rect, option.palette.brush(QPalette::Inactive, QPalette::Highlight));
+		 }
 
          starRating.paint(painter, option.rect, option.palette,
                           StarRating::ReadOnly);
