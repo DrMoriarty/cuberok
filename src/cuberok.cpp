@@ -51,6 +51,14 @@ Cuberok::Cuberok(QWidget *parent)
 	trayIcon->show();
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayevent(QSystemTrayIcon::ActivationReason)));
 	connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(setFocus()));
+
+	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString)), this, SLOT(message(QString,QString,QString)), Qt::DirectConnection))
+		Console::Self().error("Can't connect to the listView.message");
+	ui.listView->prepare();
+
+	QMenu * cm = createPopupMenu();
+	cm->setTitle(tr("Addons"));
+	ui.menuView->addMenu(cm);
 	
 	//ui.line->restoreState(set.value("splitter").toByteArray());
 	dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
@@ -128,13 +136,16 @@ void Cuberok::lookAndFeel()
 	lnf.exec();
 }
 
-void Cuberok::message(QString title/*, QString* message*/)
+void Cuberok::message(QString title, QString album, QString artist)
 {
-	if(title.size()) {
+	ui.infoWidget->setArtist(artist);
+	ui.infoWidget->setAlbum(album);
+	if(title.size() || album.size() || artist.size()) {
 		ui.progressBar->setFormat(title + " %p%");
-		trayIcon->showMessage(title, /**message*/QString(""), QSystemTrayIcon::NoIcon, 10);
+		trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
 		setWindowTitle(QString(titlepref).append(title));
-		trayIcon->setToolTip(title);
+		trayIcon->setToolTip(QString("%1 - %2").arg(artist, title));
+
 	} else {
 		ui.progressBar->setFormat("%p%");
 		setWindowTitle("Cuberok");
@@ -147,10 +158,10 @@ void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 	bool vis = !isVisible();
 	if(r == QSystemTrayIcon::Trigger) {
 		setVisible(vis);
-		foreach (QWidget *widget, QApplication::allWidgets()) {
+		/*foreach (QWidget *widget, QApplication::allWidgets()) {
 			QDialog *d = qobject_cast<QDialog*>(widget);
 			if(d) d->setVisible(vis);	
-		}
+			}*/
 	}
 	if(vis) activateWindow();
 }
@@ -176,6 +187,7 @@ void Cuberok::colmodeChanged(int m)
 	ui.actionAddToCollection->setDisabled(m == M_SONG);
 	ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
 	ui.actionSetImage->setDisabled(m == M_SONG);
+	ui.actionGetImageFromLastFM->setDisabled(m != M_ARTIST && m != M_ALBUM);
 	switch(m) {
 	case M_ARTIST:
 		ui.actionArtistMode->setChecked(true);

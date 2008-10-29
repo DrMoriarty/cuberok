@@ -48,7 +48,7 @@
  public:
      enum EditMode { Editable, ReadOnly };
 
-     StarRating(int starCount = 1, int maxStarCount = 5);
+     StarRating(int starCount = 1, int maxStarCount = 5, int measure = 1);
 
      void paint(QPainter *painter, const QRect &rect,
                 const QPalette &palette, EditMode mode) const;
@@ -58,6 +58,9 @@
      void setStarCount(int starCount) { myStarCount = starCount; }
      void setMaxStarCount(int maxStarCount) { myMaxStarCount = maxStarCount; }
 	 int rating() const { return _rating; }
+
+	 static int starMeasure1(int rating);
+	 static int starMeasure2(int rating);
 
  private:
      QPolygonF starPolygon;

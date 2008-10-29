@@ -68,6 +68,9 @@ void Console::log(const QString& s, C_TYPE t)
 	log.text = s;
 	
 	logs << log;
+
+	if(logs.size() > 100)
+		logs.pop_front();
 }
 
 QStringList Console::plainText(C_TYPE t)
@@ -85,7 +88,7 @@ QStringList Console::plainText(C_TYPE t)
 		s += QDateTime::fromTime_t(log.time).toString();
 		s += " ";
 		s += log.text;
-		list << s;
+		list.push_front(s);
 	}
 	return list;
 }
@@ -106,7 +109,7 @@ QString Console::htmlText(C_TYPE t)
 		s += " ";
 		s += log.text;
 		s += "</p>";
-		html += s;
+		html = s + html;
 	}
 	return html;
 }
@@ -123,7 +126,7 @@ void Console::clear()
  *
  **************/
 
-ConsoleView::ConsoleView(QWidget *parent) : QDialog(parent), type(Console::C_NONE)
+ConsoleView::ConsoleView(QWidget *parent) : QDialog(parent), type(Console::C_MES)
 {
 	ui.setupUi(this);
 	QActionGroup *viewGroup = new QActionGroup(this);
@@ -132,12 +135,15 @@ ConsoleView::ConsoleView(QWidget *parent) : QDialog(parent), type(Console::C_NON
     viewGroup->addAction(ui.actionWarnings);
     viewGroup->addAction(ui.actionErrors);
     viewGroup->addAction(ui.actionFatal_Errors);
-    ui.actionAll->setChecked(true);
+    ui.actionMessages->setChecked(true);
 	refresh();
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
 }
 
 ConsoleView::~ConsoleView()
 {
+	delete timer;
 }
 
 void ConsoleView::clear()
@@ -153,7 +159,8 @@ void ConsoleView::refresh()
 
 void ConsoleView::autorefresh(bool b)
 {
-	// TODO
+	if(b) timer->start(2000);
+	else timer->stop();
 }
 
 void ConsoleView::all(bool b)

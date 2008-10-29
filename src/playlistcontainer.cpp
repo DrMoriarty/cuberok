@@ -51,7 +51,28 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	tabs->setCornerWidget(newButton, Qt::TopLeftCorner);
 	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
 	setContextMenuPolicy(Qt::ActionsContextMenu);
+}
 
+PlaylistContainer::~PlaylistContainer()
+{
+	QSettings set;
+	if(actlist && actlist->isPlaying()) {
+		set.setValue("playing", 1);
+		set.setValue("curlist", actlist->getName());
+		set.setValue("curindex", actlist->curIndex());
+		set.setValue("curpos", actlist->curPosition());
+	} else set.setValue("playing", 0);
+	while(lists.count() > 0) {
+		lists.last()->setAutosave(true);
+		delete lists.last();
+		lists.pop_back();
+	}
+	delete tabs;
+	delete vboxLayout;
+}
+
+void PlaylistContainer::prepare()
+{
 	QDir dir(QDir::homePath() + "/.cuberok/");
 	QStringList filters;
 	filters << "*.m3u";
@@ -76,24 +97,6 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 			break;
 		}
 	}
-}
-
-PlaylistContainer::~PlaylistContainer()
-{
-	QSettings set;
-	if(actlist && actlist->isPlaying()) {
-		set.setValue("playing", 1);
-		set.setValue("curlist", actlist->getName());
-		set.setValue("curindex", actlist->curIndex());
-		set.setValue("curpos", actlist->curPosition());
-	} else set.setValue("playing", 0);
-	while(lists.count() > 0) {
-		lists.last()->setAutosave(true);
-		delete lists.last();
-		lists.pop_back();
-	}
-	delete tabs;
-	delete vboxLayout;
 }
 
 void PlaylistContainer::listStarted(PlaylistView* pl)
@@ -143,7 +146,7 @@ void PlaylistContainer::newList(QString listname)
 	curlist->setSortingEnabled(true);
 	curlist->setToolTip(tr("Drag'n'Drop files to the playlist"));
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
-	connect(pl, SIGNAL(message(QString)), this, SIGNAL(message(QString)));
+	connect(pl, SIGNAL(message(QString, QString, QString)), this, SIGNAL(message(QString, QString, QString)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
 	closeButton->setDisabled(false);

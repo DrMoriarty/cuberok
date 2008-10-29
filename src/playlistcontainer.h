@@ -29,6 +29,7 @@ class PlaylistContainer : public QWidget
 public:
 	PlaylistContainer(QWidget *parent = 0);
     ~PlaylistContainer();
+	void prepare();
 	void newList(QString listname = "");
     
 private:
@@ -78,7 +79,7 @@ public slots:
 	void openUrl();
 signals:
 	void status(QString);
-	void message(QString);
+	void message(QString, QString, QString);
 	void internalnext();
 	void songPosition(int);
 };

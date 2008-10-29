@@ -20,6 +20,7 @@
         <file alias="stars4.png" >../images/rating4.png</file>
         <file alias="stars5.png" >../images/rating5.png</file>
         <file alias="star.png" >../images/star2s.png</file>
+        <file alias="download_art.png" >../images/emblem-download-art.png</file>
         <file alias="col_art.png" >../images/emblem-art.png</file>
         <file alias="col_add.png" >../images/emblem-new.png</file>
         <file alias="col_rem.png" >../images/emblem-trash.png</file>
@@ -32,5 +33,6 @@
         <file alias="open.png" >../images/stock_open.png</file>
         <file alias="save.png" >../images/stock_save.png</file>
         <file alias="looknfeel.png" >../images/gnome-settings-theme.png</file>
+        <file alias="internet.png" >../images/gnome-globe.png</file>
     </qresource>
 </RCC>

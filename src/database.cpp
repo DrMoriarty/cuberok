@@ -274,22 +274,26 @@ void Database::RenameAttribute(const QString attr, QString oldval, QString newva
 {
 	if(!open) return;
 	QSqlQuery q("", db);
-	q.prepare("select ID from "+attr+" where value = :newval");
+	q.prepare("select ID, art from "+attr+" where value = :newval");
 	q.bindValue(":newval", newval);
 	q.exec();
 	if(q.next()) {
 		bool ok;
 		int newID = q.value(0).toInt(&ok);
+		QString newArt = q.value(1).toString();
 		if(ok) {
 			int oldID = AddAttribute(attr, oldval);
 			q.prepare("update Song set "+attr+" = "+QString::number(newID)+" where "+attr+" = "+QString::number(oldID));
 			q.exec();
-			q.prepare("select refs, rating from "+attr+" where ID = "+QString::number(oldID));
+			q.prepare("select refs, rating, art from "+attr+" where ID = "+QString::number(oldID));
 			q.exec();
 			if(q.next()) {
 				int oldref = q.value(0).toString().toInt();
 				int oldrat = q.value(1).toString().toInt();
+				QString oldArt = q.value(2).toString();
 				RefAttribute(attr, newID, oldref, oldrat);
+				if(!newArt.size() && oldArt.size())
+					ArtForAttribute(attr, newval, oldArt);
 			}
 			RemoveAttribute(attr, oldval);
 		}
@@ -575,6 +579,31 @@ void Database::clearSubset()
 	ssArtist = "";
 	ssGenre = "";
 // 	ssMark = "";
+}
+
+void Database::pushSubset()
+{
+	QList<QString> it;
+	it << ssGenre;
+	it << ssArtist;
+	it << ssAlbum;
+	sstack.push_front(it);
+	ssGenre = "";
+	ssArtist = "";
+	ssAlbum = "";
+	subset = false;
+}
+
+void Database::popSubset()
+{
+	if(!sstack.size()) return;
+	QList<QString> it;
+	it = *sstack.begin();
+	ssGenre = it[0];
+	ssArtist = it[1];
+	ssAlbum = it[2];
+	subset = ssGenre.size() || ssArtist.size() || ssAlbum.size();
+	sstack.pop_front();
 }
 
 void Database::subsetAlbum(QString v)

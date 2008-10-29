@@ -43,10 +43,26 @@
 
  const int PaintingScaleFactor = 14;
 
- StarRating::StarRating(int starCount, int maxStarCount)
+int StarRating::starMeasure1(int rating)
+{
+	return rating/10;
+}
+
+int StarRating::starMeasure2(int rating)
+{
+	return (rating+9) / 10;
+}
+
+StarRating::StarRating(int starCount, int maxStarCount, int measure)
  {
 	 _rating = starCount;
-     myStarCount = _rating/10;
+	 switch(measure) {
+	 case 2:
+		 myStarCount = starMeasure2(_rating);
+		 break;
+	 default:
+		 myStarCount = starMeasure1(_rating);
+	 }
      myMaxStarCount = maxStarCount;
 
      starPolygon << QPointF(1.0, 0.5);
@@ -77,7 +93,7 @@
          painter->setBrush(palette.highlight());
      } else {
          painter->setBrush(palette.foreground());
-     }
+	 }
 
      int yOffset = (rect.height() - PaintingScaleFactor) / 2;
 	 float step = (float)(rect.width() - PaintingScaleFactor) / (myMaxStarCount-1);
@@ -90,7 +106,7 @@
              //painter->drawPolygon(starPolygon, Qt::WindingFill);
 			 icon.paint(painter, r);
          } else if (mode == Editable) {
-             painter->drawPolygon(diamondPolygon, Qt::WindingFill);
+             //painter->drawPolygon(diamondPolygon, Qt::WindingFill);
          }
          painter->translate(0.7*PaintingScaleFactor, 0.0);
      }

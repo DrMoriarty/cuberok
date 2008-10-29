@@ -42,10 +42,10 @@
  #include "starrating.h"
 
  StarEditor::StarEditor(QWidget *parent)
-     : QWidget(parent)
+     : QWidget(parent), noedit(false)
  {
      setMouseTracking(true);
-     setAutoFillBackground(true);
+     //setAutoFillBackground(true);
  }
 
  QSize StarEditor::sizeHint() const
@@ -62,6 +62,7 @@
 
  void StarEditor::mouseMoveEvent(QMouseEvent *event)
  {
+	 if(noedit) return;
      int star = starAtPosition(event->x());
 
      if (star != myStarRating.starCount() && star != -1) {
@@ -72,6 +73,7 @@
 
  void StarEditor::mouseReleaseEvent(QMouseEvent * /* event */)
  {
+	 if(noedit) return;
      emit editingFinished();
  }
 

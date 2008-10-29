@@ -48,6 +48,7 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	setEditTriggers(QAbstractItemView::NoEditTriggers); 
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	//setSortingEnabled(true);
+	setAlternatingRowColors(true);
 	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	sortByColumn(PlaylistModel::Artist, Qt::AscendingOrder);
@@ -274,15 +275,13 @@ void PlaylistView::play()
 	emit started(this);
 	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-	QString m = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString() + " - " + model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-	emit message(info/*, &m*/);
+	QString ar = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+	QString alb = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+	emit message(info, alb, ar);
 	if(PLSet.lastfmScrobbler) {
-		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
-		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
 		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
-		if(a.size())
-			LastFM::Self().nowplaying(a, t, b, 0, n);
+		if(ar.size())
+			LastFM::Self().nowplaying(ar, info, alb, 0, n);
 	}
 }
 
@@ -291,7 +290,7 @@ void PlaylistView::stop()
 	plindex = model.index(-1, 0);
     PlayerManager::Self().stop();
     playing = false;
-	emit message("");
+	emit message("", "", "");
 	emit songPosition(0);
 }
 

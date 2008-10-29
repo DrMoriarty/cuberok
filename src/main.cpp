@@ -83,6 +83,10 @@ int main(int argc, char *argv[])
 {
 	srand(0);
     QApplication a(argc, argv);
+	QPixmap pixmap(":/icons/application.png");
+	QSplashScreen splash(pixmap);
+	splash.show();
+	splash.showMessage(QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI)), Qt::AlignBottom/*Qt::AlignCenter*/, Qt::black);
     QString locale = QLocale::system().name();
     QTranslator translator;
 	QString loc_path;
@@ -96,11 +100,13 @@ int main(int argc, char *argv[])
 	//QCoreApplication::setOrganizationDomain("");
 	QCoreApplication::setApplicationName("Cuberok");	
 	//QDir::home().mkdir(".cuberock");
+	a.processEvents();
     Cuberok w;
 #ifndef DEBUG
     restoreState(&w);
 #endif
     w.show();
+	splash.finish(&w);
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
     //Database::Self();
     int res = a.exec();
