@@ -23,7 +23,7 @@
 #include "tagger.h"
 #include "console.h"
 
-#define DB_VERSION 2
+#define DB_VERSION 3
 
 Database::Database() : subset(false)
 {
@@ -57,7 +57,7 @@ Database::Database() : subset(false)
 			open = false;
 		} else {
 			QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
-			QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
+			QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer)", db);
 			QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
 			//QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
 			QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer)", db);
@@ -87,14 +87,48 @@ bool Database::updateDatabase(int fromver)
 		QSqlQuery q6("alter table Song drop column Mark", db);
 		QSqlQuery q2("drop table Mark", db);
 		qDebug("Update database from version 0");
-		Console::Self().message("Database update from version "+QString::number(fromver));
 	}
 	case 1: {
 		QSqlQuery q0("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
 		qDebug("Update database from version 1");
-		Console::Self().message("Database update from version "+QString::number(fromver));
+	}
+	case 2: {
+		QSqlQuery q0("alter table Album add column artist integer", db);
+		qDebug("Update database from version 2");
+		QSqlQuery q1("select distinct Artist, Album from Song", db);
+		while(q1.next()) {
+			int ar = q1.value(0).toString().toInt();
+			QSqlQuery q2("select artist from Album where ID = "+q1.value(1).toString(), db);
+			if(q2.next()) {
+				int ar2 = q2.value(0).toString().toInt();
+				if(!ar2) { // update
+					QSqlQuery q3("update Album set artist = "+q1.value(0).toString()+" where ID = "+q1.value(1).toString(), db);
+				} else if(ar2 != ar) { // copy
+					QSqlQuery q4("select value, art, refs, rating from Album where ID = "+q1.value(1).toString()+" and artist = "+q2.value(0).toString(), db);
+					if(q4.next()) {
+						int old_ref = q4.value(2).toString().toInt();
+						int old_rat = q4.value(3).toString().toInt();
+						QSqlQuery q5("insert into Album (value,art,artist) values ('"+q4.value(0).toString()+"','"+q4.value(1).toString()+"',"+q1.value(0).toString(), db);
+						QSqlQuery q6("select ID from Album where value = '"+q4.value(0).toString()+"' and art = '"+q4.value(1).toString()+"' and artist = "+q1.value(0).toString(), db);
+						if(q6.next()) {
+							int id = q6.value(0).toString().toInt();
+							int ref=0, rat=0;
+							QSqlQuery q7("select ID, Rating from Song where Artist = "+q1.value(0).toString()+" and Album = "+q1.value(1).toString(), db);
+							while(q7.next()) {
+								ref ++;
+								rat += q7.value(1).toString().toInt();
+								QSqlQuery q8("update Song set Album = "+QString::number(id)+" where ID = "+q7.value(0).toString(), db);
+							}
+							QSqlQuery q8("update Album set refs = "+QString::number(ref)+", rating = "+QString::number(rat)+" where ID = "+QString::number(id), db);
+							QSqlQuery q9("update Album set refs = "+QString::number(old_ref-ref)+", rating = "+QString::number(old_rat-rat)+" where ID = "+q1.value(1).toString(), db);
+						}
+					}
+				}
+			}
+		}
 	}
 	}
+	Console::Self().message("Database update from version "+QString::number(fromver));
 	QSqlQuery q1("delete from Version");
 	QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
 	return true;
@@ -181,9 +215,28 @@ int Database::AddArtist(QString artist)
 	return AddAttribute(nArtist, artist);
 }
 
-int Database::AddAlbum(QString album)
+int Database::AddAlbum(QString album, int artist)
 {
-	return AddAttribute(nAlbum, album);
+	if(!artist)
+		return AddAttribute(nAlbum, album);
+	else {
+		if(!open) return 0;
+		QSqlQuery q("", db);
+		q.prepare("select ID from Album where value = :val and artist = "+QString::number(artist));
+		q.bindValue(":val", album);
+		q.exec();
+		if(!q.next()) {
+			q.prepare("insert into Album (value,artist) values (:val,"+QString::number(artist)+")");
+			q.bindValue(":val", album);
+			q.exec();
+			if(q.numRowsAffected() < 1) return -1;
+			q.prepare("select ID from Album where value = :val and artist = "+QString::number(artist));
+			q.bindValue(":val", album);
+			q.exec();
+			q.next();
+		}
+		return q.value(0).toString().toInt();
+	}
 }
 
 int Database::AddGenre(QString genre)
@@ -255,9 +308,23 @@ void Database::RemoveArtist(QString artist)
 	RemoveAttribute(nArtist, artist);
 }
 
-void Database::RemoveAlbum(QString album)
+void Database::RemoveAlbum(QString album, int artist)
 {
-	RemoveAttribute(nAlbum, album);
+	if(!artist)
+		RemoveAttribute(nAlbum, album);
+	else {
+		if(!open) return;
+		int id = AddAlbum(album, artist);
+		if(id > 0) {
+			QSqlQuery q("", db);
+			q.prepare("select File from Song where "+attr+" = "+QString::number(id));
+			q.exec();
+			while(q.next()) {
+				RemoveFile(q.value(0).toString());
+			}
+			QSqlQuery q1("delete from Album where ID = "+QString::number(id), db);
+		}
+	}
 }
 
 void Database::RemoveGenre(QString genre)
@@ -310,9 +377,43 @@ void Database::RenameArtist(QString oldval, QString newval)
 	RenameAttribute(nArtist, oldval, newval);
 }
 
-void Database::RenameAlbum(QString oldval, QString newval)
+void Database::RenameAlbum(QString oldval, QString newval, int artist)
 {
-	RenameAttribute(nAlbum, oldval, newval);
+	if(!artist)
+		RenameAttribute(nAlbum, oldval, newval);
+	else {
+		if(!open) return;
+		QSqlQuery q("", db);
+		q.prepare("select ID, art from Album where value = :newval and artist = "+QString::number(artist));
+		q.bindValue(":newval", newval);
+		q.exec();
+		if(q.next()) {
+			bool ok;
+			int newID = q.value(0).toInt(&ok);
+			QString newArt = q.value(1).toString();
+			if(ok) {
+				int oldID = AddAlbum(oldval, artist);
+				q.prepare("update Song set Album = "+QString::number(newID)+" where Album = "+QString::number(oldID));
+				q.exec();
+				q.prepare("select refs, rating, art from Album where ID = "+QString::number(oldID));
+				q.exec();
+				if(q.next()) {
+					int oldref = q.value(0).toString().toInt();
+					int oldrat = q.value(1).toString().toInt();
+					QString oldArt = q.value(2).toString();
+					RefAttribute(attr, newID, oldref, oldrat);
+					if(!newArt.size() && oldArt.size())
+						ArtForAlbum(attr, newval, oldArt, artist);
+				}
+				RemoveAlbum(oldval, artist);
+			}
+		} else {
+			q.prepare("update Album set value = :newval where value = :oldval and artist = "+QString::number(artist));
+			q.bindValue(":oldval", oldval);
+			q.bindValue(":newval", newval);
+			q.exec();
+		}
+	}
 }
 
 void Database::RenameGenre(QString oldval, QString newval)
@@ -390,9 +491,18 @@ void Database::ArtForArtist(QString val, QString art)
 	return ArtForAttribute(nArtist, val, art);
 }
 
-void Database::ArtForAlbum(QString val, QString art)
+void Database::ArtForAlbum(QString val, QString art, int artist)
 {
-	return ArtForAttribute(nAlbum, val, art);
+	if(!artist)
+		return ArtForAttribute(nAlbum, val, art);
+	else {
+		if(!open) return;
+		QSqlQuery q("", db);
+		q.prepare("update Album set art = :art where value = :val and artist = "+QString::number(artist));
+		q.bindValue(":art", art);
+		q.bindValue(":val", val);
+		q.exec();
+	}
 }
 
 void Database::ArtForGenre(QString val, QString art)
@@ -701,6 +811,6 @@ QList<struct Database::Attr> Database::Playlists(QString *patt)
 
 void Database::ArtForPlaylist(QString val, QString art)
 {
-	return ArtForAttribute(nArtist, val, art);
+	return ArtForAttribute(nPlaylist, val, art);
 }
 
