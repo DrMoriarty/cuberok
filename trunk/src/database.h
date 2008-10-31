@@ -42,7 +42,7 @@ public:
 	virtual ~Database();
 	int AddFile(QString file);
 	int AddArtist(QString artist);
-	int AddAlbum(QString album);
+	int AddAlbum(QString album, int artist);
 	int AddGenre(QString genre);
 	int AddPlaylist(QString list);
 	//int AddMark(QString mark);
@@ -50,12 +50,12 @@ public:
 	void Decrement(int ar, int al, int ge);
 	void RemoveFile(QString file);
 	void RemoveArtist(QString artist);
-	void RemoveAlbum(QString album);
+	void RemoveAlbum(QString album, int artist);
 	void RemoveGenre(QString genre);
 	void RemovePlaylist(QString list);
 	//void RemoveMark(QString mark);
 	void RenameArtist(QString oldval, QString newval);
-	void RenameAlbum(QString oldval, QString newval);
+	void RenameAlbum(QString oldval, QString newval, int artist);
 	void RenameGenre(QString oldval, QString newval);
 	void RenamePlaylist(QString oldval, QString newval);
 	//void RenameMark(QString oldval, QString newval);
@@ -65,7 +65,7 @@ public:
 	QList<struct Attr> Playlists(QString *patt = 0);
 	//QList<struct Attr> Marks(QString *patt = 0);
 	void ArtForArtist(QString val, QString art);
-	void ArtForAlbum(QString val, QString art);
+	void ArtForAlbum(QString val, QString art, int artist);
 	void ArtForGenre(QString val, QString art);
 	void ArtForPlaylist(QString val, QString art);
 	QList<QString> Songs(QString *ar = 0, QString *al = 0, QString *ge = 0, QString *so = 0);
