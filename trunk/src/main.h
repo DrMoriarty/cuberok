@@ -30,6 +30,8 @@
 #define QS(s) QString::fromUtf8(s.toCString(true))
 #define TS(s) TagLib::String(s.toUtf8().constData(), TagLib::String::UTF8)
 
+#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
+
 #include <QtCore>
 
 static QString CUBEROK_VERSION = QString("%1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));

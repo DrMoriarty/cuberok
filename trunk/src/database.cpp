@@ -162,7 +162,7 @@ int Database::AddFile(QString file)
 	if(Tagger::readTags(file, title, artist, album, comment, genre, track, year, length)) {
 	//	TagLib::FileRef fr(file.toLocal8Bit().constData());
 		int art = AddArtist(artist);
-		int alb = AddAlbum(album);
+		int alb = AddAlbum(album, art);
 		int gen = AddGenre(genre);
 		//QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment) values ('%1', %2, '%3', %4, %5, %6, %7, '%8')")
 		//.arg(file, QString::number(fr.tag()->track()), QS(fr.tag()->title()), QString::number(art), QString::number(alb), QString::number(gen), QString::number(fr.tag()->year()), QS(fr.tag()->comment()));
@@ -317,7 +317,7 @@ void Database::RemoveAlbum(QString album, int artist)
 		int id = AddAlbum(album, artist);
 		if(id > 0) {
 			QSqlQuery q("", db);
-			q.prepare("select File from Song where "+attr+" = "+QString::number(id));
+			q.prepare("select File from Song where Album = "+QString::number(id));
 			q.exec();
 			while(q.next()) {
 				RemoveFile(q.value(0).toString());
@@ -401,9 +401,9 @@ void Database::RenameAlbum(QString oldval, QString newval, int artist)
 					int oldref = q.value(0).toString().toInt();
 					int oldrat = q.value(1).toString().toInt();
 					QString oldArt = q.value(2).toString();
-					RefAttribute(attr, newID, oldref, oldrat);
+					RefAttribute(nAlbum, newID, oldref, oldrat);
 					if(!newArt.size() && oldArt.size())
-						ArtForAlbum(attr, newval, oldArt, artist);
+						ArtForAlbum(newval, oldArt, artist);
 				}
 				RemoveAlbum(oldval, artist);
 			}
@@ -433,7 +433,8 @@ QList<struct Database::Attr> Database::Attributes(const QString attr, QString *p
 	QList<struct Database::Attr> res;
 	QSqlQuery q("", db);
 	if(subset) {
-		QString com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art from Song left join "+attr+" as A on Song."+attr+"=A.ID where "+ssFilter;
+		QString com;
+		com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art from Song left join "+attr+" as A on Song."+attr+"=A.ID where "+ssFilter;
 		if(patt)  com += " and A.value like :pattern ";
 		com += " order by WR DESC, A.value ASC";
 		q.prepare(com);
@@ -461,9 +462,36 @@ QList<struct Database::Attr> Database::Artists(QString *patt)
 	return Attributes(nArtist, patt);
 }
 
-QList<struct Database::Attr> Database::Albums(QString *patt)
+QList<struct Database::AttrAl> Database::Albums(QString *patt)
 {
-	return Attributes(nAlbum, patt);
+	if(!open) return QList<struct Database::AttrAl>();
+	QMutexLocker locker(&lock);
+	QList<struct Database::AttrAl> res;
+	QSqlQuery q("", db);
+	if(subset) {
+		QString com;
+		com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist from Song left join Album as A on Song.Album=A.ID where "+ssFilter;
+		if(patt)  com += " and A.value like :pattern ";
+		com += " order by WR DESC, A.value ASC";
+		q.prepare(com);
+		if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
+	} else {
+		if(patt) {
+			q.prepare("select value, refs, rating/refs as WR, art from Album where value like :pattern order by WR DESC, value ASC");
+			q.bindValue(":pattern", QString("%")+*patt+QString("%"));
+		} else q.prepare("select value, refs, rating/refs as WR, art from Album order by WR DESC, value ASC");
+	}
+	q.exec();
+	while(q.next()) {
+		struct AttrAl attr;
+		attr.name = q.value(0).toString();
+		attr.refs = q.value(1).toString().toInt();
+		attr.rating = q.value(2).toString().toInt();
+		attr.art = q.value(3).toString();
+		attr.artist = q.value(4).toString().toInt();
+		res << attr;
+	}
+	return res;
 }
 
 QList<struct Database::Attr> Database::Genres(QString *patt)
@@ -510,11 +538,12 @@ void Database::ArtForGenre(QString val, QString art)
 	return ArtForAttribute(nGenre, val, art);
 }
 
-QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *so)
+QList<QString> Database::Songs(QString *ar, int al, QString *ge, QString *so)
 {
 	if(!open) return QList<QString>();
 	QMutexLocker locker(&lock);
 	QSqlQuery q("", db);
+	//QString com = "select File from Song left join Album on Song.Album = Album.ID ";
 	QString com = "select File from Song ";
 	if(ar || al || ge || so || subset) {
 		com += " where ";
@@ -528,8 +557,8 @@ QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *s
 		}
 		if(al) {
 			if(andf) com += " and ";
-			if(al->length() > 0) com += " Album = :al ";
-			else com += " Album is null ";
+			/*if(al->length() > 0)*/ com += " Album = :al ";
+			//else com += " Album is null ";
 			andf = true;
 		}
 		if(ge) {
@@ -547,7 +576,7 @@ QList<QString> Database::Songs(QString *ar, QString *al, QString *ge, QString *s
 	com += " order by Artist, Album, Track, Title";
 	q.prepare(com);
 	if(ar && ar->length() > 0) q.bindValue(":ar", AddArtist(*ar));
-	if(al && al->length() > 0) q.bindValue(":al", AddAlbum(*al));
+	if(al/* && al->length() > 0*/) q.bindValue(":al", al);
 	if(ge && ge->length() > 0) q.bindValue(":ge", AddGenre(*ge));
 	if(so && so->length() > 0) q.bindValue(":so", "%"+(*so)+"%");
 	q.exec();
@@ -637,7 +666,7 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
 		_rating  = q.value(3).toInt(&ok);
 		int artistID, albumID, genreID;
 		artistID = AddArtist(artist);
-		albumID = AddAlbum(album);
+		albumID = AddAlbum(album, artistID);
 		genreID = AddGenre(genre);
 		if(_artistID != artistID) {
 			RefAttribute(nArtist, _artistID, -1, -_rating);
@@ -685,7 +714,7 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
 void Database::clearSubset()
 {
 	subset = false;
-	ssAlbum = "";
+	ssAlbum = 0;
 	ssArtist = "";
 	ssGenre = "";
 // 	ssMark = "";
@@ -696,11 +725,11 @@ void Database::pushSubset()
 	QList<QString> it;
 	it << ssGenre;
 	it << ssArtist;
-	it << ssAlbum;
+	it << QString::number(ssAlbum);
 	sstack.push_front(it);
 	ssGenre = "";
 	ssArtist = "";
-	ssAlbum = "";
+	ssAlbum = 0;
 	subset = false;
 }
 
@@ -711,15 +740,15 @@ void Database::popSubset()
 	it = *sstack.begin();
 	ssGenre = it[0];
 	ssArtist = it[1];
-	ssAlbum = it[2];
-	subset = ssGenre.size() || ssArtist.size() || ssAlbum.size();
+	ssAlbum = it[2].toInt();
+	subset = ssGenre.size() || ssArtist.size() || ssAlbum;
 	sstack.pop_front();
 }
 
-void Database::subsetAlbum(QString v)
+void Database::subsetAlbum(int v)
 {
 	ssAlbum = v;
-	if(ssAlbum.length()) subset = true;
+	if(ssAlbum) subset = true;
 	ssFilter = subsetFilter(); 
 }
 
@@ -737,19 +766,12 @@ void Database::subsetGenre(QString v)
 	ssFilter = subsetFilter(); 
 }
 
-// void Database::subsetMark(QString v)
-// {
-// 	ssMark = v;
-// 	if(ssMark.length()) subset = true;
-// 	ssFilter = subsetFilter(); 
-// }
-
 QString Database::subsetFilter()
 {
 	QString filter;
 	if(subset) {
 		bool andf = false;
-		if(ssAlbum.length()) filter += " Album = "+QString::number(AddAlbum(ssAlbum))+" ", andf = true;
+		if(ssAlbum) filter += " Album = "+QString::number(ssAlbum)+" ", andf = true;
 		if(ssArtist.length()) filter += QString(andf?" and ":"")+" Artist = "+QString::number(AddArtist(ssArtist))+" ", andf = true;
 		if(ssGenre.length()) filter += QString(andf?" and ":"")+" Genre = "+QString::number(AddGenre(ssGenre))+" ", andf = true;
 // 		if(ssMark.length()) filter += QString(andf?" and ":"")+" Mark = "+QString::number(AddMark(ssMark))+" ", andf = true;

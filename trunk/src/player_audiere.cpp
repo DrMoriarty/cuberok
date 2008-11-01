@@ -18,6 +18,8 @@
  */
 
 #include "player_audiere.h"
+#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
+
 #define TIME 200
 
 //#include <QtGui>
@@ -62,7 +64,7 @@ void PlayerAudiere::streamStopped(StopEvent* event)
 
 bool PlayerAudiere::open(QUrl fname, long start, long length)
 {
-    file = fname.toLocalFile();
+    file = ToLocalFile(fname);
 	SampleSource* source = OpenSampleSource(file.toLocal8Bit(), FF_AUTODETECT);
     stream = OpenSound(device, source, true);
     if(stream) {

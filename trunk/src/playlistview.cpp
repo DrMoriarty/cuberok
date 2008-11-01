@@ -265,6 +265,7 @@ void PlaylistView::play()
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
 	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
 		Console::Self().error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
+		Console::Self().error(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString().toLocal8Bit());
 		playing = false;
 		return;
 	}
@@ -413,7 +414,7 @@ void PlaylistView::queueNext()
 void PlaylistView::editTag()
 {
 	if(curindex.row() >= 0) {
-		TagEditor *te = new TagEditor(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toLocalFile(), this);
+		TagEditor *te = new TagEditor(ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()), this);
 		te->index = curindex.row();
 		connect(te, SIGNAL(editComplete(int)), this, SLOT(updateTag(int)));
 		//resetTags(curindex);
@@ -429,7 +430,7 @@ void PlaylistView::updateTag(int i)
 
 void PlaylistView::resetTags(QModelIndex& ind)
 {
-	QString path = model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl().toLocalFile();
+	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length;
 	int track, year, rating=0;
 	
@@ -529,7 +530,7 @@ void PlaylistView::setName(QString newname)
 void PlaylistView::rateSong(QModelIndex &ind, int r)
 {
 	if(!PLSet.autoRating || !r) return;
-	QString path = model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl().toLocalFile();
+	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length;
 	int track, year, rating;
 	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {

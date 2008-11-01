@@ -365,7 +365,7 @@ TagEntry Tagger::readTags(QUrl &url)
 // 	tags.track = 0;
 // 	tags.year = 0;
 	tags.url = url;
-	QString file = url.toLocalFile();
+	QString file = ToLocalFile(url);
 	if(file.size()) {
 		QString title, artist, album, comment, genre, length;
 		int track, year, rating;
@@ -514,7 +514,7 @@ QList<TagEntry> Tagger::readEntry(QUrl url)
 {
 	QList<TagEntry> list;
 	if(!url.isValid() || url.isEmpty()) return list;
-	QString file = url.toLocalFile();
+	QString file = ToLocalFile(url);
 	if(!file.size()) { 
 		if(playlistDetected(url)) {
 			// download playlist

@@ -29,7 +29,7 @@ class CollectionFiller : public QThread
 {
 	Q_OBJECT
 public:
-	CollectionFiller(QList<QUrl> _urls, ListMode _mode=M_ARTIST, QString _attrname=QString(""), QObject * parent = 0);
+	CollectionFiller(QList<QUrl> _urls, ListMode _mode=M_ARTIST, QString _attrname=QString(""), int _param=0, QObject * parent = 0);
 	~CollectionFiller();
 	void run();
 private:
@@ -38,6 +38,7 @@ private:
 	QString attrname;
 	int  proceed(QString);
 	bool cancel;
+	int param;
  private slots:
 	void cancelEvent();
 
@@ -108,7 +109,7 @@ public slots:
 	void loadImage();
 private slots:
 	void infoResponse(QString);
-	void dlComplete(QString);
+	void dlComplete(QString file);
 	void dlCancel(QString);
 signals:
 	void status(QString);

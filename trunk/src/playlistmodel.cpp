@@ -325,7 +325,7 @@ void PlaylistFiller::proceedUrl(QUrl url)
 	if(cancel) return;
 	Indicator::Self().update();
 	QDir dir;
-	QString path = url.toLocalFile();
+	QString path = ToLocalFile(url);
 	if(!path.size() || !dir.cd(path)) {
 			QList<TagEntry> tags = Tagger::readEntry(url);
 			foreach(TagEntry tag, tags) {

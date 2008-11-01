@@ -25,6 +25,7 @@
 #include "indicator.h"
 #include "lastfm.h"
 #include "console.h"
+#include "main.h"
 
 /************************
  *
@@ -32,8 +33,8 @@
  *
  ************************/
 
-CollectionFiller::CollectionFiller(QList<QUrl> _urls, ListMode _mode, QString _attrname, QObject * parent) 
-: QThread(parent), urls(_urls), mode(_mode), attrname(_attrname)
+CollectionFiller::CollectionFiller(QList<QUrl> _urls, ListMode _mode, QString _attrname, int _param, QObject * parent) 
+	: QThread(parent), urls(_urls), mode(_mode), attrname(_attrname), param(_param)
 {
 	cancel = false;
 	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
@@ -49,7 +50,7 @@ void CollectionFiller::run()
 	int taskID = Indicator::Self().addTask(tr("Collect music"));
 	foreach(QUrl url, urls) {
 		if(cancel) break;
-		proceed(url.toLocalFile());
+		proceed(ToLocalFile(url));
 	}
 	Indicator::Self().delTask(taskID);
 }
@@ -93,8 +94,8 @@ int CollectionFiller::proceed(QString path)
 				cover = cvr;
 			}
 		}
-		if(cover.size() && _album.size() && _album != " ") {
-			Database::Self().ArtForAlbum(_album, cover);
+		if(cover.size() && _album.size() && _album != " " && _artist.size() && _artist != " ") {
+			Database::Self().ArtForAlbum(_album, cover, Database::Self().AddArtist(_artist));
 			Console::Self().log("set album cover" + cover);
 		} else if(cover.size() && _artist.size() && _artist != " ") {
 			Database::Self().ArtForArtist(_artist, cover);
@@ -112,7 +113,7 @@ int CollectionFiller::proceed(QString path)
 			if(p2.endsWith(".jpg") || p2.endsWith(".png") || p2.endsWith(".gif") || p2.endsWith(".bmp")) {
 				switch(mode) {
 				case M_ALBUM:
-					Database::Self().ArtForAlbum(attrname, path);
+					Database::Self().ArtForAlbum(attrname, path, param);
 					break;
 				case M_ARTIST:
 					Database::Self().ArtForArtist(attrname, path);
@@ -193,9 +194,9 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		Database::Self().RenameArtist(oldvalue, newvalue);
 		break;
 	case M_ALBUM:
-		files = Database::Self().Songs(0, &oldvalue);
+		files = Database::Self().Songs(0, itemFromIndex(index)->data().toInt());
 		foreach(QString file, files) Tagger::updateAlbum(file, newvalue);
-		Database::Self().RenameAlbum(oldvalue, newvalue);
+		Database::Self().RenameAlbum(oldvalue, newvalue, itemFromIndex(index)->data().toInt());
 		break;
 	case M_GENRE:
 		files = Database::Self().Songs(0, 0, &oldvalue);
@@ -258,7 +259,7 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res = Database::Self().Songs(&s, 0, 0, 0);
 		break;
 	case M_ALBUM:
-		res = Database::Self().Songs(0, &s, 0, 0);
+		res = Database::Self().Songs(0, itemFromIndex(i)->data().toInt(), 0, 0);
 		break;
 	case M_GENRE:
 		res = Database::Self().Songs(0, 0, &s, 0);
@@ -281,12 +282,15 @@ bool CollectionModel::dropMimeData ( const QMimeData * data, Qt::DropAction acti
 {
     if (data->hasUrls()) {
     	QString attrname("");
+		int param = 0;
     	if(parent.isValid()) {
 			if(mode == M_LIST)
 				attrname = this->itemFromIndex(parent)->data().toString();
 			else
 				attrname = this->data(parent, Qt::DisplayRole).toString();
 		}
+		if(mode == M_ALBUM) 
+			param = this->itemFromIndex(parent)->data().toInt();
     	QList<QUrl> urls = data->urls();
     	CollectionFiller * cf = new CollectionFiller(urls, mode, attrname);
     	connect(cf, SIGNAL(finished()), this, SLOT(update()));
@@ -325,13 +329,29 @@ void CollectionModel::updateMode(ListMode m)
 		icon.load(":/icons/def_artist.png");
 		stat = tr("Collection - %n artist(s)", "", data.count());
 		break;
-	case M_ALBUM:
-		if(searchPattern.length()) data = Database::Self().Albums(&searchPattern);
-		else data = Database::Self().Albums();
-		//icon = QApplication::style()->standardIcon(QStyle::SP_DriveCDIcon);
+	case M_ALBUM: {
+		QList<struct Database::AttrAl> dataAl;
+		if(searchPattern.length()) dataAl = Database::Self().Albums(&searchPattern);
+		else dataAl = Database::Self().Albums();
 		icon.load(":/icons/def_album.png");
-		stat = tr("Collection - %n album(s)", "", data.count());
-		break;
+		stat = tr("Collection - %n album(s)", "", dataAl.count());
+		QString tt("");
+		QStandardItem *i;
+		foreach(struct Database::AttrAl attr, dataAl) {
+			QPixmap px2;
+			if(!attr.art.size() || !px2.load(attr.art))
+				px2 = icon;
+			drawStars(px2, attr.rating, false);
+			i = new QStandardItem(QIcon(px2), attr.name);
+			tt = attr.name+"\n"+tr("%n song(s)", "", attr.refs);
+			i->setToolTip(tt); 
+			i->setData(attr.artist);
+			appendRow(i);
+		}
+		emit status(stat);
+		emit modeChanged(mode);
+		return;
+	}
 	case M_GENRE:
 		if(searchPattern.length()) data = Database::Self().Genres(&searchPattern);
 		else data = Database::Self().Genres();
@@ -424,10 +444,10 @@ void CollectionModel::drawStars(QPixmap &bg, int rating, bool song)
 		s = h;
 	}
 	s = (float)px.width() / s;
-	x = s * x;
-	y = s * y;
-	w = s * w;
-	h = s * h;
+	x = (int)(s * x);
+	y = (int)(s * y);
+	w = (int)(s * w);
+	h = (int)(s * h);
 	painter.drawPixmap(QRect(x, y, w, h), bg, QRect(0, 0, bg.width(), bg.height()));
 	QPixmap *st = 0;
 	if(song) {
@@ -610,7 +630,7 @@ void CollectionView::addItem()
 {
 	switch(model.mode) {
 	case M_ALBUM:
-		Database::Self().AddAlbum(tr("New Album"));
+		Database::Self().AddAlbum(tr("New Album"), 0);
 		break;
 	case M_ARTIST:
 		Database::Self().AddArtist(tr("New Artist"));
@@ -630,7 +650,7 @@ void CollectionView::removeItem()
     foreach(QModelIndex ind, this->selectedIndexes()) {
 		switch(model.mode) {
 		case M_ALBUM:
-			Database::Self().RemoveAlbum(model.data(ind).toString());
+			Database::Self().RemoveAlbum(model.data(ind).toString(), model.itemFromIndex(ind)->data().toInt());
 			break;
 		case M_ARTIST:
 			Database::Self().RemoveArtist(model.data(ind).toString());
@@ -662,7 +682,7 @@ void CollectionView::applySubset(QModelIndex ind)
 	emit setSubsetLabel(subsetLabel);
 	switch(model.mode) {
 	case M_ALBUM:
-		Database::Self().subsetAlbum(value);
+		Database::Self().subsetAlbum(model.itemFromIndex(ind)->data().toInt());
 		model.updateMode(M_SONG);
 		break;
 	case M_ARTIST:
@@ -695,7 +715,7 @@ void CollectionView::setImage()
 	QList<QString> data;
 	switch(model.mode) {
 	case M_ALBUM:
-		data = Database::Self().Songs(0, &model.data(this->selectedIndexes()[0]).toString(), 0);
+		data = Database::Self().Songs(0, model.itemFromIndex(this->selectedIndexes()[0])->data().toInt(), 0);
 		break;
 	case M_ARTIST:
 		data = Database::Self().Songs(&model.data(this->selectedIndexes()[0]).toString(), 0, 0);
@@ -719,7 +739,7 @@ void CollectionView::setImage()
 		foreach(QModelIndex ind, this->selectedIndexes()) {
 			switch(model.mode) {
 			case M_ALBUM:
-				Database::Self().ArtForAlbum(model.data(ind).toString(), filename);
+				Database::Self().ArtForAlbum(model.data(ind).toString(), filename, model.itemFromIndex(ind)->data().toInt());
 				break;
 			case M_ARTIST:
 				Database::Self().ArtForArtist(model.data(ind).toString(), filename);
@@ -878,7 +898,7 @@ void CollectionView::dlComplete(QString file)
 {
 	QList<QString> data;
 	if(lfmAlbum.size())
-		data = Database::Self().Songs(0, &lfmAlbum, 0);
+		data = Database::Self().Songs(0, Database::Self().AddAlbum(lfmAlbum, Database::Self().AddArtist(lfmArtist)), 0);
 	else
 		data = Database::Self().Songs(&lfmArtist, 0, 0);
 	QString path = "";
@@ -899,7 +919,7 @@ void CollectionView::dlComplete(QString file)
 		if(QFile::copy(file, file2)) {
 			QFile::remove(file);
 			if(lfmAlbum.size()) {  // cover for album
-				Database::Self().ArtForAlbum(lfmAlbum, file2);
+				Database::Self().ArtForAlbum(lfmAlbum, file2, Database::Self().AddArtist(lfmArtist));
 				if(model.mode == M_ALBUM)
 					model.update();
 			} else {  // image for artist
