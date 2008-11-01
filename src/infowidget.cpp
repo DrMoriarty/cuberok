@@ -111,9 +111,10 @@ void InfoWidget::setArtist(QString a)
 		}
 	}
 	while(ar->childCount()) delete ar->child(0);
-	attrs = Database::Self().Albums();
+	QList<struct Database::AttrAl> attral;
+	attral = Database::Self().Albums();
 	int alb_count = 0;
-	foreach(struct Database::Attr attr, attrs) {
+	foreach(struct Database::AttrAl attr, attral) {
 		if(!attr.name.size() || attr.name == " ") continue;
 		alb_count ++;
 		QTreeWidgetItem *it = new QTreeWidgetItem(ar);
@@ -150,10 +151,10 @@ void InfoWidget::setAlbum(QString a)
 	album = a;
 	QString art(":/icons/def_album.png"), text;
 	int rating = 0;
-	QList<struct Database::Attr> attrs;
+	QList<struct Database::AttrAl> attrs;
 	Database::Self().pushSubset();
 	Database::Self().subsetArtist(artist);
-	Database::Self().subsetAlbum(a);
+	Database::Self().subsetAlbum(Database::Self().AddAlbum(a, Database::Self().AddArtist(artist)));
 	attrs = Database::Self().Albums();
 	if(attrs.size()) {
 		if(attrs[0].art.size()) {

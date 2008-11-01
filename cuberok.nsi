@@ -69,6 +69,12 @@ Section "Qt4 library"
   File "win32\QtXml4.dll"
   CreateDirectory $INSTDIR\sqldrivers
   File /oname=sqldrivers\qsqlite4.dll "win32\sqldrivers\qsqlite4.dll"
+  CreateDirectory $INSTDIR\imageformats
+  File /oname=imageformats\qgif4.dll "win32\imageformats\qgif4.dll"
+  File /oname=imageformats\qjpeg4.dll "win32\imageformats\qjpeg4.dll"
+  File /oname=imageformats\qmng4.dll "win32\imageformats\qmng4.dll"
+  File /oname=imageformats\qsvg4.dll "win32\imageformats\qsvg4.dll"
+  File /oname=imageformats\qtiff4.dll "win32\imageformats\qtiff4.dll"
 SectionEnd
 
 Section "Audiere plugin"
@@ -100,6 +106,7 @@ Section "Uninstall"
   Delete "$INSTDIR\*.*"
   Delete "$INSTDIR\plugins\*.*"
   Delete "$INSTDIR\sqldrivers\*.*"
+  Delete "$INSTDIR\imageformats\*.*"
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\Cuberok\*.*"
@@ -108,6 +115,7 @@ Section "Uninstall"
   RMDir "$SMPROGRAMS\Cuberok"
   RMDir "$INSTDIR\plugins"
   RMDir "$INSTDIR\sqldrivers"
+  RMDir "$INSTDIR\imageformats"
   RMDir "$INSTDIR"
 SectionEnd
 
