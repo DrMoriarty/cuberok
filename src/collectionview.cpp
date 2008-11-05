@@ -194,7 +194,7 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		Database::Self().RenameArtist(oldvalue, newvalue);
 		break;
 	case M_ALBUM:
-		files = Database::Self().Songs(0, itemFromIndex(index)->data().toInt());
+		files = Database::Self().Songs(0, Database::Self().AddAlbum(oldvalue, itemFromIndex(index)->data().toInt()));
 		foreach(QString file, files) Tagger::updateAlbum(file, newvalue);
 		Database::Self().RenameAlbum(oldvalue, newvalue, itemFromIndex(index)->data().toInt());
 		break;
@@ -259,7 +259,7 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res = Database::Self().Songs(&s, 0, 0, 0);
 		break;
 	case M_ALBUM:
-		res = Database::Self().Songs(0, itemFromIndex(i)->data().toInt(), 0, 0);
+		res = Database::Self().Songs(0, Database::Self().AddAlbum(s, itemFromIndex(i)->data().toInt()), 0, 0);
 		break;
 	case M_GENRE:
 		res = Database::Self().Songs(0, 0, &s, 0);
@@ -288,9 +288,9 @@ bool CollectionModel::dropMimeData ( const QMimeData * data, Qt::DropAction acti
 				attrname = this->itemFromIndex(parent)->data().toString();
 			else
 				attrname = this->data(parent, Qt::DisplayRole).toString();
+			if(mode == M_ALBUM) 
+				param = this->itemFromIndex(parent)->data().toInt();
 		}
-		if(mode == M_ALBUM) 
-			param = this->itemFromIndex(parent)->data().toInt();
     	QList<QUrl> urls = data->urls();
     	CollectionFiller * cf = new CollectionFiller(urls, mode, attrname);
     	connect(cf, SIGNAL(finished()), this, SLOT(update()));
@@ -682,7 +682,7 @@ void CollectionView::applySubset(QModelIndex ind)
 	emit setSubsetLabel(subsetLabel);
 	switch(model.mode) {
 	case M_ALBUM:
-		Database::Self().subsetAlbum(model.itemFromIndex(ind)->data().toInt());
+		Database::Self().subsetAlbum(Database::Self().AddAlbum(value, model.itemFromIndex(ind)->data().toInt()));
 		model.updateMode(M_SONG);
 		break;
 	case M_ARTIST:
@@ -712,16 +712,17 @@ void CollectionView::clearSubset()
 void CollectionView::setImage()
 {
 	if(model.mode == M_SONG || !this->selectedIndexes().size()) return;
+	QString val = model.data(this->selectedIndexes()[0]).toString();
 	QList<QString> data;
 	switch(model.mode) {
 	case M_ALBUM:
-		data = Database::Self().Songs(0, model.itemFromIndex(this->selectedIndexes()[0])->data().toInt(), 0);
+		data = Database::Self().Songs(0, Database::Self().AddAlbum(val, model.itemFromIndex(this->selectedIndexes()[0])->data().toInt()), 0);
 		break;
 	case M_ARTIST:
-		data = Database::Self().Songs(&model.data(this->selectedIndexes()[0]).toString(), 0, 0);
+		data = Database::Self().Songs(&val, 0, 0);
 		break;
 	case M_GENRE:
-		data = Database::Self().Songs(0, 0, &model.data(this->selectedIndexes()[0]).toString());
+		data = Database::Self().Songs(0, 0, &val);
 		break;
 	case M_SONG:
 		return;
@@ -794,9 +795,13 @@ void CollectionView::loadImage()
 	foreach(QModelIndex ind, this->selectedIndexes()) {
 		if(list.contains(ind.row())) continue;
 		switch(model.mode) {
-		case M_ALBUM:
-			// TODO
+		case M_ALBUM:{
+			QList<QString> item;
+			item << Database::Self().GetArtist(model.itemFromIndex(ind)->data().toInt());
+			item << model.data(ind).toString();
+			request_stack << item;
 			break;
+		}
 		case M_ARTIST: {
 			QList<QString> item;
 			item << model.data(ind).toString();
@@ -872,6 +877,28 @@ void CollectionView::infoResponse(QString info)
 				} else {
 					el2 = el.firstChildElement("album");
 					if(!el2.isNull()) {  // proceed album info
+						QString name, artist, img1, img2, img3;
+						el = el2;
+						el2 = el.firstChildElement("name");
+						if(!el2.isNull()) name = el2.firstChild().nodeValue();
+						el2 = el.firstChildElement("artist");
+						if(!el2.isNull()) artist = el2.firstChild().nodeValue();
+						list = el.elementsByTagName("image");
+						for(int i=0; i<list.size() && i<3; i++) {
+							QDomElement el3 = list.at(i).toElement();
+							if(el3.attribute("size") == "small") img1 = el3.firstChild().nodeValue();
+							if(el3.attribute("size") == "medium") img2 = el3.firstChild().nodeValue();
+							if(el3.attribute("size") == "large") img3 = el3.firstChild().nodeValue();
+						}
+						if(!img2.size()) img2 = img1;
+						if(!img3.size()) img3 = img2;
+						Console::Self().log("Image URL" + img3);
+						if(downloader.done()) {
+							lfmArtist = artist;
+							lfmAlbum = name;
+							downloader.download(img3);
+						} else { // download queue
+						}
 					} else {
 						// something else
 					}

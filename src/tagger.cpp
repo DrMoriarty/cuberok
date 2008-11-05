@@ -388,7 +388,7 @@ TagEntry Tagger::readTags(QUrl &url)
 		} else {
 			tags.title = QFileInfo(file).baseName();
 		}
-	} else { // cant read tags from remote source
+	} else { // can not read tags from remote source
 		tags.title = url.toString();
 	}
 	return tags;

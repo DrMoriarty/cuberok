@@ -469,17 +469,17 @@ QList<struct Database::AttrAl> Database::Albums(QString *patt)
 	QList<struct Database::AttrAl> res;
 	QSqlQuery q("", db);
 	if(subset) {
-		QString com;
-		com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist from Song left join Album as A on Song.Album=A.ID where "+ssFilter;
+		QString com = ssFilter;
+		com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist from Song left join Album as A on Song.Album=A.ID where "+com.replace("Artist", "Song.Artist");
 		if(patt)  com += " and A.value like :pattern ";
 		com += " order by WR DESC, A.value ASC";
 		q.prepare(com);
 		if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
 	} else {
 		if(patt) {
-			q.prepare("select value, refs, rating/refs as WR, art from Album where value like :pattern order by WR DESC, value ASC");
+			q.prepare("select value, refs, rating/refs as WR, art, artist from Album where value like :pattern order by WR DESC, value ASC");
 			q.bindValue(":pattern", QString("%")+*patt+QString("%"));
-		} else q.prepare("select value, refs, rating/refs as WR, art from Album order by WR DESC, value ASC");
+		} else q.prepare("select value, refs, rating/refs as WR, art, artist from Album order by WR DESC, value ASC");
 	}
 	q.exec();
 	while(q.next()) {

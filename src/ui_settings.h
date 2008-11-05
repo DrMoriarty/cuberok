@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Wed 24. Sep 16:49:56 2008
+** Created: Wed 5. Nov 12:39:14 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -81,7 +81,7 @@ public:
     toolBox->setObjectName(QString::fromUtf8("toolBox"));
     page = new QWidget();
     page->setObjectName(QString::fromUtf8("page"));
-    page->setGeometry(QRect(0, 0, 412, 169));
+    page->setGeometry(QRect(0, 0, 412, 170));
     gridLayout = new QGridLayout(page);
     gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
     gridLayout->setHorizontalSpacing(4);
@@ -139,11 +139,11 @@ public:
     toolBox->addItem(page, QIcon(QString::fromUtf8(":/icons/settings.png")), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
     page_2 = new QWidget();
     page_2->setObjectName(QString::fromUtf8("page_2"));
-    page_2->setGeometry(QRect(0, 0, 412, 169));
+    page_2->setGeometry(QRect(0, 0, 98, 28));
     toolBox->addItem(page_2, QIcon(QString::fromUtf8(":/icons/def_genre.png")), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
     page_3 = new QWidget();
     page_3->setObjectName(QString::fromUtf8("page_3"));
-    page_3->setGeometry(QRect(0, 0, 412, 169));
+    page_3->setGeometry(QRect(0, 0, 115, 138));
     gridLayout1 = new QGridLayout(page_3);
     gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
     gridLayout1->setHorizontalSpacing(4);
@@ -211,7 +211,7 @@ public:
     toolBox->addItem(page_3, QIcon(QString::fromUtf8(":/icons/internet.png")), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
     page_4 = new QWidget();
     page_4->setObjectName(QString::fromUtf8("page_4"));
-    page_4->setGeometry(QRect(0, 0, 412, 169));
+    page_4->setGeometry(QRect(0, 0, 412, 170));
     gridLayout3 = new QGridLayout(page_4);
     gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
     gridLayout3->setHorizontalSpacing(4);
@@ -255,7 +255,7 @@ public:
 
     gridLayout3->addItem(spacerItem2, 3, 0, 1, 1);
 
-    toolBox->addItem(page_4, QIcon(QString::fromUtf8(":/icons/def_list.png")), QApplication::translate("Settings", "Last.FM", 0, QApplication::UnicodeUTF8));
+    toolBox->addItem(page_4, QIcon(QString::fromUtf8(":/icons/lastfm.png")), QApplication::translate("Settings", "Last.FM", 0, QApplication::UnicodeUTF8));
 
     vboxLayout->addWidget(toolBox);
 
