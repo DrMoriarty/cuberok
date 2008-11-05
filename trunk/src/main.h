@@ -30,7 +30,8 @@
 #define QS(s) QString::fromUtf8(s.toCString(true))
 #define TS(s) TagLib::String(s.toUtf8().constData(), TagLib::String::UTF8)
 
-#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
+//#define ToLocalFile(url) (url.scheme().toLower() == "file" ? url.toString().toLocal8Bit().mid(8) : "")
+#define ToLocalFile(url) (url.scheme().toLower() == "file" ? url.toString().mid(8) : "")
 
 #include <QtCore>
 

@@ -22,6 +22,7 @@
 
 #include <QtCore>
 #include <QtGui>
+#include "tagger.h"
 
 //QString correctStr(QString);
 //extern bool corrected;
@@ -70,6 +71,7 @@ public:
 	bool setData(const QModelIndex &index, const QVariant &value, int role);
 	bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
 	bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
+	void appendList(QList<TagEntry> list);
 	//void setCurrent(int c);
 	//int current();
 

@@ -146,7 +146,6 @@ void PlaylistView::loadList(QString fname)
 
 void PlaylistView::addUrl(QUrl url)
 {
-	Console::Self().log("Add URL: "+url.toString());
 // 	if(url.scheme().toLower() == "http") {
 // 		QMimeData data;
 // 		QList<QUrl> list;
@@ -156,23 +155,25 @@ void PlaylistView::addUrl(QUrl url)
 // 		return;
 // 	}
 	QList<TagEntry> list = Tagger::readEntry(url);
-	foreach(TagEntry tag, list) {
-		int row = model.rowCount();
-		model.insertRow(row);
-		model.setData(model.index(row, PlaylistModel::File), tag.url, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Title), tag.title, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Artist), tag.artist, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Comment), tag.comment, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Album), tag.album, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Track), tag.track, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::CueStart), (qlonglong)tag.start, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::CueLength), (qlonglong)tag.length, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::DBIndex), (qlonglong)tag.dbindex, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Genre), tag.genre, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Length), tag.slength, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Year), tag.year, Qt::EditRole);
-		model.setData(model.index(row, PlaylistModel::Rating), qVariantFromValue(StarRating(tag.rating)), Qt::EditRole);
-	}
+	Console::Self().log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
+	model.appendList(list);
+// 	foreach(TagEntry tag, list) {
+// 		int row = model.rowCount();
+// 		model.insertRow(row);
+// 		model.setData(model.index(row, PlaylistModel::File), tag.url, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Title), tag.title, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Artist), tag.artist, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Comment), tag.comment, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Album), tag.album, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Track), tag.track, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::CueStart), (qlonglong)tag.start, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::CueLength), (qlonglong)tag.length, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::DBIndex), (qlonglong)tag.dbindex, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Genre), tag.genre, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Length), tag.slength, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Year), tag.year, Qt::EditRole);
+// 		model.setData(model.index(row, PlaylistModel::Rating), qVariantFromValue(StarRating(tag.rating)), Qt::EditRole);
+// 	}
 }
 
 bool PlaylistView::isPlaying()

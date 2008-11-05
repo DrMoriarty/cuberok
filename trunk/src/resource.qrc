@@ -34,5 +34,6 @@
         <file alias="save.png" >../images/stock_save.png</file>
         <file alias="looknfeel.png" >../images/gnome-settings-theme.png</file>
         <file alias="internet.png" >../images/gnome-globe.png</file>
+        <file alias="lastfm.png" >../images/lastfm.png</file>
     </qresource>
 </RCC>

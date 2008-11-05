@@ -257,6 +257,32 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
 	return true;
 } 
 
+void PlaylistModel::appendList(QList<TagEntry> list)
+{
+    beginInsertRows(QModelIndex(), rowCount(), rowCount()+list.size());
+	foreach(TagEntry tag, list) {
+    	struct sData d;
+    	d.values[PlaylistModel::Empty] = new QVariant();
+    	d.values[PlaylistModel::Stat] = new QVariant();
+    	d.values[PlaylistModel::File] = new QVariant(tag.url);
+    	d.values[PlaylistModel::Title] = new QVariant(tag.title);
+    	d.values[PlaylistModel::Artist] = new QVariant(tag.artist);
+    	d.values[PlaylistModel::Comment] = new QVariant(tag.comment);
+    	d.values[PlaylistModel::Album] = new QVariant(tag.album);
+    	d.values[PlaylistModel::Track] = new QVariant(tag.track);
+    	d.values[PlaylistModel::CueStart] = new QVariant((qlonglong)tag.start);
+    	d.values[PlaylistModel::CueLength] = new QVariant((qlonglong)tag.length);
+    	d.values[PlaylistModel::DBIndex] = new QVariant((qlonglong)tag.dbindex);
+    	d.values[PlaylistModel::Genre] = new QVariant(tag.genre);
+    	d.values[PlaylistModel::Length] = new QVariant(tag.slength);
+    	d.values[PlaylistModel::Year] = new QVariant(tag.year);
+    	d.values[PlaylistModel::Rating] = new QVariant(qVariantFromValue(StarRating(tag.rating)));
+    	d.values[PlaylistModel::StartTime] = new QVariant();
+		_data.append(d); 
+	}
+    endInsertRows();
+}
+
 /*int PlaylistModel::current()
 {
 	return _current;
