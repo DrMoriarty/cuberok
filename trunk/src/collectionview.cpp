@@ -343,7 +343,7 @@ void CollectionModel::updateMode(ListMode m)
 				px2 = icon;
 			drawStars(px2, attr.rating, false);
 			i = new QStandardItem(QIcon(px2), attr.name);
-			tt = attr.name+"\n"+tr("%n song(s)", "", attr.refs);
+			tt = Database::Self().GetArtist(attr.artist) + " - " + attr.name+"\n"+tr("%n song(s)", "", attr.refs);
 			i->setToolTip(tt); 
 			i->setData(attr.artist);
 			appendRow(i);
@@ -827,11 +827,15 @@ void CollectionView::doRequest()
 		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
 			Console::Self().error("Unable connection to xmlInfo");
 		wait_response = true;
+		lfmArtist = item[0];
+		lfmAlbum = "";
 		LastFM::Self().artistInfo(item[0]);
 	} else if(item.size() == 2) {  // album
 		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
 			Console::Self().error("Unable connection to xmlInfo");
 		wait_response = true;
+		lfmArtist = item[0];
+		lfmAlbum = item[1];
 		LastFM::Self().albumInfo(item[0], item[1]);
 	}
 
@@ -869,6 +873,8 @@ void CollectionView::infoResponse(QString info)
 					if(!img3.size()) img3 = img2;
 					Console::Self().log("Image URL" + img3);
 					if(downloader.done()) {
+						if(lfmArtist != name)
+							Database::Self().RenameArtist(lfmArtist, name);
 						lfmArtist = name;
 						lfmAlbum = "";
 						downloader.download(img3);
@@ -894,6 +900,10 @@ void CollectionView::infoResponse(QString info)
 						if(!img3.size()) img3 = img2;
 						Console::Self().log("Image URL" + img3);
 						if(downloader.done()) {
+							if(lfmArtist != artist)
+								Database::Self().RenameArtist(lfmArtist, artist);
+							if(lfmAlbum != name)
+								Database::Self().RenameAlbum(lfmAlbum, name, Database::Self().AddArtist(artist));
 							lfmArtist = artist;
 							lfmAlbum = name;
 							downloader.download(img3);
