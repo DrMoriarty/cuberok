@@ -45,24 +45,24 @@
 
 int StarRating::starMeasure1(int rating)
 {
-	return rating/10;
+    return rating/10;
 }
 
 int StarRating::starMeasure2(int rating)
 {
-	return (rating+9) / 10;
+    return (rating+9) / 10;
 }
 
 StarRating::StarRating(int starCount, int maxStarCount, int measure)
  {
-	 _rating = starCount;
-	 switch(measure) {
-	 case 2:
-		 myStarCount = starMeasure2(_rating);
-		 break;
-	 default:
-		 myStarCount = starMeasure1(_rating);
-	 }
+     _rating = starCount;
+     switch(measure) {
+     case 2:
+         myStarCount = starMeasure2(_rating);
+         break;
+     default:
+         myStarCount = starMeasure1(_rating);
+     }
      myMaxStarCount = maxStarCount;
 
      starPolygon << QPointF(1.0, 0.5);
@@ -88,23 +88,23 @@ StarRating::StarRating(int starCount, int maxStarCount, int measure)
      painter->setRenderHint(QPainter::Antialiasing, true);
      painter->setPen(Qt::NoPen);
 
-	 QIcon icon(":/icons/star.png");
+     QIcon icon(":/icons/star.png");
      if (mode == Editable) {
          painter->setBrush(palette.highlight());
      } else {
          painter->setBrush(palette.foreground());
-	 }
+     }
 
      int yOffset = (rect.height() - PaintingScaleFactor) / 2;
-	 float step = (float)(rect.width() - PaintingScaleFactor) / (myMaxStarCount-1);
+     //float step = (float)(rect.width() - PaintingScaleFactor) / (myMaxStarCount-1);
      painter->translate(rect.x(), rect.y() + yOffset);
      //painter->scale(PaintingScaleFactor, PaintingScaleFactor);
 
-	 QRect r(0,0,PaintingScaleFactor,PaintingScaleFactor);
+     QRect r(0,0,PaintingScaleFactor,PaintingScaleFactor);
      for (int i = 0; i < myMaxStarCount; ++i) {
          if (i < myStarCount) {
              //painter->drawPolygon(starPolygon, Qt::WindingFill);
-			 icon.paint(painter, r);
+             icon.paint(painter, r);
          } else if (mode == Editable) {
              //painter->drawPolygon(diamondPolygon, Qt::WindingFill);
          }
@@ -112,4 +112,4 @@ StarRating::StarRating(int starCount, int maxStarCount, int measure)
      }
 
      painter->restore();
- } 
+ }
