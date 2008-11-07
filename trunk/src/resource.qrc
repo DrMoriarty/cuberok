@@ -35,5 +35,6 @@
         <file alias="looknfeel.png" >../images/gnome-settings-theme.png</file>
         <file alias="internet.png" >../images/gnome-globe.png</file>
         <file alias="lastfm.png" >../images/lastfm.png</file>
+        <file alias="qt.png" >../images/qt.png</file>
     </qresource>
 </RCC>

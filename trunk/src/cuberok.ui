@@ -447,7 +447,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="defaultUp" >
@@ -601,7 +601,7 @@
   </widget>
   <action name="actionAbout" >
    <property name="icon" >
-    <iconset/>
+    <iconset resource="resource.qrc" >:/icons/application.png</iconset>
    </property>
    <property name="text" >
     <string>About</string>
@@ -1047,6 +1047,9 @@
    </property>
   </action>
   <action name="actionAboutQt" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/qt.png</iconset>
+   </property>
    <property name="text" >
     <string>About Qt</string>
    </property>

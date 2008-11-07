@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'console.ui'
 **
-** Created: Fri 7. Nov 12:33:22 2008
+** Created: Fri 7. Nov 17:08:17 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -125,7 +125,7 @@ public:
 
     void retranslateUi(QDialog *ConsoleWindow)
     {
-    ConsoleWindow->setWindowTitle(QApplication::translate("ConsoleWindow", "Console", 0, QApplication::UnicodeUTF8));
+    ConsoleWindow->setWindowTitle(QApplication::translate("ConsoleWindow", "Messages", 0, QApplication::UnicodeUTF8));
     actionAll->setText(QApplication::translate("ConsoleWindow", "All", 0, QApplication::UnicodeUTF8));
     actionMessages->setText(QApplication::translate("ConsoleWindow", "Messages", 0, QApplication::UnicodeUTF8));
     actionWarnings->setText(QApplication::translate("ConsoleWindow", "Warnings", 0, QApplication::UnicodeUTF8));
@@ -136,7 +136,7 @@ public:
     actionAuto_Refresh->setText(QApplication::translate("ConsoleWindow", "Auto Refresh", 0, QApplication::UnicodeUTF8));
     actionClear->setText(QApplication::translate("ConsoleWindow", "Clear", 0, QApplication::UnicodeUTF8));
     menuView->setTitle(QApplication::translate("ConsoleWindow", "View", 0, QApplication::UnicodeUTF8));
-    menuCommand->setTitle(QApplication::translate("ConsoleWindow", "Command", 0, QApplication::UnicodeUTF8));
+    menuCommand->setTitle(QApplication::translate("ConsoleWindow", "Commands", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

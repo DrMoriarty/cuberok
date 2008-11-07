@@ -35,7 +35,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CollectionFiller</name>
     <message>
-        <location filename="../src/collectionview.cpp" line="49"/>
+        <location filename="../src/collectionview.cpp" line="50"/>
         <source>Collect music</source>
         <translation type="unfinished">Коллекционирование музыки</translation>
     </message>
@@ -58,7 +58,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Коллекция</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="333"/>
+        <location filename="../src/collectionview.cpp" line="337"/>
         <source>Collection - %n album(s)</source>
         <translation type="unfinished">
             <numerusform>Коллекция - %n альбом</numerusform>
@@ -67,7 +67,7 @@ p, li { white-space: pre-wrap; }
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="326"/>
+        <location filename="../src/collectionview.cpp" line="330"/>
         <source>Collection - %n artist(s)</source>
         <translation type="unfinished">
             <numerusform>Коллекция - %n исполнитель</numerusform>
@@ -76,7 +76,7 @@ p, li { white-space: pre-wrap; }
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="340"/>
+        <location filename="../src/collectionview.cpp" line="360"/>
         <source>Collection - %n genre(s)</source>
         <translation type="unfinished">
             <numerusform>Коллекция - %n жанр</numerusform>
@@ -85,7 +85,7 @@ p, li { white-space: pre-wrap; }
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="349"/>
+        <location filename="../src/collectionview.cpp" line="369"/>
         <source>Collection - %n song(s)</source>
         <translation type="unfinished">
             <numerusform>Коллекция - %n композиция</numerusform>
@@ -99,7 +99,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">жанров</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="398"/>
+        <location filename="../src/collectionview.cpp" line="418"/>
         <source>%n song(s)</source>
         <translation type="unfinished">
             <numerusform>%n композиция</numerusform>
@@ -113,12 +113,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">%1, альбом %2 </translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="358"/>
+        <location filename="../src/collectionview.cpp" line="378"/>
         <source>%1, album &quot;%2&quot;</source>
         <translation type="unfinished">%1, альбом &quot;%2&quot;</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/collectionview.cpp" line="369"/>
+        <location filename="../src/collectionview.cpp" line="389"/>
         <source>Collection - %n lists(s)</source>
         <translation type="unfinished">
             <numerusform>Коллекция - %n список</numerusform>
@@ -130,27 +130,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CollectionView</name>
     <message>
-        <location filename="../src/collectionview.cpp" line="613"/>
+        <location filename="../src/collectionview.cpp" line="633"/>
         <source>New Album</source>
         <translation type="unfinished">Новый Альбом</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="616"/>
+        <location filename="../src/collectionview.cpp" line="636"/>
         <source>New Artist</source>
         <translation type="unfinished">Новый Исполнитель</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="619"/>
+        <location filename="../src/collectionview.cpp" line="639"/>
         <source>New Genre</source>
         <translation type="unfinished">Новый Жанр</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="717"/>
+        <location filename="../src/collectionview.cpp" line="738"/>
         <source>Open image</source>
         <translation type="unfinished">Открыть изображение</translation>
     </message>
     <message>
-        <location filename="../src/collectionview.cpp" line="717"/>
+        <location filename="../src/collectionview.cpp" line="738"/>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
         <translation type="unfinished">Изображения (*.jpg *.gif *.png *.bmp)</translation>
     </message>
@@ -158,64 +158,59 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ConsoleWindow</name>
     <message>
-        <location filename="../src/console.ui" line="13"/>
-        <source>Console</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/console.ui" line="87"/>
+        <source>Messages</source>
+        <translation type="unfinished">Сообщения</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="38"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Просмотр</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="48"/>
-        <source>Command</source>
-        <translation type="unfinished"></translation>
+        <source>Commands</source>
+        <translation type="unfinished">Команды</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="79"/>
         <source>All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/console.ui" line="87"/>
-        <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Всё</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="95"/>
         <source>Warnings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предупреждения</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="103"/>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ошибки</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="111"/>
         <source>Fatal Errors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Фатальные ошибки</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="116"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выход</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="121"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обновить</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="129"/>
         <source>Auto Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Авто обновление</translation>
     </message>
     <message>
         <location filename="../src/console.ui" line="134"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Очистить</translation>
     </message>
 </context>
 <context>
@@ -223,7 +218,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/cuberok.cpp" line="60"/>
         <source>Addons</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дополнения</translation>
     </message>
 </context>
 <context>
@@ -489,7 +484,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Загрузить список из файла</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1056"/>
+        <location filename="../src/cuberok.ui" line="1059"/>
         <source>Reload tags</source>
         <translation type="unfinished">Перечитать теги</translation>
     </message>
@@ -499,7 +494,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Снять фильтр</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1067"/>
+        <location filename="../src/cuberok.ui" line="1070"/>
         <source>Rating</source>
         <translation type="unfinished">Рейтинг</translation>
     </message>
@@ -509,17 +504,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Перетащите файлы в коллекцию</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1075"/>
+        <location filename="../src/cuberok.ui" line="1078"/>
         <source>Preferences</source>
         <translation type="unfinished">Параметры</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1091"/>
+        <location filename="../src/cuberok.ui" line="1094"/>
         <source>Set Image</source>
         <translation type="unfinished">Установить изображение</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1102"/>
+        <location filename="../src/cuberok.ui" line="1105"/>
         <source>Icon View</source>
         <translation type="unfinished">Значки</translation>
     </message>
@@ -534,9 +529,29 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Перетащите списки проигрывания в библиотеку</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1110"/>
+        <location filename="../src/cuberok.ui" line="1113"/>
         <source>Open Url</source>
         <translation type="unfinished">Открыть URL</translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="389"/>
+        <source>Information</source>
+        <translation type="unfinished">Информация</translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1054"/>
+        <source>About Qt</source>
+        <translation type="unfinished">О Qt</translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1124"/>
+        <source>Load image from Last.FM</source>
+        <translation type="unfinished">Загрузить изображение с Last.FM</translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1129"/>
+        <source>Messages</source>
+        <translation type="unfinished">Сообщения</translation>
     </message>
     <message>
         <location filename="../src/cuberok.ui" line="13"/>
@@ -551,11 +566,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/cuberok.ui" line="217"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="389"/>
-        <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -623,53 +633,38 @@ p, li { white-space: pre-wrap; }
         <source>Alt+V</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="1051"/>
-        <source>About Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="1121"/>
-        <source>Load image from Last.FM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="1126"/>
-        <source>Messages</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Dialog</name>
     <message>
         <location filename="../src/authenticationdialog.ui" line="13"/>
         <source>Http authentication required</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Требуется аутентификация HTTP</translation>
     </message>
     <message>
         <location filename="../src/authenticationdialog.ui" line="19"/>
         <source>You need to supply a Username and a Password to access this site</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Необходимо сообщить имя пользователя и пароль для доступа к сайту</translation>
     </message>
     <message>
         <location filename="../src/authenticationdialog.ui" line="29"/>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Имя пользователя:</translation>
     </message>
     <message>
         <location filename="../src/authenticationdialog.ui" line="39"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пароль:</translation>
     </message>
     <message>
         <location filename="../src/authenticationdialog.ui" line="59"/>
         <source>Site:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сайт:</translation>
     </message>
     <message>
         <location filename="../src/authenticationdialog.ui" line="72"/>
         <source>%1 at %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 на %2</translation>
     </message>
 </context>
 <context>
@@ -682,17 +677,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/downloader.cpp" line="90"/>
         <source>Download file %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Скачать файл %1</translation>
     </message>
     <message>
         <location filename="../src/downloader.cpp" line="155"/>
         <source>Download failed: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закачка прервана: %1.</translation>
     </message>
     <message>
         <location filename="../src/downloader.cpp" line="166"/>
         <source>%1 at %2</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 на %2</translation>
     </message>
 </context>
 <context>
@@ -711,21 +706,21 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InfoWidget</name>
     <message numerus="yes">
-        <location filename="../src/infowidget.cpp" line="163"/>
+        <location filename="../src/infowidget.cpp" line="164"/>
         <source>%n song(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n композиция</numerusform>
+            <numerusform>%n композиции</numerusform>
+            <numerusform>%n композиций</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/infowidget.cpp" line="127"/>
+        <location filename="../src/infowidget.cpp" line="128"/>
         <source>%n album(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n альбом</numerusform>
+            <numerusform>%n альбома</numerusform>
+            <numerusform>%n альбома</numerusform>
         </translation>
     </message>
 </context>
@@ -879,7 +874,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PlaylistFiller</name>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="294"/>
+        <location filename="../src/playlistmodel.cpp" line="320"/>
         <source>Filling playlist</source>
         <translation type="unfinished">Заполнение списка</translation>
     </message>
@@ -945,7 +940,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PlaylistView</name>
     <message numerus="yes">
-        <location filename="../src/playlistview.cpp" line="512"/>
+        <location filename="../src/playlistview.cpp" line="514"/>
         <source>Playlist - %n song(s)</source>
         <translation type="unfinished">
             <numerusform>Список - %n композиция</numerusform>
@@ -959,7 +954,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Ошибка</translation>
     </message>
     <message>
-        <location filename="../src/playlistview.cpp" line="267"/>
+        <location filename="../src/playlistview.cpp" line="268"/>
         <source>Can not open %1</source>
         <translation type="unfinished">Не могу открыть %1</translation>
     </message>
@@ -1014,47 +1009,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/settings.ui" line="112"/>
         <source>Codepage for CUE sheets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кодировка для файлов CUE</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="147"/>
         <source>Internet connection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соединение с Интернет</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="174"/>
         <source>Use proxy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использовать прокси</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="207"/>
         <source>Proxy host</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прокси</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="217"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Порт</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="340"/>
         <source>User name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пользователь</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="347"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пароль</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
         <source>Last.FM</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Last.FM</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="307"/>
         <source>Enable Last.FM scrobbling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить Last.FM scrobbling</translation>
     </message>
 </context>
 <context>
@@ -1155,7 +1150,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/url_open.cpp" line="67"/>
         <source>Downloading... %1/%2 bytes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закачка... %1/%2 байтов.</translation>
     </message>
 </context>
 </TS>

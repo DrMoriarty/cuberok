@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Console</string>
+   <string>Messages</string>
   </property>
   <layout class="QVBoxLayout" >
    <property name="spacing" >
@@ -45,7 +45,7 @@
      </widget>
      <widget class="QMenu" name="menuCommand" >
       <property name="title" >
-       <string>Command</string>
+       <string>Commands</string>
       </property>
       <addaction name="actionRefresh" />
       <addaction name="actionAuto_Refresh" />
@@ -135,8 +135,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
- </customwidgets>
  <resources/>
  <connections>
   <connection>

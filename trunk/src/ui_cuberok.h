@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Fri 7. Nov 12:42:28 2008
+** Created: Fri 7. Nov 17:08:17 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -134,7 +134,7 @@ public:
     CuberokClass->setDockOptions(QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs);
     actionAbout = new QAction(CuberokClass);
     actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
-    actionAbout->setIcon(QIcon());
+    actionAbout->setIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     actionAbout->setShortcutContext(Qt::WindowShortcut);
     actionAbout->setMenuRole(QAction::AboutRole);
     actionBreak = new QAction(CuberokClass);
@@ -264,6 +264,7 @@ public:
     actionLoadPlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/open.png")));
     actionAboutQt = new QAction(CuberokClass);
     actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
+    actionAboutQt->setIcon(QIcon(QString::fromUtf8(":/icons/qt.png")));
     actionReloadTags = new QAction(CuberokClass);
     actionReloadTags->setObjectName(QString::fromUtf8("actionReloadTags"));
     actionViewRating = new QAction(CuberokClass);
@@ -475,7 +476,7 @@ public:
     CuberokClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget4);
     menubar = new QMenuBar(CuberokClass);
     menubar->setObjectName(QString::fromUtf8("menubar"));
-    menubar->setGeometry(QRect(0, 0, 651, 19));
+    menubar->setGeometry(QRect(0, 0, 651, 21));
     menubar->setDefaultUp(false);
     menuFile = new QMenu(menubar);
     menuFile->setObjectName(QString::fromUtf8("menuFile"));
