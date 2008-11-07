@@ -22,71 +22,71 @@
 
 #include <QtCore>
 
-static bool _autoCorrect = false;
-static bool _saveCorrected = false;
+volatile static bool _autoCorrect = false;
+volatile static bool _saveCorrected = false;
 
 typedef struct _CueEntry {
-	QUrl url;
-	long start;
-	long length;
-	QString artist;
-	QString album;
-	QString title;
-	int track;
-	QString slength;
-	_CueEntry() {
-		start = length = 0L;
-		track = 0;
-	}
+    QUrl url;
+    long start;
+    long length;
+    QString artist;
+    QString album;
+    QString title;
+    int track;
+    QString slength;
+    _CueEntry() {
+        start = length = 0L;
+        track = 0;
+    }
 } CueEntry;
 
 typedef struct _TagEntry: _CueEntry {
-	QString comment;
-	QString genre;
-	int year;
-	long dbindex;
-	int rating;
-	_TagEntry() {
-		year = rating = 0;
-		dbindex = 0L;
-	}
+    QString comment;
+    QString genre;
+    int year;
+    long dbindex;
+    int rating;
+    _TagEntry() {
+        year = rating = 0;
+        dbindex = 0L;
+    }
 } TagEntry;
 
 class Tagger
 {
 public:
-	virtual ~Tagger() {}
-	
-	//static Tagger& self();
-	static bool readTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length);
-	static bool writeTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year);
-	static bool updateArtist(QString file, QString artist);
-	static bool updateAlbum(QString file, QString album);
-	static bool updateGenre(QString file, QString genre);
-	static QString correct8bit(QString str, bool *corrected = 0);
-	static QString correctBrokenUnicode(QString str, bool *corrected = 0);
+    virtual ~Tagger() {}
 
-	static TagEntry readTags(QUrl &url);
-	static QList<CueEntry> readCue(QString file);
-	static QList<TagEntry> readM3U(QString file);
-	static QList<TagEntry> readXSPF(QString file);
-	static QList<TagEntry> readASX(QString file);
-	static QList<TagEntry> readEntry(QUrl url);
-	
-	static bool autoCorrect();
-	static void setAutoCorrect(bool);
-	static bool saveCorrected();
-	static void setSaveCorrected(bool);
+    //static Tagger& self();
+    static bool readTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length);
+    static bool writeTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year);
+    static bool updateArtist(QString file, QString artist);
+    static bool updateAlbum(QString file, QString album);
+    static bool updateGenre(QString file, QString genre);
+    static QString correct8bit(QString str, bool *corrected = 0);
+    static QString correctBrokenUnicode(QString str, bool *corrected = 0);
 
-	static bool playlistDetected(QUrl);
-	
+    static TagEntry readTags(QUrl &url);
+    static QList<CueEntry> readCue(QString file);
+    static QList<TagEntry> readM3U(QString file);
+    static QList<TagEntry> readXSPF(QString file);
+    static QList<TagEntry> readASX(QString file);
+    static QList<TagEntry> readEntry(QUrl url);
+
+    static bool autoCorrect();
+    static void setAutoCorrect(bool);
+    static bool saveCorrected();
+    static void setSaveCorrected(bool);
+
+    static bool playlistDetected(QUrl);
+
 private:
-	Tagger() {}
+    Tagger() {}
 
-	static QString getWord(QString &str);
-	
-	//static bool corrected = false;
-	
+    static QString getWord(QString &str);
+
+    //static bool corrected = false;
+
 };
 
 #endif /*TAGGER_H_*/

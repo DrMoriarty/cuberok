@@ -23,8 +23,8 @@
 #include <QtSql>
 
 static const QString nArtist = "Artist",
-	nAlbum = "Album",
-	nGenre = "Genre",
+    nAlbum = "Album",
+    nGenre = "Genre",
     nPlaylist = "Playlist";
 //	nMark = "Mark";
 
@@ -32,74 +32,84 @@ static const QString nArtist = "Artist",
 class Database
 {
 public:
-	struct Attr {
-		QString name;
-		int refs, rating;
-		QString art;
-	};
-	
-	struct AttrAl : Attr {
-		int artist;
-	};
+    struct Attr {
+        QString name;
+        int refs, rating;
+        QString art;
+    };
 
-	static Database& Self();
-	virtual ~Database();
-	int AddFile(QString file);
-	int AddArtist(QString artist);
-	int AddAlbum(QString album, int artist);
-	int AddGenre(QString genre);
-	int AddPlaylist(QString list);
-	void Increment(int ar, int al, int ge);
-	void Decrement(int ar, int al, int ge);
-	void RemoveFile(QString file);
-	void RemoveArtist(QString artist);
-	void RemoveAlbum(QString album, int artist);
-	void RemoveGenre(QString genre);
-	void RemovePlaylist(QString list);
-	void RenameArtist(QString oldval, QString newval);
-	void RenameAlbum(QString oldval, QString newval, int artist);
-	void RenameGenre(QString oldval, QString newval);
-	void RenamePlaylist(QString oldval, QString newval);
-	QList<struct Attr> Artists(QString *patt = 0);
-	QList<struct AttrAl> Albums(QString *patt = 0);
-	QList<struct Attr> Genres(QString *patt = 0);
-	QList<struct Attr> Playlists(QString *patt = 0);
-	void ArtForArtist(QString val, QString art);
-	void ArtForAlbum(QString val, QString art, int artist);
-	void ArtForGenre(QString val, QString art);
-	void ArtForPlaylist(QString val, QString art);
-	QList<QString> Songs(QString *ar = 0, int al = 0, QString *ge = 0, QString *so = 0);
-	QString GetArtist(int);
-	QString GetAlbum(int);
-	QString GetGenre(int);
-	bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length);
-	bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
-	
-	void clearSubset();
-	void pushSubset();
-	void popSubset();
-	void subsetAlbum(int);
-	void subsetArtist(QString);
-	void subsetGenre(QString);
+    struct AttrAl : Attr {
+        int artist;
+    };
+
+    static Database& Self();
+    virtual ~Database();
+
+    int AddFile(QString file);
+    int AddArtist(QString artist);
+    int AddAlbum(QString album, int artist);
+    int AddGenre(QString genre);
+    int AddPlaylist(QString list);
+    void RemoveFile(QString file);
+    void RemoveArtist(QString artist);
+    void RemoveAlbum(QString album, int artist);
+    void RemoveGenre(QString genre);
+    void RemovePlaylist(QString list);
+    void RenameArtist(QString oldval, QString newval);
+    void RenameAlbum(QString oldval, QString newval, int artist);
+    void RenameGenre(QString oldval, QString newval);
+    void RenamePlaylist(QString oldval, QString newval);
+    QList<struct Attr> Artists(QString *patt = 0);
+    QList<struct AttrAl> Albums(QString *patt = 0);
+    QList<struct Attr> Genres(QString *patt = 0);
+    QList<struct Attr> Playlists(QString *patt = 0);
+    void ArtForAlbum(QString val, QString art, int artist);
+    void ArtForArtist(QString val, QString art);
+    void ArtForGenre(QString val, QString art);
+    void ArtForPlaylist(QString val, QString art);
+    QList<QString> Songs(QString *ar = 0, int al = 0, QString *ge = 0, QString *so = 0);
+    bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length);
+    bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
+    QString GetArtist(int);
+    QString GetAlbum(int);
+    QString GetGenre(int);
+
+    void clearSubset();
+    void pushSubset();
+    void popSubset();
+    void subsetAlbum(int);
+    void subsetArtist(QString);
+    void subsetGenre(QString);
 private:
-	Database();
-	QSqlDatabase db;
-	bool open;
-	bool subset;
-	int ssAlbum;
-	QString ssArtist;
-	QString ssGenre;
-	QVector < QList<QString> > sstack;
-	QString ssFilter;
-	void RefAttribute(const QString attr, int id, int v, int r);
-	int AddAttribute(const QString attr, QString val);
-	void RemoveAttribute(const QString attr, QString val);
-	void RenameAttribute(const QString attr, QString oldval, QString newval);
-	QList<struct Attr> Attributes(const QString attr, QString *patt = 0);
-	void ArtForAttribute(const QString attr, QString val, QString art);
-	bool updateDatabase(int fromver);
-	QString subsetFilter();
-	QMutex lock;
+    Database();
+    QSqlDatabase db;
+    bool open;
+    bool subset;
+    int ssAlbum;
+    QString ssArtist;
+    QString ssGenre;
+    QVector < QList<QString> > sstack;
+    QString ssFilter;
+
+    QString _GetArtist(int);
+    QString _GetAlbum(int);
+    QString _GetGenre(int);
+    void _ArtForAlbum(QString val, QString art, int artist);
+    void _RemoveAlbum(QString album, int artist);
+    void _RemoveFile(QString file);
+    int _AddGenre(QString genre);
+    int _AddAlbum(QString album, int artist);
+    int _AddArtist(QString artist);
+
+    void RefAttribute(const QString attr, int id, int v, int r);
+    int AddAttribute(const QString attr, QString val);
+    void RemoveAttribute(const QString attr, QString val);
+    void RenameAttribute(const QString attr, QString oldval, QString newval);
+    QList<struct Attr> Attributes(const QString attr, QString *patt = 0);
+    void ArtForAttribute(const QString attr, QString val, QString art);
+    bool updateDatabase(int fromver);
+    QString subsetFilter();
+    QMutex lock;
 };
 
 #endif /*DATABASE_H_*/
