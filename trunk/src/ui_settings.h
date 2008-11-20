@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Thu 20. Nov 14:39:25 2008
+** Created: Thu 20. Nov 15:02:46 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -95,46 +95,46 @@ public:
     comboBox_language = new QComboBox(page);
     comboBox_language->setObjectName(QString::fromUtf8("comboBox_language"));
 
-    gridLayout->addWidget(comboBox_language, 0, 1, 1, 1);
+    gridLayout->addWidget(comboBox_language, 1, 0, 1, 1);
 
     label = new QLabel(page);
     label->setObjectName(QString::fromUtf8("label"));
 
-    gridLayout->addWidget(label, 1, 0, 1, 1);
+    gridLayout->addWidget(label, 2, 0, 1, 1);
 
     comboBox_engine = new QComboBox(page);
     comboBox_engine->setObjectName(QString::fromUtf8("comboBox_engine"));
 
-    gridLayout->addWidget(comboBox_engine, 1, 1, 1, 1);
+    gridLayout->addWidget(comboBox_engine, 3, 0, 1, 1);
 
     spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem, 5, 0, 1, 1);
+    gridLayout->addItem(spacerItem, 9, 0, 1, 1);
 
     checkBox_autofix8bit = new QCheckBox(page);
     checkBox_autofix8bit->setObjectName(QString::fromUtf8("checkBox_autofix8bit"));
 
-    gridLayout->addWidget(checkBox_autofix8bit, 2, 0, 1, 1);
+    gridLayout->addWidget(checkBox_autofix8bit, 4, 0, 1, 1);
 
     checkBox_autosave = new QCheckBox(page);
     checkBox_autosave->setObjectName(QString::fromUtf8("checkBox_autosave"));
 
-    gridLayout->addWidget(checkBox_autosave, 2, 1, 1, 1);
+    gridLayout->addWidget(checkBox_autosave, 5, 0, 1, 1);
 
     checkBox_autorating = new QCheckBox(page);
     checkBox_autorating->setObjectName(QString::fromUtf8("checkBox_autorating"));
 
-    gridLayout->addWidget(checkBox_autorating, 3, 0, 1, 1);
+    gridLayout->addWidget(checkBox_autorating, 6, 0, 1, 1);
 
     label_3 = new QLabel(page);
     label_3->setObjectName(QString::fromUtf8("label_3"));
 
-    gridLayout->addWidget(label_3, 4, 0, 1, 1);
+    gridLayout->addWidget(label_3, 7, 0, 1, 1);
 
     comboBox_cue = new QComboBox(page);
     comboBox_cue->setObjectName(QString::fromUtf8("comboBox_cue"));
 
-    gridLayout->addWidget(comboBox_cue, 4, 1, 1, 1);
+    gridLayout->addWidget(comboBox_cue, 8, 0, 1, 1);
 
     toolBox->addItem(page, QIcon(QString::fromUtf8(":/icons/settings.png")), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
     page_2 = new QWidget();
