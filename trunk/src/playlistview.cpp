@@ -38,7 +38,7 @@ const QString XMLNS("http://code.google.com/p/cuberok");
  ***********************/ 
 
 PlaylistView::PlaylistView(QString &str, QWidget *parent)
-    : QTreeView(parent), correct(false), playing(false), dragStarted(false), autosave(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0)
+    : QTreeView(parent), correct(false), playing(false), dragStarted(false), autosave(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
 	setItemDelegate(new StarDelegate);
 	plistname = str;
@@ -268,8 +268,14 @@ void PlaylistView::play()
 		Console::Self().error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
 		Console::Self().error(ToLocalFile(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()));
 		playing = false;
-		return;
+		error_count ++;
+		if(error_count < 5) next();
+		else {
+			error_count = 0;
+			return;
+		}
 	}
+	error_count = 0;
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
 	PlayerManager::Self().play();

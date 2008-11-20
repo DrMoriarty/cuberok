@@ -36,5 +36,6 @@
         <file alias="internet.png" >../images/gnome-globe.png</file>
         <file alias="lastfm.png" >../images/lastfm.png</file>
         <file alias="qt.png" >../images/qt.png</file>
+        <file alias="splash.png" >../images/splash.png</file>
     </qresource>
 </RCC>
