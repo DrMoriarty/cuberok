@@ -45,9 +45,15 @@ PlayerManager::PlayerManager() : player(0)
 			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 		}
 	}
+#ifndef WIN32
+	QDir pluginsDir = QDir("/usr/share/cuberok");
+#else
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
+#endif
 	pluginsDir.cd("plugins"); 
+	qDebug((const char*)("Plugins dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+	    qDebug((const char*)("Try to load " + fileName).toLocal8Bit());
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
 		QObject *plugin = loader.instance();
 		if (plugin) {

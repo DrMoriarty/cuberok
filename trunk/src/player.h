@@ -20,6 +20,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#ifndef WIN32
+#define ToLocalFile(url) (url.scheme().toLower() == "file" ? url.toString().mid(7) : "")
+#else
+#define ToLocalFile(url) (url.scheme().toLower() == "file" ? url.toString().mid(8) : "")
+#endif
+
 #include <QtCore>
 
 class Player : public QObject

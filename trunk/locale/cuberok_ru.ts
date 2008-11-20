@@ -720,7 +720,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">
             <numerusform>%n альбом</numerusform>
             <numerusform>%n альбома</numerusform>
-            <numerusform>%n альбома</numerusform>
+            <numerusform>%n альбомов</numerusform>
         </translation>
     </message>
 </context>
@@ -838,7 +838,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Ошибка</translation>
     </message>
     <message>
-        <location filename="../src/player_manager.cpp" line="192"/>
+        <location filename="../src/player_manager.cpp" line="198"/>
         <source>Can&apos;t start engine %1</source>
         <translation type="unfinished">Не могу запустить вывод звука %1</translation>
     </message>

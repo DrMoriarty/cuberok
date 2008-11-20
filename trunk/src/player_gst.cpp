@@ -19,7 +19,7 @@
 
 #include "player_gst.h"
 #include "playlistsettings.h"
-#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
+//#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
 
 #define TIME 200
 
@@ -204,7 +204,7 @@ void PlayerGst::setLink(int l, QUrl &url)
 		break;
 	}
 	case 1: // file
-		g_object_set (G_OBJECT (l_src), "location", (const char*)ToLocalFile(url), NULL);
+		g_object_set (G_OBJECT (l_src), "location", (const char*)ToLocalFile(url).toLocal8Bit(), NULL);
 		break;
 	case 0:
 	default:
