@@ -73,6 +73,7 @@ private:
 	bool delayedPlay;
 	int delayedIndex;
 	double delayedPos;
+	int error_count;
     
 private slots:
 	void addItem(QVariant item, int id, QModelIndex* ind = 0);
