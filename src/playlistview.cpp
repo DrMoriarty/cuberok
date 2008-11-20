@@ -266,7 +266,7 @@ void PlaylistView::play()
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
 	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
 		Console::Self().error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
-		Console::Self().error(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString().toLocal8Bit());
+		Console::Self().error(ToLocalFile(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()));
 		playing = false;
 		return;
 	}

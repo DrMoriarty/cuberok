@@ -18,7 +18,7 @@
  */
 
 #include "player_audiere.h"
-#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
+//#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
 
 #define TIME 200
 

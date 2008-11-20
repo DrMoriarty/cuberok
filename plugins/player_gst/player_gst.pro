@@ -18,6 +18,9 @@ unix {
     CONFIG += link_pkgconfig
     CONFIG += gstreamer
     PKGCONFIG += gstreamer-0.10
+    player_gst.files = ../../unix/plugins/libplayer_gst.so
+    player_gst.path = /usr/share/cuberok/plugins
+    INSTALLS += player_gst
 }
 
 OBJECTS_DIR = $${DESTDIR}/../obj
