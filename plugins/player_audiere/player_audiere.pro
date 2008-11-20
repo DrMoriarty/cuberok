@@ -17,9 +17,9 @@ unix {
     DESTDIR = ../../unix/plugins
     INCLUDEPATH += $$system(audiere-config --cxxflags)
     LIBS += $$system(audiere-config --libs)
-    plugin_audiere.files = ../../unix/plugins/libplayer_audiere.so
-    plugin_audiere.path = /usr/share/cuberok/plugins
-    INSTALLS += plugin_audiere
+    #plugin_audiere.files = ../../unix/plugins/libplayer_audiere.so
+    target.path = /usr/share/cuberok/plugins
+    INSTALLS += target
 }
 
 OBJECTS_DIR = $${DESTDIR}/../obj
