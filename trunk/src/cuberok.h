@@ -24,6 +24,7 @@
 //#include <QtGui/QMainWindow>
 #include "ui_cuberok.h"
 //#include "playlistmodel.h"
+#include "console.h"
 
 const char titlepref[] = "Cuberok - ";
 
@@ -42,6 +43,7 @@ private:
     //PlaylistModel playlist;
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
+	ConsoleView *cv;
 
 private slots:
 	void on_AboutMenu();
@@ -50,6 +52,8 @@ private slots:
 	void progressEvent(double);
 	void settings();
 	void colmodeChanged(int);
+	void consoleClosed(QObject*);
+	void newConsoleMessage(QString, Console::C_TYPE);
 
 public slots:
 	void lookAndFeel();

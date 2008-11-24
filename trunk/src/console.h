@@ -24,8 +24,9 @@
 #include <QtGui>
 #include "ui_console.h"
 
-class Console
+class Console: public QObject
 {
+	Q_OBJECT
  public:
 	enum C_TYPE {C_NONE=0, C_MES, C_WAR, C_ERR, C_FAT};
 
@@ -49,10 +50,15 @@ class Console
 
 	void clear();
 
+	C_TYPE getLevel();
+signals:
+	void newMessage(QString, C_TYPE);
+
  private:
 	Console();
 
 	QVector<Log> logs;
+	C_TYPE level;
 };
 
 class ConsoleView: public QDialog

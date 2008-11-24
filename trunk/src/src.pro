@@ -111,10 +111,10 @@ unix {
 #	INCLUDEPATH += $$system(audiere-config --cxxflags)
 #        LIBS += $$system(audiere-config --libs)
     }
-    target.path = /usr/bin
-    documentation.path = /usr/share/doc/cuberok
+    target.path = /bin
+    documentation.path = /share/doc/cuberok
     documentation.files = README ChangeLog
-    locale.path = /usr/share/cuberok/locale
+    locale.path = /share/cuberok/locale
     locale.files = ../locale/*.qm
     INSTALLS += target documentation locale
 }

@@ -37,5 +37,10 @@
         <file alias="lastfm.png" >../images/lastfm.png</file>
         <file alias="qt.png" >../images/qt.png</file>
         <file alias="splash.png" >../images/splash.png</file>
+        <file alias="console_fat.png" >../images/console_fat.png</file>
+        <file alias="console_err.png" >../images/console_err.png</file>
+        <file alias="console_war.png" >../images/console_war.png</file>
+        <file alias="console_mes.png" >../images/console_mes.png</file>
+        <file alias="console_none.png" >../images/console_none.png</file>
     </qresource>
 </RCC>
