@@ -18,8 +18,7 @@ unix {
     CONFIG += link_pkgconfig
     CONFIG += gstreamer
     PKGCONFIG += gstreamer-0.10
-    #player_gst.files = ../../unix/plugins/libplayer_gst.so
-    target.path = /usr/share/cuberok/plugins
+    target.path = /lib/cuberok
     INSTALLS += target
 }
 

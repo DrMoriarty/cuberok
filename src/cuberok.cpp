@@ -25,10 +25,9 @@
 #include "indicator.h"
 #include "settings.h"
 #include "player_manager.h"
-#include "console.h"
 
 Cuberok::Cuberok(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent), cv(0)
 {
 	QSettings set;
 
@@ -51,6 +50,8 @@ Cuberok::Cuberok(QWidget *parent)
 	trayIcon->show();
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayevent(QSystemTrayIcon::ActivationReason)));
 	connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(setFocus()));
+
+	connect(&Console::Self(), SIGNAL(newMessage(QString, Console::C_TYPE)), this, SLOT(newConsoleMessage(QString, Console::C_TYPE)));
 
 	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString)), this, SLOT(message(QString,QString,QString)), Qt::DirectConnection))
 		Console::Self().error("Can't connect to the listView.message");
@@ -206,6 +207,41 @@ void Cuberok::colmodeChanged(int m)
 
 void Cuberok::viewConsole()
 {
-	ConsoleView *cv = new ConsoleView(this);
-	cv->show();
+	if(cv) {
+		cv->close();
+		delete cv;
+		cv = 0;
+	} else {
+		cv = new ConsoleView(this);
+		connect(cv, SIGNAL( destroyed(QObject*)), this, SLOT(consoleClosed(QObject*)));
+		cv->show();
+	}
+}
+
+void Cuberok::consoleClosed(QObject*)
+{
+	//delete cv;
+	cv = 0;
+}
+
+void Cuberok::newConsoleMessage(QString, Console::C_TYPE)
+{
+	QAbstractButton *but = (QAbstractButton*)ui.toolBar->widgetForAction(ui.actionConsole);
+	switch(Console::Self().getLevel()) {
+	case Console::C_NONE:
+		but->setIcon(QIcon(":/icons/console_none.png"));
+		break;
+	case Console::C_MES:
+		but->setIcon(QIcon(":/icons/console_mes.png"));
+		break;
+	case Console::C_WAR:
+		but->setIcon(QIcon(":/icons/console_war.png"));
+		break;
+	case Console::C_ERR:
+		but->setIcon(QIcon(":/icons/console_err.png"));
+		break;
+	case Console::C_FAT:
+		but->setIcon(QIcon(":/icons/console_fat.png"));
+		break;
+	}
 }

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 20. Nov 16:04:38 2008
+** Created: Fri 21. Nov 12:14:37 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -293,6 +293,7 @@ public:
     actionGetImageFromLastFM->setIcon(QIcon(QString::fromUtf8(":/icons/download_art.png")));
     actionConsole = new QAction(CuberokClass);
     actionConsole->setObjectName(QString::fromUtf8("actionConsole"));
+    actionConsole->setIcon(QIcon(QString::fromUtf8(":/icons/console_none.png")));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
@@ -584,6 +585,8 @@ public:
     toolBar->addSeparator();
     toolBar->addAction(actionClear_playlist);
     toolBar->addAction(actionEditTag);
+    toolBar->addSeparator();
+    toolBar->addAction(actionConsole);
     toolBar->addSeparator();
 
     retranslateUi(CuberokClass);

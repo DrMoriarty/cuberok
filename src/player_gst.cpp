@@ -112,7 +112,7 @@ PlayerGst::~PlayerGst()
 
 bool PlayerGst::prepare()
 {
-	GstElement *dec, *conv, *sink, *audio;
+	GstElement *dec, *conv, *sink, *audio, *vol;
 	GstPad *audiopad;
 	gst_init (0, 0);
 	pipeline = gst_pipeline_new ("pipeline");
@@ -125,12 +125,15 @@ bool PlayerGst::prepare()
 	audio = gst_bin_new ("audiobin");
 	conv = gst_element_factory_make ("audioconvert", "aconv");
 	audiopad = gst_element_get_static_pad (conv, "sink");
+	vol = gst_element_factory_make ("volume", "volume");
 	sink = gst_element_factory_make ("autoaudiosink", "sink");
-	gst_bin_add_many (GST_BIN (audio), conv, sink, NULL);
-	gst_element_link (conv, sink);
+	gst_bin_add_many (GST_BIN (audio), conv, vol, sink, NULL);
+	gst_element_link (conv, vol);
+	gst_element_link (vol, sink);
 	gst_element_add_pad (audio, gst_ghost_pad_new ("sink", audiopad));
 	gst_object_unref (audiopad);
 	gst_bin_add (GST_BIN (pipeline), audio);
+
 
 	GstElement *l_src, *http_src;
 	l_src = gst_element_factory_make ("filesrc", "localsrc");
@@ -320,6 +323,9 @@ double PlayerGst::getPosition()
 int  PlayerGst::volume()
 {
 	gdouble vol = 0;
+	GstElement *volume = gst_bin_get_by_name(GST_BIN(pipeline), "volume");
+	g_object_get (G_OBJECT(volume), "volume", &vol, NULL);
+	gst_object_unref(volume);
 	//g_object_get (G_OBJECT(p), "volume", &vol, NULL);
 	return vol * 10;
 }
@@ -327,6 +333,9 @@ int  PlayerGst::volume()
 void PlayerGst::setVolume(int v)
 {
 	gdouble vol = 0.01 * v;
+	GstElement *volume = gst_bin_get_by_name(GST_BIN(pipeline), "volume");
+	g_object_set (G_OBJECT(volume), "volume", vol, NULL);
+	gst_object_unref(volume);
 	//g_object_set (G_OBJECT(player), "volume", vol, NULL);
 }
 

@@ -18,7 +18,7 @@ unix {
     INCLUDEPATH += $$system(audiere-config --cxxflags)
     LIBS += $$system(audiere-config --libs)
     #plugin_audiere.files = ../../unix/plugins/libplayer_audiere.so
-    target.path = /usr/share/cuberok/plugins
+    target.path = /lib/cuberok
     INSTALLS += target
 }
 

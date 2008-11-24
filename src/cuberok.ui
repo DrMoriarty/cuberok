@@ -598,6 +598,8 @@
    <addaction name="actionClear_playlist" />
    <addaction name="actionEditTag" />
    <addaction name="separator" />
+   <addaction name="actionConsole" />
+   <addaction name="separator" />
   </widget>
   <action name="actionAbout" >
    <property name="icon" >
@@ -1125,6 +1127,9 @@
    </property>
   </action>
   <action name="actionConsole" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/console_none.png</iconset>
+   </property>
    <property name="text" >
     <string>Messages</string>
    </property>

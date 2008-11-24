@@ -25,7 +25,7 @@
  *
  **************/
 
-Console::Console()
+Console::Console() : level(C_NONE)
 {
 }
 
@@ -71,6 +71,8 @@ void Console::log(const QString& s, C_TYPE t)
 
 	if(logs.size() > 100)
 		logs.pop_front();
+	if(t > level) level = t;
+	emit newMessage(s, t);
 }
 
 QStringList Console::plainText(C_TYPE t)
@@ -119,6 +121,10 @@ void Console::clear()
 	logs.clear();
 }
 
+Console::C_TYPE Console::getLevel()
+{
+	return level;
+}
 
 /**************
  *
@@ -129,6 +135,7 @@ void Console::clear()
 ConsoleView::ConsoleView(QWidget *parent) : QDialog(parent), type(Console::C_MES)
 {
 	ui.setupUi(this);
+	setAttribute(Qt::WA_DeleteOnClose);
 	QActionGroup *viewGroup = new QActionGroup(this);
     viewGroup->addAction(ui.actionAll);
     viewGroup->addAction(ui.actionMessages);

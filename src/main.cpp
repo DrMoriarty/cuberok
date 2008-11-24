@@ -91,7 +91,8 @@ int main(int argc, char *argv[])
     QTranslator translator;
 	QString loc_path;
 #ifndef WIN32
-	loc_path = "/usr/share/cuberok/locale/";
+	loc_path = qApp->applicationDirPath() + "../share/cuberok/locale/";
+	//loc_path = "/usr/share/cuberok/locale/";
 #endif
     translator.load(loc_path + QString("cuberok_") + locale);
     a.installTranslator(&translator); 

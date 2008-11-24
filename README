@@ -1,1 +1,31 @@
- 
+ Cuberok is yet another music player based on Qt4
+
+Compiling & Installation
+------------------------
+
+	Run following commands:
+qmake Cuberok.pro
+make
+sudo make install INSTALL_ROOT=/usr/local
+
+
+Compiling in Windows
+--------------------
+
+	In order to compile Cuberok in Windows you need taglib and at least one audio engine.
+Download audiere (http://audiere.sourceforge.net/download.php) or gstreamer 
+(http://gstreamer.freedesktop.org/pkg/windows/releases/) with glib 
+(http://www.gtk.org/download-windows.html).
+
+	Then put they into the sources directory:
+cuberok/taglib
+cuberok/audiere
+cuberok/glib
+cuberok/gstreamer
+
+	Also you need Qt opensource edition version 4.3.1 or later with MinGW.
+	Then run `win_build.bat` and wait a minute.
+
+	If you want to make a windows installer, you must install NSIS from 
+http://nsis.sourceforge.net/Download. After installation run NSIS and 
+compile with it cuberok.nsi.
