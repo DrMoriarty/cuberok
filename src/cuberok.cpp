@@ -129,14 +129,12 @@ Cuberok::~Cuberok()
 void Cuberok::on_AboutMenu()
 {
 	AboutDialog ad(this);
-	ad.setAttribute(Qt::WA_DeleteOnClose);
 	ad.exec();
 }
 
 void Cuberok::lookAndFeel()
 {
 	LookAndFeel lnf;
-	lnf.setAttribute(Qt::WA_DeleteOnClose);
 	lnf.exec();
 }
 
