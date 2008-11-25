@@ -425,6 +425,7 @@ void PlaylistView::editTag()
 		te->index = curindex.row();
 		connect(te, SIGNAL(editComplete(int)), this, SLOT(updateTag(int)));
 		//resetTags(curindex);
+		te->setAttribute(Qt::WA_DeleteOnClose);
 		te->show();
 	}
 }

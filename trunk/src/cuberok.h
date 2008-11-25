@@ -37,6 +37,7 @@ public:
     ~Cuberok();
     
 private:
+	void showhide(bool s);
     Ui::CuberokClass ui;
     QDirModel dirmodel;
     QSpinBox volumeBox;
@@ -44,6 +45,10 @@ private:
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
 	ConsoleView *cv;
+	bool needToClose;
+
+ protected:
+	virtual void closeEvent(QCloseEvent *event);
 
 private slots:
 	void on_AboutMenu();
@@ -53,12 +58,13 @@ private slots:
 	void settings();
 	void colmodeChanged(int);
 	void consoleClosed(QObject*);
-	void newConsoleMessage(QString, Console::C_TYPE);
+	void newConsoleMessage(QString, int);
 
 public slots:
 	void lookAndFeel();
 	void message(QString, QString, QString);
 	void viewConsole();
+	bool reallyClose();
 };
 
 #endif // CUBEROK_H

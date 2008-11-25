@@ -23,7 +23,7 @@
 #include "tagger.h"
 #include "console.h"
 
-#define DB_VERSION 3
+#define DB_VERSION 4
 
 Database::Database() : subset(false)
 {
@@ -56,8 +56,8 @@ Database::Database() : subset(false)
             Console::Self().error("Can not create database");
             open = false;
         } else {
-            QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
-            QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer)", db);
+            QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), mbid varchar(50))", db);
+            QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer, mbid varchar(50))", db);
             QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
             //QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
             QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer)", db);
@@ -127,6 +127,11 @@ bool Database::updateDatabase(int fromver)
             }
         }
     }
+	case 3: {
+		QSqlQuery q0("alter table Artist add column mbid varchar(50)", db);
+		QSqlQuery q1("alter table Album add column mbid varchar(50)", db);
+		qDebug("Update database from version 3");
+	}
     }
     Console::Self().message("Database update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version");
@@ -502,7 +507,33 @@ QList<struct Database::Attr> Database::Attributes(const QString attr, QString *p
 QList<struct Database::Attr> Database::Artists(QString *patt)
 {
     QMutexLocker locker(&lock);
-    return Attributes(nArtist, patt);
+    if(!open) return QList<struct Database::Attr>();
+    QList<struct Database::Attr> res;
+    QSqlQuery q("", db);
+    if(subset) {
+        QString com;
+        com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.mbid from Song left join Artist as A on Song.Artist=A.ID where "+ssFilter;
+        if(patt)  com += " and A.value like :pattern ";
+        com += " order by WR DESC, A.value ASC";
+        q.prepare(com);
+        if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
+    } else {
+        if(patt) {
+            q.prepare("select value, refs, rating/refs as WR, art, mbid from Artist where value like :pattern order by WR DESC, value ASC");
+            q.bindValue(":pattern", QString("%")+*patt+QString("%"));
+        } else q.prepare("select value, refs, rating/refs as WR, art, mbid from Artist order by WR DESC, value ASC");
+    }
+    q.exec();
+    while(q.next()) {
+        struct Attr attr;
+        attr.name = q.value(0).toString();
+        attr.refs = q.value(1).toString().toInt();
+        attr.rating = q.value(2).toString().toInt();
+        attr.art = q.value(3).toString();
+		attr.mbid = q.value(4).toString();
+        res << attr;
+    }
+    return res;
 }
 
 QList<struct Database::AttrAl> Database::Albums(QString *patt)
@@ -513,16 +544,16 @@ QList<struct Database::AttrAl> Database::Albums(QString *patt)
     QSqlQuery q("", db);
     if(subset) {
         QString com = ssFilter;
-        com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist from Song left join Album as A on Song.Album=A.ID where "+com.replace("Artist", "Song.Artist");
+        com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist, A.mbid from Song left join Album as A on Song.Album=A.ID where "+com.replace("Artist", "Song.Artist");
         if(patt)  com += " and A.value like :pattern ";
         com += " order by WR DESC, A.value ASC";
         q.prepare(com);
         if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
     } else {
         if(patt) {
-            q.prepare("select value, refs, rating/refs as WR, art, artist from Album where value like :pattern order by WR DESC, value ASC");
+            q.prepare("select value, refs, rating/refs as WR, art, artist, mbid from Album where value like :pattern order by WR DESC, value ASC");
             q.bindValue(":pattern", QString("%")+*patt+QString("%"));
-        } else q.prepare("select value, refs, rating/refs as WR, art, artist from Album order by WR DESC, value ASC");
+        } else q.prepare("select value, refs, rating/refs as WR, art, artist, mbid from Album order by WR DESC, value ASC");
     }
     q.exec();
     while(q.next()) {
@@ -532,6 +563,7 @@ QList<struct Database::AttrAl> Database::Albums(QString *patt)
         attr.rating = q.value(2).toString().toInt();
         attr.art = q.value(3).toString();
         attr.artist = q.value(4).toString().toInt();
+		attr.mbid = q.value(5).toString();
         res << attr;
     }
     return res;
@@ -588,6 +620,40 @@ void Database::ArtForGenre(QString val, QString art)
 {
     QMutexLocker locker(&lock);
     return ArtForAttribute(nGenre, val, art);
+}
+
+void Database::MbidForAlbum(QString val, QString mbid, int artist)
+{
+	QMutexLocker locker(&lock);
+	_MbidForAlbum(val, mbid, artist);
+}
+
+void Database::MbidForArtist(QString val, QString mbid)
+{
+	QMutexLocker locker(&lock);
+	_MbidForArtist(val, mbid);
+}
+
+void Database::_MbidForAlbum(QString val, QString mbid, int artist)
+{
+	if(artist) {
+		if(!open) return;
+		QSqlQuery q("", db);
+		q.prepare("update Album set mbid = :mbid where value = :val and artist = "+QString::number(artist));
+		q.bindValue(":mbid", mbid);
+		q.bindValue(":val", val);
+		q.exec();
+	}
+}
+
+void Database::_MbidForArtist(QString val, QString mbid)
+{
+	if(!open) return;
+	QSqlQuery q("", db);
+	q.prepare("update Artist set mbid = :mbid where value = :val");
+	q.bindValue(":mbid", mbid);
+	q.bindValue(":val", val);
+	q.exec();
 }
 
 QList<QString> Database::Songs(QString *ar, int al, QString *ge, QString *so)

@@ -51,8 +51,8 @@ class Console: public QObject
 	void clear();
 
 	C_TYPE getLevel();
-signals:
-	void newMessage(QString, C_TYPE);
+ signals:
+	void newMessage(QString, int);
 
  private:
 	Console();

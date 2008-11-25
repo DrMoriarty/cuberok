@@ -20,17 +20,6 @@
 #include "player_manager.h"
 #include "console.h"
 
-#ifdef AUDIERE
-//Q_IMPORT_PLUGIN(player_audiere)
-//#include "player_audiere.h"
-#endif
-
-#ifdef GSTREAMER
-//#include "player_gst.h"
-#endif
-
-//#include "player_void.h"
-
 #include <QtGui>
 
 Q_IMPORT_PLUGIN(player_void)
@@ -66,19 +55,6 @@ PlayerManager::PlayerManager() : player(0)
 			}
 		}
 	} 
-#ifdef AUDIERE
-// 	players.push_back(new PlayerAudiere());
-// 	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-// 	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
-#endif
-#ifdef GSTREAMER
-// 	players.push_back(new PlayerGst());
-// 	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-// 	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
-#endif
-// 	players.push_back(new PlayerVoid());
-// 	connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-// 	connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 }
 
 PlayerManager::~PlayerManager()

@@ -20,7 +20,7 @@
 #include "playlistsettings.h"
 #include <QtGui>
 
-PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabled(false), proxyPort(0)
+PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabled(false), proxyPort(0), hideEmptyInCollection(false)
 {
 	QSettings set;
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
@@ -39,6 +39,8 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	lastfmScrobbler = set.value("lastfmScrobbler", false).toBool();
 	lastfmUser = set.value("lastfmUser", "").toString();
 	lastfmPassword = set.value("lastfmPassword", "").toString();
+
+	hideEmptyInCollection = set.value("hideEmptyInCollection", false).toBool();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -64,6 +66,8 @@ void PlaylistSettings::save()
 	set.setValue("lastfmScrobbler", lastfmScrobbler);
 	set.setValue("lastfmUser", lastfmUser);
 	set.setValue("lastfmPassword", lastfmPassword);
+
+	set.setValue("hideEmptyInCollection", hideEmptyInCollection);
 }
 
 PlaylistSettings& PlaylistSettings::Self()
