@@ -49,6 +49,8 @@ Q_OBJECT
 	QString lastfmUser;
 	QString lastfmPassword;
 
+	bool hideEmptyInCollection;
+
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);

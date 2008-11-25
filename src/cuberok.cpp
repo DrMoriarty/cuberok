@@ -27,7 +27,7 @@
 #include "player_manager.h"
 
 Cuberok::Cuberok(QWidget *parent)
-    : QMainWindow(parent), cv(0)
+    : QMainWindow(parent), cv(0), needToClose(false)
 {
 	QSettings set;
 
@@ -51,7 +51,8 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayevent(QSystemTrayIcon::ActivationReason)));
 	connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(setFocus()));
 
-	connect(&Console::Self(), SIGNAL(newMessage(QString, Console::C_TYPE)), this, SLOT(newConsoleMessage(QString, Console::C_TYPE)));
+	if(!connect(&Console::Self(), SIGNAL(newMessage(QString, int)), this, SLOT(newConsoleMessage(QString, int))))
+	   Console::Self().error("Can't connect to the Console::newMessage");
 
 	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString)), this, SLOT(message(QString,QString,QString)), Qt::DirectConnection))
 		Console::Self().error("Can't connect to the listView.message");
@@ -128,12 +129,14 @@ Cuberok::~Cuberok()
 void Cuberok::on_AboutMenu()
 {
 	AboutDialog ad(this);
+	ad.setAttribute(Qt::WA_DeleteOnClose);
 	ad.exec();
 }
 
 void Cuberok::lookAndFeel()
 {
 	LookAndFeel lnf;
+	lnf.setAttribute(Qt::WA_DeleteOnClose);
 	lnf.exec();
 }
 
@@ -156,15 +159,23 @@ void Cuberok::message(QString title, QString album, QString artist)
 
 void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 {
-	bool vis = !isVisible();
 	if(r == QSystemTrayIcon::Trigger) {
+		showhide(true);
+	}
+}
+
+void Cuberok::showhide(bool s)
+{
+	bool vis = isVisible();
+	if(vis && s) activateWindow();
+	else if(vis != s) {
+		vis = s;
 		setVisible(vis);
-		/*foreach (QWidget *widget, QApplication::allWidgets()) {
+		foreach (QWidget *widget, QApplication::allWidgets()) {
 			QDialog *d = qobject_cast<QDialog*>(widget);
 			if(d) d->setVisible(vis);	
-			}*/
+		}
 	}
-	if(vis) activateWindow();
 }
 
 void Cuberok::progressEvent(double pos)
@@ -224,24 +235,41 @@ void Cuberok::consoleClosed(QObject*)
 	cv = 0;
 }
 
-void Cuberok::newConsoleMessage(QString, Console::C_TYPE)
+void Cuberok::newConsoleMessage(QString, int)
 {
+	QIcon icon;
 	QAbstractButton *but = (QAbstractButton*)ui.toolBar->widgetForAction(ui.actionConsole);
 	switch(Console::Self().getLevel()) {
 	case Console::C_NONE:
-		but->setIcon(QIcon(":/icons/console_none.png"));
 		break;
 	case Console::C_MES:
-		but->setIcon(QIcon(":/icons/console_mes.png"));
+		icon.addFile(":/icons/console_mes.png");
 		break;
 	case Console::C_WAR:
-		but->setIcon(QIcon(":/icons/console_war.png"));
+		icon.addFile(":/icons/console_war.png");
 		break;
 	case Console::C_ERR:
-		but->setIcon(QIcon(":/icons/console_err.png"));
+		icon.addFile(":/icons/console_err.png");
 		break;
 	case Console::C_FAT:
-		but->setIcon(QIcon(":/icons/console_fat.png"));
+		icon.addFile(":/icons/console_fat.png");
 		break;
 	}
+	but->setIcon(icon);
 }
+
+bool Cuberok::reallyClose()
+{
+	needToClose = true;
+	return QMainWindow::close();
+}
+
+void Cuberok::closeEvent(QCloseEvent *event)
+{
+	if (needToClose) {
+		event->accept();
+	} else {
+		showhide(false);
+		event->ignore();
+	}
+} 

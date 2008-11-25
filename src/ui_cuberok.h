@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Fri 21. Nov 12:14:37 2008
+** Created: Tue 25. Nov 10:38:36 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -598,7 +598,7 @@ public:
     QObject::connect(actionShuffle, SIGNAL(triggered(bool)), listView, SLOT(shuffle(bool)));
     QObject::connect(actionRepeat, SIGNAL(triggered(bool)), listView, SLOT(repeat(bool)));
     QObject::connect(listView, SIGNAL(message(QString,QString,QString)), CuberokClass, SLOT(message(QString,QString,QString)));
-    QObject::connect(actionExit, SIGNAL(triggered()), CuberokClass, SLOT(close()));
+    QObject::connect(actionExit, SIGNAL(triggered()), CuberokClass, SLOT(reallyClose()));
     QObject::connect(actionClear_playlist, SIGNAL(triggered()), listView, SLOT(clear()));
     QObject::connect(actionQueueNext, SIGNAL(triggered()), listView, SLOT(queueNext()));
     QObject::connect(actionViewAlbum, SIGNAL(triggered(bool)), listView, SLOT(viewAlbum(bool)));

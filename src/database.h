@@ -36,6 +36,7 @@ public:
         QString name;
         int refs, rating;
         QString art;
+		QString mbid;
     };
 
     struct AttrAl : Attr {
@@ -70,6 +71,8 @@ public:
     QList<QString> Songs(QString *ar = 0, int al = 0, QString *ge = 0, QString *so = 0);
     bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length);
     bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
+	void MbidForAlbum(QString val, QString mbid, int artist);
+	void MbidForArtist(QString val, QString mbid);
     QString GetArtist(int);
     QString GetAlbum(int);
     QString GetGenre(int);
@@ -100,6 +103,8 @@ private:
     int _AddGenre(QString genre);
     int _AddAlbum(QString album, int artist);
     int _AddArtist(QString artist);
+	void _MbidForAlbum(QString val, QString mbid, int artist);
+	void _MbidForArtist(QString val, QString mbid);
 
     void RefAttribute(const QString attr, int id, int v, int r);
     int AddAttribute(const QString attr, QString val);

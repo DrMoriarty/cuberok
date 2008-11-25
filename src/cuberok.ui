@@ -1298,7 +1298,7 @@
    <sender>actionExit</sender>
    <signal>triggered()</signal>
    <receiver>CuberokClass</receiver>
-   <slot>close()</slot>
+   <slot>reallyClose()</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>-1</x>

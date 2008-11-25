@@ -26,6 +26,7 @@
 #include "lastfm.h"
 #include "console.h"
 #include "main.h"
+#include "playlistsettings.h"
 
 /************************
  *
@@ -334,10 +335,13 @@ void CollectionModel::updateMode(ListMode m)
 		if(searchPattern.length()) dataAl = Database::Self().Albums(&searchPattern);
 		else dataAl = Database::Self().Albums();
 		icon.load(":/icons/def_album.png");
-		stat = tr("Collection - %n album(s)", "", dataAl.count());
 		QString tt("");
 		QStandardItem *i;
+		int count = 0;
 		foreach(struct Database::AttrAl attr, dataAl) {
+			if(PLSet.hideEmptyInCollection && (attr.name == " " || attr.name == ""))
+				continue;
+			count ++;
 			QPixmap px2;
 			if(!attr.art.size() || !px2.load(attr.art))
 				px2 = icon;
@@ -348,6 +352,7 @@ void CollectionModel::updateMode(ListMode m)
 			i->setData(attr.artist);
 			appendRow(i);
 		}
+		stat = tr("Collection - %n album(s)", "", count);
 		emit status(stat);
 		emit modeChanged(mode);
 		return;
@@ -858,47 +863,59 @@ void CollectionView::infoResponse(QString info)
 			if(s == "ok") {
 				el2 = el.firstChildElement("artist");
 				if(!el2.isNull()) {  // proceed artist info
-					QString name, img1, img2, img3;
+					QString name, img1, img2, img3, img4;
 					el = el2;
 					el2 = el.firstChildElement("name");
 					if(!el2.isNull()) name = el2.firstChild().nodeValue();
-					list = el.elementsByTagName("image");
-					for(int i=0; i<list.size() && i<3; i++) {
-						QDomElement el3 = list.at(i).toElement();
-						if(el3.attribute("size") == "small") img1 = el3.firstChild().nodeValue();
-						if(el3.attribute("size") == "medium") img2 = el3.firstChild().nodeValue();
-						if(el3.attribute("size") == "large") img3 = el3.firstChild().nodeValue();
+					QString mbid;
+					el2 = el.firstChildElement("mbid");
+					if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
+					Database::Self().MbidForArtist(lfmArtist, mbid);
+					el2 = el.firstChildElement("image");
+					while(!el2.isNull()) {
+						if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
+						if(el2.attribute("size") == "medium") img2 = el2.firstChild().nodeValue();
+						if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
+						if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
+						el2 = el2.nextSiblingElement("image");
 					}
 					if(!img2.size()) img2 = img1;
 					if(!img3.size()) img3 = img2;
-					Console::Self().log("Image URL" + img3);
+					if(!img4.size()) img4 = img3;
+					Console::Self().log("Image URL" + img4);
 					if(downloader.done()) {
 						if(lfmArtist != name)
 							Database::Self().RenameArtist(lfmArtist, name);
 						lfmArtist = name;
 						lfmAlbum = "";
-						downloader.download(img3);
+						downloader.download(img4);
 					} else { // download queue
 					}
 				} else {
 					el2 = el.firstChildElement("album");
 					if(!el2.isNull()) {  // proceed album info
-						QString name, artist, img1, img2, img3;
+						QString name, artist, img1, img2, img3, img4;
 						el = el2;
 						el2 = el.firstChildElement("name");
 						if(!el2.isNull()) name = el2.firstChild().nodeValue();
 						el2 = el.firstChildElement("artist");
 						if(!el2.isNull()) artist = el2.firstChild().nodeValue();
-						list = el.elementsByTagName("image");
-						for(int i=0; i<list.size() && i<3; i++) {
-							QDomElement el3 = list.at(i).toElement();
-							if(el3.attribute("size") == "small") img1 = el3.firstChild().nodeValue();
-							if(el3.attribute("size") == "medium") img2 = el3.firstChild().nodeValue();
-							if(el3.attribute("size") == "large") img3 = el3.firstChild().nodeValue();
+						QString mbid;
+						el2 = el.firstChildElement("mbid");
+						if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
+						Database::Self().MbidForAlbum(lfmArtist, mbid, Database::Self().AddArtist(artist));
+						el2 = el.firstChildElement("image");
+						while(!el2.isNull()) {
+							if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
+							if(el2.attribute("size") == "medium") img2 = el2.firstChild().nodeValue();
+							if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
+							if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
+							el2 = el2.nextSiblingElement("image");
 						}
 						if(!img2.size()) img2 = img1;
 						if(!img3.size()) img3 = img2;
-						Console::Self().log("Image URL" + img3);
+						if(!img4.size()) img4 = img3;
+						Console::Self().log("Image URL" + img4);
 						if(downloader.done()) {
 							if(lfmArtist != artist)
 								Database::Self().RenameArtist(lfmArtist, artist);
@@ -906,7 +923,7 @@ void CollectionView::infoResponse(QString info)
 								Database::Self().RenameAlbum(lfmAlbum, name, Database::Self().AddArtist(artist));
 							lfmArtist = artist;
 							lfmAlbum = name;
-							downloader.download(img3);
+							downloader.download(img4);
 						} else { // download queue
 						}
 					} else {
