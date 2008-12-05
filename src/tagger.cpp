@@ -369,6 +369,21 @@ TagEntry Tagger::readTags(QUrl &url)
 	if(file.size()) {
 		QString title, artist, album, comment, genre, length;
 		int track, year, rating;
+		TagLib::FileRef fr(file.toLocal8Bit().constData());
+		if(!fr.isNull() && fr.audioProperties()) {
+			tags.length = fr.audioProperties()->length() * 75;
+		}
+		if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length)) {
+			tags.title = title;
+			tags.artist = artist;
+			tags.album = album;
+			tags.comment = comment;
+			tags.genre = genre;
+			tags.track = track;
+			tags.year = year;
+			tags.rating = rating;
+			tags.slength = length;
+		} else
 		if(readTags(file, title, artist, album, comment, genre, track, year, length)) {
 			tags.title = title;
 			tags.artist = artist;
@@ -378,13 +393,6 @@ TagEntry Tagger::readTags(QUrl &url)
 			tags.track = track;
 			tags.year = year;
 			tags.slength = length;
-			if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length)) {
-				tags.rating = rating;
-			}
-			TagLib::FileRef fr(file.toLocal8Bit().constData());
-			if(!fr.isNull() && fr.audioProperties()) {
-				tags.length = fr.audioProperties()->length() * 75;
-			}
 		} else {
 			tags.title = QFileInfo(file).baseName();
 		}

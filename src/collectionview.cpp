@@ -148,7 +148,6 @@ int CollectionFiller::proceed(QString path)
 					genre = attrname;
 					break;
 				case M_SONG:
-					//Database::Self().SetMark(path, attrname);
 					return -1;
 				case M_LIST:
 					// TODO
@@ -205,11 +204,6 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		Database::Self().RenameGenre(oldvalue, newvalue);
 		break;
 	case M_SONG: {
-// 		QString title, artist, album, comment, genre, length;
-// 		int track, year, rating;
-// 		if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length))
-// 			Database::Self().SetTags(path, newvalue, artist, album, comment, genre, track, year, rating); 
-		//Database::Self().RenameMark(oldvalue, newvalue);
 		break;
 	}
 	case M_LIST: {
@@ -339,7 +333,7 @@ void CollectionModel::updateMode(ListMode m)
 		QStandardItem *i;
 		int count = 0;
 		foreach(struct Database::AttrAl attr, dataAl) {
-			if(PLSet.hideEmptyInCollection && (attr.name == " " || attr.name == ""))
+			if(PLSet.hideEmptyInCollection && (attr.name == " " || attr.name == "" || !attr.refs))
 				continue;
 			count ++;
 			QPixmap px2;
@@ -644,7 +638,6 @@ void CollectionView::addItem()
 		Database::Self().AddGenre(tr("New Genre"));
 		break;
 	case M_SONG:
-		//Database::Self().AddMark(tr("New Mark"));
 		return;
 	}
 	model.update();
@@ -664,8 +657,8 @@ void CollectionView::removeItem()
 			Database::Self().RemoveGenre(model.data(ind).toString());
 			break;
 		case M_SONG:
-			//Database::Self().RemoveMark(model.data(ind).toString());
-			return;
+			Database::Self().RemoveFile(model.itemFromIndex(ind)->data().toString());
+			break;
 		}
     }
 	//model.updateMode(model.mode);
@@ -699,7 +692,6 @@ void CollectionView::applySubset(QModelIndex ind)
 		model.updateMode(M_ARTIST);
 		break;
 	case M_SONG:
-		//Database::Self().subsetMark(value);
 		return;
 	}
 	//model.update();
@@ -884,8 +876,15 @@ void CollectionView::infoResponse(QString info)
 					if(!img4.size()) img4 = img3;
 					Console::Self().log("Image URL" + img4);
 					if(downloader.done()) {
-						if(lfmArtist != name)
+						if(lfmArtist != name) {
 							Database::Self().RenameArtist(lfmArtist, name);
+							Database::Self().pushSubset();
+							QList<QString> list = Database::Self().Songs(&name);
+							foreach(QString file, list) {
+								Tagger::updateArtist(file, name);
+							}
+							Database::Self().popSubset();
+						}
 						lfmArtist = name;
 						lfmAlbum = "";
 						downloader.download(img4);
@@ -917,10 +916,24 @@ void CollectionView::infoResponse(QString info)
 						if(!img4.size()) img4 = img3;
 						Console::Self().log("Image URL" + img4);
 						if(downloader.done()) {
-							if(lfmArtist != artist)
+							if(lfmArtist != artist) {
 								Database::Self().RenameArtist(lfmArtist, artist);
-							if(lfmAlbum != name)
+								Database::Self().pushSubset();
+								QList<QString> list = Database::Self().Songs(&name);
+								foreach(QString file, list) {
+									Tagger::updateArtist(file, name);
+								}
+								Database::Self().popSubset();
+							}
+							if(lfmAlbum != name) {
 								Database::Self().RenameAlbum(lfmAlbum, name, Database::Self().AddArtist(artist));
+								Database::Self().pushSubset();
+								QList<QString> list = Database::Self().Songs(&artist, Database::Self().AddAlbum(name, Database::Self().AddArtist(artist)));
+								foreach(QString file, list) {
+									Tagger::updateAlbum(file, name);
+								}
+								Database::Self().popSubset();
+							}
 							lfmArtist = artist;
 							lfmAlbum = name;
 							downloader.download(img4);

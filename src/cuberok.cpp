@@ -195,7 +195,7 @@ void Cuberok::settings()
 void Cuberok::colmodeChanged(int m)
 {
 	ui.actionAddToCollection->setDisabled(m == M_SONG);
-	ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
+	//ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
 	ui.actionSetImage->setDisabled(m == M_SONG);
 	ui.actionGetImageFromLastFM->setDisabled(m != M_ARTIST && m != M_ALBUM);
 	switch(m) {

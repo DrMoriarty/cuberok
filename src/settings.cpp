@@ -43,6 +43,9 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	if(PLSet.autoRating)
 		ui.checkBox_autorating->setCheckState(Qt::Checked);
 
+	if(PLSet.hideEmptyInCollection)
+		ui.checkBox_hideEmpty->setCheckState(Qt::Checked);
+
 	QStringList sl;
 	foreach(QByteArray it, QTextCodec::availableCodecs ()) {
 		sl << QString(it);
@@ -87,6 +90,8 @@ void Settings::accept()
 	set.setValue("saveCorrected", Tagger::saveCorrected());
 	
 	PLSet.autoRating = ui.checkBox_autorating->checkState() == Qt::Checked;
+
+	PLSet.hideEmptyInCollection = ui.checkBox_hideEmpty->checkState() == Qt::Checked;
 
 	PLSet.cue_codepage = ui.comboBox_cue->currentText();
 

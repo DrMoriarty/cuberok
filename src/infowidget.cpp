@@ -86,6 +86,7 @@ InfoWidget::InfoWidget(QWidget *parent) : QTreeWidget(parent), ar(0), al(0)
 	setColumnHidden(0, true);
 	setArtist("");
 	setAlbum("");
+	header()->hide();
 }
 
 void InfoWidget::setArtist(QString a)

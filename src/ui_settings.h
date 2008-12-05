@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Thu 20. Nov 15:02:46 2008
+** Created: Wed 26. Nov 16:50:41 2008
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -45,6 +45,7 @@ public:
     QCheckBox *checkBox_autorating;
     QLabel *label_3;
     QComboBox *comboBox_cue;
+    QCheckBox *checkBox_hideEmpty;
     QWidget *page_2;
     QWidget *page_3;
     QGridLayout *gridLayout1;
@@ -74,14 +75,14 @@ public:
     {
     if (Settings->objectName().isEmpty())
         Settings->setObjectName(QString::fromUtf8("Settings"));
-    Settings->resize(430, 339);
+    Settings->resize(430, 395);
     vboxLayout = new QVBoxLayout(Settings);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
     toolBox = new QToolBox(Settings);
     toolBox->setObjectName(QString::fromUtf8("toolBox"));
     page = new QWidget();
     page->setObjectName(QString::fromUtf8("page"));
-    page->setGeometry(QRect(0, 0, 412, 170));
+    page->setGeometry(QRect(0, 0, 412, 226));
     gridLayout = new QGridLayout(page);
     gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
     gridLayout->setHorizontalSpacing(4);
@@ -109,7 +110,7 @@ public:
 
     spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem, 9, 0, 1, 1);
+    gridLayout->addItem(spacerItem, 10, 0, 1, 1);
 
     checkBox_autofix8bit = new QCheckBox(page);
     checkBox_autofix8bit->setObjectName(QString::fromUtf8("checkBox_autofix8bit"));
@@ -129,12 +130,17 @@ public:
     label_3 = new QLabel(page);
     label_3->setObjectName(QString::fromUtf8("label_3"));
 
-    gridLayout->addWidget(label_3, 7, 0, 1, 1);
+    gridLayout->addWidget(label_3, 8, 0, 1, 1);
 
     comboBox_cue = new QComboBox(page);
     comboBox_cue->setObjectName(QString::fromUtf8("comboBox_cue"));
 
-    gridLayout->addWidget(comboBox_cue, 8, 0, 1, 1);
+    gridLayout->addWidget(comboBox_cue, 9, 0, 1, 1);
+
+    checkBox_hideEmpty = new QCheckBox(page);
+    checkBox_hideEmpty->setObjectName(QString::fromUtf8("checkBox_hideEmpty"));
+
+    gridLayout->addWidget(checkBox_hideEmpty, 7, 0, 1, 1);
 
     toolBox->addItem(page, QIcon(QString::fromUtf8(":/icons/settings.png")), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
     page_2 = new QWidget();
@@ -211,7 +217,7 @@ public:
     toolBox->addItem(page_3, QIcon(QString::fromUtf8(":/icons/internet.png")), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
     page_4 = new QWidget();
     page_4->setObjectName(QString::fromUtf8("page_4"));
-    page_4->setGeometry(QRect(0, 0, 412, 170));
+    page_4->setGeometry(QRect(0, 0, 156, 130));
     gridLayout3 = new QGridLayout(page_4);
     gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
     gridLayout3->setHorizontalSpacing(4);
@@ -288,6 +294,7 @@ public:
     checkBox_autosave->setText(QApplication::translate("Settings", "Auto save fixed tags", 0, QApplication::UnicodeUTF8));
     checkBox_autorating->setText(QApplication::translate("Settings", "Enable auto rating", 0, QApplication::UnicodeUTF8));
     label_3->setText(QApplication::translate("Settings", "Codepage for CUE sheets", 0, QApplication::UnicodeUTF8));
+    checkBox_hideEmpty->setText(QApplication::translate("Settings", "Hide nameless albums", 0, QApplication::UnicodeUTF8));
     toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
     toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
     checkBox_proxyEnabled->setTitle(QApplication::translate("Settings", "Use proxy", 0, QApplication::UnicodeUTF8));
