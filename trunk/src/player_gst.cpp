@@ -23,6 +23,8 @@
 
 #define TIME 200
 
+#define canUsePlaybin false
+
 #include <QtGui>
 
 Q_EXPORT_PLUGIN2(player_gst, PlayerGst) 
@@ -48,13 +50,12 @@ PlayerGst * gstplayer = 0;
 	} }
 
 
-// static void gst_finish(GstElement* object, gpointer userdata)
-// {
-// 	if(gstplayer) gstplayer->need_finish();
-// }
+static void gst_finish(GstElement* object, gpointer userdata)
+{
+	if(gstplayer) gstplayer->need_finish();
+}
 
-static void 
-cb_newpad (GstElement *decodebin,
+static void cb_newpad (GstElement *decodebin,
 		   GstPad     *pad,
 		   gboolean    last,
 		   gpointer    data)
@@ -94,27 +95,32 @@ void PlayerGst::newpad (GstElement *decodebin,
 	gst_pad_link (pad, audiopad);
 }
 
-PlayerGst::PlayerGst() : pipeline(0), bus(0), paused(false), Gstart(0), Glength(0), link(0)
+PlayerGst::PlayerGst() : pipeline(0), bus(0), paused(false), Gstart(0), Glength(0), link(0), usePlaybin(false)
 {
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
 	gstplayer = this;
+	gst_init (0, 0);
 }
 
 PlayerGst::~PlayerGst()
 {
     delete timer;
+	cleanup();
+	gst_deinit();
+}
+
+void PlayerGst::cleanup()
+{
 	if(pipeline) sync_set_state2 (GST_ELEMENT (pipeline), GST_STATE_NULL);
 	if(bus) gst_object_unref (bus);
 	if(pipeline) gst_object_unref(G_OBJECT(pipeline));
-	gst_deinit();
 }
 
 bool PlayerGst::prepare()
 {
-	GstElement *dec, *conv, *sink, *audio, *vol;
+	GstElement *dec, *conv, *sink, *audio, *vol, *playbin;
 	GstPad *audiopad;
-	gst_init (0, 0);
 	pipeline = gst_pipeline_new ("pipeline");
 	bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
 
@@ -145,11 +151,17 @@ bool PlayerGst::prepare()
 	gst_element_set_locked_state (http_src, TRUE);
 	//gst_element_link (src, dec);
 
-// 	player = gst_element_factory_make ("playbin2", "player");
-// 	if(player) g_signal_connect(player, "about-to-finish", G_CALLBACK(gst_finish), NULL);
-// 	else player = gst_element_factory_make ("playbin", "player");
+	if(canUsePlaybin) {
+		playbin = gst_element_factory_make ("playbin2", "player");
+		if(playbin) g_signal_connect(playbin, "about-to-finish", G_CALLBACK(gst_finish), NULL);
+		else playbin = gst_element_factory_make ("playbin", "player");
+		gst_bin_add (GST_BIN (pipeline), playbin);
+		//g_object_set (G_OBJECT(playbin), "audio-sink", audio, NULL);
+		gst_element_set_state (playbin, GST_STATE_NULL);
+		gst_element_set_locked_state (playbin, TRUE);
  	//sync_set_state(player, GST_STATE_NULL);
 // 	gst_element_set_state (GST_ELEMENT (player), GST_STATE_NULL);
+	}
 
 	return pipeline;
 }
@@ -161,9 +173,13 @@ bool PlayerGst::ready()
 
 void PlayerGst::setLink(int l, QUrl &url)
 {
+	GstElement *audio = gst_bin_get_by_name(GST_BIN(pipeline), "audiobin");
 	GstElement *dec = gst_bin_get_by_name(GST_BIN(pipeline), "decoder");
 	GstElement *l_src = gst_bin_get_by_name(GST_BIN(pipeline), "localsrc");
 	GstElement *http_src = gst_bin_get_by_name(GST_BIN(pipeline), "httpsrc");
+	GstElement *playbin;
+	if(canUsePlaybin) playbin = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+
 	if(l != link) {
 		switch(link) {
 		case 2: // http
@@ -172,9 +188,17 @@ void PlayerGst::setLink(int l, QUrl &url)
 			gst_element_set_locked_state (http_src, TRUE);
 			break;
 		case 1: // file
-			gst_element_unlink (l_src, dec);
-			gst_element_set_state (l_src, GST_STATE_NULL);
-			gst_element_set_locked_state (l_src, TRUE);
+			if(canUsePlaybin) {
+				gst_element_set_state(playbin, GST_STATE_NULL);
+				gst_element_set_locked_state(playbin, TRUE);
+				usePlaybin = false;
+				gst_element_set_locked_state(audio, FALSE);
+				gst_element_set_locked_state(dec, FALSE);
+			} else {
+				gst_element_unlink (l_src, dec);
+				gst_element_set_state (l_src, GST_STATE_NULL);
+				gst_element_set_locked_state (l_src, TRUE);
+			}
 			break;
 		case 0:
 		default:
@@ -187,9 +211,18 @@ void PlayerGst::setLink(int l, QUrl &url)
 			gst_element_set_locked_state (http_src, FALSE);
 			break;
 		case 1: // file
-			//g_object_set (G_OBJECT (l_src), "location", (const char*)url.toLocalFile().toLocal8Bit(), NULL);
-			gst_element_link (l_src, dec);
-			gst_element_set_locked_state (l_src, FALSE);
+			if(canUsePlaybin) {
+				gst_element_set_locked_state(playbin, FALSE);
+				usePlaybin = true;
+				gst_element_set_state(audio, GST_STATE_NULL);
+				gst_element_set_locked_state(audio, TRUE);
+				gst_element_set_state(dec, GST_STATE_NULL);
+				gst_element_set_locked_state(dec, TRUE);
+			} else {
+				//g_object_set (G_OBJECT (l_src), "location", (const char*)url.toLocalFile().toLocal8Bit(), NULL);
+				gst_element_link (l_src, dec);
+				gst_element_set_locked_state (l_src, FALSE);
+			}
 			break;
 		case 0:
 		default:
@@ -207,15 +240,21 @@ void PlayerGst::setLink(int l, QUrl &url)
 		break;
 	}
 	case 1: // file
-		g_object_set (G_OBJECT (l_src), "location", (const char*)ToLocalFile(url).toLocal8Bit(), NULL);
+		if(canUsePlaybin) {
+			g_object_set (playbin, "uri", (const char*)ToLocalFile(url).toLocal8Bit(), NULL);
+		} else {
+			g_object_set (G_OBJECT (l_src), "location", (const char*)ToLocalFile(url).toLocal8Bit(), NULL);
+		}
 		break;
 	case 0:
 	default:
 		{}
 	}
+	if(canUsePlaybin) gst_object_unref(playbin);
 	gst_object_unref(l_src);
 	gst_object_unref(http_src);
 	gst_object_unref(dec);
+	gst_object_unref(audio);
 }
 
 bool PlayerGst::open(QUrl fname, long start, long length)
@@ -323,19 +362,30 @@ double PlayerGst::getPosition()
 int  PlayerGst::volume()
 {
 	gdouble vol = 0;
-	GstElement *volume = gst_bin_get_by_name(GST_BIN(pipeline), "volume");
-	g_object_get (G_OBJECT(volume), "volume", &vol, NULL);
-	gst_object_unref(volume);
-	//g_object_get (G_OBJECT(p), "volume", &vol, NULL);
+	if(usePlaybin) {
+		GstElement *playbin = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+		g_object_get (G_OBJECT(playbin), "volume", &vol, NULL);
+		gst_object_unref(playbin);
+	} else {
+		GstElement *volume = gst_bin_get_by_name(GST_BIN(pipeline), "volume");
+		g_object_get (G_OBJECT(volume), "volume", &vol, NULL);
+		gst_object_unref(volume);
+	}
 	return vol * 10;
 }
 
 void PlayerGst::setVolume(int v)
 {
 	gdouble vol = 0.01 * v;
-	GstElement *volume = gst_bin_get_by_name(GST_BIN(pipeline), "volume");
-	g_object_set (G_OBJECT(volume), "volume", vol, NULL);
-	gst_object_unref(volume);
+	if(usePlaybin) {
+		GstElement *playbin = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+		g_object_set (G_OBJECT(playbin), "volume", vol, NULL);
+		gst_object_unref(playbin);
+	} else {
+		GstElement *volume = gst_bin_get_by_name(GST_BIN(pipeline), "volume");
+		g_object_set (G_OBJECT(volume), "volume", vol, NULL);
+		gst_object_unref(volume);
+	}
 	//g_object_set (G_OBJECT(player), "volume", vol, NULL);
 }
 
@@ -359,7 +409,7 @@ QString PlayerGst::name()
 void PlayerGst::timerUpdate()
 {
 	GstMessage* message;
-	while(message = gst_bus_pop(bus), message) {
+	while(!usePlaybin && (message = gst_bus_pop(bus), message)) {
 		switch (GST_MESSAGE_TYPE (message)) {
 		case GST_MESSAGE_ERROR: {
 			GError *err;

@@ -164,9 +164,6 @@
        <addaction name="actionSongMode" />
        <addaction name="actionIconView" />
        <addaction name="separator" />
-       <addaction name="actionAddToCollection" />
-       <addaction name="actionRemoveFromCollection" />
-       <addaction name="separator" />
        <addaction name="actionSetImage" />
        <addaction name="actionGetImageFromLastFM" />
       </widget>
@@ -266,6 +263,7 @@
        <addaction name="actionAddToCollection" />
        <addaction name="actionRemoveFromCollection" />
        <addaction name="actionSetImage" />
+       <addaction name="actionGetImageFromLastFM" />
       </widget>
      </item>
     </layout>

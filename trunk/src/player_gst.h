@@ -63,8 +63,10 @@ class PlayerGst : public Player
     QTimer *timer;
 	gint64 Gstart, Glength;
 	int link;
+	bool usePlaybin;
 
 	void setLink(int, QUrl&);
+	void cleanup();
 };
 
 

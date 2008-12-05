@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>339</height>
+    <height>395</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -24,7 +24,7 @@
         <x>0</x>
         <y>0</y>
         <width>412</width>
-        <height>170</height>
+        <height>226</height>
        </rect>
       </property>
       <attribute name="label" >
@@ -72,7 +72,7 @@
        <item row="3" column="0" >
         <widget class="QComboBox" name="comboBox_engine" />
        </item>
-       <item row="9" column="0" >
+       <item row="10" column="0" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -106,15 +106,22 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="0" >
+       <item row="8" column="0" >
         <widget class="QLabel" name="label_3" >
          <property name="text" >
           <string>Codepage for CUE sheets</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="0" >
+       <item row="9" column="0" >
         <widget class="QComboBox" name="comboBox_cue" />
+       </item>
+       <item row="7" column="0" >
+        <widget class="QCheckBox" name="checkBox_hideEmpty" >
+         <property name="text" >
+          <string>Hide nameless albums</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -272,8 +279,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>412</width>
-        <height>170</height>
+        <width>156</width>
+        <height>130</height>
        </rect>
       </property>
       <attribute name="label" >
