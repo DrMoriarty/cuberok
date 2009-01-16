@@ -38,6 +38,9 @@ void UrlOpen::accept()
 	if(url.scheme().toLower() == "file") {
 		emit append(url);
 		QDialog::accept();
+	} else if(url.toString().toLower().endsWith("mp3") || url.toString().toLower().endsWith("ogg")) {
+		emit append(url);
+		QDialog::accept();
 	} else {
 		dl = new Downloader();
 		connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));

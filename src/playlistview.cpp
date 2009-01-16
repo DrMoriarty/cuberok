@@ -535,14 +535,18 @@ void PlaylistView::setName(QString newname)
 	}
 }
 
-void PlaylistView::rateSong(QModelIndex &ind, int r)
+void PlaylistView::rateSong(QModelIndex &ind, int r, int offset)
 {
-	if(!PLSet.autoRating || !r) return;
+	if(!PLSet.autoRating || (!r && !offset)) return;
 	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length;
 	int track, year, rating;
 	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
-		r = r * (5 - abs(rating/10));
+		if(r) {
+			r = r * (5 - abs(rating/10));
+		} else {
+			r = offset;
+		}
 		Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating+r);
 	}
 	Console::Self().log((r>0?"rate up ":"rate down ") + title);
@@ -556,4 +560,14 @@ int PlaylistView::curIndex()
 double PlaylistView::curPosition()
 {
 	return PlayerManager::Self().getPosition();
+}
+
+void PlaylistView::rateCurrent(int offset, int value)
+{
+	if(playing) {
+		bool ar = PLSet.autoRating;
+		PLSet.autoRating = true;
+		rateSong(plindex, 0, offset+value);
+		PLSet.autoRating = ar;
+	}
 }

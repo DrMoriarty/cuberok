@@ -65,14 +65,14 @@ StarRating::StarRating(int starCount, int maxStarCount, int measure)
      }
      myMaxStarCount = maxStarCount;
 
-     starPolygon << QPointF(1.0, 0.5);
-     for (int i = 1; i < 5; ++i)
-         starPolygon << QPointF(0.5 + 0.5 * cos(0.8 * i * 3.14),
-                                0.5 + 0.5 * sin(0.8 * i * 3.14));
+//      starPolygon << QPointF(1.0, 0.5);
+//      for (int i = 1; i < 5; ++i)
+//          starPolygon << QPointF(0.5 + 0.5 * cos(0.8 * i * 3.14),
+//                                 0.5 + 0.5 * sin(0.8 * i * 3.14));
 
-     diamondPolygon << QPointF(0.4, 0.5) << QPointF(0.5, 0.4)
-                    << QPointF(0.6, 0.5) << QPointF(0.5, 0.6)
-                    << QPointF(0.4, 0.5);
+//      diamondPolygon << QPointF(0.4, 0.5) << QPointF(0.5, 0.4)
+//                     << QPointF(0.6, 0.5) << QPointF(0.5, 0.6)
+//                     << QPointF(0.4, 0.5);
  }
 
  QSize StarRating::sizeHint() const
@@ -88,7 +88,13 @@ StarRating::StarRating(int starCount, int maxStarCount, int measure)
      painter->setRenderHint(QPainter::Antialiasing, true);
      painter->setPen(Qt::NoPen);
 
-     QIcon icon(":/icons/star.png");
+	 int stars = abs(myStarCount);
+     QIcon icon;
+	 if(myStarCount >= 0) {
+		 icon = QIcon(":/icons/star.png");
+	 } else {
+		 icon = QIcon(":/icons/antistar.png");
+	 }
      if (mode == Editable) {
          painter->setBrush(palette.highlight());
      } else {
@@ -102,7 +108,7 @@ StarRating::StarRating(int starCount, int maxStarCount, int measure)
 
      QRect r(0,0,PaintingScaleFactor,PaintingScaleFactor);
      for (int i = 0; i < myMaxStarCount; ++i) {
-         if (i < myStarCount) {
+         if (i < stars) {
              //painter->drawPolygon(starPolygon, Qt::WindingFill);
              icon.paint(painter, r);
          } else if (mode == Editable) {

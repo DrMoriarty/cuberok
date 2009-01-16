@@ -77,6 +77,10 @@ public slots:
 	void removeSong();
 	void reloadTags();
 	void openUrl();
+	void rateLove();
+	void rateBan();
+	void rateUp();
+	void rateDown();
 signals:
 	void status(QString);
 	void message(QString, QString, QString);

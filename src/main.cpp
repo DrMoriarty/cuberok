@@ -79,6 +79,27 @@ void restoreState(Cuberok *win)
 	*/
 }
 
+#ifdef WIN32
+#include <windows.h>
+void GlobalWinKeys(WId hwnd)
+{
+	RegisterHotKey(hwnd, 100, MOD_SHIFT | MOD_ALT, 'Z');
+	RegisterHotKey(hwnd, 200, MOD_SHIFT | MOD_ALT, 'X');
+	RegisterHotKey(hwnd, 300, MOD_SHIFT | MOD_ALT, 'C');
+	RegisterHotKey(hwnd, 400, MOD_SHIFT | MOD_ALT, 'V');
+	RegisterHotKey(hwnd, 500, MOD_SHIFT | MOD_ALT, 'B');
+}
+
+void UnregisterWinKeys(WId hwnd)
+{
+	UnregisterHotKey(hwnd, 100);
+	UnregisterHotKey(hwnd, 200);
+	UnregisterHotKey(hwnd, 300);
+	UnregisterHotKey(hwnd, 400);
+	UnregisterHotKey(hwnd, 500);
+}
+#endif
+
 int main(int argc, char *argv[])
 {
 	srand(0);
@@ -110,7 +131,13 @@ int main(int argc, char *argv[])
 	splash.finish(&w);
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
     //Database::Self();
+#ifdef WIN32
+	//GlobalWinKeys(w.winId());
+#endif
     int res = a.exec();
+#ifdef WIN32
+	//cUnregisterWinKeys(w.winId());
+#endif
 #ifndef DEBUG
     storeState(&w);
 #endif

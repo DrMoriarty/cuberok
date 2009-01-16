@@ -38,10 +38,10 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.subsetLabel->setVisible(false);
 	ui.subsetDisableButton->setVisible(false);
 	trayIconMenu = new QMenu(this);
-	trayIconMenu->addAction(ui.actionPlay);
-	trayIconMenu->addAction(ui.actionNext);
 	trayIconMenu->addAction(ui.actionPrev);
+	trayIconMenu->addAction(ui.actionPlay);
 	trayIconMenu->addAction(ui.actionPause);
+	trayIconMenu->addAction(ui.actionNext);
 	trayIconMenu->addSeparator();
 	trayIconMenu->addAction(ui.actionExit);
 	trayIcon = new QSystemTrayIcon(this);
@@ -140,8 +140,9 @@ void Cuberok::lookAndFeel()
 
 void Cuberok::message(QString title, QString album, QString artist)
 {
-	ui.infoWidget->setArtist(artist);
-	ui.infoWidget->setAlbum(album);
+	//ui.infoWidget->setArtist(artist);
+	//ui.infoWidget->setAlbum(album);
+	ui.infoWidget->setCurrent(artist, album, title);
 	if(title.size() || album.size() || artist.size()) {
 		ui.progressBar->setFormat(title + " %p%");
 		trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
