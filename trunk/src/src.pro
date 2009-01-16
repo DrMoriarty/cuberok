@@ -18,6 +18,7 @@ HEADERS += aboutdialog.h \
            cuberok.h \
            database.h \
            downloader.h \
+           info.h \
            infowidget.h \
            indicator.h \
            lastfm.h \
@@ -39,7 +40,7 @@ HEADERS += aboutdialog.h \
            tagger.h \
            url_open.h
 
-FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui
+FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui info.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
@@ -48,6 +49,7 @@ SOURCES += aboutdialog.cpp \
            cuberok.cpp \
            database.cpp \
            downloader.cpp \
+           info.cpp \
            infowidget.cpp \
            indicator.cpp \
            lastfm.cpp \

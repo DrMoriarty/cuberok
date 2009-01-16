@@ -45,6 +45,7 @@ public:
 	int curIndex();
 	double curPosition();
 	void play(int index, double pos);
+	void rateCurrent(int offset, int value = 0);
     
 protected:
 	virtual void hideEvent ( QHideEvent * event );
@@ -54,7 +55,7 @@ private:
     QModelIndex nextItem();
     QModelIndex prevItem();
     void resetTags(QModelIndex& ind);
-	void rateSong(QModelIndex &ind, int r);
+	void rateSong(QModelIndex &ind, int r, int offset=0);
     
 	QString plistname;
     PlaylistModel model;

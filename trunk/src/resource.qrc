@@ -20,6 +20,7 @@
         <file alias="stars4.png" >../images/rating4.png</file>
         <file alias="stars5.png" >../images/rating5.png</file>
         <file alias="star.png" >../images/star2s.png</file>
+        <file alias="antistar.png" >../images/emblem-trash.png</file>
         <file alias="download_art.png" >../images/emblem-download-art.png</file>
         <file alias="col_art.png" >../images/emblem-art.png</file>
         <file alias="col_add.png" >../images/emblem-new.png</file>
@@ -42,5 +43,6 @@
         <file alias="console_war.png" >../images/console_war.png</file>
         <file alias="console_mes.png" >../images/console_mes.png</file>
         <file alias="console_none.png" >../images/console_none.png</file>
+        <file alias="heart.png" >../images/heart.png</file>
     </qresource>
 </RCC>

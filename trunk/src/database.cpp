@@ -724,6 +724,12 @@ QString Database::GetGenre(int id)
     return _GetGenre(id);
 }
 
+QString Database::GetFile(int id)
+{
+	QMutexLocker locker(&lock);
+	return _GetFile(id);
+}
+
 QString Database::_GetArtist(int id)
 {
     if(!open) return "";
@@ -746,6 +752,14 @@ QString Database::_GetGenre(int id)
     QSqlQuery q("select value from Genre where ID = "+QString::number(id), db);
     if(q.next()) return q.value(0).toString();
     else return "";
+}
+
+QString Database::_GetFile(int id)
+{
+	if(!open) return "";
+	QSqlQuery q("select File from Song where ID = "+QString::number(id), db);
+	if(q.next()) return q.value(0).toString();
+	else return "";
 }
 
 // QString Database::GetMark(int id)
@@ -980,3 +994,19 @@ void Database::ArtForPlaylist(QString val, QString art)
     return ArtForAttribute(nPlaylist, val, art);
 }
 
+void Database::RateSong(QString file, int rate)
+{
+	if(!rate || !open) return;
+	QMutexLocker locker(&lock);
+	QSqlQuery q("", db);
+	q.prepare("select Rating from Song where File = :file");
+	q.bindValue(":file", file);
+	q.exec();
+	if(q.next()) {
+		int r = q.value(0).toString().toInt();
+		r += rate;
+		q.prepare("update Song set Rating = "+QString::number(r)+" where File = :file");
+		q.bindValue(":file", file);
+		q.exec();
+	}
+}

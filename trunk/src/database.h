@@ -76,6 +76,8 @@ public:
     QString GetArtist(int);
     QString GetAlbum(int);
     QString GetGenre(int);
+	QString GetFile(int);
+	void RateSong(QString file, int rate);
 
     void clearSubset();
     void pushSubset();
@@ -97,6 +99,7 @@ private:
     QString _GetArtist(int);
     QString _GetAlbum(int);
     QString _GetGenre(int);
+	QString _GetFile(int);
     void _ArtForAlbum(QString val, QString art, int artist);
     void _RemoveAlbum(QString album, int artist);
     void _RemoveFile(QString file);

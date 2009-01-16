@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Tue 25. Nov 10:38:36 2008
+** Created: Fri 16. Jan 17:57:12 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -30,7 +30,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 #include "collectionview.h"
-#include "infowidget.h"
+#include "info.h"
 #include "libraryview.h"
 #include "playlistcontainer.h"
 #include "progressbar.h"
@@ -112,7 +112,7 @@ public:
     QDockWidget *dockWidget4;
     QWidget *dockWidgetContents4;
     QVBoxLayout *vboxLayout4;
-    InfoWidget *infoWidget;
+    Info *infoWidget;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -298,8 +298,8 @@ public:
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
     vboxLayout->setSpacing(4);
+    vboxLayout->setMargin(4);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
-    vboxLayout->setContentsMargins(4, 4, 4, 4);
     listView = new PlaylistContainer(centralwidget);
     listView->setObjectName(QString::fromUtf8("listView"));
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -326,8 +326,8 @@ public:
     frame->setFrameShadow(QFrame::Raised);
     hboxLayout = new QHBoxLayout(frame);
     hboxLayout->setSpacing(2);
+    hboxLayout->setMargin(4);
     hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
-    hboxLayout->setContentsMargins(4, 4, 4, 4);
     progressBar = new ProgressBar(frame);
     progressBar->setObjectName(QString::fromUtf8("progressBar"));
     progressBar->setMaximum(1000);
@@ -358,8 +358,9 @@ public:
     dockWidgetContents1->setObjectName(QString::fromUtf8("dockWidgetContents1"));
     vboxLayout1 = new QVBoxLayout(dockWidgetContents1);
     vboxLayout1->setSpacing(2);
+    vboxLayout1->setMargin(4);
     vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
-    vboxLayout1->setContentsMargins(4, 4, 4, 4);
+    vboxLayout1->setContentsMargins(0, 0, 0, 0);
     col_toolbar = new QToolBar(dockWidgetContents1);
     col_toolbar->setObjectName(QString::fromUtf8("col_toolbar"));
 
@@ -371,8 +372,8 @@ public:
     frame_2->setLineWidth(0);
     hboxLayout1 = new QHBoxLayout(frame_2);
     hboxLayout1->setSpacing(0);
+    hboxLayout1->setMargin(0);
     hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
-    hboxLayout1->setContentsMargins(0, 0, 0, 0);
     subsetLabel = new QLabel(frame_2);
     subsetLabel->setObjectName(QString::fromUtf8("subsetLabel"));
 
@@ -416,8 +417,9 @@ public:
     dockWidgetContents2->setObjectName(QString::fromUtf8("dockWidgetContents2"));
     vboxLayout2 = new QVBoxLayout(dockWidgetContents2);
     vboxLayout2->setSpacing(2);
+    vboxLayout2->setMargin(4);
     vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
-    vboxLayout2->setContentsMargins(4, 4, 4, 4);
+    vboxLayout2->setContentsMargins(0, 0, 0, 0);
     treeView_2 = new QTreeView(dockWidgetContents2);
     treeView_2->setObjectName(QString::fromUtf8("treeView_2"));
     treeView_2->setDragEnabled(true);
@@ -440,8 +442,9 @@ public:
     dockWidgetContents3->setObjectName(QString::fromUtf8("dockWidgetContents3"));
     vboxLayout3 = new QVBoxLayout(dockWidgetContents3);
     vboxLayout3->setSpacing(2);
+    vboxLayout3->setMargin(4);
     vboxLayout3->setObjectName(QString::fromUtf8("vboxLayout3"));
-    vboxLayout3->setContentsMargins(4, 4, 4, 4);
+    vboxLayout3->setContentsMargins(0, 0, 0, 0);
     libView = new LibraryView(dockWidgetContents3);
     libView->setObjectName(QString::fromUtf8("libView"));
     libView->setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -460,16 +463,11 @@ public:
     dockWidgetContents4->setObjectName(QString::fromUtf8("dockWidgetContents4"));
     vboxLayout4 = new QVBoxLayout(dockWidgetContents4);
     vboxLayout4->setSpacing(4);
+    vboxLayout4->setMargin(4);
     vboxLayout4->setObjectName(QString::fromUtf8("vboxLayout4"));
-    vboxLayout4->setContentsMargins(4, 4, 4, 4);
-    infoWidget = new InfoWidget(dockWidgetContents4);
+    vboxLayout4->setContentsMargins(0, 0, 0, 0);
+    infoWidget = new Info(dockWidgetContents4);
     infoWidget->setObjectName(QString::fromUtf8("infoWidget"));
-    infoWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    infoWidget->setIconSize(QSize(128, 128));
-    infoWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    infoWidget->setRootIsDecorated(false);
-    infoWidget->setAnimated(true);
-    infoWidget->setAllColumnsShowFocus(true);
 
     vboxLayout4->addWidget(infoWidget);
 
@@ -524,14 +522,12 @@ public:
     col_toolbar->addAction(actionSongMode);
     col_toolbar->addAction(actionIconView);
     col_toolbar->addSeparator();
-    col_toolbar->addAction(actionAddToCollection);
-    col_toolbar->addAction(actionRemoveFromCollection);
-    col_toolbar->addSeparator();
     col_toolbar->addAction(actionSetImage);
     col_toolbar->addAction(actionGetImageFromLastFM);
     colView->addAction(actionAddToCollection);
     colView->addAction(actionRemoveFromCollection);
     colView->addAction(actionSetImage);
+    colView->addAction(actionGetImageFromLastFM);
     libView->addAction(actionAddToLibrary);
     libView->addAction(actionRemoveFromLibrary);
     libView->addAction(actionLibrarySetImage);
@@ -550,8 +546,8 @@ public:
     menuHelp->addAction(actionAbout);
     menuHelp->addAction(actionAboutQt);
     menuControl->addAction(actionPrev);
-    menuControl->addAction(actionPause);
     menuControl->addAction(actionPlay);
+    menuControl->addAction(actionPause);
     menuControl->addAction(actionNext);
     menuControl->addSeparator();
     menuControl->addAction(actionShuffle);
@@ -644,6 +640,10 @@ public:
     QObject::connect(actionLibrarySetImage, SIGNAL(triggered()), libView, SLOT(setImage()));
     QObject::connect(actionGetImageFromLastFM, SIGNAL(triggered()), colView, SLOT(loadImage()));
     QObject::connect(actionConsole, SIGNAL(triggered()), CuberokClass, SLOT(viewConsole()));
+    QObject::connect(infoWidget, SIGNAL(ban()), listView, SLOT(rateBan()));
+    QObject::connect(infoWidget, SIGNAL(loveIt()), listView, SLOT(rateLove()));
+    QObject::connect(infoWidget, SIGNAL(rateDown()), listView, SLOT(rateDown()));
+    QObject::connect(infoWidget, SIGNAL(rateUp()), listView, SLOT(rateUp()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -659,22 +659,22 @@ public:
     actionPrev->setIconText(QApplication::translate("CuberokClass", "<<", 0, QApplication::UnicodeUTF8));
     actionPrev->setToolTip(QApplication::translate("CuberokClass", "Previous track", 0, QApplication::UnicodeUTF8));
     actionPrev->setStatusTip(QApplication::translate("CuberokClass", "Previous track", 0, QApplication::UnicodeUTF8));
-    actionPrev->setShortcut(QApplication::translate("CuberokClass", "Alt+Z", 0, QApplication::UnicodeUTF8));
+    actionPrev->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+Z", 0, QApplication::UnicodeUTF8));
     actionNext->setText(QApplication::translate("CuberokClass", "Next", 0, QApplication::UnicodeUTF8));
     actionNext->setIconText(QApplication::translate("CuberokClass", ">>", 0, QApplication::UnicodeUTF8));
     actionNext->setToolTip(QApplication::translate("CuberokClass", "Next track", 0, QApplication::UnicodeUTF8));
     actionNext->setStatusTip(QApplication::translate("CuberokClass", "Next track", 0, QApplication::UnicodeUTF8));
-    actionNext->setShortcut(QApplication::translate("CuberokClass", "Alt+B", 0, QApplication::UnicodeUTF8));
+    actionNext->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+B", 0, QApplication::UnicodeUTF8));
     actionPause->setText(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
     actionPause->setIconText(QApplication::translate("CuberokClass", "||", 0, QApplication::UnicodeUTF8));
     actionPause->setToolTip(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
     actionPause->setStatusTip(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
-    actionPause->setShortcut(QApplication::translate("CuberokClass", "Alt+C", 0, QApplication::UnicodeUTF8));
+    actionPause->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+C", 0, QApplication::UnicodeUTF8));
     actionPlay->setText(QApplication::translate("CuberokClass", "Play", 0, QApplication::UnicodeUTF8));
     actionPlay->setIconText(QApplication::translate("CuberokClass", ">", 0, QApplication::UnicodeUTF8));
     actionPlay->setToolTip(QApplication::translate("CuberokClass", "Play track", 0, QApplication::UnicodeUTF8));
     actionPlay->setStatusTip(QApplication::translate("CuberokClass", "Play track", 0, QApplication::UnicodeUTF8));
-    actionPlay->setShortcut(QApplication::translate("CuberokClass", "Alt+X", 0, QApplication::UnicodeUTF8));
+    actionPlay->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+X", 0, QApplication::UnicodeUTF8));
     actionShuffle->setText(QApplication::translate("CuberokClass", "Shuffle", 0, QApplication::UnicodeUTF8));
     actionShuffle->setStatusTip(QApplication::translate("CuberokClass", "Shuffle mode", 0, QApplication::UnicodeUTF8));
     actionRepeat->setText(QApplication::translate("CuberokClass", "Repeat", 0, QApplication::UnicodeUTF8));
@@ -713,7 +713,7 @@ public:
     actionStop->setText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
     actionStop->setIconText(QApplication::translate("CuberokClass", "[]", 0, QApplication::UnicodeUTF8));
     actionStop->setStatusTip(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
-    actionStop->setShortcut(QApplication::translate("CuberokClass", "Alt+V", 0, QApplication::UnicodeUTF8));
+    actionStop->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+V", 0, QApplication::UnicodeUTF8));
     actionSavePlaylist->setText(QApplication::translate("CuberokClass", "Save playlist", 0, QApplication::UnicodeUTF8));
     actionSavePlaylist->setToolTip(QApplication::translate("CuberokClass", "Save playlist into file", 0, QApplication::UnicodeUTF8));
     actionLoadPlaylist->setText(QApplication::translate("CuberokClass", "Open playlist", 0, QApplication::UnicodeUTF8));
@@ -738,7 +738,6 @@ public:
     dockWidget3->setWindowTitle(QApplication::translate("CuberokClass", "Library", 0, QApplication::UnicodeUTF8));
     libView->setToolTip(QApplication::translate("CuberokClass", "Drag'n'Drop playlists to the library", 0, QApplication::UnicodeUTF8));
     dockWidget4->setWindowTitle(QApplication::translate("CuberokClass", "Information", 0, QApplication::UnicodeUTF8));
-    infoWidget->headerItem()->setText(0, QApplication::translate("CuberokClass", "1", 0, QApplication::UnicodeUTF8));
     menuFile->setTitle(QApplication::translate("CuberokClass", "File", 0, QApplication::UnicodeUTF8));
     menuHelp->setTitle(QApplication::translate("CuberokClass", "Help", 0, QApplication::UnicodeUTF8));
     menuControl->setTitle(QApplication::translate("CuberokClass", "Control", 0, QApplication::UnicodeUTF8));

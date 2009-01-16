@@ -63,8 +63,8 @@
 	 static int starMeasure2(int rating);
 
  private:
-     QPolygonF starPolygon;
-     QPolygonF diamondPolygon;
+     //QPolygonF starPolygon;
+     //QPolygonF diamondPolygon;
      int myStarCount;
      int myMaxStarCount;
 	 int _rating;

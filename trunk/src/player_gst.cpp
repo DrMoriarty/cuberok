@@ -292,70 +292,93 @@ bool PlayerGst::open(QUrl fname, long start, long length)
 
 bool PlayerGst::play()
 {
-	if(Glength) gst_element_seek(pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, Gstart, GST_SEEK_TYPE_SET, Gstart + Glength);
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+	if(Glength) gst_element_seek(p, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, Gstart, GST_SEEK_TYPE_SET, Gstart + Glength);
 	//sync_set_state(player, GST_STATE_PLAYING);
-	gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
+	gst_element_set_state (GST_ELEMENT (p), GST_STATE_PLAYING);
 	timer->start(TIME);
+	if(usePlaybin) gst_object_unref(p);
     return true;
 }
 
 bool PlayerGst::stop()
 {
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
 	//sync_set_state(player, GST_STATE_READY);
-	gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_READY);
+	gst_element_set_state (GST_ELEMENT (p), GST_STATE_READY);
 	timer->stop();
+	if(usePlaybin) gst_object_unref(p);
     return true;
 }
 
-bool PlayerGst::setPause(bool p)
+bool PlayerGst::setPause(bool pause)
 {
-    if(p && playing()) {
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+    if(pause && playing()) {
 		timer->stop();
 		//sync_set_state(player, GST_STATE_PAUSED);
-		gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
+		gst_element_set_state (GST_ELEMENT (p), GST_STATE_PAUSED);
 		paused = true;
+		if(usePlaybin) gst_object_unref(p);
 		return true;
     }
-    if(!p && paused) {
+    if(!pause && paused) {
 		timer->start(TIME);
 		//sync_set_state(player, GST_STATE_PLAYING);
-		gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
+		gst_element_set_state (GST_ELEMENT (p), GST_STATE_PLAYING);
 		paused = false;
+		if(usePlaybin) gst_object_unref(p);
 		return true;
     }
+	if(usePlaybin) gst_object_unref(p);
     return false;
 }
 
 bool PlayerGst::close()
 {
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
 	timer->stop();
-	gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_NULL);
+	gst_element_set_state (GST_ELEMENT (p), GST_STATE_NULL);
+	if(usePlaybin) gst_object_unref(p);
     return true;
 }
 
 bool PlayerGst::setPosition(double pos)
 {
 	gint64 time;
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
 	if(Glength) {
 		time = Glength;
 		time *= pos;
 		time += Gstart;
-		return gst_element_seek(pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, time, GST_SEEK_TYPE_SET, Gstart + Glength);
+		bool b = gst_element_seek(p, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, time, GST_SEEK_TYPE_SET, Gstart + Glength);
+		if(usePlaybin) gst_object_unref(p);
+		return b;
 	}
+	if(usePlaybin) gst_object_unref(p);
 	return false;
 }
 
 double PlayerGst::getPosition()
 {
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
     if(/*playing() &&*/ Glength) {
-		gint64 p;
+		gint64 pos;
 		GstFormat fmt = GST_FORMAT_TIME;
-		gst_element_query_position(pipeline, &fmt, &p);
-		p -= Gstart;
-		p *= 100;
-		p /= Glength;
-		return (double)p/100;
+		gst_element_query_position(p, &fmt, &pos);
+		if(usePlaybin) gst_object_unref(p);
+		pos -= Gstart;
+		pos *= 100;
+		pos /= Glength;
+		return (double)pos/100;
 	}
+	if(usePlaybin) gst_object_unref(p);
 	return 0.0;
 }
 
@@ -392,7 +415,10 @@ void PlayerGst::setVolume(int v)
 bool PlayerGst::playing()
 {
 	GstState st;
-    gst_element_get_state (GST_ELEMENT (pipeline), &st, 0, 0);
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+    gst_element_get_state (GST_ELEMENT (p), &st, 0, 0);
+	if(usePlaybin) gst_object_unref(p);
 	return st == GST_STATE_PLAYING;
 }
 
@@ -439,7 +465,10 @@ void PlayerGst::timerUpdate()
 void PlayerGst::need_finish()
 {
 	timer->stop();
-	sync_set_state2(pipeline, GST_STATE_NULL);
+	GstElement *p = pipeline;
+	if(usePlaybin) p = gst_bin_get_by_name(GST_BIN(pipeline), "playbin");
+	sync_set_state2(p, GST_STATE_NULL);
+	if(usePlaybin) gst_object_unref(p);
 	//gst_element_set_state (GST_ELEMENT (player), GST_STATE_READY);
 	emit finish();
 }

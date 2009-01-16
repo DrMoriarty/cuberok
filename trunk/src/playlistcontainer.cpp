@@ -322,3 +322,31 @@ void PlaylistContainer::openUrl()
 		u->show();
 	}
 }
+
+void PlaylistContainer::rateLove()
+{
+	if(actlist) {
+		actlist->rateCurrent(0, 50);
+	}
+}
+
+void PlaylistContainer::rateBan()
+{
+	if(actlist) {
+		actlist->rateCurrent(0, -50);
+	}
+}
+
+void PlaylistContainer::rateUp()
+{
+	if(actlist) {
+		actlist->rateCurrent(10);
+	}
+}
+
+void PlaylistContainer::rateDown()
+{
+	if(actlist) {
+		actlist->rateCurrent(-10);
+	}
+}
