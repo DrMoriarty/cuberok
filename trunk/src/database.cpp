@@ -23,7 +23,7 @@
 #include "tagger.h"
 #include "console.h"
 
-#define DB_VERSION 4
+#define DB_VERSION 5
 
 Database::Database() : subset(false)
 {
@@ -64,6 +64,7 @@ Database::Database() : subset(false)
             QSqlQuery q5("create table Version (value integer)", db);
             QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
             QSqlQuery q7("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
+			QSqlQuery q8("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
             open = true;
         }
     }
@@ -131,6 +132,10 @@ bool Database::updateDatabase(int fromver)
 		QSqlQuery q0("alter table Artist add column mbid varchar(50)", db);
 		QSqlQuery q1("alter table Album add column mbid varchar(50)", db);
 		qDebug("Update database from version 3");
+	}
+	case 4: {
+		QSqlQuery q0("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
+		qDebug("Update database from version 4");
 	}
     }
     Console::Self().message("Database update from version "+QString::number(fromver));
@@ -1007,6 +1012,40 @@ void Database::RateSong(QString file, int rate)
 		r += rate;
 		q.prepare("update Song set Rating = "+QString::number(r)+" where File = :file");
 		q.bindValue(":file", file);
+		q.exec();
+	}
+}
+
+QString Database::getInfo(QString mbid)
+{
+	if(!mbid.size() || !open) return "";
+	QMutexLocker locker(&lock);
+	QSqlQuery q("", db);
+	q.prepare("select text from Info where Mbid = :mbid");
+	q.bindValue(":mbid", mbid);
+	q.exec();
+	if(q.next()) {
+		return q.value(0).toString();
+	} else return "";
+}
+
+void Database::setInfo(QString mbid, QString text)
+{
+	if(!mbid.size() || !open) return;
+	QMutexLocker locker(&lock);
+	QSqlQuery q("", db);
+	q.prepare("select text from Info where Mbid = :mbid");
+	q.bindValue(":mbid", mbid);
+	q.exec();
+	if(q.next()) {
+		q.prepare("update Info set text = :text where Mbid = :mbid");
+		q.bindValue(":text", text);
+		q.bindValue(":mbid", mbid);
+		q.exec();
+	} else {
+		q.prepare("insert into Info (Mbid, text) values (:mbid, :text)");
+		q.bindValue(":mbid", mbid);
+		q.bindValue(":text", text);
 		q.exec();
 	}
 }

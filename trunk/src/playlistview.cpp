@@ -233,7 +233,10 @@ void PlaylistView::next()
 		}
 		if(PlayerManager::Self().playing()) rateSong(plindex, -1);
 	}
-	QModelIndex next = nextItem();
+	QModelIndex next;
+	do {
+		next = nextItem();
+	} while(qVariantValue<StarRating>(model.data(model.index(next.row(), PlaylistModel::Rating), Qt::DisplayRole)).rating() <= -50);
 	curindex = next;
 	setCurrentIndex(pmodel.mapFromSource(curindex));
 	if(curindex.row() >= 0) play();
@@ -569,5 +572,6 @@ void PlaylistView::rateCurrent(int offset, int value)
 		PLSet.autoRating = true;
 		rateSong(plindex, 0, offset+value);
 		PLSet.autoRating = ar;
+		resetTags(plindex);
 	}
 }

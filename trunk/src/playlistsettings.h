@@ -51,6 +51,10 @@ Q_OBJECT
 
 	bool hideEmptyInCollection;
 
+	bool cacheInfo;
+
+	QString lang;
+
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);

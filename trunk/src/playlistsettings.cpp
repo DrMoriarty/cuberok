@@ -41,6 +41,8 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	lastfmPassword = set.value("lastfmPassword", "").toString();
 
 	hideEmptyInCollection = set.value("hideEmptyInCollection", false).toBool();
+
+	cacheInfo = set.value("cacheInfo", true).toBool();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -68,6 +70,8 @@ void PlaylistSettings::save()
 	set.setValue("lastfmPassword", lastfmPassword);
 
 	set.setValue("hideEmptyInCollection", hideEmptyInCollection);
+
+	set.setValue("cacheInfo", cacheInfo);
 }
 
 PlaylistSettings& PlaylistSettings::Self()

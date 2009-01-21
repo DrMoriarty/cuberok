@@ -214,7 +214,7 @@ Qt::ItemFlags PlaylistModel::flags(const QModelIndex &index) const
 bool PlaylistModel::setData(const QModelIndex &index,
                                const QVariant &value, int role)
 {
-    if (index.isValid() && role == Qt::EditRole) {
+    if (index.isValid() && (role == Qt::EditRole) && (*_data.at(index.row()).values[index.column()] != value)) {
 
         *_data.at(index.row()).values[index.column()] =  value;
         emit dataChanged(index, index);

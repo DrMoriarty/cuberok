@@ -34,7 +34,10 @@ public:
  private:
 	Ui::Info ui;
 	int id;
-	QString ar, al, so;
+	QString ar, al, so, ar_mbid, al_mbid;
+	bool ar_complete, al_complete;
+
+	void updateRating();
 
  signals:
 	void ban();

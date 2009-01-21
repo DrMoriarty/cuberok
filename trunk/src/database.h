@@ -78,6 +78,8 @@ public:
     QString GetGenre(int);
 	QString GetFile(int);
 	void RateSong(QString file, int rate);
+	QString getInfo(QString mbid);
+	void setInfo(QString mbid, QString text);
 
     void clearSubset();
     void pushSubset();
