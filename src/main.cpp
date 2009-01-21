@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include "cuberok.h"
 #include "database.h"
+#include "playlistsettings.h"
 
 #include <QtGui>
 #include <QApplication>
@@ -134,6 +135,7 @@ int main(int argc, char *argv[])
 #ifdef WIN32
 	//GlobalWinKeys(w.winId());
 #endif
+	PLSet.lang = locale;
     int res = a.exec();
 #ifdef WIN32
 	//cUnregisterWinKeys(w.winId());

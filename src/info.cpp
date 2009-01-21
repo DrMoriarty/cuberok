@@ -22,7 +22,9 @@
 
 Info::Info(QWidget *parent)
     : QWidget(parent),
-	  id(-1)
+	  id(-1),
+	  ar_complete(false),
+	  al_complete(false)
 {
 	ui.setupUi(this);
 }
@@ -36,7 +38,19 @@ void Info::tabChanged(int t)
 	switch(t) {
 	case 0:
 		break;
-	case 1:
+	case 1: if(!ar_complete) {
+		QString text;
+		if(ar_mbid.size()) {
+			text = Database::Self().getInfo(ar_mbid);
+		}
+		if(!text.size()) {
+			// download info from last.fm
+		} else {
+			ui.textEdit->setText(text);
+			ui.textEdit->update();
+			ar_complete = true;
+		}
+	}
 		break;
 	case 2:
 		break;
@@ -50,6 +64,11 @@ void Info::setCurrent(int _id)
 
 void Info::setCurrent(QString artist, QString album, QString song)
 {
+	ar = artist;
+	al = album;
+	so = song;
+	ui.textEdit->setText("");
+	ui.textEdit_2->setText("");
 	QString art(":/icons/def_artist.png"), text;
 	int rating = 0;
 // 	QList<struct Database::Attr> attrs;
@@ -87,15 +106,21 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	attral.clear();
 	Database::Self().pushSubset();
 	Database::Self().subsetArtist(artist);
+	QList<struct Database::Attr> attrs;
+	attrs = Database::Self().Artists();
+	if(attrs.size()) {
+		ar_mbid = attrs[0].mbid;
+	} else ar_mbid = "";
 	Database::Self().subsetAlbum(Database::Self().AddAlbum(album, Database::Self().AddArtist(artist)));
 	attral = Database::Self().Albums();
 	if(attral.size()) {
 		if(attral[0].art.size()) {
 			art = attral[0].art;
-			rating = attral[0].rating;
 		}
+		rating = attral[0].rating;
+		al_mbid = attral[0].mbid;
 		//text = tr("%n song(s)", "", attral[0].refs);
-	}
+	} else al_mbid = "";
 	pm = QPixmap(art);
 	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
 	ui.label_al0->setPixmap(pm2);
@@ -113,10 +138,10 @@ void Info::setCurrent(QString artist, QString album, QString song)
 			QString title, artist, album, comment, genre, length;
 			int track, year, r;
 			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length);
-			if(s == title) {
+			if(song == title) {
 				rating = r;
 				break;
-			}
+			} 
 		}
 	}
 	ui.label_so1->setText(song);
@@ -128,19 +153,58 @@ void Info::setCurrent(QString artist, QString album, QString song)
 void Info::slot_ban()
 {
 	emit ban();
+	updateRating();
 }
 
 void Info::slot_loveIt()
 {
 	emit loveIt();
+	updateRating();
 }
 
 void Info::slot_rateUp()
 {
 	emit rateUp();
+	updateRating();
 }
 
 void Info::slot_rateDown()
 {
 	emit rateDown();
+	updateRating();
+}
+
+void Info::updateRating()
+{
+	int rating = 0;
+	Database::Self().pushSubset();
+	Database::Self().subsetArtist(ar);
+	Database::Self().subsetAlbum(Database::Self().AddAlbum(al, Database::Self().AddArtist(ar)));
+ 	QList<struct Database::AttrAl> attral;
+	attral = Database::Self().Albums();
+	if(attral.size()) {
+		if(attral[0].art.size()) {
+			rating = attral[0].rating;
+		}
+	}
+	ui.albumRating->setStarRating(StarRating(rating));
+	ui.albumRating->noEdit();
+	ui.albumRating->update();
+	QList<QString> songs = Database::Self().Songs(0, 0, 0, &so);
+	rating = 0;
+	if(songs.size() > 0) {
+		foreach(QString s, songs) {
+			QString title, artist, album, comment, genre, length;
+			int track, year, r;
+			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length);
+			if(so == title) {
+				rating = r;
+				break;
+			} 
+		}
+	}
+	ui.songRating->setStarRating(StarRating(rating));
+	ui.songRating->noEdit();
+	ui.songRating->update();
+	Database::Self().popSubset();
 }

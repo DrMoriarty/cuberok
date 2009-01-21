@@ -871,6 +871,14 @@ void CollectionView::infoResponse(QString info)
 						if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
 						el2 = el2.nextSiblingElement("image");
 					}
+					el2 = el.firstChildElement("bio");
+					if(!el2.isNull() && mbid.size()) {
+						el2 = el2.firstChildElement("content");
+						if(!el2.isNull()) {
+							QString info = el2.firstChild().nodeValue();
+							Database::Self().setInfo(mbid, info);
+						}
+					}
 					if(!img2.size()) img2 = img1;
 					if(!img3.size()) img3 = img2;
 					if(!img4.size()) img4 = img3;
@@ -902,7 +910,7 @@ void CollectionView::infoResponse(QString info)
 						QString mbid;
 						el2 = el.firstChildElement("mbid");
 						if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
-						Database::Self().MbidForAlbum(lfmArtist, mbid, Database::Self().AddArtist(artist));
+						Database::Self().MbidForAlbum(lfmAlbum, mbid, Database::Self().AddArtist(artist));
 						el2 = el.firstChildElement("image");
 						while(!el2.isNull()) {
 							if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
@@ -910,6 +918,14 @@ void CollectionView::infoResponse(QString info)
 							if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
 							if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
 							el2 = el2.nextSiblingElement("image");
+						}
+						el2 = el.firstChildElement("wiki");
+						if(!el2.isNull() && mbid.size()) {
+							el2 = el2.firstChildElement("content");
+							if(!el2.isNull()) {
+								QString info = el2.firstChild().nodeValue();
+								Database::Self().setInfo(mbid, info);
+							}
 						}
 						if(!img2.size()) img2 = img1;
 						if(!img3.size()) img3 = img2;

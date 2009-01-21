@@ -281,6 +281,9 @@ void LastFM::artistInfo(QString artist)
 	url.addQueryItem("method", "artist.getinfo");
 	url.addQueryItem("artist", artist);
 	url.addQueryItem("api_key", apiKey);
+	if(PLSet.lang.size()) {
+		url.addQueryItem("lang", PLSet.lang);
+	}
 
 	needInfo = true;
 	http.setHost(url.host(), QHttp::ConnectionModeHttp, 80);
@@ -305,6 +308,9 @@ void LastFM::albumInfo(QString artist, QString album)
 	url.addQueryItem("artist", artist);
 	url.addQueryItem("album", album);
 	url.addQueryItem("api_key", apiKey);
+	if(PLSet.lang.size()) {
+		url.addQueryItem("lang", PLSet.lang);
+	}
 
 	needInfo = true;
 	http.setHost(url.host(), QHttp::ConnectionModeHttp, 80);
