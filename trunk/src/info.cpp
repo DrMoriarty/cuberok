@@ -19,6 +19,11 @@
 
 #include "info.h"
 #include "database.h"
+#include "lastfm.h"
+#include "console.h"
+#include "playlistsettings.h"
+
+#include <QtXml>
 
 Info::Info(QWidget *parent)
     : QWidget(parent),
@@ -38,21 +43,37 @@ void Info::tabChanged(int t)
 	switch(t) {
 	case 0:
 		break;
-	case 1: if(!ar_complete) {
+	case 1: if(!ar_complete && ar.size()) {
 		QString text;
 		if(ar_mbid.size()) {
 			text = Database::Self().getInfo(ar_mbid);
 		}
 		if(!text.size()) {
-			// download info from last.fm
+			if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(artistInfo(QString))))
+				Console::Self().error("Unable connection to xmlInfo");
+			LastFM::Self().artistInfo(ar);
 		} else {
-			ui.textEdit->setText(text);
+			ui.textEdit->setHtml(text);
 			ui.textEdit->update();
 			ar_complete = true;
 		}
 	}
 		break;
-	case 2:
+	case 2: if(!al_complete && al.size()) {
+		QString text;
+		if(al_mbid.size()) {
+			text = Database::Self().getInfo(al_mbid);
+		}
+		if(!text.size()) {
+			if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(albumInfo(QString))))
+				Console::Self().error("Unable connection to xmlInfo");
+			LastFM::Self().albumInfo(ar, al);
+		} else {
+			ui.textEdit_2->setHtml(text);
+			ui.textEdit_2->update();
+			al_complete = true;
+		}
+	}
 		break;
 	}
 }
@@ -64,11 +85,17 @@ void Info::setCurrent(int _id)
 
 void Info::setCurrent(QString artist, QString album, QString song)
 {
+	if(ar != artist) {
+		ar_complete = false;
+		ui.textEdit->setText("");
+	}	
+	if(al != album) {
+		al_complete = false;
+		ui.textEdit_2->setText("");
+	}
 	ar = artist;
 	al = album;
 	so = song;
-	ui.textEdit->setText("");
-	ui.textEdit_2->setText("");
 	QString art(":/icons/def_artist.png"), text;
 	int rating = 0;
 // 	QList<struct Database::Attr> attrs;
@@ -148,6 +175,8 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ui.songRating->setStarRating(StarRating(rating));
 	ui.songRating->noEdit();
 	Database::Self().popSubset();
+
+	tabChanged(ui.tabWidget->currentIndex());
 }
 
 void Info::slot_ban()
@@ -207,4 +236,90 @@ void Info::updateRating()
 	ui.songRating->noEdit();
 	ui.songRating->update();
 	Database::Self().popSubset();
+}
+
+void Info::artistInfo(QString response)
+{
+	disconnect(&LastFM::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(artistInfo(QString)));
+	QDomDocument doc;
+	QDomElement el, el2;
+	QDomNodeList list;
+	if(doc.setContent(response)) {
+		el = doc.documentElement();
+		//el = el.firstChildElement("lfm");
+		if(!el.isNull()) {
+			QString s = el.attribute("status");
+			if(s == "ok") {
+				el2 = el.firstChildElement("artist");
+				if(!el2.isNull()) {  // proceed artist info
+					el = el2;
+					el2 = el.firstChildElement("name");
+					QString name;
+					if(!el2.isNull()) name = el2.firstChild().nodeValue();
+					QString mbid;
+					el2 = el.firstChildElement("mbid");
+					if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
+					Database::Self().MbidForArtist(ar, mbid);
+					el2 = el.firstChildElement("bio");
+					if(!el2.isNull()) {
+						el2 = el2.firstChildElement("content");
+						if(!el2.isNull()) {
+							QString info = el2.firstChild().nodeValue();
+							if(info.size()) {
+								info = "<html><body>" + info + "</html></body>";
+								if(PLSet.cacheInfo && mbid.size())
+									Database::Self().setInfo(mbid, info);
+								ui.textEdit->setHtml(info);
+								ui.textEdit->update();
+								ar_complete = true;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void Info::albumInfo(QString response)
+{
+	disconnect(&LastFM::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(albumInfo(QString)));
+	QDomDocument doc;
+	QDomElement el, el2;
+	QDomNodeList list;
+	if(doc.setContent(response)) {
+		el = doc.documentElement();
+		//el = el.firstChildElement("lfm");
+		if(!el.isNull()) {
+			QString s = el.attribute("status");
+			if(s == "ok") {
+				el2 = el.firstChildElement("album");
+				if(!el2.isNull()) {  // proceed album info
+					el = el2;
+					el2 = el.firstChildElement("name");
+					QString name;
+					if(!el2.isNull()) name = el2.firstChild().nodeValue();
+					QString mbid;
+					el2 = el.firstChildElement("mbid");
+					if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
+					Database::Self().MbidForAlbum(al, mbid, Database::Self().AddArtist(ar));
+					el2 = el.firstChildElement("wiki");
+					if(!el2.isNull()) {
+						el2 = el2.firstChildElement("content");
+						if(!el2.isNull()) {
+							QString info = el2.firstChild().nodeValue();
+							if(info.size()) {
+								info = "<html><body>" + info + "</html></body>";
+								if(PLSet.cacheInfo && mbid.size())
+									Database::Self().setInfo(mbid, info);
+								ui.textEdit_2->setHtml(info);
+								ui.textEdit_2->update();
+								al_complete = true;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
