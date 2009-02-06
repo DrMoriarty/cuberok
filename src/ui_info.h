@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'info.ui'
 **
-** Created: Fri 16. Jan 17:57:12 2009
+** Created: Thu 5. Feb 10:21:17 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -17,7 +17,6 @@
 #include <QtGui/QFrame>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
-#include <QtGui/QListWidget>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextEdit>
@@ -57,7 +56,6 @@ public:
     QWidget *tab_2;
     QVBoxLayout *vboxLayout6;
     QTextEdit *textEdit;
-    QListWidget *listWidget;
     QWidget *tab_3;
     QVBoxLayout *vboxLayout7;
     QTextEdit *textEdit_2;
@@ -80,7 +78,9 @@ public:
     actionBan->setObjectName(QString::fromUtf8("actionBan"));
     actionBan->setIcon(QIcon(QString::fromUtf8(":/icons/deltab.png")));
     vboxLayout = new QVBoxLayout(Info);
+    vboxLayout->setSpacing(0);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+    vboxLayout->setContentsMargins(0, 0, 0, 0);
     tabWidget = new QTabWidget(Info);
     tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
     tab = new QWidget();
@@ -128,8 +128,11 @@ public:
     vboxLayout3->setContentsMargins(4, 4, 4, 4);
     label_so1 = new QLabel(frame_3);
     label_so1->setObjectName(QString::fromUtf8("label_so1"));
-    sizePolicy1.setHeightForWidth(label_so1->sizePolicy().hasHeightForWidth());
-    label_so1->setSizePolicy(sizePolicy1);
+    QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Maximum);
+    sizePolicy2.setHorizontalStretch(0);
+    sizePolicy2.setVerticalStretch(0);
+    sizePolicy2.setHeightForWidth(label_so1->sizePolicy().hasHeightForWidth());
+    label_so1->setSizePolicy(sizePolicy2);
     label_so1->setAlignment(Qt::AlignCenter);
 
     vboxLayout3->addWidget(label_so1);
@@ -155,11 +158,11 @@ public:
     vboxLayout4->setContentsMargins(0, 0, 0, 0);
     label_al0 = new QLabel(frame_2);
     label_al0->setObjectName(QString::fromUtf8("label_al0"));
-    QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    sizePolicy2.setHorizontalStretch(0);
-    sizePolicy2.setVerticalStretch(0);
-    sizePolicy2.setHeightForWidth(label_al0->sizePolicy().hasHeightForWidth());
-    label_al0->setSizePolicy(sizePolicy2);
+    QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    sizePolicy3.setHorizontalStretch(0);
+    sizePolicy3.setVerticalStretch(0);
+    sizePolicy3.setHeightForWidth(label_al0->sizePolicy().hasHeightForWidth());
+    label_al0->setSizePolicy(sizePolicy3);
     label_al0->setMinimumSize(QSize(64, 64));
     label_al0->setMaximumSize(QSize(65535, 65535));
     label_al0->setPixmap(QPixmap(QString::fromUtf8(":/icons/def_album.png")));
@@ -169,11 +172,8 @@ public:
 
     frame_5 = new QFrame(frame_2);
     frame_5->setObjectName(QString::fromUtf8("frame_5"));
-    QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Maximum);
-    sizePolicy3.setHorizontalStretch(0);
-    sizePolicy3.setVerticalStretch(0);
-    sizePolicy3.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
-    frame_5->setSizePolicy(sizePolicy3);
+    sizePolicy2.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
+    frame_5->setSizePolicy(sizePolicy2);
     frame_5->setFrameShape(QFrame::NoFrame);
     frame_5->setFrameShadow(QFrame::Raised);
     vboxLayout5 = new QVBoxLayout(frame_5);
@@ -182,8 +182,8 @@ public:
     vboxLayout5->setContentsMargins(4, 4, 4, 4);
     label_al1 = new QLabel(frame_5);
     label_al1->setObjectName(QString::fromUtf8("label_al1"));
-    sizePolicy1.setHeightForWidth(label_al1->sizePolicy().hasHeightForWidth());
-    label_al1->setSizePolicy(sizePolicy1);
+    sizePolicy2.setHeightForWidth(label_al1->sizePolicy().hasHeightForWidth());
+    label_al1->setSizePolicy(sizePolicy2);
     label_al1->setAlignment(Qt::AlignCenter);
 
     vboxLayout5->addWidget(label_al1);
@@ -217,22 +217,21 @@ public:
     tab_2 = new QWidget();
     tab_2->setObjectName(QString::fromUtf8("tab_2"));
     vboxLayout6 = new QVBoxLayout(tab_2);
+    vboxLayout6->setSpacing(4);
     vboxLayout6->setObjectName(QString::fromUtf8("vboxLayout6"));
     vboxLayout6->setContentsMargins(4, 4, 4, 4);
     textEdit = new QTextEdit(tab_2);
     textEdit->setObjectName(QString::fromUtf8("textEdit"));
+    textEdit->setAutoFormatting(QTextEdit::AutoAll);
+    textEdit->setReadOnly(true);
 
     vboxLayout6->addWidget(textEdit);
-
-    listWidget = new QListWidget(tab_2);
-    listWidget->setObjectName(QString::fromUtf8("listWidget"));
-
-    vboxLayout6->addWidget(listWidget);
 
     tabWidget->addTab(tab_2, QString());
     tab_3 = new QWidget();
     tab_3->setObjectName(QString::fromUtf8("tab_3"));
     vboxLayout7 = new QVBoxLayout(tab_3);
+    vboxLayout7->setSpacing(4);
     vboxLayout7->setObjectName(QString::fromUtf8("vboxLayout7"));
     vboxLayout7->setContentsMargins(4, 4, 4, 4);
     textEdit_2 = new QTextEdit(tab_3);

@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
 #ifdef WIN32
 	//GlobalWinKeys(w.winId());
 #endif
-	PLSet.lang = locale;
+	PLSet.lang = locale.left(2);
     int res = a.exec();
 #ifdef WIN32
 	//cUnregisterWinKeys(w.winId());

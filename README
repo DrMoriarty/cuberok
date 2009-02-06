@@ -28,4 +28,4 @@ cuberok/gstreamer
 
 	If you want to make a windows installer, you must install NSIS from 
 http://nsis.sourceforge.net/Download. After installation run NSIS and 
-compile with it cuberok.nsi.
+compile cuberok.nsi with it.

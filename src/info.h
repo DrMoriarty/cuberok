@@ -53,6 +53,9 @@ public:
 	void tabChanged(int);
 	void setCurrent(int id);
 	void setCurrent(QString artist, QString album, QString song);
+ private slots:
+	void artistInfo(QString);
+	void albumInfo(QString);
 };
 
 

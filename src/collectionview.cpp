@@ -17,7 +17,6 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <QtXml>
 
 #include "collectionview.h"
 #include "database.h"
@@ -27,6 +26,7 @@
 #include "console.h"
 #include "main.h"
 #include "playlistsettings.h"
+#include <QtXml>
 
 /************************
  *
@@ -872,11 +872,14 @@ void CollectionView::infoResponse(QString info)
 						el2 = el2.nextSiblingElement("image");
 					}
 					el2 = el.firstChildElement("bio");
-					if(!el2.isNull() && mbid.size()) {
+					if(!el2.isNull() && mbid.size() && PLSet.cacheInfo) {
 						el2 = el2.firstChildElement("content");
 						if(!el2.isNull()) {
 							QString info = el2.firstChild().nodeValue();
-							Database::Self().setInfo(mbid, info);
+							if(PLSet.cacheInfo && info.size()) {
+								info = "<html><body>" + info + "</html></body>";
+								Database::Self().setInfo(mbid, info);
+							}
 						}
 					}
 					if(!img2.size()) img2 = img1;
@@ -924,7 +927,10 @@ void CollectionView::infoResponse(QString info)
 							el2 = el2.firstChildElement("content");
 							if(!el2.isNull()) {
 								QString info = el2.firstChild().nodeValue();
-								Database::Self().setInfo(mbid, info);
+								if(PLSet.cacheInfo && info.size()) {
+									info = "<html><body>" + info + "</html></body>";
+									Database::Self().setInfo(mbid, info);
+								}
 							}
 						}
 						if(!img2.size()) img2 = img1;
