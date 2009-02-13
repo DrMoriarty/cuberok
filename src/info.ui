@@ -80,6 +80,19 @@
           <number>0</number>
          </property>
          <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>1</width>
+             <height>1</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QFrame" name="frame_0" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
