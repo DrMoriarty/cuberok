@@ -724,12 +724,12 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Рейтинг</translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="339"/>
+        <location filename="../src/info.ui" line="352"/>
         <source>Artist</source>
         <translation type="unfinished">Исполнитель</translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="371"/>
+        <location filename="../src/info.ui" line="387"/>
         <source>Album</source>
         <translation type="unfinished">Альбом</translation>
     </message>
@@ -744,42 +744,42 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="163"/>
+        <location filename="../src/info.ui" line="176"/>
         <source>Song Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="282"/>
+        <location filename="../src/info.ui" line="295"/>
         <source>Album Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="402"/>
+        <location filename="../src/info.ui" line="428"/>
         <source>RateUp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="405"/>
+        <location filename="../src/info.ui" line="431"/>
         <source>Rate Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="413"/>
+        <location filename="../src/info.ui" line="439"/>
         <source>RateDown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="416"/>
+        <location filename="../src/info.ui" line="442"/>
         <source>Rate Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="424"/>
+        <location filename="../src/info.ui" line="450"/>
         <source>LoveIt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/info.ui" line="432"/>
+        <location filename="../src/info.ui" line="458"/>
         <source>Ban</source>
         <translation type="unfinished"></translation>
     </message>

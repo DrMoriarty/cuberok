@@ -321,6 +321,7 @@ void PlaylistView::playFinished()
 
 QModelIndex PlaylistView::nextItem()
 {
+	srand( time(NULL) );
 	if(model.rowCount() < 1) return model.index(-1, 0);
 	QModelIndex next;
 	if(queue.count()) {

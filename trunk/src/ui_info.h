@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'info.ui'
 **
-** Created: Thu 5. Feb 10:21:17 2009
+** Created: Thu 12. Feb 09:59:40 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -19,7 +19,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QTabWidget>
-#include <QtGui/QTextEdit>
+#include <QtGui/QTextBrowser>
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
@@ -38,6 +38,7 @@ public:
     QVBoxLayout *vboxLayout1;
     QToolBar *col_toolbar;
     QHBoxLayout *hboxLayout;
+    QSpacerItem *spacerItem;
     QFrame *frame_0;
     QVBoxLayout *vboxLayout2;
     QFrame *frame_3;
@@ -51,14 +52,14 @@ public:
     QVBoxLayout *vboxLayout5;
     QLabel *label_al1;
     StarEditor *albumRating;
-    QSpacerItem *spacerItem;
     QSpacerItem *spacerItem1;
+    QSpacerItem *spacerItem2;
     QWidget *tab_2;
     QVBoxLayout *vboxLayout6;
-    QTextEdit *textEdit;
+    QTextBrowser *textEdit;
     QWidget *tab_3;
     QVBoxLayout *vboxLayout7;
-    QTextEdit *textEdit_2;
+    QTextBrowser *textEdit_2;
 
     void setupUi(QWidget *Info)
     {
@@ -98,6 +99,10 @@ public:
     hboxLayout->setSpacing(0);
     hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
     hboxLayout->setContentsMargins(0, 0, 0, 0);
+    spacerItem = new QSpacerItem(1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    hboxLayout->addItem(spacerItem);
+
     frame_0 = new QFrame(tab);
     frame_0->setObjectName(QString::fromUtf8("frame_0"));
     QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
@@ -199,16 +204,16 @@ public:
 
     vboxLayout2->addWidget(frame_2);
 
-    spacerItem = new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+    spacerItem1 = new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 
-    vboxLayout2->addItem(spacerItem);
+    vboxLayout2->addItem(spacerItem1);
 
 
     hboxLayout->addWidget(frame_0);
 
-    spacerItem1 = new QSpacerItem(1, 1, QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+    spacerItem2 = new QSpacerItem(1, 1, QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
 
-    hboxLayout->addItem(spacerItem1);
+    hboxLayout->addItem(spacerItem2);
 
 
     vboxLayout1->addLayout(hboxLayout);
@@ -220,10 +225,11 @@ public:
     vboxLayout6->setSpacing(4);
     vboxLayout6->setObjectName(QString::fromUtf8("vboxLayout6"));
     vboxLayout6->setContentsMargins(4, 4, 4, 4);
-    textEdit = new QTextEdit(tab_2);
+    textEdit = new QTextBrowser(tab_2);
     textEdit->setObjectName(QString::fromUtf8("textEdit"));
     textEdit->setAutoFormatting(QTextEdit::AutoAll);
     textEdit->setReadOnly(true);
+    textEdit->setOpenExternalLinks(true);
 
     vboxLayout6->addWidget(textEdit);
 
@@ -234,8 +240,11 @@ public:
     vboxLayout7->setSpacing(4);
     vboxLayout7->setObjectName(QString::fromUtf8("vboxLayout7"));
     vboxLayout7->setContentsMargins(4, 4, 4, 4);
-    textEdit_2 = new QTextEdit(tab_3);
+    textEdit_2 = new QTextBrowser(tab_3);
     textEdit_2->setObjectName(QString::fromUtf8("textEdit_2"));
+    textEdit_2->setAutoFormatting(QTextEdit::AutoAll);
+    textEdit_2->setReadOnly(true);
+    textEdit_2->setOpenExternalLinks(true);
 
     vboxLayout7->addWidget(textEdit_2);
 
