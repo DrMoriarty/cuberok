@@ -23,9 +23,9 @@
 #include "tagger.h"
 #include "console.h"
 
-#define DB_VERSION 5
+#define DB_VERSION 6
 
-Database::Database() : subset(false)
+Database::Database() :QObject(0), subset(false), ssAlbum(0)
 {
     QMutexLocker locker(&lock);
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -65,7 +65,9 @@ Database::Database() : subset(false)
             QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
             QSqlQuery q7("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
 			QSqlQuery q8("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
+            QSqlQuery q9("create table SQLPlaylist (ID integer primary key autoincrement, value varchar(200), art varchar(250), data varchar(250))", db);
             open = true;
+			CreateDefaultSqlPlaylists();
         }
     }
     if(open) Console::Self().message("Database ready");
@@ -137,6 +139,13 @@ bool Database::updateDatabase(int fromver)
 		QSqlQuery q0("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
 		qDebug("Update database from version 4");
 	}
+	case 5: {
+		QSqlQuery q0("", db);
+		q0.prepare("create table SQLPlaylist (ID integer primary key autoincrement, value varchar(200), art varchar(250), data varchar(250))");
+		q0.exec();
+		CreateDefaultSqlPlaylists();
+		qDebug("Update database from version 5");
+	}
     }
     Console::Self().message("Database update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version");
@@ -144,18 +153,36 @@ bool Database::updateDatabase(int fromver)
     return true;
 }
 
+void Database::CreateDefaultSqlPlaylists()
+{
+	QSqlQuery q0("", db);
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("The Best"));
+	q0.bindValue(":dat", "rating > 40");
+	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Good music"));
+	q0.bindValue(":dat", "rating > 20");
+	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Unrated"));
+	q0.bindValue(":dat", "rating = 0");
+	q0.exec();
+}
+
+
 Database& Database::Self()
 {
     static QMutex mutex;
     QMutexLocker locker(&mutex);
     //mutex.lock();
-    //static Database* instance = 0;
-    static Database instance;
+    static Database* instance = new Database();
+    //static Database instance;
     //if(!instance) instance = new Database();
     //mutex.unlock();
     //return *instance;
     //Database &db = instance();
-    return instance;
+    return *instance;
 }
 
 int Database::AddFile(QString file)
@@ -495,7 +522,9 @@ QList<struct Database::Attr> Database::Attributes(const QString attr, QString *p
         if(patt) {
             q.prepare("select value, refs, rating/refs as WR, art from "+attr+" where value like :pattern order by WR DESC, value ASC");
             q.bindValue(":pattern", QString("%")+*patt+QString("%"));
-        } else q.prepare("select value, refs, rating/refs as WR, art from "+attr+" order by WR DESC, value ASC");
+        } else {
+			q.prepare("select value, refs, rating/refs as WR, art from "+attr+" order by WR DESC, value ASC");
+		}
     }
     q.exec();
     while(q.next()) {
@@ -966,12 +995,44 @@ int Database::AddPlaylist(QString list)
     return q.value(0).toString().toInt();
 }
 
+int Database::AddSQLPlaylist(QString list)
+{
+    if(!open) return 0;
+    QMutexLocker locker(&lock);
+    QSqlQuery q("", db);
+    QString val = list;
+    q.prepare("select ID from SQLPlaylist where value = :val");
+    q.bindValue(":val", val);
+    q.exec();
+    if( !q.next() ) {
+		q.prepare("insert into SQLPlaylist (value) values (:val)");
+        q.bindValue(":val", val);
+        q.exec();
+        if(q.numRowsAffected() < 1) return -1;
+        q.prepare("select ID from SQLPlaylist where value = :val");
+        q.bindValue(":val", val);
+        q.exec();
+        q.next();
+    }
+    return q.value(0).toString().toInt();
+}
+
 void Database::RemovePlaylist(QString list)
 {
     if(!open) return;
     QMutexLocker locker(&lock);
     QSqlQuery q("", db);
     q.prepare("delete from Playlist where value = :val");
+    q.bindValue(":val", list);
+    q.exec();
+}
+
+void Database::RemoveSQLPlaylist(QString list)
+{
+    if(!open) return;
+    QMutexLocker locker(&lock);
+    QSqlQuery q("", db);
+    q.prepare("delete from SQLPlaylist where value = :val");
     q.bindValue(":val", list);
     q.exec();
 }
@@ -987,16 +1048,75 @@ void Database::RenamePlaylist(QString oldval, QString newval)
     q.exec();
 }
 
+void Database::RenameSQLPlaylist(QString oldval, QString newval)
+{
+    if(!open) return;
+    QMutexLocker locker(&lock);
+    QSqlQuery q("", db);
+    q.prepare("update SQLPlaylist set value = :newval where value = :oldval");
+    q.bindValue(":oldval", oldval);
+    q.bindValue(":newval", newval);
+    q.exec();
+}
+
 QList<struct Database::Attr> Database::Playlists(QString *patt)
 {
     QMutexLocker locker(&lock);
-    return Attributes(nPlaylist, patt);
+    if(!open) return QList<struct Database::Attr>();
+    QList<struct Database::Attr> res;
+    QSqlQuery q("", db);
+	if(patt) {
+		q.prepare("select value, refs, art from Playlist where value like :pattern order by value ASC");
+		q.bindValue(":pattern", QString("%")+*patt+QString("%"));
+	} else q.prepare("select value, refs, art from Playlist order by value ASC");
+    q.exec();
+    while(q.next()) {
+        struct Attr attr;
+        attr.name = q.value(0).toString();
+        attr.refs = q.value(1).toString().toInt();
+        attr.rating = 0;//q.value(2).toString().toInt();
+        attr.art = q.value(2).toString();
+        res << attr;
+    }
+    return res;
+}
+
+QList<struct Database::SAttr> Database::SQLPlaylists(QString *patt)
+{
+    QMutexLocker locker(&lock);
+    if(!open) return QList<struct Database::SAttr>();
+    QList<struct Database::SAttr> res;
+    QSqlQuery q("", db);
+	if(patt) {
+		q.prepare("select value, art, data from SQLPlaylist where value like :pattern order by value ASC");
+		q.bindValue(":pattern", QString("%")+*patt+QString("%"));
+	} else q.prepare("select value, art, data from SQLPlaylist order by value ASC");
+    q.exec();
+    while(q.next()) {
+        struct SAttr attr;
+        attr.name = q.value(0).toString();
+        attr.art = q.value(1).toString();
+        attr.data = q.value(2).toString();
+        res << attr;
+    }
+    return res;
 }
 
 void Database::ArtForPlaylist(QString val, QString art)
 {
     QMutexLocker locker(&lock);
     return ArtForAttribute(nPlaylist, val, art);
+}
+
+void Database::ArtForSQLPlaylist(QString val, QString art)
+{
+    QMutexLocker locker(&lock);
+    if(!open) return;
+    QSqlQuery q("", db);
+    q.prepare("update SQLPlaylist set art = :art where value = :val");
+    q.bindValue(":art", art);
+    q.bindValue(":val", val);
+    q.exec();
 }
 
 void Database::RateSong(QString file, int rate)

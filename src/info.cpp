@@ -20,6 +20,7 @@
 #include "info.h"
 #include "database.h"
 #include "lastfm.h"
+#include "lyricwiki.h"
 #include "console.h"
 #include "playlistsettings.h"
 
@@ -29,7 +30,10 @@ Info::Info(QWidget *parent)
     : QWidget(parent),
 	  id(-1),
 	  ar_complete(false),
-	  al_complete(false)
+	  al_complete(false),
+	  w_ar(0),
+	  w_al(0),
+	  w_ly(0)
 {
 	ui.setupUi(this);
 }
@@ -55,6 +59,9 @@ void Info::tabChanged(int t)
 		} else {
 			ui.textEdit->setHtml(text);
 			ui.textEdit->update();
+			if(w_ar) {
+				w_ar->setText(text);
+			}
 			ar_complete = true;
 		}
 	}
@@ -71,6 +78,9 @@ void Info::tabChanged(int t)
 		} else {
 			ui.textEdit_2->setHtml(text);
 			ui.textEdit_2->update();
+			if(w_al) {
+				w_al->setText(text);
+			}
 			al_complete = true;
 		}
 	}
@@ -128,7 +138,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 // 	Database::Self().popSubset();
 
 
-	art = ":/icons/def_album.png";
+	QString art_def = ":/icons/def_album.png", art_al, art_ar;
 	rating = 0;
 	attral.clear();
 	Database::Self().pushSubset();
@@ -137,18 +147,19 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	attrs = Database::Self().Artists();
 	if(attrs.size()) {
 		ar_mbid = attrs[0].mbid;
+		art_ar = attrs[0].art;
 	} else ar_mbid = "";
 	Database::Self().subsetAlbum(Database::Self().AddAlbum(album, Database::Self().AddArtist(artist)));
 	attral = Database::Self().Albums();
 	if(attral.size()) {
 		if(attral[0].art.size()) {
-			art = attral[0].art;
+			art_al = attral[0].art;
 		}
 		rating = attral[0].rating;
 		al_mbid = attral[0].mbid;
 		//text = tr("%n song(s)", "", attral[0].refs);
 	} else al_mbid = "";
-	pm = QPixmap(art);
+	pm = QPixmap(art_al.size()?art_al:(art_ar.size()?art_ar:art_def));
 	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
 	ui.label_al0->setPixmap(pm2);
 	ui.label_al0->setMinimumSize(pm2.size());
@@ -271,6 +282,9 @@ void Info::artistInfo(QString response)
 									Database::Self().setInfo(mbid, info);
 								ui.textEdit->setHtml(info);
 								ui.textEdit->update();
+								if(w_ar) {
+									w_ar->setText(info);
+								}
 								ar_complete = true;
 							}
 						}
@@ -314,6 +328,9 @@ void Info::albumInfo(QString response)
 									Database::Self().setInfo(mbid, info);
 								ui.textEdit_2->setHtml(info);
 								ui.textEdit_2->update();
+								if(w_al) {
+									w_al->setText(info);
+								}
 								al_complete = true;
 							}
 						}
@@ -322,4 +339,79 @@ void Info::albumInfo(QString response)
 			}
 		}
 	}
+}
+
+void Info::lyricInfo(QString response)
+{
+	disconnect(&LyricWiki::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(lyricInfo(QString)));
+	if(w_ly) {
+		w_ly->setText(response);
+	}
+}
+
+void Info::showArtist()
+{
+	if(w_ar) {
+		w_ar->close();
+		delete w_ar;
+		w_ar = 0;
+	} else {
+		w_ar = new InfoWindow(this);
+		w_ar->setWindowTitle(ar);
+		connect(w_ar, SIGNAL( destroyed(QObject*)), this, SLOT(artistClosed(QObject*)));
+		w_ar->show();
+		if(ar_complete)
+			w_ar->setText(ui.textEdit->toHtml());
+		else 
+			tabChanged(1);
+	}
+}
+
+void Info::showAlbum()
+{
+	if(w_al) {
+		w_al->close();
+		delete w_al;
+		w_al = 0;
+	} else {
+		w_al = new InfoWindow(this);
+		w_al->setWindowTitle(al);
+		connect(w_al, SIGNAL( destroyed(QObject*)), this, SLOT(albumClosed(QObject*)));
+		w_al->show();
+		if(al_complete)
+			w_al->setText(ui.textEdit_2->toHtml());
+		else 
+			tabChanged(2);
+	}
+}
+
+void Info::showLyric()
+{
+	if(w_ly) {
+		w_ly->close();
+		delete w_ly;
+		w_ly = 0;
+	} else {
+		w_ly = new InfoWindow(this);
+		w_ly->setWindowTitle(so);
+		connect(w_ly, SIGNAL( destroyed(QObject*)), this, SLOT(lyricClosed(QObject*)));
+		w_ly->show();
+		connect(&LyricWiki::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(lyricInfo(QString)));
+		LyricWiki::Self().getSong(ar, so);
+	}
+}
+
+void Info::artistClosed(QObject*)
+{
+	w_ar = 0;
+}
+
+void Info::albumClosed(QObject*)
+{
+	w_al = 0;
+}
+
+void Info::lyricClosed(QObject*)
+{
+	w_ly = 0;
 }

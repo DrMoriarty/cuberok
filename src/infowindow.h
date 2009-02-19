@@ -17,39 +17,25 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef LIBRARYVIEW_H
-#define LIBRARYVIEW_H
+#ifndef INFOWINDOW_H
+#define INFOWINDOW_H
 
+#include <QtCore>
 #include <QtGui>
-#include "collectionview.h"
+#include "ui_infowindow.h"
 
-class LibraryView: public QListView
+class InfoWindow: public QDialog
 {
 	Q_OBJECT
+ public:
+	InfoWindow(QWidget *parent=0);
+	~InfoWindow();
 
-public:
-	LibraryView(QWidget *parent = 0);
-	~LibraryView();
+ public slots:
+	void setText(QString);
 
-public slots:
-	void addItem();
-	void removeItem();
-	void setImage();
-	void sqlPlaylist(bool);
-	void regularPlaylist(bool);
-	void sqlListEdit();
-	void setStatus(QString);
-
- signals:
-	void modeChanged(int);
-	void status(QString);
-
-private:
-	CollectionModel model;
-	QString stat;
-
- protected:
-	virtual void enterEvent ( QEvent * event );
+ private:
+	Ui::InfoWindow ui;
 };
 
-#endif // LIBRARYVIEW_H
+#endif // INFOWINDOW_H

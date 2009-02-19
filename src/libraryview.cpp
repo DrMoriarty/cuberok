@@ -34,7 +34,7 @@ LibraryView::LibraryView(QWidget *parent): QListView(parent)
 	setDragEnabled(true);
 	setDragDropMode(QAbstractItemView::DragDrop);
 	setDropIndicatorShown(true);
-// 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
+ 	connect(&model, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
 // 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
 // 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	model.updateMode(M_LIST);
@@ -44,11 +44,20 @@ LibraryView::~LibraryView()
 {
 }
 
+void LibraryView::setStatus(QString s)
+{
+	stat = s;
+	emit status(stat);
+}
+
 void LibraryView::addItem()
 {
 	switch(model.mode) {
 	case M_LIST:
 		Database::Self().AddPlaylist(tr("New Playlist"));
+		break;
+	case M_SQLLIST:
+		Database::Self().AddSQLPlaylist(tr("New Playlist"));
 		break;
 	default:
 		return;
@@ -62,6 +71,9 @@ void LibraryView::removeItem()
 		switch(model.mode) {
 		case M_LIST:
 			Database::Self().RemovePlaylist(model.itemFromIndex(ind)->data().toString());
+			break;
+		case M_SQLLIST:
+			Database::Self().RemoveSQLPlaylist(model.itemFromIndex(ind)->data().toString());
 			break;
 		default:
 			return;
@@ -88,6 +100,9 @@ void LibraryView::setImage()
 			case M_LIST:
 				Database::Self().ArtForPlaylist(model.data(ind).toString(), filename);
 				break;
+			case M_SQLLIST:
+				Database::Self().ArtForSQLPlaylist(model.data(ind).toString(), filename);
+				break;
 			default:
 				break;
 			}
@@ -95,3 +110,33 @@ void LibraryView::setImage()
 		model.update();
 	}
 }
+
+void LibraryView::sqlPlaylist(bool)
+{
+	model.updateMode(M_SQLLIST);
+}
+
+void LibraryView::regularPlaylist(bool)
+{
+	model.updateMode(M_LIST);
+}
+
+void LibraryView::sqlListEdit()
+{
+	switch(model.mode) {
+	case M_LIST:
+		break;
+	case M_SQLLIST:
+		if(this->selectedIndexes().size()) {
+			
+		}
+		break;
+	}
+}
+
+void LibraryView::enterEvent ( QEvent * event )
+{
+	QListView::enterEvent(event);
+	emit status(stat);
+}
+

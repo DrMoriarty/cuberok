@@ -251,59 +251,62 @@
                  <property name="scaledContents" >
                   <bool>true</bool>
                  </property>
+                 <property name="alignment" >
+                  <set>Qt::AlignCenter</set>
+                 </property>
                 </widget>
                </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_5" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Maximum" hsizetype="Preferred" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="frameShape" >
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow" >
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" >
+               <property name="spacing" >
+                <number>0</number>
+               </property>
+               <property name="leftMargin" >
+                <number>4</number>
+               </property>
+               <property name="topMargin" >
+                <number>4</number>
+               </property>
+               <property name="rightMargin" >
+                <number>4</number>
+               </property>
+               <property name="bottomMargin" >
+                <number>4</number>
+               </property>
                <item>
-                <widget class="QFrame" name="frame_5" >
+                <widget class="QLabel" name="label_al1" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Maximum" hsizetype="Preferred" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="frameShape" >
-                  <enum>QFrame::NoFrame</enum>
+                 <property name="text" >
+                  <string>Album Title</string>
                  </property>
-                 <property name="frameShadow" >
-                  <enum>QFrame::Raised</enum>
+                 <property name="alignment" >
+                  <set>Qt::AlignCenter</set>
                  </property>
-                 <layout class="QVBoxLayout" >
-                  <property name="spacing" >
-                   <number>0</number>
-                  </property>
-                  <property name="leftMargin" >
-                   <number>4</number>
-                  </property>
-                  <property name="topMargin" >
-                   <number>4</number>
-                  </property>
-                  <property name="rightMargin" >
-                   <number>4</number>
-                  </property>
-                  <property name="bottomMargin" >
-                   <number>4</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_al1" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Maximum" hsizetype="Preferred" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>Album Title</string>
-                    </property>
-                    <property name="alignment" >
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="StarEditor" native="1" name="albumRating" />
-                  </item>
-                 </layout>
                 </widget>
+               </item>
+               <item>
+                <widget class="StarEditor" native="1" name="albumRating" />
                </item>
               </layout>
              </widget>
@@ -344,6 +347,14 @@
           </spacer>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QToolBar" name="col_toolbar2" >
+         <addaction name="separator" />
+         <addaction name="actionShowArtistInfo" />
+         <addaction name="actionShowAlbumInfo" />
+         <addaction name="actionShowLyrics" />
+        </widget>
        </item>
       </layout>
      </widget>
@@ -458,6 +469,30 @@
     <string>Ban</string>
    </property>
   </action>
+  <action name="actionShowArtistInfo" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/def_artist.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Show Artist Info</string>
+   </property>
+  </action>
+  <action name="actionShowAlbumInfo" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/def_album.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Show Album Info</string>
+   </property>
+  </action>
+  <action name="actionShowLyrics" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/def_song.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Show Lyrics</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -548,6 +583,54 @@
     <hint type="destinationlabel" >
      <x>112</x>
      <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowArtistInfo</sender>
+   <signal>triggered()</signal>
+   <receiver>Info</receiver>
+   <slot>showArtist()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>108</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowAlbumInfo</sender>
+   <signal>triggered()</signal>
+   <receiver>Info</receiver>
+   <slot>showAlbum()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>108</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowLyrics</sender>
+   <signal>triggered()</signal>
+   <receiver>Info</receiver>
+   <slot>showLyric()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>108</x>
+     <y>162</y>
     </hint>
    </hints>
   </connection>

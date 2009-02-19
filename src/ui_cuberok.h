@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 12. Feb 09:59:41 2009
+** Created: Thu 19. Feb 11:44:40 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -84,6 +84,9 @@ public:
     QAction *actionOpenUrl;
     QAction *actionGetImageFromLastFM;
     QAction *actionConsole;
+    QAction *actionLibrarySQLPlaylist;
+    QAction *actionLibraryRegularPlaylist;
+    QAction *actionSQLListEdit;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -108,6 +111,7 @@ public:
     QDockWidget *dockWidget3;
     QWidget *dockWidgetContents3;
     QVBoxLayout *vboxLayout3;
+    QToolBar *lib_toolbar;
     LibraryView *libView;
     QDockWidget *dockWidget4;
     QWidget *dockWidgetContents4;
@@ -220,7 +224,7 @@ public:
     actionClosePlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/deltab.png")));
     actionRemoveSong = new QAction(CuberokClass);
     actionRemoveSong->setObjectName(QString::fromUtf8("actionRemoveSong"));
-    actionRemoveSong->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
+    actionRemoveSong->setIcon(QIcon());
     actionLookFeel = new QAction(CuberokClass);
     actionLookFeel->setObjectName(QString::fromUtf8("actionLookFeel"));
     actionLookFeel->setIcon(QIcon(QString::fromUtf8(":/icons/looknfeel.png")));
@@ -248,10 +252,10 @@ public:
     actionAddToLibrary->setIcon(QIcon(QString::fromUtf8(":/icons/col_add.png")));
     actionRemoveFromCollection = new QAction(CuberokClass);
     actionRemoveFromCollection->setObjectName(QString::fromUtf8("actionRemoveFromCollection"));
-    actionRemoveFromCollection->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
+    actionRemoveFromCollection->setIcon(QIcon());
     actionRemoveFromLibrary = new QAction(CuberokClass);
     actionRemoveFromLibrary->setObjectName(QString::fromUtf8("actionRemoveFromLibrary"));
-    actionRemoveFromLibrary->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
+    actionRemoveFromLibrary->setIcon(QIcon());
     actionStop = new QAction(CuberokClass);
     actionStop->setObjectName(QString::fromUtf8("actionStop"));
     actionStop->setIcon(QIcon(QString::fromUtf8(":/icons/butt_stop.png")));
@@ -294,12 +298,22 @@ public:
     actionConsole = new QAction(CuberokClass);
     actionConsole->setObjectName(QString::fromUtf8("actionConsole"));
     actionConsole->setIcon(QIcon(QString::fromUtf8(":/icons/console_none.png")));
+    actionLibrarySQLPlaylist = new QAction(CuberokClass);
+    actionLibrarySQLPlaylist->setObjectName(QString::fromUtf8("actionLibrarySQLPlaylist"));
+    actionLibrarySQLPlaylist->setCheckable(true);
+    actionLibraryRegularPlaylist = new QAction(CuberokClass);
+    actionLibraryRegularPlaylist->setObjectName(QString::fromUtf8("actionLibraryRegularPlaylist"));
+    actionLibraryRegularPlaylist->setCheckable(true);
+    actionLibraryRegularPlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/def_list.png")));
+    actionSQLListEdit = new QAction(CuberokClass);
+    actionSQLListEdit->setObjectName(QString::fromUtf8("actionSQLListEdit"));
+    actionSQLListEdit->setIcon(QIcon(QString::fromUtf8(":/icons/edittag.png")));
     centralwidget = new QWidget(CuberokClass);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
     vboxLayout = new QVBoxLayout(centralwidget);
     vboxLayout->setSpacing(4);
-    vboxLayout->setMargin(4);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+    vboxLayout->setContentsMargins(4, 4, 4, 4);
     listView = new PlaylistContainer(centralwidget);
     listView->setObjectName(QString::fromUtf8("listView"));
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -326,8 +340,8 @@ public:
     frame->setFrameShadow(QFrame::Raised);
     hboxLayout = new QHBoxLayout(frame);
     hboxLayout->setSpacing(2);
-    hboxLayout->setMargin(4);
     hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+    hboxLayout->setContentsMargins(4, 4, 4, 4);
     progressBar = new ProgressBar(frame);
     progressBar->setObjectName(QString::fromUtf8("progressBar"));
     progressBar->setMaximum(1000);
@@ -358,9 +372,8 @@ public:
     dockWidgetContents1->setObjectName(QString::fromUtf8("dockWidgetContents1"));
     vboxLayout1 = new QVBoxLayout(dockWidgetContents1);
     vboxLayout1->setSpacing(2);
-    vboxLayout1->setMargin(4);
     vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
-    vboxLayout1->setContentsMargins(0, 0, 0, 0);
+    vboxLayout1->setContentsMargins(4, 4, 4, 4);
     col_toolbar = new QToolBar(dockWidgetContents1);
     col_toolbar->setObjectName(QString::fromUtf8("col_toolbar"));
 
@@ -372,8 +385,8 @@ public:
     frame_2->setLineWidth(0);
     hboxLayout1 = new QHBoxLayout(frame_2);
     hboxLayout1->setSpacing(0);
-    hboxLayout1->setMargin(0);
     hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+    hboxLayout1->setContentsMargins(0, 0, 0, 0);
     subsetLabel = new QLabel(frame_2);
     subsetLabel->setObjectName(QString::fromUtf8("subsetLabel"));
 
@@ -417,9 +430,8 @@ public:
     dockWidgetContents2->setObjectName(QString::fromUtf8("dockWidgetContents2"));
     vboxLayout2 = new QVBoxLayout(dockWidgetContents2);
     vboxLayout2->setSpacing(2);
-    vboxLayout2->setMargin(4);
     vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
-    vboxLayout2->setContentsMargins(0, 0, 0, 0);
+    vboxLayout2->setContentsMargins(4, 4, 4, 4);
     treeView_2 = new QTreeView(dockWidgetContents2);
     treeView_2->setObjectName(QString::fromUtf8("treeView_2"));
     treeView_2->setDragEnabled(true);
@@ -442,9 +454,13 @@ public:
     dockWidgetContents3->setObjectName(QString::fromUtf8("dockWidgetContents3"));
     vboxLayout3 = new QVBoxLayout(dockWidgetContents3);
     vboxLayout3->setSpacing(2);
-    vboxLayout3->setMargin(4);
     vboxLayout3->setObjectName(QString::fromUtf8("vboxLayout3"));
-    vboxLayout3->setContentsMargins(0, 0, 0, 0);
+    vboxLayout3->setContentsMargins(4, 4, 4, 4);
+    lib_toolbar = new QToolBar(dockWidgetContents3);
+    lib_toolbar->setObjectName(QString::fromUtf8("lib_toolbar"));
+
+    vboxLayout3->addWidget(lib_toolbar);
+
     libView = new LibraryView(dockWidgetContents3);
     libView->setObjectName(QString::fromUtf8("libView"));
     libView->setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -463,9 +479,8 @@ public:
     dockWidgetContents4->setObjectName(QString::fromUtf8("dockWidgetContents4"));
     vboxLayout4 = new QVBoxLayout(dockWidgetContents4);
     vboxLayout4->setSpacing(4);
-    vboxLayout4->setMargin(4);
     vboxLayout4->setObjectName(QString::fromUtf8("vboxLayout4"));
-    vboxLayout4->setContentsMargins(0, 0, 0, 0);
+    vboxLayout4->setContentsMargins(4, 4, 4, 4);
     infoWidget = new Info(dockWidgetContents4);
     infoWidget->setObjectName(QString::fromUtf8("infoWidget"));
 
@@ -528,7 +543,10 @@ public:
     colView->addAction(actionRemoveFromCollection);
     colView->addAction(actionSetImage);
     colView->addAction(actionGetImageFromLastFM);
+    lib_toolbar->addAction(actionLibraryRegularPlaylist);
+    lib_toolbar->addAction(actionLibrarySQLPlaylist);
     libView->addAction(actionAddToLibrary);
+    libView->addAction(actionSQLListEdit);
     libView->addAction(actionRemoveFromLibrary);
     libView->addAction(actionLibrarySetImage);
     menubar->addAction(menuFile->menuAction());
@@ -619,6 +637,7 @@ public:
     QObject::connect(actionAddToCollection, SIGNAL(triggered()), colView, SLOT(addItem()));
     QObject::connect(actionRemoveFromCollection, SIGNAL(triggered()), colView, SLOT(removeItem()));
     QObject::connect(colView, SIGNAL(status(QString)), collectionStatus, SLOT(setText(QString)));
+    QObject::connect(libView, SIGNAL(status(QString)), collectionStatus, SLOT(setText(QString)));
     QObject::connect(listView, SIGNAL(status(QString)), listStatus, SLOT(setText(QString)));
     QObject::connect(filterLineEdit, SIGNAL(textChanged(QString)), colView, SLOT(filter(QString)));
     QObject::connect(colView, SIGNAL(setVisibleSubsetWidgets(bool)), subsetLabel, SLOT(setVisible(bool)));
@@ -644,6 +663,9 @@ public:
     QObject::connect(infoWidget, SIGNAL(loveIt()), listView, SLOT(rateLove()));
     QObject::connect(infoWidget, SIGNAL(rateDown()), listView, SLOT(rateDown()));
     QObject::connect(infoWidget, SIGNAL(rateUp()), listView, SLOT(rateUp()));
+    QObject::connect(actionLibraryRegularPlaylist, SIGNAL(triggered(bool)), libView, SLOT(regularPlaylist(bool)));
+    QObject::connect(actionLibrarySQLPlaylist, SIGNAL(triggered(bool)), libView, SLOT(sqlPlaylist(bool)));
+    QObject::connect(actionSQLListEdit, SIGNAL(triggered()), libView, SLOT(sqlListEdit()));
 
     QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -728,6 +750,9 @@ public:
     actionOpenUrl->setText(QApplication::translate("CuberokClass", "Open Url", 0, QApplication::UnicodeUTF8));
     actionGetImageFromLastFM->setText(QApplication::translate("CuberokClass", "Load image from Last.FM", 0, QApplication::UnicodeUTF8));
     actionConsole->setText(QApplication::translate("CuberokClass", "Messages", 0, QApplication::UnicodeUTF8));
+    actionLibrarySQLPlaylist->setText(QApplication::translate("CuberokClass", "View SQL Playlists", 0, QApplication::UnicodeUTF8));
+    actionLibraryRegularPlaylist->setText(QApplication::translate("CuberokClass", "View Regular Playlists", 0, QApplication::UnicodeUTF8));
+    actionSQLListEdit->setText(QApplication::translate("CuberokClass", "SQLListEdit", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));

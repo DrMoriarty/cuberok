@@ -22,6 +22,7 @@
 
 #include <QtGui>
 #include "ui_info.h"
+#include "infowindow.h"
 
 class Info: public QWidget
 {
@@ -36,6 +37,7 @@ public:
 	int id;
 	QString ar, al, so, ar_mbid, al_mbid;
 	bool ar_complete, al_complete;
+	InfoWindow *w_ar, *w_al, *w_ly;
 
 	void updateRating();
 
@@ -53,9 +55,17 @@ public:
 	void tabChanged(int);
 	void setCurrent(int id);
 	void setCurrent(QString artist, QString album, QString song);
+	void showArtist();
+	void showAlbum();
+	void showLyric();
+	
  private slots:
 	void artistInfo(QString);
 	void albumInfo(QString);
+	void lyricInfo(QString);
+	void artistClosed(QObject*);
+	void albumClosed(QObject*);
+	void lyricClosed(QObject*);
 };
 
 

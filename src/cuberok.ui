@@ -13,8 +13,7 @@
    <string>Cuberok</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="resource.qrc" >
-    <normaloff>:/icons/application.png</normaloff>:/icons/application.png</iconset>
+   <iconset resource="resource.qrc" >:/icons/application.png</iconset>
   </property>
   <property name="dockNestingEnabled" >
    <bool>true</bool>
@@ -27,7 +26,16 @@
     <property name="spacing" >
      <number>4</number>
     </property>
-    <property name="margin" >
+    <property name="leftMargin" >
+     <number>4</number>
+    </property>
+    <property name="topMargin" >
+     <number>4</number>
+    </property>
+    <property name="rightMargin" >
+     <number>4</number>
+    </property>
+    <property name="bottomMargin" >
      <number>4</number>
     </property>
     <item>
@@ -78,7 +86,16 @@
        <property name="spacing" >
         <number>2</number>
        </property>
-       <property name="margin" >
+       <property name="leftMargin" >
+        <number>4</number>
+       </property>
+       <property name="topMargin" >
+        <number>4</number>
+       </property>
+       <property name="rightMargin" >
+        <number>4</number>
+       </property>
+       <property name="bottomMargin" >
         <number>4</number>
        </property>
        <item>
@@ -127,7 +144,16 @@
      <property name="spacing" >
       <number>2</number>
      </property>
-     <property name="margin" >
+     <property name="leftMargin" >
+      <number>4</number>
+     </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
       <number>4</number>
      </property>
      <item>
@@ -154,7 +180,16 @@
         <property name="spacing" >
          <number>0</number>
         </property>
-        <property name="margin" >
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
          <number>0</number>
         </property>
         <item>
@@ -179,8 +214,7 @@
            <string>...</string>
           </property>
           <property name="icon" >
-           <iconset resource="resource.qrc" >
-            <normaloff>:/icons/clear_filter.png</normaloff>:/icons/clear_filter.png</iconset>
+           <iconset resource="resource.qrc" >:/icons/clear_filter.png</iconset>
           </property>
           <property name="iconSize" >
            <size>
@@ -250,7 +284,16 @@
      <property name="spacing" >
       <number>2</number>
      </property>
-     <property name="margin" >
+     <property name="leftMargin" >
+      <number>4</number>
+     </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
       <number>4</number>
      </property>
      <item>
@@ -299,9 +342,24 @@
      <property name="spacing" >
       <number>2</number>
      </property>
-     <property name="margin" >
+     <property name="leftMargin" >
       <number>4</number>
      </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="QToolBar" name="lib_toolbar" >
+       <addaction name="actionLibraryRegularPlaylist" />
+       <addaction name="actionLibrarySQLPlaylist" />
+      </widget>
+     </item>
      <item>
       <widget class="LibraryView" name="libView" >
        <property name="contextMenuPolicy" >
@@ -323,6 +381,7 @@
         <bool>true</bool>
        </property>
        <addaction name="actionAddToLibrary" />
+       <addaction name="actionSQLListEdit" />
        <addaction name="actionRemoveFromLibrary" />
        <addaction name="actionLibrarySetImage" />
       </widget>
@@ -342,7 +401,16 @@
      <property name="spacing" >
       <number>4</number>
      </property>
-     <property name="margin" >
+     <property name="leftMargin" >
+      <number>4</number>
+     </property>
+     <property name="topMargin" >
+      <number>4</number>
+     </property>
+     <property name="rightMargin" >
+      <number>4</number>
+     </property>
+     <property name="bottomMargin" >
       <number>4</number>
      </property>
      <item>
@@ -513,8 +581,7 @@
   </widget>
   <action name="actionAbout" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/application.png</normaloff>:/icons/application.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/application.png</iconset>
    </property>
    <property name="text" >
     <string>About</string>
@@ -537,8 +604,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/star.png</normaloff>:/icons/star.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/star.png</iconset>
    </property>
    <property name="text" >
     <string>Break</string>
@@ -546,8 +612,7 @@
   </action>
   <action name="actionPrev" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/butt_backward.png</normaloff>:/icons/butt_backward.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/butt_backward.png</iconset>
    </property>
    <property name="text" >
     <string>Previous</string>
@@ -570,8 +635,7 @@
   </action>
   <action name="actionNext" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/butt_forward.png</normaloff>:/icons/butt_forward.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/butt_forward.png</iconset>
    </property>
    <property name="text" >
     <string>Next</string>
@@ -597,8 +661,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/butt_pause.png</normaloff>:/icons/butt_pause.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/butt_pause.png</iconset>
    </property>
    <property name="text" >
     <string>Pause</string>
@@ -621,8 +684,7 @@
   </action>
   <action name="actionPlay" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/butt_play.png</normaloff>:/icons/butt_play.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/butt_play.png</iconset>
    </property>
    <property name="text" >
     <string>Play</string>
@@ -648,8 +710,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/shuffle_mode.png</normaloff>:/icons/shuffle_mode.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/shuffle_mode.png</iconset>
    </property>
    <property name="text" >
     <string>Shuffle</string>
@@ -663,8 +724,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/repeat_mode.png</normaloff>:/icons/repeat_mode.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/repeat_mode.png</iconset>
    </property>
    <property name="text" >
     <string>Repeat</string>
@@ -683,8 +743,7 @@
   </action>
   <action name="actionClear_playlist" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/clearlist.png</normaloff>:/icons/clearlist.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/clearlist.png</iconset>
    </property>
    <property name="text" >
     <string>Clear playlist</string>
@@ -805,8 +864,7 @@
   </action>
   <action name="actionEditTag" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/edittag.png</normaloff>:/icons/edittag.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/edittag.png</iconset>
    </property>
    <property name="text" >
     <string>Edit Tag</string>
@@ -820,8 +878,7 @@
   </action>
   <action name="actionNewPlaylist" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/newtab.png</normaloff>:/icons/newtab.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/newtab.png</iconset>
    </property>
    <property name="text" >
     <string>New playlist</string>
@@ -829,8 +886,7 @@
   </action>
   <action name="actionClosePlaylist" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/deltab.png</normaloff>:/icons/deltab.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/deltab.png</iconset>
    </property>
    <property name="text" >
     <string>Close playlist</string>
@@ -838,8 +894,7 @@
   </action>
   <action name="actionRemoveSong" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
+    <iconset/>
    </property>
    <property name="text" >
     <string>Remove song</string>
@@ -847,8 +902,7 @@
   </action>
   <action name="actionLookFeel" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/looknfeel.png</normaloff>:/icons/looknfeel.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/looknfeel.png</iconset>
    </property>
    <property name="text" >
     <string>Look and Feel</string>
@@ -859,8 +913,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/def_artist.png</normaloff>:/icons/def_artist.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/def_artist.png</iconset>
    </property>
    <property name="text" >
     <string>Artist</string>
@@ -871,8 +924,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/def_album.png</normaloff>:/icons/def_album.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/def_album.png</iconset>
    </property>
    <property name="text" >
     <string>Album</string>
@@ -883,8 +935,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/def_genre.png</normaloff>:/icons/def_genre.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/def_genre.png</iconset>
    </property>
    <property name="text" >
     <string>Genre</string>
@@ -895,8 +946,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/def_song.png</normaloff>:/icons/def_song.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/def_song.png</iconset>
    </property>
    <property name="text" >
     <string>Song</string>
@@ -904,8 +954,7 @@
   </action>
   <action name="actionAddToCollection" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/col_add.png</iconset>
    </property>
    <property name="text" >
     <string>Add Item</string>
@@ -913,8 +962,7 @@
   </action>
   <action name="actionAddToLibrary" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/col_add.png</iconset>
    </property>
    <property name="text" >
     <string>Add Item</string>
@@ -922,8 +970,7 @@
   </action>
   <action name="actionRemoveFromCollection" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
+    <iconset/>
    </property>
    <property name="text" >
     <string>Remove Item</string>
@@ -931,8 +978,7 @@
   </action>
   <action name="actionRemoveFromLibrary" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
+    <iconset/>
    </property>
    <property name="text" >
     <string>Remove Item</string>
@@ -940,8 +986,7 @@
   </action>
   <action name="actionStop" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/butt_stop.png</normaloff>:/icons/butt_stop.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/butt_stop.png</iconset>
    </property>
    <property name="text" >
     <string>Stop</string>
@@ -961,8 +1006,7 @@
   </action>
   <action name="actionSavePlaylist" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/save.png</iconset>
    </property>
    <property name="text" >
     <string>Save playlist</string>
@@ -973,8 +1017,7 @@
   </action>
   <action name="actionLoadPlaylist" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/open.png</iconset>
    </property>
    <property name="text" >
     <string>Open playlist</string>
@@ -985,8 +1028,7 @@
   </action>
   <action name="actionAboutQt" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/qt.png</normaloff>:/icons/qt.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/qt.png</iconset>
    </property>
    <property name="text" >
     <string>About Qt</string>
@@ -1010,8 +1052,7 @@
   </action>
   <action name="actionSettings" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/settings.png</iconset>
    </property>
    <property name="text" >
     <string>Preferences</string>
@@ -1019,8 +1060,7 @@
   </action>
   <action name="actionSetImage" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
    </property>
    <property name="text" >
     <string>Set Image</string>
@@ -1028,8 +1068,7 @@
   </action>
   <action name="actionLibrarySetImage" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
    </property>
    <property name="text" >
     <string>Set Image</string>
@@ -1040,8 +1079,7 @@
     <bool>true</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/iconview.png</normaloff>:/icons/iconview.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/iconview.png</iconset>
    </property>
    <property name="text" >
     <string>Icon View</string>
@@ -1049,8 +1087,7 @@
   </action>
   <action name="actionOpenUrl" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/open.png</iconset>
    </property>
    <property name="text" >
     <string>Open Url</string>
@@ -1061,8 +1098,7 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/download_art.png</normaloff>:/icons/download_art.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/download_art.png</iconset>
    </property>
    <property name="text" >
     <string>Load image from Last.FM</string>
@@ -1070,11 +1106,37 @@
   </action>
   <action name="actionConsole" >
    <property name="icon" >
-    <iconset resource="resource.qrc" >
-     <normaloff>:/icons/console_none.png</normaloff>:/icons/console_none.png</iconset>
+    <iconset resource="resource.qrc" >:/icons/console_none.png</iconset>
    </property>
    <property name="text" >
     <string>Messages</string>
+   </property>
+  </action>
+  <action name="actionLibrarySQLPlaylist" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>View SQL Playlists</string>
+   </property>
+  </action>
+  <action name="actionLibraryRegularPlaylist" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/def_list.png</iconset>
+   </property>
+   <property name="text" >
+    <string>View Regular Playlists</string>
+   </property>
+  </action>
+  <action name="actionSQLListEdit" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/edittag.png</iconset>
+   </property>
+   <property name="text" >
+    <string>SQLListEdit</string>
    </property>
   </action>
  </widget>
@@ -1083,12 +1145,6 @@
    <class>PlaylistContainer</class>
    <extends>QWidget</extends>
    <header>playlistcontainer.h</header>
-   <slots>
-    <slot>rateLove()</slot>
-    <slot>rateBan()</slot>
-    <slot>rateUp()</slot>
-    <slot>rateDown()</slot>
-   </slots>
   </customwidget>
   <customwidget>
    <class>ProgressBar</class>
@@ -1109,12 +1165,6 @@
    <class>Info</class>
    <extends>QWidget</extends>
    <header>info.h</header>
-   <slots>
-    <signal>rateUp()</signal>
-    <signal>rateDown()</signal>
-    <signal>ban()</signal>
-    <signal>loveIt()</signal>
-   </slots>
   </customwidget>
  </customwidgets>
  <resources>
@@ -1650,6 +1700,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>libView</sender>
+   <signal>status(QString)</signal>
+   <receiver>collectionStatus</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>140</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>49</x>
+     <y>535</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>listView</sender>
    <signal>status(QString)</signal>
    <receiver>listStatus</receiver>
@@ -2046,6 +2112,54 @@
     <hint type="destinationlabel" >
      <x>409</x>
      <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLibraryRegularPlaylist</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>libView</receiver>
+   <slot>regularPlaylist(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>518</x>
+     <y>414</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLibrarySQLPlaylist</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>libView</receiver>
+   <slot>sqlPlaylist(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>518</x>
+     <y>414</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSQLListEdit</sender>
+   <signal>triggered()</signal>
+   <receiver>libView</receiver>
+   <slot>sqlListEdit()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>518</x>
+     <y>414</y>
     </hint>
    </hints>
   </connection>
