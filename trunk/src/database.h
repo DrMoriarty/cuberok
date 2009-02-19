@@ -20,17 +20,17 @@
 #ifndef DATABASE_H_
 #define DATABASE_H_
 
+#include <QtCore>
 #include <QtSql>
 
 static const QString nArtist = "Artist",
     nAlbum = "Album",
     nGenre = "Genre",
     nPlaylist = "Playlist";
-//	nMark = "Mark";
 
-
-class Database
+class Database : public QObject
 {
+	Q_OBJECT
 public:
     struct Attr {
         QString name;
@@ -43,31 +43,42 @@ public:
         int artist;
     };
 
+	struct SAttr {
+        QString name;
+        QString art;
+		QString data;
+	};
+
     static Database& Self();
-    virtual ~Database();
+    ~Database();
 
     int AddFile(QString file);
     int AddArtist(QString artist);
     int AddAlbum(QString album, int artist);
     int AddGenre(QString genre);
     int AddPlaylist(QString list);
+    int AddSQLPlaylist(QString list);
     void RemoveFile(QString file);
     void RemoveArtist(QString artist);
     void RemoveAlbum(QString album, int artist);
     void RemoveGenre(QString genre);
     void RemovePlaylist(QString list);
+    void RemoveSQLPlaylist(QString list);
     void RenameArtist(QString oldval, QString newval);
     void RenameAlbum(QString oldval, QString newval, int artist);
     void RenameGenre(QString oldval, QString newval);
     void RenamePlaylist(QString oldval, QString newval);
+    void RenameSQLPlaylist(QString oldval, QString newval);
     QList<struct Attr> Artists(QString *patt = 0);
     QList<struct AttrAl> Albums(QString *patt = 0);
     QList<struct Attr> Genres(QString *patt = 0);
     QList<struct Attr> Playlists(QString *patt = 0);
+    QList<struct SAttr> SQLPlaylists(QString *patt = 0);
     void ArtForAlbum(QString val, QString art, int artist);
     void ArtForArtist(QString val, QString art);
     void ArtForGenre(QString val, QString art);
     void ArtForPlaylist(QString val, QString art);
+    void ArtForSQLPlaylist(QString val, QString art);
     QList<QString> Songs(QString *ar = 0, int al = 0, QString *ge = 0, QString *so = 0);
     bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length);
     bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
@@ -119,6 +130,7 @@ private:
     void ArtForAttribute(const QString attr, QString val, QString art);
     bool updateDatabase(int fromver);
     QString subsetFilter();
+	void CreateDefaultSqlPlaylists();
     QMutex lock;
 };
 

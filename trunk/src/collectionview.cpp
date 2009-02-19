@@ -127,6 +127,8 @@ int CollectionFiller::proceed(QString path)
 				case M_LIST:
 					Database::Self().ArtForPlaylist(attrname, path);
 					break;
+				case M_SQLLIST:
+					break;
 				}
 				return -1;
 			}
@@ -135,23 +137,25 @@ int CollectionFiller::proceed(QString path)
 			int track, year, rating;
 			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length);
 			switch(mode) {
-				case M_ALBUM:
-					Tagger::updateAlbum(path, attrname);
-					album = attrname;
-					break;
-				case M_ARTIST:
-					Tagger::updateArtist(path, attrname);
-					artist = attrname;
-					break;
-				case M_GENRE:
-					Tagger::updateGenre(path, attrname);
-					genre = attrname;
-					break;
-				case M_SONG:
-					return -1;
-				case M_LIST:
-					// TODO
-					return -1;
+			case M_ALBUM:
+				Tagger::updateAlbum(path, attrname);
+				album = attrname;
+				break;
+			case M_ARTIST:
+				Tagger::updateArtist(path, attrname);
+				artist = attrname;
+				break;
+			case M_GENRE:
+				Tagger::updateGenre(path, attrname);
+				genre = attrname;
+				break;
+			case M_SONG:
+				return -1;
+			case M_LIST:
+				// TODO
+				return -1;
+			case M_SQLLIST:
+				return -1;
 			}
 			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating); 
 			else return Database::Self().AddFile(path);
@@ -188,32 +192,36 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		newvalue = value.toString();
 	QList<QString> files;
 	if(oldvalue != newvalue) switch(mode) {
-	case M_ARTIST:
-		files = Database::Self().Songs(&oldvalue);
-		foreach(QString file, files) Tagger::updateArtist(file, newvalue);
-		Database::Self().RenameArtist(oldvalue, newvalue);
-		break;
-	case M_ALBUM:
-		files = Database::Self().Songs(0, Database::Self().AddAlbum(oldvalue, itemFromIndex(index)->data().toInt()));
-		foreach(QString file, files) Tagger::updateAlbum(file, newvalue);
-		Database::Self().RenameAlbum(oldvalue, newvalue, itemFromIndex(index)->data().toInt());
-		break;
-	case M_GENRE:
-		files = Database::Self().Songs(0, 0, &oldvalue);
-		foreach(QString file, files) Tagger::updateGenre(file, newvalue);
-		Database::Self().RenameGenre(oldvalue, newvalue);
-		break;
-	case M_SONG: {
-		break;
-	}
-	case M_LIST: {
-		QString file1 = itemFromIndex(index)->data().toString();
-		QString file2 = QFileInfo(file1).absolutePath() + QDir::separator() + newvalue + "." + QFileInfo(file1).completeSuffix();
-		QFile::rename(file1, file2);
-		Database::Self().RenamePlaylist(file1, file2);
-		itemFromIndex(index)->setData(file2);
-		break;
-	}
+		case M_ARTIST:
+			files = Database::Self().Songs(&oldvalue);
+			foreach(QString file, files) Tagger::updateArtist(file, newvalue);
+			Database::Self().RenameArtist(oldvalue, newvalue);
+			break;
+		case M_ALBUM:
+			files = Database::Self().Songs(0, Database::Self().AddAlbum(oldvalue, itemFromIndex(index)->data().toInt()));
+			foreach(QString file, files) Tagger::updateAlbum(file, newvalue);
+			Database::Self().RenameAlbum(oldvalue, newvalue, itemFromIndex(index)->data().toInt());
+			break;
+		case M_GENRE:
+			files = Database::Self().Songs(0, 0, &oldvalue);
+			foreach(QString file, files) Tagger::updateGenre(file, newvalue);
+			Database::Self().RenameGenre(oldvalue, newvalue);
+			break;
+		case M_SONG: {
+			break;
+		}
+		case M_LIST: {
+			QString file1 = itemFromIndex(index)->data().toString();
+			QString file2 = QFileInfo(file1).absolutePath() + QDir::separator() + newvalue + "." + QFileInfo(file1).completeSuffix();
+			QFile::rename(file1, file2);
+			Database::Self().RenamePlaylist(file1, file2);
+			itemFromIndex(index)->setData(file2);
+			break;
+		}
+		case M_SQLLIST:
+			Database::Self().RenameSQLPlaylist(oldvalue, newvalue);
+			//itemFromIndex(index)->setData();
+			break;
 	}
 	return QStandardItemModel::setData(index, value, role);
 }
@@ -263,6 +271,9 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 	case M_LIST:
 		res.clear();
 		res << itemFromIndex(i)->data().toString();
+		break;
+	case M_SQLLIST:
+		// TODO
 		break;
 	}
 	QList<QUrl> urls;
@@ -382,7 +393,7 @@ void CollectionModel::updateMode(ListMode m)
 		emit modeChanged(mode);
 		return;
 	}
-	case M_LIST:
+	case M_LIST: {
 		data = Database::Self().Playlists();
 		icon.load(":/icons/def_list.png");
 		stat = tr("Collection - %n lists(s)", "", data.count());
@@ -398,13 +409,35 @@ void CollectionModel::updateMode(ListMode m)
 			else
 				i = new QStandardItem(QIcon(px2), attr.name);
 			i->setData(attr.name);
-			tt = attr.name+"\n"+tr("%n song(s)", "", attr.refs);
+			tt = attr.name;//+"\n"+tr("%n song(s)", "", attr.refs);
 			i->setToolTip(tt); 
 			appendRow(i);
 		}
 		emit status(stat);
 		emit modeChanged(mode);
 		return;
+	}
+	case M_SQLLIST: {
+		QList<struct Database::SAttr> data = Database::Self().SQLPlaylists();
+		icon.load(":/icons/def_sqllist.png");
+		stat = tr("Collection - %n lists(s)", "", data.count());
+		QString tt("");
+		QStandardItem *i;
+		foreach(struct Database::SAttr attr, data) {
+			QPixmap px2;
+			if(!attr.art.size() || !px2.load(attr.art))
+				px2 = icon;
+			drawStars(px2, 0/*attr.rating*/, false);
+			i = new QStandardItem(QIcon(px2), attr.name);
+			i->setData(attr.data);
+			tt = attr.name;//+"\n"+tr("%n song(s)", "", attr.refs);
+			i->setToolTip(tt); 
+			appendRow(i);
+		}
+		emit status(stat);
+		emit modeChanged(mode);
+		return;
+	}
 	}
 	QString tt("");
 	QStandardItem *i;
@@ -808,6 +841,7 @@ void CollectionView::loadImage()
 		case M_GENRE:
 		case M_SONG:
 		case M_LIST:
+		case M_SQLLIST:
 			return;
 		}
 		list << ind.row();

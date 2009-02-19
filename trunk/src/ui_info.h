@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'info.ui'
 **
-** Created: Thu 12. Feb 09:59:40 2009
+** Created: Thu 19. Feb 11:29:21 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -32,6 +32,9 @@ public:
     QAction *actionRateDown;
     QAction *actionLoveIt;
     QAction *actionBan;
+    QAction *actionShowArtistInfo;
+    QAction *actionShowAlbumInfo;
+    QAction *actionShowLyrics;
     QVBoxLayout *vboxLayout;
     QTabWidget *tabWidget;
     QWidget *tab;
@@ -54,6 +57,7 @@ public:
     StarEditor *albumRating;
     QSpacerItem *spacerItem1;
     QSpacerItem *spacerItem2;
+    QToolBar *col_toolbar2;
     QWidget *tab_2;
     QVBoxLayout *vboxLayout6;
     QTextBrowser *textEdit;
@@ -78,6 +82,15 @@ public:
     actionBan = new QAction(Info);
     actionBan->setObjectName(QString::fromUtf8("actionBan"));
     actionBan->setIcon(QIcon(QString::fromUtf8(":/icons/deltab.png")));
+    actionShowArtistInfo = new QAction(Info);
+    actionShowArtistInfo->setObjectName(QString::fromUtf8("actionShowArtistInfo"));
+    actionShowArtistInfo->setIcon(QIcon(QString::fromUtf8(":/icons/def_artist.png")));
+    actionShowAlbumInfo = new QAction(Info);
+    actionShowAlbumInfo->setObjectName(QString::fromUtf8("actionShowAlbumInfo"));
+    actionShowAlbumInfo->setIcon(QIcon(QString::fromUtf8(":/icons/def_album.png")));
+    actionShowLyrics = new QAction(Info);
+    actionShowLyrics->setObjectName(QString::fromUtf8("actionShowLyrics"));
+    actionShowLyrics->setIcon(QIcon(QString::fromUtf8(":/icons/def_song.png")));
     vboxLayout = new QVBoxLayout(Info);
     vboxLayout->setSpacing(0);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
@@ -172,10 +185,14 @@ public:
     label_al0->setMaximumSize(QSize(65535, 65535));
     label_al0->setPixmap(QPixmap(QString::fromUtf8(":/icons/def_album.png")));
     label_al0->setScaledContents(true);
+    label_al0->setAlignment(Qt::AlignCenter);
 
     vboxLayout4->addWidget(label_al0);
 
-    frame_5 = new QFrame(frame_2);
+
+    vboxLayout2->addWidget(frame_2);
+
+    frame_5 = new QFrame(frame_0);
     frame_5->setObjectName(QString::fromUtf8("frame_5"));
     sizePolicy2.setHeightForWidth(frame_5->sizePolicy().hasHeightForWidth());
     frame_5->setSizePolicy(sizePolicy2);
@@ -199,10 +216,7 @@ public:
     vboxLayout5->addWidget(albumRating);
 
 
-    vboxLayout4->addWidget(frame_5);
-
-
-    vboxLayout2->addWidget(frame_2);
+    vboxLayout2->addWidget(frame_5);
 
     spacerItem1 = new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 
@@ -217,6 +231,11 @@ public:
 
 
     vboxLayout1->addLayout(hboxLayout);
+
+    col_toolbar2 = new QToolBar(tab);
+    col_toolbar2->setObjectName(QString::fromUtf8("col_toolbar2"));
+
+    vboxLayout1->addWidget(col_toolbar2);
 
     tabWidget->addTab(tab, QString());
     tab_2 = new QWidget();
@@ -258,6 +277,10 @@ public:
     col_toolbar->addAction(actionRateDown);
     col_toolbar->addAction(actionRateUp);
     col_toolbar->addAction(actionLoveIt);
+    col_toolbar2->addSeparator();
+    col_toolbar2->addAction(actionShowArtistInfo);
+    col_toolbar2->addAction(actionShowAlbumInfo);
+    col_toolbar2->addAction(actionShowLyrics);
 
     retranslateUi(Info);
     QObject::connect(tabWidget, SIGNAL(currentChanged(int)), Info, SLOT(tabChanged(int)));
@@ -265,6 +288,9 @@ public:
     QObject::connect(actionLoveIt, SIGNAL(triggered()), Info, SLOT(slot_loveIt()));
     QObject::connect(actionRateDown, SIGNAL(triggered()), Info, SLOT(slot_rateDown()));
     QObject::connect(actionRateUp, SIGNAL(triggered()), Info, SLOT(slot_rateUp()));
+    QObject::connect(actionShowArtistInfo, SIGNAL(triggered()), Info, SLOT(showArtist()));
+    QObject::connect(actionShowAlbumInfo, SIGNAL(triggered()), Info, SLOT(showAlbum()));
+    QObject::connect(actionShowLyrics, SIGNAL(triggered()), Info, SLOT(showLyric()));
 
     tabWidget->setCurrentIndex(0);
 
@@ -281,6 +307,9 @@ public:
     actionRateDown->setToolTip(QApplication::translate("Info", "Rate Down", 0, QApplication::UnicodeUTF8));
     actionLoveIt->setText(QApplication::translate("Info", "LoveIt", 0, QApplication::UnicodeUTF8));
     actionBan->setText(QApplication::translate("Info", "Ban", 0, QApplication::UnicodeUTF8));
+    actionShowArtistInfo->setText(QApplication::translate("Info", "Show Artist Info", 0, QApplication::UnicodeUTF8));
+    actionShowAlbumInfo->setText(QApplication::translate("Info", "Show Album Info", 0, QApplication::UnicodeUTF8));
+    actionShowLyrics->setText(QApplication::translate("Info", "Show Lyrics", 0, QApplication::UnicodeUTF8));
     label_so1->setText(QApplication::translate("Info", "Song Title", 0, QApplication::UnicodeUTF8));
     label_al0->setText(QString());
     label_al1->setText(QApplication::translate("Info", "Album Title", 0, QApplication::UnicodeUTF8));

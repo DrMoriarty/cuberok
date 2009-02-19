@@ -20,10 +20,12 @@ HEADERS += aboutdialog.h \
            downloader.h \
            info.h \
            infowidget.h \
+           infowindow.h \
            indicator.h \
            lastfm.h \
            libraryview.h \
            lookandfeel.h \
+           lyricwiki.h \
            main.h \
            player.h \
            player_manager.h \
@@ -40,7 +42,7 @@ HEADERS += aboutdialog.h \
            tagger.h \
            url_open.h
 
-FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui info.ui
+FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui info.ui infowindow.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
@@ -51,10 +53,12 @@ SOURCES += aboutdialog.cpp \
            downloader.cpp \
            info.cpp \
            infowidget.cpp \
+           infowindow.cpp \
            indicator.cpp \
            lastfm.cpp \
            libraryview.cpp \
            lookandfeel.cpp \
+           lyricwiki.cpp \
            main.cpp \
            player_manager.cpp \
            playlistcontainer.cpp \
@@ -118,7 +122,11 @@ unix {
     documentation.files = README ChangeLog
     locale.path = /share/cuberok/locale
     locale.files = ../locale/*.qm
-    INSTALLS += target documentation locale
+    pixmap.path = /share/pixmaps
+    pixmap.files = ../images/cuberok.xpm
+    desktop.path = /share/applications
+    desktop.files = ../cuberok.desktop
+    INSTALLS += target documentation locale pixmap desktop
 }
 
 LIBS += -L$${DESTDIR}/plugins -lplayer_void

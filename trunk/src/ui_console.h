@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'console.ui'
 **
-** Created: Tue 23. Dec 10:37:55 2008
+** Created: Wed 18. Feb 17:09:15 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!

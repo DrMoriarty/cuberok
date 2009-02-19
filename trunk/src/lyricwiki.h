@@ -17,39 +17,32 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef LIBRARYVIEW_H
-#define LIBRARYVIEW_H
+#ifndef LYRICWIKI_H
+#define LYRICWIKI_H
 
-#include <QtGui>
-#include "collectionview.h"
+#include <QtCore>
+#include <QtNetwork>
 
-class LibraryView: public QListView
+class LyricWiki : public QObject
 {
 	Q_OBJECT
 
-public:
-	LibraryView(QWidget *parent = 0);
-	~LibraryView();
+ public:
+	static LyricWiki& Self();
+	~LyricWiki();
 
-public slots:
-	void addItem();
-	void removeItem();
-	void setImage();
-	void sqlPlaylist(bool);
-	void regularPlaylist(bool);
-	void sqlListEdit();
-	void setStatus(QString);
+	void getSong(QString artist, QString song);
+
+ private:
+	LyricWiki();
+	QHttp http;
+
+ private slots:
+	void requestFinished(int, bool);
+	void requestStarted(int);
 
  signals:
-	void modeChanged(int);
-	void status(QString);
-
-private:
-	CollectionModel model;
-	QString stat;
-
- protected:
-	virtual void enterEvent ( QEvent * event );
+	void xmlInfo(QString);
 };
 
-#endif // LIBRARYVIEW_H
+#endif // LYRICWIKI_H
