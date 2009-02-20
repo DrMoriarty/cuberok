@@ -554,6 +554,21 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Сообщения</translation>
     </message>
     <message>
+        <location filename="../src/cuberok.ui" line="1123"/>
+        <source>View SQL Playlists</source>
+        <translation type="unfinished">SQL Списки</translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1134"/>
+        <source>View Regular Playlists</source>
+        <translation type="unfinished">Обычные списки</translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1142"/>
+        <source>Edit SQL Playist</source>
+        <translation type="unfinished">Редактировать SQL список</translation>
+    </message>
+    <message>
         <location filename="../src/cuberok.ui" line="13"/>
         <source>Cuberok</source>
         <translation type="unfinished"></translation>
@@ -628,38 +643,23 @@ p, li { white-space: pre-wrap; }
         <source>Alt+Shift+V</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="1120"/>
-        <source>View SQL Playlists</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="1131"/>
-        <source>View Regular Playlists</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/cuberok.ui" line="1139"/>
-        <source>SQLListEdit</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Database</name>
     <message>
         <location filename="../src/database.cpp" line="160"/>
         <source>The Best</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Лучшее</translation>
     </message>
     <message>
         <location filename="../src/database.cpp" line="164"/>
         <source>Good music</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Хорошая музыка</translation>
     </message>
     <message>
         <location filename="../src/database.cpp" line="168"/>
         <source>Unrated</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неоценено</translation>
     </message>
 </context>
 <context>
@@ -769,67 +769,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/info.ui" line="13"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Информация</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="38"/>
         <source>Now Playing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сейчас играет</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="176"/>
         <source>Song Title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название песни</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="301"/>
         <source>Album Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/info.ui" line="439"/>
-        <source>RateUp</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название альбома</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="442"/>
         <source>Rate Up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/info.ui" line="450"/>
-        <source>RateDown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Оценить выше</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="453"/>
         <source>Rate Down</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/info.ui" line="461"/>
-        <source>LoveIt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Оценить ниже</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="469"/>
         <source>Ban</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запретить</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="477"/>
         <source>Show Artist Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать информацию об исполнителе</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="485"/>
         <source>Show Album Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать информацию об альбоме</translation>
     </message>
     <message>
         <location filename="../src/info.ui" line="493"/>
         <source>Show Lyrics</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать текст</translation>
+    </message>
+    <message>
+        <location filename="../src/info.ui" line="461"/>
+        <source>Love it</source>
+        <translation type="unfinished">Любимое</translation>
     </message>
 </context>
 <context>
@@ -854,19 +844,40 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>InfoWindow</name>
+    <message>
+        <location filename="../src/infowindow.ui" line="13"/>
+        <source>Information</source>
+        <translation type="unfinished">Информация</translation>
+    </message>
+    <message>
+        <location filename="../src/infowindow.ui" line="46"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Please wait while information loading...&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Пожалуйста, дождитесь загрузки информации...&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+</context>
+<context>
     <name>LibraryView</name>
     <message>
-        <location filename="../src/libraryview.cpp" line="60"/>
+        <location filename="../src/libraryview.cpp" line="61"/>
         <source>New Playlist</source>
         <translation type="unfinished">Новый список</translation>
     </message>
     <message>
-        <location filename="../src/libraryview.cpp" line="96"/>
+        <location filename="../src/libraryview.cpp" line="97"/>
         <source>Open image</source>
         <translation type="unfinished">Открыть изображение</translation>
     </message>
     <message>
-        <location filename="../src/libraryview.cpp" line="96"/>
+        <location filename="../src/libraryview.cpp" line="97"/>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
         <translation type="unfinished">Изображения (*.jpg *.gif *.png *.bmp)</translation>
     </message>
@@ -1089,6 +1100,42 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>SQLEditDialog</name>
+    <message>
+        <location filename="../src/sqledit.ui" line="13"/>
+        <source>Edit SQL Playlist</source>
+        <translation type="unfinished">Редактировать SQL список</translation>
+    </message>
+    <message>
+        <location filename="../src/sqledit.ui" line="19"/>
+        <source>Name of playlist</source>
+        <translation type="unfinished">Название списка</translation>
+    </message>
+    <message>
+        <location filename="../src/sqledit.ui" line="78"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Valid field names are File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Don&apos;t forget use &apos;and&apos; and &apos;or&apos; between conditions.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;For example try write &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Корректные названия полей: File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Не забывайте ставить &apos;and&apos; и &apos;or&apos; между условиями.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;На пример, напишите &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/sqledit.ui" line="41"/>
+        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Settings</name>
     <message>
         <location filename="../src/settings.ui" line="31"/>
@@ -1161,29 +1208,34 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Порт</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="347"/>
+        <location filename="../src/settings.ui" line="354"/>
         <source>User name</source>
         <translation type="unfinished">Пользователь</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="354"/>
+        <location filename="../src/settings.ui" line="361"/>
         <source>Password</source>
         <translation type="unfinished">Пароль</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="287"/>
+        <location filename="../src/settings.ui" line="294"/>
         <source>Last.FM</source>
         <translation type="unfinished">Last.FM</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="314"/>
+        <location filename="../src/settings.ui" line="321"/>
         <source>Enable Last.FM scrobbling</source>
         <translation type="unfinished">Включить Last.FM scrobbling</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="122"/>
         <source>Hide nameless albums</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Не показывать безымянные альбомы</translation>
+    </message>
+    <message>
+        <location filename="../src/settings.ui" line="278"/>
+        <source>Cache downloaded information</source>
+        <translation type="unfinished">Кешировать информацию полученную из Интернет</translation>
     </message>
 </context>
 <context>

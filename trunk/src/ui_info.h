@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'info.ui'
 **
-** Created: Thu 19. Feb 11:29:21 2009
+** Created: Fri 20. Feb 11:07:19 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -301,11 +301,11 @@ public:
     void retranslateUi(QWidget *Info)
     {
     Info->setWindowTitle(QApplication::translate("Info", "Info", 0, QApplication::UnicodeUTF8));
-    actionRateUp->setText(QApplication::translate("Info", "RateUp", 0, QApplication::UnicodeUTF8));
+    actionRateUp->setText(QApplication::translate("Info", "Rate Up", 0, QApplication::UnicodeUTF8));
     actionRateUp->setToolTip(QApplication::translate("Info", "Rate Up", 0, QApplication::UnicodeUTF8));
-    actionRateDown->setText(QApplication::translate("Info", "RateDown", 0, QApplication::UnicodeUTF8));
+    actionRateDown->setText(QApplication::translate("Info", "Rate Down", 0, QApplication::UnicodeUTF8));
     actionRateDown->setToolTip(QApplication::translate("Info", "Rate Down", 0, QApplication::UnicodeUTF8));
-    actionLoveIt->setText(QApplication::translate("Info", "LoveIt", 0, QApplication::UnicodeUTF8));
+    actionLoveIt->setText(QApplication::translate("Info", "Love it", 0, QApplication::UnicodeUTF8));
     actionBan->setText(QApplication::translate("Info", "Ban", 0, QApplication::UnicodeUTF8));
     actionShowArtistInfo->setText(QApplication::translate("Info", "Show Artist Info", 0, QApplication::UnicodeUTF8));
     actionShowAlbumInfo->setText(QApplication::translate("Info", "Show Album Info", 0, QApplication::UnicodeUTF8));

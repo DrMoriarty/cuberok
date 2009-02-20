@@ -115,6 +115,9 @@ Cuberok::Cuberok(QWidget *parent)
 	libmodeGroup->addAction(ui.actionLibraryRegularPlaylist);
 	libmodeGroup->addAction(ui.actionLibrarySQLPlaylist);
 	ui.actionLibraryRegularPlaylist->setChecked(true);
+	connect(ui.libView, SIGNAL(modeChanged(int)), this, SLOT(libmodeChanged(int)));
+	ui.actionAddToLibrary->setDisabled(true);
+	ui.actionSQLListEdit->setDisabled(true);
 
 	ui.toolBar->addAction(QWhatsThis::createAction(this));
 	if(set.value("iconview", false).toBool())
@@ -200,8 +203,6 @@ void Cuberok::settings()
 
 void Cuberok::colmodeChanged(int m)
 {
-	ui.actionAddToLibrary->setDisabled(m == M_LIST);
-	ui.actionSQLListEdit->setDisabled(m == M_LIST);
 	ui.actionAddToCollection->setDisabled(m == M_SONG);
 	//ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
 	ui.actionSetImage->setDisabled(m == M_SONG);
@@ -224,6 +225,12 @@ void Cuberok::colmodeChanged(int m)
 	case M_SQLLIST:
 		break;
 	}
+}
+
+void Cuberok::libmodeChanged(int m)
+{
+	ui.actionAddToLibrary->setDisabled(m == M_LIST);
+	ui.actionSQLListEdit->setDisabled(m == M_LIST);
 }
 
 void Cuberok::viewConsole()

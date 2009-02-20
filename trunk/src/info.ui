@@ -436,7 +436,7 @@
     <iconset resource="resource.qrc" >:/icons/star.png</iconset>
    </property>
    <property name="text" >
-    <string>RateUp</string>
+    <string>Rate Up</string>
    </property>
    <property name="toolTip" >
     <string>Rate Up</string>
@@ -447,7 +447,7 @@
     <iconset resource="resource.qrc" >:/icons/antistar.png</iconset>
    </property>
    <property name="text" >
-    <string>RateDown</string>
+    <string>Rate Down</string>
    </property>
    <property name="toolTip" >
     <string>Rate Down</string>
@@ -458,7 +458,7 @@
     <iconset resource="resource.qrc" >:/icons/heart.png</iconset>
    </property>
    <property name="text" >
-    <string>LoveIt</string>
+    <string>Love it</string>
    </property>
   </action>
   <action name="actionBan" >

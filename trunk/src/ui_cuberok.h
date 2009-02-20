@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 19. Feb 11:44:40 2009
+** Created: Fri 20. Feb 11:27:07 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -224,7 +224,7 @@ public:
     actionClosePlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/deltab.png")));
     actionRemoveSong = new QAction(CuberokClass);
     actionRemoveSong->setObjectName(QString::fromUtf8("actionRemoveSong"));
-    actionRemoveSong->setIcon(QIcon());
+    actionRemoveSong->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
     actionLookFeel = new QAction(CuberokClass);
     actionLookFeel->setObjectName(QString::fromUtf8("actionLookFeel"));
     actionLookFeel->setIcon(QIcon(QString::fromUtf8(":/icons/looknfeel.png")));
@@ -252,10 +252,10 @@ public:
     actionAddToLibrary->setIcon(QIcon(QString::fromUtf8(":/icons/col_add.png")));
     actionRemoveFromCollection = new QAction(CuberokClass);
     actionRemoveFromCollection->setObjectName(QString::fromUtf8("actionRemoveFromCollection"));
-    actionRemoveFromCollection->setIcon(QIcon());
+    actionRemoveFromCollection->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
     actionRemoveFromLibrary = new QAction(CuberokClass);
     actionRemoveFromLibrary->setObjectName(QString::fromUtf8("actionRemoveFromLibrary"));
-    actionRemoveFromLibrary->setIcon(QIcon());
+    actionRemoveFromLibrary->setIcon(QIcon(QString::fromUtf8(":/icons/col_rem.png")));
     actionStop = new QAction(CuberokClass);
     actionStop->setObjectName(QString::fromUtf8("actionStop"));
     actionStop->setIcon(QIcon(QString::fromUtf8(":/icons/butt_stop.png")));
@@ -301,6 +301,7 @@ public:
     actionLibrarySQLPlaylist = new QAction(CuberokClass);
     actionLibrarySQLPlaylist->setObjectName(QString::fromUtf8("actionLibrarySQLPlaylist"));
     actionLibrarySQLPlaylist->setCheckable(true);
+    actionLibrarySQLPlaylist->setIcon(QIcon(QString::fromUtf8(":/icons/sql.png")));
     actionLibraryRegularPlaylist = new QAction(CuberokClass);
     actionLibraryRegularPlaylist->setObjectName(QString::fromUtf8("actionLibraryRegularPlaylist"));
     actionLibraryRegularPlaylist->setCheckable(true);
@@ -752,7 +753,7 @@ public:
     actionConsole->setText(QApplication::translate("CuberokClass", "Messages", 0, QApplication::UnicodeUTF8));
     actionLibrarySQLPlaylist->setText(QApplication::translate("CuberokClass", "View SQL Playlists", 0, QApplication::UnicodeUTF8));
     actionLibraryRegularPlaylist->setText(QApplication::translate("CuberokClass", "View Regular Playlists", 0, QApplication::UnicodeUTF8));
-    actionSQLListEdit->setText(QApplication::translate("CuberokClass", "SQLListEdit", 0, QApplication::UnicodeUTF8));
+    actionSQLListEdit->setText(QApplication::translate("CuberokClass", "Edit SQL Playist", 0, QApplication::UnicodeUTF8));
     dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
     subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
     subsetDisableButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));

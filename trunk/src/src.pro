@@ -7,7 +7,7 @@ DEPENDPATH += .
 
 DEFINES += CUBEROK_VERSION_MAJ=0
 DEFINES += CUBEROK_VERSION_MIN=0
-DEFINES += CUBEROK_VERSION_BUI=4
+DEFINES += CUBEROK_VERSION_BUI=5
 
 #           src/player_void.h \
 #           src/player_void.cpp \
@@ -35,6 +35,7 @@ HEADERS += aboutdialog.h \
            playlistview.h \
            progressbar.h \
            settings.h \
+           sqledit.h \
            stardelegate.h \
            stareditor.h \
            starrating.h \
@@ -42,7 +43,7 @@ HEADERS += aboutdialog.h \
            tagger.h \
            url_open.h
 
-FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui info.ui infowindow.ui
+FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui info.ui infowindow.ui sqledit.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
@@ -67,6 +68,7 @@ SOURCES += aboutdialog.cpp \
            playlistview.cpp \
            progressbar.cpp \
            settings.cpp \
+           sqledit.cpp \
            stardelegate.cpp \
            stareditor.cpp \
            starrating.cpp \

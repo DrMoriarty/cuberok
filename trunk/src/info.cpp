@@ -166,7 +166,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ui.label_al0->setMaximumSize(pm2.size());
 	ui.label_al1->setText(album);
 	//ui.label_al2->setText(text)
-	ui.albumRating->setStarRating(StarRating(rating));
+	ui.albumRating->setStarRating(StarRating(rating, 5, 2));
 	ui.albumRating->noEdit();
 
 	QList<QString> songs = Database::Self().Songs(0, 0, 0, &song);
