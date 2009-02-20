@@ -1,4 +1,4 @@
-!define VERSION "0.0.4a"
+!define VERSION "0.0.5"
 
 Name "Cuberok ${VERSION}"
 

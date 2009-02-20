@@ -109,14 +109,16 @@ int main(int argc, char *argv[])
 	QSplashScreen splash(pixmap);
 	splash.show();
 	splash.showMessage(QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI)), Qt::AlignBottom/*Qt::AlignCenter*/, Qt::black);
-    QString locale = QLocale::system().name();
+    QString locale = QLocale::system().name().left(2);
     QTranslator translator;
 	QString loc_path;
 #ifndef WIN32
-	loc_path = qApp->applicationDirPath() + "../share/cuberok/locale/";
+	loc_path = qApp->applicationDirPath() + "/../share/cuberok/locale/";
 	//loc_path = "/usr/share/cuberok/locale/";
 #endif
-    translator.load(loc_path + QString("cuberok_") + locale);
+	loc_path += QString("cuberok_") + locale;
+    translator.load(loc_path);
+	qDebug("Loading l10n from %s", (const char*)loc_path.toLocal8Bit());
     a.installTranslator(&translator); 
 
     QCoreApplication::setOrganizationName("DrMoriarty");
@@ -135,7 +137,7 @@ int main(int argc, char *argv[])
 #ifdef WIN32
 	//GlobalWinKeys(w.winId());
 #endif
-	PLSet.lang = locale.left(2);
+	PLSet.lang = locale;
     int res = a.exec();
 #ifdef WIN32
 	//cUnregisterWinKeys(w.winId());
