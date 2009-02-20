@@ -19,6 +19,7 @@
 
 #include "libraryview.h"
 #include "database.h"
+#include "sqledit.h"
 
 LibraryView::LibraryView(QWidget *parent): QListView(parent)
 {
@@ -36,7 +37,7 @@ LibraryView::LibraryView(QWidget *parent): QListView(parent)
 	setDropIndicatorShown(true);
  	connect(&model, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
 // 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
-// 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
+ 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	model.updateMode(M_LIST);
 }
 
@@ -73,7 +74,7 @@ void LibraryView::removeItem()
 			Database::Self().RemovePlaylist(model.itemFromIndex(ind)->data().toString());
 			break;
 		case M_SQLLIST:
-			Database::Self().RemoveSQLPlaylist(model.itemFromIndex(ind)->data().toString());
+			Database::Self().RemoveSQLPlaylist(model.data(ind).toString());
 			break;
 		default:
 			return;
@@ -128,7 +129,8 @@ void LibraryView::sqlListEdit()
 		break;
 	case M_SQLLIST:
 		if(this->selectedIndexes().size()) {
-			
+			SQLEdit *se = new SQLEdit(model.data(selectedIndexes()[0]).toString());
+			se->show();
 		}
 		break;
 	}

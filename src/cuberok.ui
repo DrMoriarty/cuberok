@@ -894,7 +894,7 @@
   </action>
   <action name="actionRemoveSong" >
    <property name="icon" >
-    <iconset/>
+    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
    </property>
    <property name="text" >
     <string>Remove song</string>
@@ -970,7 +970,7 @@
   </action>
   <action name="actionRemoveFromCollection" >
    <property name="icon" >
-    <iconset/>
+    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
    </property>
    <property name="text" >
     <string>Remove Item</string>
@@ -978,7 +978,7 @@
   </action>
   <action name="actionRemoveFromLibrary" >
    <property name="icon" >
-    <iconset/>
+    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
    </property>
    <property name="text" >
     <string>Remove Item</string>
@@ -1116,6 +1116,9 @@
    <property name="checkable" >
     <bool>true</bool>
    </property>
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/sql.png</iconset>
+   </property>
    <property name="text" >
     <string>View SQL Playlists</string>
    </property>
@@ -1136,7 +1139,7 @@
     <iconset resource="resource.qrc" >:/icons/edittag.png</iconset>
    </property>
    <property name="text" >
-    <string>SQLListEdit</string>
+    <string>Edit SQL Playist</string>
    </property>
   </action>
  </widget>

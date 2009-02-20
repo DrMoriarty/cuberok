@@ -158,15 +158,15 @@ void Database::CreateDefaultSqlPlaylists()
 	QSqlQuery q0("", db);
 	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
 	q0.bindValue(":val", tr("The Best"));
-	q0.bindValue(":dat", "rating > 40");
+	q0.bindValue(":dat", "SongRating > 40");
 	q0.exec();
 	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
 	q0.bindValue(":val", tr("Good music"));
-	q0.bindValue(":dat", "rating > 20");
+	q0.bindValue(":dat", "SongRating > 20");
 	q0.exec();
 	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
 	q0.bindValue(":val", tr("Unrated"));
-	q0.bindValue(":dat", "rating = 0");
+	q0.bindValue(":dat", "SongRating = 0");
 	q0.exec();
 }
 
@@ -740,6 +740,27 @@ QList<QString> Database::Songs(QString *ar, int al, QString *ge, QString *so)
     return res;
 }
 
+QList<QString> Database::SongsBySQLPlaylist(QString sqlname)
+{
+	QString where = GetSQLPlaylist(sqlname);
+    if(!open) return QList<QString>();
+    QMutexLocker locker(&lock);
+    QSqlQuery q("", db);
+    QString com = "select File, Al.value as AlbumName, Ar.value as ArtistName, Ge.value as GenreName, Song.Rating as SongRating from Song left join Genre as Ge on Ge.ID = Song.Genre left join Artist as Ar on Ar.ID = Song.Artist left join Album as Al on Al.ID = Song.Album ";
+	if(where.size()) {
+		com += " where " + where;
+	}
+    com += " order by Song.Artist, Song.Album, Track, Title";
+    q.prepare(com);
+    q.exec();
+
+    QList<QString> res;
+    while(q.next()) {
+        res << q.value(0).toString();
+    }
+    return res;
+}
+
 QString Database::GetArtist(int id)
 {
     QMutexLocker locker(&lock);
@@ -1166,6 +1187,46 @@ void Database::setInfo(QString mbid, QString text)
 		q.prepare("insert into Info (Mbid, text) values (:mbid, :text)");
 		q.bindValue(":mbid", mbid);
 		q.bindValue(":text", text);
+		q.exec();
+	}
+}
+
+QString Database::GetSQLPlaylist(QString name)
+{
+    QMutexLocker locker(&lock);
+    if(!open) return QString("");
+	QSqlQuery q("", db);
+	q.prepare("select data from SQLPlaylist where value = :val");
+	q.bindValue(":val", name);
+	q.exec();
+	if(q.next()) {
+		return q.value(0).toString();
+	} else {
+		q.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+		q.bindValue(":val", name);
+		q.bindValue(":dat", "");
+		q.exec();
+		return "";
+	}
+}
+
+void Database::SetSQLPlaylist(QString name, QString sql)
+{
+    QMutexLocker locker(&lock);
+    if(!open) return;
+	QSqlQuery q("", db);
+	q.prepare("select data from SQLPlaylist where value = :val");
+	q.bindValue(":val", name);
+	q.exec();
+	if(q.next()) {
+		q.prepare("update SQLPlaylist set data = :dat where value = :val");
+		q.bindValue(":dat", sql);
+		q.bindValue(":val", name);
+		q.exec();
+	} else {
+		q.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+		q.bindValue(":val", name);
+		q.bindValue(":dat", sql);
 		q.exec();
 	}
 }

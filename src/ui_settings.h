@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Wed 18. Feb 17:09:14 2009
+** Created: Fri 20. Feb 11:05:21 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -60,6 +60,7 @@ public:
     QLineEdit *lineEdit_proxyUser;
     QLineEdit *lineEdit_proxyPassword;
     QSpacerItem *spacerItem1;
+    QCheckBox *checkBox_cacheInfo;
     QWidget *page_4;
     QGridLayout *gridLayout3;
     QGroupBox *checkBox_lastfmScrobbling;
@@ -149,7 +150,7 @@ public:
     toolBox->addItem(page_2, QIcon(QString::fromUtf8(":/icons/def_genre.png")), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
     page_3 = new QWidget();
     page_3->setObjectName(QString::fromUtf8("page_3"));
-    page_3->setGeometry(QRect(0, 0, 115, 138));
+    page_3->setGeometry(QRect(0, 0, 412, 226));
     gridLayout1 = new QGridLayout(page_3);
     gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
     gridLayout1->setHorizontalSpacing(4);
@@ -212,7 +213,12 @@ public:
 
     spacerItem1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout1->addItem(spacerItem1, 1, 0, 1, 1);
+    gridLayout1->addItem(spacerItem1, 2, 0, 1, 1);
+
+    checkBox_cacheInfo = new QCheckBox(page_3);
+    checkBox_cacheInfo->setObjectName(QString::fromUtf8("checkBox_cacheInfo"));
+
+    gridLayout1->addWidget(checkBox_cacheInfo, 1, 0, 1, 1);
 
     toolBox->addItem(page_3, QIcon(QString::fromUtf8(":/icons/internet.png")), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
     page_4 = new QWidget();
@@ -302,6 +308,7 @@ public:
     label_5->setText(QApplication::translate("Settings", "Port", 0, QApplication::UnicodeUTF8));
     label_6->setText(QApplication::translate("Settings", "User name", 0, QApplication::UnicodeUTF8));
     label_7->setText(QApplication::translate("Settings", "Password", 0, QApplication::UnicodeUTF8));
+    checkBox_cacheInfo->setText(QApplication::translate("Settings", "Cache downloaded information", 0, QApplication::UnicodeUTF8));
     toolBox->setItemText(toolBox->indexOf(page_3), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
     checkBox_lastfmScrobbling->setTitle(QApplication::translate("Settings", "Enable Last.FM scrobbling", 0, QApplication::UnicodeUTF8));
     label_8->setText(QApplication::translate("Settings", "User name", 0, QApplication::UnicodeUTF8));

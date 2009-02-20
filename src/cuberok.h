@@ -57,6 +57,7 @@ private slots:
 	void progressEvent(double);
 	void settings();
 	void colmodeChanged(int);
+	void libmodeChanged(int);
 	void consoleClosed(QObject*);
 	void newConsoleMessage(QString, int);
 

@@ -273,7 +273,7 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res << itemFromIndex(i)->data().toString();
 		break;
 	case M_SQLLIST:
-		// TODO
+		res = Database::Self().SongsBySQLPlaylist(s);
 		break;
 	}
 	QList<QUrl> urls;
