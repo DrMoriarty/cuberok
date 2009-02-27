@@ -734,6 +734,9 @@
    </property>
   </action>
   <action name="actionExit" >
+   <property name="icon" >
+    <iconset resource="resource.qrc" >:/icons/quit.png</iconset>
+   </property>
    <property name="text" >
     <string>Exit</string>
    </property>
