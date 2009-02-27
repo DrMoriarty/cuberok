@@ -45,5 +45,6 @@
         <file alias="console_none.png" >../images/console_none.png</file>
         <file alias="heart.png" >../images/heart.png</file>
 	<file alias="sql.png">../images/sql.png</file>
+	<file alias="quit.png">../images/quit.png</file>
     </qresource>
 </RCC>
