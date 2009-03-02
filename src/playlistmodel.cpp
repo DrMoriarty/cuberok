@@ -134,7 +134,7 @@ int PlaylistModel::columnCount(const QModelIndex & parent) const
 QVariant PlaylistModel::data(int role) const
 {
 	if(role == Qt::BackgroundRole) {
-		return new QBrush(QColor::fromRgb(128, 200, 200));
+		return QVariant(QBrush(QColor::fromRgb(128, 200, 200)));
 	}
 	return QVariant();
 }
@@ -156,8 +156,8 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
     }
     
     if(index.row() == _current) {
-    	if(role == Qt::FontRole) return new QFont("arial", -1, -1, true);
-    	else if(role == Qt::BackgroundRole) return new QBrush(QColor::fromRgb(128, 200, 200));
+    	if(role == Qt::FontRole) return QVariant(QFont("arial", -1, -1, true));
+    	else if(role == Qt::BackgroundRole) return QVariant(QBrush(QColor::fromRgb(128, 200, 200)));
     }
     
     switch(role) {
@@ -173,7 +173,7 @@ QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation,
                                      int role) const
 {
 	if (role == Qt::BackgroundRole) {
-		return new QBrush(QColor::fromRgb(128, 200, 200));
+		return QVariant(QBrush(QColor::fromRgb(128, 200, 200)));
 	}
     if (role != Qt::DisplayRole)
         return QVariant();

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Fri 20. Feb 11:27:07 2009
+** Created: Mon 2. Mar 11:47:36 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -172,6 +172,7 @@ public:
     actionRepeat->setIcon(QIcon(QString::fromUtf8(":/icons/repeat_mode.png")));
     actionExit = new QAction(CuberokClass);
     actionExit->setObjectName(QString::fromUtf8("actionExit"));
+    actionExit->setIcon(QIcon(QString::fromUtf8(":/icons/quit.png")));
     actionClear_playlist = new QAction(CuberokClass);
     actionClear_playlist->setObjectName(QString::fromUtf8("actionClear_playlist"));
     actionClear_playlist->setIcon(QIcon(QString::fromUtf8(":/icons/clearlist.png")));

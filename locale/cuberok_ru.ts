@@ -234,17 +234,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Информация о программе</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="968"/>
+        <location filename="../src/cuberok.ui" line="971"/>
         <source>Add Item</source>
         <translation type="unfinished">Добавить элемент</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="930"/>
+        <location filename="../src/cuberok.ui" line="933"/>
         <source>Album</source>
         <translation type="unfinished">Альбом</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="919"/>
+        <location filename="../src/cuberok.ui" line="922"/>
         <source>Artist</source>
         <translation type="unfinished">Исполнитель</translation>
     </message>
@@ -254,22 +254,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="752"/>
+        <location filename="../src/cuberok.ui" line="755"/>
         <source>Clear</source>
         <translation type="unfinished">Очистить</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="755"/>
+        <location filename="../src/cuberok.ui" line="758"/>
         <source>Clear playlist</source>
         <translation type="unfinished">Очистить список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="892"/>
+        <location filename="../src/cuberok.ui" line="895"/>
         <source>Close playlist</source>
         <translation type="unfinished">Закрыть список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="741"/>
+        <location filename="../src/cuberok.ui" line="744"/>
         <source>Close the program</source>
         <translation type="unfinished">Закрыть программу</translation>
     </message>
@@ -284,7 +284,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Столбцы</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="851"/>
+        <location filename="../src/cuberok.ui" line="854"/>
         <source>Comment</source>
         <translation type="unfinished">Комментарий</translation>
     </message>
@@ -299,7 +299,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Исправлять кодировку cp1251 в ID3v1</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="876"/>
+        <location filename="../src/cuberok.ui" line="879"/>
         <source>Edit Tag</source>
         <translation type="unfinished">Редактировать теги</translation>
     </message>
@@ -309,12 +309,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Введите строку поиска</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="738"/>
+        <location filename="../src/cuberok.ui" line="741"/>
         <source>Exit</source>
         <translation type="unfinished">Выход</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="774"/>
+        <location filename="../src/cuberok.ui" line="777"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
@@ -324,7 +324,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Файлы</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="941"/>
+        <location filename="../src/cuberok.ui" line="944"/>
         <source>Genre</source>
         <translation type="unfinished">Жанр</translation>
     </message>
@@ -334,7 +334,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Помощь</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="862"/>
+        <location filename="../src/cuberok.ui" line="865"/>
         <source>Length</source>
         <translation type="unfinished">Длительность</translation>
     </message>
@@ -344,12 +344,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="908"/>
+        <location filename="../src/cuberok.ui" line="911"/>
         <source>Look and Feel</source>
         <translation type="unfinished">Внешний вид</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="884"/>
+        <location filename="../src/cuberok.ui" line="887"/>
         <source>New playlist</source>
         <translation type="unfinished">Новый список</translation>
     </message>
@@ -389,17 +389,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Предыдущий трек</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="760"/>
+        <location filename="../src/cuberok.ui" line="763"/>
         <source>Queue as Next</source>
         <translation type="unfinished">Поставить в очередь</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="984"/>
+        <location filename="../src/cuberok.ui" line="987"/>
         <source>Remove Item</source>
         <translation type="unfinished">Удалить элемент</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="900"/>
+        <location filename="../src/cuberok.ui" line="903"/>
         <source>Remove song</source>
         <translation type="unfinished">Удалить песню</translation>
     </message>
@@ -424,22 +424,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Режим перетасовки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="952"/>
+        <location filename="../src/cuberok.ui" line="955"/>
         <source>Song</source>
         <translation type="unfinished">Песня</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="998"/>
+        <location filename="../src/cuberok.ui" line="1001"/>
         <source>Stop</source>
         <translation type="unfinished">Стоп</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="873"/>
+        <location filename="../src/cuberok.ui" line="876"/>
         <source>Tag</source>
         <translation type="unfinished">Теги</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="796"/>
+        <location filename="../src/cuberok.ui" line="799"/>
         <source>Title</source>
         <translation type="unfinished">Название</translation>
     </message>
@@ -449,7 +449,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Инструменты</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="785"/>
+        <location filename="../src/cuberok.ui" line="788"/>
         <source>Track</source>
         <translation type="unfinished">Трек</translation>
     </message>
@@ -459,32 +459,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Вид</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="840"/>
+        <location filename="../src/cuberok.ui" line="843"/>
         <source>Year</source>
         <translation type="unfinished">Год</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1012"/>
+        <location filename="../src/cuberok.ui" line="1015"/>
         <source>Save playlist</source>
         <translation type="unfinished">Записать список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1015"/>
+        <location filename="../src/cuberok.ui" line="1018"/>
         <source>Save playlist into file</source>
         <translation type="unfinished">Записать список в файл</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1023"/>
+        <location filename="../src/cuberok.ui" line="1026"/>
         <source>Open playlist</source>
         <translation type="unfinished">Открыть список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1026"/>
+        <location filename="../src/cuberok.ui" line="1029"/>
         <source>Load playlist from a file</source>
         <translation type="unfinished">Загрузить список из файла</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1039"/>
+        <location filename="../src/cuberok.ui" line="1042"/>
         <source>Reload tags</source>
         <translation type="unfinished">Перечитать теги</translation>
     </message>
@@ -494,7 +494,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Снять фильтр</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1050"/>
+        <location filename="../src/cuberok.ui" line="1053"/>
         <source>Rating</source>
         <translation type="unfinished">Рейтинг</translation>
     </message>
@@ -504,17 +504,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Перетащите файлы в коллекцию</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1058"/>
+        <location filename="../src/cuberok.ui" line="1061"/>
         <source>Preferences</source>
         <translation type="unfinished">Параметры</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1074"/>
+        <location filename="../src/cuberok.ui" line="1077"/>
         <source>Set Image</source>
         <translation type="unfinished">Установить изображение</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1085"/>
+        <location filename="../src/cuberok.ui" line="1088"/>
         <source>Icon View</source>
         <translation type="unfinished">Значки</translation>
     </message>
@@ -529,7 +529,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Перетащите списки проигрывания в библиотеку</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1093"/>
+        <location filename="../src/cuberok.ui" line="1096"/>
         <source>Open Url</source>
         <translation type="unfinished">Открыть URL</translation>
     </message>
@@ -539,32 +539,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Информация</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1034"/>
+        <location filename="../src/cuberok.ui" line="1037"/>
         <source>About Qt</source>
         <translation type="unfinished">О Qt</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1104"/>
+        <location filename="../src/cuberok.ui" line="1107"/>
         <source>Load image from Last.FM</source>
         <translation type="unfinished">Загрузить изображение с Last.FM</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1112"/>
+        <location filename="../src/cuberok.ui" line="1115"/>
         <source>Messages</source>
         <translation type="unfinished">Сообщения</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1123"/>
+        <location filename="../src/cuberok.ui" line="1126"/>
         <source>View SQL Playlists</source>
         <translation type="unfinished">SQL Списки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1134"/>
+        <location filename="../src/cuberok.ui" line="1137"/>
         <source>View Regular Playlists</source>
         <translation type="unfinished">Обычные списки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1142"/>
+        <location filename="../src/cuberok.ui" line="1145"/>
         <source>Edit SQL Playist</source>
         <translation type="unfinished">Редактировать SQL список</translation>
     </message>
@@ -629,17 +629,17 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="763"/>
+        <location filename="../src/cuberok.ui" line="766"/>
         <source>Ctrl+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="995"/>
+        <location filename="../src/cuberok.ui" line="998"/>
         <source>[]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1001"/>
+        <location filename="../src/cuberok.ui" line="1004"/>
         <source>Alt+Shift+V</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1107,12 +1107,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Редактировать SQL список</translation>
     </message>
     <message>
-        <location filename="../src/sqledit.ui" line="19"/>
+        <location filename="../src/sqledit.ui" line="37"/>
         <source>Name of playlist</source>
         <translation type="unfinished">Название списка</translation>
     </message>
     <message>
-        <location filename="../src/sqledit.ui" line="78"/>
+        <location filename="../src/sqledit.ui" line="96"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1127,7 +1127,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;На пример, напишите &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../src/sqledit.ui" line="41"/>
+        <location filename="../src/sqledit.ui" line="59"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
