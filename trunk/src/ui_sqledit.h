@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'sqledit.ui'
 **
-** Created: Fri 20. Feb 10:25:16 2009
+** Created: Mon 2. Mar 11:47:36 2009
 **      by: Qt User Interface Compiler version 4.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -33,9 +33,12 @@ public:
     {
     if (SQLEditDialog->objectName().isEmpty())
         SQLEditDialog->setObjectName(QString::fromUtf8("SQLEditDialog"));
-    SQLEditDialog->resize(336, 197);
+    SQLEditDialog->resize(336, 181);
+    SQLEditDialog->setWindowIcon(QIcon(QString::fromUtf8(":/icons/application.png")));
     vboxLayout = new QVBoxLayout(SQLEditDialog);
+    vboxLayout->setSpacing(4);
     vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+    vboxLayout->setContentsMargins(4, 4, 4, 4);
     label = new QLabel(SQLEditDialog);
     label->setObjectName(QString::fromUtf8("label"));
 
