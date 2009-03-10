@@ -134,12 +134,12 @@ int CuberokStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, co
         break;
     case PM_MaximumDragDistance:
         return -1;
-    case PM_TabCloseIndicatorWidth:
-    case PM_TabCloseIndicatorHeight:
-        return 20;
+		//case PM_TabCloseIndicatorWidth:
+		//case PM_TabCloseIndicatorHeight:
+        //return 20;
     default:
         break;
     }
 
-    return ret != -1 ? ret : QWindowsStyle::pixelMetric(metric, option, widget);
+    return ret != -1 ? ret : QCleanlooksStyle::pixelMetric(metric, option, widget);
 }
