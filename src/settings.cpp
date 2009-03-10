@@ -37,8 +37,8 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	//ui.comboBox_language->addItem(tr("Russian"));
 	//ui.comboBox_language->addItem(tr("none"));
 
-	if(Tagger::autoCorrect()) ui.checkBox_autofix8bit->setCheckState(Qt::Checked);
-	if(Tagger::saveCorrected()) ui.checkBox_autosave->setCheckState(Qt::Checked);
+	//if(Tagger::autoCorrect()) ui.checkBox_autofix8bit->setCheckState(Qt::Checked);
+	//if(Tagger::saveCorrected()) ui.checkBox_autosave->setCheckState(Qt::Checked);
 
 	if(PLSet.autoRating)
 		ui.checkBox_autorating->setCheckState(Qt::Checked);
@@ -86,10 +86,12 @@ void Settings::accept()
 	}
 	if(s) set.setValue("engine", engine);
 
+	/*
 	Tagger::setAutoCorrect(ui.checkBox_autofix8bit->checkState() == Qt::Checked);
 	set.setValue("correctTag", Tagger::autoCorrect());
 	Tagger::setSaveCorrected(ui.checkBox_autosave->checkState() == Qt::Checked);
 	set.setValue("saveCorrected", Tagger::saveCorrected());
+	*/
 	
 	PLSet.autoRating = ui.checkBox_autorating->checkState() == Qt::Checked;
 

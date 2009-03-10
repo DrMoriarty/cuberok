@@ -350,3 +350,11 @@ void PlaylistContainer::rateDown()
 		actlist->rateCurrent(-10);
 	}
 }
+
+QString PlaylistContainer::getCurrentFile()
+{
+	if(actlist) {
+		return actlist->curFile();
+	}
+	return "";
+}

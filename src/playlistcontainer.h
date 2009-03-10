@@ -31,6 +31,7 @@ public:
     ~PlaylistContainer();
 	void prepare();
 	void newList(QString listname = "");
+	QString getCurrentFile();
     
 private:
     

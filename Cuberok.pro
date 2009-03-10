@@ -1,5 +1,6 @@
 TEMPLATE      = subdirs
-SUBDIRS      += plugins/player_void
+SUBDIRS      += plugins/player_void \
+		plugins/cuberok_style
 
 # install
 target.path = ../Cuberok
@@ -28,11 +29,11 @@ unix {
         message(using gstreamer backend)
         SUBDIRS += plugins/player_gst
     }
-    pixmap.path = /share/pixmaps
-    pixmap.files = ../images/cuberok.xpm
-    desktop.path = /share/applications
-    desktop.files = ../cuberok.desktop
-    INSTALLS += pixmap desktop
+#    pixmap.path = /share/pixmaps
+#    pixmap.files = ../images/cuberok.xpm
+#    desktop.path = /share/applications
+#    desktop.files = ../cuberok.desktop
+#    INSTALLS += pixmap desktop
 }
 
 SUBDIRS += src

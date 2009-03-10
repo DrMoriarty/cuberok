@@ -77,6 +77,14 @@ SOURCES += aboutdialog.cpp \
            url_open.cpp
 RESOURCES += resource.qrc
 
+exists(../qtagconvert/src/KCmp3Tag.ui) {
+    DEFINES += QTAGCONVERT
+    FORMS += ../qtagconvert/src/KCmp3Tag.ui
+    HEADERS += ../qtagconvert/src/KCmp3Tag.h
+    SOURCES += ../qtagconvert/src/KCmp3Tag.cpp
+    RESOURCES += ../qtagconvert/images/resources.qrc
+}
+
 win32 {
     RC_FILE = ../cuberok.rc
     DESTDIR = ../win32

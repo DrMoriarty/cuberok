@@ -22,8 +22,8 @@
 
 #include <QtCore>
 
-volatile static bool _autoCorrect = false;
-volatile static bool _saveCorrected = false;
+//volatile static bool _autoCorrect = false;
+//volatile static bool _saveCorrected = false;
 
 typedef struct _CueEntry {
     QUrl url;
@@ -73,10 +73,10 @@ public:
     static QList<TagEntry> readASX(QString file);
     static QList<TagEntry> readEntry(QUrl url);
 
-    static bool autoCorrect();
+    /*static bool autoCorrect();
     static void setAutoCorrect(bool);
     static bool saveCorrected();
-    static void setSaveCorrected(bool);
+    static void setSaveCorrected(bool);*/
 
     static bool playlistDetected(QUrl);
 

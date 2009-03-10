@@ -576,3 +576,11 @@ void PlaylistView::rateCurrent(int offset, int value)
 		resetTags(plindex);
 	}
 }
+
+QString PlaylistView::curFile()
+{
+	if(curindex.row() >= 0) {
+		return ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	}
+	return "";
+}

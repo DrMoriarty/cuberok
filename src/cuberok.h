@@ -25,6 +25,9 @@
 #include "ui_cuberok.h"
 //#include "playlistmodel.h"
 #include "console.h"
+#ifdef QTAGCONVERT
+#include "../qtagconvert/src/KCmp3Tag.h"
+#endif
 
 const char titlepref[] = "Cuberok - ";
 
@@ -46,6 +49,9 @@ private:
     QMenu *trayIconMenu;
 	ConsoleView *cv;
 	bool needToClose;
+#ifdef QTAGCONVERT
+	mp3Dialog *qtag;
+#endif
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);
@@ -60,12 +66,17 @@ private slots:
 	void libmodeChanged(int);
 	void consoleClosed(QObject*);
 	void newConsoleMessage(QString, int);
+#ifdef QTAGCONVERT
+	void qtagClosed(QObject*);
+#endif
 
 public slots:
 	void lookAndFeel();
 	void message(QString, QString, QString);
 	void viewConsole();
 	bool reallyClose();
+	void qTagConvert();
+	void refreshTree();
 };
 
 #endif // CUBEROK_H

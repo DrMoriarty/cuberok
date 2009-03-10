@@ -25,6 +25,7 @@
 #include <tag.h>
 #include <mpegfile.h>
 #include <id3v2tag.h>
+#include <id3v1tag.h>
 
 // convert QString to TagLib::String and vice verse
 #define QS(s) QString::fromUtf8(s.toCString(true))

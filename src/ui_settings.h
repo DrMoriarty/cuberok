@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Mon 2. Mar 11:47:36 2009
-**      by: Qt User Interface Compiler version 4.3.1
+** Created: Tue 10. Mar 11:24:38 2009
+**      by: Qt User Interface Compiler version 4.5.0-rc1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
@@ -20,6 +20,7 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
+#include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QSpacerItem>
@@ -27,6 +28,8 @@
 #include <QtGui/QToolBox>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
+
+QT_BEGIN_NAMESPACE
 
 class Ui_Settings
 {
@@ -40,8 +43,6 @@ public:
     QLabel *label;
     QComboBox *comboBox_engine;
     QSpacerItem *spacerItem;
-    QCheckBox *checkBox_autofix8bit;
-    QCheckBox *checkBox_autosave;
     QCheckBox *checkBox_autorating;
     QLabel *label_3;
     QComboBox *comboBox_cue;
@@ -74,247 +75,238 @@ public:
 
     void setupUi(QDialog *Settings)
     {
-    if (Settings->objectName().isEmpty())
-        Settings->setObjectName(QString::fromUtf8("Settings"));
-    Settings->resize(430, 395);
-    vboxLayout = new QVBoxLayout(Settings);
-    vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
-    toolBox = new QToolBox(Settings);
-    toolBox->setObjectName(QString::fromUtf8("toolBox"));
-    page = new QWidget();
-    page->setObjectName(QString::fromUtf8("page"));
-    page->setGeometry(QRect(0, 0, 412, 226));
-    gridLayout = new QGridLayout(page);
-    gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-    gridLayout->setHorizontalSpacing(4);
-    gridLayout->setVerticalSpacing(4);
-    gridLayout->setContentsMargins(4, 4, 4, 4);
-    label_2 = new QLabel(page);
-    label_2->setObjectName(QString::fromUtf8("label_2"));
+        if (Settings->objectName().isEmpty())
+            Settings->setObjectName(QString::fromUtf8("Settings"));
+        Settings->resize(430, 395);
+        vboxLayout = new QVBoxLayout(Settings);
+        vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        toolBox = new QToolBox(Settings);
+        toolBox->setObjectName(QString::fromUtf8("toolBox"));
+        page = new QWidget();
+        page->setObjectName(QString::fromUtf8("page"));
+        page->setGeometry(QRect(0, 0, 412, 226));
+        gridLayout = new QGridLayout(page);
+        gridLayout->setSpacing(4);
+        gridLayout->setMargin(4);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        label_2 = new QLabel(page);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
 
-    gridLayout->addWidget(label_2, 0, 0, 1, 1);
+        gridLayout->addWidget(label_2, 0, 0, 1, 1);
 
-    comboBox_language = new QComboBox(page);
-    comboBox_language->setObjectName(QString::fromUtf8("comboBox_language"));
+        comboBox_language = new QComboBox(page);
+        comboBox_language->setObjectName(QString::fromUtf8("comboBox_language"));
 
-    gridLayout->addWidget(comboBox_language, 1, 0, 1, 1);
+        gridLayout->addWidget(comboBox_language, 1, 0, 1, 1);
 
-    label = new QLabel(page);
-    label->setObjectName(QString::fromUtf8("label"));
+        label = new QLabel(page);
+        label->setObjectName(QString::fromUtf8("label"));
 
-    gridLayout->addWidget(label, 2, 0, 1, 1);
+        gridLayout->addWidget(label, 2, 0, 1, 1);
 
-    comboBox_engine = new QComboBox(page);
-    comboBox_engine->setObjectName(QString::fromUtf8("comboBox_engine"));
+        comboBox_engine = new QComboBox(page);
+        comboBox_engine->setObjectName(QString::fromUtf8("comboBox_engine"));
 
-    gridLayout->addWidget(comboBox_engine, 3, 0, 1, 1);
+        gridLayout->addWidget(comboBox_engine, 3, 0, 1, 1);
 
-    spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout->addItem(spacerItem, 10, 0, 1, 1);
+        gridLayout->addItem(spacerItem, 8, 0, 1, 1);
 
-    checkBox_autofix8bit = new QCheckBox(page);
-    checkBox_autofix8bit->setObjectName(QString::fromUtf8("checkBox_autofix8bit"));
+        checkBox_autorating = new QCheckBox(page);
+        checkBox_autorating->setObjectName(QString::fromUtf8("checkBox_autorating"));
 
-    gridLayout->addWidget(checkBox_autofix8bit, 4, 0, 1, 1);
+        gridLayout->addWidget(checkBox_autorating, 4, 0, 1, 1);
 
-    checkBox_autosave = new QCheckBox(page);
-    checkBox_autosave->setObjectName(QString::fromUtf8("checkBox_autosave"));
+        label_3 = new QLabel(page);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
 
-    gridLayout->addWidget(checkBox_autosave, 5, 0, 1, 1);
+        gridLayout->addWidget(label_3, 6, 0, 1, 1);
 
-    checkBox_autorating = new QCheckBox(page);
-    checkBox_autorating->setObjectName(QString::fromUtf8("checkBox_autorating"));
+        comboBox_cue = new QComboBox(page);
+        comboBox_cue->setObjectName(QString::fromUtf8("comboBox_cue"));
 
-    gridLayout->addWidget(checkBox_autorating, 6, 0, 1, 1);
+        gridLayout->addWidget(comboBox_cue, 7, 0, 1, 1);
 
-    label_3 = new QLabel(page);
-    label_3->setObjectName(QString::fromUtf8("label_3"));
+        checkBox_hideEmpty = new QCheckBox(page);
+        checkBox_hideEmpty->setObjectName(QString::fromUtf8("checkBox_hideEmpty"));
 
-    gridLayout->addWidget(label_3, 8, 0, 1, 1);
+        gridLayout->addWidget(checkBox_hideEmpty, 5, 0, 1, 1);
 
-    comboBox_cue = new QComboBox(page);
-    comboBox_cue->setObjectName(QString::fromUtf8("comboBox_cue"));
+        QIcon icon;
+        icon.addPixmap(QPixmap(QString::fromUtf8(":/icons/settings.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page, icon, QString::fromUtf8("Common settings"));
+        page_2 = new QWidget();
+        page_2->setObjectName(QString::fromUtf8("page_2"));
+        page_2->setGeometry(QRect(0, 0, 98, 28));
+        QIcon icon1;
+        icon1.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_genre.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_2, icon1, QString::fromUtf8("Engine Settings"));
+        page_3 = new QWidget();
+        page_3->setObjectName(QString::fromUtf8("page_3"));
+        page_3->setGeometry(QRect(0, 0, 181, 140));
+        gridLayout1 = new QGridLayout(page_3);
+        gridLayout1->setSpacing(4);
+        gridLayout1->setMargin(4);
+        gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
+        checkBox_proxyEnabled = new QGroupBox(page_3);
+        checkBox_proxyEnabled->setObjectName(QString::fromUtf8("checkBox_proxyEnabled"));
+        checkBox_proxyEnabled->setFlat(true);
+        checkBox_proxyEnabled->setCheckable(true);
+        checkBox_proxyEnabled->setChecked(false);
+        gridLayout2 = new QGridLayout(checkBox_proxyEnabled);
+        gridLayout2->setSpacing(4);
+        gridLayout2->setMargin(0);
+        gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
+        label_4 = new QLabel(checkBox_proxyEnabled);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
 
-    gridLayout->addWidget(comboBox_cue, 9, 0, 1, 1);
+        gridLayout2->addWidget(label_4, 1, 0, 1, 1);
 
-    checkBox_hideEmpty = new QCheckBox(page);
-    checkBox_hideEmpty->setObjectName(QString::fromUtf8("checkBox_hideEmpty"));
+        lineEdit_proxyHost = new QLineEdit(checkBox_proxyEnabled);
+        lineEdit_proxyHost->setObjectName(QString::fromUtf8("lineEdit_proxyHost"));
 
-    gridLayout->addWidget(checkBox_hideEmpty, 7, 0, 1, 1);
+        gridLayout2->addWidget(lineEdit_proxyHost, 1, 1, 1, 1);
 
-    toolBox->addItem(page, QIcon(QString::fromUtf8(":/icons/settings.png")), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
-    page_2 = new QWidget();
-    page_2->setObjectName(QString::fromUtf8("page_2"));
-    page_2->setGeometry(QRect(0, 0, 98, 28));
-    toolBox->addItem(page_2, QIcon(QString::fromUtf8(":/icons/def_genre.png")), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
-    page_3 = new QWidget();
-    page_3->setObjectName(QString::fromUtf8("page_3"));
-    page_3->setGeometry(QRect(0, 0, 412, 226));
-    gridLayout1 = new QGridLayout(page_3);
-    gridLayout1->setObjectName(QString::fromUtf8("gridLayout1"));
-    gridLayout1->setHorizontalSpacing(4);
-    gridLayout1->setVerticalSpacing(4);
-    gridLayout1->setContentsMargins(4, 4, 4, 4);
-    checkBox_proxyEnabled = new QGroupBox(page_3);
-    checkBox_proxyEnabled->setObjectName(QString::fromUtf8("checkBox_proxyEnabled"));
-    checkBox_proxyEnabled->setFlat(true);
-    checkBox_proxyEnabled->setCheckable(true);
-    checkBox_proxyEnabled->setChecked(false);
-    gridLayout2 = new QGridLayout(checkBox_proxyEnabled);
-    gridLayout2->setObjectName(QString::fromUtf8("gridLayout2"));
-    gridLayout2->setHorizontalSpacing(4);
-    gridLayout2->setVerticalSpacing(4);
-    gridLayout2->setContentsMargins(0, 0, 0, 0);
-    label_4 = new QLabel(checkBox_proxyEnabled);
-    label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_5 = new QLabel(checkBox_proxyEnabled);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
 
-    gridLayout2->addWidget(label_4, 1, 0, 1, 1);
+        gridLayout2->addWidget(label_5, 2, 0, 1, 1);
 
-    lineEdit_proxyHost = new QLineEdit(checkBox_proxyEnabled);
-    lineEdit_proxyHost->setObjectName(QString::fromUtf8("lineEdit_proxyHost"));
+        label_6 = new QLabel(checkBox_proxyEnabled);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
 
-    gridLayout2->addWidget(lineEdit_proxyHost, 1, 1, 1, 1);
+        gridLayout2->addWidget(label_6, 3, 0, 1, 1);
 
-    label_5 = new QLabel(checkBox_proxyEnabled);
-    label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_7 = new QLabel(checkBox_proxyEnabled);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
 
-    gridLayout2->addWidget(label_5, 2, 0, 1, 1);
+        gridLayout2->addWidget(label_7, 4, 0, 1, 1);
 
-    label_6 = new QLabel(checkBox_proxyEnabled);
-    label_6->setObjectName(QString::fromUtf8("label_6"));
+        spinBox_proxyPort = new QSpinBox(checkBox_proxyEnabled);
+        spinBox_proxyPort->setObjectName(QString::fromUtf8("spinBox_proxyPort"));
+        spinBox_proxyPort->setMaximum(65535);
 
-    gridLayout2->addWidget(label_6, 3, 0, 1, 1);
+        gridLayout2->addWidget(spinBox_proxyPort, 2, 1, 1, 1);
 
-    label_7 = new QLabel(checkBox_proxyEnabled);
-    label_7->setObjectName(QString::fromUtf8("label_7"));
+        lineEdit_proxyUser = new QLineEdit(checkBox_proxyEnabled);
+        lineEdit_proxyUser->setObjectName(QString::fromUtf8("lineEdit_proxyUser"));
 
-    gridLayout2->addWidget(label_7, 4, 0, 1, 1);
+        gridLayout2->addWidget(lineEdit_proxyUser, 3, 1, 1, 1);
 
-    spinBox_proxyPort = new QSpinBox(checkBox_proxyEnabled);
-    spinBox_proxyPort->setObjectName(QString::fromUtf8("spinBox_proxyPort"));
-    spinBox_proxyPort->setMaximum(65535);
+        lineEdit_proxyPassword = new QLineEdit(checkBox_proxyEnabled);
+        lineEdit_proxyPassword->setObjectName(QString::fromUtf8("lineEdit_proxyPassword"));
+        lineEdit_proxyPassword->setEchoMode(QLineEdit::Password);
 
-    gridLayout2->addWidget(spinBox_proxyPort, 2, 1, 1, 1);
+        gridLayout2->addWidget(lineEdit_proxyPassword, 4, 1, 1, 1);
 
-    lineEdit_proxyUser = new QLineEdit(checkBox_proxyEnabled);
-    lineEdit_proxyUser->setObjectName(QString::fromUtf8("lineEdit_proxyUser"));
 
-    gridLayout2->addWidget(lineEdit_proxyUser, 3, 1, 1, 1);
+        gridLayout1->addWidget(checkBox_proxyEnabled, 0, 0, 1, 1);
 
-    lineEdit_proxyPassword = new QLineEdit(checkBox_proxyEnabled);
-    lineEdit_proxyPassword->setObjectName(QString::fromUtf8("lineEdit_proxyPassword"));
-    lineEdit_proxyPassword->setEchoMode(QLineEdit::Password);
+        spacerItem1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout2->addWidget(lineEdit_proxyPassword, 4, 1, 1, 1);
+        gridLayout1->addItem(spacerItem1, 2, 0, 1, 1);
 
+        checkBox_cacheInfo = new QCheckBox(page_3);
+        checkBox_cacheInfo->setObjectName(QString::fromUtf8("checkBox_cacheInfo"));
 
-    gridLayout1->addWidget(checkBox_proxyEnabled, 0, 0, 1, 1);
+        gridLayout1->addWidget(checkBox_cacheInfo, 1, 0, 1, 1);
 
-    spacerItem1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QIcon icon2;
+        icon2.addPixmap(QPixmap(QString::fromUtf8(":/icons/internet.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_3, icon2, QString::fromUtf8("Internet connection"));
+        page_4 = new QWidget();
+        page_4->setObjectName(QString::fromUtf8("page_4"));
+        page_4->setGeometry(QRect(0, 0, 156, 70));
+        gridLayout3 = new QGridLayout(page_4);
+        gridLayout3->setSpacing(4);
+        gridLayout3->setMargin(4);
+        gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
+        checkBox_lastfmScrobbling = new QGroupBox(page_4);
+        checkBox_lastfmScrobbling->setObjectName(QString::fromUtf8("checkBox_lastfmScrobbling"));
+        checkBox_lastfmScrobbling->setFlat(true);
+        checkBox_lastfmScrobbling->setCheckable(true);
+        checkBox_lastfmScrobbling->setChecked(false);
+        gridLayout4 = new QGridLayout(checkBox_lastfmScrobbling);
+        gridLayout4->setSpacing(4);
+        gridLayout4->setMargin(0);
+        gridLayout4->setObjectName(QString::fromUtf8("gridLayout4"));
+        label_8 = new QLabel(checkBox_lastfmScrobbling);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
 
-    gridLayout1->addItem(spacerItem1, 2, 0, 1, 1);
+        gridLayout4->addWidget(label_8, 1, 0, 1, 1);
 
-    checkBox_cacheInfo = new QCheckBox(page_3);
-    checkBox_cacheInfo->setObjectName(QString::fromUtf8("checkBox_cacheInfo"));
+        label_9 = new QLabel(checkBox_lastfmScrobbling);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
 
-    gridLayout1->addWidget(checkBox_cacheInfo, 1, 0, 1, 1);
+        gridLayout4->addWidget(label_9, 2, 0, 1, 1);
 
-    toolBox->addItem(page_3, QIcon(QString::fromUtf8(":/icons/internet.png")), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
-    page_4 = new QWidget();
-    page_4->setObjectName(QString::fromUtf8("page_4"));
-    page_4->setGeometry(QRect(0, 0, 156, 130));
-    gridLayout3 = new QGridLayout(page_4);
-    gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
-    gridLayout3->setHorizontalSpacing(4);
-    gridLayout3->setVerticalSpacing(4);
-    gridLayout3->setContentsMargins(4, 4, 4, 4);
-    checkBox_lastfmScrobbling = new QGroupBox(page_4);
-    checkBox_lastfmScrobbling->setObjectName(QString::fromUtf8("checkBox_lastfmScrobbling"));
-    checkBox_lastfmScrobbling->setFlat(true);
-    checkBox_lastfmScrobbling->setCheckable(true);
-    checkBox_lastfmScrobbling->setChecked(false);
-    gridLayout4 = new QGridLayout(checkBox_lastfmScrobbling);
-    gridLayout4->setObjectName(QString::fromUtf8("gridLayout4"));
-    gridLayout4->setHorizontalSpacing(4);
-    gridLayout4->setVerticalSpacing(4);
-    gridLayout4->setContentsMargins(0, 0, 0, 0);
-    label_8 = new QLabel(checkBox_lastfmScrobbling);
-    label_8->setObjectName(QString::fromUtf8("label_8"));
+        lineEdit_lastfmUser = new QLineEdit(checkBox_lastfmScrobbling);
+        lineEdit_lastfmUser->setObjectName(QString::fromUtf8("lineEdit_lastfmUser"));
 
-    gridLayout4->addWidget(label_8, 1, 0, 1, 1);
+        gridLayout4->addWidget(lineEdit_lastfmUser, 1, 1, 1, 1);
 
-    label_9 = new QLabel(checkBox_lastfmScrobbling);
-    label_9->setObjectName(QString::fromUtf8("label_9"));
+        lineEdit_lastfmPassword = new QLineEdit(checkBox_lastfmScrobbling);
+        lineEdit_lastfmPassword->setObjectName(QString::fromUtf8("lineEdit_lastfmPassword"));
+        lineEdit_lastfmPassword->setEchoMode(QLineEdit::Password);
 
-    gridLayout4->addWidget(label_9, 2, 0, 1, 1);
+        gridLayout4->addWidget(lineEdit_lastfmPassword, 2, 1, 1, 1);
 
-    lineEdit_lastfmUser = new QLineEdit(checkBox_lastfmScrobbling);
-    lineEdit_lastfmUser->setObjectName(QString::fromUtf8("lineEdit_lastfmUser"));
 
-    gridLayout4->addWidget(lineEdit_lastfmUser, 1, 1, 1, 1);
+        gridLayout3->addWidget(checkBox_lastfmScrobbling, 0, 0, 1, 1);
 
-    lineEdit_lastfmPassword = new QLineEdit(checkBox_lastfmScrobbling);
-    lineEdit_lastfmPassword->setObjectName(QString::fromUtf8("lineEdit_lastfmPassword"));
-    lineEdit_lastfmPassword->setEchoMode(QLineEdit::Password);
+        spacerItem2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    gridLayout4->addWidget(lineEdit_lastfmPassword, 2, 1, 1, 1);
+        gridLayout3->addItem(spacerItem2, 3, 0, 1, 1);
 
+        QIcon icon3;
+        icon3.addPixmap(QPixmap(QString::fromUtf8(":/icons/lastfm.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_4, icon3, QString::fromUtf8("Last.FM"));
 
-    gridLayout3->addWidget(checkBox_lastfmScrobbling, 0, 0, 1, 1);
+        vboxLayout->addWidget(toolBox);
 
-    spacerItem2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        buttonBox = new QDialogButtonBox(Settings);
+        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
+        buttonBox->setLayoutDirection(Qt::LeftToRight);
+        buttonBox->setOrientation(Qt::Horizontal);
+        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox->setCenterButtons(false);
 
-    gridLayout3->addItem(spacerItem2, 3, 0, 1, 1);
+        vboxLayout->addWidget(buttonBox);
 
-    toolBox->addItem(page_4, QIcon(QString::fromUtf8(":/icons/lastfm.png")), QApplication::translate("Settings", "Last.FM", 0, QApplication::UnicodeUTF8));
 
-    vboxLayout->addWidget(toolBox);
+        retranslateUi(Settings);
+        QObject::connect(buttonBox, SIGNAL(accepted()), Settings, SLOT(accept()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), Settings, SLOT(reject()));
 
-    buttonBox = new QDialogButtonBox(Settings);
-    buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-    buttonBox->setLayoutDirection(Qt::LeftToRight);
-    buttonBox->setOrientation(Qt::Horizontal);
-    buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok);
-    buttonBox->setCenterButtons(false);
+        toolBox->setCurrentIndex(0);
 
-    vboxLayout->addWidget(buttonBox);
 
-
-    retranslateUi(Settings);
-    QObject::connect(buttonBox, SIGNAL(accepted()), Settings, SLOT(accept()));
-    QObject::connect(buttonBox, SIGNAL(rejected()), Settings, SLOT(reject()));
-
-    toolBox->setCurrentIndex(0);
-
-
-    QMetaObject::connectSlotsByName(Settings);
+        QMetaObject::connectSlotsByName(Settings);
     } // setupUi
 
     void retranslateUi(QDialog *Settings)
     {
-    Settings->setWindowTitle(QApplication::translate("Settings", "Preferences", 0, QApplication::UnicodeUTF8));
-    label_2->setText(QApplication::translate("Settings", "Language", 0, QApplication::UnicodeUTF8));
-    label->setText(QApplication::translate("Settings", "Preffered audio engine", 0, QApplication::UnicodeUTF8));
-    checkBox_autofix8bit->setText(QApplication::translate("Settings", "Fix local 8 bit codepage in id3v2", 0, QApplication::UnicodeUTF8));
-    checkBox_autosave->setText(QApplication::translate("Settings", "Auto save fixed tags", 0, QApplication::UnicodeUTF8));
-    checkBox_autorating->setText(QApplication::translate("Settings", "Enable auto rating", 0, QApplication::UnicodeUTF8));
-    label_3->setText(QApplication::translate("Settings", "Codepage for CUE sheets", 0, QApplication::UnicodeUTF8));
-    checkBox_hideEmpty->setText(QApplication::translate("Settings", "Hide nameless albums", 0, QApplication::UnicodeUTF8));
-    toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
-    toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
-    checkBox_proxyEnabled->setTitle(QApplication::translate("Settings", "Use proxy", 0, QApplication::UnicodeUTF8));
-    label_4->setText(QApplication::translate("Settings", "Proxy host", 0, QApplication::UnicodeUTF8));
-    label_5->setText(QApplication::translate("Settings", "Port", 0, QApplication::UnicodeUTF8));
-    label_6->setText(QApplication::translate("Settings", "User name", 0, QApplication::UnicodeUTF8));
-    label_7->setText(QApplication::translate("Settings", "Password", 0, QApplication::UnicodeUTF8));
-    checkBox_cacheInfo->setText(QApplication::translate("Settings", "Cache downloaded information", 0, QApplication::UnicodeUTF8));
-    toolBox->setItemText(toolBox->indexOf(page_3), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
-    checkBox_lastfmScrobbling->setTitle(QApplication::translate("Settings", "Enable Last.FM scrobbling", 0, QApplication::UnicodeUTF8));
-    label_8->setText(QApplication::translate("Settings", "User name", 0, QApplication::UnicodeUTF8));
-    label_9->setText(QApplication::translate("Settings", "Password", 0, QApplication::UnicodeUTF8));
-    toolBox->setItemText(toolBox->indexOf(page_4), QApplication::translate("Settings", "Last.FM", 0, QApplication::UnicodeUTF8));
-    Q_UNUSED(Settings);
+        Settings->setWindowTitle(QApplication::translate("Settings", "Preferences", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("Settings", "Language", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("Settings", "Preffered audio engine", 0, QApplication::UnicodeUTF8));
+        checkBox_autorating->setText(QApplication::translate("Settings", "Enable auto rating", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("Settings", "Codepage for CUE sheets", 0, QApplication::UnicodeUTF8));
+        checkBox_hideEmpty->setText(QApplication::translate("Settings", "Hide nameless albums", 0, QApplication::UnicodeUTF8));
+        toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("Settings", "Common settings", 0, QApplication::UnicodeUTF8));
+        toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("Settings", "Engine Settings", 0, QApplication::UnicodeUTF8));
+        checkBox_proxyEnabled->setTitle(QApplication::translate("Settings", "Use proxy", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("Settings", "Proxy host", 0, QApplication::UnicodeUTF8));
+        label_5->setText(QApplication::translate("Settings", "Port", 0, QApplication::UnicodeUTF8));
+        label_6->setText(QApplication::translate("Settings", "User name", 0, QApplication::UnicodeUTF8));
+        label_7->setText(QApplication::translate("Settings", "Password", 0, QApplication::UnicodeUTF8));
+        checkBox_cacheInfo->setText(QApplication::translate("Settings", "Cache downloaded information", 0, QApplication::UnicodeUTF8));
+        toolBox->setItemText(toolBox->indexOf(page_3), QApplication::translate("Settings", "Internet connection", 0, QApplication::UnicodeUTF8));
+        checkBox_lastfmScrobbling->setTitle(QApplication::translate("Settings", "Enable Last.FM scrobbling", 0, QApplication::UnicodeUTF8));
+        label_8->setText(QApplication::translate("Settings", "User name", 0, QApplication::UnicodeUTF8));
+        label_9->setText(QApplication::translate("Settings", "Password", 0, QApplication::UnicodeUTF8));
+        toolBox->setItemText(toolBox->indexOf(page_4), QApplication::translate("Settings", "Last.FM", 0, QApplication::UnicodeUTF8));
+        Q_UNUSED(Settings);
     } // retranslateUi
 
 };
@@ -322,5 +314,7 @@ public:
 namespace Ui {
     class Settings: public Ui_Settings {};
 } // namespace Ui
+
+QT_END_NAMESPACE
 
 #endif // UI_SETTINGS_H

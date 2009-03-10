@@ -49,23 +49,58 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 	//if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, length)) 
 	//	return true;
 	bool corrected = false;
-#define corstr(s) autoCorrect() ? correct8bit(s, &corrected) : s
+//#define corstr(s) autoCorrect() ? correct8bit(s, &corrected) : s
+#define corstr(s) s
+#define local(s) s.toCString(false)
 	TagLib::FileRef fr(file.toLocal8Bit().constData());
 	TagLib::Tag *tag;
 	if(!fr.isNull() && fr.audioProperties()) {
 		tag = fr.tag();
 		if(tag) {
-			if(tag->title().isEmpty())
-		        title = QFileInfo(file).fileName();
-			else
-		        title = corstr(QS(tag->title()));
-			artist = corstr(QS(tag->artist()));
-			album = corstr(QS(tag->album()));
-			year = tag->year();
-			comment = corstr(QS(tag->comment()));
-			track = tag->track();
-			genre = corstr(QS(tag->genre()));
-			if(corrected && saveCorrected()) {
+			bool skiptag = false;
+			if(file.endsWith(QString(".MP3"), Qt::CaseInsensitive)) {
+				//TagLib::ID3v2::FrameFactory::instance()->setDefaultTextEncoding(TagLib::String::UTF8);
+				TagLib::MPEG::File &mp3file = *((TagLib::MPEG::File*)fr.file());
+				// if id3v1 exist and id3v2 not
+				if(mp3file.ID3v1Tag()) {
+					QTextCodec::setCodecForCStrings (QTextCodec::codecForName("System"));
+					TagLib::ID3v1::Tag &tag1 = *mp3file.ID3v1Tag();
+					if(tag1.title().isEmpty())
+						title = QFileInfo(file).fileName();
+					else
+						title = local(tag1.title());
+					artist = local(tag1.artist());
+					album = local(tag1.album());
+					year = tag1.year();
+					comment = local(tag1.comment());
+					track = tag1.track();
+					genre = local(tag1.genre());
+					QTextCodec::setCodecForCStrings (0);
+				}
+				if(mp3file.ID3v1Tag()) {
+					TagLib::ID3v2::Tag &tag2 = *mp3file.ID3v2Tag();
+					if(tag2.title().size()) title = QS(tag2.title());
+					if(tag2.artist().size()) artist = QS(tag2.artist());
+					if(tag2.album().size()) album = QS(tag2.album());
+					if(tag2.year()) year = tag2.year();
+					if(tag2.comment().size()) comment = QS(tag2.comment());
+					if(tag2.track()) track = tag2.track();
+					if(tag2.genre().size()) genre = QS(tag2.genre());
+				}
+				skiptag = true;
+			}
+			if(!skiptag) {
+				if(tag->title().isEmpty())
+					title = QFileInfo(file).fileName();
+				else
+					title = corstr(QS(tag->title()));
+				artist = corstr(QS(tag->artist()));
+				album = corstr(QS(tag->album()));
+				year = tag->year();
+				comment = corstr(QS(tag->comment()));
+				track = tag->track();
+				genre = corstr(QS(tag->genre()));
+				/*if(corrected && saveCorrected()) {
 				TagLib::FileRef fr(file.toLocal8Bit().constData());
 				if(file.endsWith(QString(".MP3"), Qt::CaseInsensitive)) {
 					TagLib::ID3v2::FrameFactory::instance()->setDefaultTextEncoding(TagLib::String::UTF8);
@@ -86,6 +121,7 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 					tag->setTitle(TS(title));
 					fr.save();
 				}
+				}*/
 			}
 		}
 		length = QString("%1:%2")
@@ -307,7 +343,7 @@ QList<CueEntry> Tagger::readCue(QString filename)
 
 	return list;
 }
-
+/*
 bool Tagger::autoCorrect()
 {
 	return _autoCorrect;
@@ -327,7 +363,7 @@ void Tagger::setSaveCorrected(bool b)
 {
 	_saveCorrected = b;
 }
-
+*/
 QString Tagger::getWord(QString &str)
 {
 	QString word;
