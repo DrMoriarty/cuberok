@@ -1,7 +1,12 @@
+Version 0.0.6 10.03.09
+	QTagConvert (http://sourceforge.net/projects/qtagconvert/) has been included into Cuberok. Now you can convert your tags easy.
+	ID3v1 tags always reads from system codepage.
+	New images for buttons are from ACUN 0.7 icon theme (http://truvalinux.org.tr/acun/)
+
 Version 0.0.5 20.02.09
 	Remake informaion panel. Loading artist and album info from Last.FM, loading lyrics from LyricWiki.org
 	Smart playlists (by custom SQL requests)
-	
+
 Version 0.0.4a	20.11.08
 	Bugfixes
 

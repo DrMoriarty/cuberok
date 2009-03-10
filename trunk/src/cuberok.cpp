@@ -29,6 +29,9 @@
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
 {
+#ifdef QTAGCONVERT
+	qtag = 0;
+#endif
 	QSettings set;
 
 	QString engine = set.value("engine", "").toString();
@@ -70,6 +73,7 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.treeView_2->hideColumn(3);
 	ui.treeView_2->setAllColumnsShowFocus(true);
 	ui.treeView_2->sortByColumn(0, Qt::AscendingOrder);
+	//ui.treeView_2->actions().append(ui.actionRefreshTree);
 	
 	connect(ui.volumeSlider, SIGNAL(valueChanged(int)), ui.listView, SLOT(setVolume(int)));
 	ui.volumeSlider->setValue(set.value("volume", 99).toInt(0));
@@ -78,10 +82,12 @@ Cuberok::Cuberok(QWidget *parent)
 		ui.actionShuffle->trigger();
 	if(set.value("repeat", false).toBool())
 		ui.actionRepeat->trigger();
+	/*
 	if(set.value("correctTag", false).toBool())
 		Tagger::setAutoCorrect(true);
 	if(set.value("saveCorrected", false).toBool())
 		Tagger::setSaveCorrected(true);
+	*/	
 	//ui.actionCorrectTag->trigger();
 	
 	if(!connect(ui.progressBar, SIGNAL(userevent(double)), this, SLOT(progressEvent(double))))
@@ -290,3 +296,35 @@ void Cuberok::closeEvent(QCloseEvent *event)
 		event->ignore();
 	}
 } 
+
+void Cuberok::qTagConvert()
+{
+#ifdef QTAGCONVERT
+	if(qtag) {
+		qtag->close();
+		delete qtag;
+		qtag = 0;
+	} else {
+		qtag = new mp3Dialog(this, ui.listView->getCurrentFile());
+		connect(qtag, SIGNAL( destroyed(QObject*)), this, SLOT(qtagClosed(QObject*)));
+		qtag->show();
+	}
+#else
+	QStringList arg;
+	arg << "path_to_current_song"; // TODO
+	QProcess::execute("qtagconvert", arg);
+#endif
+}
+
+void Cuberok::qtagClosed(QObject*)
+{
+#ifdef QTAGCONVERT
+	//delete qtag;
+	qtag = 0;
+#endif
+}
+
+void Cuberok::refreshTree()
+{
+	dirmodel.refresh();
+}

@@ -42,6 +42,7 @@ Section "Cuberok"
   File "win32\Cuberok.exe"
   File "win32\cuberok_ru.qm"
   File "win32\mingwm10.dll"
+  File "win32\libtag.dll"
   File "license.txt"
   
   ; Write the installation path into the registry

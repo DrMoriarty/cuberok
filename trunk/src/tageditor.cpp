@@ -179,8 +179,8 @@ TagEditor::TagEditor(QString fname, QWidget *parent)
 {
 	ui.setupUi(this);
 	file = fname;
-	bool savedcor = Tagger::autoCorrect();
-	Tagger::setAutoCorrect(false);
+	//bool savedcor = Tagger::autoCorrect();
+	//Tagger::setAutoCorrect(false);
 	
 	QStringList sl;
 	for(int i=0; i<genresSize; i++) sl.append(genres[i]);
@@ -201,7 +201,7 @@ TagEditor::TagEditor(QString fname, QWidget *parent)
 	if(Database::Self().GetTags(fname, title, artist, album, comment, genre, track, year, rating, length)) {
 		ui.spinBox_Rating->setValue(rating);
 	}
-	Tagger::setAutoCorrect(savedcor);
+	//Tagger::setAutoCorrect(savedcor);
 }
 
 TagEditor::~TagEditor()

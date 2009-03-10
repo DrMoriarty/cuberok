@@ -1,5 +1,8 @@
-C:\Qt\4.3.1\bin\lupdate.exe Cuberok.pro -ts locale\cuberok_ru.ts
-C:\Qt\4.3.1\bin\lrelease.exe locale\cuberok_ru.ts -qm locale\cuberok_ru.qm
+rem set QTDIR=C:\Qt\4.3.1
+set QTDIR=C:\Qt\4.5.0-rc1
+
+%QTDIR%\bin\lupdate.exe Cuberok.pro -ts locale\cuberok_ru.ts
+%QTDIR%\bin\lrelease.exe locale\cuberok_ru.ts -qm locale\cuberok_ru.qm
 copy locale\*.qm win32\
-C:\Qt\4.3.1\bin\qmake.exe Cuberok.pro -o Makefile.win
+%QTDIR%\bin\qmake.exe Cuberok.pro -o Makefile.win
 mingw32-make -f Makefile.win

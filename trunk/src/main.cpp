@@ -53,7 +53,7 @@ void storeState(Cuberok *win)
 void restoreState(Cuberok *win)
 {
 	QSettings set;
-	style_name = set.value("style").toString();
+	style_name = set.value("style", "Cuberok").toString();
 #ifdef WIN32
 	// FIXME qt bug?
 	QPalette p = set.value("palette").value<QPalette>();

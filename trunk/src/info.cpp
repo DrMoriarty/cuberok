@@ -182,6 +182,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 			} 
 		}
 	}
+	if(song.size()>25) song = song.left(25) + "...";
 	ui.label_so1->setText(song);
 	ui.songRating->setStarRating(StarRating(rating));
 	ui.songRating->noEdit();
