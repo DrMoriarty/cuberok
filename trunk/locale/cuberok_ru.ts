@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ru">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru">
 <context>
     <name>AboutDialogClass</name>
     <message>
@@ -616,12 +617,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/cuberok.ui" line="1178"/>
         <source>Edit tags with QTagConvert</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактирование тегов в QTagConvert</translation>
     </message>
     <message>
         <location filename="../src/cuberok.ui" line="1187"/>
         <source>Refresh Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить дерево каталогов</translation>
     </message>
 </context>
 <context>
@@ -1112,7 +1113,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/settings.ui" line="115"/>
         <source>Use hack for cp1251</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать хак для CP1251</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="147"/>
@@ -1215,12 +1216,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/tageditor.ui" line="62"/>
         <source>Correct 8bit locale</source>
-        <translation type="unfinished"></translation>
+        <translation>Исправить 8битную локаль</translation>
     </message>
     <message>
         <location filename="../src/tageditor.ui" line="69"/>
         <source>Correct broken UTF</source>
-        <translation type="unfinished"></translation>
+        <translation>Исправить испорченный UTF</translation>
     </message>
     <message>
         <location filename="../src/tageditor.ui" line="85"/>
@@ -1266,12 +1267,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.cpp" line="446"/>
         <source>Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>Готово</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.cpp" line="398"/>
         <source> of </source>
-        <translation type="unfinished"></translation>
+        <translation> из </translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="14"/>
@@ -1281,27 +1282,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="33"/>
         <source>Go up</source>
-        <translation type="unfinished"></translation>
+        <translation>Переместиться вверх</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="36"/>
         <source>Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Вверх</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="53"/>
         <source>Select file or folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите файл или папку</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="89"/>
         <source>Go Home</source>
-        <translation type="unfinished"></translation>
+        <translation>Домой</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="108"/>
         <source>Convert Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры преобразования</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="120"/>
@@ -1311,27 +1312,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="133"/>
         <source>From codepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Из кодовой страницы</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="140"/>
         <source>Select action from combo box</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите действие из списка</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2480"/>
         <source>Convert</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертировать</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="149"/>
         <source>Fix broken UTF</source>
-        <translation type="unfinished"></translation>
+        <translation>Исправить сломанный UTF</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="157"/>
         <source>What codepage tags will be converted from?</source>
-        <translation type="unfinished"></translation>
+        <translation>Из какой кодовой страницы будут конвертированы теги?</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2113"/>
@@ -2081,27 +2082,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2016"/>
         <source>Title</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2405"/>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation>Исполнитель</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2415"/>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation>Альбом</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2395"/>
         <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
+        <translation>Жанр</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2425"/>
         <source>Year</source>
-        <translation type="unfinished">Год</translation>
+        <translation>Год</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2057"/>
@@ -2111,17 +2112,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2435"/>
         <source>Comment</source>
-        <translation type="unfinished">Комментарий</translation>
+        <translation>Комментарий</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2235"/>
         <source>Reload</source>
-        <translation type="unfinished"></translation>
+        <translation>Перечитать</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1236"/>
         <source>Copy ID3v1 tags into ID3v2</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать ID3v1 теги в ID3v2</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1239"/>
@@ -2136,7 +2137,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2086"/>
         <source>Copy ID3v2 tags into ID3v1</source>
-        <translation type="unfinished"></translation>
+        <translation>Копировать ID3v2 теги в ID3v1</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2089"/>
@@ -2146,127 +2147,127 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2096"/>
         <source>Save selected tags in file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить выбранные теги в файл</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2099"/>
         <source>Save Tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить теги</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2110"/>
         <source>Save ID3v1 tags or remove them</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить теги ID3v1 или удалить их</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2123"/>
         <source>Save ID3v2 tags or remove them</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить теги ID3v2 или удалить их</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2377"/>
         <source>Save selected tags from ID3v2 group in all files in current directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить выбранные теги из группы ID3v2 во все файлы текущей директории</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2380"/>
         <source>Save for all mp3 files in folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Применить для всех mp3-файлов в открытом каталоге</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2392"/>
         <source>Use this Genre tag for all files</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать данный тег жанра для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2402"/>
         <source>Use this Artist tag for all files</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать данный тег автора для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2412"/>
         <source>Use this Album tag for all files</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать данный тег альбома для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2422"/>
         <source>Use this Year tag for all files</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать данный тег года для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2432"/>
         <source>Use this Comment tag for all files</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать данный тег коментария для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2442"/>
         <source>Save selected tags for all files</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить выбранные теги во все файлы</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2445"/>
         <source>Save All</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить всё</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2465"/>
         <source>Convert codepage for all mp3 files in folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать кодовую страницу для всех файлов в каталоге</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2477"/>
         <source>Convert selected groups of tags for all files in current directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать выбранные группы тегов во всех файлах текущей директории</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2491"/>
         <source>Convert ID3v1 tags or keep them as is</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать теги ID3v1 или оставить их как есть</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2494"/>
         <source>Convert ID3v1</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать ID3v1</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2504"/>
         <source>Convert ID3v2 tags or keep them as is</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать теги ID3v2 или оставить их как есть</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2507"/>
         <source>Convert ID3v2</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать ID3v2</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2531"/>
         <source>&amp;Menu</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Меню</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2537"/>
         <source>Help</source>
-        <translation type="unfinished">Помощь</translation>
+        <translation>Помощь</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2547"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ыход</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2550"/>
         <source>Exit</source>
-        <translation type="unfinished">Выход</translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2555"/>
         <source>About</source>
-        <translation type="unfinished">О Программе</translation>
+        <translation>О Программе</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2560"/>
         <source>About Qt</source>
-        <translation type="unfinished">О Qt</translation>
+        <translation>О Qt</translation>
     </message>
 </context>
 </TS>
