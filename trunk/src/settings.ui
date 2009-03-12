@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" >
  <class>Settings</class>
- <widget class="QDialog" name="Settings">
-  <property name="geometry">
+ <widget class="QDialog" name="Settings" >
+  <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
@@ -10,17 +9,17 @@
     <height>395</height>
    </rect>
   </property>
-  <property name="windowTitle">
+  <property name="windowTitle" >
    <string>Preferences</string>
   </property>
-  <layout class="QVBoxLayout">
+  <layout class="QVBoxLayout" >
    <item>
-    <widget class="QToolBox" name="toolBox">
-     <property name="currentIndex">
+    <widget class="QToolBox" name="toolBox" >
+     <property name="currentIndex" >
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page">
-      <property name="geometry">
+     <widget class="QWidget" name="page" >
+      <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
@@ -28,46 +27,57 @@
         <height>226</height>
        </rect>
       </property>
-      <attribute name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
-      </attribute>
-      <attribute name="label">
+      <attribute name="label" >
        <string>Common settings</string>
       </attribute>
-      <layout class="QGridLayout">
-       <property name="margin">
+      <attribute name="icon" >
+       <iconset resource="resource.qrc" >:/icons/settings.png</iconset>
+      </attribute>
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
         <number>4</number>
        </property>
-       <property name="spacing">
+       <property name="topMargin" >
         <number>4</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
+       <property name="rightMargin" >
+        <number>4</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>4</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>4</number>
+       </property>
+       <property name="verticalSpacing" >
+        <number>4</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
           <string>Language</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QComboBox" name="comboBox_language"/>
+       <item row="1" column="0" >
+        <widget class="QComboBox" name="comboBox_language" />
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
+       <item row="2" column="0" >
+        <widget class="QLabel" name="label" >
+         <property name="text" >
           <string>Preffered audio engine</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QComboBox" name="comboBox_engine"/>
+       <item row="3" column="0" >
+        <widget class="QComboBox" name="comboBox_engine" />
        </item>
-       <item row="8" column="0">
+       <item row="9" column="0" >
         <spacer>
-         <property name="orientation">
+         <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="sizeHint" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -75,34 +85,41 @@
          </property>
         </spacer>
        </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="checkBox_autorating">
-         <property name="text">
+       <item row="4" column="0" >
+        <widget class="QCheckBox" name="checkBox_autorating" >
+         <property name="text" >
           <string>Enable auto rating</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
+       <item row="6" column="0" >
+        <widget class="QLabel" name="label_3" >
+         <property name="text" >
           <string>Codepage for CUE sheets</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QComboBox" name="comboBox_cue"/>
+       <item row="7" column="0" >
+        <widget class="QComboBox" name="comboBox_cue" />
        </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="checkBox_hideEmpty">
-         <property name="text">
+       <item row="5" column="0" >
+        <widget class="QCheckBox" name="checkBox_hideEmpty" >
+         <property name="text" >
           <string>Hide nameless albums</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" >
+        <widget class="QCheckBox" name="checkBox_hack1251" >
+         <property name="text" >
+          <string>Use hack for cp1251</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2">
-      <property name="geometry">
+     <widget class="QWidget" name="page_2" >
+      <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
@@ -110,102 +127,124 @@
         <height>28</height>
        </rect>
       </property>
-      <attribute name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/icons/def_genre.png</normaloff>:/icons/def_genre.png</iconset>
-      </attribute>
-      <attribute name="label">
+      <attribute name="label" >
        <string>Engine Settings</string>
       </attribute>
+      <attribute name="icon" >
+       <iconset resource="resource.qrc" >:/icons/def_genre.png</iconset>
+      </attribute>
      </widget>
-     <widget class="QWidget" name="page_3">
-      <property name="geometry">
+     <widget class="QWidget" name="page_3" >
+      <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>181</width>
-        <height>140</height>
+        <width>180</width>
+        <height>160</height>
        </rect>
       </property>
-      <attribute name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/icons/internet.png</normaloff>:/icons/internet.png</iconset>
-      </attribute>
-      <attribute name="label">
+      <attribute name="label" >
        <string>Internet connection</string>
       </attribute>
-      <layout class="QGridLayout">
-       <property name="margin">
+      <attribute name="icon" >
+       <iconset resource="resource.qrc" >:/icons/internet.png</iconset>
+      </attribute>
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
         <number>4</number>
        </property>
-       <property name="spacing">
+       <property name="topMargin" >
         <number>4</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="checkBox_proxyEnabled">
-         <property name="title">
+       <property name="rightMargin" >
+        <number>4</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>4</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>4</number>
+       </property>
+       <property name="verticalSpacing" >
+        <number>4</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="checkBox_proxyEnabled" >
+         <property name="title" >
           <string>Use proxy</string>
          </property>
-         <property name="flat">
+         <property name="flat" >
           <bool>true</bool>
          </property>
-         <property name="checkable">
+         <property name="checkable" >
           <bool>true</bool>
          </property>
-         <property name="checked">
+         <property name="checked" >
           <bool>false</bool>
          </property>
-         <layout class="QGridLayout">
-          <property name="margin">
+         <layout class="QGridLayout" >
+          <property name="leftMargin" >
            <number>0</number>
           </property>
-          <property name="spacing">
+          <property name="topMargin" >
+           <number>0</number>
+          </property>
+          <property name="rightMargin" >
+           <number>0</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>0</number>
+          </property>
+          <property name="horizontalSpacing" >
            <number>4</number>
           </property>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
+          <property name="verticalSpacing" >
+           <number>4</number>
+          </property>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label_4" >
+            <property name="text" >
              <string>Proxy host</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_proxyHost"/>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="lineEdit_proxyHost" />
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
+          <item row="2" column="0" >
+           <widget class="QLabel" name="label_5" >
+            <property name="text" >
              <string>Port</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
+          <item row="3" column="0" >
+           <widget class="QLabel" name="label_6" >
+            <property name="text" >
              <string>User name</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
+          <item row="4" column="0" >
+           <widget class="QLabel" name="label_7" >
+            <property name="text" >
              <string>Password</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="spinBox_proxyPort">
-            <property name="maximum">
+          <item row="2" column="1" >
+           <widget class="QSpinBox" name="spinBox_proxyPort" >
+            <property name="maximum" >
              <number>65535</number>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="lineEdit_proxyUser"/>
+          <item row="3" column="1" >
+           <widget class="QLineEdit" name="lineEdit_proxyUser" />
           </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="lineEdit_proxyPassword">
-            <property name="echoMode">
+          <item row="4" column="1" >
+           <widget class="QLineEdit" name="lineEdit_proxyPassword" >
+            <property name="echoMode" >
              <enum>QLineEdit::Password</enum>
             </property>
            </widget>
@@ -213,12 +252,12 @@
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="2" column="0" >
         <spacer>
-         <property name="orientation">
+         <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="sizeHint" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -226,79 +265,102 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="checkBox_cacheInfo">
-         <property name="text">
+       <item row="1" column="0" >
+        <widget class="QCheckBox" name="checkBox_cacheInfo" >
+         <property name="text" >
           <string>Cache downloaded information</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_4">
-      <property name="geometry">
+     <widget class="QWidget" name="page_4" >
+      <property name="geometry" >
        <rect>
         <x>0</x>
         <y>0</y>
         <width>156</width>
-        <height>70</height>
+        <height>130</height>
        </rect>
       </property>
-      <attribute name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/icons/lastfm.png</normaloff>:/icons/lastfm.png</iconset>
-      </attribute>
-      <attribute name="label">
+      <attribute name="label" >
        <string>Last.FM</string>
       </attribute>
-      <layout class="QGridLayout">
-       <property name="margin">
+      <attribute name="icon" >
+       <iconset resource="resource.qrc" >:/icons/lastfm.png</iconset>
+      </attribute>
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
         <number>4</number>
        </property>
-       <property name="spacing">
+       <property name="topMargin" >
         <number>4</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="checkBox_lastfmScrobbling">
-         <property name="title">
+       <property name="rightMargin" >
+        <number>4</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>4</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>4</number>
+       </property>
+       <property name="verticalSpacing" >
+        <number>4</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="checkBox_lastfmScrobbling" >
+         <property name="title" >
           <string>Enable Last.FM scrobbling</string>
          </property>
-         <property name="flat">
+         <property name="flat" >
           <bool>true</bool>
          </property>
-         <property name="checkable">
+         <property name="checkable" >
           <bool>true</bool>
          </property>
-         <property name="checked">
+         <property name="checked" >
           <bool>false</bool>
          </property>
-         <layout class="QGridLayout">
-          <property name="margin">
+         <layout class="QGridLayout" >
+          <property name="leftMargin" >
            <number>0</number>
           </property>
-          <property name="spacing">
+          <property name="topMargin" >
+           <number>0</number>
+          </property>
+          <property name="rightMargin" >
+           <number>0</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>0</number>
+          </property>
+          <property name="horizontalSpacing" >
            <number>4</number>
           </property>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
+          <property name="verticalSpacing" >
+           <number>4</number>
+          </property>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label_8" >
+            <property name="text" >
              <string>User name</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
+          <item row="2" column="0" >
+           <widget class="QLabel" name="label_9" >
+            <property name="text" >
              <string>Password</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_lastfmUser"/>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="lineEdit_lastfmUser" />
           </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_lastfmPassword">
-            <property name="echoMode">
+          <item row="2" column="1" >
+           <widget class="QLineEdit" name="lineEdit_lastfmPassword" >
+            <property name="echoMode" >
              <enum>QLineEdit::Password</enum>
             </property>
            </widget>
@@ -306,12 +368,12 @@
          </layout>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="3" column="0" >
         <spacer>
-         <property name="orientation">
+         <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="sizeHint" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -324,17 +386,17 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="layoutDirection">
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="layoutDirection" >
       <enum>Qt::LeftToRight</enum>
      </property>
-     <property name="orientation">
+     <property name="orientation" >
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
      </property>
-     <property name="centerButtons">
+     <property name="centerButtons" >
       <bool>false</bool>
      </property>
     </widget>
@@ -342,7 +404,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="resource.qrc"/>
+  <include location="resource.qrc" />
  </resources>
  <connections>
   <connection>
@@ -351,11 +413,11 @@
    <receiver>Settings</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel">
+    <hint type="sourcelabel" >
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel">
+    <hint type="destinationlabel" >
      <x>157</x>
      <y>274</y>
     </hint>
@@ -367,11 +429,11 @@
    <receiver>Settings</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel">
+    <hint type="sourcelabel" >
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel">
+    <hint type="destinationlabel" >
      <x>286</x>
      <y>274</y>
     </hint>

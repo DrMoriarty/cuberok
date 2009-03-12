@@ -43,6 +43,8 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	hideEmptyInCollection = set.value("hideEmptyInCollection", false).toBool();
 
 	cacheInfo = set.value("cacheInfo", true).toBool();
+
+	hack1251 = set.value("hack1251", false).toBool();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -72,6 +74,8 @@ void PlaylistSettings::save()
 	set.setValue("hideEmptyInCollection", hideEmptyInCollection);
 
 	set.setValue("cacheInfo", cacheInfo);
+
+	set.setValue("hack1251", hack1251);
 }
 
 PlaylistSettings& PlaylistSettings::Self()

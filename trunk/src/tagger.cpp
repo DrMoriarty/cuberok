@@ -50,7 +50,7 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 	//	return true;
 	bool corrected = false;
 //#define corstr(s) autoCorrect() ? correct8bit(s, &corrected) : s
-#define corstr(s) s
+#define corstr(s) (PLSet.hack1251 ? hack1251(s) : s)
 #define local(s) s.toCString(false)
 	TagLib::FileRef fr(file.toLocal8Bit().constData());
 	TagLib::Tag *tag;
@@ -63,7 +63,11 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 				TagLib::MPEG::File &mp3file = *((TagLib::MPEG::File*)fr.file());
 				// if id3v1 exist and id3v2 not
 				if(mp3file.ID3v1Tag()) {
-					QTextCodec::setCodecForCStrings (QTextCodec::codecForName("System"));
+					if(PLSet.hack1251) {
+						QTextCodec::setCodecForCStrings (QTextCodec::codecForName("CP1251"));
+					} else {
+						QTextCodec::setCodecForCStrings (QTextCodec::codecForName("System"));
+					}
 					TagLib::ID3v1::Tag &tag1 = *mp3file.ID3v1Tag();
 					if(tag1.title().isEmpty())
 						title = QFileInfo(file).fileName();
@@ -77,15 +81,15 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 					genre = local(tag1.genre());
 					QTextCodec::setCodecForCStrings (0);
 				}
-				if(mp3file.ID3v1Tag()) {
+				if(mp3file.ID3v2Tag()) {
 					TagLib::ID3v2::Tag &tag2 = *mp3file.ID3v2Tag();
-					if(tag2.title().size()) title = QS(tag2.title());
-					if(tag2.artist().size()) artist = QS(tag2.artist());
-					if(tag2.album().size()) album = QS(tag2.album());
+					if(tag2.title().size()) title = corstr(QS(tag2.title()));
+					if(tag2.artist().size()) artist = corstr(QS(tag2.artist()));
+					if(tag2.album().size()) album = corstr(QS(tag2.album()));
 					if(tag2.year()) year = tag2.year();
-					if(tag2.comment().size()) comment = QS(tag2.comment());
+					if(tag2.comment().size()) comment = corstr(QS(tag2.comment()));
 					if(tag2.track()) track = tag2.track();
-					if(tag2.genre().size()) genre = QS(tag2.genre());
+					if(tag2.genre().size()) genre = corstr(QS(tag2.genre()));
 				}
 				skiptag = true;
 			}
@@ -93,13 +97,13 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 				if(tag->title().isEmpty())
 					title = QFileInfo(file).fileName();
 				else
-					title = corstr(QS(tag->title()));
-				artist = corstr(QS(tag->artist()));
-				album = corstr(QS(tag->album()));
+					title = QS(tag->title());
+				artist = QS(tag->artist());
+				album = QS(tag->album());
 				year = tag->year();
-				comment = corstr(QS(tag->comment()));
+				comment = QS(tag->comment());
 				track = tag->track();
-				genre = corstr(QS(tag->genre()));
+				genre = QS(tag->genre());
 				/*if(corrected && saveCorrected()) {
 				TagLib::FileRef fr(file.toLocal8Bit().constData());
 				if(file.endsWith(QString(".MP3"), Qt::CaseInsensitive)) {
@@ -207,6 +211,18 @@ bool Tagger::updateGenre(QString file, QString genre)
 		fr.save();
 	}
 	return true;
+}
+
+QString Tagger::hack1251(QString text)
+{
+	foreach(QChar ch, text) {
+		ushort cc = ch.unicode(); 
+		if(cc > 127 && cc < 256) {
+			QTextCodec *codec = QTextCodec::codecForName("CP1251");
+			return codec->toUnicode(text.toAscii());
+		}
+	}
+	return text;
 }
 
 QString Tagger::correct8bit(QString str, bool *corrected)

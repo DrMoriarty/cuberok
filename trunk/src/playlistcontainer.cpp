@@ -353,8 +353,8 @@ void PlaylistContainer::rateDown()
 
 QString PlaylistContainer::getCurrentFile()
 {
-	if(actlist) {
-		return actlist->curFile();
+	if(curlist) {
+		return curlist->curFile();
 	}
 	return "";
 }

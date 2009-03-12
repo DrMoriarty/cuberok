@@ -84,6 +84,7 @@ private:
     Tagger() {}
 
     static QString getWord(QString &str);
+	static QString hack1251(QString text);
 
     //static bool corrected = false;
 
