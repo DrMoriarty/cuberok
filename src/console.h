@@ -24,6 +24,8 @@
 #include <QtGui>
 #include "ui_console.h"
 
+#define MAXLOGSIZE 100
+
 class Console: public QObject
 {
 	Q_OBJECT

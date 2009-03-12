@@ -55,6 +55,8 @@ Q_OBJECT
 
 	QString lang;
 
+	bool hack1251;
+
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);

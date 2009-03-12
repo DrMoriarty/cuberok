@@ -69,9 +69,18 @@ void Console::log(const QString& s, C_TYPE t)
 	
 	logs << log;
 
-	if(logs.size() > 100)
-		logs.pop_front();
 	if(t > level) level = t;
+	if(logs.size() > MAXLOGSIZE) {
+		Log l = logs.front();
+		logs.pop_front();
+		if(l.type == level) {
+			C_TYPE _level = C_NONE;
+			foreach(Log l, logs) {
+				if(l.type > _level) _level = l.type;
+			}
+			level = _level;
+		}
+	}
 	emit newMessage(s, t);
 }
 

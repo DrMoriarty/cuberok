@@ -67,6 +67,8 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.lineEdit_lastfmPassword->setText(PLSet.lastfmPassword);
 
 	ui.checkBox_cacheInfo->setChecked(PLSet.cacheInfo);
+
+	ui.checkBox_hack1251->setChecked(PLSet.hack1251);
 }
 
 Settings::~Settings()
@@ -110,6 +112,8 @@ void Settings::accept()
 	PLSet.lastfmPassword = ui.lineEdit_lastfmPassword->text();
 
 	PLSet.cacheInfo = ui.checkBox_cacheInfo->isChecked();
+
+	PLSet.hack1251 = ui.checkBox_hack1251->isChecked();
 
 	PLSet.save();
 	QDialog::accept();
