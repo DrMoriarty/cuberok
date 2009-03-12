@@ -1,3 +1,7 @@
+Version 0.0.6a 12.03.09
+	Add hack for cp1251
+	Update translation
+
 Version 0.0.6 10.03.09
 	QTagConvert (http://sourceforge.net/projects/qtagconvert/) has been included into Cuberok. Now you can convert your tags easy.
 	ID3v1 tags always reads from system codepage.
