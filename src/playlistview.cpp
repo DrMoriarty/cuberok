@@ -263,7 +263,7 @@ void PlaylistView::play()
 {
 	if(curindex.row() < 0) return;
 	plindex = model.index(curindex.row(), PlaylistModel::File);
-	//model.setCurrent(plindex.row());
+	model.setCurrent(plindex.row());
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
@@ -298,6 +298,7 @@ void PlaylistView::play()
 
 void PlaylistView::stop()
 {
+	model.setCurrent(-1);
 	plindex = model.index(-1, 0);
     PlayerManager::Self().stop();
     playing = false;

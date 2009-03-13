@@ -164,6 +164,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ui.label_al0->setPixmap(pm2);
 	ui.label_al0->setMinimumSize(pm2.size());
 	ui.label_al0->setMaximumSize(pm2.size());
+	if(album.size() > 25) album = album.left(25) + "...";
 	ui.label_al1->setText(album);
 	//ui.label_al2->setText(text)
 	ui.albumRating->setStarRating(StarRating(rating, 5, 2));

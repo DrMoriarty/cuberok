@@ -26,7 +26,7 @@
 #include "console.h"
 
 PlaylistModel::PlaylistModel(QObject *parent) : QAbstractListModel(parent),
-_current(1)
+_current(-1)
 {
 	setSupportedDragActions(Qt::CopyAction | Qt::MoveAction);
 }
@@ -90,6 +90,12 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
 	return true;
 }
 
+QVariant PlaylistModel::removeReturns(const QVariant& v)
+{
+	QString str = v.toString();
+	return QVariant(str.replace('\n', ' ').replace('\r', ""));
+}
+
 void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, long length)
 {
 	try {
@@ -97,10 +103,10 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, l
 	    	insertRows(row, 1);
 	    	if(row >= rowCount()) row = rowCount() - 1; 
 	        *_data.at(row).values[File] = path;
-	        *_data.at(row).values[Title] = l[0];
-			*_data.at(row).values[Artist] = l[1];
-			*_data.at(row).values[Album] = l[2];
-			*_data.at(row).values[Comment] = l[3];
+	        *_data.at(row).values[Title] = removeReturns(l[0]);
+			*_data.at(row).values[Artist] = removeReturns(l[1]);
+			*_data.at(row).values[Album] = removeReturns(l[2]);
+			*_data.at(row).values[Comment] = removeReturns(l[3]);
 			*_data.at(row).values[Genre] = l[4];
 			*_data.at(row).values[Length] = l[5];
 			*_data.at(row).values[Track] = l[6];
@@ -109,6 +115,7 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, l
 			*_data.at(row).values[CueStart] = QVariant((qlonglong)start);
 			*_data.at(row).values[CueLength] = QVariant((qlonglong)length);
 			*_data.at(row).values[DBIndex] = QVariant((qlonglong)0);
+
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
 		}
 	} catch (char * mes) {
@@ -130,7 +137,7 @@ int PlaylistModel::columnCount(const QModelIndex & parent) const
 {
 	return ColumnCount;
 }
-
+/*
 QVariant PlaylistModel::data(int role) const
 {
 	if(role == Qt::BackgroundRole) {
@@ -138,7 +145,7 @@ QVariant PlaylistModel::data(int role) const
 	}
 	return QVariant();
 }
-
+*/
 QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
@@ -283,7 +290,7 @@ void PlaylistModel::appendList(QList<TagEntry> list)
     endInsertRows();
 }
 
-/*int PlaylistModel::current()
+int PlaylistModel::current()
 {
 	return _current;
 }
@@ -296,7 +303,7 @@ void PlaylistModel::setCurrent(int c)
 		emit dataChanged(index(oldcur, 0), index(oldcur, ColumnCount));
 	if(_current >= 0)
 		emit dataChanged(index(_current, 0), index(_current, ColumnCount));
-		}*/
+}
 
 /************************
  * 
