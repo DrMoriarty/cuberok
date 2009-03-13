@@ -64,7 +64,7 @@ public:
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex & parent = QModelIndex()) const;
 	QVariant data(const QModelIndex &index, int role) const;
-	QVariant data(int role) const;
+	//QVariant data(int role) const;
 	QVariant headerData(int section, Qt::Orientation orientation,
 	                    int role = Qt::DisplayRole) const;
 	Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -72,8 +72,8 @@ public:
 	bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
 	bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());
 	void appendList(QList<TagEntry> list);
-	//void setCurrent(int c);
-	//int current();
+	void setCurrent(int c);
+	int current();
 
     enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, CueStart, CueLength, DBIndex, StartTime, ColumnCount};
     
@@ -88,6 +88,8 @@ private:
 	
     QList<struct sData> _data;
     int _current;
+
+	QVariant removeReturns(const QVariant& v);
 };
 
 #endif /*PLAYLISTMODEL_H_*/

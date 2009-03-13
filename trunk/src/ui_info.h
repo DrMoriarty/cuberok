@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'info.ui'
 **
-** Created: Fri 6. Mar 12:27:14 2009
+** Created: Fri 13. Mar 11:31:26 2009
 **      by: Qt User Interface Compiler version 4.5.0-rc1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -198,8 +198,8 @@ public:
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(label_al0->sizePolicy().hasHeightForWidth());
         label_al0->setSizePolicy(sizePolicy3);
-        label_al0->setMinimumSize(QSize(64, 64));
-        label_al0->setMaximumSize(QSize(65535, 65535));
+        label_al0->setMinimumSize(QSize(128, 128));
+        label_al0->setMaximumSize(QSize(128, 128));
         label_al0->setPixmap(QPixmap(QString::fromUtf8(":/icons/def_album.png")));
         label_al0->setScaledContents(true);
         label_al0->setAlignment(Qt::AlignCenter);
