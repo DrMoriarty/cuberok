@@ -140,7 +140,7 @@ Cuberok::~Cuberok()
 	set.setValue("iconview", ui.actionIconView->isChecked());
 }
 
-void Cuberok::on_AboutMenu()
+void Cuberok::aboutMenu()
 {
 	AboutDialog ad(this);
 	ad.exec();
@@ -196,7 +196,7 @@ void Cuberok::progressEvent(double pos)
     PlayerManager::Self().setPosition(pos);
 }
 
-void Cuberok::on_AboutQtMenu()
+void Cuberok::aboutQtMenu()
 {
 	QApplication::aboutQt();
 }

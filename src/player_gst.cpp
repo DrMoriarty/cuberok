@@ -394,7 +394,7 @@ int  PlayerGst::volume()
 		g_object_get (G_OBJECT(volume), "volume", &vol, NULL);
 		gst_object_unref(volume);
 	}
-	return vol * 10;
+	return vol * 100;
 }
 
 void PlayerGst::setVolume(int v)

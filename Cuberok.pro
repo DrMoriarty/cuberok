@@ -8,6 +8,10 @@ target.path = ../Cuberok
 #sources.path = $$[QT_INSTALL_EXAMPLES]/tools/plugandpaintplugins
 INSTALLS += target
 
+player_phonon {
+    message(using phonon backend)
+    SUBDIRS += plugins/player_phonon
+}
 
 win32 {
     exists(./audiere/lib/audiere.lib) {

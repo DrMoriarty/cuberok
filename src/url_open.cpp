@@ -38,7 +38,7 @@ void UrlOpen::accept()
 	if(url.scheme().toLower() == "file") {
 		emit append(url);
 		QDialog::accept();
-	} else if(url.toString().toLower().endsWith("mp3") || url.toString().toLower().endsWith("ogg")) {
+	} else if(url.port()>0 || url.toString().toLower().endsWith("mp3") || url.toString().toLower().endsWith("ogg")) {
 		emit append(url);
 		QDialog::accept();
 	} else {

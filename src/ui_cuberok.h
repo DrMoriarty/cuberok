@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Fri 13. Mar 11:38:27 2009
+** Created: Wed 25. Mar 17:46:45 2009
 **      by: Qt User Interface Compiler version 4.5.0-rc1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -139,8 +139,7 @@ public:
         if (CuberokClass->objectName().isEmpty())
             CuberokClass->setObjectName(QString::fromUtf8("CuberokClass"));
         CuberokClass->resize(651, 525);
-        QIcon icon;
-        icon.addPixmap(QPixmap(QString::fromUtf8(":/icons/application.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon = QIcon(QString::fromUtf8(":/icons/application.png"));
         CuberokClass->setWindowIcon(icon);
         CuberokClass->setDockNestingEnabled(true);
         CuberokClass->setDockOptions(QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs);
@@ -152,60 +151,50 @@ public:
         actionBreak = new QAction(CuberokClass);
         actionBreak->setObjectName(QString::fromUtf8("actionBreak"));
         actionBreak->setCheckable(false);
-        QIcon icon1;
-        icon1.addPixmap(QPixmap(QString::fromUtf8(":/icons/star.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon1 = QIcon(QString::fromUtf8(":/icons/star.png"));
         actionBreak->setIcon(icon1);
         actionPrev = new QAction(CuberokClass);
         actionPrev->setObjectName(QString::fromUtf8("actionPrev"));
-        QIcon icon2;
-        icon2.addPixmap(QPixmap(QString::fromUtf8(":/icons/butt_backward.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon2 = QIcon(QString::fromUtf8(":/icons/butt_backward.png"));
         actionPrev->setIcon(icon2);
         actionPrev->setShortcutContext(Qt::ApplicationShortcut);
         actionNext = new QAction(CuberokClass);
         actionNext->setObjectName(QString::fromUtf8("actionNext"));
-        QIcon icon3;
-        icon3.addPixmap(QPixmap(QString::fromUtf8(":/icons/butt_forward.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon3 = QIcon(QString::fromUtf8(":/icons/butt_forward.png"));
         actionNext->setIcon(icon3);
         actionNext->setShortcutContext(Qt::ApplicationShortcut);
         actionPause = new QAction(CuberokClass);
         actionPause->setObjectName(QString::fromUtf8("actionPause"));
         actionPause->setCheckable(true);
-        QIcon icon4;
-        icon4.addPixmap(QPixmap(QString::fromUtf8(":/icons/butt_pause.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon4 = QIcon(QString::fromUtf8(":/icons/butt_pause.png"));
         actionPause->setIcon(icon4);
         actionPause->setShortcutContext(Qt::ApplicationShortcut);
         actionPlay = new QAction(CuberokClass);
         actionPlay->setObjectName(QString::fromUtf8("actionPlay"));
-        QIcon icon5;
-        icon5.addPixmap(QPixmap(QString::fromUtf8(":/icons/butt_play.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon5 = QIcon(QString::fromUtf8(":/icons/butt_play.png"));
         actionPlay->setIcon(icon5);
         actionPlay->setShortcutContext(Qt::ApplicationShortcut);
         actionShuffle = new QAction(CuberokClass);
         actionShuffle->setObjectName(QString::fromUtf8("actionShuffle"));
         actionShuffle->setCheckable(true);
-        QIcon icon6;
-        icon6.addPixmap(QPixmap(QString::fromUtf8(":/icons/shuffle_mode.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon6 = QIcon(QString::fromUtf8(":/icons/shuffle_mode.png"));
         actionShuffle->setIcon(icon6);
         actionRepeat = new QAction(CuberokClass);
         actionRepeat->setObjectName(QString::fromUtf8("actionRepeat"));
         actionRepeat->setCheckable(true);
-        QIcon icon7;
-        icon7.addPixmap(QPixmap(QString::fromUtf8(":/icons/repeat_mode.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon7 = QIcon(QString::fromUtf8(":/icons/repeat_mode.png"));
         actionRepeat->setIcon(icon7);
         actionExit = new QAction(CuberokClass);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
-        QIcon icon8;
-        icon8.addPixmap(QPixmap(QString::fromUtf8(":/icons/quit.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon8 = QIcon(QString::fromUtf8(":/icons/quit.png"));
         actionExit->setIcon(icon8);
         actionClear_playlist = new QAction(CuberokClass);
         actionClear_playlist->setObjectName(QString::fromUtf8("actionClear_playlist"));
-        QIcon icon9;
-        icon9.addPixmap(QPixmap(QString::fromUtf8(":/icons/clearlist.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon9 = QIcon(QString::fromUtf8(":/icons/clearlist.png"));
         actionClear_playlist->setIcon(icon9);
         actionQueueNext = new QAction(CuberokClass);
         actionQueueNext->setObjectName(QString::fromUtf8("actionQueueNext"));
-        QIcon icon10;
-        icon10.addPixmap(QPixmap(QString::fromUtf8(":/icons/next.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon10 = QIcon(QString::fromUtf8(":/icons/next.png"));
         actionQueueNext->setIcon(icon10);
         actionViewFile = new QAction(CuberokClass);
         actionViewFile->setObjectName(QString::fromUtf8("actionViewFile"));
@@ -245,57 +234,47 @@ public:
         actionViewLength->setChecked(false);
         actionEditTag = new QAction(CuberokClass);
         actionEditTag->setObjectName(QString::fromUtf8("actionEditTag"));
-        QIcon icon11;
-        icon11.addPixmap(QPixmap(QString::fromUtf8(":/icons/edittag.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon11 = QIcon(QString::fromUtf8(":/icons/edittag.png"));
         actionEditTag->setIcon(icon11);
         actionNewPlaylist = new QAction(CuberokClass);
         actionNewPlaylist->setObjectName(QString::fromUtf8("actionNewPlaylist"));
-        QIcon icon12;
-        icon12.addPixmap(QPixmap(QString::fromUtf8(":/icons/newtab.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon12 = QIcon(QString::fromUtf8(":/icons/newtab.png"));
         actionNewPlaylist->setIcon(icon12);
         actionClosePlaylist = new QAction(CuberokClass);
         actionClosePlaylist->setObjectName(QString::fromUtf8("actionClosePlaylist"));
-        QIcon icon13;
-        icon13.addPixmap(QPixmap(QString::fromUtf8(":/icons/deltab.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon13 = QIcon(QString::fromUtf8(":/icons/deltab.png"));
         actionClosePlaylist->setIcon(icon13);
         actionRemoveSong = new QAction(CuberokClass);
         actionRemoveSong->setObjectName(QString::fromUtf8("actionRemoveSong"));
-        QIcon icon14;
-        icon14.addPixmap(QPixmap(QString::fromUtf8(":/icons/col_rem.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon14 = QIcon(QString::fromUtf8(":/icons/col_rem.png"));
         actionRemoveSong->setIcon(icon14);
         actionLookFeel = new QAction(CuberokClass);
         actionLookFeel->setObjectName(QString::fromUtf8("actionLookFeel"));
-        QIcon icon15;
-        icon15.addPixmap(QPixmap(QString::fromUtf8(":/icons/looknfeel.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon15 = QIcon(QString::fromUtf8(":/icons/looknfeel.png"));
         actionLookFeel->setIcon(icon15);
         actionArtistMode = new QAction(CuberokClass);
         actionArtistMode->setObjectName(QString::fromUtf8("actionArtistMode"));
         actionArtistMode->setCheckable(true);
-        QIcon icon16;
-        icon16.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_artist.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon16 = QIcon(QString::fromUtf8(":/icons/def_artist.png"));
         actionArtistMode->setIcon(icon16);
         actionAlbumMode = new QAction(CuberokClass);
         actionAlbumMode->setObjectName(QString::fromUtf8("actionAlbumMode"));
         actionAlbumMode->setCheckable(true);
-        QIcon icon17;
-        icon17.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_album.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon17 = QIcon(QString::fromUtf8(":/icons/def_album.png"));
         actionAlbumMode->setIcon(icon17);
         actionGenreMode = new QAction(CuberokClass);
         actionGenreMode->setObjectName(QString::fromUtf8("actionGenreMode"));
         actionGenreMode->setCheckable(true);
-        QIcon icon18;
-        icon18.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_genre.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon18 = QIcon(QString::fromUtf8(":/icons/def_genre.png"));
         actionGenreMode->setIcon(icon18);
         actionSongMode = new QAction(CuberokClass);
         actionSongMode->setObjectName(QString::fromUtf8("actionSongMode"));
         actionSongMode->setCheckable(true);
-        QIcon icon19;
-        icon19.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_song.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon19 = QIcon(QString::fromUtf8(":/icons/def_song.png"));
         actionSongMode->setIcon(icon19);
         actionAddToCollection = new QAction(CuberokClass);
         actionAddToCollection->setObjectName(QString::fromUtf8("actionAddToCollection"));
-        QIcon icon20;
-        icon20.addPixmap(QPixmap(QString::fromUtf8(":/icons/col_add.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon20 = QIcon(QString::fromUtf8(":/icons/col_add.png"));
         actionAddToCollection->setIcon(icon20);
         actionAddToLibrary = new QAction(CuberokClass);
         actionAddToLibrary->setObjectName(QString::fromUtf8("actionAddToLibrary"));
@@ -308,29 +287,24 @@ public:
         actionRemoveFromLibrary->setIcon(icon14);
         actionStop = new QAction(CuberokClass);
         actionStop->setObjectName(QString::fromUtf8("actionStop"));
-        QIcon icon21;
-        icon21.addPixmap(QPixmap(QString::fromUtf8(":/icons/butt_stop.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon21 = QIcon(QString::fromUtf8(":/icons/butt_stop.png"));
         actionStop->setIcon(icon21);
         actionStop->setShortcutContext(Qt::ApplicationShortcut);
         actionSavePlaylist = new QAction(CuberokClass);
         actionSavePlaylist->setObjectName(QString::fromUtf8("actionSavePlaylist"));
-        QIcon icon22;
-        icon22.addPixmap(QPixmap(QString::fromUtf8(":/icons/save.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon22 = QIcon(QString::fromUtf8(":/icons/save.png"));
         actionSavePlaylist->setIcon(icon22);
         actionLoadPlaylist = new QAction(CuberokClass);
         actionLoadPlaylist->setObjectName(QString::fromUtf8("actionLoadPlaylist"));
-        QIcon icon23;
-        icon23.addPixmap(QPixmap(QString::fromUtf8(":/icons/open.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon23 = QIcon(QString::fromUtf8(":/icons/open.png"));
         actionLoadPlaylist->setIcon(icon23);
         actionAboutQt = new QAction(CuberokClass);
         actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
-        QIcon icon24;
-        icon24.addPixmap(QPixmap(QString::fromUtf8(":/icons/qt.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon24 = QIcon(QString::fromUtf8(":/icons/qt.png"));
         actionAboutQt->setIcon(icon24);
         actionReloadTags = new QAction(CuberokClass);
         actionReloadTags->setObjectName(QString::fromUtf8("actionReloadTags"));
-        QIcon icon25;
-        icon25.addPixmap(QPixmap(QString::fromUtf8(":/icons/reload.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon25 = QIcon(QString::fromUtf8(":/icons/reload.png"));
         actionReloadTags->setIcon(icon25);
         actionViewRating = new QAction(CuberokClass);
         actionViewRating->setObjectName(QString::fromUtf8("actionViewRating"));
@@ -338,13 +312,11 @@ public:
         actionViewRating->setChecked(false);
         actionSettings = new QAction(CuberokClass);
         actionSettings->setObjectName(QString::fromUtf8("actionSettings"));
-        QIcon icon26;
-        icon26.addPixmap(QPixmap(QString::fromUtf8(":/icons/settings.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon26 = QIcon(QString::fromUtf8(":/icons/settings.png"));
         actionSettings->setIcon(icon26);
         actionSetImage = new QAction(CuberokClass);
         actionSetImage->setObjectName(QString::fromUtf8("actionSetImage"));
-        QIcon icon27;
-        icon27.addPixmap(QPixmap(QString::fromUtf8(":/icons/col_art.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon27 = QIcon(QString::fromUtf8(":/icons/col_art.png"));
         actionSetImage->setIcon(icon27);
         actionLibrarySetImage = new QAction(CuberokClass);
         actionLibrarySetImage->setObjectName(QString::fromUtf8("actionLibrarySetImage"));
@@ -352,8 +324,7 @@ public:
         actionIconView = new QAction(CuberokClass);
         actionIconView->setObjectName(QString::fromUtf8("actionIconView"));
         actionIconView->setCheckable(true);
-        QIcon icon28;
-        icon28.addPixmap(QPixmap(QString::fromUtf8(":/icons/iconview.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon28 = QIcon(QString::fromUtf8(":/icons/iconview.png"));
         actionIconView->setIcon(icon28);
         actionOpenUrl = new QAction(CuberokClass);
         actionOpenUrl->setObjectName(QString::fromUtf8("actionOpenUrl"));
@@ -361,33 +332,28 @@ public:
         actionGetImageFromLastFM = new QAction(CuberokClass);
         actionGetImageFromLastFM->setObjectName(QString::fromUtf8("actionGetImageFromLastFM"));
         actionGetImageFromLastFM->setEnabled(false);
-        QIcon icon29;
-        icon29.addPixmap(QPixmap(QString::fromUtf8(":/icons/download_art.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon29 = QIcon(QString::fromUtf8(":/icons/download_art.png"));
         actionGetImageFromLastFM->setIcon(icon29);
         actionConsole = new QAction(CuberokClass);
         actionConsole->setObjectName(QString::fromUtf8("actionConsole"));
-        QIcon icon30;
-        icon30.addPixmap(QPixmap(QString::fromUtf8(":/icons/console.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon30 = QIcon(QString::fromUtf8(":/icons/console.png"));
         actionConsole->setIcon(icon30);
         actionLibrarySQLPlaylist = new QAction(CuberokClass);
         actionLibrarySQLPlaylist->setObjectName(QString::fromUtf8("actionLibrarySQLPlaylist"));
         actionLibrarySQLPlaylist->setCheckable(true);
-        QIcon icon31;
-        icon31.addPixmap(QPixmap(QString::fromUtf8(":/icons/sql.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon31 = QIcon(QString::fromUtf8(":/icons/sql.png"));
         actionLibrarySQLPlaylist->setIcon(icon31);
         actionLibraryRegularPlaylist = new QAction(CuberokClass);
         actionLibraryRegularPlaylist->setObjectName(QString::fromUtf8("actionLibraryRegularPlaylist"));
         actionLibraryRegularPlaylist->setCheckable(true);
-        QIcon icon32;
-        icon32.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_list.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon32 = QIcon(QString::fromUtf8(":/icons/def_list.png"));
         actionLibraryRegularPlaylist->setIcon(icon32);
         actionSQLListEdit = new QAction(CuberokClass);
         actionSQLListEdit->setObjectName(QString::fromUtf8("actionSQLListEdit"));
         actionSQLListEdit->setIcon(icon11);
         actionQTagConvert = new QAction(CuberokClass);
         actionQTagConvert->setObjectName(QString::fromUtf8("actionQTagConvert"));
-        QIcon icon33;
-        icon33.addPixmap(QPixmap(QString::fromUtf8(":/icons/qtagconvert.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon33 = QIcon(QString::fromUtf8(":/icons/qtagconvert.png"));
         actionQTagConvert->setIcon(icon33);
         actionRefreshTree = new QAction(CuberokClass);
         actionRefreshTree->setObjectName(QString::fromUtf8("actionRefreshTree"));
@@ -396,8 +362,8 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         vboxLayout = new QVBoxLayout(centralwidget);
         vboxLayout->setSpacing(4);
-        vboxLayout->setMargin(4);
         vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        vboxLayout->setContentsMargins(4, 4, 4, 4);
         listView = new PlaylistContainer(centralwidget);
         listView->setObjectName(QString::fromUtf8("listView"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -424,8 +390,8 @@ public:
         frame->setFrameShadow(QFrame::Raised);
         hboxLayout = new QHBoxLayout(frame);
         hboxLayout->setSpacing(2);
-        hboxLayout->setMargin(4);
         hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
+        hboxLayout->setContentsMargins(4, 4, 4, 4);
         progressBar = new ProgressBar(frame);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
         progressBar->setMaximum(1000);
@@ -454,6 +420,7 @@ public:
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(volumeSlider->sizePolicy().hasHeightForWidth());
         volumeSlider->setSizePolicy(sizePolicy3);
+        volumeSlider->setMaximum(200);
         volumeSlider->setOrientation(Qt::Horizontal);
 
         hboxLayout->addWidget(volumeSlider);
@@ -469,8 +436,8 @@ public:
         dockWidgetContents1->setObjectName(QString::fromUtf8("dockWidgetContents1"));
         vboxLayout1 = new QVBoxLayout(dockWidgetContents1);
         vboxLayout1->setSpacing(2);
-        vboxLayout1->setMargin(4);
         vboxLayout1->setObjectName(QString::fromUtf8("vboxLayout1"));
+        vboxLayout1->setContentsMargins(4, 4, 4, 4);
         col_toolbar = new QToolBar(dockWidgetContents1);
         col_toolbar->setObjectName(QString::fromUtf8("col_toolbar"));
 
@@ -482,8 +449,8 @@ public:
         frame_2->setLineWidth(0);
         hboxLayout1 = new QHBoxLayout(frame_2);
         hboxLayout1->setSpacing(0);
-        hboxLayout1->setMargin(0);
         hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout1->setContentsMargins(0, 0, 0, 0);
         subsetLabel = new QLabel(frame_2);
         subsetLabel->setObjectName(QString::fromUtf8("subsetLabel"));
 
@@ -493,8 +460,7 @@ public:
         subsetDisableButton->setObjectName(QString::fromUtf8("subsetDisableButton"));
         subsetDisableButton->setAcceptDrops(false);
         subsetDisableButton->setAutoFillBackground(true);
-        QIcon icon34;
-        icon34.addPixmap(QPixmap(QString::fromUtf8(":/icons/clear_filter.png")), QIcon::Normal, QIcon::Off);
+        const QIcon icon34 = QIcon(QString::fromUtf8(":/icons/clear_filter.png"));
         subsetDisableButton->setIcon(icon34);
         subsetDisableButton->setIconSize(QSize(24, 24));
         subsetDisableButton->setAutoRaise(true);
@@ -530,8 +496,8 @@ public:
         dockWidgetContents2->setObjectName(QString::fromUtf8("dockWidgetContents2"));
         vboxLayout2 = new QVBoxLayout(dockWidgetContents2);
         vboxLayout2->setSpacing(2);
-        vboxLayout2->setMargin(4);
         vboxLayout2->setObjectName(QString::fromUtf8("vboxLayout2"));
+        vboxLayout2->setContentsMargins(4, 4, 4, 4);
         treeView_2 = new QTreeView(dockWidgetContents2);
         treeView_2->setObjectName(QString::fromUtf8("treeView_2"));
         treeView_2->setContextMenuPolicy(Qt::ActionsContextMenu);
@@ -543,7 +509,7 @@ public:
         treeView_2->setUniformRowHeights(true);
         treeView_2->setSortingEnabled(true);
         treeView_2->setAnimated(true);
-        treeView_2->setHeaderHidden(true);
+        treeView_2->setProperty("headerHidden", QVariant(true));
 
         vboxLayout2->addWidget(treeView_2);
 
@@ -556,8 +522,8 @@ public:
         dockWidgetContents3->setObjectName(QString::fromUtf8("dockWidgetContents3"));
         vboxLayout3 = new QVBoxLayout(dockWidgetContents3);
         vboxLayout3->setSpacing(2);
-        vboxLayout3->setMargin(4);
         vboxLayout3->setObjectName(QString::fromUtf8("vboxLayout3"));
+        vboxLayout3->setContentsMargins(4, 4, 4, 4);
         lib_toolbar = new QToolBar(dockWidgetContents3);
         lib_toolbar->setObjectName(QString::fromUtf8("lib_toolbar"));
 
@@ -581,8 +547,8 @@ public:
         dockWidgetContents4->setObjectName(QString::fromUtf8("dockWidgetContents4"));
         vboxLayout4 = new QVBoxLayout(dockWidgetContents4);
         vboxLayout4->setSpacing(4);
-        vboxLayout4->setMargin(4);
         vboxLayout4->setObjectName(QString::fromUtf8("vboxLayout4"));
+        vboxLayout4->setContentsMargins(4, 4, 4, 4);
         infoWidget = new Info(dockWidgetContents4);
         infoWidget->setObjectName(QString::fromUtf8("infoWidget"));
 
@@ -708,7 +674,7 @@ public:
         toolBar->addSeparator();
 
         retranslateUi(CuberokClass);
-        QObject::connect(actionAbout, SIGNAL(triggered()), CuberokClass, SLOT(on_AboutMenu()));
+        QObject::connect(actionAbout, SIGNAL(triggered()), CuberokClass, SLOT(aboutMenu()));
         QObject::connect(actionPrev, SIGNAL(triggered()), listView, SLOT(prev()));
         QObject::connect(actionNext, SIGNAL(triggered()), listView, SLOT(next()));
         QObject::connect(actionPause, SIGNAL(triggered(bool)), listView, SLOT(pause(bool)));
@@ -751,7 +717,7 @@ public:
         QObject::connect(actionStop, SIGNAL(triggered()), listView, SLOT(stop()));
         QObject::connect(actionLoadPlaylist, SIGNAL(triggered()), listView, SLOT(loadList()));
         QObject::connect(actionSavePlaylist, SIGNAL(triggered()), listView, SLOT(saveList()));
-        QObject::connect(actionAboutQt, SIGNAL(triggered()), CuberokClass, SLOT(on_AboutQtMenu()));
+        QObject::connect(actionAboutQt, SIGNAL(triggered()), CuberokClass, SLOT(aboutQtMenu()));
         QObject::connect(actionReloadTags, SIGNAL(triggered()), listView, SLOT(reloadTags()));
         QObject::connect(actionViewRating, SIGNAL(triggered(bool)), listView, SLOT(viewRating(bool)));
         QObject::connect(actionSettings, SIGNAL(triggered()), CuberokClass, SLOT(settings()));

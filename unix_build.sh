@@ -4,4 +4,4 @@ lrelease locale\cuberok_ru.ts -qm locale\cuberok_ru.qm
 qmake Cuberok.pro
 make
 
-#make install INSTALL_ROOT=/usr/locale 
+#make install INSTALL_ROOT=/usr/local 
