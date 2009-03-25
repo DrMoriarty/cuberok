@@ -57,8 +57,8 @@ private:
 	virtual void closeEvent(QCloseEvent *event);
 
 private slots:
-	void on_AboutMenu();
-	void on_AboutQtMenu();
+	void aboutMenu();
+	void aboutQtMenu();
 	void trayevent(QSystemTrayIcon::ActivationReason);
 	void progressEvent(double);
 	void settings();
