@@ -7,7 +7,7 @@ DEPENDPATH += .
 
 DEFINES += CUBEROK_VERSION_MAJ=0
 DEFINES += CUBEROK_VERSION_MIN=0
-DEFINES += CUBEROK_VERSION_BUI=6
+DEFINES += CUBEROK_VERSION_BUI=7
 
 #           src/player_void.h \
 #           src/player_void.cpp \

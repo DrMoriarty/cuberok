@@ -1,4 +1,4 @@
-!define VERSION "0.0.6a"
+!define VERSION "0.0.7"
 
 Name "Cuberok ${VERSION}"
 
@@ -87,6 +87,11 @@ SectionEnd
 Section "GStreamer plugin"
   CreateDirectory $INSTDIR\plugins
   File /oname=plugins\player_gst.dll "win32\plugins\player_gst.dll"
+SectionEnd
+
+Section "Phonon plugin"
+  CreateDirectory $INSTDIR\plugins
+  File /oname=plugins\player_phonon.dll "win32\plugins\player_phonon.dll"
 SectionEnd
 
 Section "Desktop Shortcut"
