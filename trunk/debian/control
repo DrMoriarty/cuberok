@@ -2,13 +2,14 @@ Source: cuberok
 Section: multimedia
 Priority: extra
 Maintainer: DrMoriarty <drmoriaty.0@gmail.com>
-Build-Depends: debhelper (>= 7)
+Build-Depends: debhelper (>= 7), libqt4-dev, libphonon-dev, libgstreamer0.10-dev
 Standards-Version: 3.7.3
 Homepage: http://code.google.com/p/cuberok/
 
 Package: cuberok
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libtag1c2a, libgstreamer0.10-0, libqt4-gui, libqt4-network, libqt4-sql, libqt4-xml
+Depends: ${shlibs:Depends}, ${misc:Depends}, libtag1c2a, libgstreamer0.10-0, gstreamer0.10-plugins-base, gstreamer0.10-plugins-good, libqt4-gui, libqt4-network, libqt4-sql, libqt4-xml, phonon, phonon-backend 
+Recommends: gstreamer0.10-plugins-ugly, gstreamer0.10-plugins-bad
 Description: Cuberok is yet another music player based on Qt4
  Cuberok is yet another music player based on Qt4. It has lightweight interface, 
  music collection support and many features, e.g. music autorating and Last.FM scrobbler. 

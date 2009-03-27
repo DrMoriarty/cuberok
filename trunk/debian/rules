@@ -16,7 +16,7 @@
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	qmake Cuberok.pro
+	qmake "CONFIG+=player_phonon" Cuberok.pro
 	# Add here commands to configure the package.
 
 	touch configure-stamp
