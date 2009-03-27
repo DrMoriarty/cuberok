@@ -163,7 +163,7 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
     }
     
     if(index.row() == _current) {
-    	if(role == Qt::FontRole) return QVariant(QFont("arial", -1, -1, true));
+    	if(role == Qt::FontRole) return QVariant(QFont("arial", 10, 75, false));
     	else if(role == Qt::BackgroundRole) return QVariant(QBrush(QColor::fromRgb(128, 200, 200)));
     }
     
