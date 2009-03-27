@@ -1,3 +1,9 @@
+cuberok (0.0.7-0lenny) lenny; urgency=low
+
+  * New plugin for Phonon
+
+ -- DrMoriarty <drmoriarty.0@gmail.com>  Fri, 27 Mar 2009 10:07:14 +0300
+
 cuberok (0.0.6a-0lenny) lenny; urgency=low
 
   * Add hack for cp1251
