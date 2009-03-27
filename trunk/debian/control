@@ -1,0 +1,25 @@
+Source: cuberok
+Section: multimedia
+Priority: extra
+Maintainer: DrMoriarty <drmoriaty.0@gmail.com>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.7.3
+Homepage: http://code.google.com/p/cuberok/
+
+Package: cuberok
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libtag1c2a, libgstreamer0.10-0, libqt4-gui, libqt4-network, libqt4-sql, libqt4-xml
+Description: Cuberok is yet another music player based on Qt4
+ Cuberok is yet another music player based on Qt4. It has lightweight interface, 
+ music collection support and many features, e.g. music autorating and Last.FM scrobbler. 
+ Main features are:
+  - Music collection support (SQLite 3 used)
+  - CUE sheets support
+  - Experimental support of Shoutcast/icecast streams
+  - Last.FM scrobbler
+  - Ability to download images for albums and artists from Last.FM
+  - Ability to download information of artist from Last.FM and lyrics from LyricWiki.org
+  - Auto rating for songs
+  - Support for many play lists at one time
+  - Tag editing capability
+  - English and Russian interface 
