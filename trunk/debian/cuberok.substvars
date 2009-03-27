@@ -1,1 +1,0 @@
-shlibs:Depends=libc6 (>= 2.7-1), libgcc1 (>= 1:4.1.1), libglib2.0-0 (>= 2.12.0), libgstreamer0.10-0 (>= 0.10.0), libqt4-network (>= 4.4.3), libqt4-sql (>= 4.4.3), libqt4-xml (>= 4.4.3), libqtcore4 (>= 4.4.3), libqtgui4 (>= 4.4.3), libstdc++6 (>= 4.1.1), libtag1c2a (>= 1.4), libtag1c2a (>= 1.5), libxml2 (>= 2.6.27)
