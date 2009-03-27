@@ -1,0 +1,2 @@
+?package(cuberok):needs="X11" section="Apps/Sound"\
+  title="Cuberok" command="/usr/bin/cuberok" icon="/usr/share/pixmaps/cuberok.xpm"

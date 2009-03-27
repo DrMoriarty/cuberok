@@ -1,0 +1,24 @@
+cuberok (0.0.6a-0lenny) lenny; urgency=low
+
+  * Add hack for cp1251
+
+ -- DrMoriarty <drmoriarty.0@gmail.com>  Thu, 12 Mar 2009 11:35:00 +0300
+
+cuberok (0.0.6-0lenny) lenny; urgency=low
+
+  * New upstream release
+
+ -- DrMoriarty <drmoriarty.0@gmail.com>  Tue, 10 Mar 2009 15:38:55 +0300
+
+cuberok (0.0.5-0lenny) lenny; urgency=low
+
+  * New upstream release.
+
+ -- DrMoriarty <drmoriarty.0@gmail.com>  Fri, 20 Feb 2009 12:09:18 +0300
+
+cuberok (0.0.4a-1) unstable; urgency=low
+
+  * Initial release
+
+ -- DrMoriarty <drmoriaty.0@gmail.com>  Fri, 21 Nov 2008 13:37:35 +0300
+
