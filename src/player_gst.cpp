@@ -441,7 +441,7 @@ void PlayerGst::timerUpdate()
 			GError *err;
 			gchar *debug;
 			gst_message_parse_error (message, &err, &debug);
-			QMessageBox::warning(0, "Gstreamer error", "Error #"+QString::number(err->code)+" in module "+QString::number(err->domain)+"\n"+err->message);
+			QMessageBox::warning(0, "Gstreamer error", "Error #"+QString::number(err->code)+" in module "+QString::number(err->domain)+"\n"+QString::fromUtf8(err->message));
 			g_error_free (err);
 			g_free (debug);
 			break;

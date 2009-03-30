@@ -9,7 +9,7 @@
 
 win32 {
     DESTDIR = ../../win32/plugins
-    INCLUDEPATH += ../../gstreamer/include ../../gstreamer/include/glib-2.0
+    INCLUDEPATH += ../../gstreamer/include ../../gstreamer/include/glib-2.0 ../../gstreamer/lib/glib-2.0/include
     LIBS += ../../gstreamer/lib/libgstreamer-0.10.lib ../../gstreamer/lib/gobject-2.0.lib ../../glib/lib/libglib-2.0.dll.a
 }
 
