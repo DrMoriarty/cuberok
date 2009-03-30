@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CuberokClass</class>
- <widget class="QMainWindow" name="CuberokClass" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="CuberokClass">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,145 +10,128 @@
     <height>525</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Cuberok</string>
   </property>
-  <property name="windowIcon" >
-   <iconset resource="resource.qrc" >:/icons/application.png</iconset>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/icons/application.png</normaloff>:/icons/application.png</iconset>
   </property>
-  <property name="dockNestingEnabled" >
+  <property name="dockNestingEnabled">
    <bool>true</bool>
   </property>
-  <property name="dockOptions" >
+  <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QVBoxLayout" >
-    <property name="spacing" >
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout">
+    <property name="spacing">
      <number>4</number>
     </property>
-    <property name="leftMargin" >
-     <number>4</number>
-    </property>
-    <property name="topMargin" >
-     <number>4</number>
-    </property>
-    <property name="rightMargin" >
-     <number>4</number>
-    </property>
-    <property name="bottomMargin" >
+    <property name="margin">
      <number>4</number>
     </property>
     <item>
-     <widget class="PlaylistContainer" native="1" name="listView" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+     <widget class="PlaylistContainer" name="listView" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="contextMenuPolicy" >
+      <property name="contextMenuPolicy">
        <enum>Qt::ActionsContextMenu</enum>
       </property>
-      <property name="acceptDrops" >
+      <property name="acceptDrops">
        <bool>true</bool>
       </property>
-      <property name="dragEnabled" stdset="0" >
+      <property name="dragEnabled" stdset="0">
        <bool>true</bool>
       </property>
-      <property name="sortingEnabled" stdset="0" >
+      <property name="sortingEnabled" stdset="0">
        <bool>true</bool>
       </property>
-      <property name="batchSize" stdset="0" >
+      <property name="batchSize" stdset="0">
        <number>100</number>
       </property>
-      <addaction name="actionQueueNext" />
-      <addaction name="actionEditTag" />
-      <addaction name="actionReloadTags" />
-      <addaction name="actionRemoveSong" />
-      <addaction name="actionClear_playlist" />
+      <addaction name="actionQueueNext"/>
+      <addaction name="actionEditTag"/>
+      <addaction name="actionReloadTags"/>
+      <addaction name="actionRemoveSong"/>
+      <addaction name="actionClear_playlist"/>
      </widget>
     </item>
     <item>
-     <widget class="QFrame" name="frame" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+     <widget class="QFrame" name="frame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="frameShape" >
+      <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="frameShadow" >
+      <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" >
-       <property name="spacing" >
+      <layout class="QHBoxLayout">
+       <property name="spacing">
         <number>2</number>
        </property>
-       <property name="leftMargin" >
-        <number>4</number>
-       </property>
-       <property name="topMargin" >
-        <number>4</number>
-       </property>
-       <property name="rightMargin" >
-        <number>4</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin">
         <number>4</number>
        </property>
        <item>
-        <widget class="ProgressBar" name="progressBar" >
-         <property name="maximum" >
+        <widget class="ProgressBar" name="progressBar">
+         <property name="maximum">
           <number>1000</number>
          </property>
-         <property name="value" >
+         <property name="value">
           <number>0</number>
          </property>
-         <property name="alignment" >
+         <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize" >
+         <property name="maximumSize">
           <size>
            <width>24</width>
            <height>24</height>
           </size>
          </property>
-         <property name="text" >
+         <property name="text">
           <string/>
          </property>
-         <property name="pixmap" >
-          <pixmap resource="resource.qrc" >:/icons/volume.png</pixmap>
+         <property name="pixmap">
+          <pixmap resource="resource.qrc">:/icons/volume.png</pixmap>
          </property>
-         <property name="scaledContents" >
+         <property name="scaledContents">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSlider" name="volumeSlider" >
-         <property name="sizePolicy" >
-          <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+        <widget class="QSlider" name="volumeSlider">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximum" >
+         <property name="maximum">
           <number>200</number>
          </property>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
@@ -157,110 +141,93 @@
     </item>
    </layout>
   </widget>
-  <widget class="QDockWidget" name="dockWidget1" >
-   <property name="features" >
+  <widget class="QDockWidget" name="dockWidget1">
+   <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
-   <property name="windowTitle" >
+   <property name="windowTitle">
     <string>Collection</string>
    </property>
-   <attribute name="dockWidgetArea" >
+   <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents1" >
-    <layout class="QVBoxLayout" >
-     <property name="spacing" >
+   <widget class="QWidget" name="dockWidgetContents1">
+    <layout class="QVBoxLayout">
+     <property name="spacing">
       <number>2</number>
      </property>
-     <property name="leftMargin" >
-      <number>4</number>
-     </property>
-     <property name="topMargin" >
-      <number>4</number>
-     </property>
-     <property name="rightMargin" >
-      <number>4</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>4</number>
      </property>
      <item>
-      <widget class="QToolBar" name="col_toolbar" >
-       <addaction name="actionGenreMode" />
-       <addaction name="actionArtistMode" />
-       <addaction name="actionAlbumMode" />
-       <addaction name="actionSongMode" />
-       <addaction name="actionIconView" />
-       <addaction name="separator" />
-       <addaction name="actionSetImage" />
-       <addaction name="actionGetImageFromLastFM" />
+      <widget class="QToolBar" name="col_toolbar">
+       <addaction name="actionGenreMode"/>
+       <addaction name="actionArtistMode"/>
+       <addaction name="actionAlbumMode"/>
+       <addaction name="actionSongMode"/>
+       <addaction name="actionIconView"/>
+       <addaction name="separator"/>
+       <addaction name="actionSetImage"/>
+       <addaction name="actionGetImageFromLastFM"/>
       </widget>
      </item>
      <item>
-      <widget class="QFrame" name="frame_2" >
-       <property name="frameShape" >
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
-       <property name="lineWidth" >
+       <property name="lineWidth">
         <number>0</number>
        </property>
-       <layout class="QHBoxLayout" >
-        <property name="spacing" >
+       <layout class="QHBoxLayout">
+        <property name="spacing">
          <number>0</number>
         </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="subsetLabel" >
-          <property name="text" >
+         <widget class="QLabel" name="subsetLabel">
+          <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="subsetDisableButton" >
-          <property name="acceptDrops" >
+         <widget class="QToolButton" name="subsetDisableButton">
+          <property name="acceptDrops">
            <bool>false</bool>
           </property>
-          <property name="toolTip" >
+          <property name="toolTip">
            <string>Reset filter</string>
           </property>
-          <property name="autoFillBackground" >
+          <property name="autoFillBackground">
            <bool>true</bool>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>...</string>
           </property>
-          <property name="icon" >
-           <iconset resource="resource.qrc" >:/icons/clear_filter.png</iconset>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/icons/clear_filter.png</normaloff>:/icons/clear_filter.png</iconset>
           </property>
-          <property name="iconSize" >
+          <property name="iconSize">
            <size>
             <width>24</width>
             <height>24</height>
            </size>
           </property>
-          <property name="autoRaise" >
+          <property name="autoRaise">
            <bool>true</bool>
           </property>
-          <property name="arrowType" >
+          <property name="arrowType">
            <enum>Qt::NoArrow</enum>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="filterLineEdit" >
-          <property name="toolTip" >
+         <widget class="QLineEdit" name="filterLineEdit">
+          <property name="toolTip">
            <string>Enter search substring</string>
           </property>
          </widget>
@@ -269,196 +236,169 @@
       </widget>
      </item>
      <item>
-      <widget class="CollectionView" name="colView" >
-       <property name="contextMenuPolicy" >
+      <widget class="CollectionView" name="colView">
+       <property name="contextMenuPolicy">
         <enum>Qt::ActionsContextMenu</enum>
        </property>
-       <property name="acceptDrops" >
+       <property name="acceptDrops">
         <bool>true</bool>
        </property>
-       <property name="toolTip" >
+       <property name="toolTip">
         <string>Drag'n'Drop files to the collection</string>
        </property>
-       <property name="dragEnabled" >
+       <property name="dragEnabled">
         <bool>true</bool>
        </property>
-       <property name="flow" >
+       <property name="flow">
         <enum>QListView::TopToBottom</enum>
        </property>
-       <property name="isWrapping" stdset="0" >
+       <property name="isWrapping" stdset="0">
         <bool>true</bool>
        </property>
-       <addaction name="actionAddToCollection" />
-       <addaction name="actionRemoveFromCollection" />
-       <addaction name="actionSetImage" />
-       <addaction name="actionGetImageFromLastFM" />
+       <addaction name="actionAddToCollection"/>
+       <addaction name="actionRemoveFromCollection"/>
+       <addaction name="actionSetImage"/>
+       <addaction name="actionGetImageFromLastFM"/>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget2" >
-   <property name="floating" >
+  <widget class="QDockWidget" name="dockWidget2">
+   <property name="floating">
     <bool>false</bool>
    </property>
-   <property name="features" >
+   <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
-   <property name="windowTitle" >
+   <property name="windowTitle">
     <string>Files</string>
    </property>
-   <attribute name="dockWidgetArea" >
+   <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents2" >
-    <layout class="QVBoxLayout" >
-     <property name="spacing" >
+   <widget class="QWidget" name="dockWidgetContents2">
+    <layout class="QVBoxLayout">
+     <property name="spacing">
       <number>2</number>
      </property>
-     <property name="leftMargin" >
-      <number>4</number>
-     </property>
-     <property name="topMargin" >
-      <number>4</number>
-     </property>
-     <property name="rightMargin" >
-      <number>4</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>4</number>
      </property>
      <item>
-      <widget class="QTreeView" name="treeView_2" >
-       <property name="contextMenuPolicy" >
+      <widget class="QTreeView" name="treeView_2">
+       <property name="contextMenuPolicy">
         <enum>Qt::ActionsContextMenu</enum>
        </property>
-       <property name="dragEnabled" >
+       <property name="dragEnabled">
         <bool>true</bool>
        </property>
-       <property name="dragDropMode" >
+       <property name="dragDropMode">
         <enum>QAbstractItemView::DragOnly</enum>
        </property>
-       <property name="selectionMode" >
+       <property name="selectionMode">
         <enum>QAbstractItemView::ExtendedSelection</enum>
        </property>
-       <property name="verticalScrollMode" >
+       <property name="verticalScrollMode">
         <enum>QAbstractItemView::ScrollPerItem</enum>
        </property>
-       <property name="autoExpandDelay" >
+       <property name="autoExpandDelay">
         <number>5</number>
        </property>
-       <property name="uniformRowHeights" >
+       <property name="uniformRowHeights">
         <bool>true</bool>
        </property>
-       <property name="sortingEnabled" >
+       <property name="sortingEnabled">
         <bool>true</bool>
        </property>
-       <property name="animated" >
+       <property name="animated">
         <bool>true</bool>
        </property>
-       <property name="headerHidden" stdset="0" >
+       <property name="headerHidden">
         <bool>true</bool>
        </property>
-       <addaction name="actionRefreshTree" />
+       <addaction name="actionRefreshTree"/>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget3" >
-   <property name="features" >
+  <widget class="QDockWidget" name="dockWidget3">
+   <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
-   <property name="windowTitle" >
+   <property name="windowTitle">
     <string>Library</string>
    </property>
-   <attribute name="dockWidgetArea" >
+   <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents3" >
-    <layout class="QVBoxLayout" >
-     <property name="spacing" >
+   <widget class="QWidget" name="dockWidgetContents3">
+    <layout class="QVBoxLayout">
+     <property name="spacing">
       <number>2</number>
      </property>
-     <property name="leftMargin" >
-      <number>4</number>
-     </property>
-     <property name="topMargin" >
-      <number>4</number>
-     </property>
-     <property name="rightMargin" >
-      <number>4</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>4</number>
      </property>
      <item>
-      <widget class="QToolBar" name="lib_toolbar" >
-       <addaction name="actionLibraryRegularPlaylist" />
-       <addaction name="actionLibrarySQLPlaylist" />
+      <widget class="QToolBar" name="lib_toolbar">
+       <addaction name="actionLibraryRegularPlaylist"/>
+       <addaction name="actionLibrarySQLPlaylist"/>
       </widget>
      </item>
      <item>
-      <widget class="LibraryView" name="libView" >
-       <property name="contextMenuPolicy" >
+      <widget class="LibraryView" name="libView">
+       <property name="contextMenuPolicy">
         <enum>Qt::ActionsContextMenu</enum>
        </property>
-       <property name="acceptDrops" >
+       <property name="acceptDrops">
         <bool>true</bool>
        </property>
-       <property name="toolTip" >
+       <property name="toolTip">
         <string>Drag'n'Drop playlists to the library</string>
        </property>
-       <property name="dragEnabled" >
+       <property name="dragEnabled">
         <bool>true</bool>
        </property>
-       <property name="flow" >
+       <property name="flow">
         <enum>QListView::TopToBottom</enum>
        </property>
-       <property name="isWrapping" stdset="0" >
+       <property name="isWrapping" stdset="0">
         <bool>true</bool>
        </property>
-       <addaction name="actionAddToLibrary" />
-       <addaction name="actionSQLListEdit" />
-       <addaction name="actionRemoveFromLibrary" />
-       <addaction name="actionLibrarySetImage" />
+       <addaction name="actionAddToLibrary"/>
+       <addaction name="actionSQLListEdit"/>
+       <addaction name="actionRemoveFromLibrary"/>
+       <addaction name="actionLibrarySetImage"/>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget4" >
-   <property name="windowTitle" >
+  <widget class="QDockWidget" name="dockWidget4">
+   <property name="windowTitle">
     <string>Information</string>
    </property>
-   <attribute name="dockWidgetArea" >
+   <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents4" >
-    <layout class="QVBoxLayout" >
-     <property name="spacing" >
+   <widget class="QWidget" name="dockWidgetContents4">
+    <layout class="QVBoxLayout">
+     <property name="spacing">
       <number>4</number>
      </property>
-     <property name="leftMargin" >
-      <number>4</number>
-     </property>
-     <property name="topMargin" >
-      <number>4</number>
-     </property>
-     <property name="rightMargin" >
-      <number>4</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>4</number>
      </property>
      <item>
-      <widget class="Info" native="1" name="infoWidget" />
+      <widget class="Info" name="infoWidget" native="true"/>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
@@ -466,105 +406,105 @@
      <height>21</height>
     </rect>
    </property>
-   <property name="defaultUp" >
+   <property name="defaultUp">
     <bool>false</bool>
    </property>
-   <widget class="QMenu" name="menuFile" >
-    <property name="tearOffEnabled" >
+   <widget class="QMenu" name="menuFile">
+    <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>File</string>
     </property>
-    <property name="separatorsCollapsible" >
+    <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <addaction name="actionOpenUrl" />
-    <addaction name="actionNewPlaylist" />
-    <addaction name="actionLoadPlaylist" />
-    <addaction name="actionSavePlaylist" />
-    <addaction name="actionClosePlaylist" />
-    <addaction name="actionSettings" />
-    <addaction name="separator" />
-    <addaction name="actionExit" />
+    <addaction name="actionOpenUrl"/>
+    <addaction name="actionNewPlaylist"/>
+    <addaction name="actionLoadPlaylist"/>
+    <addaction name="actionSavePlaylist"/>
+    <addaction name="actionClosePlaylist"/>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuHelp" >
-    <property name="tearOffEnabled" >
+   <widget class="QMenu" name="menuHelp">
+    <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>Help</string>
     </property>
-    <property name="separatorsCollapsible" >
+    <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <addaction name="actionAbout" />
-    <addaction name="actionAboutQt" />
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
    </widget>
-   <widget class="QMenu" name="menuControl" >
-    <property name="tearOffEnabled" >
+   <widget class="QMenu" name="menuControl">
+    <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>Control</string>
     </property>
-    <property name="separatorsCollapsible" >
+    <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <addaction name="actionPrev" />
-    <addaction name="actionPlay" />
-    <addaction name="actionPause" />
-    <addaction name="actionNext" />
-    <addaction name="separator" />
-    <addaction name="actionShuffle" />
-    <addaction name="actionRepeat" />
-    <addaction name="separator" />
-    <addaction name="actionClear_playlist" />
+    <addaction name="actionPrev"/>
+    <addaction name="actionPlay"/>
+    <addaction name="actionPause"/>
+    <addaction name="actionNext"/>
+    <addaction name="separator"/>
+    <addaction name="actionShuffle"/>
+    <addaction name="actionRepeat"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_playlist"/>
    </widget>
-   <widget class="QMenu" name="menuView" >
-    <property name="tearOffEnabled" >
+   <widget class="QMenu" name="menuView">
+    <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>View</string>
     </property>
-    <property name="separatorsCollapsible" >
+    <property name="separatorsCollapsible">
      <bool>true</bool>
     </property>
-    <widget class="QMenu" name="menuColumns" >
-     <property name="tearOffEnabled" >
+    <widget class="QMenu" name="menuColumns">
+     <property name="tearOffEnabled">
       <bool>true</bool>
      </property>
-     <property name="title" >
+     <property name="title">
       <string>Columns</string>
      </property>
-     <property name="separatorsCollapsible" >
+     <property name="separatorsCollapsible">
       <bool>true</bool>
      </property>
-     <addaction name="actionViewFile" />
-     <addaction name="actionViewTrack" />
-     <addaction name="actionViewTitle" />
-     <addaction name="actionViewArtist" />
-     <addaction name="actionViewAlbum" />
-     <addaction name="actionViewGenre" />
-     <addaction name="actionViewYear" />
-     <addaction name="actionViewComment" />
-     <addaction name="actionViewLength" />
-     <addaction name="actionViewRating" />
+     <addaction name="actionViewFile"/>
+     <addaction name="actionViewTrack"/>
+     <addaction name="actionViewTitle"/>
+     <addaction name="actionViewArtist"/>
+     <addaction name="actionViewAlbum"/>
+     <addaction name="actionViewGenre"/>
+     <addaction name="actionViewYear"/>
+     <addaction name="actionViewComment"/>
+     <addaction name="actionViewLength"/>
+     <addaction name="actionViewRating"/>
     </widget>
-    <addaction name="menuColumns" />
-    <addaction name="actionLookFeel" />
-    <addaction name="actionConsole" />
-    <addaction name="separator" />
+    <addaction name="menuColumns"/>
+    <addaction name="actionLookFeel"/>
+    <addaction name="actionConsole"/>
+    <addaction name="separator"/>
    </widget>
-   <addaction name="menuFile" />
-   <addaction name="menuView" />
-   <addaction name="menuControl" />
-   <addaction name="menuHelp" />
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuControl"/>
+   <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar" >
-   <widget class="QLabel" name="listStatus" >
-    <property name="geometry" >
+  <widget class="QStatusBar" name="statusbar">
+   <widget class="QLabel" name="listStatus">
+    <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
@@ -572,12 +512,12 @@
       <height>30</height>
      </rect>
     </property>
-    <property name="text" >
+    <property name="text">
      <string>List</string>
     </property>
    </widget>
-   <widget class="QLabel" name="collectionStatus" >
-    <property name="geometry" >
+   <widget class="QLabel" name="collectionStatus">
+    <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
@@ -585,627 +525,668 @@
       <height>30</height>
      </rect>
     </property>
-    <property name="text" >
+    <property name="text">
      <string>Collection</string>
     </property>
    </widget>
   </widget>
-  <widget class="QToolBar" name="toolBar" >
-   <property name="windowTitle" >
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
     <string>Toolbar</string>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionBreak" />
-   <addaction name="separator" />
-   <addaction name="actionPrev" />
-   <addaction name="actionPlay" />
-   <addaction name="actionPause" />
-   <addaction name="actionStop" />
-   <addaction name="actionNext" />
-   <addaction name="separator" />
-   <addaction name="actionShuffle" />
-   <addaction name="actionRepeat" />
-   <addaction name="separator" />
-   <addaction name="actionClear_playlist" />
-   <addaction name="actionEditTag" />
-   <addaction name="actionQTagConvert" />
-   <addaction name="separator" />
-   <addaction name="actionConsole" />
-   <addaction name="separator" />
+   <addaction name="actionBreak"/>
+   <addaction name="separator"/>
+   <addaction name="actionPrev"/>
+   <addaction name="actionPlay"/>
+   <addaction name="actionPause"/>
+   <addaction name="actionStop"/>
+   <addaction name="actionNext"/>
+   <addaction name="separator"/>
+   <addaction name="actionShuffle"/>
+   <addaction name="actionRepeat"/>
+   <addaction name="separator"/>
+   <addaction name="actionClear_playlist"/>
+   <addaction name="actionEditTag"/>
+   <addaction name="actionQTagConvert"/>
+   <addaction name="separator"/>
+   <addaction name="actionConsole"/>
+   <addaction name="separator"/>
   </widget>
-  <action name="actionAbout" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/application.png</iconset>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/application.png</normaloff>:/icons/application.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>About</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>About dialog</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Alt+F1</string>
    </property>
-   <property name="shortcutContext" >
+   <property name="shortcutContext">
     <enum>Qt::WindowShortcut</enum>
    </property>
-   <property name="menuRole" >
+   <property name="menuRole">
     <enum>QAction::AboutRole</enum>
    </property>
   </action>
-  <action name="actionBreak" >
-   <property name="checkable" >
+  <action name="actionBreak">
+   <property name="checkable">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/star.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/star.png</normaloff>:/icons/star.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Break</string>
    </property>
   </action>
-  <action name="actionPrev" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/butt_backward.png</iconset>
+  <action name="actionPrev">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/butt_backward.png</normaloff>:/icons/butt_backward.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Previous</string>
    </property>
-   <property name="iconText" >
+   <property name="iconText">
     <string>&lt;&lt;</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Previous track</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Previous track</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Alt+Shift+Z</string>
    </property>
-   <property name="shortcutContext" >
+   <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionNext" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/butt_forward.png</iconset>
+  <action name="actionNext">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/butt_forward.png</normaloff>:/icons/butt_forward.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Next</string>
    </property>
-   <property name="iconText" >
-    <string>>></string>
+   <property name="iconText">
+    <string>&gt;&gt;</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Next track</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Next track</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Alt+Shift+B</string>
    </property>
-   <property name="shortcutContext" >
+   <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionPause" >
-   <property name="checkable" >
+  <action name="actionPause">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/butt_pause.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/butt_pause.png</normaloff>:/icons/butt_pause.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Pause</string>
    </property>
-   <property name="iconText" >
+   <property name="iconText">
     <string>||</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Pause</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Pause</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Alt+Shift+C</string>
    </property>
-   <property name="shortcutContext" >
+   <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionPlay" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/butt_play.png</iconset>
+  <action name="actionPlay">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/butt_play.png</normaloff>:/icons/butt_play.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Play</string>
    </property>
-   <property name="iconText" >
-    <string>></string>
+   <property name="iconText">
+    <string>&gt;</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Play track</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Play track</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Alt+Shift+X</string>
    </property>
-   <property name="shortcutContext" >
+   <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionShuffle" >
-   <property name="checkable" >
+  <action name="actionShuffle">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/shuffle_mode.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/shuffle_mode.png</normaloff>:/icons/shuffle_mode.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Shuffle</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Shuffle mode</string>
    </property>
   </action>
-  <action name="actionRepeat" >
-   <property name="checkable" >
+  <action name="actionRepeat">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/repeat_mode.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/repeat_mode.png</normaloff>:/icons/repeat_mode.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Repeat</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Repeat mode</string>
    </property>
   </action>
-  <action name="actionExit" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/quit.png</iconset>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/quit.png</normaloff>:/icons/quit.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Exit</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Close the program</string>
    </property>
   </action>
-  <action name="actionClear_playlist" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/clearlist.png</iconset>
+  <action name="actionClear_playlist">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/clearlist.png</normaloff>:/icons/clearlist.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Clear playlist</string>
    </property>
-   <property name="iconText" >
+   <property name="iconText">
     <string>Clear</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Clear playlist</string>
    </property>
   </action>
-  <action name="actionQueueNext" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/next.png</iconset>
+  <action name="actionQueueNext">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/next.png</normaloff>:/icons/next.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Queue as Next</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+D</string>
    </property>
   </action>
-  <action name="actionViewFile" >
-   <property name="checkable" >
+  <action name="actionViewFile">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>File</string>
    </property>
   </action>
-  <action name="actionViewTrack" >
-   <property name="checkable" >
+  <action name="actionViewTrack">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Track</string>
    </property>
   </action>
-  <action name="actionViewTitle" >
-   <property name="checkable" >
+  <action name="actionViewTitle">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Title</string>
    </property>
   </action>
-  <action name="actionViewArtist" >
-   <property name="checkable" >
+  <action name="actionViewArtist">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Artist</string>
    </property>
   </action>
-  <action name="actionViewAlbum" >
-   <property name="checkable" >
+  <action name="actionViewAlbum">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Album</string>
    </property>
   </action>
-  <action name="actionViewGenre" >
-   <property name="checkable" >
+  <action name="actionViewGenre">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Genre</string>
    </property>
   </action>
-  <action name="actionViewYear" >
-   <property name="checkable" >
+  <action name="actionViewYear">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Year</string>
    </property>
   </action>
-  <action name="actionViewComment" >
-   <property name="checkable" >
+  <action name="actionViewComment">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Comment</string>
    </property>
   </action>
-  <action name="actionViewLength" >
-   <property name="checkable" >
+  <action name="actionViewLength">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Length</string>
    </property>
   </action>
-  <action name="actionEditTag" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/edittag.png</iconset>
+  <action name="actionEditTag">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/edittag.png</normaloff>:/icons/edittag.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Edit Tag</string>
    </property>
-   <property name="iconText" >
+   <property name="iconText">
     <string>Tag</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Edit Tag</string>
    </property>
   </action>
-  <action name="actionNewPlaylist" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/newtab.png</iconset>
+  <action name="actionNewPlaylist">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/newtab.png</normaloff>:/icons/newtab.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>New playlist</string>
    </property>
   </action>
-  <action name="actionClosePlaylist" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/deltab.png</iconset>
+  <action name="actionClosePlaylist">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/deltab.png</normaloff>:/icons/deltab.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Close playlist</string>
    </property>
   </action>
-  <action name="actionRemoveSong" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
+  <action name="actionRemoveSong">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Remove song</string>
    </property>
   </action>
-  <action name="actionLookFeel" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/looknfeel.png</iconset>
+  <action name="actionLookFeel">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/looknfeel.png</normaloff>:/icons/looknfeel.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Look and Feel</string>
    </property>
   </action>
-  <action name="actionArtistMode" >
-   <property name="checkable" >
+  <action name="actionArtistMode">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/def_artist.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_artist.png</normaloff>:/icons/def_artist.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Artist</string>
    </property>
   </action>
-  <action name="actionAlbumMode" >
-   <property name="checkable" >
+  <action name="actionAlbumMode">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/def_album.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_album.png</normaloff>:/icons/def_album.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Album</string>
    </property>
   </action>
-  <action name="actionGenreMode" >
-   <property name="checkable" >
+  <action name="actionGenreMode">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/def_genre.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_genre.png</normaloff>:/icons/def_genre.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Genre</string>
    </property>
   </action>
-  <action name="actionSongMode" >
-   <property name="checkable" >
+  <action name="actionSongMode">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/def_song.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_song.png</normaloff>:/icons/def_song.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Song</string>
    </property>
   </action>
-  <action name="actionAddToCollection" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_add.png</iconset>
+  <action name="actionAddToCollection">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Add Item</string>
    </property>
   </action>
-  <action name="actionAddToLibrary" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_add.png</iconset>
+  <action name="actionAddToLibrary">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Add Item</string>
    </property>
   </action>
-  <action name="actionRemoveFromCollection" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
+  <action name="actionRemoveFromCollection">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Remove Item</string>
    </property>
   </action>
-  <action name="actionRemoveFromLibrary" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_rem.png</iconset>
+  <action name="actionRemoveFromLibrary">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Remove Item</string>
    </property>
   </action>
-  <action name="actionStop" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/butt_stop.png</iconset>
+  <action name="actionStop">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/butt_stop.png</normaloff>:/icons/butt_stop.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Stop</string>
    </property>
-   <property name="iconText" >
+   <property name="iconText">
     <string>[]</string>
    </property>
-   <property name="statusTip" >
+   <property name="statusTip">
     <string>Stop</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Alt+Shift+V</string>
    </property>
-   <property name="shortcutContext" >
+   <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionSavePlaylist" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/save.png</iconset>
+  <action name="actionSavePlaylist">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Save playlist</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Save playlist into file</string>
    </property>
   </action>
-  <action name="actionLoadPlaylist" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/open.png</iconset>
+  <action name="actionLoadPlaylist">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Open playlist</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Load playlist from a file</string>
    </property>
   </action>
-  <action name="actionAboutQt" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/qt.png</iconset>
+  <action name="actionAboutQt">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/qt.png</normaloff>:/icons/qt.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>About Qt</string>
    </property>
   </action>
-  <action name="actionReloadTags" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/reload.png</iconset>
+  <action name="actionReloadTags">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Reload tags</string>
    </property>
   </action>
-  <action name="actionViewRating" >
-   <property name="checkable" >
+  <action name="actionViewRating">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>false</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Rating</string>
    </property>
   </action>
-  <action name="actionSettings" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/settings.png</iconset>
+  <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Preferences</string>
    </property>
   </action>
-  <action name="actionSetImage" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
+  <action name="actionSetImage">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Set Image</string>
    </property>
   </action>
-  <action name="actionLibrarySetImage" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/col_art.png</iconset>
+  <action name="actionLibrarySetImage">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Set Image</string>
    </property>
   </action>
-  <action name="actionIconView" >
-   <property name="checkable" >
+  <action name="actionIconView">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/iconview.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/iconview.png</normaloff>:/icons/iconview.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Icon View</string>
    </property>
   </action>
-  <action name="actionOpenUrl" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/open.png</iconset>
+  <action name="actionOpenUrl">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Open Url</string>
    </property>
   </action>
-  <action name="actionGetImageFromLastFM" >
-   <property name="enabled" >
+  <action name="actionGetImageFromLastFM">
+   <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/download_art.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/download_art.png</normaloff>:/icons/download_art.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Load image from Last.FM</string>
    </property>
   </action>
-  <action name="actionConsole" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/console.png</iconset>
+  <action name="actionConsole">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/console.png</normaloff>:/icons/console.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Messages</string>
    </property>
   </action>
-  <action name="actionLibrarySQLPlaylist" >
-   <property name="checkable" >
+  <action name="actionLibrarySQLPlaylist">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/sql.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/sql.png</normaloff>:/icons/sql.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>View SQL Playlists</string>
    </property>
   </action>
-  <action name="actionLibraryRegularPlaylist" >
-   <property name="checkable" >
+  <action name="actionLibraryRegularPlaylist">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/def_list.png</iconset>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_list.png</normaloff>:/icons/def_list.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>View Regular Playlists</string>
    </property>
   </action>
-  <action name="actionSQLListEdit" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/edittag.png</iconset>
+  <action name="actionSQLListEdit">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/edittag.png</normaloff>:/icons/edittag.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Edit SQL Playist</string>
    </property>
   </action>
-  <action name="actionQTagConvert" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/qtagconvert.png</iconset>
+  <action name="actionQTagConvert">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/qtagconvert.png</normaloff>:/icons/qtagconvert.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>QTagConvert</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Edit tags with QTagConvert</string>
    </property>
   </action>
-  <action name="actionRefreshTree" >
-   <property name="icon" >
-    <iconset resource="resource.qrc" >:/icons/reload.png</iconset>
+  <action name="actionRefreshTree">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Refresh Tree</string>
    </property>
   </action>
@@ -1238,7 +1219,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="resource.qrc" />
+  <include location="resource.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -1247,11 +1228,11 @@
    <receiver>CuberokClass</receiver>
    <slot>aboutMenu()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>396</x>
      <y>315</y>
     </hint>
@@ -1263,11 +1244,11 @@
    <receiver>listView</receiver>
    <slot>prev()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>317</y>
     </hint>
@@ -1279,11 +1260,11 @@
    <receiver>listView</receiver>
    <slot>next()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>317</y>
     </hint>
@@ -1295,11 +1276,11 @@
    <receiver>listView</receiver>
    <slot>pause(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>317</y>
     </hint>
@@ -1311,11 +1292,11 @@
    <receiver>listView</receiver>
    <slot>play()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>317</y>
     </hint>
@@ -1327,11 +1308,11 @@
    <receiver>listView</receiver>
    <slot>shuffle(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>259</y>
     </hint>
@@ -1343,11 +1324,11 @@
    <receiver>listView</receiver>
    <slot>repeat(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>259</y>
     </hint>
@@ -1359,11 +1340,11 @@
    <receiver>CuberokClass</receiver>
    <slot>message(QString,QString,QString)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>376</x>
      <y>209</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>246</x>
      <y>301</y>
     </hint>
@@ -1375,11 +1356,11 @@
    <receiver>CuberokClass</receiver>
    <slot>reallyClose()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>246</x>
      <y>190</y>
     </hint>
@@ -1391,11 +1372,11 @@
    <receiver>listView</receiver>
    <slot>clear()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1407,11 +1388,11 @@
    <receiver>listView</receiver>
    <slot>queueNext()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1423,11 +1404,11 @@
    <receiver>listView</receiver>
    <slot>viewAlbum(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1439,11 +1420,11 @@
    <receiver>listView</receiver>
    <slot>viewArtist(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1455,11 +1436,11 @@
    <receiver>listView</receiver>
    <slot>viewComment(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1471,11 +1452,11 @@
    <receiver>listView</receiver>
    <slot>viewFile(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1487,11 +1468,11 @@
    <receiver>listView</receiver>
    <slot>viewGenre(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1503,11 +1484,11 @@
    <receiver>listView</receiver>
    <slot>viewTitle(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1519,11 +1500,11 @@
    <receiver>listView</receiver>
    <slot>viewTrack(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1535,11 +1516,11 @@
    <receiver>listView</receiver>
    <slot>viewYear(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1551,11 +1532,11 @@
    <receiver>listView</receiver>
    <slot>viewLength(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1567,11 +1548,11 @@
    <receiver>listView</receiver>
    <slot>editTag()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1583,11 +1564,11 @@
    <receiver>listView</receiver>
    <slot>addList()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1599,11 +1580,11 @@
    <receiver>listView</receiver>
    <slot>delList()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>215</y>
     </hint>
@@ -1615,11 +1596,11 @@
    <receiver>listView</receiver>
    <slot>removeSong()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>380</y>
     </hint>
@@ -1631,11 +1612,11 @@
    <receiver>CuberokClass</receiver>
    <slot>lookAndFeel()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>544</x>
      <y>454</y>
     </hint>
@@ -1647,11 +1628,11 @@
    <receiver>progressBar</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>376</x>
      <y>380</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>357</x>
      <y>495</y>
     </hint>
@@ -1663,11 +1644,11 @@
    <receiver>colView</receiver>
    <slot>artistMode()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>268</x>
      <y>219</y>
     </hint>
@@ -1679,11 +1660,11 @@
    <receiver>colView</receiver>
    <slot>albumMode()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>268</x>
      <y>219</y>
     </hint>
@@ -1695,11 +1676,11 @@
    <receiver>colView</receiver>
    <slot>genreMode()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>268</x>
      <y>219</y>
     </hint>
@@ -1711,11 +1692,11 @@
    <receiver>colView</receiver>
    <slot>songMode()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>208</x>
      <y>219</y>
     </hint>
@@ -1727,11 +1708,11 @@
    <receiver>colView</receiver>
    <slot>addItem()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>140</x>
      <y>216</y>
     </hint>
@@ -1743,11 +1724,11 @@
    <receiver>colView</receiver>
    <slot>removeItem()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>140</x>
      <y>216</y>
     </hint>
@@ -1759,11 +1740,11 @@
    <receiver>collectionStatus</receiver>
    <slot>setText(QString)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>140</x>
      <y>214</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>49</x>
      <y>535</y>
     </hint>
@@ -1775,11 +1756,11 @@
    <receiver>collectionStatus</receiver>
    <slot>setText(QString)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>140</x>
      <y>214</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>49</x>
      <y>535</y>
     </hint>
@@ -1791,11 +1772,11 @@
    <receiver>listStatus</receiver>
    <slot>setText(QString)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>376</x>
      <y>236</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>49</x>
      <y>535</y>
     </hint>
@@ -1807,11 +1788,11 @@
    <receiver>colView</receiver>
    <slot>filter(QString)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>217</x>
      <y>128</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>140</x>
      <y>212</y>
     </hint>
@@ -1823,11 +1804,11 @@
    <receiver>subsetLabel</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>136</x>
      <y>138</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>35</x>
      <y>116</y>
     </hint>
@@ -1839,11 +1820,11 @@
    <receiver>subsetDisableButton</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>136</x>
      <y>138</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>74</x>
      <y>116</y>
     </hint>
@@ -1855,11 +1836,11 @@
    <receiver>colView</receiver>
    <slot>clearSubset()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>74</x>
      <y>116</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>136</x>
      <y>138</y>
     </hint>
@@ -1871,11 +1852,11 @@
    <receiver>subsetLabel</receiver>
    <slot>setText(QString)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>131</x>
      <y>173</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>39</x>
      <y>128</y>
     </hint>
@@ -1887,11 +1868,11 @@
    <receiver>listView</receiver>
    <slot>stop()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>185</y>
     </hint>
@@ -1903,11 +1884,11 @@
    <receiver>listView</receiver>
    <slot>loadList()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>185</y>
     </hint>
@@ -1919,11 +1900,11 @@
    <receiver>listView</receiver>
    <slot>saveList()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>185</y>
     </hint>
@@ -1935,11 +1916,11 @@
    <receiver>CuberokClass</receiver>
    <slot>aboutQtMenu()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>295</x>
      <y>136</y>
     </hint>
@@ -1951,11 +1932,11 @@
    <receiver>listView</receiver>
    <slot>reloadTags()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>185</y>
     </hint>
@@ -1967,11 +1948,11 @@
    <receiver>listView</receiver>
    <slot>viewRating(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>185</y>
     </hint>
@@ -1983,11 +1964,11 @@
    <receiver>CuberokClass</receiver>
    <slot>settings()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>295</x>
      <y>145</y>
     </hint>
@@ -1999,11 +1980,11 @@
    <receiver>colView</receiver>
    <slot>setImage()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>136</x>
      <y>146</y>
     </hint>
@@ -2015,11 +1996,11 @@
    <receiver>colView</receiver>
    <slot>iconView(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>149</x>
      <y>151</y>
     </hint>
@@ -2031,11 +2012,11 @@
    <receiver>listView</receiver>
    <slot>openUrl()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>376</x>
      <y>207</y>
     </hint>
@@ -2047,11 +2028,11 @@
    <receiver>libView</receiver>
    <slot>addItem()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>532</x>
      <y>501</y>
     </hint>
@@ -2063,11 +2044,11 @@
    <receiver>libView</receiver>
    <slot>removeItem()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>532</x>
      <y>501</y>
     </hint>
@@ -2079,11 +2060,11 @@
    <receiver>libView</receiver>
    <slot>setImage()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>532</x>
      <y>501</y>
     </hint>
@@ -2095,11 +2076,11 @@
    <receiver>colView</receiver>
    <slot>loadImage()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>141</x>
      <y>156</y>
     </hint>
@@ -2111,11 +2092,11 @@
    <receiver>CuberokClass</receiver>
    <slot>viewConsole()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>304</x>
      <y>188</y>
     </hint>
@@ -2127,11 +2108,11 @@
    <receiver>listView</receiver>
    <slot>rateBan()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>171</x>
      <y>487</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>409</x>
      <y>262</y>
     </hint>
@@ -2143,11 +2124,11 @@
    <receiver>listView</receiver>
    <slot>rateLove()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>171</x>
      <y>487</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>409</x>
      <y>262</y>
     </hint>
@@ -2159,11 +2140,11 @@
    <receiver>listView</receiver>
    <slot>rateDown()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>171</x>
      <y>487</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>409</x>
      <y>262</y>
     </hint>
@@ -2175,11 +2156,11 @@
    <receiver>listView</receiver>
    <slot>rateUp()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>171</x>
      <y>487</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>409</x>
      <y>262</y>
     </hint>
@@ -2191,11 +2172,11 @@
    <receiver>libView</receiver>
    <slot>regularPlaylist(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>518</x>
      <y>414</y>
     </hint>
@@ -2207,11 +2188,11 @@
    <receiver>libView</receiver>
    <slot>sqlPlaylist(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>518</x>
      <y>414</y>
     </hint>
@@ -2223,11 +2204,11 @@
    <receiver>libView</receiver>
    <slot>sqlListEdit()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>518</x>
      <y>414</y>
     </hint>
@@ -2239,11 +2220,11 @@
    <receiver>CuberokClass</receiver>
    <slot>qTagConvert()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>325</x>
      <y>262</y>
     </hint>
@@ -2255,11 +2236,11 @@
    <receiver>CuberokClass</receiver>
    <slot>refreshTree()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>325</x>
      <y>262</y>
     </hint>

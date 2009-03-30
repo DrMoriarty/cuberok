@@ -35,13 +35,13 @@ Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted
 	
 	connect(http, SIGNAL(requestFinished(int, bool)),
 			this, SLOT(httpRequestFinished(int, bool)));
-	connect(http, SIGNAL(dataReadProgress(int, int)), this, SIGNAL(process(int, int)));
+	connect(http, SIGNAL(dataReadProgress(int, int)), this, SIGNAL(progress(int, int)));
 	connect(http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader &)),
 			this, SLOT(readResponseHeader(const QHttpResponseHeader &)));
 	connect(http, SIGNAL(authenticationRequired(const QString &, quint16, QAuthenticator *)),
 			this, SLOT(slotAuthenticationRequired(const QString &, quint16, QAuthenticator *)));
 	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelDownload()));
-	connect(http, SIGNAL(dataReadProgress(int, int)), &Indicator::Self(), SIGNAL(update()));
+	connect(http, SIGNAL(dataReadProgress(int, int)), &Indicator::Self(), SLOT(update()));
 }
 
 Downloader::~Downloader()

@@ -38,7 +38,7 @@ PlayerPhonon::PlayerPhonon() : repeat_mode(0), shuffle_mode(0)
 	connect(metaInformationResolver, SIGNAL(stateChanged(Phonon::State,Phonon::State)), this, SLOT(metaStateChanged(Phonon::State, Phonon::State)));
 	connect(mediaObject, SIGNAL(currentSourceChanged(const Phonon::MediaSource &)), this, SLOT(sourceChanged(const Phonon::MediaSource &)));
 	connect(mediaObject, SIGNAL(aboutToFinish()), this, SLOT(aboutToFinish()));
-	connect(mediaObject, SIGNAL(finish()), this, SLOT(sourceFinished()));
+	connect(mediaObject, SIGNAL(finished()), this, SLOT(sourceFinished()));
 	
 	Phonon::createPath(mediaObject, audioOutput);
 }
@@ -226,8 +226,8 @@ void PlayerPhonon::metaStateChanged(Phonon::State newState, Phonon::State /* old
 
 void PlayerPhonon::aboutToFinish()
 {
-	mediaObject->stop();
-    emit finish();
+	//mediaObject->stop();
+    //emit finish();
 }
 
 void PlayerPhonon::sourceFinished()

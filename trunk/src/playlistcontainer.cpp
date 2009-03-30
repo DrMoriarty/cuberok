@@ -177,7 +177,10 @@ void PlaylistContainer::delList()
 		} else {
 			curlist = 0;
 		}
-		if(!lists.size()) closeButton->setDisabled(true);
+		if(!lists.size()) {
+			//closeButton->setDisabled(true);
+			addList();
+		}
 	}
 }
 void PlaylistContainer::renameList()
