@@ -1,7 +1,6 @@
 [Desktop Entry]
+Version=1.0
 Type=Application
-Version=0.0.5
-Encoding=UTF-8
 Name=Cuberok
 Name[ru]=Cuberok
 GenericName=Audio Player
@@ -69,4 +68,4 @@ Icon=cuberok
 #MimeType=audio/aac;audio/mp4;audio/mpeg;audio/mpegurl;audio/vnd.rn-realaudio;audio/vorbis;audio/x-flac;audio/x-mp3;audio/x-mpegurl;audio/x-ms-wma;audio/x-musepack;audio/x-oggflac;audio/x-pn-realaudio;audio/x-scpls;audio/x-speex;audio/x-vorbis;audio/x-wav;video/x-ms-asf;audio/flac;audio/ogg;
 #DocPath=amarok/index.html
 Terminal=false
-Categories=AudioVideo;
+Categories=AudioVideo;Player
