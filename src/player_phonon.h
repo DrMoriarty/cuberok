@@ -60,6 +60,7 @@ class PlayerPhonon : public Player
 
  private:
 	qint64 Pstart, Plength;
+	QMap<QString, QString> mimeTypes;
 	
 	Phonon::AudioOutput *audioOutput;
 	Phonon::MediaObject *mediaObject;
