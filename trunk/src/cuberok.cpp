@@ -316,13 +316,13 @@ void Cuberok::qTagConvert()
 #endif
 }
 
+#ifdef QTAGCONVERT
 void Cuberok::qtagClosed(QObject*)
 {
-#ifdef QTAGCONVERT
 	//delete qtag;
 	qtag = 0;
-#endif
 }
+#endif
 
 void Cuberok::refreshTree()
 {
