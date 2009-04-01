@@ -14,7 +14,8 @@ win32 {
 
 unix {
     DESTDIR = ../../unix/styles
-    target.path = /lib/cuberok
+#    target.path = /lib/cuberok
+    include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
 

@@ -41,6 +41,30 @@ PlayerPhonon::PlayerPhonon() : repeat_mode(0), shuffle_mode(0)
 	connect(mediaObject, SIGNAL(finished()), this, SLOT(sourceFinished()));
 	
 	Phonon::createPath(mediaObject, audioOutput);
+
+	mimeTypes["ogg"] = "application/ogg";
+	mimeTypes["ogm"] = "application/ogg";
+	mimeTypes["tsi"] = "audio/TSP-audio";
+	mimeTypes["au"] = "audio/basic";
+	mimeTypes["snd"] = "audio/basic";
+	mimeTypes["kar"] = "audio/midi";
+	mimeTypes["mid"] = "audio/midi";
+	mimeTypes["midi"] = "audio/midi";
+	mimeTypes["mp2"] = "audio/mpeg";
+	mimeTypes["mp3"] = "audio/mpeg";
+	mimeTypes["mpga"] = "audio/mpeg";
+	mimeTypes["au"] = "audio/ulaw";
+	mimeTypes["aif"] = "audio/x-aiff";
+	mimeTypes["aifc"] = "audio/x-aiff";
+	mimeTypes["aiff"] = "audio/x-aiff";
+	mimeTypes["m3u"] = "audio/x-mpegurl";
+	mimeTypes["wax"] = "audio/x-ms-wax";
+	mimeTypes["wma"] = "audio/x-ms-wma";
+	mimeTypes["rpm"] = "audio/x-pn-realaudio-plugin";
+	mimeTypes["ram"] = "audio/x-pn-realaudio";
+	mimeTypes["rm"] = "audio/x-pn-realaudio";
+	mimeTypes["ra"] = "audio/x-realaudio";
+	mimeTypes["wav"] = "audio/x-wav";
 }
 
 PlayerPhonon::~PlayerPhonon()
@@ -69,7 +93,22 @@ bool PlayerPhonon::open(QUrl fname, long start, long length)
 	source = Phonon::MediaSource(fname);
 	metaInformationResolver->setCurrentSource(source);
 	mediaObject->setCurrentSource(source);
-	
+
+	if(fname.toLocalFile().size()) {
+		QString mimetype = mimeTypes[QFileInfo(fname.toLocalFile()).suffix().toLower()];
+		if(!Phonon::BackendCapabilities::isMimeTypeAvailable(mimetype)) {
+			QString message = "This mime type is not supported by phonon: " + mimetype;
+#ifndef WIN32
+			if(mimetype == "audio/mpeg") {
+				message += "\nAre you forget to install phonon-backend-xine or libxine1-ffmpeg?";
+			} else {
+				message += "\nAre you forget to install proper phonon backend?";
+			}
+#endif
+			QMessageBox::information(0, "Error", message);
+		}
+	}
+		
 	Pstart = start;
 	Pstart *= 1000;
 	Pstart /= 75;
