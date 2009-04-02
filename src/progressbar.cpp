@@ -21,6 +21,7 @@
 
 ProgressBar::ProgressBar ( QWidget * parent ) : QProgressBar(parent) 
 {
+	connect(this, SIGNAL(valueChanged(int)), this, SLOT(updateFormat()));
 }
 
 void ProgressBar::mousePressEvent ( QMouseEvent * event ) 
@@ -28,3 +29,23 @@ void ProgressBar::mousePressEvent ( QMouseEvent * event )
     emit userevent((double)event->x()/width());
 }
 
+void ProgressBar::setDuration (long duration)
+{
+	_duration = duration;
+}
+
+void ProgressBar::setFormatText(QString s)
+{
+	_text = s;
+}
+
+void ProgressBar::updateFormat()
+{
+	QString format;
+	QTime t1, t2;
+	t1 = t1.addSecs((float)_duration * (value() - minimum()) / (maximum() - minimum()));
+	t2 = t2.addSecs(_duration);
+	format = _text + " " + t1.toString() + "/" + t2.toString();
+	setFormat(format);
+	setToolTip(format);
+}

@@ -29,11 +29,21 @@ class ProgressBar : public QProgressBar
      
  public:
     ProgressBar ( QWidget * parent = 0 );
+	// set duration of song in seconds
+	void setDuration(long);
+	// constant part of text
+	void setFormatText(QString);
 
  protected:
+	long _duration;
+	QString _text;
     virtual void mousePressEvent ( QMouseEvent * event );
+
  signals:
     void userevent(double);
+
+ public slots:
+	void updateFormat();
 };
 
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Mon 30. Mar 14:28:53 2009
+** Created: Thu 2. Apr 15:58:21 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -92,20 +92,18 @@ public:
     QAction *actionSQLListEdit;
     QAction *actionQTagConvert;
     QAction *actionRefreshTree;
+    QAction *actionMute;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
-    QFrame *frame;
-    QHBoxLayout *hboxLayout;
     ProgressBar *progressBar;
-    QLabel *label;
     QSlider *volumeSlider;
     QDockWidget *dockWidget1;
     QWidget *dockWidgetContents1;
     QVBoxLayout *vboxLayout1;
     QToolBar *col_toolbar;
     QFrame *frame_2;
-    QHBoxLayout *hboxLayout1;
+    QHBoxLayout *hboxLayout;
     QLabel *subsetLabel;
     QToolButton *subsetDisableButton;
     QLineEdit *filterLineEdit;
@@ -133,6 +131,8 @@ public:
     QLabel *listStatus;
     QLabel *collectionStatus;
     QToolBar *toolBar;
+    QToolBar *toolBar_2;
+    QToolBar *toolBar_3;
 
     void setupUi(QMainWindow *CuberokClass)
     {
@@ -392,6 +392,12 @@ public:
         actionRefreshTree = new QAction(CuberokClass);
         actionRefreshTree->setObjectName(QString::fromUtf8("actionRefreshTree"));
         actionRefreshTree->setIcon(icon25);
+        actionMute = new QAction(CuberokClass);
+        actionMute->setObjectName(QString::fromUtf8("actionMute"));
+        actionMute->setCheckable(true);
+        QIcon icon34;
+        icon34.addPixmap(QPixmap(QString::fromUtf8(":/icons/volume.png")), QIcon::Normal, QIcon::Off);
+        actionMute->setIcon(icon34);
         centralwidget = new QWidget(CuberokClass);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         vboxLayout = new QVBoxLayout(centralwidget);
@@ -413,54 +419,25 @@ public:
 
         vboxLayout->addWidget(listView);
 
-        frame = new QFrame(centralwidget);
-        frame->setObjectName(QString::fromUtf8("frame"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(frame->sizePolicy().hasHeightForWidth());
-        frame->setSizePolicy(sizePolicy1);
-        frame->setFrameShape(QFrame::StyledPanel);
-        frame->setFrameShadow(QFrame::Raised);
-        hboxLayout = new QHBoxLayout(frame);
-        hboxLayout->setSpacing(2);
-        hboxLayout->setMargin(4);
-        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
-        progressBar = new ProgressBar(frame);
+        progressBar = new ProgressBar(centralwidget);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
         progressBar->setMaximum(1000);
         progressBar->setValue(0);
         progressBar->setAlignment(Qt::AlignCenter);
 
-        hboxLayout->addWidget(progressBar);
+        vboxLayout->addWidget(progressBar);
 
-        label = new QLabel(frame);
-        label->setObjectName(QString::fromUtf8("label"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
-        label->setSizePolicy(sizePolicy2);
-        label->setMaximumSize(QSize(24, 24));
-        label->setPixmap(QPixmap(QString::fromUtf8(":/icons/volume.png")));
-        label->setScaledContents(true);
-
-        hboxLayout->addWidget(label);
-
-        volumeSlider = new QSlider(frame);
+        volumeSlider = new QSlider(centralwidget);
         volumeSlider->setObjectName(QString::fromUtf8("volumeSlider"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(volumeSlider->sizePolicy().hasHeightForWidth());
-        volumeSlider->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(volumeSlider->sizePolicy().hasHeightForWidth());
+        volumeSlider->setSizePolicy(sizePolicy1);
         volumeSlider->setMaximum(200);
         volumeSlider->setOrientation(Qt::Horizontal);
 
-        hboxLayout->addWidget(volumeSlider);
-
-
-        vboxLayout->addWidget(frame);
+        vboxLayout->addWidget(volumeSlider);
 
         CuberokClass->setCentralWidget(centralwidget);
         dockWidget1 = new QDockWidget(CuberokClass);
@@ -481,32 +458,32 @@ public:
         frame_2->setObjectName(QString::fromUtf8("frame_2"));
         frame_2->setFrameShape(QFrame::NoFrame);
         frame_2->setLineWidth(0);
-        hboxLayout1 = new QHBoxLayout(frame_2);
-        hboxLayout1->setSpacing(0);
-        hboxLayout1->setMargin(0);
-        hboxLayout1->setObjectName(QString::fromUtf8("hboxLayout1"));
+        hboxLayout = new QHBoxLayout(frame_2);
+        hboxLayout->setSpacing(0);
+        hboxLayout->setMargin(0);
+        hboxLayout->setObjectName(QString::fromUtf8("hboxLayout"));
         subsetLabel = new QLabel(frame_2);
         subsetLabel->setObjectName(QString::fromUtf8("subsetLabel"));
 
-        hboxLayout1->addWidget(subsetLabel);
+        hboxLayout->addWidget(subsetLabel);
 
         subsetDisableButton = new QToolButton(frame_2);
         subsetDisableButton->setObjectName(QString::fromUtf8("subsetDisableButton"));
         subsetDisableButton->setAcceptDrops(false);
         subsetDisableButton->setAutoFillBackground(true);
-        QIcon icon34;
-        icon34.addPixmap(QPixmap(QString::fromUtf8(":/icons/clear_filter.png")), QIcon::Normal, QIcon::Off);
-        subsetDisableButton->setIcon(icon34);
+        QIcon icon35;
+        icon35.addPixmap(QPixmap(QString::fromUtf8(":/icons/clear_filter.png")), QIcon::Normal, QIcon::Off);
+        subsetDisableButton->setIcon(icon35);
         subsetDisableButton->setIconSize(QSize(24, 24));
         subsetDisableButton->setAutoRaise(true);
         subsetDisableButton->setArrowType(Qt::NoArrow);
 
-        hboxLayout1->addWidget(subsetDisableButton);
+        hboxLayout->addWidget(subsetDisableButton);
 
         filterLineEdit = new QLineEdit(frame_2);
         filterLineEdit->setObjectName(QString::fromUtf8("filterLineEdit"));
 
-        hboxLayout1->addWidget(filterLineEdit);
+        hboxLayout->addWidget(filterLineEdit);
 
 
         vboxLayout1->addWidget(frame_2);
@@ -628,6 +605,13 @@ public:
         toolBar = new QToolBar(CuberokClass);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         CuberokClass->addToolBar(Qt::TopToolBarArea, toolBar);
+        CuberokClass->insertToolBarBreak(toolBar);
+        toolBar_2 = new QToolBar(CuberokClass);
+        toolBar_2->setObjectName(QString::fromUtf8("toolBar_2"));
+        CuberokClass->addToolBar(Qt::TopToolBarArea, toolBar_2);
+        toolBar_3 = new QToolBar(CuberokClass);
+        toolBar_3->setObjectName(QString::fromUtf8("toolBar_3"));
+        CuberokClass->addToolBar(Qt::BottomToolBarArea, toolBar_3);
 
         listView->addAction(actionQueueNext);
         listView->addAction(actionEditTag);
@@ -690,23 +674,21 @@ public:
         menuColumns->addAction(actionViewComment);
         menuColumns->addAction(actionViewLength);
         menuColumns->addAction(actionViewRating);
-        toolBar->addAction(actionBreak);
-        toolBar->addSeparator();
         toolBar->addAction(actionPrev);
         toolBar->addAction(actionPlay);
         toolBar->addAction(actionPause);
         toolBar->addAction(actionStop);
         toolBar->addAction(actionNext);
-        toolBar->addSeparator();
-        toolBar->addAction(actionShuffle);
-        toolBar->addAction(actionRepeat);
-        toolBar->addSeparator();
-        toolBar->addAction(actionClear_playlist);
-        toolBar->addAction(actionEditTag);
-        toolBar->addAction(actionQTagConvert);
-        toolBar->addSeparator();
-        toolBar->addAction(actionConsole);
-        toolBar->addSeparator();
+        toolBar_2->addAction(actionBreak);
+        toolBar_2->addSeparator();
+        toolBar_2->addAction(actionShuffle);
+        toolBar_2->addAction(actionRepeat);
+        toolBar_2->addAction(actionClear_playlist);
+        toolBar_2->addAction(actionEditTag);
+        toolBar_2->addAction(actionQTagConvert);
+        toolBar_2->addSeparator();
+        toolBar_2->addAction(actionConsole);
+        toolBar_2->addSeparator();
 
         retranslateUi(CuberokClass);
         QObject::connect(actionAbout, SIGNAL(triggered()), CuberokClass, SLOT(aboutMenu()));
@@ -773,6 +755,7 @@ public:
         QObject::connect(actionSQLListEdit, SIGNAL(triggered()), libView, SLOT(sqlListEdit()));
         QObject::connect(actionQTagConvert, SIGNAL(triggered()), CuberokClass, SLOT(qTagConvert()));
         QObject::connect(actionRefreshTree, SIGNAL(triggered()), CuberokClass, SLOT(refreshTree()));
+        QObject::connect(actionMute, SIGNAL(toggled(bool)), listView, SLOT(mute(bool)));
 
         QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -899,7 +882,10 @@ public:
         actionQTagConvert->setToolTip(QApplication::translate("CuberokClass", "Edit tags with QTagConvert", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionRefreshTree->setText(QApplication::translate("CuberokClass", "Refresh Tree", 0, QApplication::UnicodeUTF8));
-        label->setText(QString());
+        actionMute->setText(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionMute->setToolTip(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
         dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
         subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
@@ -926,6 +912,8 @@ public:
         listStatus->setText(QApplication::translate("CuberokClass", "List", 0, QApplication::UnicodeUTF8));
         collectionStatus->setText(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
         toolBar->setWindowTitle(QApplication::translate("CuberokClass", "Toolbar", 0, QApplication::UnicodeUTF8));
+        toolBar_2->setWindowTitle(QApplication::translate("CuberokClass", "toolBar_2", 0, QApplication::UnicodeUTF8));
+        toolBar_3->setWindowTitle(QApplication::translate("CuberokClass", "toolBar_3", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
