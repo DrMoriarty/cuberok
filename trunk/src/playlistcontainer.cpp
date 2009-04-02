@@ -33,7 +33,7 @@
 
 PlaylistContainer::PlaylistContainer(QWidget *parent) 
  : QWidget(parent), curlist(0), actlist(0), counter(0),
- alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true)
+   alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true), _volume(0), _mute(false)
 {
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setContentsMargins(0,0,0,0);
@@ -146,7 +146,7 @@ void PlaylistContainer::newList(QString listname)
 	curlist->setSortingEnabled(true);
 	curlist->setToolTip(tr("Drag'n'Drop files to the playlist"));
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
-	connect(pl, SIGNAL(message(QString, QString, QString)), this, SIGNAL(message(QString, QString, QString)));
+	connect(pl, SIGNAL(message(QString, QString, QString, long)), this, SIGNAL(message(QString, QString, QString, long)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
 	closeButton->setDisabled(false);
@@ -216,7 +216,14 @@ void PlaylistContainer::shuffle(bool mode)
 }
 void PlaylistContainer::setVolume(int volume)
 {
-    PlayerManager::Self().setVolume(volume);
+	_volume = volume;
+	if(!_mute)
+		PlayerManager::Self().setVolume(volume);
+}
+void PlaylistContainer::mute(bool m)
+{
+	if(m) PlayerManager::Self().setVolume(0);
+	else PlayerManager::Self().setVolume(_volume);
 }
 void PlaylistContainer::clear()
 { if(curlist) curlist->clear(); }

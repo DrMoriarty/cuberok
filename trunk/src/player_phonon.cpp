@@ -95,17 +95,22 @@ bool PlayerPhonon::open(QUrl fname, long start, long length)
 	mediaObject->setCurrentSource(source);
 
 	if(fname.toLocalFile().size()) {
-		QString mimetype = mimeTypes[QFileInfo(fname.toLocalFile()).suffix().toLower()];
-		if(!Phonon::BackendCapabilities::isMimeTypeAvailable(mimetype)) {
-			QString message = "This mime type is not supported by phonon: " + mimetype;
+		QString suffix = QFileInfo(fname.toLocalFile()).suffix().toLower();
+		if(mimeTypes.find(suffix) != mimeTypes.end()) {
+			QString mimetype = mimeTypes[suffix];
+			if(!Phonon::BackendCapabilities::isMimeTypeAvailable(mimetype)) {
+				QString message = tr("This mime type is not supported by phonon: ") + mimetype;
 #ifndef WIN32
-			if(mimetype == "audio/mpeg") {
-				message += "\nAre you forget to install phonon-backend-xine or libxine1-ffmpeg?";
-			} else {
-				message += "\nAre you forget to install proper phonon backend?";
-			}
+				if(mimetype == "audio/mpeg") {
+					message += tr("\nDo you forget to install phonon-backend-xine or libxine1-ffmpeg?");
+				} else {
+					message += tr("\nDo you forget to install proper phonon backend?");
+				}
+#else
+				message += tr("\nDo you forget to install proper phonon backend?");
 #endif
-			QMessageBox::information(0, "Error", message);
+				QMessageBox::information(0, tr("Error"), message);
+			}
 		}
 	}
 		

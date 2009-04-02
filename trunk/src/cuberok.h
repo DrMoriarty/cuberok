@@ -72,7 +72,7 @@ private slots:
 
 public slots:
 	void lookAndFeel();
-	void message(QString, QString, QString);
+	void message(QString, QString, QString, long);
 	void viewConsole();
 	bool reallyClose();
 	void qTagConvert();

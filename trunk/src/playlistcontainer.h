@@ -43,6 +43,8 @@ private:
     PlaylistView *curlist, *actlist;
     int counter;
     bool alv, arv, cov, trv, tiv, yev, gev, fiv, lev;
+	int _volume;
+	bool _mute;
     
 private slots:
 	void listStarted(PlaylistView*);
@@ -82,9 +84,10 @@ public slots:
 	void rateBan();
 	void rateUp();
 	void rateDown();
+	void mute(bool);
 signals:
 	void status(QString);
-	void message(QString, QString, QString);
+	void message(QString, QString, QString, long);
 	void internalnext();
 	void songPosition(int);
 };

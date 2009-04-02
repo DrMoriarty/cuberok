@@ -288,7 +288,8 @@ void PlaylistView::play()
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 	QString ar = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
 	QString alb = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-	emit message(info, alb, ar);
+	long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+	emit message(info, alb, ar, len);
 	if(PLSet.lastfmScrobbler) {
 		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
 		if(ar.size())
@@ -302,7 +303,7 @@ void PlaylistView::stop()
 	plindex = model.index(-1, 0);
     PlayerManager::Self().stop();
     playing = false;
-	emit message("", "", "");
+	emit message("", "", "", 0);
 	emit songPosition(0);
 }
 
@@ -523,7 +524,11 @@ void PlaylistView::updateStatus()
 		//if(delayedPos >= 0 && delayedPos <= 1)
 		//	position(delayedPos);
 	}
-	emit status(tr("Playlist - %n song(s)", "", model.rowCount()));
+	long len = 0;
+	for(int i=0; i<model.rowCount(); i++) {
+		len += model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+	}
+	emit status(tr("Playlist - %n song(s)", "", model.rowCount()) + " (" + QTime().addSecs(len).toString()+")");
 }
 
 QString PlaylistView::getName()

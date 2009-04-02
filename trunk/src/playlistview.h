@@ -101,7 +101,7 @@ public slots:
 	void addUrl(QUrl);
 signals:
 	void status(QString);
-	void message(QString, QString, QString);
+	void message(QString, QString, QString, long);
 	void started(PlaylistView*);
 	void songPosition(int);
 };

@@ -57,7 +57,7 @@ Cuberok::Cuberok(QWidget *parent)
 	if(!connect(&Console::Self(), SIGNAL(newMessage(QString, int)), this, SLOT(newConsoleMessage(QString, int))))
 	   Console::Self().error("Can't connect to the Console::newMessage");
 
-	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString)), this, SLOT(message(QString,QString,QString)), Qt::DirectConnection))
+	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString,long)), this, SLOT(message(QString,QString,QString,long)), Qt::DirectConnection))
 		Console::Self().error("Can't connect to the listView.message");
 	ui.listView->prepare();
 
@@ -107,7 +107,7 @@ Cuberok::Cuberok(QWidget *parent)
 	if(PLSet.columnVisible(PlaylistModel::Length)) ui.actionViewLength->trigger();
 	if(PLSet.columnVisible(PlaylistModel::Rating)) ui.actionViewRating->trigger();
 
-	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar->widgetForAction(ui.actionBreak)));
+	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar_2->widgetForAction(ui.actionBreak)));
 
 	QActionGroup *colmodeGroup = new QActionGroup(this);
     colmodeGroup->addAction(ui.actionGenreMode);
@@ -125,7 +125,10 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.actionAddToLibrary->setDisabled(true);
 	ui.actionSQLListEdit->setDisabled(true);
 
-	ui.toolBar->addAction(QWhatsThis::createAction(this));
+	ui.toolBar_2->addAction(QWhatsThis::createAction(this));
+	ui.toolBar_3->addWidget(ui.progressBar);
+	ui.toolBar_3->addAction(ui.actionMute);
+	ui.toolBar_3->addWidget(ui.volumeSlider);
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
 }
@@ -152,13 +155,15 @@ void Cuberok::lookAndFeel()
 	lnf.exec();
 }
 
-void Cuberok::message(QString title, QString album, QString artist)
+void Cuberok::message(QString title, QString album, QString artist, long len)
 {
 	//ui.infoWidget->setArtist(artist);
 	//ui.infoWidget->setAlbum(album);
 	ui.infoWidget->setCurrent(artist, album, title);
 	if(title.size() || album.size() || artist.size()) {
-		ui.progressBar->setFormat(title + " %p%");
+		//ui.progressBar->setFormat(title + " %p%");
+		ui.progressBar->setFormatText(title);
+		ui.progressBar->setDuration(len);
 		trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
 		setWindowTitle(QString(titlepref).append(title));
 		trayIcon->setToolTip(QString("%1 - %2").arg(artist, title));
@@ -261,7 +266,7 @@ void Cuberok::consoleClosed(QObject*)
 void Cuberok::newConsoleMessage(QString, int)
 {
 	QIcon icon;
-	QAbstractButton *but = (QAbstractButton*)ui.toolBar->widgetForAction(ui.actionConsole);
+	QAbstractButton *but = (QAbstractButton*)ui.toolBar_2->widgetForAction(ui.actionConsole);
 	switch(Console::Self().getLevel()) {
 	case Console::C_NONE:
 		break;
