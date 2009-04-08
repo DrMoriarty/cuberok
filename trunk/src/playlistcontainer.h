@@ -76,6 +76,7 @@ public slots:
 	void viewFile(bool);
 	void viewLength(bool);
 	void viewRating(bool);
+	void viewNumber(bool);
 	void editTag();
 	void removeSong();
 	void reloadTags();

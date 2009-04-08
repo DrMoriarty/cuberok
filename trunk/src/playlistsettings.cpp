@@ -45,6 +45,9 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	cacheInfo = set.value("cacheInfo", true).toBool();
 
 	hack1251 = set.value("hack1251", false).toBool();
+
+	textToolbuttons = set.value("textToolbuttons", false).toBool();
+	sizeToolbuttons = set.value("sizeToolbuttons", 1).toInt();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -76,6 +79,9 @@ void PlaylistSettings::save()
 	set.setValue("cacheInfo", cacheInfo);
 
 	set.setValue("hack1251", hack1251);
+
+	set.setValue("textToolbuttons", textToolbuttons);
+	set.setValue("sizeToolbuttons", sizeToolbuttons);
 }
 
 PlaylistSettings& PlaylistSettings::Self()

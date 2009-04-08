@@ -442,6 +442,7 @@
      <addaction name="actionViewComment"/>
      <addaction name="actionViewLength"/>
      <addaction name="actionViewRating"/>
+     <addaction name="actionViewNumber"/>
     </widget>
     <addaction name="menuColumns"/>
     <addaction name="actionLookFeel"/>
@@ -489,7 +490,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionPrev"/>
    <addaction name="actionPlay"/>
@@ -1176,6 +1177,17 @@
     <string>Mute</string>
    </property>
   </action>
+  <action name="actionViewNumber">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Number</string>
+   </property>
+   <property name="toolTip">
+    <string>Number</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1184,6 +1196,7 @@
    <header>playlistcontainer.h</header>
    <slots>
     <slot>mute(bool)</slot>
+    <slot>viewNumber(bool)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2248,6 +2261,22 @@
     <hint type="destinationlabel">
      <x>408</x>
      <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewNumber</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewNumber(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>408</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>

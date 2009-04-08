@@ -75,7 +75,7 @@ public:
 	void setCurrent(int c);
 	int current();
 
-    enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, CueStart, CueLength, DBIndex, StartTime, ColumnCount};
+    enum Fields {Empty=0, Stat, File, Track, Title, Artist, Album, Comment, Genre, Year, Length, Rating, CueStart, CueLength, DBIndex, StartTime, Number, ColumnCount};
     
 private slots:
 	void addItem(QUrl path, int row, QList<QVariant>, long, long);

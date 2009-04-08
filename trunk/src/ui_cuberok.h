@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 2. Apr 15:58:21 2009
+** Created: Wed 8. Apr 17:26:22 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -93,6 +93,7 @@ public:
     QAction *actionQTagConvert;
     QAction *actionRefreshTree;
     QAction *actionMute;
+    QAction *actionViewNumber;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
     PlaylistContainer *listView;
@@ -398,6 +399,9 @@ public:
         QIcon icon34;
         icon34.addPixmap(QPixmap(QString::fromUtf8(":/icons/volume.png")), QIcon::Normal, QIcon::Off);
         actionMute->setIcon(icon34);
+        actionViewNumber = new QAction(CuberokClass);
+        actionViewNumber->setObjectName(QString::fromUtf8("actionViewNumber"));
+        actionViewNumber->setCheckable(true);
         centralwidget = new QWidget(CuberokClass);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         vboxLayout = new QVBoxLayout(centralwidget);
@@ -605,7 +609,6 @@ public:
         toolBar = new QToolBar(CuberokClass);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         CuberokClass->addToolBar(Qt::TopToolBarArea, toolBar);
-        CuberokClass->insertToolBarBreak(toolBar);
         toolBar_2 = new QToolBar(CuberokClass);
         toolBar_2->setObjectName(QString::fromUtf8("toolBar_2"));
         CuberokClass->addToolBar(Qt::TopToolBarArea, toolBar_2);
@@ -674,6 +677,7 @@ public:
         menuColumns->addAction(actionViewComment);
         menuColumns->addAction(actionViewLength);
         menuColumns->addAction(actionViewRating);
+        menuColumns->addAction(actionViewNumber);
         toolBar->addAction(actionPrev);
         toolBar->addAction(actionPlay);
         toolBar->addAction(actionPause);
@@ -756,6 +760,7 @@ public:
         QObject::connect(actionQTagConvert, SIGNAL(triggered()), CuberokClass, SLOT(qTagConvert()));
         QObject::connect(actionRefreshTree, SIGNAL(triggered()), CuberokClass, SLOT(refreshTree()));
         QObject::connect(actionMute, SIGNAL(toggled(bool)), listView, SLOT(mute(bool)));
+        QObject::connect(actionViewNumber, SIGNAL(toggled(bool)), listView, SLOT(viewNumber(bool)));
 
         QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -885,6 +890,10 @@ public:
         actionMute->setText(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionMute->setToolTip(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        actionViewNumber->setText(QApplication::translate("CuberokClass", "Number", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        actionViewNumber->setToolTip(QApplication::translate("CuberokClass", "Number", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
         subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));

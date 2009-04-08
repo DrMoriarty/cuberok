@@ -131,6 +131,8 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.toolBar_3->addWidget(ui.volumeSlider);
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
+
+	applySettings();
 }
 
 Cuberok::~Cuberok()
@@ -209,7 +211,9 @@ void Cuberok::aboutQtMenu()
 void Cuberok::settings()
 {
 	Settings set(this);
+	connect(&set, SIGNAL(accepted()), this, SLOT(applySettings()));
 	set.exec();
+	disconnect(&set);
 }
 
 void Cuberok::colmodeChanged(int m)
@@ -218,23 +222,39 @@ void Cuberok::colmodeChanged(int m)
 	//ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
 	ui.actionSetImage->setDisabled(m == M_SONG);
 	ui.actionGetImageFromLastFM->setDisabled(m != M_ARTIST && m != M_ALBUM);
+	bool needtoclear = false;
 	switch(m) {
 	case M_ARTIST:
-		ui.actionArtistMode->setChecked(true);
+		if(!ui.actionArtistMode->isChecked()) {
+			ui.actionArtistMode->setChecked(true);
+			needtoclear = true;
+		}
 		break;
 	case M_ALBUM:
-		ui.actionAlbumMode->setChecked(true);
+		if(!ui.actionAlbumMode->isChecked()) {
+			ui.actionAlbumMode->setChecked(true);
+			needtoclear = true;
+		}
 		break;
 	case M_GENRE:
-		ui.actionGenreMode->setChecked(true);
+		if(!ui.actionGenreMode->isChecked()) {
+			ui.actionGenreMode->setChecked(true);
+			needtoclear = true;
+		}
 		break;
 	case M_SONG:
-		ui.actionSongMode->setChecked(true);
+		if(!ui.actionSongMode->isChecked()) {
+			ui.actionSongMode->setChecked(true);
+			needtoclear = true;
+		}
 		break;
 	case M_LIST:
 		break;
 	case M_SQLLIST:
 		break;
+	}
+	if(needtoclear) {
+		ui.filterLineEdit->setText("");
 	}
 }
 
@@ -332,4 +352,34 @@ void Cuberok::qtagClosed(QObject*)
 void Cuberok::refreshTree()
 {
 	dirmodel.refresh();
+}
+
+void Cuberok::applySettings()
+{
+	if(PLSet.textToolbuttons) {
+		ui.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+		ui.toolBar_2->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+		ui.toolBar_3->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+	} else {
+		ui.toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+		ui.toolBar_2->setToolButtonStyle(Qt::ToolButtonIconOnly);
+		ui.toolBar_3->setToolButtonStyle(Qt::ToolButtonIconOnly);
+	}
+	switch(PLSet.sizeToolbuttons) {
+	case 0:
+		ui.toolBar->setIconSize(QSize(16, 16));
+		ui.toolBar_2->setIconSize(QSize(16, 16));
+		ui.toolBar_3->setIconSize(QSize(16, 16));
+		break;
+	case 1:
+		ui.toolBar->setIconSize(QSize(24, 24));
+		ui.toolBar_2->setIconSize(QSize(24, 24));
+		ui.toolBar_3->setIconSize(QSize(24, 24));
+		break;
+	case 2:
+		ui.toolBar->setIconSize(QSize(36, 36));
+		ui.toolBar_2->setIconSize(QSize(36, 36));
+		ui.toolBar_2->setIconSize(QSize(36, 36));
+		break;
+	}
 }

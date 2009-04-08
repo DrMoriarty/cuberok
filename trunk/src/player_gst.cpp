@@ -441,7 +441,12 @@ void PlayerGst::timerUpdate()
 			GError *err;
 			gchar *debug;
 			gst_message_parse_error (message, &err, &debug);
-			QMessageBox::warning(0, "Gstreamer error", "Error #"+QString::number(err->code)+" in module "+QString::number(err->domain)+"\n"+QString::fromUtf8(err->message));
+			QString str;
+			str = "Error #"+QString::number(err->code)+" in module "+QString::number(err->domain)+"\n"+QString::fromUtf8(err->message);
+			if(err->code == 6 && err->domain == 851) {
+				str += "\nMay be you should to install gstreamer0.10-plugins-ugly or gstreamer0.10-plugins-bad";
+			}
+			QMessageBox::warning(0, "Gstreamer error", str);
 			g_error_free (err);
 			g_free (debug);
 			break;

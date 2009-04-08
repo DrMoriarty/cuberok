@@ -157,6 +157,7 @@ int  PlayerAudiere::volume()
 
 void PlayerAudiere::setVolume(int v)
 {
+	if(v > 100) v = 100;
     svolume = v;
     if(stream) stream->setVolume(float(svolume)/100);
 }

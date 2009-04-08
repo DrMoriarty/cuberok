@@ -51,7 +51,7 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	setAlternatingRowColors(true);
 	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
-	sortByColumn(PlaylistModel::Artist, Qt::AscendingOrder);
+	sortByColumn(PlaylistModel::Number, Qt::AscendingOrder);
 	if(plistname.size()) {  // read stored playlist
 		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
 		if(QFile::exists(fname)) loadList(fname);

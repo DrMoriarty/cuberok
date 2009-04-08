@@ -101,7 +101,7 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, l
 	try {
 		if(l.count() >= 9) {
 	    	insertRows(row, 1);
-	    	if(row >= rowCount()) row = rowCount() - 1; 
+	    	if(row >= rowCount()) row = rowCount() - 1;
 	        *_data.at(row).values[File] = path;
 	        *_data.at(row).values[Title] = removeReturns(l[0]);
 			*_data.at(row).values[Artist] = removeReturns(l[1]);
@@ -115,6 +115,7 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, l
 			*_data.at(row).values[CueStart] = QVariant((qlonglong)start);
 			*_data.at(row).values[CueLength] = QVariant((qlonglong)length);
 			*_data.at(row).values[DBIndex] = QVariant((qlonglong)0);
+			*_data.at(row).values[Number] = QVariant(rowCount());
 
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
 		}
@@ -179,9 +180,9 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation,
                                      int role) const
 {
-	if (role == Qt::BackgroundRole) {
+	/*if (role == Qt::BackgroundRole) {
 		return QVariant(QBrush(QColor::fromRgb(128, 200, 200)));
-	}
+		}*/
     if (role != Qt::DisplayRole)
         return QVariant();
 
@@ -197,6 +198,7 @@ QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation,
 		case 9: return tr("Year");
 		case 10: return tr("Length");
 		case 11: return tr("Rating");
+		case 16: return tr("Number");
 		default: return "";
 		}
 		//return tr(colnames[section]);
@@ -285,6 +287,7 @@ void PlaylistModel::appendList(QList<TagEntry> list)
     	d.values[PlaylistModel::Year] = new QVariant(tag.year);
     	d.values[PlaylistModel::Rating] = new QVariant(qVariantFromValue(StarRating(tag.rating)));
     	d.values[PlaylistModel::StartTime] = new QVariant();
+    	d.values[PlaylistModel::Number] = new QVariant(rowCount());
 		_data.append(d); 
 	}
     endInsertRows();
