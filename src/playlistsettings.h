@@ -56,6 +56,9 @@ Q_OBJECT
 	QString lang;
 
 	bool hack1251;
+	
+	bool textToolbuttons;
+	int sizeToolbuttons;
 
  signals:
 	void visibleChanged(int, bool);

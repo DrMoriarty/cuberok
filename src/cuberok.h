@@ -77,6 +77,7 @@ public slots:
 	bool reallyClose();
 	void qTagConvert();
 	void refreshTree();
+	void applySettings();
 };
 
 #endif // CUBEROK_H

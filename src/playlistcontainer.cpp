@@ -222,8 +222,10 @@ void PlaylistContainer::setVolume(int volume)
 }
 void PlaylistContainer::mute(bool m)
 {
-	if(m) PlayerManager::Self().setVolume(0);
-	else PlayerManager::Self().setVolume(_volume);
+	if(m) {
+		_volume = PlayerManager::Self().volume();
+		PlayerManager::Self().setVolume(0);
+	} else PlayerManager::Self().setVolume(_volume);
 }
 void PlaylistContainer::clear()
 { if(curlist) curlist->clear(); }
@@ -277,6 +279,10 @@ void PlaylistContainer::viewLength(bool b)
 void PlaylistContainer::viewRating(bool b)
 {
 	PLSet.setColumnVisible(PlaylistModel::Rating, b);
+}
+void PlaylistContainer::viewNumber(bool b)
+{
+	PLSet.setColumnVisible(PlaylistModel::Number, b);
 }
 void PlaylistContainer::editTag()
 { if(curlist) curlist->editTag(); }

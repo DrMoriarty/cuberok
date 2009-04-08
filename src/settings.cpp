@@ -69,6 +69,9 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.checkBox_cacheInfo->setChecked(PLSet.cacheInfo);
 
 	ui.checkBox_hack1251->setChecked(PLSet.hack1251);
+
+	ui.checkBox_textToolbuttons->setChecked(PLSet.textToolbuttons);
+	ui.comboBox_sizeToolbuttons->setCurrentIndex(PLSet.sizeToolbuttons);
 }
 
 Settings::~Settings()
@@ -114,6 +117,9 @@ void Settings::accept()
 	PLSet.cacheInfo = ui.checkBox_cacheInfo->isChecked();
 
 	PLSet.hack1251 = ui.checkBox_hack1251->isChecked();
+
+	PLSet.textToolbuttons = ui.checkBox_textToolbuttons->isChecked();
+	PLSet.sizeToolbuttons = ui.comboBox_sizeToolbuttons->currentIndex();
 
 	PLSet.save();
 	QDialog::accept();

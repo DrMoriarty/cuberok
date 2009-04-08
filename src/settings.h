@@ -37,6 +37,7 @@ class Settings : public QDialog
  private:
     Ui::Settings ui;
 	QString auto_engine;
+
 };
 
 #endif // SETTINGS_H
