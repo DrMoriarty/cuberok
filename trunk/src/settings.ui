@@ -109,6 +109,18 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>346</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <attribute name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/icons/looknfeel.png</normaloff>:/icons/looknfeel.png</iconset>
+      </attribute>
       <attribute name="label">
        <string>Interface settings</string>
       </attribute>
@@ -173,7 +185,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>193</height>
+        <height>191</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -190,7 +202,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>193</height>
+        <height>191</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -307,7 +319,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>193</height>
+        <height>191</height>
        </rect>
       </property>
       <attribute name="icon">

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Wed 8. Apr 17:26:22 2009
+** Created: Thu 9. Apr 09:43:57 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -96,6 +96,10 @@ public:
     QAction *actionViewNumber;
     QWidget *centralwidget;
     QVBoxLayout *vboxLayout;
+    QFrame *frame;
+    QHBoxLayout *horizontalLayout;
+    QLineEdit *filterLineEdit2;
+    QToolButton *filterClearButton;
     PlaylistContainer *listView;
     ProgressBar *progressBar;
     QSlider *volumeSlider;
@@ -408,6 +412,31 @@ public:
         vboxLayout->setSpacing(4);
         vboxLayout->setMargin(4);
         vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
+        frame = new QFrame(centralwidget);
+        frame->setObjectName(QString::fromUtf8("frame"));
+        frame->setFrameShape(QFrame::NoFrame);
+        frame->setFrameShadow(QFrame::Plain);
+        horizontalLayout = new QHBoxLayout(frame);
+        horizontalLayout->setSpacing(4);
+        horizontalLayout->setMargin(0);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        filterLineEdit2 = new QLineEdit(frame);
+        filterLineEdit2->setObjectName(QString::fromUtf8("filterLineEdit2"));
+
+        horizontalLayout->addWidget(filterLineEdit2);
+
+        filterClearButton = new QToolButton(frame);
+        filterClearButton->setObjectName(QString::fromUtf8("filterClearButton"));
+        QIcon icon35;
+        icon35.addPixmap(QPixmap(QString::fromUtf8(":/icons/clear_filter.png")), QIcon::Normal, QIcon::Off);
+        filterClearButton->setIcon(icon35);
+        filterClearButton->setAutoRaise(true);
+
+        horizontalLayout->addWidget(filterClearButton);
+
+
+        vboxLayout->addWidget(frame);
+
         listView = new PlaylistContainer(centralwidget);
         listView->setObjectName(QString::fromUtf8("listView"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -475,8 +504,6 @@ public:
         subsetDisableButton->setObjectName(QString::fromUtf8("subsetDisableButton"));
         subsetDisableButton->setAcceptDrops(false);
         subsetDisableButton->setAutoFillBackground(true);
-        QIcon icon35;
-        icon35.addPixmap(QPixmap(QString::fromUtf8(":/icons/clear_filter.png")), QIcon::Normal, QIcon::Off);
         subsetDisableButton->setIcon(icon35);
         subsetDisableButton->setIconSize(QSize(24, 24));
         subsetDisableButton->setAutoRaise(true);
@@ -667,6 +694,7 @@ public:
         menuView->addAction(actionLookFeel);
         menuView->addAction(actionConsole);
         menuView->addSeparator();
+        menuColumns->addAction(actionViewNumber);
         menuColumns->addAction(actionViewFile);
         menuColumns->addAction(actionViewTrack);
         menuColumns->addAction(actionViewTitle);
@@ -677,7 +705,6 @@ public:
         menuColumns->addAction(actionViewComment);
         menuColumns->addAction(actionViewLength);
         menuColumns->addAction(actionViewRating);
-        menuColumns->addAction(actionViewNumber);
         toolBar->addAction(actionPrev);
         toolBar->addAction(actionPlay);
         toolBar->addAction(actionPause);
@@ -761,6 +788,9 @@ public:
         QObject::connect(actionRefreshTree, SIGNAL(triggered()), CuberokClass, SLOT(refreshTree()));
         QObject::connect(actionMute, SIGNAL(toggled(bool)), listView, SLOT(mute(bool)));
         QObject::connect(actionViewNumber, SIGNAL(toggled(bool)), listView, SLOT(viewNumber(bool)));
+        QObject::connect(filterLineEdit2, SIGNAL(textChanged(QString)), listView, SLOT(setFilter(QString)));
+        QObject::connect(filterClearButton, SIGNAL(clicked()), listView, SLOT(clearFilter()));
+        QObject::connect(filterClearButton, SIGNAL(clicked()), filterLineEdit2, SLOT(clear()));
 
         QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -775,7 +805,7 @@ public:
         actionAbout->setShortcut(QApplication::translate("CuberokClass", "Alt+F1", 0, QApplication::UnicodeUTF8));
         actionBreak->setText(QApplication::translate("CuberokClass", "Break", 0, QApplication::UnicodeUTF8));
         actionPrev->setText(QApplication::translate("CuberokClass", "Previous", 0, QApplication::UnicodeUTF8));
-        actionPrev->setIconText(QApplication::translate("CuberokClass", "<<", 0, QApplication::UnicodeUTF8));
+        actionPrev->setIconText(QApplication::translate("CuberokClass", "Previous", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionPrev->setToolTip(QApplication::translate("CuberokClass", "Previous track", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
@@ -784,7 +814,7 @@ public:
 #endif // QT_NO_STATUSTIP
         actionPrev->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+Z", 0, QApplication::UnicodeUTF8));
         actionNext->setText(QApplication::translate("CuberokClass", "Next", 0, QApplication::UnicodeUTF8));
-        actionNext->setIconText(QApplication::translate("CuberokClass", ">>", 0, QApplication::UnicodeUTF8));
+        actionNext->setIconText(QApplication::translate("CuberokClass", "Next", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionNext->setToolTip(QApplication::translate("CuberokClass", "Next track", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
@@ -793,7 +823,7 @@ public:
 #endif // QT_NO_STATUSTIP
         actionNext->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+B", 0, QApplication::UnicodeUTF8));
         actionPause->setText(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
-        actionPause->setIconText(QApplication::translate("CuberokClass", "||", 0, QApplication::UnicodeUTF8));
+        actionPause->setIconText(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionPause->setToolTip(QApplication::translate("CuberokClass", "Pause", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
@@ -802,7 +832,7 @@ public:
 #endif // QT_NO_STATUSTIP
         actionPause->setShortcut(QApplication::translate("CuberokClass", "Alt+Shift+C", 0, QApplication::UnicodeUTF8));
         actionPlay->setText(QApplication::translate("CuberokClass", "Play", 0, QApplication::UnicodeUTF8));
-        actionPlay->setIconText(QApplication::translate("CuberokClass", ">", 0, QApplication::UnicodeUTF8));
+        actionPlay->setIconText(QApplication::translate("CuberokClass", "Play", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionPlay->setToolTip(QApplication::translate("CuberokClass", "Play track", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
@@ -856,7 +886,7 @@ public:
         actionRemoveFromCollection->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
         actionRemoveFromLibrary->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
         actionStop->setText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
-        actionStop->setIconText(QApplication::translate("CuberokClass", "[]", 0, QApplication::UnicodeUTF8));
+        actionStop->setIconText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_STATUSTIP
         actionStop->setStatusTip(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_STATUSTIP
@@ -895,6 +925,13 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionViewNumber->setToolTip(QApplication::translate("CuberokClass", "Number", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_TOOLTIP
+        filterLineEdit2->setToolTip(QApplication::translate("CuberokClass", "Enter search substring", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_TOOLTIP
+        filterClearButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        filterClearButton->setText(QApplication::translate("CuberokClass", "...", 0, QApplication::UnicodeUTF8));
         dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
         subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP

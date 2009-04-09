@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'settings.ui'
 **
-** Created: Wed 8. Apr 18:22:07 2009
+** Created: Thu 9. Apr 09:16:04 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -84,7 +84,7 @@ public:
     {
         if (Settings->objectName().isEmpty())
             Settings->setObjectName(QString::fromUtf8("Settings"));
-        Settings->resize(364, 395);
+        Settings->resize(364, 390);
         vboxLayout = new QVBoxLayout(Settings);
         vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
         toolBox = new QToolBox(Settings);
@@ -150,7 +150,10 @@ public:
         toolBox->addItem(page, icon, QString::fromUtf8("Common settings"));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
+        page_5->setGeometry(QRect(0, 0, 346, 191));
         verticalLayout = new QVBoxLayout(page_5);
+        verticalLayout->setSpacing(4);
+        verticalLayout->setMargin(4);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label_10 = new QLabel(page_5);
         label_10->setObjectName(QString::fromUtf8("label_10"));
@@ -167,20 +170,22 @@ public:
 
         verticalLayout->addWidget(checkBox_textToolbuttons);
 
-        verticalSpacer = new QSpacerItem(20, 107, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 118, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
 
-        toolBox->addItem(page_5, QString::fromUtf8("Interface settings"));
+        QIcon icon1;
+        icon1.addPixmap(QPixmap(QString::fromUtf8(":/icons/looknfeel.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_5, icon1, QString::fromUtf8("Interface settings"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 346, 198));
-        QIcon icon1;
-        icon1.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_genre.png")), QIcon::Normal, QIcon::Off);
-        toolBox->addItem(page_2, icon1, QString::fromUtf8("Engine Settings"));
+        page_2->setGeometry(QRect(0, 0, 346, 191));
+        QIcon icon2;
+        icon2.addPixmap(QPixmap(QString::fromUtf8(":/icons/def_genre.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_2, icon2, QString::fromUtf8("Engine Settings"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 346, 198));
+        page_3->setGeometry(QRect(0, 0, 346, 191));
         gridLayout1 = new QGridLayout(page_3);
         gridLayout1->setSpacing(4);
         gridLayout1->setMargin(4);
@@ -248,12 +253,12 @@ public:
 
         gridLayout1->addWidget(checkBox_cacheInfo, 1, 0, 1, 1);
 
-        QIcon icon2;
-        icon2.addPixmap(QPixmap(QString::fromUtf8(":/icons/internet.png")), QIcon::Normal, QIcon::Off);
-        toolBox->addItem(page_3, icon2, QString::fromUtf8("Internet connection"));
+        QIcon icon3;
+        icon3.addPixmap(QPixmap(QString::fromUtf8(":/icons/internet.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_3, icon3, QString::fromUtf8("Internet connection"));
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
-        page_4->setGeometry(QRect(0, 0, 346, 198));
+        page_4->setGeometry(QRect(0, 0, 346, 191));
         gridLayout3 = new QGridLayout(page_4);
         gridLayout3->setSpacing(4);
         gridLayout3->setMargin(4);
@@ -295,9 +300,9 @@ public:
 
         gridLayout3->addItem(spacerItem2, 3, 0, 1, 1);
 
-        QIcon icon3;
-        icon3.addPixmap(QPixmap(QString::fromUtf8(":/icons/lastfm.png")), QIcon::Normal, QIcon::Off);
-        toolBox->addItem(page_4, icon3, QString::fromUtf8("Last.FM"));
+        QIcon icon4;
+        icon4.addPixmap(QPixmap(QString::fromUtf8(":/icons/lastfm.png")), QIcon::Normal, QIcon::Off);
+        toolBox->addItem(page_4, icon4, QString::fromUtf8("Last.FM"));
 
         vboxLayout->addWidget(toolBox);
 
@@ -315,7 +320,7 @@ public:
         QObject::connect(buttonBox, SIGNAL(accepted()), Settings, SLOT(accept()));
         QObject::connect(buttonBox, SIGNAL(rejected()), Settings, SLOT(reject()));
 
-        toolBox->setCurrentIndex(1);
+        toolBox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Settings);
