@@ -186,7 +186,12 @@ void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 
 void Cuberok::showhide(bool s)
 {
-	bool vis = isVisible();
+	bool act = !isVisible();
+	setVisible(act);
+	if (act)
+		activateWindow();
+
+	/*bool vis = isVisible();
 	if(vis && s) activateWindow();
 	else if(vis != s) {
 		vis = s;
@@ -195,7 +200,7 @@ void Cuberok::showhide(bool s)
 			QDialog *d = qobject_cast<QDialog*>(widget);
 			if(d) d->setVisible(vis);	
 		}
-	}
+	}*/
 }
 
 void Cuberok::progressEvent(double pos)
@@ -289,6 +294,7 @@ void Cuberok::newConsoleMessage(QString, int)
 	QAbstractButton *but = (QAbstractButton*)ui.toolBar_2->widgetForAction(ui.actionConsole);
 	switch(Console::Self().getLevel()) {
 	case Console::C_NONE:
+		icon.addFile(":/icons/console.png");
 		break;
 	case Console::C_MES:
 		icon.addFile(":/icons/console_mes.png");
