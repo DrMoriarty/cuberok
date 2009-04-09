@@ -43,6 +43,8 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	setItemDelegate(new StarDelegate);
 	plistname = str;
     pmodel.setDynamicSortFilter(true);
+	pmodel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+	pmodel.setFilterKeyColumn(-1);
     pmodel.setSourceModel(&model);
 	setModel(&pmodel);
 	setEditTriggers(QAbstractItemView::NoEditTriggers); 
@@ -69,6 +71,7 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	hideColumn(PlaylistModel::CueLength);
 	hideColumn(PlaylistModel::DBIndex);
 	hideColumn(PlaylistModel::StartTime);
+	header()->moveSection(PlaylistModel::Number, PlaylistModel::Stat);
 	connect(&PLSet, SIGNAL(visibleChanged(int,bool)), this, SLOT(setColVisible(int,bool)));
 	connect(&PLSet, SIGNAL(widthChanged(int,int)), this, SLOT(setColWidth(int,int)));
 	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
@@ -589,4 +592,9 @@ QString PlaylistView::curFile()
 		return ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	}
 	return "";
+}
+
+void PlaylistView::setFilter(QString s)
+{
+	pmodel.setFilterRegExp(s);
 }

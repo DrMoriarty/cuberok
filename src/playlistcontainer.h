@@ -86,6 +86,8 @@ public slots:
 	void rateUp();
 	void rateDown();
 	void mute(bool);
+	void setFilter(QString);
+	void clearFilter();
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);

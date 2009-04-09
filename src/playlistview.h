@@ -99,6 +99,7 @@ public slots:
 	void removeSong();
 	void reloadTags();
 	void addUrl(QUrl);
+	void setFilter(QString);
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);

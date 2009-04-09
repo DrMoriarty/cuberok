@@ -379,7 +379,7 @@ void Cuberok::applySettings()
 	case 2:
 		ui.toolBar->setIconSize(QSize(36, 36));
 		ui.toolBar_2->setIconSize(QSize(36, 36));
-		ui.toolBar_2->setIconSize(QSize(36, 36));
+		ui.toolBar_3->setIconSize(QSize(36, 36));
 		break;
 	}
 }

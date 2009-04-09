@@ -374,3 +374,13 @@ QString PlaylistContainer::getCurrentFile()
 	}
 	return "";
 }
+
+void PlaylistContainer::setFilter(QString s)
+{
+	foreach(PlaylistView *pl, lists) pl->setFilter(s); 
+}
+
+void PlaylistContainer::clearFilter()
+{
+	foreach(PlaylistView *pl, lists) pl->setFilter("");
+}
