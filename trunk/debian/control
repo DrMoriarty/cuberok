@@ -2,7 +2,7 @@ Source: cuberok
 Section: multimedia
 Priority: extra
 Maintainer: DrMoriarty <drmoriaty.0@gmail.com>
-Build-Depends: debhelper (>= 7), libqt4-dev, libphonon-dev, libgstreamer0.10-dev
+Build-Depends: debhelper (>= 7), libqt4-dev, libtag1-dev, libphonon-dev, libgstreamer0.10-dev
 Standards-Version: 3.7.3
 Homepage: http://code.google.com/p/cuberok/
 

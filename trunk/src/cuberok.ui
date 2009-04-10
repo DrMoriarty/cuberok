@@ -47,8 +47,31 @@
         <number>0</number>
        </property>
        <item>
+        <widget class="QToolButton" name="toolButton_findCurrent">
+         <property name="toolTip">
+          <string>Find current song</string>
+         </property>
+         <property name="statusTip">
+          <string>Find now playing song</string>
+         </property>
+         <property name="text">
+          <string>Current</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/icons/next.png</normaloff>:/icons/next.png</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLineEdit" name="filterLineEdit2">
          <property name="toolTip">
+          <string>Enter search substring</string>
+         </property>
+         <property name="statusTip">
           <string>Enter search substring</string>
          </property>
         </widget>
@@ -58,8 +81,11 @@
          <property name="toolTip">
           <string>Reset filter</string>
          </property>
+         <property name="statusTip">
+          <string>Reset filter</string>
+         </property>
          <property name="text">
-          <string>...</string>
+          <string>Clear</string>
          </property>
          <property name="icon">
           <iconset resource="resource.qrc">
@@ -221,6 +247,9 @@
         <item>
          <widget class="QLineEdit" name="filterLineEdit">
           <property name="toolTip">
+           <string>Enter search substring</string>
+          </property>
+          <property name="statusTip">
            <string>Enter search substring</string>
           </property>
          </widget>
@@ -604,6 +633,9 @@
    <property name="text">
     <string>Break</string>
    </property>
+   <property name="statusTip">
+    <string>Cancel task</string>
+   </property>
   </action>
   <action name="actionPrev">
    <property name="icon">
@@ -769,6 +801,9 @@
    <property name="text">
     <string>Queue as Next</string>
    </property>
+   <property name="statusTip">
+    <string>Enqueue selected song</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
    </property>
@@ -886,6 +921,9 @@
    <property name="toolTip">
     <string>Edit Tag</string>
    </property>
+   <property name="statusTip">
+    <string>Edit tags</string>
+   </property>
   </action>
   <action name="actionNewPlaylist">
    <property name="icon">
@@ -894,6 +932,9 @@
    </property>
    <property name="text">
     <string>New playlist</string>
+   </property>
+   <property name="statusTip">
+    <string>Create new playlist</string>
    </property>
   </action>
   <action name="actionClosePlaylist">
@@ -904,6 +945,9 @@
    <property name="text">
     <string>Close playlist</string>
    </property>
+   <property name="statusTip">
+    <string>Close current playlist</string>
+   </property>
   </action>
   <action name="actionRemoveSong">
    <property name="icon">
@@ -912,6 +956,9 @@
    </property>
    <property name="text">
     <string>Remove song</string>
+   </property>
+   <property name="statusTip">
+    <string>Remove song from the playlist</string>
    </property>
   </action>
   <action name="actionLookFeel">
@@ -934,6 +981,9 @@
    <property name="text">
     <string>Artist</string>
    </property>
+   <property name="statusTip">
+    <string>Show artists</string>
+   </property>
   </action>
   <action name="actionAlbumMode">
    <property name="checkable">
@@ -945,6 +995,9 @@
    </property>
    <property name="text">
     <string>Album</string>
+   </property>
+   <property name="statusTip">
+    <string>Show albums</string>
    </property>
   </action>
   <action name="actionGenreMode">
@@ -958,6 +1011,9 @@
    <property name="text">
     <string>Genre</string>
    </property>
+   <property name="statusTip">
+    <string>Show genres</string>
+   </property>
   </action>
   <action name="actionSongMode">
    <property name="checkable">
@@ -970,6 +1026,9 @@
    <property name="text">
     <string>Song</string>
    </property>
+   <property name="statusTip">
+    <string>Show songs</string>
+   </property>
   </action>
   <action name="actionAddToCollection">
    <property name="icon">
@@ -978,6 +1037,9 @@
    </property>
    <property name="text">
     <string>Add Item</string>
+   </property>
+   <property name="statusTip">
+    <string>Create new collection item</string>
    </property>
   </action>
   <action name="actionAddToLibrary">
@@ -988,6 +1050,9 @@
    <property name="text">
     <string>Add Item</string>
    </property>
+   <property name="statusTip">
+    <string>Create new library item</string>
+   </property>
   </action>
   <action name="actionRemoveFromCollection">
    <property name="icon">
@@ -997,6 +1062,9 @@
    <property name="text">
     <string>Remove Item</string>
    </property>
+   <property name="statusTip">
+    <string>Remove selected item from collection</string>
+   </property>
   </action>
   <action name="actionRemoveFromLibrary">
    <property name="icon">
@@ -1005,6 +1073,9 @@
    </property>
    <property name="text">
     <string>Remove Item</string>
+   </property>
+   <property name="statusTip">
+    <string>Remove selected item from library</string>
    </property>
   </action>
   <action name="actionStop">
@@ -1039,6 +1110,9 @@
    <property name="toolTip">
     <string>Save playlist into file</string>
    </property>
+   <property name="statusTip">
+    <string>Save playlist into file</string>
+   </property>
   </action>
   <action name="actionLoadPlaylist">
    <property name="icon">
@@ -1051,6 +1125,9 @@
    <property name="toolTip">
     <string>Load playlist from a file</string>
    </property>
+   <property name="statusTip">
+    <string>Load playlist from a file</string>
+   </property>
   </action>
   <action name="actionAboutQt">
    <property name="icon">
@@ -1058,6 +1135,9 @@
      <normaloff>:/icons/qt.png</normaloff>:/icons/qt.png</iconset>
    </property>
    <property name="text">
+    <string>About Qt</string>
+   </property>
+   <property name="statusTip">
     <string>About Qt</string>
    </property>
   </action>
@@ -1068,6 +1148,9 @@
    </property>
    <property name="text">
     <string>Reload tags</string>
+   </property>
+   <property name="statusTip">
+    <string>Reload tags in selected song</string>
    </property>
   </action>
   <action name="actionViewRating">
@@ -1089,6 +1172,9 @@
    <property name="text">
     <string>Preferences</string>
    </property>
+   <property name="statusTip">
+    <string>Preferences</string>
+   </property>
   </action>
   <action name="actionSetImage">
    <property name="icon">
@@ -1098,6 +1184,9 @@
    <property name="text">
     <string>Set Image</string>
    </property>
+   <property name="statusTip">
+    <string>Set image for collection item</string>
+   </property>
   </action>
   <action name="actionLibrarySetImage">
    <property name="icon">
@@ -1106,6 +1195,9 @@
    </property>
    <property name="text">
     <string>Set Image</string>
+   </property>
+   <property name="statusTip">
+    <string>Set image for library item</string>
    </property>
   </action>
   <action name="actionIconView">
@@ -1119,6 +1211,9 @@
    <property name="text">
     <string>Icon View</string>
    </property>
+   <property name="statusTip">
+    <string>View icons for collection items</string>
+   </property>
   </action>
   <action name="actionOpenUrl">
    <property name="icon">
@@ -1126,6 +1221,9 @@
      <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
    </property>
    <property name="text">
+    <string>Open Url</string>
+   </property>
+   <property name="statusTip">
     <string>Open Url</string>
    </property>
   </action>
@@ -1140,6 +1238,9 @@
    <property name="text">
     <string>Load image from Last.FM</string>
    </property>
+   <property name="statusTip">
+    <string>Load image from Last.FM</string>
+   </property>
   </action>
   <action name="actionConsole">
    <property name="icon">
@@ -1148,6 +1249,9 @@
    </property>
    <property name="text">
     <string>Messages</string>
+   </property>
+   <property name="statusTip">
+    <string>Show system log</string>
    </property>
   </action>
   <action name="actionLibrarySQLPlaylist">
@@ -1161,6 +1265,9 @@
    <property name="text">
     <string>View SQL Playlists</string>
    </property>
+   <property name="statusTip">
+    <string>Show SQL playlists</string>
+   </property>
   </action>
   <action name="actionLibraryRegularPlaylist">
    <property name="checkable">
@@ -1173,6 +1280,9 @@
    <property name="text">
     <string>View Regular Playlists</string>
    </property>
+   <property name="statusTip">
+    <string>Show regular playlists</string>
+   </property>
   </action>
   <action name="actionSQLListEdit">
    <property name="icon">
@@ -1180,6 +1290,9 @@
      <normaloff>:/icons/edittag.png</normaloff>:/icons/edittag.png</iconset>
    </property>
    <property name="text">
+    <string>Edit SQL Playist</string>
+   </property>
+   <property name="statusTip">
     <string>Edit SQL Playist</string>
    </property>
   </action>
@@ -1194,6 +1307,9 @@
    <property name="toolTip">
     <string>Edit tags with QTagConvert</string>
    </property>
+   <property name="statusTip">
+    <string>Edit tags with QTagConvert</string>
+   </property>
   </action>
   <action name="actionRefreshTree">
    <property name="icon">
@@ -1201,6 +1317,9 @@
      <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
    </property>
    <property name="text">
+    <string>Refresh Tree</string>
+   </property>
+   <property name="statusTip">
     <string>Refresh Tree</string>
    </property>
   </action>
@@ -1216,6 +1335,9 @@
     <string>Mute</string>
    </property>
    <property name="toolTip">
+    <string>Mute</string>
+   </property>
+   <property name="statusTip">
     <string>Mute</string>
    </property>
   </action>
@@ -1241,6 +1363,7 @@
     <slot>viewNumber(bool)</slot>
     <slot>setFilter(QString)</slot>
     <slot>clearFilter()</slot>
+    <slot>findCurrent()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2369,6 +2492,22 @@
     <hint type="destinationlabel">
      <x>337</x>
      <y>69</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_findCurrent</sender>
+   <signal>clicked()</signal>
+   <receiver>listView</receiver>
+   <slot>findCurrent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>351</x>
+     <y>261</y>
     </hint>
    </hints>
   </connection>

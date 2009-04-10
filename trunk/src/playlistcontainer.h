@@ -88,6 +88,7 @@ public slots:
 	void mute(bool);
 	void setFilter(QString);
 	void clearFilter();
+	void findCurrent();
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);

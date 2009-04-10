@@ -384,3 +384,10 @@ void PlaylistContainer::clearFilter()
 {
 	foreach(PlaylistView *pl, lists) pl->setFilter("");
 }
+
+void PlaylistContainer::findCurrent()
+{
+	if(actlist) {
+		actlist->findCurrent();
+	}
+}

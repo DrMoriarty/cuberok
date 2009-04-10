@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'cuberok.ui'
 **
-** Created: Thu 9. Apr 15:46:48 2009
+** Created: Thu 9. Apr 17:21:52 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -98,6 +98,7 @@ public:
     QVBoxLayout *vboxLayout;
     QFrame *frame;
     QHBoxLayout *horizontalLayout;
+    QToolButton *toolButton_findCurrent;
     QLineEdit *filterLineEdit2;
     QToolButton *filterClearButton;
     PlaylistContainer *listView;
@@ -420,6 +421,13 @@ public:
         horizontalLayout->setSpacing(4);
         horizontalLayout->setMargin(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        toolButton_findCurrent = new QToolButton(frame);
+        toolButton_findCurrent->setObjectName(QString::fromUtf8("toolButton_findCurrent"));
+        toolButton_findCurrent->setIcon(icon10);
+        toolButton_findCurrent->setAutoRaise(true);
+
+        horizontalLayout->addWidget(toolButton_findCurrent);
+
         filterLineEdit2 = new QLineEdit(frame);
         filterLineEdit2->setObjectName(QString::fromUtf8("filterLineEdit2"));
 
@@ -791,6 +799,7 @@ public:
         QObject::connect(filterLineEdit2, SIGNAL(textChanged(QString)), listView, SLOT(setFilter(QString)));
         QObject::connect(filterClearButton, SIGNAL(clicked()), listView, SLOT(clearFilter()));
         QObject::connect(filterClearButton, SIGNAL(clicked()), filterLineEdit2, SLOT(clear()));
+        QObject::connect(toolButton_findCurrent, SIGNAL(clicked()), listView, SLOT(findCurrent()));
 
         QMetaObject::connectSlotsByName(CuberokClass);
     } // setupUi
@@ -804,6 +813,9 @@ public:
 #endif // QT_NO_STATUSTIP
         actionAbout->setShortcut(QApplication::translate("CuberokClass", "Alt+F1", 0, QApplication::UnicodeUTF8));
         actionBreak->setText(QApplication::translate("CuberokClass", "Break", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionBreak->setStatusTip(QApplication::translate("CuberokClass", "Cancel task", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionPrev->setText(QApplication::translate("CuberokClass", "Previous", 0, QApplication::UnicodeUTF8));
         actionPrev->setIconText(QApplication::translate("CuberokClass", "Previous", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
@@ -858,6 +870,9 @@ public:
         actionClear_playlist->setStatusTip(QApplication::translate("CuberokClass", "Clear playlist", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_STATUSTIP
         actionQueueNext->setText(QApplication::translate("CuberokClass", "Queue as Next", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionQueueNext->setStatusTip(QApplication::translate("CuberokClass", "Enqueue selected song", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionQueueNext->setShortcut(QApplication::translate("CuberokClass", "Ctrl+D", 0, QApplication::UnicodeUTF8));
         actionViewFile->setText(QApplication::translate("CuberokClass", "File", 0, QApplication::UnicodeUTF8));
         actionViewTrack->setText(QApplication::translate("CuberokClass", "Track", 0, QApplication::UnicodeUTF8));
@@ -873,18 +888,54 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionEditTag->setToolTip(QApplication::translate("CuberokClass", "Edit Tag", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        actionEditTag->setStatusTip(QApplication::translate("CuberokClass", "Edit tags", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionNewPlaylist->setText(QApplication::translate("CuberokClass", "New playlist", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionNewPlaylist->setStatusTip(QApplication::translate("CuberokClass", "Create new playlist", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionClosePlaylist->setText(QApplication::translate("CuberokClass", "Close playlist", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionClosePlaylist->setStatusTip(QApplication::translate("CuberokClass", "Close current playlist", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionRemoveSong->setText(QApplication::translate("CuberokClass", "Remove song", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionRemoveSong->setStatusTip(QApplication::translate("CuberokClass", "Remove song from the playlist", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionLookFeel->setText(QApplication::translate("CuberokClass", "Look and Feel", 0, QApplication::UnicodeUTF8));
         actionArtistMode->setText(QApplication::translate("CuberokClass", "Artist", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionArtistMode->setStatusTip(QApplication::translate("CuberokClass", "Show artists", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionAlbumMode->setText(QApplication::translate("CuberokClass", "Album", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionAlbumMode->setStatusTip(QApplication::translate("CuberokClass", "Show albums", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionGenreMode->setText(QApplication::translate("CuberokClass", "Genre", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionGenreMode->setStatusTip(QApplication::translate("CuberokClass", "Show genres", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionSongMode->setText(QApplication::translate("CuberokClass", "Song", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionSongMode->setStatusTip(QApplication::translate("CuberokClass", "Show songs", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionAddToCollection->setText(QApplication::translate("CuberokClass", "Add Item", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionAddToCollection->setStatusTip(QApplication::translate("CuberokClass", "Create new collection item", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionAddToLibrary->setText(QApplication::translate("CuberokClass", "Add Item", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionAddToLibrary->setStatusTip(QApplication::translate("CuberokClass", "Create new library item", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionRemoveFromCollection->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionRemoveFromCollection->setStatusTip(QApplication::translate("CuberokClass", "Remove selected item from collection", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionRemoveFromLibrary->setText(QApplication::translate("CuberokClass", "Remove Item", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionRemoveFromLibrary->setStatusTip(QApplication::translate("CuberokClass", "Remove selected item from library", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionStop->setText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
         actionStop->setIconText(QApplication::translate("CuberokClass", "Stop", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_STATUSTIP
@@ -895,43 +946,107 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionSavePlaylist->setToolTip(QApplication::translate("CuberokClass", "Save playlist into file", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        actionSavePlaylist->setStatusTip(QApplication::translate("CuberokClass", "Save playlist into file", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionLoadPlaylist->setText(QApplication::translate("CuberokClass", "Open playlist", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionLoadPlaylist->setToolTip(QApplication::translate("CuberokClass", "Load playlist from a file", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        actionLoadPlaylist->setStatusTip(QApplication::translate("CuberokClass", "Load playlist from a file", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionAboutQt->setText(QApplication::translate("CuberokClass", "About Qt", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionAboutQt->setStatusTip(QApplication::translate("CuberokClass", "About Qt", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionReloadTags->setText(QApplication::translate("CuberokClass", "Reload tags", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionReloadTags->setStatusTip(QApplication::translate("CuberokClass", "Reload tags in selected song", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionViewRating->setText(QApplication::translate("CuberokClass", "Rating", 0, QApplication::UnicodeUTF8));
         actionSettings->setText(QApplication::translate("CuberokClass", "Preferences", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionSettings->setStatusTip(QApplication::translate("CuberokClass", "Preferences", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionSetImage->setText(QApplication::translate("CuberokClass", "Set Image", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionSetImage->setStatusTip(QApplication::translate("CuberokClass", "Set image for collection item", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionLibrarySetImage->setText(QApplication::translate("CuberokClass", "Set Image", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionLibrarySetImage->setStatusTip(QApplication::translate("CuberokClass", "Set image for library item", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionIconView->setText(QApplication::translate("CuberokClass", "Icon View", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionIconView->setStatusTip(QApplication::translate("CuberokClass", "View icons for collection items", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionOpenUrl->setText(QApplication::translate("CuberokClass", "Open Url", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionOpenUrl->setStatusTip(QApplication::translate("CuberokClass", "Open Url", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionGetImageFromLastFM->setText(QApplication::translate("CuberokClass", "Load image from Last.FM", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionGetImageFromLastFM->setStatusTip(QApplication::translate("CuberokClass", "Load image from Last.FM", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionConsole->setText(QApplication::translate("CuberokClass", "Messages", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionConsole->setStatusTip(QApplication::translate("CuberokClass", "Show system log", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionLibrarySQLPlaylist->setText(QApplication::translate("CuberokClass", "View SQL Playlists", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionLibrarySQLPlaylist->setStatusTip(QApplication::translate("CuberokClass", "Show SQL playlists", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionLibraryRegularPlaylist->setText(QApplication::translate("CuberokClass", "View Regular Playlists", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionLibraryRegularPlaylist->setStatusTip(QApplication::translate("CuberokClass", "Show regular playlists", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionSQLListEdit->setText(QApplication::translate("CuberokClass", "Edit SQL Playist", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionSQLListEdit->setStatusTip(QApplication::translate("CuberokClass", "Edit SQL Playist", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionQTagConvert->setText(QApplication::translate("CuberokClass", "QTagConvert", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionQTagConvert->setToolTip(QApplication::translate("CuberokClass", "Edit tags with QTagConvert", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        actionQTagConvert->setStatusTip(QApplication::translate("CuberokClass", "Edit tags with QTagConvert", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionRefreshTree->setText(QApplication::translate("CuberokClass", "Refresh Tree", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        actionRefreshTree->setStatusTip(QApplication::translate("CuberokClass", "Refresh Tree", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionMute->setText(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionMute->setToolTip(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        actionMute->setStatusTip(QApplication::translate("CuberokClass", "Mute", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
         actionViewNumber->setText(QApplication::translate("CuberokClass", "Number", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionViewNumber->setToolTip(QApplication::translate("CuberokClass", "Number", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
+        toolButton_findCurrent->setToolTip(QApplication::translate("CuberokClass", "Find current song", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        toolButton_findCurrent->setStatusTip(QApplication::translate("CuberokClass", "Find now playing song", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
+        toolButton_findCurrent->setText(QApplication::translate("CuberokClass", "Current", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
         filterLineEdit2->setToolTip(QApplication::translate("CuberokClass", "Enter search substring", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        filterLineEdit2->setStatusTip(QApplication::translate("CuberokClass", "Enter search substring", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
 #ifndef QT_NO_TOOLTIP
         filterClearButton->setToolTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        filterClearButton->setText(QApplication::translate("CuberokClass", "...", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_STATUSTIP
+        filterClearButton->setStatusTip(QApplication::translate("CuberokClass", "Reset filter", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
+        filterClearButton->setText(QApplication::translate("CuberokClass", "Clear", 0, QApplication::UnicodeUTF8));
         dockWidget1->setWindowTitle(QApplication::translate("CuberokClass", "Collection", 0, QApplication::UnicodeUTF8));
         subsetLabel->setText(QApplication::translate("CuberokClass", "TextLabel", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
@@ -941,6 +1056,9 @@ public:
 #ifndef QT_NO_TOOLTIP
         filterLineEdit->setToolTip(QApplication::translate("CuberokClass", "Enter search substring", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        filterLineEdit->setStatusTip(QApplication::translate("CuberokClass", "Enter search substring", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_STATUSTIP
 #ifndef QT_NO_TOOLTIP
         colView->setToolTip(QApplication::translate("CuberokClass", "Drag'n'Drop files to the collection", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
