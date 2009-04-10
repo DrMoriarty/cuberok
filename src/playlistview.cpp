@@ -598,3 +598,10 @@ void PlaylistView::setFilter(QString s)
 {
 	pmodel.setFilterRegExp(s);
 }
+
+void PlaylistView::findCurrent()
+{
+	if(plindex.row() >= 0) {
+		setCurrentIndex(pmodel.mapFromSource(plindex));
+	}
+}

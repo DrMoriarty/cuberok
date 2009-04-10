@@ -100,6 +100,7 @@ public slots:
 	void reloadTags();
 	void addUrl(QUrl);
 	void setFilter(QString);
+	void findCurrent();
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);
