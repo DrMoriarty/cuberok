@@ -551,7 +551,13 @@ QList<TagEntry> Tagger::readXSPF(QString fname)
 					} else if(xml.name() == "track") {
 						if(step == 3) step --;
 						// insert
-						if(!tags.title.size()) tags.title = tags.url.toString();
+						if(!tags.title.size()) {
+							if(tags.comment.size()) {
+								tags.title = tags.comment;
+							} else {
+								tags.title = tags.url.toString();
+							}
+						}
 						if(playlistDetected(tags.url))
 							list << readEntry(tags.url);
 						else
