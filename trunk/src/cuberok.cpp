@@ -106,6 +106,7 @@ Cuberok::Cuberok(QWidget *parent)
 	if(PLSet.columnVisible(PlaylistModel::File)) ui.actionViewFile->trigger();
 	if(PLSet.columnVisible(PlaylistModel::Length)) ui.actionViewLength->trigger();
 	if(PLSet.columnVisible(PlaylistModel::Rating)) ui.actionViewRating->trigger();
+	if(PLSet.columnVisible(PlaylistModel::Number)) ui.actionViewNumber->trigger();
 
 	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar_2->widgetForAction(ui.actionBreak)));
 
