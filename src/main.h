@@ -21,6 +21,7 @@
 #define MAIN_H_
 
 #define NDEBUG
+
 #include <fileref.h>
 #include <tag.h>
 #include <mpegfile.h>

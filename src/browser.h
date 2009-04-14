@@ -36,7 +36,7 @@ class Browser: public QObject
 	virtual void GetList(QString = "") = 0;
  signals:
 	// send list of vectors to owner
-	virtual void list(QList< QList<QString> >);
+	virtual void list(QList< QStringList >);
 };
 
 #endif // BROWSER_H

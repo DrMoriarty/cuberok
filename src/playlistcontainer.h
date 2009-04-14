@@ -81,6 +81,7 @@ public slots:
 	void removeSong();
 	void reloadTags();
 	void openUrl();
+	void addUrl(QUrl);
 	void rateLove();
 	void rateBan();
 	void rateUp();

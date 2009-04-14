@@ -17,27 +17,42 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef MAGNATUNE_BROWSER_H
-#define MAGNATUNE_BROWSER_H
+#ifndef BROWSER_VIEWER_H
+#define BROWSER_VIEWER_H
 
+#include <QtGui>
+#include "ui_browser_viewer.h"
 #include "browser.h"
-#include <QtNetwork>
+#include "downloader.h"
 
-class MagnatuneBrowser: public Browser
+class BrowserViewer: public QWidget
 {
 	Q_OBJECT
-public:
-	MagnatuneBrowser(QObject *parent = 0);
-	~MagnatuneBrowser();
-	virtual void GetList(QString = "");
+ public:
+	BrowserViewer( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+	~BrowserViewer();
+ public slots:
+	void browserChanged(int);
+	void back();
+	void forward();
+	void home();
+	void reload();
  signals:
-	virtual void list(QList< QStringList >);
+	void openUrl(QUrl);
  private:
-	QNetworkAccessManager manager;
-	QNetworkReply *reply;
+    Ui::BrowserViewer ui;
+	Browser *browser;
+	QStringList history;
+	QStringList fhistory;
+	QString current;
+	Downloader *dl;
+
+	void goTo(QString s);
  private slots:
-	void replyFinished(QNetworkReply*);
-	void slotError(QNetworkReply::NetworkError);
+	void putList(QList< QStringList >);
+	void itemActivated(QListWidgetItem*);
+	void dlComplete(QString);
+	void dlCancel(QString);
 };
 
-#endif //MAGNATUNE_BROWSER_H
+#endif // BROWSER_VIEWER_H

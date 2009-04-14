@@ -19,38 +19,85 @@
 
 #include "magnatune_browser.h"
 #include "playlistsettings.h"
+#include <QtXml>
+#include "console.h"
 
-Magnatune_Browser::Magnatune_Browser(QObject *parent) : Browser(parent)
+MagnatuneBrowser::MagnatuneBrowser(QObject *parent) : Browser(parent)
 {
-	connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
+	connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 }
 
-Magnatune_Browser::~Magnatune_Browser()
+MagnatuneBrowser::~MagnatuneBrowser()
 {
 }
 
-void Magnatune_Browser::GetList(QString comefrom)
+void MagnatuneBrowser::GetList(QString comefrom)
 {
 	if(PLSet.proxyEnabled) {
 		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy, PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword));
 	}
-	reply = manager.get(QNetworkRequest(QUrl("http://magnatune.com/microbrowse/" + comefrom)));
+	if(!comefrom.size() || comefrom[0] != '/') comefrom = "/microbrowse/" + comefrom;
+	reply = manager.get(QNetworkRequest(QUrl("http://magnatune.com" + comefrom)));
 	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotError(QNetworkReply::NetworkError)));
 }
 
-void Magnatune_Browser::replyFinished(QNetworkReply* reply)
+void MagnatuneBrowser::replyFinished(QNetworkReply* reply)
 {
 	reply->disconnect();
-	QString data = QString::fromUtf8((const char*)http.readAll());
-	Console::Self().log("Magnatune response:" + data);
-	
+	QString str = QString::fromUtf8((const char*)reply->readAll());
+	Console::Self().log("Magnatune response:" + str);
+	if(str.indexOf("xspf") > 0) {
+		QString url, title;
+		int st = str.indexOf("playlist_url=");
+		int end = str.indexOf("xspf", st);
+		st += 13;
+		end += 4;
+		int len = end - st;
+		if(len > 0 && end < str.size()) {
+			url = str.mid(st, len);
+		}
+		st = str.indexOf("playlist_title=");
+		end = str.indexOf("\"", st);
+		st += 15;
+		len = end - st;
+		if(len > 0 && end < str.size()) {
+			title = str.mid(st, len);
+		}
+		QList< QStringList > data;
+		data << QStringList();
+		url = "http://magnatune.com"+url;
+		data[0] << title << url/*tr("Drag this link to the playlist")*/ << "" << url;
+		emit list(data);
+		return;
+	}
+	QDomDocument doc;
+	QString errString;
+	int errLine = 0, errColumn = 0;
+	QTextDocument tdoc;
+	tdoc.setHtml(str);
+	if(!doc.setContent(tdoc.toHtml(), &errString, &errLine, &errColumn)) {
+		Console::Self().error(tr("MagnaTune error: %1 at line %2 column %3").arg(errString).arg(QString::number(errLine)).arg(QString::number(errColumn)));
+		return;
+	}
+	QDomNodeList l = doc.elementsByTagName("a");
+	QList< QStringList > data;
+	for(int i=0; i<l.size(); i++) {
+		QDomElement el = l.at(i).toElement();
+		QString title, comment, id, url;
+		title = el.text();
+		comment = el.attribute("title", title);
+		id = el.attribute("href", "no href");
+		data << QStringList();
+		data[data.size()-1] << title << comment << id << url;
+	}
+	emit list(data);
 }
 
-void Magnatune_Browser::slotError(QNetworkReply::NetworkError)
+void MagnatuneBrowser::slotError(QNetworkReply::NetworkError)
 {
 	reply->disconnect();
-	QList< QList<QString> > data;
-	data << QList<QString>();
+	QList< QStringList > data;
+	data << QStringList();
 	data[0] << "Network error!";
 	data[0] << "There is error during download a page from the magnatune.com";
 	data[0] << "";
