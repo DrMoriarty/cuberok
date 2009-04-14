@@ -86,7 +86,7 @@ void Indicator::update()
 			QIcon icon2;
 			icon2.addPixmap(pxR[rot]);
 			widget->setIcon(icon2);
-			//widget->repaint();
+			widget->repaint();
 		}
 	}
 }

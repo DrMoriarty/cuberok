@@ -39,8 +39,10 @@ private:
 	int  proceed(QString);
 	bool cancel;
 	int param;
- private slots:
+private slots:
 	void cancelEvent();
+signals:
+	void internalUpdate();
 
 };
 

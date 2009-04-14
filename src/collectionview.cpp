@@ -38,7 +38,8 @@ CollectionFiller::CollectionFiller(QList<QUrl> _urls, ListMode _mode, QString _a
 	: QThread(parent), urls(_urls), mode(_mode), attrname(_attrname), param(_param)
 {
 	cancel = false;
-	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
+	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()), Qt::QueuedConnection);
+	connect(this, SIGNAL(internalUpdate()), &Indicator::Self(), SLOT(update()), Qt::QueuedConnection);
 }
 
 CollectionFiller::~CollectionFiller()
@@ -59,7 +60,7 @@ void CollectionFiller::run()
 int CollectionFiller::proceed(QString path)
 {
 	if(cancel) return -1;
-	Indicator::Self().update();
+	emit internalUpdate();
 	QDir dir;
 	if(dir.cd(path)) {
 		int count = 0;
