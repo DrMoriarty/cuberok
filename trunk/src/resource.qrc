@@ -53,5 +53,8 @@
 	<file alias="next.png">../images/finish.png</file>
 	<file alias="console.png">../images/konv_message2.png</file>
 	<file alias="volume.png">../images/text_speak.png</file>
+	<file alias="gohome.png">../images/gohome.png</file>
+	<file alias="back.png">../images/back.png</file>
+	<file alias="forward.png">../images/forward.png</file>
     </qresource>
 </RCC>

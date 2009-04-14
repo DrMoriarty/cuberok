@@ -339,6 +339,13 @@ void PlaylistContainer::openUrl()
 	}
 }
 
+void PlaylistContainer::addUrl(QUrl url)
+{
+	if(curlist) {
+		curlist->addUrl(url);
+	}
+}
+
 void PlaylistContainer::rateLove()
 {
 	if(actlist) {

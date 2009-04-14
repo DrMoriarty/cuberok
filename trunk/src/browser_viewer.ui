@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BrowserViewer</class>
+ <widget class="QWidget" name="BrowserViewer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>279</width>
+    <height>310</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>4</number>
+   </property>
+   <property name="margin">
+    <number>4</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>4</number>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QToolButton" name="toolButton_back">
+        <property name="toolTip">
+         <string>Back</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/icons/back.png</normaloff>:/icons/back.png</iconset>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_forward">
+        <property name="toolTip">
+         <string>Forward</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/icons/forward.png</normaloff>:/icons/forward.png</iconset>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_reload">
+        <property name="toolTip">
+         <string>Reload</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_home">
+        <property name="toolTip">
+         <string>Home</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/icons/gohome.png</normaloff>:/icons/gohome.png</iconset>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>MagnaTune</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listWidget"/>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>BrowserViewer</receiver>
+   <slot>browserChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_back</sender>
+   <signal>clicked()</signal>
+   <receiver>BrowserViewer</receiver>
+   <slot>back()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>14</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_forward</sender>
+   <signal>clicked()</signal>
+   <receiver>BrowserViewer</receiver>
+   <slot>forward()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>14</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_home</sender>
+   <signal>clicked()</signal>
+   <receiver>BrowserViewer</receiver>
+   <slot>home()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>14</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_reload</sender>
+   <signal>clicked()</signal>
+   <receiver>BrowserViewer</receiver>
+   <slot>reload()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>14</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>154</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>browserChanged(int)</slot>
+  <slot>back()</slot>
+  <slot>forward()</slot>
+  <slot>home()</slot>
+  <slot>reload()</slot>
+ </slots>
+</ui>

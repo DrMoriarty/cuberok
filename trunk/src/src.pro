@@ -13,6 +13,8 @@ DEFINES += CUBEROK_VERSION_BUI=8
 #           src/player_void.cpp \
 # Input
 HEADERS += aboutdialog.h \
+           browser.h \
+           browser_viewer.h \
            collectionview.h \
            console.h \
            cuberok.h \
@@ -26,6 +28,7 @@ HEADERS += aboutdialog.h \
            libraryview.h \
            lookandfeel.h \
            lyricwiki.h \
+           magnatune_browser.h \
            main.h \
            player.h \
            player_manager.h \
@@ -43,10 +46,22 @@ HEADERS += aboutdialog.h \
            tagger.h \
            url_open.h
 
-FORMS += aboutdialog.ui cuberok.ui lookandfeel.ui tageditor.ui settings.ui url_open.ui authenticationdialog.ui console.ui info.ui infowindow.ui sqledit.ui
+FORMS += aboutdialog.ui \
+         cuberok.ui \
+         lookandfeel.ui \
+         tageditor.ui \
+         settings.ui \
+         url_open.ui \
+         authenticationdialog.ui \
+         console.ui \
+         info.ui \
+         infowindow.ui \
+         sqledit.ui \
+         browser_viewer.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
+           browser_viewer.cpp \
            collectionview.cpp \
            console.cpp \
            cuberok.cpp \
@@ -60,6 +75,7 @@ SOURCES += aboutdialog.cpp \
            libraryview.cpp \
            lookandfeel.cpp \
            lyricwiki.cpp \
+           magnatune_browser.cpp \
            main.cpp \
            player_manager.cpp \
            playlistcontainer.cpp \

@@ -161,6 +161,8 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
 		else if(role == Qt::DisplayRole) 
 			//return QFileInfo(_data.at(index.row()).values[index.column()]->toUrl().toLocalFile()).fileName(); 
 			return _data.at(index.row()).values[File]->toUrl().toString();
+		else if(role == Qt::ToolTipRole)
+			return _data.at(index.row()).values[File]->toUrl().toString();
     }
     
     if(index.row() == _current) {
@@ -255,6 +257,7 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
 {
 	if(position > _data.count()) position = _data.count();
 	if(position < 0) position = 0;
+	if(rows <= 0) return false;
 	beginRemoveRows(QModelIndex(), position, position+rows-1);
 	
 	for (int row = 0; row < rows; ++row) {
