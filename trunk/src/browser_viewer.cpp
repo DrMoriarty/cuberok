@@ -61,8 +61,6 @@ void BrowserViewer::browserChanged(int i)
 	}
 	if(!connect(browser, SIGNAL(list(QList< QStringList >)), this, SLOT(putList(QList< QStringList >))))
 		Console::Self().error("Can't connect to browser.list");
-	history.clear();
-	fhistory.clear();
 	home();
 }
 
@@ -92,6 +90,8 @@ void BrowserViewer::itemActivated(QListWidgetItem* it)
 	id = it->data(Qt::StatusTipRole).toString();
 	url = it->data(Qt::UserRole).toString();
 	if(id.size()) {
+		pathItems << it->data(Qt::DisplayRole).toString();
+		history << current;
 		goTo(id);
 	} else if(url.size()) {
 		if(url.toLower().indexOf("xspf") >= 0) { // need to download a playlist
@@ -113,15 +113,14 @@ void BrowserViewer::back()
 	if(history.size() && browser) {
 		last = history[history.size()-1];
 		history.removeLast();
-		fhistory.push_front(current);
 		current = last;
+		pathItems.removeLast();
+		updatePath();
 		browser->GetList(last);
-		ui.toolButton_forward->setDisabled(!fhistory.size());
-		ui.toolButton_back->setDisabled(!history.size());
 	}
 }
 
-void BrowserViewer::forward()
+/*void BrowserViewer::forward()
 {
 	QString last;
 	if(fhistory.size() && browser) {
@@ -129,14 +128,17 @@ void BrowserViewer::forward()
 		fhistory.removeFirst();
 		history.push_back(current);
 		current = last;
+		pathItems.push_back(fpathItems.first());
+		fpathItems.removeFirst();
+		updatePath();
 		browser->GetList(last);
-		ui.toolButton_forward->setDisabled(!fhistory.size());
-		ui.toolButton_back->setDisabled(!history.size());
 	}
-}
+	}*/
 
 void BrowserViewer::home()
 {
+	pathItems.clear();
+	history.clear();
 	goTo("");
 }
 
@@ -148,12 +150,20 @@ void BrowserViewer::reload()
 void BrowserViewer::goTo(QString s)
 {
 	if(!browser) return;
-	if(s != current) history << current;
 	current = s;
-	fhistory.clear();
-	ui.toolButton_forward->setDisabled(!fhistory.size());
-	ui.toolButton_back->setDisabled(!history.size());
+	updatePath();
 	browser->GetList(current);
+}
+
+void BrowserViewer::updatePath()
+{
+	QString path;
+	foreach(QString s, pathItems) {
+		path += "/" + s;
+	}
+	ui.label->setText(path);
+	//ui.toolButton_forward->setDisabled(!fhistory.size());
+	ui.toolButton_back->setDisabled(!history.size());
 }
 
 void BrowserViewer::dlComplete(QString file)
