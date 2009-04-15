@@ -56,7 +56,7 @@ void JamendoBrowser::replyFinished(QNetworkReply* reply)
 		comment = title;
 		switch(fields.size()) {
 		case 2: // song
-			url = fields[0];
+			url = QUrl::fromPercentEncoding(fields[0].toLocal8Bit());
 			break;
 		case 3: // album
 			id = "http://www.jamendo.com/get2/stream+name/track/plain/track_album/?order=rating&album_id="+fields[0];

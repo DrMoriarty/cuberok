@@ -232,11 +232,11 @@ void PlayerGst::setLink(int l, QUrl &url)
 	}
 	switch(link) {
 	case 2: {// http
-		g_object_set (G_OBJECT (http_src), "location", (const char*)url.toString().toLocal8Bit(), NULL);
+		g_object_set (G_OBJECT (http_src), "location", (const char*)url.toEncoded(), NULL);
 		QString proxy;
 // 		if(PLSet.proxyEnabled) 
 // 			proxy = PLSet.proxyHost + ":" + QString::number(PLSet.proxyPort);
-		g_object_set (G_OBJECT (http_src), "proxy", (const char*)proxy.toLocal8Bit(), NULL);
+		//g_object_set (G_OBJECT (http_src), "proxy", (const char*)proxy.toLocal8Bit(), NULL);
 		break;
 	}
 	case 1: // file
@@ -272,7 +272,8 @@ bool PlayerGst::open(QUrl fname, long start, long length)
 	}
 
 	//g_object_set (player, "uri", (const char*)fname.toString().toLocal8Bit(), NULL);
-	sync_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
+	//sync_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
+	gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
 	Gstart = start;
 	Gstart *= 1000000000 / 75;
 	Glength = length;
