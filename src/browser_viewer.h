@@ -34,7 +34,7 @@ class BrowserViewer: public QWidget
  public slots:
 	void browserChanged(int);
 	void back();
-	void forward();
+	//void forward();
 	void home();
 	void reload();
  signals:
@@ -43,11 +43,12 @@ class BrowserViewer: public QWidget
     Ui::BrowserViewer ui;
 	Browser *browser;
 	QStringList history;
-	QStringList fhistory;
 	QString current;
 	Downloader *dl;
+	QStringList pathItems;
 
 	void goTo(QString s);
+	void updatePath();
  private slots:
 	void putList(QList< QStringList >);
 	void itemActivated(QListWidgetItem*);

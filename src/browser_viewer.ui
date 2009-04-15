@@ -53,23 +53,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_forward">
-        <property name="toolTip">
-         <string>Forward</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="resource.qrc">
-          <normaloff>:/icons/forward.png</normaloff>:/icons/forward.png</iconset>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QToolButton" name="toolButton_reload">
         <property name="toolTip">
          <string>Reload</string>
@@ -129,6 +112,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QListWidget" name="listWidget"/>
    </item>
   </layout>
@@ -161,22 +151,6 @@
    <hints>
     <hint type="sourcelabel">
      <x>15</x>
-     <y>14</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>139</x>
-     <y>154</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>toolButton_forward</sender>
-   <signal>clicked()</signal>
-   <receiver>BrowserViewer</receiver>
-   <slot>forward()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>42</x>
      <y>14</y>
     </hint>
     <hint type="destinationlabel">
