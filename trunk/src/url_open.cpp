@@ -35,13 +35,11 @@ void UrlOpen::accept()
 {
 	if(dl) return;
 	QUrl url(ui.lineEdit->text());
+	QString text = url.toString().toLower();
 	if(url.scheme().toLower() == "file") {
 		emit append(url);
 		QDialog::accept();
-	} else if(url.port()>0 || url.toString().toLower().endsWith("mp3") || url.toString().toLower().endsWith("ogg")) {
-		emit append(url);
-		QDialog::accept();
-	} else {
+	} else if(text.indexOf("xspf") > 0 || text.indexOf("m3u") > 0) {
 		dl = new Downloader();
 		connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 		connect(dl, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
@@ -50,6 +48,12 @@ void UrlOpen::accept()
 			delete dl;
 			QDialog::reject();
 		}
+	} else if(url.port()>0 || text.indexOf("mp3") > 0 || text.indexOf("ogg")) {
+		emit append(url);
+		QDialog::accept();
+	} else {  // unknown link
+		emit append(url);
+		QDialog::accept();
 	}
 }
 

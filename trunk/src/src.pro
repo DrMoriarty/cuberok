@@ -24,6 +24,7 @@ HEADERS += aboutdialog.h \
            infowidget.h \
            infowindow.h \
            indicator.h \
+           jamendo_browser.h \
            lastfm.h \
            libraryview.h \
            lookandfeel.h \
@@ -71,6 +72,7 @@ SOURCES += aboutdialog.cpp \
            infowidget.cpp \
            infowindow.cpp \
            indicator.cpp \
+           jamendo_browser.cpp \
            lastfm.cpp \
            libraryview.cpp \
            lookandfeel.cpp \
