@@ -19,6 +19,7 @@
 
 #include "browser_viewer.h"
 #include "magnatune_browser.h"
+#include "jamendo_browser.h"
 #include "console.h"
 
 BrowserViewer::BrowserViewer(QWidget * parent, Qt::WindowFlags f)
@@ -47,14 +48,21 @@ void BrowserViewer::browserChanged(int i)
 	}
 	ui.listWidget->clear();
 	switch(i) {
-	case 0:  // MagnaTune
+	case 0:  // empty
+		return;
+	case 1:  // MagnaTune
 		browser = new MagnatuneBrowser();
+		break;
+	case 2:  // Jamendo
+		browser = new JamendoBrowser();
 		break;
 	default:
 		return;
 	}
 	if(!connect(browser, SIGNAL(list(QList< QStringList >)), this, SLOT(putList(QList< QStringList >))))
 		Console::Self().error("Can't connect to browser.list");
+	history.clear();
+	fhistory.clear();
 	home();
 }
 
@@ -86,13 +94,16 @@ void BrowserViewer::itemActivated(QListWidgetItem* it)
 	if(id.size()) {
 		goTo(id);
 	} else if(url.size()) {
-		dl = new Downloader();
-		connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
-		connect(dl, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
-		if(!dl->download(QUrl(url))) {
-			delete dl;
+		if(url.toLower().indexOf("xspf") >= 0) { // need to download a playlist
+			dl = new Downloader();
+			connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+			connect(dl, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+			if(!dl->download(QUrl(url))) {
+				delete dl;
+			}
+		} else {  // this is a direct link to stream
+			emit openUrl(QUrl(url));
 		}
-		//emit openUrl(QUrl(url));
 	}
 }
 
@@ -149,15 +160,15 @@ void BrowserViewer::dlComplete(QString file)
 {
 	emit openUrl(QUrl::fromLocalFile(file));
 	dl->disconnect();
-	delete dl;
-	dl = 0;
+	//delete dl;
+	//dl = 0;
 }
 
 void BrowserViewer::dlCancel(QString err)
 {
 	Console::Self().warning("Cancel: " + err);
 	dl->disconnect();
-	delete dl;
-	dl = 0;
+	//delete dl;
+	//dl = 0;
 }
 

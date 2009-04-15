@@ -110,7 +110,17 @@
         </property>
         <item>
          <property name="text">
+          <string/>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>MagnaTune</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Jamendo</string>
          </property>
         </item>
        </widget>

@@ -98,8 +98,8 @@ void MagnatuneBrowser::slotError(QNetworkReply::NetworkError)
 	reply->disconnect();
 	QList< QStringList > data;
 	data << QStringList();
-	data[0] << "Network error!";
-	data[0] << "There is error during download a page from the magnatune.com";
+	data[0] << tr("Network error!");
+	data[0] << tr("There is error during download a page from the magnatune.com");
 	data[0] << "";
 	data[0] << "";
 	emit list(data);
