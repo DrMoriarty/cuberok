@@ -28,6 +28,8 @@
 
 QString style_name;
 
+#define FILELOG
+
 const int ver = 1;
 
 void storeState(Cuberok *win)
@@ -103,6 +105,14 @@ void UnregisterWinKeys(WId hwnd)
 
 void myMessageOutput(QtMsgType type, const char *msg)
  {
+#ifdef FILELOG
+	 {
+		 QFile file(QDir::homePath()+"/.cuberok/log.txt");
+		 file.open(QIODevice::Append);
+		 QDataStream out(&file);
+		 out << QString(msg).toLocal8Bit() << "\n";
+	 }
+#endif
      switch (type) {
      case QtDebugMsg:
          //fprintf(stderr, "Debug: %s\n", msg);
