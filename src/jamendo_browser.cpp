@@ -37,7 +37,7 @@ void JamendoBrowser::GetList(QString comefrom)
 		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy, PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword));
 	}
 	if(!comefrom.size()) comefrom = "http://api.jamendo.com/get2/id+name+rating+url+weight/tag/plain/?order=rating_desc";
-	comefrom += "&n=20";
+	comefrom += "&n=50";
 	reply = manager.get(QNetworkRequest(QUrl(comefrom)));
 	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotError(QNetworkReply::NetworkError)));
 }

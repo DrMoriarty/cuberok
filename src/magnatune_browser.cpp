@@ -62,6 +62,7 @@ void MagnatuneBrowser::replyFinished(QNetworkReply* reply)
 		len = end - st;
 		if(len > 0 && end < str.size()) {
 			title = str.mid(st, len);
+			title = QUrl::fromPercentEncoding(title.toLocal8Bit());
 		}
 		QList< QStringList > data;
 		data << QStringList();
