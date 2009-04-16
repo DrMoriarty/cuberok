@@ -258,6 +258,7 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
 	if(position > _data.count()) position = _data.count();
 	if(position < 0) position = 0;
 	if(rows <= 0) return false;
+	if(_current >= position && _current <= (position + rows)) _current = -1;
 	beginRemoveRows(QModelIndex(), position, position+rows-1);
 	
 	for (int row = 0; row < rows; ++row) {
@@ -271,7 +272,7 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
 
 void PlaylistModel::appendList(QList<TagEntry> list)
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount()+list.size());
+    beginInsertRows(QModelIndex(), rowCount(), rowCount()+list.size()-1);
 	foreach(TagEntry tag, list) {
     	struct sData d;
     	d.values[PlaylistModel::Empty] = new QVariant();
