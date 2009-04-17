@@ -40,11 +40,15 @@ public slots:
 	void sqlListEdit();
 	void setStatus(QString);
 
+ private slots:
+	void sendToPlaylist(QModelIndex);
+
  signals:
 	void modeChanged(int);
 	void status(QString);
+	void addUrl(QUrl);
 
-private:
+ private:
 	CollectionModel model;
 	QString stat;
 

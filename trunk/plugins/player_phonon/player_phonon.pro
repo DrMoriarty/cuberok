@@ -8,6 +8,8 @@
  SOURCES       = ../../src/player_phonon.cpp
  TARGET        = $$qtLibraryTarget(player_phonon)
 
+include(../../qmakeroot.pri)
+
 win32 {
     DESTDIR = ../../win32/plugins
     #INCLUDEPATH += ../../audiere/include

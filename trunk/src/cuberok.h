@@ -38,6 +38,7 @@ class Cuberok : public QMainWindow
 public:
     Cuberok(QWidget *parent = 0);
     ~Cuberok();
+	void firstStart();
     
 private:
 	void showhide(bool s);

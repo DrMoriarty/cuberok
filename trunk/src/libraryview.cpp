@@ -36,7 +36,7 @@ LibraryView::LibraryView(QWidget *parent): QListView(parent)
 	setDragDropMode(QAbstractItemView::DragDrop);
 	setDropIndicatorShown(true);
  	connect(&model, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
-// 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
+ 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(sendToPlaylist(QModelIndex)));
  	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	model.updateMode(M_LIST);
 }
@@ -142,3 +142,10 @@ void LibraryView::enterEvent ( QEvent * event )
 	emit status(stat);
 }
 
+void LibraryView::sendToPlaylist(QModelIndex ind)
+{
+	QList<QUrl> list = model.SelectByItem(ind);
+	foreach(QUrl url, list) {
+		emit addUrl(url);
+	}
+}

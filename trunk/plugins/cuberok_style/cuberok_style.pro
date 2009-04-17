@@ -8,6 +8,8 @@
 
 #REQUIRES += "contains(styles, motif)"
 
+include(../../qmakeroot.pri)
+
 win32 {
     DESTDIR = ../../win32/styles
 }

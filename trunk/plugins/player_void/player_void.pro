@@ -6,6 +6,8 @@
  SOURCES       = ../../src/player_void.cpp
  TARGET        = $$qtLibraryTarget(player_void)
 
+include(../../qmakeroot.pri)
+
 win32 {
     DESTDIR = ../../win32/plugins
 }

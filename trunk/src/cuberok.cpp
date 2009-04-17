@@ -146,6 +146,20 @@ Cuberok::~Cuberok()
 	set.setValue("iconview", ui.actionIconView->isChecked());
 }
 
+void Cuberok::firstStart()
+{
+	tabifyDockWidget(ui.dockWidget, ui.dockWidget3);
+	tabifyDockWidget(ui.dockWidget3, ui.dockWidget2);
+	tabifyDockWidget(ui.dockWidget2, ui.dockWidget1);
+	tabifyDockWidget(ui.dockWidget1, ui.dockWidget4);
+	PLSet.setColumnVisible(PlaylistModel::File, false);
+	PLSet.setColumnVisible(PlaylistModel::Comment, false);
+	PLSet.setColumnVisible(PlaylistModel::Genre, false);
+	PLSet.setColumnVisible(PlaylistModel::Length, false);
+	PLSet.setColumnVisible(PlaylistModel::Number, false);
+	PLSet.setColumnVisible(PlaylistModel::Year, false);
+}
+
 void Cuberok::aboutMenu()
 {
 	AboutDialog ad(this);
