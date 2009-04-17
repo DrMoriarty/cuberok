@@ -5,9 +5,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . 
 
-DEFINES += CUBEROK_VERSION_MAJ=0
-DEFINES += CUBEROK_VERSION_MIN=0
-DEFINES += CUBEROK_VERSION_BUI=8
+include(../qmakeroot.pri)
 
 #           src/player_void.h \
 #           src/player_void.cpp \

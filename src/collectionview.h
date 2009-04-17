@@ -118,6 +118,7 @@ signals:
 	void setVisibleSubsetWidgets(bool);
 	void setSubsetLabel(QString);
 	void modeChanged(int);
+	void addUrl(QUrl);
 };
 
 #endif // COLLECTIONVIEW_H

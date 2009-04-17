@@ -710,8 +710,6 @@ void CollectionView::applySubset(QModelIndex ind)
 {
 	emit setVisibleSubsetWidgets(true);
 	QString value = model.data(ind).toString();
-	subsetLabel += QDir::separator() + value;
-	emit setSubsetLabel(subsetLabel);
 	switch(model.mode) {
 	case M_ALBUM:
 		Database::Self().subsetAlbum(Database::Self().AddAlbum(value, model.itemFromIndex(ind)->data().toInt()));
@@ -725,9 +723,12 @@ void CollectionView::applySubset(QModelIndex ind)
 		Database::Self().subsetGenre(value);
 		model.updateMode(M_ARTIST);
 		break;
-	case M_SONG:
+	case M_SONG:  // add a song into the playlist
+		emit addUrl(QUrl::fromLocalFile(model.itemFromIndex(ind)->data().toString()));
 		return;
 	}
+	subsetLabel += QDir::separator() + value;
+	emit setSubsetLabel(subsetLabel);
 	//model.update();
 }
 

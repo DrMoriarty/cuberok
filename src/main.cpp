@@ -53,9 +53,13 @@ void storeState(Cuberok *win)
     */
 }
 
-void restoreState(Cuberok *win)
+bool restoreState(Cuberok *win)
 {
     QSettings set;
+	if(!set.contains("style") && !set.contains("palette") && !set.contains("winstate") && !set.contains("wingeometry")) {
+		return false;
+	}
+	
     style_name = set.value("style", "Cuberok").toString();
 #ifdef WIN32
     // FIXME qt bug?
@@ -81,6 +85,7 @@ void restoreState(Cuberok *win)
     win->restoreGeometry(g);
     win->setSplitter(splitter);
     */
+	return true;
 }
 
 #ifdef WIN32
@@ -164,7 +169,9 @@ int main(int argc, char *argv[])
     a.processEvents();
     Cuberok w;
 #ifndef DEBUG
-    restoreState(&w);
+    if(!restoreState(&w)) {
+		w.firstStart();
+	}
 #endif
     w.show();
     splash.finish(&w);

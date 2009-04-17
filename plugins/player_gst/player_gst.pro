@@ -7,6 +7,8 @@
  SOURCES       = ../../src/player_gst.cpp
  TARGET        = $$qtLibraryTarget(player_gst)
 
+include(../../qmakeroot.pri)
+
 win32 {
     DESTDIR = ../../win32/plugins
     INCLUDEPATH += ../../gstreamer/include ../../gstreamer/include/glib-2.0 ../../gstreamer/lib/glib-2.0/include

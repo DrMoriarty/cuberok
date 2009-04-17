@@ -23,6 +23,9 @@
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
   </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout">
     <property name="spacing">
@@ -274,6 +277,9 @@
        <property name="toolTip">
         <string>Drag'n'Drop files to the collection</string>
        </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+       </property>
        <property name="dragEnabled">
         <bool>true</bool>
        </property>
@@ -385,6 +391,9 @@
        </property>
        <property name="toolTip">
         <string>Drag'n'Drop playlists to the library</string>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
        </property>
        <property name="dragEnabled">
         <bool>true</bool>
@@ -1403,11 +1412,17 @@
    <class>CollectionView</class>
    <extends>QListView</extends>
    <header>collectionview.h</header>
+   <slots>
+    <signal>addUrl(QUrl)</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>LibraryView</class>
    <extends>QListView</extends>
    <header>libraryview.h</header>
+   <slots>
+    <signal>addUrl(QUrl)</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>Info</class>
@@ -2544,6 +2559,38 @@
     </hint>
     <hint type="destinationlabel">
      <x>325</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>libView</sender>
+   <signal>addUrl(QUrl)</signal>
+   <receiver>listView</receiver>
+   <slot>addUrl(QUrl)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>569</x>
+     <y>407</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colView</sender>
+   <signal>addUrl(QUrl)</signal>
+   <receiver>listView</receiver>
+   <slot>addUrl(QUrl)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>266</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
      <y>261</y>
     </hint>
    </hints>
