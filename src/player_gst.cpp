@@ -272,8 +272,8 @@ bool PlayerGst::open(QUrl fname, long start, long length)
 	}
 
 	//g_object_set (player, "uri", (const char*)fname.toString().toLocal8Bit(), NULL);
-	//sync_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
-	gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
+	sync_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
+	//gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PAUSED);
 	Gstart = start;
 	Gstart *= 1000000000 / 75;
 	Glength = length;
