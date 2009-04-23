@@ -146,10 +146,23 @@ int main(int argc, char *argv[])
     qInstallMsgHandler(myMessageOutput);
 #endif
     QApplication a(argc, argv);
+	QSharedMemory shm("Cuberok shared memory");
+	if(shm.attach(QSharedMemory::ReadOnly)) {
+		qDebug("Cuberok already started\n exiting...");
+		return 0;
+	}
+	QString splashstring = QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
+	if(!shm.create(30)) {
+		qWarning("Can not create shared memory segment!");
+	} else {
+		shm.lock();
+		memcpy(shm.data(), (const char*)splashstring.toLocal8Bit(), splashstring.toLocal8Bit().size());
+		shm.unlock();
+	}
     QPixmap pixmap(":/icons/splash.png");
     QSplashScreen splash(pixmap);
     splash.show();
-    splash.showMessage(QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI)), Qt::AlignBottom/*Qt::AlignCenter*/, Qt::black);
+    splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::black);
     QString locale = QLocale::system().name().left(2);
     QTranslator translator;
     QString loc_path;
