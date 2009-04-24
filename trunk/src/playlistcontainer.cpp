@@ -51,9 +51,25 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	tabs->setCornerWidget(newButton, Qt::TopLeftCorner);
 	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
 	setContextMenuPolicy(Qt::ActionsContextMenu);
+
+	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
+	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
+
 }
 
 PlaylistContainer::~PlaylistContainer()
+{
+	storeState();
+	while(lists.count() > 0) {
+		lists.last()->setAutosave(true);
+		delete lists.last();
+		lists.pop_back();
+	}
+	delete tabs;
+	delete vboxLayout;
+}
+
+void PlaylistContainer::storeState()
 {
 	QSettings set;
 	if(actlist && actlist->isPlaying()) {
@@ -62,13 +78,7 @@ PlaylistContainer::~PlaylistContainer()
 		set.setValue("curindex", actlist->curIndex());
 		set.setValue("curpos", actlist->curPosition());
 	} else set.setValue("playing", 0);
-	while(lists.count() > 0) {
-		lists.last()->setAutosave(true);
-		delete lists.last();
-		lists.pop_back();
-	}
-	delete tabs;
-	delete vboxLayout;
+	qDebug("PlaylistContainer, state was stored");
 }
 
 void PlaylistContainer::prepare()
