@@ -134,9 +134,16 @@ Cuberok::Cuberok(QWidget *parent)
 		ui.actionIconView->trigger();
 
 	applySettings();
+	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
+	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 }
 
 Cuberok::~Cuberok()
+{
+	storeState();
+}
+
+void Cuberok::storeState()
 {
 	QSettings set;
 	//set.setValue("splitter", ui.line->saveState());
@@ -144,6 +151,7 @@ Cuberok::~Cuberok()
 	set.setValue("repeat", ui.actionRepeat->isChecked());
 	set.setValue("shuffle", ui.actionShuffle->isChecked());
 	set.setValue("iconview", ui.actionIconView->isChecked());
+	qDebug("Cuberok, state was stored");
 }
 
 void Cuberok::firstStart()

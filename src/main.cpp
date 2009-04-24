@@ -21,72 +21,14 @@
 #include "cuberok.h"
 #include "database.h"
 #include "playlistsettings.h"
+#include "myapplication.h"
 
 #include <QtGui>
-#include <QApplication>
 #include "console.h"
 
 QString style_name;
 
 #define FILELOG
-
-const int ver = 1;
-
-void storeState(Cuberok *win)
-{
-    QSettings set;
-    set.setValue("style", style_name);
-#ifdef WIN32
-    // FIXME qt bug?
-    set.setValue("palette", (QVariant)QApplication::palette());
-#endif
-    set.setValue("winstate", win->saveState(ver));
-    set.setValue("wingeometry", win->saveGeometry());
-    /*QFile file(QDir::homePath()+"/.cuberock/state.dat");
-    file.open(QIODevice::WriteOnly);
-    QDataStream out(&file);   // we will serialize the data into the file
-    out << style_name;
-    out << QApplication::palette();
-    out << win->saveState(ver);
-    out << win->saveGeometry();
-    out << win->splitter();
-    */
-}
-
-bool restoreState(Cuberok *win)
-{
-    QSettings set;
-	if(!set.contains("style") && !set.contains("palette") && !set.contains("winstate") && !set.contains("wingeometry")) {
-		return false;
-	}
-	
-    style_name = set.value("style", "Cuberok").toString();
-#ifdef WIN32
-    // FIXME qt bug?
-    QPalette p = set.value("palette").value<QPalette>();
-#else
-    QPalette p;
-#endif
-    win->restoreState(set.value("winstate").toByteArray(), ver);
-    win->restoreGeometry(set.value("wingeometry").toByteArray());
-    QApplication::setStyle(style_name);
-    QApplication::setPalette(p);
-    /*QFile file(QDir::homePath()+"/.cuberock/state.dat");
-    if(!file.exists()) return;
-    file.open(QIODevice::ReadOnly);
-    QDataStream in(&file);    // read the data serialized from the file
-    QPalette p;
-    QByteArray s, g;
-    int splitter;
-    in >> style_name >> p >> s >> g >> splitter;
-    QApplication::setStyle(style_name);
-    QApplication::setPalette(p);
-    win->restoreState(s, ver);
-    win->restoreGeometry(g);
-    win->setSplitter(splitter);
-    */
-	return true;
-}
 
 #ifdef WIN32
 #include <windows.h>
@@ -145,7 +87,7 @@ int main(int argc, char *argv[])
 #ifdef WIN32
     qInstallMsgHandler(myMessageOutput);
 #endif
-    QApplication a(argc, argv);
+    MyApplication a(argc, argv);
 	QSharedMemory shm("Cuberok shared memory");
 	if(shm.attach(QSharedMemory::ReadOnly)) {
 		qDebug("Cuberok already started\n exiting...");
@@ -182,7 +124,7 @@ int main(int argc, char *argv[])
     a.processEvents();
     Cuberok w;
 #ifndef DEBUG
-    if(!restoreState(&w)) {
+    if(!a.restoreState(&w)) {
 		w.firstStart();
 	}
 #endif
@@ -199,7 +141,7 @@ int main(int argc, char *argv[])
     //cUnregisterWinKeys(w.winId());
 #endif
 #ifndef DEBUG
-    storeState(&w);
+    a.storeState(&w);
 #endif
     return res;
 }

@@ -70,6 +70,7 @@ private slots:
 #ifdef QTAGCONVERT
 	void qtagClosed(QObject*);
 #endif
+	void storeState();
 
 public slots:
 	void lookAndFeel();

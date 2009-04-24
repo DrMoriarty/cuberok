@@ -49,6 +49,7 @@ private:
 private slots:
 	void listStarted(PlaylistView*);
 	void tabChanged(int);
+	void storeState();
 
 public slots:
 	void addList();
