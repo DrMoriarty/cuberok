@@ -321,17 +321,16 @@ PlaylistFiller::PlaylistFiller(QList<QUrl> dir, int ind, QObject *parent)
 : QThread(parent), paths(dir), index(ind)
 {
 	cancel = false;
-	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
 }
 
 PlaylistFiller::~PlaylistFiller()
 {
-	disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancel()));
 }
 
 void PlaylistFiller::run()
 {
-	int taskID = Indicator::Self().addTask(tr("Filling playlist"));
+	//connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
+	//int taskID = Indicator::Self().addTask(tr("Filling playlist"));
 	foreach(QUrl s, paths) {
 		if(cancel) break;
 // 		if(s.toLocalFile().size())
@@ -357,13 +356,14 @@ void PlaylistFiller::run()
 // 			}
 // 		}
 	}
-	Indicator::Self().delTask(taskID);
+	//Indicator::Self().delTask(taskID);
+	//disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
 }
 
 void PlaylistFiller::proceedUrl(QUrl url)
 {
 	if(cancel) return;
-	Indicator::Self().update();
+	//Indicator::Self().update();
 	QDir dir;
 	QString path = ToLocalFile(url);
 	if(!path.size() || !dir.cd(path)) {
@@ -436,6 +436,9 @@ void PlaylistFiller::proceedUrl(QUrl url)
 	} else /*if(dir.cd(path))*/ {
 		foreach(QString file, dir.entryList()) {
 			if(file == "." || file == "..") continue;
+			QString suf = QFileInfo(file).suffix().toLower();
+			if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
+				continue;
 			proceedUrl(QUrl::fromLocalFile(dir.filePath(file)));
 		}
 	}
