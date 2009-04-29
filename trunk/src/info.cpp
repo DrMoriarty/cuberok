@@ -36,10 +36,29 @@ Info::Info(QWidget *parent)
 	  w_ly(0)
 {
 	ui.setupUi(this);
+	QSettings set;
+	ui.actionShow_Song->setChecked(set.value("info_show_song", true).toBool());
+	ui.actionShow_Album_Image->setChecked(set.value("info_show_album_image", true).toBool());
+	ui.actionShow_Album_Title->setChecked(set.value("info_show_album_title", true).toBool());
+	ui.actionShow_Artist_Image->setChecked(set.value("info_show_artist_image", false).toBool());
+	ui.actionShow_Artist_Name->setChecked(set.value("info_show_artist_name", false).toBool());
+	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
+	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 }
 
 Info::~Info()
 {
+	storeState();
+}
+
+void Info::storeState()
+{
+	QSettings set;
+	set.setValue("info_show_song", ui.actionShow_Song->isChecked());
+	set.setValue("info_show_album_image", ui.actionShow_Album_Image->isChecked());
+	set.setValue("info_show_album_title", ui.actionShow_Album_Title->isChecked());
+	set.setValue("info_show_artist_image", ui.actionShow_Artist_Image->isChecked());
+	set.setValue("info_show_artist_name", ui.actionShow_Artist_Name->isChecked());
 }
 
 void Info::tabChanged(int t)
@@ -108,23 +127,23 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	so = song;
 	QString art(":/icons/def_artist.png"), text;
 	int rating = 0;
-// 	QList<struct Database::Attr> attrs;
-// 	Database::Self().pushSubset();
-// 	Database::Self().subsetArtist(artist);
-// 	attrs = Database::Self().Artists();
-// 	if(attrs.size()) {
-// 		if(attrs[0].art.size()) {
-// 			art = attrs[0].art;
-// 			rating = attrs[0].rating;
-// 		}
-// 	}
+ 	QList<struct Database::Attr> attrs;
+ 	Database::Self().pushSubset();
+ 	Database::Self().subsetArtist(artist);
+ 	attrs = Database::Self().Artists();
+ 	if(attrs.size()) {
+ 		if(attrs[0].art.size()) {
+ 			art = attrs[0].art;
+ 			rating = attrs[0].rating;
+ 		}
+ 	}
 	int picsize = 128;
 	QPixmap pm = QPixmap(art);
 	QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
-// 	ui.label_ar0->setPixmap(pm2);
-// 	ui.label_ar0->setMinimumSize(pm2.size());
-// 	ui.label_ar0->setMaximumSize(pm2.size());
-// 	ui.label_ar1->setText(artist);
+ 	ui.label_ar0->setPixmap(pm2);
+ 	ui.label_ar0->setMinimumSize(pm2.size());
+ 	ui.label_ar0->setMaximumSize(pm2.size());
+ 	ui.label_ar1->setText(artist);
  	QList<struct Database::AttrAl> attral;
 // 	attral = Database::Self().Albums();
 // 	int alb_count = 0;
@@ -143,7 +162,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	attral.clear();
 	Database::Self().pushSubset();
 	Database::Self().subsetArtist(artist);
-	QList<struct Database::Attr> attrs;
+	//QList<struct Database::Attr> attrs;
 	attrs = Database::Self().Artists();
 	if(attrs.size()) {
 		ar_mbid = attrs[0].mbid;

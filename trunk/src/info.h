@@ -66,6 +66,7 @@ public:
 	void artistClosed(QObject*);
 	void albumClosed(QObject*);
 	void lyricClosed(QObject*);
+	void storeState();
 };
 
 
