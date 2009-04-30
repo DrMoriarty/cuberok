@@ -80,6 +80,7 @@ public slots:
 	void qTagConvert();
 	void refreshTree();
 	void applySettings();
+	void collectionSettings();
 };
 
 #endif // CUBEROK_H

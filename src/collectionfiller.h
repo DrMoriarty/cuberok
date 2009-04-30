@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,44 +17,32 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef INDICATOR_H
-#define INDICATOR_H
+#ifndef COLLECTIONFILLER_H
+#define COLLECTIONFILLER_H
 
 #include <QtCore>
-#include <QtGui>
 
-class Indicator: public QObject
+#include "database.h"
+
+class CollectionFiller : public QThread
 {
- Q_OBJECT
- public:
-	static Indicator& Self();
-	~Indicator();
-	void setWidget(QAbstractButton &w);
-	int  addTask(QString message);
-	void delTask(int ID);
+	Q_OBJECT
+public:
+	CollectionFiller(QList<QUrl> _urls, ListMode _mode=M_ARTIST, QString _attrname=QString(""), int _param=0, QObject * parent = 0);
+	~CollectionFiller();
+	void run();
+private:
+	QList<QUrl> urls;
+	ListMode mode;
+	QString attrname;
+	int  proceed(QString);
+	bool cancel;
+	int param;
+private slots:
+	void cancelEvent();
+signals:
+	void internalUpdate();
 
- signals:
-	void userStop();
-
- public slots:
-	void stop();
-	void update();
-
- private:
-	Indicator();
-	void updateWidget();
-
-	struct Task {
-		int id;
-		QString message;
-	};
-	QList<struct Task> tasks;
-	int counter;
-	QAbstractButton *widget;
-	//QIcon icon;
-	//QPixmap pxN, pxD, pxR[36];
-	//int rot;
-	QTime time;
 };
 
-#endif //INDICATOR_H
+#endif //COLLECTIONFILLER_H

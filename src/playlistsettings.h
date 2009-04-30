@@ -60,6 +60,8 @@ Q_OBJECT
 	bool textToolbuttons;
 	int sizeToolbuttons;
 
+	QString collectionPath;
+
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);

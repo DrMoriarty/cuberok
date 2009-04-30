@@ -535,8 +535,15 @@
     <addaction name="actionConsole"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menuCollection">
+    <property name="title">
+     <string>Collection</string>
+    </property>
+    <addaction name="actionCollectionPreferences"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
+   <addaction name="menuCollection"/>
    <addaction name="menuControl"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -1386,6 +1393,18 @@
    </property>
    <property name="toolTip">
     <string>Number</string>
+   </property>
+  </action>
+  <action name="actionCollectionPreferences">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/sql.png</normaloff>:/icons/sql.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="toolTip">
+    <string>Collection Settings</string>
    </property>
   </action>
  </widget>
@@ -2595,5 +2614,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCollectionPreferences</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>collectionSettings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>collectionSettings()</slot>
+ </slots>
 </ui>

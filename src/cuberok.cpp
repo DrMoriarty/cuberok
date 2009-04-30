@@ -25,6 +25,7 @@
 #include "indicator.h"
 #include "settings.h"
 #include "player_manager.h"
+#include "collectionsettings.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
@@ -411,4 +412,10 @@ void Cuberok::applySettings()
 		ui.toolBar_3->setIconSize(QSize(36, 36));
 		break;
 	}
+}
+
+void Cuberok::collectionSettings()
+{
+	CollectionSettings cs;
+	cs.exec();
 }

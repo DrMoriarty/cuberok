@@ -48,6 +48,8 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 
 	textToolbuttons = set.value("textToolbuttons", false).toBool();
 	sizeToolbuttons = set.value("sizeToolbuttons", 1).toInt();
+
+	collectionPath = set.value("collectionPath", "").toString();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -82,6 +84,8 @@ void PlaylistSettings::save()
 
 	set.setValue("textToolbuttons", textToolbuttons);
 	set.setValue("sizeToolbuttons", sizeToolbuttons);
+
+	set.setValue("collectionPath", collectionPath);
 }
 
 PlaylistSettings& PlaylistSettings::Self()
