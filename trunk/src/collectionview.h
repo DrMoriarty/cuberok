@@ -22,29 +22,7 @@
 
 #include <QtGui>
 #include "downloader.h"
-
-typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_LIST, M_SQLLIST} ListMode;
-
-class CollectionFiller : public QThread
-{
-	Q_OBJECT
-public:
-	CollectionFiller(QList<QUrl> _urls, ListMode _mode=M_ARTIST, QString _attrname=QString(""), int _param=0, QObject * parent = 0);
-	~CollectionFiller();
-	void run();
-private:
-	QList<QUrl> urls;
-	ListMode mode;
-	QString attrname;
-	int  proceed(QString);
-	bool cancel;
-	int param;
-private slots:
-	void cancelEvent();
-signals:
-	void internalUpdate();
-
-};
+#include "database.h"
 
 class CollectionModel : public QStandardItemModel
 {

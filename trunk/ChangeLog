@@ -1,4 +1,5 @@
 Version 0.0.10
+	Collection settings: functions for rescan and cleanup collection.
 	Information panel improvements. You can choose information you wanna see.
 	Session management fixed
 	Bugfixes

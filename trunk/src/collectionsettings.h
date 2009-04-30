@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,44 +17,27 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef INDICATOR_H
-#define INDICATOR_H
+#ifndef COLLECTIONSETTINGS_H
+#define COLLECTIONSETTINGS_H
 
-#include <QtCore>
 #include <QtGui>
+#include "ui_collectionsettings.h"
 
-class Indicator: public QObject
+class CollectionSettings: public QDialog
 {
- Q_OBJECT
+	Q_OBJECT
  public:
-	static Indicator& Self();
-	~Indicator();
-	void setWidget(QAbstractButton &w);
-	int  addTask(QString message);
-	void delTask(int ID);
-
- signals:
-	void userStop();
+    CollectionSettings(QWidget *parent = 0);
+    ~CollectionSettings();
 
  public slots:
-	void stop();
-	void update();
-
+	void scan();
+	void cleanup();
+	void selectPath();
+	
  private:
-	Indicator();
-	void updateWidget();
-
-	struct Task {
-		int id;
-		QString message;
-	};
-	QList<struct Task> tasks;
-	int counter;
-	QAbstractButton *widget;
-	//QIcon icon;
-	//QPixmap pxN, pxD, pxR[36];
-	//int rot;
-	QTime time;
+    Ui::CollectionSettings ui;
+	
 };
 
-#endif //INDICATOR_H
+#endif //COLLECTIONSETTINGS_H
