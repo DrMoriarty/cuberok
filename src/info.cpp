@@ -114,6 +114,7 @@ void Info::setCurrent(int _id)
 
 void Info::setCurrent(QString artist, QString album, QString song)
 {
+	const int MAXLEN = 25;
 	if(ar != artist) {
 		ar_complete = false;
 		ui.textEdit->setText("");
@@ -143,7 +144,10 @@ void Info::setCurrent(QString artist, QString album, QString song)
  	ui.label_ar0->setPixmap(pm2);
  	ui.label_ar0->setMinimumSize(pm2.size());
  	ui.label_ar0->setMaximumSize(pm2.size());
+	if(artist.size() > MAXLEN) artist = artist.left(MAXLEN) + "...";
  	ui.label_ar1->setText(artist);
+	ui.artistRating->setStarRating(StarRating(rating, 5, 2));
+	ui.artistRating->noEdit();
  	QList<struct Database::AttrAl> attral;
 // 	attral = Database::Self().Albums();
 // 	int alb_count = 0;
@@ -154,7 +158,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	//if(alb_count)
 	//ui.label_ar2->setText(tr("%n album(s)", "", alb_count));
 	//setItemWidget(ar, 1, new ItemWidget(QPixmap(art), artist, text, StarRating(rating, 5, 2), 0, this));
-// 	Database::Self().popSubset();
+ 	Database::Self().popSubset();
 
 
 	QString art_def = ":/icons/def_album.png", art_al, art_ar;
@@ -183,7 +187,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ui.label_al0->setPixmap(pm2);
 	ui.label_al0->setMinimumSize(pm2.size());
 	ui.label_al0->setMaximumSize(pm2.size());
-	if(album.size() > 25) album = album.left(25) + "...";
+	if(album.size() > MAXLEN) album = album.left(MAXLEN) + "...";
 	ui.label_al1->setText(album);
 	//ui.label_al2->setText(text)
 	ui.albumRating->setStarRating(StarRating(rating, 5, 2));
@@ -202,7 +206,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 			} 
 		}
 	}
-	if(song.size()>25) song = song.left(25) + "...";
+	if(song.size()>MAXLEN) song = song.left(MAXLEN) + "...";
 	ui.label_so1->setText(song);
 	ui.songRating->setStarRating(StarRating(rating));
 	ui.songRating->noEdit();
