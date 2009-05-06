@@ -27,6 +27,7 @@
 #include "playlistsettings.h"
 #include "lastfm.h"
 #include "console.h"
+#include "librefm.h"
 #include <QtXml>
 
 const QString XMLNS("http://code.google.com/p/cuberok");
@@ -293,10 +294,12 @@ void PlaylistView::play()
 	QString alb = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
 	long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
 	emit message(info, alb, ar, len);
-	if(PLSet.lastfmScrobbler) {
-		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
-		if(ar.size())
-			LastFM::Self().nowplaying(ar, info, alb, 0, n);
+	int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+	if(PLSet.lastfmScrobbler && ar.size()) {
+		LastFM::Self().nowplaying(ar, info, alb, 0, n);
+	}
+	if(PLSet.librefmScrobbler && ar.size()) {
+		LibreFM::Self().nowplaying(ar, info, alb, 0, n);
 	}
 }
 
@@ -312,14 +315,15 @@ void PlaylistView::stop()
 
 void PlaylistView::playFinished()
 {
-	if(PLSet.lastfmScrobbler) {
+	if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler) {
 		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
 		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
 		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
 		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
 		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
-		LastFM::Self().submission(a, t, start, b, len, "P", "", n);
+		if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
+		if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
 	}	
 	next();
 }

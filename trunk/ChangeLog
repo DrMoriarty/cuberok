@@ -1,4 +1,6 @@
 Version 0.0.10
+	Scrobbler for Libre.FM
+	Import collection from Amarok 1.4 sqlite database.
 	Collection settings: functions for rescan and cleanup collection.
 	Information panel improvements. You can choose information you wanna see.
 	Session management fixed

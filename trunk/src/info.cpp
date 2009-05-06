@@ -182,7 +182,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 		al_mbid = attral[0].mbid;
 		//text = tr("%n song(s)", "", attral[0].refs);
 	} else al_mbid = "";
-	pm = QPixmap(art_al.size()?art_al:(art_ar.size()?art_ar:art_def));
+	pm = QPixmap(art_al.size()?art_al/*(art_ar.size()?art_ar*/:art_def/*)*/);
 	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
 	ui.label_al0->setPixmap(pm2);
 	ui.label_al0->setMinimumSize(pm2.size());

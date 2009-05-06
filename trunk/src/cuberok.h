@@ -81,6 +81,7 @@ public slots:
 	void refreshTree();
 	void applySettings();
 	void collectionSettings();
+	void importCollection();
 };
 
 #endif // CUBEROK_H

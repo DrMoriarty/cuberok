@@ -66,6 +66,10 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.lineEdit_lastfmUser->setText(PLSet.lastfmUser);
 	ui.lineEdit_lastfmPassword->setText(PLSet.lastfmPassword);
 
+	ui.checkBox_librefmScrobbling->setChecked(PLSet.librefmScrobbler);
+	ui.lineEdit_librefmUser->setText(PLSet.librefmUser);
+	ui.lineEdit_librefmPassword->setText(PLSet.librefmPassword);
+
 	ui.checkBox_cacheInfo->setChecked(PLSet.cacheInfo);
 
 	ui.checkBox_hack1251->setChecked(PLSet.hack1251);
@@ -113,6 +117,10 @@ void Settings::accept()
 	PLSet.lastfmScrobbler = ui.checkBox_lastfmScrobbling->isChecked();
 	PLSet.lastfmUser = ui.lineEdit_lastfmUser->text();
 	PLSet.lastfmPassword = ui.lineEdit_lastfmPassword->text();
+
+	PLSet.librefmScrobbler = ui.checkBox_librefmScrobbling->isChecked();
+	PLSet.librefmUser = ui.lineEdit_librefmUser->text();
+	PLSet.librefmPassword = ui.lineEdit_librefmPassword->text();
 
 	PLSet.cacheInfo = ui.checkBox_cacheInfo->isChecked();
 

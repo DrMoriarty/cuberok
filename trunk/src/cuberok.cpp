@@ -26,6 +26,7 @@
 #include "settings.h"
 #include "player_manager.h"
 #include "collectionsettings.h"
+#include "importcollection.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
@@ -418,4 +419,10 @@ void Cuberok::collectionSettings()
 {
 	CollectionSettings cs;
 	cs.exec();
+}
+
+void Cuberok::importCollection()
+{
+	ImportCollection ic;
+	ic.exec();
 }

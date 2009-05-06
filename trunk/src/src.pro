@@ -20,6 +20,7 @@ HEADERS += aboutdialog.h \
            cuberok.h \
            database.h \
            downloader.h \
+           importcollection.h \
            info.h \
            infowidget.h \
            infowindow.h \
@@ -27,6 +28,7 @@ HEADERS += aboutdialog.h \
            jamendo_browser.h \
            lastfm.h \
            libraryview.h \
+           librefm.h \
            lookandfeel.h \
            lyricwiki.h \
            magnatune_browser.h \
@@ -60,7 +62,8 @@ FORMS += aboutdialog.ui \
          info.ui \
          infowindow.ui \
          sqledit.ui \
-         browser_viewer.ui
+         browser_viewer.ui \
+         importcollection.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
@@ -72,6 +75,7 @@ SOURCES += aboutdialog.cpp \
            cuberok.cpp \
            database.cpp \
            downloader.cpp \
+           importcollection.cpp \
            info.cpp \
            infowidget.cpp \
            infowindow.cpp \
@@ -79,6 +83,7 @@ SOURCES += aboutdialog.cpp \
            jamendo_browser.cpp \
            lastfm.cpp \
            libraryview.cpp \
+           librefm.cpp \
            lookandfeel.cpp \
            lyricwiki.cpp \
            magnatune_browser.cpp \
