@@ -48,6 +48,9 @@ Q_OBJECT
 	bool    lastfmScrobbler;
 	QString lastfmUser;
 	QString lastfmPassword;
+	bool    librefmScrobbler;
+	QString librefmUser;
+	QString librefmPassword;
 
 	bool hideEmptyInCollection;
 

@@ -37,6 +37,7 @@
         <file alias="looknfeel.png" >../images/color_fill.png</file>
         <file alias="internet.png" >../images/network.png</file>
         <file alias="lastfm.png" >../images/lastfm.png</file>
+        <file alias="librefm.png" >../images/librefm.png</file>
         <file alias="qt.png" >../images/qt.png</file>
         <file alias="splash.png" >../images/splash.png</file>
         <file alias="console_fat.png" >../images/console_fat.png</file>

@@ -327,7 +327,7 @@
         <normaloff>:/icons/lastfm.png</normaloff>:/icons/lastfm.png</iconset>
       </attribute>
       <attribute name="label">
-       <string>Last.FM</string>
+       <string>Scrobbling</string>
       </attribute>
       <layout class="QGridLayout">
        <property name="margin">
@@ -384,8 +384,56 @@
          </layout>
         </widget>
        </item>
+       <item row="1" column="0" rowspan="2">
+        <widget class="QGroupBox" name="checkBox_librefmScrobbling">
+         <property name="title">
+          <string>Enable Libre.FM scrobbling</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>User name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit_librefmUser"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_librefmPassword">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="3" column="0">
-        <spacer>
+        <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>

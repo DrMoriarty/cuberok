@@ -540,6 +540,7 @@
      <string>Collection</string>
     </property>
     <addaction name="actionCollectionPreferences"/>
+    <addaction name="actionImport_Amarok_collection"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -1401,10 +1402,15 @@
      <normaloff>:/icons/sql.png</normaloff>:/icons/sql.png</iconset>
    </property>
    <property name="text">
-    <string>Preferences</string>
+    <string>Settings</string>
    </property>
    <property name="toolTip">
     <string>Collection Settings</string>
+   </property>
+  </action>
+  <action name="actionImport_Amarok_collection">
+   <property name="text">
+    <string>Import Amarok collection</string>
    </property>
   </action>
  </widget>
@@ -2630,8 +2636,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionImport_Amarok_collection</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>importCollection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
+  <slot>importCollection()</slot>
  </slots>
 </ui>
