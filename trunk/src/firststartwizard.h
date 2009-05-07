@@ -17,27 +17,29 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef IMPORTCOLLECTION_H
-#define IMPORTCOLLECTION_H
+#ifndef FIRSTSTARTWIZARD_H
+#define FIRSTSTARTWIZARD_H
 
 #include <QtGui>
-#include "ui_importcollection.h"
+#include "ui_firststartwizard.h"
 
-class ImportCollection: public QDialog
+class FirstStartWizard :public QWizard
 {
 	Q_OBJECT
  public:
-    ImportCollection(QWidget *parent = 0);
-    ~ImportCollection();
-	static bool importCollection(QString amarokdb, bool messages = false);
-
+	FirstStartWizard(QWidget* parent = 0);
+	~FirstStartWizard();
+	virtual int nextId() const;
+	
  public slots:
-	void import();
-	void selectFile();
+	void selectFolderForScan();
+	void selectFileForImport();
+
+ private slots:
+	void doSomething();
 	
  private:
-    Ui::ImportCollection ui;
-	
+	Ui::FirstStartWizard ui;
 };
 
-#endif //IMPORTCOLLECTION_H
+#endif // FIRSTSTARTWIZARD_H

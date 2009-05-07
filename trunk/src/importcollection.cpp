@@ -43,10 +43,18 @@ void ImportCollection::selectFile()
 void ImportCollection::import()
 {
 	QString amarokdb = ui.lineEdit->text();
-	if(!QFile::exists(amarokdb)) {
-		QMessageBox::warning(this, tr("File not found"), tr("File %1 doesn't exist").arg(amarokdb));
+	if(importCollection(amarokdb, true)) {
+		accept();
+	} else {
 		reject();
-		return;
+	}
+}
+
+bool ImportCollection::importCollection(QString amarokdb, bool messages)
+{
+	if(!QFile::exists(amarokdb)) {
+		if(messages) QMessageBox::warning(0, tr("File not found"), tr("File %1 doesn't exist").arg(amarokdb));
+		return false;
 	}
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -54,9 +62,8 @@ void ImportCollection::import()
     if(!db.open()) {
 		QString err = tr("Can not open Amarok database from %1").arg(amarokdb);
 		qDebug((const char*)err.toLocal8Bit());
-		QMessageBox::warning(this, tr("Database error"), err);
-		reject();
-		return;
+		if(messages) QMessageBox::warning(0, tr("Database error"), err);
+		return false;
 	}
 	QStringList uniq_paths;
 	QSqlQuery q0("", db);
@@ -81,12 +88,11 @@ void ImportCollection::import()
 		}
 	}
 	if(!urls.size()) {
-		QMessageBox::warning(this, tr("Surprise"), tr("There aren't any local folders in Amarok's collection."));
-		reject();
-		return;
+		if(messages) QMessageBox::warning(0, tr("Surprise"), tr("There aren't any local folders in Amarok's collection."));
+		return false;
 	}
 	CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
 	//connect(cf, SIGNAL(finished()), this, SLOT(update()));
 	cf->start();
-	accept();
+	return true;
 }

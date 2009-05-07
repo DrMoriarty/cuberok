@@ -135,9 +135,10 @@ void Info::setCurrent(QString artist, QString album, QString song)
  	if(attrs.size()) {
  		if(attrs[0].art.size()) {
  			art = attrs[0].art;
- 			rating = attrs[0].rating;
  		}
- 	}
+		rating = attrs[0].rating;
+		ar_mbid = attrs[0].mbid;
+ 	} else	ar_mbid = "";
 	int picsize = 128;
 	QPixmap pm = QPixmap(art);
 	QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
@@ -161,17 +162,12 @@ void Info::setCurrent(QString artist, QString album, QString song)
  	Database::Self().popSubset();
 
 
-	QString art_def = ":/icons/def_album.png", art_al, art_ar;
+	QString art_al = ":/icons/def_album.png";
 	rating = 0;
 	attral.clear();
 	Database::Self().pushSubset();
 	Database::Self().subsetArtist(artist);
 	//QList<struct Database::Attr> attrs;
-	attrs = Database::Self().Artists();
-	if(attrs.size()) {
-		ar_mbid = attrs[0].mbid;
-		art_ar = attrs[0].art;
-	} else ar_mbid = "";
 	Database::Self().subsetAlbum(Database::Self().AddAlbum(album, Database::Self().AddArtist(artist)));
 	attral = Database::Self().Albums();
 	if(attral.size()) {
@@ -182,7 +178,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 		al_mbid = attral[0].mbid;
 		//text = tr("%n song(s)", "", attral[0].refs);
 	} else al_mbid = "";
-	pm = QPixmap(art_al.size()?art_al/*(art_ar.size()?art_ar*/:art_def/*)*/);
+	pm = QPixmap(art_al);
 	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
 	ui.label_al0->setPixmap(pm2);
 	ui.label_al0->setMinimumSize(pm2.size());

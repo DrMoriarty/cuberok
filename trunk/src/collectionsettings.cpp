@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
