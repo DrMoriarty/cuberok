@@ -20,6 +20,7 @@ HEADERS += aboutdialog.h \
            cuberok.h \
            database.h \
            downloader.h \
+           firststartwizard.h \
            importcollection.h \
            info.h \
            infowidget.h \
@@ -63,7 +64,8 @@ FORMS += aboutdialog.ui \
          infowindow.ui \
          sqledit.ui \
          browser_viewer.ui \
-         importcollection.ui
+         importcollection.ui \
+         firststartwizard.ui
 TRANSLATIONS = ../locale/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
@@ -75,6 +77,7 @@ SOURCES += aboutdialog.cpp \
            cuberok.cpp \
            database.cpp \
            downloader.cpp \
+           firststartwizard.cpp \
            importcollection.cpp \
            info.cpp \
            infowidget.cpp \

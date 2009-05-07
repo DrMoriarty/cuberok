@@ -27,6 +27,7 @@
 #include "player_manager.h"
 #include "collectionsettings.h"
 #include "importcollection.h"
+#include "firststartwizard.h"
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
@@ -168,6 +169,12 @@ void Cuberok::firstStart()
 	PLSet.setColumnVisible(PlaylistModel::Length, false);
 	PLSet.setColumnVisible(PlaylistModel::Number, false);
 	PLSet.setColumnVisible(PlaylistModel::Year, false);
+	PLSet.setColumnWidth(PlaylistModel::Title, 80);
+	PLSet.setColumnWidth(PlaylistModel::Artist, 80);
+	PLSet.setColumnWidth(PlaylistModel::Album, 80);
+
+	FirstStartWizard fsw(this);
+	fsw.exec();
 }
 
 void Cuberok::aboutMenu()

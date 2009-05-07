@@ -120,18 +120,16 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("DrMoriarty");
     //QCoreApplication::setOrganizationDomain("");
     QCoreApplication::setApplicationName("Cuberok");
-    //QDir::home().mkdir(".cuberock");
     a.processEvents();
+    a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
     Cuberok w;
+    w.show();
+    splash.finish(&w);
 #ifndef DEBUG
     if(!a.restoreState(&w)) {
 		w.firstStart();
 	}
 #endif
-    w.show();
-    splash.finish(&w);
-    a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
-    //Database::Self();
 #ifdef WIN32
     //GlobalWinKeys(w.winId());
 #endif

@@ -1,4 +1,5 @@
 Version 0.0.10
+	First start wizard. It can import amarok database or create a collection
 	Scrobbler for Libre.FM
 	Import collection from Amarok 1.4 sqlite database.
 	Collection settings: functions for rescan and cleanup collection.
