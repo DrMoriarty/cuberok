@@ -9,7 +9,11 @@
 include(../../qmakeroot.pri)
 
 win32 {
-    DESTDIR = ../../win32/plugins
+    MSVC {
+        DESTDIR = ../../win32-vs/plugins
+    } else {
+        DESTDIR = ../../win32/plugins
+    }
 }
 
 unix {

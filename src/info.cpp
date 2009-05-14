@@ -31,6 +31,8 @@ Info::Info(QWidget *parent)
 	  id(-1),
 	  ar_complete(false),
 	  al_complete(false),
+	  ar_pic(false),
+	  al_pic(false),
 	  w_ar(0),
 	  w_al(0),
 	  w_ly(0)
@@ -44,6 +46,8 @@ Info::Info(QWidget *parent)
 	ui.actionShow_Artist_Name->setChecked(set.value("info_show_artist_name", false).toBool());
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
+	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 }
 
 Info::~Info()
@@ -115,6 +119,8 @@ void Info::setCurrent(int _id)
 void Info::setCurrent(QString artist, QString album, QString song)
 {
 	const int MAXLEN = 25;
+	ar_pic = false;
+	al_pic = false;
 	if(ar != artist) {
 		ar_complete = false;
 		ui.textEdit->setText("");
@@ -135,6 +141,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
  	if(attrs.size()) {
  		if(attrs[0].art.size()) {
  			art = attrs[0].art;
+			ar_pic = true;
  		}
 		rating = attrs[0].rating;
 		ar_mbid = attrs[0].mbid;
@@ -173,6 +180,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	if(attral.size()) {
 		if(attral[0].art.size()) {
 			art_al = attral[0].art;
+			al_pic = true;
 		}
 		rating = attral[0].rating;
 		al_mbid = attral[0].mbid;
@@ -272,7 +280,7 @@ void Info::updateRating()
 
 void Info::artistInfo(QString response)
 {
-	disconnect(&LastFM::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(artistInfo(QString)));
+	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(artistInfo(QString)));
 	QDomDocument doc;
 	QDomElement el, el2;
 	QDomNodeList list;
@@ -318,7 +326,7 @@ void Info::artistInfo(QString response)
 
 void Info::albumInfo(QString response)
 {
-	disconnect(&LastFM::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(albumInfo(QString)));
+	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(albumInfo(QString)));
 	QDomDocument doc;
 	QDomElement el, el2;
 	QDomNodeList list;
@@ -435,4 +443,74 @@ void Info::albumClosed(QObject*)
 void Info::lyricClosed(QObject*)
 {
 	w_ly = 0;
+}
+
+void Info::getImages()
+{
+	connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
+	if(!al_pic) {
+		LastFM::Self().albumInfo(ar, al);
+	} else if(!ar_pic) {
+		LastFM::Self().artistInfo(ar);
+	}
+}
+
+void Info::infoResponse(QString info)
+{
+	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
+	QString newArtist, newAlbum, mbid, imageUrl, information;
+	if(LastFM::Self().parseInfo(info, newArtist, newAlbum, mbid, imageUrl, information)) {
+		if(imageUrl.size() && downloader.done()) {
+			downloader.download(imageUrl);
+			return;
+		}
+	}
+	if(!al_pic) {
+		al_pic = true;
+	} else {
+		ar_pic = true;
+	}
+}
+
+void Info::dlComplete(QString file)
+{
+	QList<QString> data;
+	if(!al_pic)
+		data = Database::Self().Songs(&ar, Database::Self().AddAlbum(al, Database::Self().AddArtist(ar)), 0);
+	else
+		data = Database::Self().Songs(&ar, 0, 0);
+	QString path = "";
+	if(data.size()) {
+		path = QFileInfo(data[0]).canonicalPath();
+		foreach(QString str, data) {
+			path = Database::commonPath(path, QFileInfo(str).canonicalPath());
+		}
+		path += QDir::separator();
+	} 
+	if(path == "" || path == "/") path = QDir::homePath() + "/.cuberok/artcache/";
+	QDir dir;
+	if(dir.mkpath(path)) {
+		QString file2 = path + ar;
+		if(!al_pic) file2 += "-"+al;
+		file2 += "."+QFileInfo(file).suffix();
+		if(QFile::exists(file2)) QFile::remove(file2);
+		if(QFile::copy(file, file2)) {
+			QFile::remove(file);
+			if(!al_pic) {  // cover for album
+				Database::Self().ArtForAlbum(al, file2, Database::Self().AddArtist(ar));
+			} else {  // image for artist
+				Database::Self().ArtForArtist(ar, file2);
+			}
+		}
+	}
+	setCurrent(ar, al, so);
+}
+
+void Info::dlCancel(QString)
+{
+	if(!al_pic) {
+		al_pic = true;
+	} else {
+		ar_pic = true;
+	}
 }

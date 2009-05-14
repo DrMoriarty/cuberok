@@ -13,7 +13,7 @@
    <string>LookAndFeel</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="resource.qrc" >:/icons/application.png</iconset>
+   <iconset resource="resource.qrc" >:/icons/cuberok.png</iconset>
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" >

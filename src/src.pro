@@ -5,6 +5,11 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . 
 
+#QMAKE_CXXFLAGS_RELEASE -= -O2 
+#QMAKE_CXXFLAGS_RELEASE += -Os -fno-builtin -fomit-frame-pointer
+#QMAKE_CFLAGS_RELEASE -= -O2 
+#QMAKE_CFLAGS_RELEASE += -Os -fno-builtin -fomit-frame-pointer 
+
 include(../qmakeroot.pri)
 
 #           src/player_void.h \
@@ -113,19 +118,29 @@ exists(../qtagconvert/src/KCmp3Tag.ui) {
     FORMS += ../qtagconvert/src/KCmp3Tag.ui
     HEADERS += ../qtagconvert/src/KCmp3Tag.h
     SOURCES += ../qtagconvert/src/KCmp3Tag.cpp
-    RESOURCES += ../qtagconvert/images/resources.qrc
+    #RESOURCES += ../qtagconvert/images/resources.qrc
+    RESOURCES += resource_full.qrc
 }
 
 win32 {
     RC_FILE = ../cuberok.rc
-    DESTDIR = ../win32
+    MSVC {
+        DESTDIR = ../win32-vs
+    } else {
+        DESTDIR = ../win32
+    }
     TARGET = Cuberok
     INCLUDEPATH += . \
                ../taglib/include \
                ../taglib/include/toolkit \
                ../taglib/include/mpeg \
                ../taglib/include/mpeg/id3v2
-    LIBS += ../taglib/lib/release/libtaglib.a
+    MSVC {
+        CONFIG -= embed_manifest_exe
+        LIBS += ../taglib/lib/release/tag.lib
+    } else {
+        LIBS += ../taglib/lib/release/libtaglib.a
+    }
     exists(../audiere/lib/audiere.lib) {
 	CONFIG += audiere
     }

@@ -21,6 +21,7 @@
 #include "lastfm.h"
 #include "playlistsettings.h"
 #include <QtGui>
+#include <QtXml>
 #include "console.h"
 
 const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
@@ -107,7 +108,7 @@ void LastFM::requestFinished(int id, bool err)
 			httpGetId = 0;
 			if(needInfo) {
 				QByteArray arr = http.readAll();
-				Console::Self().log("Last.FM response:" + arr);
+				Console::Self().log("Last.FM response:" + QString::fromUtf8(arr));
 				emit xmlInfo(QString::fromUtf8((const char*)arr));
 				needInfo = false;
 			} else {
@@ -322,4 +323,108 @@ void LastFM::timerConnect()
 	delayed = false;
 	try_count = 0;
 	handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
+}
+
+bool LastFM::parseInfo(const QString& xml, QString& artist, QString& album, QString& mbid, QString& imageUrl, QString& info)
+{
+	QDomDocument doc;
+	QDomElement el, el2;
+	QDomNodeList list;
+	if(doc.setContent(xml)) {
+		el = doc.documentElement();
+		//el = el.firstChildElement("lfm");
+		if(!el.isNull()) {
+			QString s = el.attribute("status");
+			if(s == "ok") {
+				el2 = el.firstChildElement("artist");
+				if(!el2.isNull()) {  // proceed artist info
+					QString img1, img2, img3, img4;
+					el = el2;
+					el2 = el.firstChildElement("name");
+					if(!el2.isNull()) artist = el2.firstChild().nodeValue();
+					el2 = el.firstChildElement("mbid");
+					if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
+					el2 = el.firstChildElement("image");
+					while(!el2.isNull()) {
+						if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
+						if(el2.attribute("size") == "medium") img2 = el2.firstChild().nodeValue();
+						if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
+						if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
+						el2 = el2.nextSiblingElement("image");
+					}
+					el2 = el.firstChildElement("bio");
+					if(!el2.isNull()) {
+						el2 = el2.firstChildElement("content");
+						if(!el2.isNull()) {
+							info = el2.firstChild().nodeValue();
+							if(info.size()) {
+								info = "<html><body>" + info + "</html></body>";
+							}
+						}
+					}
+					if(!img2.size()) img2 = img1;
+					if(!img3.size()) img3 = img2;
+					if(!img4.size()) img4 = img3;
+					if(img4.size())
+						Console::Self().log("Image URL" + img4);
+					else
+						Console::Self().log("There isn't any images");
+					imageUrl = img4;
+					return true;
+				} else {
+					el2 = el.firstChildElement("album");
+					if(!el2.isNull()) {  // proceed album info
+						QString img1, img2, img3, img4;
+						el = el2;
+						el2 = el.firstChildElement("name");
+						if(!el2.isNull()) album = el2.firstChild().nodeValue();
+						el2 = el.firstChildElement("artist");
+						if(!el2.isNull()) artist = el2.firstChild().nodeValue();
+						el2 = el.firstChildElement("mbid");
+						if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
+						el2 = el.firstChildElement("image");
+						while(!el2.isNull()) {
+							if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
+							if(el2.attribute("size") == "medium") img2 = el2.firstChild().nodeValue();
+							if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
+							if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
+							el2 = el2.nextSiblingElement("image");
+						}
+						el2 = el.firstChildElement("wiki");
+						if(!el2.isNull()) {
+							el2 = el2.firstChildElement("content");
+							if(!el2.isNull()) {
+								QString info = el2.firstChild().nodeValue();
+								if(info.size()) {
+									info = "<html><body>" + info + "</html></body>";
+								}
+							}
+						}
+						if(!img2.size()) img2 = img1;
+						if(!img3.size()) img3 = img2;
+						if(!img4.size()) img4 = img3;
+						if(img4.size())
+							Console::Self().log("Image URL" + img4);
+						else
+							Console::Self().log("There isn't any images");
+						imageUrl = img4;
+						return true;
+					} else {
+						// something else
+					}
+				}
+			} else if(s == "failed") {
+				// TODO error message
+				Console::Self().error("Can't take info from Last.FM");
+			} else {
+				// unknown error
+				Console::Self().error("Last.FM: Unknown error");
+			}
+		} else {
+			Console::Self().error("Last.FM: Element lfm not found");
+		}
+	} else {
+		Console::Self().error("Last.FM: XML error");
+	}
+	return false;
 }

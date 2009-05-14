@@ -19,9 +19,11 @@ win32 {
         message(using audiere backend)
         SUBDIRS += plugins/player_audiere
     }
+    !MSVC {
     exists(./gstreamer/lib/libgstreamer-0.10.lib) {
         message(using gstreamer backend)
         SUBDIRS += plugins/player_gst
+    }
     }
 }
 unix {

@@ -13,7 +13,7 @@
    <string>Edit SQL Playlist</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="resource.qrc" >:/icons/application.png</iconset>
+   <iconset resource="resource.qrc" >:/icons/cuberok.png</iconset>
   </property>
   <layout class="QVBoxLayout" >
    <property name="spacing" >

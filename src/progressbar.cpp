@@ -26,7 +26,10 @@ ProgressBar::ProgressBar ( QWidget * parent ) : QProgressBar(parent)
 
 void ProgressBar::mousePressEvent ( QMouseEvent * event ) 
 {
-    emit userevent((double)event->x()/width());
+	if(orientation() == Qt::Horizontal)
+		emit userevent((double)event->x()/width());
+	else 
+		emit userevent((double)(height()-event->y())/height());
 }
 
 void ProgressBar::setDuration (long duration)

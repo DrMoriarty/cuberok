@@ -29,6 +29,7 @@ PlayerManager::PlayerManager() : player(0)
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		Player *pl = qobject_cast<Player *>(plugin);
 		if (pl) {
+			pl->setManager(this);
 			players.push_back(pl);
 			connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
 			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
@@ -49,6 +50,7 @@ PlayerManager::PlayerManager() : player(0)
 		if (plugin) {
 			Player *pl = qobject_cast<Player *>(plugin);
 			if (pl) {
+				pl->setManager(this);
 				players.push_back(pl);
 				connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
 				connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
@@ -151,6 +153,11 @@ int PlayerManager::weight()
 QString PlayerManager::name()
 {
 	return player? player->name() : "no engine";
+}
+
+void PlayerManager::processErrorMessage(QString mes)
+{
+	Console::Self().error(mes);
 }
 
 QStringList PlayerManager::getPlayers()

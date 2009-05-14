@@ -10,7 +10,12 @@
 include(../../qmakeroot.pri)
 
 win32 {
-    DESTDIR = ../../win32/plugins
+    MSVC {
+        CONFIG += embed_manifest_dll
+        DESTDIR = ../../win32-vs/plugins
+    } else {
+        DESTDIR = ../../win32/plugins
+    }
     INCLUDEPATH += ../../audiere/include
     LIBS += ../../audiere/lib/audiere.lib
 }

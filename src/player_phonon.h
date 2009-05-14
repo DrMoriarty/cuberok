@@ -59,7 +59,8 @@ class PlayerPhonon : public Player
     int  shuffle_mode;
 
  private:
-	qint64 Pstart, Plength;
+	qint64 Pstart, Plength, _pos;
+	bool needPos;
 	QMap<QString, QString> mimeTypes;
 	
 	Phonon::AudioOutput *audioOutput;

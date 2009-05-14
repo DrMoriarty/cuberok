@@ -38,6 +38,8 @@ class LastFM : public QObject
 	void artistInfo(QString artist);
 	void albumInfo(QString artist, QString album);
 
+	static bool parseInfo(const QString& xml, QString& artist, QString& album, QString& mbid, QString& imageUrl, QString& info);
+
  private:
 	LastFM();
 	void doQueue();

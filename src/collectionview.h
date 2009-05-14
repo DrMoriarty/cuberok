@@ -66,7 +66,6 @@ private:
 	//void dropEvent(QDropEvent *event);
 	//void mousePressEvent(QMouseEvent *event);
 	QList<QUrl> SelectByItem(QModelIndex i);
-	QString commonPath(QString path1, QString path2);
 	void doRequest();
 	QString subsetLabel;
 	QVector< QList<QString> > request_stack;
