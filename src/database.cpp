@@ -272,6 +272,7 @@ int Database::_AddAlbum(QString album, int artist)
         return AddAttribute(nAlbum, album);
     else {
         if(!open) return 0;
+		if(!album.length()) album = " ";
         QSqlQuery q("", db);
         q.prepare("select ID from Album where value = :val and artist = "+QString::number(artist));
         q.bindValue(":val", album);
@@ -1242,4 +1243,22 @@ QString Database::commonPath(QString path1, QString path2)
 		dir2.cdUp();
 	}
 	return "";
+}
+
+void Database::cleanUpAlbums()
+{
+	QSqlQuery q0("delete from Album where refs = 0", db);
+	QSqlQuery q1("delete from Album where refs is null", db);
+}
+
+void Database::cleanUpArtists()
+{
+	QSqlQuery q0("delete from Artist where refs = 0", db);
+	QSqlQuery q1("delete from Artist where refs is null", db);
+}
+
+void Database::cleanUpGenres()
+{
+	QSqlQuery q0("delete from Genre where refs = 0", db);
+	QSqlQuery q1("delete from Genre where refs is null", db);
 }

@@ -127,13 +127,13 @@
       <item>
        <widget class="QPushButton" name="pushButton_cleanup">
         <property name="toolTip">
-         <string>Remove links to unavailable files</string>
+         <string>Remove links to unavailable files, remove empty albums and artists</string>
         </property>
         <property name="statusTip">
-         <string>Remove links to unavailable files</string>
+         <string>Remove links to unavailable files, remove empty albums and artists</string>
         </property>
         <property name="text">
-         <string>Remove Broken Links</string>
+         <string>Clean up collection</string>
         </property>
        </widget>
       </item>
