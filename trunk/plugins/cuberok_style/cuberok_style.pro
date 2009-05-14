@@ -11,7 +11,12 @@
 include(../../qmakeroot.pri)
 
 win32 {
-    DESTDIR = ../../win32/styles
+    MSVC {
+        CONFIG -= embed_manifest_dll
+        DESTDIR = ../../win32-vs/styles
+    } else {
+        DESTDIR = ../../win32/styles
+    }
 }
 
 unix {

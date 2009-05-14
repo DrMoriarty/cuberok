@@ -122,6 +122,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Cuberok");
     a.processEvents();
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
+    //qApp->setWindowIcon(QIcon(":/icons/application.png"));
     Cuberok w;
     w.show();
     splash.finish(&w);

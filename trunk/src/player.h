@@ -32,7 +32,7 @@ class Player : public QObject
 {
     Q_OBJECT
  public:
-    Player(): QObject(0), repeat_mode(false), shuffle_mode(false) {};
+    Player(): QObject(0), repeat_mode(false), shuffle_mode(false), manager(0) {};
     ~Player() {};
 
 	virtual bool prepare() = 0;
@@ -51,6 +51,8 @@ class Player : public QObject
 
 	virtual int  weight() = 0;
 	virtual QString name() = 0;
+	virtual void processErrorMessage(QString m) { if(manager) manager->processErrorMessage(m); }
+	virtual void setManager(Player* m) { manager = m; }
 
     int  repeat_mode;
     int  shuffle_mode;
@@ -62,6 +64,7 @@ class Player : public QObject
  protected:
 	long _start;
 	long _length;
+	Player *manager;
 };
 
 Q_DECLARE_INTERFACE(Player, "Cuberok.Player/1.0")

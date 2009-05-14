@@ -267,9 +267,9 @@
               </item>
               <item>
                <widget class="QFrame" name="frame_4">
-		<property name="visible">
-		 <bool>false</bool>
-		</property>
+                <property name="visible">
+                 <bool>false</bool>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -322,9 +322,9 @@
               </item>
               <item>
                <widget class="QFrame" name="frame">
-		<property name="visible">
-		 <bool>false</bool>
-		</property>
+                <property name="visible">
+                 <bool>false</bool>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -399,6 +399,7 @@
          <addaction name="actionShowArtistInfo"/>
          <addaction name="actionShowAlbumInfo"/>
          <addaction name="actionShowLyrics"/>
+         <addaction name="actionGet_Images"/>
         </widget>
        </item>
       </layout>
@@ -582,6 +583,18 @@
    </property>
    <property name="text">
     <string>Show Artist Name</string>
+   </property>
+  </action>
+  <action name="actionGet_Images">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/download_art.png</normaloff>:/icons/download_art.png</iconset>
+   </property>
+   <property name="text">
+    <string>Get Images</string>
+   </property>
+   <property name="toolTip">
+    <string>Get images from Last.FM</string>
    </property>
   </action>
  </widget>
@@ -805,5 +818,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionGet_Images</sender>
+   <signal>triggered()</signal>
+   <receiver>Info</receiver>
+   <slot>getImages()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>getImages()</slot>
+ </slots>
 </ui>

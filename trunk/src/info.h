@@ -23,6 +23,7 @@
 #include <QtGui>
 #include "ui_info.h"
 #include "infowindow.h"
+#include "downloader.h"
 
 class Info: public QWidget
 {
@@ -36,8 +37,9 @@ public:
 	Ui::Info ui;
 	int id;
 	QString ar, al, so, ar_mbid, al_mbid;
-	bool ar_complete, al_complete;
+	bool ar_complete, al_complete, ar_pic, al_pic;
 	InfoWindow *w_ar, *w_al, *w_ly;
+	Downloader downloader;
 
 	void updateRating();
 
@@ -58,6 +60,7 @@ public:
 	void showArtist();
 	void showAlbum();
 	void showLyric();
+	void getImages();
 	
  private slots:
 	void artistInfo(QString);
@@ -67,6 +70,9 @@ public:
 	void albumClosed(QObject*);
 	void lyricClosed(QObject*);
 	void storeState();
+	void infoResponse(QString info);
+	void dlComplete(QString file);
+	void dlCancel(QString);
 };
 
 

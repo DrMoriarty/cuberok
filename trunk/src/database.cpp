@@ -1230,3 +1230,16 @@ void Database::SetSQLPlaylist(QString name, QString sql)
 		q.exec();
 	}
 }
+
+QString Database::commonPath(QString path1, QString path2)
+{
+	if(!path1.size() || !path2.size()) return "";
+	QDir dir1(path1), dir2(path2);
+	if(dir1.isRoot() || dir2.isRoot()) return "";
+	path1 = dir1.canonicalPath();
+	while(!dir2.isRoot()) {
+		if(path1.startsWith(dir2.canonicalPath())) return dir2.canonicalPath();
+		dir2.cdUp();
+	}
+	return "";
+}

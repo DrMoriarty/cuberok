@@ -32,6 +32,12 @@
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
 {
+	QUrl url("file:///home/vasya/music/song\\123.mp3");
+	Console::Self().log(url.toString());
+	Console::Self().log(url.toLocalFile());
+	Console::Self().log(ToLocalFile(url));
+	// FIX_QT_PLEASE
+	Console::Self().log(QUrl::fromLocalFile("/home/vasya/music/song\\123.mp3").toString());
 #ifdef QTAGCONVERT
 	qtag = 0;
 #endif
@@ -133,6 +139,8 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.toolBar_3->addWidget(ui.progressBar);
 	ui.toolBar_3->addAction(ui.actionMute);
 	ui.toolBar_3->addWidget(ui.volumeSlider);
+	connect(ui.toolBar_3, SIGNAL(orientationChanged(Qt::Orientation)), ui.progressBar, SLOT(setOrientation(Qt::Orientation)));
+	connect(ui.toolBar_3, SIGNAL(orientationChanged(Qt::Orientation)), ui.volumeSlider, SLOT(setOrientation(Qt::Orientation)));
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
 

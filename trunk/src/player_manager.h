@@ -44,6 +44,7 @@ class PlayerManager : public Player
     virtual bool playing();
 	virtual int  weight();	
 	virtual QString name();
+	virtual void processErrorMessage(QString);
 
 	QStringList getPlayers();
 	bool setPrefferedPlayer(QString);

@@ -20,7 +20,11 @@
 #ifndef PLAYLISTVIEW_H
 #define PLAYLISTVIEW_H
 
+#if !_WIN32 && !WIN32
 #include <unistd.h>
+#else
+#include <time.h>
+#endif // WIN32
 #include <QtGui>
 #include "playlistmodel.h"
 #include "player.h"

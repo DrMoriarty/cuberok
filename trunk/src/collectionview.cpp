@@ -622,7 +622,7 @@ void CollectionView::setImage()
 	if(data.size()) {
 		path = QFileInfo(data[0]).canonicalPath();
 		foreach(QString str, data) {
-			path = commonPath(path, QFileInfo(str).canonicalPath());
+			path = Database::commonPath(path, QFileInfo(str).canonicalPath());
 		}
 	} 
 	if(path == "") path = QDir::homePath();
@@ -645,19 +645,6 @@ void CollectionView::setImage()
 		}
 		model.update();
 	}
-}
-
-QString CollectionView::commonPath(QString path1, QString path2)
-{
-	if(!path1.size() || !path2.size()) return "";
-	QDir dir1(path1), dir2(path2);
-	if(dir1.isRoot() || dir2.isRoot()) return "";
-	path1 = dir1.canonicalPath();
-	while(!dir2.isRoot()) {
-		if(path1.startsWith(dir2.canonicalPath())) return dir2.canonicalPath();
-		dir2.cdUp();
-	}
-	return "";
 }
 
 void CollectionView::iconView(bool b)
@@ -737,141 +724,59 @@ void CollectionView::doRequest()
 void CollectionView::infoResponse(QString info)
 {
 	wait_response = false;
-	disconnect(&LastFM::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(infoResponse(QString)));
-
-	QDomDocument doc;
-	QDomElement el, el2;
-	QDomNodeList list;
-	if(doc.setContent(info)) {
-		el = doc.documentElement();
-		//el = el.firstChildElement("lfm");
-		if(!el.isNull()) {
-			QString s = el.attribute("status");
-			if(s == "ok") {
-				el2 = el.firstChildElement("artist");
-				if(!el2.isNull()) {  // proceed artist info
-					QString name, img1, img2, img3, img4;
-					el = el2;
-					el2 = el.firstChildElement("name");
-					if(!el2.isNull()) name = el2.firstChild().nodeValue();
-					QString mbid;
-					el2 = el.firstChildElement("mbid");
-					if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
-					Database::Self().MbidForArtist(lfmArtist, mbid);
-					el2 = el.firstChildElement("image");
-					while(!el2.isNull()) {
-						if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
-						if(el2.attribute("size") == "medium") img2 = el2.firstChild().nodeValue();
-						if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
-						if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
-						el2 = el2.nextSiblingElement("image");
-					}
-					el2 = el.firstChildElement("bio");
-					if(!el2.isNull() && mbid.size() && PLSet.cacheInfo) {
-						el2 = el2.firstChildElement("content");
-						if(!el2.isNull()) {
-							QString info = el2.firstChild().nodeValue();
-							if(PLSet.cacheInfo && info.size()) {
-								info = "<html><body>" + info + "</html></body>";
-								Database::Self().setInfo(mbid, info);
-							}
-						}
-					}
-					if(!img2.size()) img2 = img1;
-					if(!img3.size()) img3 = img2;
-					if(!img4.size()) img4 = img3;
-					Console::Self().log("Image URL" + img4);
-					if(downloader.done()) {
-						if(lfmArtist != name) {
-							Database::Self().RenameArtist(lfmArtist, name);
-							Database::Self().pushSubset();
-							QList<QString> list = Database::Self().Songs(&name);
-							foreach(QString file, list) {
-								Tagger::updateArtist(file, name);
-							}
-							Database::Self().popSubset();
-						}
-						lfmArtist = name;
-						lfmAlbum = "";
-						downloader.download(img4);
-					} else { // download queue
-					}
-				} else {
-					el2 = el.firstChildElement("album");
-					if(!el2.isNull()) {  // proceed album info
-						QString name, artist, img1, img2, img3, img4;
-						el = el2;
-						el2 = el.firstChildElement("name");
-						if(!el2.isNull()) name = el2.firstChild().nodeValue();
-						el2 = el.firstChildElement("artist");
-						if(!el2.isNull()) artist = el2.firstChild().nodeValue();
-						QString mbid;
-						el2 = el.firstChildElement("mbid");
-						if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
-						Database::Self().MbidForAlbum(lfmAlbum, mbid, Database::Self().AddArtist(artist));
-						el2 = el.firstChildElement("image");
-						while(!el2.isNull()) {
-							if(el2.attribute("size") == "small") img1 = el2.firstChild().nodeValue();
-							if(el2.attribute("size") == "medium") img2 = el2.firstChild().nodeValue();
-							if(el2.attribute("size") == "large") img3 = el2.firstChild().nodeValue();
-							if(el2.attribute("size") == "extralarge") img4 = el2.firstChild().nodeValue();
-							el2 = el2.nextSiblingElement("image");
-						}
-						el2 = el.firstChildElement("wiki");
-						if(!el2.isNull() && mbid.size()) {
-							el2 = el2.firstChildElement("content");
-							if(!el2.isNull()) {
-								QString info = el2.firstChild().nodeValue();
-								if(PLSet.cacheInfo && info.size()) {
-									info = "<html><body>" + info + "</html></body>";
-									Database::Self().setInfo(mbid, info);
-								}
-							}
-						}
-						if(!img2.size()) img2 = img1;
-						if(!img3.size()) img3 = img2;
-						if(!img4.size()) img4 = img3;
-						Console::Self().log("Image URL" + img4);
-						if(downloader.done()) {
-							if(lfmArtist != artist) {
-								Database::Self().RenameArtist(lfmArtist, artist);
-								Database::Self().pushSubset();
-								QList<QString> list = Database::Self().Songs(&name);
-								foreach(QString file, list) {
-									Tagger::updateArtist(file, name);
-								}
-								Database::Self().popSubset();
-							}
-							if(lfmAlbum != name) {
-								Database::Self().RenameAlbum(lfmAlbum, name, Database::Self().AddArtist(artist));
-								Database::Self().pushSubset();
-								QList<QString> list = Database::Self().Songs(&artist, Database::Self().AddAlbum(name, Database::Self().AddArtist(artist)));
-								foreach(QString file, list) {
-									Tagger::updateAlbum(file, name);
-								}
-								Database::Self().popSubset();
-							}
-							lfmArtist = artist;
-							lfmAlbum = name;
-							downloader.download(img4);
-						} else { // download queue
-						}
-					} else {
-						// something else
-					}
-				}
-			} else if(s == "failed") {
-				// TODO error message
-				Console::Self().error("Can't take info from Last.FM");
-			} else {
-				// unknown error
-				Console::Self().error("Last.FM: Unknown error");
+	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
+	QString newArtist, newAlbum, mbid, imageUrl, information;
+	if(LastFM::Self().parseInfo(info, newArtist, newAlbum, mbid, imageUrl, information)) {
+		if(newAlbum.size()) { // album info
+			if(mbid.size()) Database::Self().MbidForAlbum(lfmAlbum, mbid, Database::Self().AddArtist(lfmArtist));
+			if(mbid.size() && PLSet.cacheInfo && info.size()) {
+				Database::Self().setInfo(mbid, information);
 			}
-		} else {
-			Console::Self().error("Last.FM: Element lfm not found");
+			if(lfmArtist != newArtist) {
+				Database::Self().RenameArtist(lfmArtist, newArtist);
+				Database::Self().pushSubset();
+				QList<QString> list = Database::Self().Songs(&newArtist);
+				foreach(QString file, list) {
+					Tagger::updateArtist(file, newArtist);
+				}
+				Database::Self().popSubset();
+			}
+			if(lfmAlbum != newAlbum) {
+				Database::Self().RenameAlbum(lfmAlbum, newAlbum, Database::Self().AddArtist(newArtist));
+				Database::Self().pushSubset();
+				QList<QString> list = Database::Self().Songs(&newArtist, Database::Self().AddAlbum(newAlbum, Database::Self().AddArtist(newArtist)));
+				foreach(QString file, list) {
+					Tagger::updateAlbum(file, newAlbum);
+				}
+				Database::Self().popSubset();
+			}
+			if(downloader.done()) {
+				lfmArtist = newArtist;
+				lfmAlbum = newAlbum;
+				downloader.download(imageUrl);
+			} else { // download queue
+			}
+		} else {  // artist info
+			if(mbid.size()) Database::Self().MbidForArtist(lfmArtist, mbid);
+			if(mbid.size() && PLSet.cacheInfo && information.size()) {
+				Database::Self().setInfo(mbid, information);
+			}
+			if(lfmArtist != newArtist) {
+				Database::Self().RenameArtist(lfmArtist, newArtist);
+				Database::Self().pushSubset();
+				QList<QString> list = Database::Self().Songs(&newArtist);
+				foreach(QString file, list) {
+					Tagger::updateArtist(file, newArtist);
+				}
+				Database::Self().popSubset();
+			}
+			if(downloader.done()) {
+				lfmArtist = newArtist;
+				lfmAlbum = "";
+				downloader.download(imageUrl);
+			} else { // download queue
+			}
 		}
-	} else {
-		Console::Self().error("Last.FM: XML error");
 	}
 
 	if(request_stack.size())
@@ -889,7 +794,7 @@ void CollectionView::dlComplete(QString file)
 	if(data.size()) {
 		path = QFileInfo(data[0]).canonicalPath();
 		foreach(QString str, data) {
-			path = commonPath(path, QFileInfo(str).canonicalPath());
+			path = Database::commonPath(path, QFileInfo(str).canonicalPath());
 		}
 		path += QDir::separator();
 	} 
@@ -923,3 +828,4 @@ void CollectionView::dlCancel(QString)
 	lfmAlbum = "";
 	lfmArtist = "";
 }
+

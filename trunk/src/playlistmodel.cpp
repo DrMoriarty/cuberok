@@ -434,12 +434,12 @@ void PlaylistFiller::proceedUrl(QUrl url)
 // 		setTerminationEnabled(true);
 // 		index++;
 	} else /*if(dir.cd(path))*/ {
-		foreach(QString file, dir.entryList()) {
-			if(file == "." || file == "..") continue;
-			QString suf = QFileInfo(file).suffix().toLower();
+		foreach(QFileInfo file, dir.entryInfoList()) {
+			if(file.fileName() == "." || file.fileName() == "..") continue;
+			QString suf = file.suffix().toLower();
 			if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
 				continue;
-			proceedUrl(QUrl::fromLocalFile(dir.filePath(file)));
+			proceedUrl(QUrl::fromLocalFile(file.filePath()));
 		}
 	}
 }

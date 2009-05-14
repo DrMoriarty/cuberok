@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
-    <normaloff>:/icons/application.png</normaloff>:/icons/application.png</iconset>
+    <normaloff>:/icons/cuberok.png</normaloff>:/icons/cuberok.png</iconset>
   </property>
   <property name="dockNestingEnabled">
    <bool>true</bool>
@@ -648,7 +648,7 @@
   <action name="actionAbout">
    <property name="icon">
     <iconset resource="resource.qrc">
-     <normaloff>:/icons/application.png</normaloff>:/icons/application.png</iconset>
+     <normaloff>:/icons/cuberok.png</normaloff>:/icons/cuberok.png</iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -1003,6 +1003,12 @@
    </property>
    <property name="statusTip">
     <string>Remove song from the playlist</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetWithChildrenShortcut</enum>
    </property>
   </action>
   <action name="actionLookFeel">

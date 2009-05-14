@@ -103,7 +103,10 @@ public:
     void subsetAlbum(int);
     void subsetArtist(QString);
     void subsetGenre(QString);
-private:
+
+	static QString commonPath(QString path1, QString path2);
+
+ private:
     Database();
     QSqlDatabase db;
     bool open;

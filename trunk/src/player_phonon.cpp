@@ -26,7 +26,7 @@
 
 Q_EXPORT_PLUGIN2(player_phonon, PlayerPhonon) 
 
-PlayerPhonon::PlayerPhonon() : repeat_mode(0), shuffle_mode(0)
+PlayerPhonon::PlayerPhonon() : repeat_mode(0), shuffle_mode(0), needPos(false)
 {
 	audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
 	mediaObject = new Phonon::MediaObject(this);
@@ -43,7 +43,7 @@ PlayerPhonon::PlayerPhonon() : repeat_mode(0), shuffle_mode(0)
 	Phonon::createPath(mediaObject, audioOutput);
 
 	mimeTypes["ogg"] = "application/ogg";
-	mimeTypes["ogm"] = "application/ogg";
+	mimeTypes["oga"] = "application/ogg";
 	mimeTypes["tsi"] = "audio/TSP-audio";
 	mimeTypes["au"] = "audio/basic";
 	mimeTypes["snd"] = "audio/basic";
@@ -109,7 +109,8 @@ bool PlayerPhonon::open(QUrl fname, long start, long length)
 #else
 				message += tr("\nDo you forget to install proper phonon backend?");
 #endif
-				QMessageBox::information(0, tr("Error"), message);
+				//QMessageBox::information(0, tr("Error"), message);
+				processErrorMessage(message);
 			}
 		}
 	}
@@ -129,10 +130,9 @@ bool PlayerPhonon::open(QUrl fname, long start, long length)
 
 bool PlayerPhonon::play()
 {
-	mediaObject->seek(Pstart);
+	mediaObject->play();
 	//bool wasPlaying = mediaObject->state() == Phonon::PlayingState;
 	
-	mediaObject->play();
 	return true;
 }
 
@@ -161,7 +161,12 @@ bool PlayerPhonon::setPosition(double pos)
 	qint64 time = Plength;
 	time *= pos;
 	time += Pstart;
-	mediaObject->seek(time);
+	if(mediaObject->state() == Phonon::PlayingState) {
+		mediaObject->seek(time);
+	} else {
+		needPos = true;
+		_pos = time;
+	}
     return true;
 }
 
@@ -210,12 +215,20 @@ void PlayerPhonon::stateChanged(Phonon::State newState, Phonon::State oldState )
 	switch (newState) {
 	case Phonon::ErrorState:
 		if (mediaObject->errorType() == Phonon::FatalError) {
-			QMessageBox::warning(0, tr("Fatal Error"), mediaObject->errorString());
+			//QMessageBox::warning(0, tr("Fatal Error"), mediaObject->errorString());
+			processErrorMessage(mediaObject->errorString());
 		} else {
-			QMessageBox::warning(0, tr("Error"), mediaObject->errorString());
+			//QMessageBox::warning(0, tr("Error"), mediaObject->errorString());
+			processErrorMessage(mediaObject->errorString());
 		}
 		break;
 	case Phonon::PlayingState:
+ 		if(oldState != Phonon::PausedState)
+ 			mediaObject->seek(Pstart);
+		if(needPos) {
+			needPos = false;
+			mediaObject->seek(_pos);
+		}
 		break;
 	case Phonon::StoppedState:
 		break;
@@ -241,7 +254,8 @@ void PlayerPhonon::sourceChanged(const Phonon::MediaSource &source)
 void PlayerPhonon::metaStateChanged(Phonon::State newState, Phonon::State /* oldState */)
 {
 	if (newState == Phonon::ErrorState) {
-		QMessageBox::warning(0, tr("Error opening files"), metaInformationResolver->errorString());
+		//QMessageBox::warning(0, tr("Error opening files"), metaInformationResolver->errorString());
+		processErrorMessage(metaInformationResolver->errorString());
 		return;
 	}
 	
