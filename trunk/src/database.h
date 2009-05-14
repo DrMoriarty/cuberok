@@ -105,6 +105,9 @@ public:
     void subsetGenre(QString);
 
 	static QString commonPath(QString path1, QString path2);
+	void cleanUpAlbums();
+	void cleanUpArtists();
+	void cleanUpGenres();
 
  private:
     Database();

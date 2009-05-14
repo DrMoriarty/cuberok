@@ -36,6 +36,9 @@ CollectionSettings::~CollectionSettings()
 
 void CollectionSettings::cleanup()
 {
+	Database::Self().cleanUpGenres();
+	Database::Self().cleanUpArtists();
+	Database::Self().cleanUpAlbums();
 	int count = 0;
 	QList<QString> files = Database::Self().Songs();
 	foreach(QString file, files) {
