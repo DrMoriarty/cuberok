@@ -244,7 +244,12 @@ void PlayerPhonon::stateChanged(Phonon::State newState, Phonon::State oldState )
 void PlayerPhonon::tick(qint64 time)
 {
 	//QTime displayTime(0, (time / 60000) % 60, (time / 1000) % 60);
-	emit position(double(time - Pstart) / Plength);
+	double pos = double(time - Pstart) / Plength;
+	emit position(pos);
+	if(pos >= 1.0) {
+		mediaObject->stop();
+		emit finish();
+	}
 }
 
 void PlayerPhonon::sourceChanged(const Phonon::MediaSource &source)
