@@ -18,6 +18,7 @@
  */
 
 #include "aboutdialog.h"
+#include "player_manager.h"
 
 AboutDialog::AboutDialog(QWidget *parent)
     : QDialog(parent)
@@ -25,6 +26,21 @@ AboutDialog::AboutDialog(QWidget *parent)
 	ui.setupUi(this);
 	QString ver = QString("v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
 	ui.label_version->setText(ver);
+	QString text = "Cuberok " + ver + "\n";
+	text += QString("build: ") + __TIME__ + " " + __DATE__ + "\n";
+	text += QString("Qt: ") + QT_VERSION_STR + " ";
+#ifdef Q_WS_X11
+	text += "X11";
+#endif
+#ifdef Q_WS_MAC
+	text += "Mac OS";
+#endif
+#ifdef Q_WS_WIN
+	text += "MS Windows";
+#endif
+	text += "\nCurrent plugin: " + PlayerManager::Self().name() +
+		"\nAvailable plugins are:\n" + PlayerManager::Self().getInfo();
+	ui.textEdit->setText(text);
 }
 
 AboutDialog::~AboutDialog()
