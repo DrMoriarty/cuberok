@@ -23,29 +23,35 @@
 const int ver = 1;
 
 MyApplication::MyApplication( int & argc, char ** argv )
-	:QApplication(argc, argv), mainwindow(0)
+	:QApplication(argc, argv), mainwindow(0), canstore(false)
 {
 }
 
 void MyApplication::commitData(QSessionManager& manager)
 {
+    if(canstore) {
 	QApplication::commitData(manager);
 	PLSet.save();
+	storeState();
 	if(mainwindow) storeState(mainwindow);
 	//QMessageBox::information(0, "commitData", "The data was committed");
 	qDebug("The data was committed");
+    }
 }
 
 void MyApplication::saveState(QSessionManager& manager)
 {
+    if(canstore) {
 	QApplication::saveState(manager);
 	PLSet.save();
+	storeState();
 	if(mainwindow) storeState(mainwindow);
 	//QMessageBox::information(0, "saveState", "The state was saved");
 	qDebug("The state was saved");
+    }
 }
 
-void MyApplication::storeState(QMainWindow *win)
+void MyApplication::storeState()
 {
     QSettings set;
     set.setValue("style", style_name);
@@ -53,6 +59,11 @@ void MyApplication::storeState(QMainWindow *win)
     // FIXME qt bug?
     set.setValue("palette", (QVariant)QApplication::palette());
 	//#endif
+}
+
+void MyApplication::storeState(QMainWindow *win)
+{
+    QSettings set;
     set.setValue("winstate", win->saveState(ver));
     set.setValue("wingeometry", win->saveGeometry());
     /*QFile file(QDir::homePath()+"/.cuberock/state.dat");
@@ -66,25 +77,36 @@ void MyApplication::storeState(QMainWindow *win)
     */
 }
 
-bool MyApplication::restoreState(QMainWindow *win)
+bool MyApplication::restoreState()
 {
-	mainwindow = win;
     QSettings set;
-	if(!set.contains("style") && !set.contains("palette") && !set.contains("winstate") && !set.contains("wingeometry")) {
+	if(!set.contains("style") && !set.contains("palette")) {
+	    qDebug("Therea aren't settings 'style' and 'palette'");
 		return false;
 	}
 	
     style_name = set.value("style", "Cuberok").toString();
+    QApplication::setStyle(style_name);
 	//#ifdef WIN32
     // FIXME qt bug?
     QPalette p = set.value("palette").value<QPalette>();
+    QApplication::setPalette(p);
 	//#else
     //QPalette p;
 	//#endif
+	return true;
+}
+
+bool MyApplication::restoreState(QMainWindow *win)
+{
+	mainwindow = win;
+    QSettings set;
+	if(!set.contains("winstate") && !set.contains("wingeometry")) {
+		return false;
+	}
+	
     win->restoreState(set.value("winstate").toByteArray(), ver);
     win->restoreGeometry(set.value("wingeometry").toByteArray());
-    QApplication::setStyle(style_name);
-    QApplication::setPalette(p);
     /*QFile file(QDir::homePath()+"/.cuberock/state.dat");
     if(!file.exists()) return;
     file.open(QIODevice::ReadOnly);
@@ -100,4 +122,9 @@ bool MyApplication::restoreState(QMainWindow *win)
     win->setSplitter(splitter);
     */
 	return true;
+}
+
+void MyApplication::canStore(bool c)
+{
+    canstore = c;
 }

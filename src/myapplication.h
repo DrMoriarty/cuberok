@@ -34,10 +34,18 @@ class MyApplication : public QApplication
 	virtual void commitData(QSessionManager &manager);
 	virtual void saveState ( QSessionManager & manager );
 
+	// application
+	static void storeState();
+	// main window
 	void storeState(QMainWindow *win);
+	// application
+	static bool restoreState();
+	// main window
 	bool restoreState(QMainWindow *win);
+	void canStore(bool c);
  private:
 	QMainWindow *mainwindow;
+	bool canstore;
 };
 
 #endif //MYAPPLICATION_H
