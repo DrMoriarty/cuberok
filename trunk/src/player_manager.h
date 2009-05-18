@@ -48,11 +48,13 @@ class PlayerManager : public Player
 
 	QStringList getPlayers();
 	bool setPrefferedPlayer(QString);
+	QString getInfo();
 
  private:
     PlayerManager();
 	QList<Player*> players;
 	Player *player;
+	QString info;
 };
 
 #endif //PLAYER_MANAGER_H

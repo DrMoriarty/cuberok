@@ -33,6 +33,7 @@ PlayerManager::PlayerManager() : player(0)
 			players.push_back(pl);
 			connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
 			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+			info += pl->name() + "\n";
 		}
 	}
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
@@ -54,6 +55,7 @@ PlayerManager::PlayerManager() : player(0)
 				players.push_back(pl);
 				connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
 				connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+				info += pl->name() + "\n";
 			}
 		}
 	} 
@@ -181,4 +183,9 @@ bool PlayerManager::setPrefferedPlayer(QString name)
 		}
 	Console::Self().error(tr("Can't start engine %1").arg(name));
 	return false;
+}
+
+QString PlayerManager::getInfo()
+{
+	return info;
 }
