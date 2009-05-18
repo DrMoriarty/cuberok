@@ -57,7 +57,7 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 
 PlaylistSettings::~PlaylistSettings()
 {
-	save();
+	//save();
 }
 
 void PlaylistSettings::save()

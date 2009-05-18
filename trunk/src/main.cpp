@@ -29,6 +29,7 @@
 QString style_name;
 
 #define FILELOG
+//#define DEBUG
 
 #ifdef WIN32
 #include <windows.h>
@@ -87,6 +88,10 @@ int main(int argc, char *argv[])
 #ifdef WIN32
     qInstallMsgHandler(myMessageOutput);
 #endif
+    QApplication::setDesktopSettingsAware(false);
+    QCoreApplication::setOrganizationName("DrMoriarty");
+    //QCoreApplication::setOrganizationDomain("");
+    QCoreApplication::setApplicationName("Cuberok");
     MyApplication a(argc, argv);
 	QSharedMemory shm("Cuberok shared memory");
 	if(shm.attach(QSharedMemory::ReadOnly)) {
@@ -117,13 +122,11 @@ int main(int argc, char *argv[])
     qDebug("Loading l10n from %s", (const char*)loc_path.toLocal8Bit());
     a.installTranslator(&translator);
 
-    QCoreApplication::setOrganizationName("DrMoriarty");
-    //QCoreApplication::setOrganizationDomain("");
-    QCoreApplication::setApplicationName("Cuberok");
     a.processEvents();
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
     //qApp->setWindowIcon(QIcon(":/icons/application.png"));
     Cuberok w;
+	MyApplication::restoreState();
     w.show();
     splash.finish(&w);
 #ifndef DEBUG
@@ -131,6 +134,7 @@ int main(int argc, char *argv[])
 		w.firstStart();
 	}
 #endif
+    a.canStore(true);
 #ifdef WIN32
     //GlobalWinKeys(w.winId());
 #endif
@@ -141,6 +145,7 @@ int main(int argc, char *argv[])
 #endif
 #ifndef DEBUG
     a.storeState(&w);
+    a.storeState();
 #endif
     return res;
 }
