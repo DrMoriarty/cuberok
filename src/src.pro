@@ -71,7 +71,7 @@ FORMS += aboutdialog.ui \
          browser_viewer.ui \
          importcollection.ui \
          firststartwizard.ui
-TRANSLATIONS = ../locale/cuberok_ru.ts
+TRANSLATIONS = ../translations/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
            browser_viewer.cpp \
@@ -176,8 +176,8 @@ unix {
     target.path = /bin
     documentation.path = /share/doc/cuberok
     documentation.files = README ChangeLog
-    locale.path = /share/cuberok/locale
-    locale.files = ../locale/*.qm
+    locale.path = $$[QT_INSTALL_TRANSLATIONS]
+    locale.files = ../translations/*.qm
     pixmap.path = /share/pixmaps
     pixmap.files = ../images/cuberok.xpm
     desktop.path = /share/applications

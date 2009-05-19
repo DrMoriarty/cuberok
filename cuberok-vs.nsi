@@ -2,7 +2,7 @@
 
 Name "Cuberok ${VERSION}"
 
-OutFile "win32\cuberok_setup-${VERSION}.exe"
+OutFile "win32-vs\cuberok_setup-${VERSION}.exe"
 
 InstallDir $PROGRAMFILES\Cuberok
 
@@ -39,10 +39,10 @@ Section "Cuberok"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File "win32\Cuberok.exe"
+  File "win32-vs\Cuberok.exe"
   File /oname="translations\cuberok_ru.qm" "win32\cuberok_ru.qm"
-  File "win32\mingwm10.dll"
-  File "win32\libtag.dll"
+  File "win32-vs\mingwm10.dll"
+  File "win32-vs\libtag.dll"
   File "license.txt"
   
   ; Write the installation path into the registry
@@ -63,35 +63,38 @@ SectionEnd
 
 ; Optional section (can be disabled by the user)
 Section "Qt4 library"
-  File "win32\QtCore4.dll"
-  File "win32\QtGui4.dll"
-  File "win32\QtNetwork4.dll"
-  File "win32\QtSql4.dll"
-  File "win32\QtXml4.dll"
+  File "win32-vs\QtCore4.dll"
+  File "win32-vs\QtGui4.dll"
+  File "win32-vs\QtNetwork4.dll"
+  File "win32-vs\QtSql4.dll"
+  File "win32-vs\QtXml4.dll"
+  File "win32-vs\phonon4.dll"
+  CreateDirectory $INSTDIR\phonon_backend
+  File /oname=phonon_backend\phonon_ds94.dll "win32-vs\phonon_backend\phonon_ds94.dll"
   CreateDirectory $INSTDIR\sqldrivers
-  File /oname=sqldrivers\qsqlite4.dll "win32\sqldrivers\qsqlite4.dll"
+  File /oname=sqldrivers\qsqlite4.dll "win32-vs\sqldrivers\qsqlite4.dll"
   CreateDirectory $INSTDIR\imageformats
-  File /oname=imageformats\qgif4.dll "win32\imageformats\qgif4.dll"
-  File /oname=imageformats\qjpeg4.dll "win32\imageformats\qjpeg4.dll"
-  File /oname=imageformats\qmng4.dll "win32\imageformats\qmng4.dll"
-  File /oname=imageformats\qsvg4.dll "win32\imageformats\qsvg4.dll"
-  File /oname=imageformats\qtiff4.dll "win32\imageformats\qtiff4.dll"
+  File /oname=imageformats\qgif4.dll "win32-vs\imageformats\qgif4.dll"
+  File /oname=imageformats\qjpeg4.dll "win32-vs\imageformats\qjpeg4.dll"
+  File /oname=imageformats\qmng4.dll "win32-vs\imageformats\qmng4.dll"
+  File /oname=imageformats\qsvg4.dll "win32-vs\imageformats\qsvg4.dll"
+  File /oname=imageformats\qtiff4.dll "win32-vs\imageformats\qtiff4.dll"
 SectionEnd
 
 Section "Audiere plugin"
   CreateDirectory $INSTDIR\plugins
-  File "win32\audiere.dll"
-  File /oname=plugins\player_audiere.dll "win32\plugins\player_audiere.dll"
+  File "win32-vs\audiere.dll"
+  File /oname=plugins\player_audiere.dll "win32-vs\plugins\player_audiere.dll"
 SectionEnd
 
 Section "GStreamer plugin"
   CreateDirectory $INSTDIR\plugins
-  File /oname=plugins\player_gst.dll "win32\plugins\player_gst.dll"
+  File /oname=plugins\player_gst.dll "win32-vs\plugins\player_gst.dll"
 SectionEnd
 
 Section "Phonon plugin"
   CreateDirectory $INSTDIR\plugins
-  File /oname=plugins\player_phonon.dll "win32\plugins\player_phonon.dll"
+  File /oname=plugins\player_phonon.dll "win32-vs\plugins\player_phonon.dll"
 SectionEnd
 
 Section "Desktop Shortcut"

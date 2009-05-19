@@ -1,59 +1,71 @@
-Summary: Cuberok audio player
-Name: cuberok
-Version: 0.0.8
-Release: 0
-#Copyright: GPL
-License: GPL
-Group: Audio
-Source: %{name}_%{version}.orig.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-build  
-#BuildRoot: /var/tmp/%{name}-rpmroot
-#Provides: cuberok
-Packager: Vasiliy Makarov <drmoriarty.0@gmail.com>
-#Requires:
-BuildRequires: libqt4-devel, taglib-devel, phonon-devel, gstreamer-0_10-devel, gstreamer-0_10-plugins-base-devel
+# norootforbuild
 
-%if 0%{?suse_version}
-BuildRequires: update-desktop-files
+%if 0%{?fedora_version}
+%define breq qt4-devel, gstreamer-devel, gstreamer-plugins-base-devel
+%define qmake /usr/bin/qmake-qt4
+%define lrelease /usr/bin/lrelease-qt4
+%endif  
+%if 0%{?mandriva_version}
+%define breq libqt4-devel, qt4-linguist, gstreamer0.10-devel, gstreamer0.10-plugins-base-devel
+%define qmake /usr/lib/qt4/bin/qmake
+%define lrelease /usr/lib/qt4/bin/lrelease
 %endif
+%if 0%{?suse_version}
+%define breq update-desktop-files, libqt4-devel, gstreamer-0_10-devel, gstreamer-0_10-plugins-base-devel
+%define qmake /usr/bin/qmake
+%define lrelease /usr/bin/lrelease
+%endif  
+
+Summary:	Cuberok audio player
+Name:		cuberok
+Version:	0.0.10
+Release:	0
+License:	GPL
+Group:		Audio
+Source:		%{name}_%{version}.orig.tar.gz
+BuildRoot:	%{_tmppath}/%{name}-%{version}-build  
+Vendor:		Vasiliy Makarov <drmoriarty.0@gmail.com>
+BuildRequires:	gcc-c++, taglib-devel, phonon-devel, %{breq}
+Prefix:		/usr
 
 %description
-Cuberok is yet another audio player based on Qt4.
+Cuberok is an audio player and a collection manager based on Qt4.
+
+%if 0%{?mandriva_version} == 0
+%debug_package
+%endif
 
 %prep
-%setup
-qmake "CONFIG+=player_phonon" Cuberok.pro
+%setup -q
 
 %build
-#LOCKINGTEST='/tmp .' make 
+%{qmake} "CONFIG+=player_phonon" Cuberok.pro
 make 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/{bin,share/doc/cuberok}
-make INSTALL_ROOT=$RPM_BUILD_ROOT/usr install
-install -m 644 -p README $RPM_BUILD_ROOT/usr/share/doc/cuberok/
-install -m 644 -p ChangeLog $RPM_BUILD_ROOT/usr/share/doc/cuberok/
-%if 0%{?suse_version}  
-%suse_update_desktop_file $RPM_BUILD_ROOT/usr/share/applications/%{name}.desktop
+%{makeinstall} INSTALL_ROOT=%{buildroot}/usr
+%if 0%{?suse_version}
+%suse_update_desktop_file %{buildroot}%{_datadir}/applications/%{name}.desktop
 %endif
 
 %clean
-rm -rf "$RPM_BUILD_ROOT"
+rm -rf %{buildroot}
 
 %files
-%attr(0555,root,root) %{_bindir}/cuberok
 %defattr(-,root,root)
+%doc ChangeLog README license.txt
+%{_bindir}/cuberok
 %{_libdir}/cuberok
-%{_datadir}/%{name}/
-%{_datadir}/%{name}/locale/
-%{_datadir}/doc/%{name}/
-%doc %{_datadir}/doc/cuberok/*
-%attr(0444,root,root) %{_libdir}/cuberok/*
-%attr(0444,root,root) %{_datadir}/applications/*
-%attr(0444,root,root) %{_datadir}/cuberok/locale/*
-%attr(0444,root,root) %{_datadir}/pixmaps/*
+%{_datadir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Tue May 19 2009 TI_Eugene <ti.eugene@gmail.com>
+- Initial release for OBS
+
 * Fri Apr 10 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
 - First release for openSuse
+
+  
