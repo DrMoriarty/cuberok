@@ -111,6 +111,9 @@
        <height>64</height>
       </size>
      </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item row="8" column="0" colspan="3">

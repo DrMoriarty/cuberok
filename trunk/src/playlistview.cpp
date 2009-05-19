@@ -220,31 +220,36 @@ void PlaylistView::addItem(QVariant item, int id, QModelIndex* ind)
 
 void PlaylistView::prev()
 {
-	clearSelection();
-	QModelIndex prev = prevItem(); 
-	setCurrentIndex(pmodel.mapFromSource(prev));
-	curindex = prev;
-	play();
+	QModelIndex prev = prevItem();
+	if(prev.row() >= 0) {
+		clearSelection();
+		setCurrentIndex(pmodel.mapFromSource(prev));
+		curindex = prev;
+		play();
+	}
 }
 
 void PlaylistView::next()
 {
-	if(plindex.row() >= 0) {
-		prev_queue.push_back(plindex);
-		if(PlayerManager::Self().shuffle_mode) {
-			model.setData(model.index(plindex.row(), PlaylistModel::Empty), "1", Qt::EditRole);
-			shuffle_count ++;
-		}
-		if(PlayerManager::Self().playing()) rateSong(plindex, -1);
-	}
 	QModelIndex next;
 	do {
 		next = nextItem();
 	} while(qVariantValue<StarRating>(model.data(model.index(next.row(), PlaylistModel::Rating), Qt::DisplayRole)).rating() <= -50);
-	curindex = next;
-	setCurrentIndex(pmodel.mapFromSource(curindex));
-	if(curindex.row() >= 0) play();
-	else stop();
+	if(next.row() >= 0) {
+		if(plindex.row() >= 0) {
+			prev_queue.push_back(plindex);
+			if(PlayerManager::Self().shuffle_mode) {
+				model.setData(model.index(plindex.row(), PlaylistModel::Empty), "1", Qt::EditRole);
+				shuffle_count ++;
+			}
+			if(PlayerManager::Self().playing()) rateSong(plindex, -1);
+		}
+		clearSelection();
+		curindex = next;
+		setCurrentIndex(pmodel.mapFromSource(curindex));
+		play();
+	}
+	//else stop();
 }
 
 void PlaylistView::play(int index, double pos)
@@ -379,12 +384,13 @@ QModelIndex PlaylistView::prevItem()
 		prev_queue.pop_back();
 		return prev;
 	}
-	if(curindex.row() >= 0) {
-		prev = model.index(curindex.row()-1, 0); 
-		if(prev.row() >= 0) return prev;
-		return model.index(0,0);
-	} else
-		return model.index(-1,0);
+	if(pmodel.mapFromSource(curindex).row() >= 0) 
+		prev = pmodel.mapToSource(pmodel.index(pmodel.mapFromSource(curindex).row()-1, 0));
+	if(prev.row() < 0) {
+		if(PlayerManager::Self().repeat_mode) prev = pmodel.mapToSource(pmodel.index(pmodel.rowCount()-1, 0));
+		else prev = model.index(-1, 0);
+	}
+	return prev;
 }
 
 void PlaylistView::onClick(const QModelIndex &index)
