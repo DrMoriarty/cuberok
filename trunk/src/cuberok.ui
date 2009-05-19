@@ -135,10 +135,16 @@
     <item>
      <widget class="ProgressBar" name="progressBar">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
       </property>
       <property name="maximum">
        <number>1000</number>
@@ -154,10 +160,22 @@
     <item>
      <widget class="QSlider" name="volumeSlider">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>128</width>
+        <height>128</height>
+       </size>
       </property>
       <property name="maximum">
        <number>200</number>
