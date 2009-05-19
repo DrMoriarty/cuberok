@@ -31,7 +31,6 @@ void MyApplication::commitData(QSessionManager& manager)
 {
     if(canstore) {
 	QApplication::commitData(manager);
-	PLSet.save();
 	storeState();
 	if(mainwindow) storeState(mainwindow);
 	//QMessageBox::information(0, "commitData", "The data was committed");
@@ -43,7 +42,6 @@ void MyApplication::saveState(QSessionManager& manager)
 {
     if(canstore) {
 	QApplication::saveState(manager);
-	PLSet.save();
 	storeState();
 	if(mainwindow) storeState(mainwindow);
 	//QMessageBox::information(0, "saveState", "The state was saved");
@@ -53,6 +51,7 @@ void MyApplication::saveState(QSessionManager& manager)
 
 void MyApplication::storeState()
 {
+	PLSet.save();
     QSettings set;
     set.setValue("style", style_name);
 	//#ifdef WIN32

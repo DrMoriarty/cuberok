@@ -176,7 +176,8 @@ unix {
     target.path = /bin
     documentation.path = /share/doc/cuberok
     documentation.files = README ChangeLog
-    locale.path = $$[QT_INSTALL_TRANSLATIONS]
+#    locale.path = $$[QT_INSTALL_TRANSLATIONS]
+    locale.path = /share/qt4/translations
     locale.files = ../translations/*.qm
     pixmap.path = /share/pixmaps
     pixmap.files = ../images/cuberok.xpm
