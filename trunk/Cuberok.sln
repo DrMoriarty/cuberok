@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "player_void", "plugins\player_void\player_void.vcproj", "{F1EB3B44-466D-494B-BC24-F694884C2A2E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cuberok_style", "plugins\cuberok_style\cuberok_style.vcproj", "{C24A7C59-DF3C-4569-8C5E-E3F039FEF6F7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "player_phonon", "plugins\player_phonon\player_phonon.vcproj", "{F85C4633-26E5-4AC1-A130-39A6962FB984}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "player_audiere", "plugins\player_audiere\player_audiere.vcproj", "{6BDFEA8E-7DF4-4C64-A274-257E8FC50876}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cuberok", "src\Cuberok.vcproj", "{9B634190-2FDE-4820-9752-291CBFF187EB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1EB3B44-466D-494B-BC24-F694884C2A2E} = {F1EB3B44-466D-494B-BC24-F694884C2A2E}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1EB3B44-466D-494B-BC24-F694884C2A2E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F1EB3B44-466D-494B-BC24-F694884C2A2E}.Debug|Win32.Build.0 = Debug|Win32
+		{F1EB3B44-466D-494B-BC24-F694884C2A2E}.Release|Win32.ActiveCfg = Release|Win32
+		{F1EB3B44-466D-494B-BC24-F694884C2A2E}.Release|Win32.Build.0 = Release|Win32
+		{C24A7C59-DF3C-4569-8C5E-E3F039FEF6F7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C24A7C59-DF3C-4569-8C5E-E3F039FEF6F7}.Debug|Win32.Build.0 = Debug|Win32
+		{C24A7C59-DF3C-4569-8C5E-E3F039FEF6F7}.Release|Win32.ActiveCfg = Release|Win32
+		{C24A7C59-DF3C-4569-8C5E-E3F039FEF6F7}.Release|Win32.Build.0 = Release|Win32
+		{F85C4633-26E5-4AC1-A130-39A6962FB984}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F85C4633-26E5-4AC1-A130-39A6962FB984}.Debug|Win32.Build.0 = Debug|Win32
+		{F85C4633-26E5-4AC1-A130-39A6962FB984}.Release|Win32.ActiveCfg = Release|Win32
+		{F85C4633-26E5-4AC1-A130-39A6962FB984}.Release|Win32.Build.0 = Release|Win32
+		{6BDFEA8E-7DF4-4C64-A274-257E8FC50876}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6BDFEA8E-7DF4-4C64-A274-257E8FC50876}.Debug|Win32.Build.0 = Debug|Win32
+		{6BDFEA8E-7DF4-4C64-A274-257E8FC50876}.Release|Win32.ActiveCfg = Release|Win32
+		{6BDFEA8E-7DF4-4C64-A274-257E8FC50876}.Release|Win32.Build.0 = Release|Win32
+		{9B634190-2FDE-4820-9752-291CBFF187EB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9B634190-2FDE-4820-9752-291CBFF187EB}.Debug|Win32.Build.0 = Debug|Win32
+		{9B634190-2FDE-4820-9752-291CBFF187EB}.Release|Win32.ActiveCfg = Release|Win32
+		{9B634190-2FDE-4820-9752-291CBFF187EB}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
