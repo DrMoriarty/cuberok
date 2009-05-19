@@ -40,9 +40,8 @@ Section "Cuberok"
   
   ; Put file there
   File "win32-vs\Cuberok.exe"
-  File /oname="translations\cuberok_ru.qm" "win32\cuberok_ru.qm"
-  File "win32-vs\mingwm10.dll"
-  File "win32-vs\libtag.dll"
+  File /oname=translations\cuberok_ru.qm "win32-vs\translations\cuberok_ru.qm"
+  File "win32-vs\tag.dll"
   File "license.txt"
   
   ; Write the installation path into the registry
@@ -87,10 +86,10 @@ Section "Audiere plugin"
   File /oname=plugins\player_audiere.dll "win32-vs\plugins\player_audiere.dll"
 SectionEnd
 
-Section "GStreamer plugin"
-  CreateDirectory $INSTDIR\plugins
-  File /oname=plugins\player_gst.dll "win32-vs\plugins\player_gst.dll"
-SectionEnd
+;Section "GStreamer plugin"
+;  CreateDirectory $INSTDIR\plugins
+;  File /oname=plugins\player_gst.dll "win32-vs\plugins\player_gst.dll"
+;SectionEnd
 
 Section "Phonon plugin"
   CreateDirectory $INSTDIR\plugins
