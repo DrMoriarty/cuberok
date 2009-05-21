@@ -221,6 +221,7 @@ void PlayerPhonon::stateChanged(Phonon::State newState, Phonon::State oldState )
 			//QMessageBox::warning(0, tr("Error"), mediaObject->errorString());
 			processErrorMessage(mediaObject->errorString());
 		}
+		mediaObject->stop();
 		break;
 	case Phonon::PlayingState:
  		if(oldState != Phonon::PausedState)
@@ -261,6 +262,7 @@ void PlayerPhonon::metaStateChanged(Phonon::State newState, Phonon::State /* old
 	if (newState == Phonon::ErrorState) {
 		//QMessageBox::warning(0, tr("Error opening files"), metaInformationResolver->errorString());
 		processErrorMessage(metaInformationResolver->errorString());
+		mediaObject->stop();
 		return;
 	}
 	
