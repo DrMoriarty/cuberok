@@ -37,6 +37,7 @@ class PlaylistView : public QTreeView
 public:
     PlaylistView(QString &str, QWidget *parent = 0);
     ~PlaylistView();
+	virtual void dragEnterEvent(QDragEnterEvent *event);
     bool isPlaying();
     void dropEvent(QDropEvent *event);
     void startDrag(Qt::DropActions supportedActions);
