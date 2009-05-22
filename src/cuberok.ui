@@ -2676,6 +2676,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionPlay</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionPause</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNext</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionPause</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPrev</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>actionPause</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>

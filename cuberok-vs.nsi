@@ -40,8 +40,11 @@ Section "Cuberok"
   
   ; Put file there
   File "win32-vs\Cuberok.exe"
+  CreateDirectory $INSTDIR\translations
   File /oname=translations\cuberok_ru.qm "win32-vs\translations\cuberok_ru.qm"
   File "win32-vs\tag.dll"
+  File "win32-vs\msvcp71.dll"
+  File "win32-vs\msvcr71.dll"
   File "license.txt"
   
   ; Write the installation path into the registry
@@ -116,6 +119,7 @@ Section "Uninstall"
   Delete "$INSTDIR\sqldrivers\*.*"
   Delete "$INSTDIR\imageformats\*.*"
   Delete "$INSTDIR\translations\*.*"
+  Delete "$INSTDIR\phonon_backend\*.*"
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\Cuberok\*.*"
@@ -126,6 +130,7 @@ Section "Uninstall"
   RMDir "$INSTDIR\plugins"
   RMDir "$INSTDIR\sqldrivers"
   RMDir "$INSTDIR\imageformats"
+  RMDir "$INSTDIR\phonon_backend"
   RMDir "$INSTDIR"
 SectionEnd
 

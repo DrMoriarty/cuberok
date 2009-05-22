@@ -87,6 +87,12 @@ PlaylistView::~PlaylistView()
 	else QFile::remove(fname);
 }
 
+void PlaylistView::dragEnterEvent(QDragEnterEvent *event)
+{
+	if(event->source() != this)
+		event->acceptProposedAction();
+}
+
 void PlaylistView::storeListM3U(QString fname)
 {
 	if(!fname.size()) return;

@@ -49,6 +49,7 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.setupUi(this);
 	ui.subsetLabel->setVisible(false);
 	ui.subsetDisableButton->setVisible(false);
+	setWindowIcon(QIcon(":/icons/cuberok_bw.png"));
 	trayIconMenu = new QMenu(this);
 	trayIconMenu->addAction(ui.actionPrev);
 	trayIconMenu->addAction(ui.actionPlay);
@@ -83,6 +84,7 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.treeView_2->setAllColumnsShowFocus(true);
 	ui.treeView_2->sortByColumn(0, Qt::AscendingOrder);
 	//ui.treeView_2->actions().append(ui.actionRefreshTree);
+	ui.treeView_2->setCurrentIndex(dirmodel.index(QDir::homePath()));
 	
 	connect(ui.volumeSlider, SIGNAL(valueChanged(int)), ui.listView, SLOT(setVolume(int)));
 	ui.volumeSlider->setValue(set.value("volume", 99).toInt(0));
@@ -209,11 +211,15 @@ void Cuberok::message(QString title, QString album, QString artist, long len)
 		trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
 		setWindowTitle(QString(titlepref).append(title));
 		trayIcon->setToolTip(QString("%1 - %2").arg(artist, title));
-
+		setWindowIcon(QIcon(":/icons/cuberok.png"));
+		trayIcon->setIcon(this->windowIcon());
 	} else {
-		ui.progressBar->setFormat("%p%");
+		//ui.progressBar->setFormat("%p%");
+		ui.progressBar->setFormatText("");
 		setWindowTitle("Cuberok");
 		trayIcon->setToolTip("Cuberok");
+		setWindowIcon(QIcon(":/icons/cuberok_bw.png"));
+		trayIcon->setIcon(this->windowIcon());
 	}
 }
 

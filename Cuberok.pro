@@ -9,6 +9,11 @@ target.path = ../Cuberok
 #sources.path = $$[QT_INSTALL_EXAMPLES]/tools/plugandpaintplugins
 INSTALLS += target
 
+eval(QT_VERSION >= "4.5.0") {
+    message($$[QT_VERSION])
+    CONFIG += player_phonon
+}
+
 player_phonon {
     message(using phonon backend)
     SUBDIRS += plugins/player_phonon
