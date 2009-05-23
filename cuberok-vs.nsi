@@ -46,6 +46,8 @@ Section "Cuberok"
   File "win32-vs\tag.dll"
   File "win32-vs\msvcp71.dll"
   File "win32-vs\msvcr71.dll"
+  File "win32-vs\msvcp80.dll"
+  File "win32-vs\msvcr80.dll"
   File "license.txt"
   
   ; Write the installation path into the registry
