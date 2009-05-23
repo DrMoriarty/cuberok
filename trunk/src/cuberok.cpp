@@ -227,6 +227,8 @@ void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 {
 	if(r == QSystemTrayIcon::Trigger) {
 		showhide(true);
+        } else if ( r == QSystemTrayIcon::MiddleClick ) {
+                ui.actionPause->trigger();
 	}
 }
 
@@ -234,8 +236,10 @@ void Cuberok::showhide(bool s)
 {
 	bool act = !isVisible();
 	setVisible(act);
-	if (act)
-		activateWindow();
+        if (act) {
+                activateWindow(); // for windows
+                showNormal(); // for linux
+        }
 
 	/*bool vis = isVisible();
 	if(vis && s) activateWindow();

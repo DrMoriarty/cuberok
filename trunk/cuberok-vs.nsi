@@ -40,6 +40,7 @@ Section "Cuberok"
   
   ; Put file there
   File "win32-vs\Cuberok.exe"
+  File "win32-vs\Cuberok.exe.manifest"
   CreateDirectory $INSTDIR\translations
   File /oname=translations\cuberok_ru.qm "win32-vs\translations\cuberok_ru.qm"
   File "win32-vs\tag.dll"

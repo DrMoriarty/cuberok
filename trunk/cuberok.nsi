@@ -40,6 +40,7 @@ Section "Cuberok"
   
   ; Put file there
   File "win32\Cuberok.exe"
+  CreateDirectory $INSTDIR\translations
   File /oname=translations\cuberok_ru.qm "win32\translations\cuberok_ru.qm"
   File "win32\mingwm10.dll"
   File "win32\libtag.dll"
