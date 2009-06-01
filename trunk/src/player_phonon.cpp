@@ -144,8 +144,8 @@ bool PlayerPhonon::stop()
 
 bool PlayerPhonon::setPause(bool p)
 {
-	if(p) mediaObject->pause();
-	else mediaObject->play();
+	if(p && mediaObject->state() == Phonon::PlayingState) mediaObject->pause();
+	else if(mediaObject->state() == Phonon::PausedState) mediaObject->play();
     return true;
 }
 
