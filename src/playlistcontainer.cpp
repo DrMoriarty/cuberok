@@ -75,10 +75,10 @@ PlaylistContainer::~PlaylistContainer()
 void PlaylistContainer::storeState()
 {
 	QSettings set;
+	set.setValue("curlist", actlist->getName());
+	set.setValue("curindex", actlist->curIndex());
 	if(actlist && actlist->isPlaying()) {
 		set.setValue("playing", 1);
-		set.setValue("curlist", actlist->getName());
-		set.setValue("curindex", actlist->curIndex());
 		set.setValue("curpos", actlist->curPosition());
 	} else set.setValue("playing", 0);
 	qDebug("PlaylistContainer, state was stored");
@@ -102,13 +102,15 @@ void PlaylistContainer::prepare()
 	
 	QSettings set;
 	QString curlistname = set.value("curlist", "").toString();
-	if(set.value("playing", false).toBool() && curlistname.size()) {
-		foreach(PlaylistView *p, lists) if(p->getName() == curlistname) {
-			actlist = p;
+	foreach(PlaylistView *p, lists) if(p->getName() == curlistname) {
+		actlist = p;
+		tabs->setCurrentIndex(tabs->indexOf(p));
+		if(set.value("playing", false).toBool() && curlistname.size()) {
 			actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
-			tabs->setCurrentIndex(tabs->indexOf(p));
-			break;
+		} else {
+			actlist->setCurrent(set.value("curindex", 0).toInt());
 		}
+		break;
 	}
 }
 

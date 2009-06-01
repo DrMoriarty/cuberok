@@ -213,6 +213,11 @@ void Cuberok::message(QString title, QString album, QString artist, long len)
 		trayIcon->setToolTip(QString("%1 - %2").arg(artist, title));
 		setWindowIcon(QIcon(":/icons/cuberok.png"));
 		trayIcon->setIcon(this->windowIcon());
+#ifndef WIN32
+		// workaround for Qt bug of the tray icon
+		trayIcon->hide();
+        trayIcon->show();
+#endif
 	} else {
 		//ui.progressBar->setFormat("%p%");
 		ui.progressBar->setFormatText("");

@@ -52,6 +52,7 @@ public:
 	void play(int index, double pos);
 	void rateCurrent(int offset, int value = 0);
 	QString curFile();
+	void setCurrent(int index);
     
 protected:
 	virtual void hideEvent ( QHideEvent * event );
