@@ -543,6 +543,10 @@ void PlaylistView::updateStatus()
 		//if(delayedPos >= 0 && delayedPos <= 1)
 		//	position(delayedPos);
 	}
+	if(!delayedPlay && delayedIndex >= 0 && model.rowCount() > delayedIndex) {
+		curindex = model.index(delayedIndex, 0);
+		setCurrentIndex(pmodel.mapFromSource(curindex));
+	}
 	long len = 0;
 	for(int i=0; i<model.rowCount(); i++) {
 		len += model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
@@ -583,7 +587,7 @@ void PlaylistView::rateSong(QModelIndex &ind, int r, int offset)
 
 int PlaylistView::curIndex()
 {
-	return plindex.row();
+	return plindex.row() >= 0 ? plindex.row() : curindex.row();
 }
 
 double PlaylistView::curPosition()
@@ -619,5 +623,16 @@ void PlaylistView::findCurrent()
 {
 	if(plindex.row() >= 0) {
 		setCurrentIndex(pmodel.mapFromSource(plindex));
+	}
+}
+
+void PlaylistView::setCurrent(int index)
+{
+	if(index >= 0 && index < model.rowCount()) {
+		curindex = model.index(index, 0);
+		setCurrentIndex(pmodel.mapFromSource(curindex));
+	} else {
+		delayedIndex = index;
+		delayedPlay = false;
 	}
 }
