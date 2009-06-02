@@ -132,6 +132,18 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ar = artist;
 	al = album;
 	so = song;
+	if(Database::Self().GetArtist(artist) <= 0 || Database::Self().GetAlbum(album, Database::Self().GetArtist(artist)) <= 0) {
+		ui.actionBan->setDisabled(true);
+		ui.actionRateDown->setDisabled(true);
+		ui.actionRateUp->setDisabled(true);
+		ui.actionLoveIt->setDisabled(true);
+		return;
+	} else {
+		ui.actionBan->setDisabled(false);
+		ui.actionRateDown->setDisabled(false);
+		ui.actionRateUp->setDisabled(false);
+		ui.actionLoveIt->setDisabled(false);
+	}
 	QString art(":/icons/def_artist.png"), text;
 	int rating = 0;
  	QList<struct Database::Attr> attrs;
@@ -345,7 +357,7 @@ void Info::albumInfo(QString response)
 					QString mbid;
 					el2 = el.firstChildElement("mbid");
 					if(!el2.isNull()) mbid = el2.firstChild().nodeValue();
-					Database::Self().MbidForAlbum(al, mbid, Database::Self().AddArtist(ar));
+					Database::Self().MbidForAlbum(al, mbid, Database::Self().GetArtist(ar));
 					el2 = el.firstChildElement("wiki");
 					if(!el2.isNull()) {
 						el2 = el2.firstChildElement("content");

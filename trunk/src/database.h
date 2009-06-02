@@ -60,6 +60,8 @@ public:
     int AddGenre(QString genre);
     int AddPlaylist(QString list);
     int AddSQLPlaylist(QString list);
+    int GetArtist(QString artist);
+    int GetAlbum(QString album, int artist);
     void RemoveFile(QString file);
     void RemoveArtist(QString artist);
     void RemoveAlbum(QString album, int artist);
