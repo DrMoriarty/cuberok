@@ -259,6 +259,34 @@ int Database::_AddArtist(QString artist)
     return AddAttribute(nArtist, artist);
 }
 
+int Database::GetArtist(QString artist)
+{
+    if(!open) return 0;
+    if(!artist.length()) artist = " ";
+    QSqlQuery q("", db);
+    q.prepare("select ID from Artist where value = :val");
+    q.bindValue(":val", artist);
+    q.exec();
+    if( !q.next() ) {
+		return -1;
+    }
+    return q.value(0).toString().toInt();
+}
+
+int Database::GetAlbum(QString album, int artist)
+{
+    if(!open) return 0;
+    if(!artist) return -1;
+    QSqlQuery q("", db);
+	q.prepare("select ID from Album where value = :val and artist = "+QString::number(artist));
+    q.bindValue(":val", album);
+    q.exec();
+    if( !q.next() ) {
+		return -1;
+    }
+    return q.value(0).toString().toInt();
+}
+
 int Database::AddAlbum(QString album, int artist)
 {
     if(!open) return 0;
