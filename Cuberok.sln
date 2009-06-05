@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cuberok", "src\Cuberok.vcpr
 		{F1EB3B44-466D-494B-BC24-F694884C2A2E} = {F1EB3B44-466D-494B-BC24-F694884C2A2E}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "player_ffmpeg", "plugins\player_ffmpeg\player_ffmpeg.vcproj", "{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -40,6 +42,10 @@ Global
 		{9B634190-2FDE-4820-9752-291CBFF187EB}.Debug|Win32.Build.0 = Debug|Win32
 		{9B634190-2FDE-4820-9752-291CBFF187EB}.Release|Win32.ActiveCfg = Release|Win32
 		{9B634190-2FDE-4820-9752-291CBFF187EB}.Release|Win32.Build.0 = Release|Win32
+		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Debug|Win32.Build.0 = Debug|Win32
+		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Release|Win32.ActiveCfg = Release|Win32
+		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

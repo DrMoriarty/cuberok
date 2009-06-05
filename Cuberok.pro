@@ -20,6 +20,10 @@ player_phonon {
 }
 
 win32 {
+    exists(./ffmpeg/lib/avcodec-52.lib) {
+        message(using ffmpeg backend)
+        SUBDIRS += plugins/player_ffmpeg
+    }
     exists(./audiere/lib/audiere.lib) {
         message(using audiere backend)
         SUBDIRS += plugins/player_audiere
@@ -33,6 +37,10 @@ win32 {
 }
 unix {
     CONFIG += link_pkgconfig
+    system(pkg-config --modversion libavcodec 2>/dev/null) {
+        message(using ffmpeg backend)
+        SUBDIRS += plugins/player_ffmpeg
+    }
     system(audiere-config --version) {
         message(using audiere backend)
         SUBDIRS += plugins/player_audiere
