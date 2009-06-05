@@ -1,0 +1,39 @@
+ CONFIG       += release
+ TEMPLATE      = lib
+ CONFIG       += plugin
+ INCLUDEPATH  += ../../src
+ HEADERS       = ../../src/player_ffmpeg.h \
+                 ../../src/player.h
+ SOURCES       = ../../src/player_ffmpeg.cpp
+ TARGET        = $$qtLibraryTarget(player_ffmpeg)
+
+include(../../qmakeroot.pri)
+
+win32 {
+    MSVC {
+        CONFIG += embed_manifest_dll
+        DESTDIR = ../../win32-vs/plugins
+    } else {
+        DESTDIR = ../../win32/plugins
+    }
+    INCLUDEPATH += ../../ffmpeg/include
+    LIBS += ../../ffmpeg/lib/avcodec-52.lib \
+	../../ffmpeg/lib/avformat-52.lib \
+	../../ffmpeg/lib/avutil-49.lib 
+
+    INCLUDEPATH += ../../SDL-1.2.13/include
+    LIBS += ../../SDL-1.2.13/lib/SDL.lib
+}
+
+unix {
+    DESTDIR = ../../unix/plugins
+    CONFIG += link_pkgconfig
+    CONFIG += ffmpeg
+    PKGCONFIG += libavcodec libavformat libavutil
+    include(../plugins_path-$${QT_ARCH}.pri)
+    INSTALLS += target
+}
+
+OBJECTS_DIR = $${DESTDIR}/../obj
+MOC_DIR = $${DESTDIR}/../obj
+RCC_DIR = $${DESTDIR}/../obj

@@ -57,6 +57,8 @@ PlayerManager::PlayerManager() : player(0)
 				connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 				info += pl->name() + "\n";
 			}
+		} else {
+			qDebug((const char*)("Can't load " + fileName).toLocal8Bit());
 		}
 	} 
 }
