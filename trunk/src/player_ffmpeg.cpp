@@ -36,17 +36,21 @@ void audio_callback(void *userdata, Uint8 *stream, int len)
 	}
 }
 	
-PlayerFfmpeg::PlayerFfmpeg() : inited(false), opened(false), pFormatCtx(0), pCodecCtx(0), pFrame(0), audioStream(-1)
+PlayerFfmpeg::PlayerFfmpeg() : inited(false), opened(false), pFormatCtx(0), pCodecCtx(0), pFrame(0), audioStream(-1), needToStop(false)
 {
 	av_register_all();
 	instance = this;
 	inited = !SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_NOPARACHUTE);
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(timeSlot()));
+	timer->start(100);
 }
 
 PlayerFfmpeg::~PlayerFfmpeg()
 {
 	close();
 	SDL_Quit();
+	delete timer;
 }
 
 bool PlayerFfmpeg::prepare()
@@ -63,6 +67,9 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 {
 	close();
 	QString filename = ToLocalFile(fname);
+	if(!filename.size()) {
+		filename = fname.toString();
+	}
 
 	if(av_open_input_file(&pFormatCtx, filename.toLocal8Bit(), NULL, 0, NULL)!=0) {
 		processErrorMessage("FFmpeg: Couldn't open file "+ filename);
@@ -156,25 +163,25 @@ bool PlayerFfmpeg::setPause(bool p)
 
 bool PlayerFfmpeg::close()
 {
+	SDL_LockAudio();
 	// Free the frame
 	if(pFrame) {
 		av_free(pFrame);
 		pFrame = 0;
 	}
-
 	// Close the codec
 	if(pCodecCtx) {
 		avcodec_close(pCodecCtx);
 		pCodecCtx = 0;
 	}
-
 	// Close the video file
 	if(pFormatCtx) {
 		av_close_input_file(pFormatCtx);
 		pFormatCtx = 0;
 	}
-	SDL_CloseAudio();
+	if(opened) SDL_CloseAudio();
 	opened = false;
+	SDL_UnlockAudio();
     return true;
 }
 
@@ -276,24 +283,20 @@ bool PlayerFfmpeg::getNextFrame()
                 av_free_packet(&packet);
 
             // Read new packet
-            if(av_read_frame(pFormatCtx, &packet)<0)
-                goto loop_exit;
+            if(av_read_frame(pFormatCtx, &packet)<0) {
+				if(packet.data!=NULL)
+					av_free_packet(&packet);
+				SDL_PauseAudio(1);
+				needToStop = true;
+				return false;
+			}
+			curts = packet.pts;
         } while(packet.stream_index!=audioStream);
 
         bytesRemaining=packet.size;
         rawData=packet.data;
     }
-
-loop_exit:
-
-    // Decode the rest of the last frame
-    //bytesDecoded=avcodec_decode_audio2(pCodecCtx, (int16_t *)audio_buf, &audio_buf_size, rawData, bytesRemaining);
-
-    // Free last packet
-    if(packet.data!=NULL)
-        av_free_packet(&packet);
-
-    return frameFinished!=0;
+	return false;
 }
 
 void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
@@ -311,7 +314,7 @@ void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 		if(audio_buf_index >= audio_buf_size) {
 			// We have already sent all our data; get more 
 			audio_buf_ptr = 0;
-			getNextFrame();
+			if(!getNextFrame()) return;
 			//audio_size = audio_decode_frame(aCodecCtx, audio_buf,	sizeof(audio_buf));
 			if(audio_buf_ptr < 0) {
 				// If error, output silence 
@@ -331,3 +334,21 @@ void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 		audio_buf_index += len1;
 	}
 }
+
+void PlayerFfmpeg::timeSlot()
+{
+	SDL_LockAudio();
+	if(needToStop) {
+		stop();
+		emit finish();
+		needToStop = false;
+	}
+	if(opened) {
+		if(SDL_GetAudioStatus() == SDL_AUDIO_PLAYING) {
+			emit position((double)pFormatCtx->streams[audioStream]->time_base.num*curts / pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->duration * AV_TIME_BASE);
+			
+		}
+	}
+	SDL_UnlockAudio();
+}
+

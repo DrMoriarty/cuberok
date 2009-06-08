@@ -17,9 +17,9 @@ win32 {
         DESTDIR = ../../win32/plugins
     }
     INCLUDEPATH += ../../ffmpeg/include
-    LIBS += ../../ffmpeg/lib/avcodec-52.lib \
-	../../ffmpeg/lib/avformat-52.lib \
-	../../ffmpeg/lib/avutil-49.lib 
+    LIBS += ../../ffmpeg/lib/avcodec.lib \
+	../../ffmpeg/lib/avformat.lib \
+	../../ffmpeg/lib/avutil.lib 
 
     INCLUDEPATH += ../../SDL-1.2.13/include
     LIBS += ../../SDL-1.2.13/lib/SDL.lib
