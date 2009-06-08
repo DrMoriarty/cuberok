@@ -53,6 +53,9 @@ class PlayerFfmpeg : public Player
 
 	void fetchData(unsigned char *stream, int len);
 
+ private slots:
+	 void timeSlot();
+
  protected:
 	bool inited, opened;
 	AVFormatContext *pFormatCtx;
@@ -61,6 +64,9 @@ class PlayerFfmpeg : public Player
 	int audioStream;
 	static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 3) / 2];
 	int audio_buf_ptr;
+	QTimer *timer;
+	bool needToStop;
+	int64_t curts;
 
 	bool getNextFrame();
 };

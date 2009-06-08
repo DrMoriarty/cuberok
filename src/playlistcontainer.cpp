@@ -310,7 +310,7 @@ void PlaylistContainer::reloadTags()
 
 void PlaylistContainer::tabChanged(int i)
 {
-	if(i < lists.count()) {
+	if(i < lists.count() && i >= 0) {
 		curlist = lists[i];
 	}
 }
