@@ -182,6 +182,12 @@ void Cuberok::firstStart()
 	PLSet.setColumnWidth(PlaylistModel::Title, 80);
 	PLSet.setColumnWidth(PlaylistModel::Artist, 80);
 	PLSet.setColumnWidth(PlaylistModel::Album, 80);
+	ui.actionViewFile->setChecked(false);
+	ui.actionViewComment->setChecked(false);
+	ui.actionViewGenre->setChecked(false);
+	ui.actionViewLength->setChecked(false);
+	ui.actionViewNumber->setChecked(false);
+	ui.actionViewYear->setChecked(false);
 
 	FirstStartWizard fsw(this);
 	fsw.exec();
