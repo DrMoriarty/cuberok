@@ -333,28 +333,7 @@ void PlaylistFiller::run()
 	//int taskID = Indicator::Self().addTask(tr("Filling playlist"));
 	foreach(QUrl s, paths) {
 		if(cancel) break;
-// 		if(s.toLocalFile().size())
-			proceedUrl(s);
-// 		else {
-// 			// add url
-// 			QList<TagEntry> tags = Tagger::readEntry(s);
-// 			foreach(TagEntry tag, tags) {
-// 				QList<QVariant> l;
-// 				l.append(QVariant(tag.title));
-// 				l.append(QVariant(tag.artist));
-// 				l.append(QVariant(tag.album));
-// 				l.append(QVariant(tag.comment));
-// 				l.append(QVariant(tag.genre));
-// 				l.append(QVariant(tag.slength));
-// 				l.append(QVariant(tag.track));
-// 				l.append(QVariant(tag.year));
-// 				l.append(qVariantFromValue(StarRating(tag.rating)));
-// 				setTerminationEnabled(false);
-// 				emit sendFile(tag.url, index, l, tag.start, tag.length);
-// 				setTerminationEnabled(true);
-// 				index++;
-// 			}
-// 		}
+		proceedUrl(s);
 	}
 	//Indicator::Self().delTask(taskID);
 	//disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
@@ -384,61 +363,14 @@ void PlaylistFiller::proceedUrl(QUrl url)
 				setTerminationEnabled(true);
 				index++;
 			}
-// 		QList<QVariant> l;
-// 		QString title, artist, album, comment, genre, length;
-// 		int track, year, rating;
-// 		if(path.toLower().endsWith(".cue")) {
-// 			QList<CueEntry> cuelist = Tagger::readCue(path);
-// 			foreach(CueEntry item, cuelist) {
-// 				l.clear();
-// 				l.append(QVariant(item.title));
-// 				l.append(QVariant(item.artist));
-// 				l.append(QVariant(item.album));
-// 				l.append(QVariant(""));
-// 				l.append(QVariant(""));
-// 				l.append(QVariant(item.slength));
-// 				l.append(QVariant(item.track));
-// 				l.append(QVariant(0));
-// 				l.append(qVariantFromValue(StarRating(0)));
-// 				setTerminationEnabled(false);
-// 				emit sendFile(item.url, index, l, item.start, item.length);
-// 				setTerminationEnabled(true);
-// 				index++;
-// 			}
-// 			return;
-// 		}
-// 		else if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
-// 			l.append(QVariant(title));
-// 			l.append(QVariant(artist));
-// 			l.append(QVariant(album));
-// 			l.append(QVariant(comment));
-// 			l.append(QVariant(genre));
-// 			l.append(QVariant(length));
-// 			l.append(QVariant(track));
-// 			l.append(QVariant(year));
-// 			l.append(qVariantFromValue(StarRating(rating)));
-// 		}
-// 		else if(Tagger::readTags(path, title, artist, album, comment, genre, track, year, length)) {
-// 			l.append(QVariant(title));
-// 			l.append(QVariant(artist));
-// 			l.append(QVariant(album));
-// 			l.append(QVariant(comment));
-// 			l.append(QVariant(genre));
-// 			l.append(QVariant(length));
-// 			l.append(QVariant(/*QString::number(*/track));
-// 			l.append(QVariant(/*QString::number(*/year));
-// 			l.append(qVariantFromValue(StarRating(0)));
-// 		}
-// 		setTerminationEnabled(false);
-// 		emit sendFile(QUrl::fromLocalFile(path), index, l, 0, 0);
-// 		setTerminationEnabled(true);
-// 		index++;
 	} else /*if(dir.cd(path))*/ {
 		foreach(QFileInfo file, dir.entryInfoList()) {
 			if(file.fileName() == "." || file.fileName() == "..") continue;
 			QString suf = file.suffix().toLower();
-			if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
-				continue;
+			if(file.isFile()) {
+				if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
+					continue;
+			}
 			proceedUrl(QUrl::fromLocalFile(file.filePath()));
 		}
 	}
