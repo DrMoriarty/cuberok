@@ -306,6 +306,10 @@ void PlaylistContainer::viewNumber(bool b)
 {
 	PLSet.setColumnVisible(PlaylistModel::Number, b);
 }
+void PlaylistContainer::viewQueue(bool b)
+{
+	PLSet.setColumnVisible(PlaylistModel::Stat, b);
+}
 void PlaylistContainer::editTag()
 { if(curlist) curlist->editTag(); }
 

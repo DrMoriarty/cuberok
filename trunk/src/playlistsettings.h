@@ -33,6 +33,8 @@ Q_OBJECT
 	bool setColumnVisible(int col, bool vis);
 	int  columnWidth(int col);
 	int  setColumnWidth(int col, int wid);
+	int  columnPosition(int col);
+	int  setColumnPosition(int col, int pos);
 
 	void save();
 
@@ -68,6 +70,7 @@ Q_OBJECT
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);
+	void positionChanged(int, int);
 
  private:
 	PlaylistSettings();
@@ -75,6 +78,7 @@ Q_OBJECT
 	struct _Data {
 		bool v;
 		int w;
+		int p;
 	};
 	struct _Data _data[PlaylistModel::ColumnCount];
 };

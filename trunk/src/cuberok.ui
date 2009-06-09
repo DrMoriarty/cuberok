@@ -536,6 +536,7 @@
      <property name="separatorsCollapsible">
       <bool>true</bool>
      </property>
+     <addaction name="actionViewQueue"/>
      <addaction name="actionViewNumber"/>
      <addaction name="actionViewFile"/>
      <addaction name="actionViewTrack"/>
@@ -1437,6 +1438,17 @@
     <string>Import Amarok collection</string>
    </property>
   </action>
+  <action name="actionViewQueue">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Queue</string>
+   </property>
+   <property name="toolTip">
+    <string>Queue position</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1450,6 +1462,7 @@
     <slot>clearFilter()</slot>
     <slot>findCurrent()</slot>
     <slot>addUrl(QUrl)</slot>
+    <slot>viewQueue(bool)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2721,6 +2734,22 @@
     <hint type="destinationlabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewQueue</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewQueue(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>408</x>
+     <y>152</y>
     </hint>
    </hints>
   </connection>
