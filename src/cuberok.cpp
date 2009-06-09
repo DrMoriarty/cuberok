@@ -107,6 +107,7 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.statusbar->addPermanentWidget(ui.listStatus);
 	ui.statusbar->addPermanentWidget(ui.collectionStatus);
 
+    if(PLSet.columnVisible(PlaylistModel::Stat)) ui.actionViewQueue->trigger();
     if(PLSet.columnVisible(PlaylistModel::Track)) ui.actionViewTrack->trigger();
     if(PLSet.columnVisible(PlaylistModel::Title)) ui.actionViewTitle->trigger();
     if(PLSet.columnVisible(PlaylistModel::Artist)) ui.actionViewArtist->trigger();

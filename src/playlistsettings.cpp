@@ -26,6 +26,7 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
 		_data[i].v = (bool)set.value("colvisible"+QString::number(i), 1).toInt(0);
 		_data[i].w = set.value("colwidth"+QString::number(i), 30).toInt(0);
+		_data[i].p = set.value("colposition"+QString::number(i), i).toInt(0);
 	}
 	autoRating = set.value("autoRating", false).toBool();
 	cue_codepage = set.value("cue_codepage", "System").toString();
@@ -66,6 +67,7 @@ void PlaylistSettings::save()
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
 		set.setValue("colvisible"+QString::number(i), (int)_data[i].v);
 		set.setValue("colwidth"+QString::number(i), _data[i].w);
+		set.setValue("colposition"+QString::number(i), _data[i].p);
 	}
 	set.setValue("autoRating", autoRating);
 	set.setValue("cue_codepage", cue_codepage);
@@ -132,3 +134,18 @@ int  PlaylistSettings::setColumnWidth(int col, int wid)
 	} else return wid;
 }
 
+int  PlaylistSettings::columnPosition(int col)
+{
+	return col < PlaylistModel::ColumnCount ? _data[col].p : 0;
+}
+
+int PlaylistSettings::setColumnPosition(int col, int pos)
+{
+	if(col >= PlaylistModel::ColumnCount) return 0;
+	if(_data[col].p != pos) {
+		int op = _data[col].p;
+		_data[col].p = pos;
+		emit positionChanged(col, pos);
+		return op;
+	} else return pos;
+}

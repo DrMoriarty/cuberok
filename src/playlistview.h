@@ -92,6 +92,7 @@ private slots:
 	void updateTag(int);
 	void setColVisible(int,bool);
 	void setColWidth(int,int);
+	void setColPosition(int,int);
 	void updateStatus();
 
 public slots:
