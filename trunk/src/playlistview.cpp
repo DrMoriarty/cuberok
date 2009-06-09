@@ -276,9 +276,12 @@ void PlaylistView::play(int index, double pos)
 
 void PlaylistView::play()
 {
-	if(curindex.row() < 0) return;
+	if(curindex.row() < 0) {
+		curindex = pmodel.mapToSource(pmodel.index(0, 0));
+	}
 	plindex = model.index(curindex.row(), PlaylistModel::File);
 	model.setCurrent(plindex.row());
+	setCurrentIndex(pmodel.mapFromSource(plindex));
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
@@ -424,6 +427,7 @@ void PlaylistView::clear()
 	plindex = curindex = insindex = model.index(-1, 0);
 	queue.clear();
 	prev_queue.clear();
+	setCurrentIndex(curindex);
 	model.removeRows(0, model.rowCount());
 }
 
@@ -491,6 +495,10 @@ void PlaylistView::removeSong()
 	}
 	qSort(list.begin(), list.end(), qGreater<int>());
 	foreach(int ind, list) {
+		if(curindex.row() == pmodel.mapToSource(pmodel.index(ind, 0)).row()) {
+			curindex = model.index(-1, 0);
+			setCurrentIndex(curindex);
+		}
 		pmodel.removeRows(ind, 1);
 	}
 }
