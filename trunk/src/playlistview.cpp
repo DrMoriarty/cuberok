@@ -281,7 +281,8 @@ void PlaylistView::play()
 	if(curindex.row() < 0) {
 		curindex = pmodel.mapToSource(pmodel.index(0, 0));
 	}
-	plindex = model.index(curindex.row(), PlaylistModel::File);
+	plindex = model.index(curindex.row(), header()->logicalIndex(0));
+	//plindex = model.index(curindex.row(), PlaylistModel::File);
 	model.setCurrent(plindex.row());
 	setCurrentIndex(pmodel.mapFromSource(plindex));
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
