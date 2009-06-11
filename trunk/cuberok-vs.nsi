@@ -48,6 +48,7 @@ Section "Cuberok"
   File "win32-vs\msvcr71.dll"
   File "win32-vs\msvcp80.dll"
   File "win32-vs\msvcr80.dll"
+  File "win32-vs\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.762_x-ww_6b128700.manifest"
   File "license.txt"
   
   ; Write the installation path into the registry
