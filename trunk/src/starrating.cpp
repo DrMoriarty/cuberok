@@ -119,3 +119,19 @@ StarRating::StarRating(int starCount, int maxStarCount, int measure)
 
      painter->restore();
  }
+
+ QDataStream &operator<<(QDataStream &out, const StarRating &s)
+ {
+	 out << s._rating;
+	 out << s.myStarCount;
+	 out << s.myMaxStarCount;
+	 return out;
+ }
+
+ QDataStream &operator>>(QDataStream &in, StarRating &s)
+ {
+	 in >> s._rating;
+	 in >> s.myStarCount;
+	 in >> s.myMaxStarCount;
+	 return in;
+ }

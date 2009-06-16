@@ -42,10 +42,14 @@
  #include <QMetaType>
  #include <QPointF>
  #include <QVector>
+ #include <QtCore>
 
  class StarRating
  {
  public:
+	 friend QDataStream &operator<<(QDataStream &out, const StarRating &s);
+	 friend QDataStream &operator>>(QDataStream &in, StarRating &s);
+
      enum EditMode { Editable, ReadOnly };
 
      StarRating(int starCount = 1, int maxStarCount = 5, int measure = 1);
@@ -69,6 +73,9 @@
      int myMaxStarCount;
 	 int _rating;
  };
+
+ QDataStream &operator<<(QDataStream &out, const StarRating &s);
+ QDataStream &operator>>(QDataStream &in, StarRating &s);
 
  Q_DECLARE_METATYPE(StarRating)
 
