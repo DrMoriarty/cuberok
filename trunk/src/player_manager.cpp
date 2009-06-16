@@ -38,8 +38,9 @@ PlayerManager::PlayerManager() : player(0)
 	}
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
 #ifndef WIN32
-	pluginsDir.cdUp(); 
-	pluginsDir.cd("./lib/cuberok"); 
+	//pluginsDir.cdUp(); 
+	//pluginsDir.cd("./lib/cuberok"); 
+	pluginsDir.cd(CUBEROK_PLUGINS);
 #else
 	pluginsDir.cd("plugins"); 
 #endif
