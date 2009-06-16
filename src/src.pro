@@ -12,6 +12,8 @@ DEPENDPATH += .
 
 include(../qmakeroot.pri)
 
+include(../plugins/plugins_path-$${QT_ARCH}.pri)
+
 #           src/player_void.h \
 #           src/player_void.cpp \
 # Input
