@@ -22,6 +22,7 @@
 #include "database.h"
 #include "playlistsettings.h"
 #include "myapplication.h"
+#include "starrating.h"
 
 #include <QtGui>
 #include "console.h"
@@ -88,6 +89,8 @@ int main(int argc, char *argv[])
 #ifdef WIN32
     qInstallMsgHandler(myMessageOutput);
 #endif
+	qRegisterMetaType<StarRating>("StarRating");
+	qRegisterMetaTypeStreamOperators<StarRating>("StarRating");
     QApplication::setDesktopSettingsAware(false);
     QCoreApplication::setOrganizationName("DrMoriarty");
     //QCoreApplication::setOrganizationDomain("");

@@ -137,7 +137,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 		ui.actionRateDown->setDisabled(true);
 		ui.actionRateUp->setDisabled(true);
 		ui.actionLoveIt->setDisabled(true);
-		return;
+		//return;
 	} else {
 		ui.actionBan->setDisabled(false);
 		ui.actionRateDown->setDisabled(false);
