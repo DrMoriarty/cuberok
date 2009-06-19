@@ -113,6 +113,7 @@ signals:
 	void message(QString, QString, QString, long);
 	void started(PlaylistView*);
 	void songPosition(int);
+	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
 };
 
 #endif // PLAYLISTVIEW_H

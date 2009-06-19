@@ -33,7 +33,8 @@
 
 PlaylistContainer::PlaylistContainer(QWidget *parent) 
  : QWidget(parent), curlist(0), actlist(0), counter(0),
-   alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true), _volume(0), _mute(false)
+   alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true), _volume(0), _mute(false),
+   isPaused(false)
 {
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setContentsMargins(0,0,0,0);
@@ -111,9 +112,11 @@ void PlaylistContainer::prepare()
 	QString curlistname = set.value("curlist", "").toString();
 	foreach(PlaylistView *p, lists) if(p->getName() == curlistname) {
 		actlist = p;
+ 		connect(actlist, SIGNAL(playPauseIcon (bool) ), this, SLOT(detectPlayPauseIcon (bool) ));
 		tabs->setCurrentIndex(tabs->indexOf(p));
 		if(set.value("playing", false).toBool() && curlistname.size()) {
 			actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
+ 		        emit updatePlayPauseButton (false); // we are playing, so set play/pause to "pause" mode
 		} else {
 			actlist->setCurrent(set.value("curindex", 0).toInt());
 		}
@@ -171,6 +174,7 @@ void PlaylistContainer::newList(QString listname)
 	connect(pl, SIGNAL(message(QString, QString, QString, long)), this, SIGNAL(message(QString, QString, QString, long)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
+ 	connect(pl, SIGNAL(playPauseIcon (bool) ), this, SLOT(detectPlayPauseIcon (bool) ));
 	closeButton->setDisabled(false);
 }
 
@@ -209,24 +213,49 @@ void PlaylistContainer::renameList()
 {
 	// TODO
 }
-void PlaylistContainer::prev()
-{ if(actlist) actlist->prev(); }
-void PlaylistContainer::next()
-{ if(actlist) actlist->next(); }
-void PlaylistContainer::play()
-{ 
-	if(curlist) {
-		actlist = curlist;
-		actlist->play(); 
-	}
+void PlaylistContainer::prev() { 
+  if(actlist) actlist->prev();
+  isPaused = false;
+  emit updatePlayPauseButton (false); // show "pause" on next
 }
-void PlaylistContainer::pause(bool b)
-{ 
-    PlayerManager::Self().setPause(b);
+
+void PlaylistContainer::next() { 
+  if(actlist) actlist->next(); 
+  isPaused = false;
+  emit updatePlayPauseButton (false); // show "pause" on prev
+}
+
+void PlaylistContainer::play_pause () { 
+   // move all logic to the pause button: one button with different states
+   if (isPaused &&
+       (actlist &&
+        actlist->isPlaying ())) {
+      // we are paused, during play, resume playing:
+      PlayerManager::Self().setPause(false);
+      isPaused = false;
+      emit updatePlayPauseButton (false); 
+
+   } else if (actlist &&
+              actlist->isPlaying ()) {
+      // we are not paused and actively playing, enter pause:
+      PlayerManager::Self().setPause(true);
+      isPaused = true;
+      emit updatePlayPauseButton (true); 
+   } else {
+      // we are not playing at all (stop pressed):
+      if (curlist) {
+        actlist = curlist;
+        actlist->play();
+        isPaused = false;
+        emit updatePlayPauseButton (false); 
+      }
+   }
 }
 void PlaylistContainer::stop()
 {
 	if(actlist) actlist->stop();
+        isPaused = false;
+        emit updatePlayPauseButton (true); // show "play" on stop
 }
 void PlaylistContainer::repeat(bool mode)
 { 
@@ -423,4 +452,10 @@ void PlaylistContainer::findCurrent()
 	if(actlist) {
 		actlist->findCurrent();
 	}
+}
+
+// pass through from PlaylistView to the GUI for handling end of playlist & doubleclick updates to play/pause icon
+// a "true" argument means show a "play" icon, false means show "pause"
+void PlaylistContainer::detectPlayPauseIcon (bool playPause) {
+     emit updatePlayPauseButton (playPause);
 }

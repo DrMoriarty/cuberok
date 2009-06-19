@@ -52,8 +52,7 @@ Cuberok::Cuberok(QWidget *parent)
 	setWindowIcon(QIcon(":/icons/cuberok_bw.png"));
 	trayIconMenu = new QMenu(this);
 	trayIconMenu->addAction(ui.actionPrev);
-	trayIconMenu->addAction(ui.actionPlay);
-	trayIconMenu->addAction(ui.actionPause);
+	trayIconMenu->addAction(ui.actionPlayPause);
 	trayIconMenu->addAction(ui.actionStop);
 	trayIconMenu->addAction(ui.actionNext);
 	trayIconMenu->addSeparator();
@@ -70,6 +69,8 @@ Cuberok::Cuberok(QWidget *parent)
 
 	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString,long)), this, SLOT(message(QString,QString,QString,long)), Qt::DirectConnection))
 		Console::Self().error("Can't connect to the listView.message");
+        // connect the ui.actionPlayPause triggered signal to our own slot for icon switching:
+        connect(ui.listView, SIGNAL(updatePlayPauseButton (bool) ), this, SLOT(setPlayPauseIcon (bool) ));
 	ui.listView->prepare();
 
 	QMenu * cm = createPopupMenu();
@@ -241,7 +242,7 @@ void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 	if(r == QSystemTrayIcon::Trigger) {
 		showhide(true);
         } else if ( r == QSystemTrayIcon::MiddleClick ) {
-                ui.actionPause->trigger();
+                ui.actionPlayPause->trigger();
 	}
 }
 
@@ -463,4 +464,19 @@ void Cuberok::importCollection()
 {
 	ImportCollection ic;
 	ic.exec();
+}
+ 
+// a slot to handle setting the play/pause button to "pause" whenever play is activated:
+// playPause of true means show "play" icon, false means show "pause"
+void Cuberok::setPlayPauseIcon (bool playPause) {
+  if (playPause) {
+     ui.actionPlayPause->setIcon (QIcon (":/icons/butt_play.png"));
+     ui.actionPlayPause->setToolTip ("Play"); 
+     ui.actionPlayPause->setText ("Play"); 
+
+  } else {
+     ui.actionPlayPause->setIcon (QIcon (":/icons/butt_pause.png"));
+     ui.actionPlayPause->setToolTip ("Pause"); 
+     ui.actionPlayPause->setText ("Pause"); 
+  }
 }
