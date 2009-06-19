@@ -309,6 +309,7 @@ void PlaylistView::play()
 	PlayerManager::Self().play();
 	playing = true;
 	emit started(this);
+	emit playPauseIcon (false); // finished playing, show the "pause" icon
 	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 	QString ar = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
