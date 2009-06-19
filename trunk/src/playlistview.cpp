@@ -346,6 +346,7 @@ void PlaylistView::playFinished()
 		if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
 		if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
 	}	
+	emit playPauseIcon (true); // finished playing, show the "play" icon
 	next();
 }
 
@@ -422,6 +423,7 @@ void PlaylistView::onDoubleClick(const QModelIndex &index)
 	curindex = pmodel.mapToSource(index);
 	rateSong(curindex, +1);
 	play();
+	emit playPauseIcon (false); // show a "pause" 
 }
 
 void PlaylistView::position(double pos)

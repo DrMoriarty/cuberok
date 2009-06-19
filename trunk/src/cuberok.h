@@ -71,6 +71,7 @@ private slots:
 	void qtagClosed(QObject*);
 #endif
 	void storeState();
+ 	void setPlayPauseIcon  (bool);
 
 public slots:
 	void lookAndFeel();

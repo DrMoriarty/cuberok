@@ -42,7 +42,7 @@ private:
 	QToolButton *closeButton;
     PlaylistView *curlist, *actlist;
     int counter;
-    bool alv, arv, cov, trv, tiv, yev, gev, fiv, lev;
+    bool alv, arv, cov, trv, tiv, yev, gev, fiv, lev, isPaused;
 	int _volume;
 	bool _mute;
     
@@ -50,6 +50,7 @@ private slots:
 	void listStarted(PlaylistView*);
 	void tabChanged(int);
 	void storeState();
+	void detectPlayPauseIcon (bool);
 
 public slots:
 	void addList();
@@ -59,8 +60,7 @@ public slots:
 	void saveList();
 	void prev();
 	void next();
-	void play();
-	void pause(bool);
+	void play_pause();
 	void stop();
 	void repeat(bool mode);
 	void shuffle(bool mode);
@@ -97,6 +97,7 @@ signals:
 	void message(QString, QString, QString, long);
 	void internalnext();
 	void songPosition(int);
+	void updatePlayPauseButton (bool);
 };
 
 #endif /*PLAYLISTCONTAINER_H_*/

@@ -507,8 +507,7 @@
      <bool>true</bool>
     </property>
     <addaction name="actionPrev"/>
-    <addaction name="actionPlay"/>
-    <addaction name="actionPause"/>
+    <addaction name="actionPlayPause"/>
     <addaction name="actionNext"/>
     <addaction name="separator"/>
     <addaction name="actionShuffle"/>
@@ -606,8 +605,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionPrev"/>
-   <addaction name="actionPlay"/>
-   <addaction name="actionPause"/>
+   <addaction name="actionPlayPause"/>
    <addaction name="actionStop"/>
    <addaction name="actionNext"/>
   </widget>
@@ -748,34 +746,7 @@
     <enum>Qt::ApplicationShortcut</enum>
    </property>
   </action>
-  <action name="actionPause">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/icons/butt_pause.png</normaloff>:/icons/butt_pause.png</iconset>
-   </property>
-   <property name="text">
-    <string>Pause</string>
-   </property>
-   <property name="iconText">
-    <string>Pause</string>
-   </property>
-   <property name="toolTip">
-    <string>Pause</string>
-   </property>
-   <property name="statusTip">
-    <string>Pause</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+Shift+C</string>
-   </property>
-   <property name="shortcutContext">
-    <enum>Qt::ApplicationShortcut</enum>
-   </property>
-  </action>
-  <action name="actionPlay">
+  <action name="actionPlayPause">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/butt_play.png</normaloff>:/icons/butt_play.png</iconset>
@@ -1554,26 +1525,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionPause</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>listView</receiver>
-   <slot>pause(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>376</x>
-     <y>317</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionPlay</sender>
+   <sender>actionPlayPause</sender>
    <signal>triggered()</signal>
    <receiver>listView</receiver>
-   <slot>play()</slot>
+   <slot>play_pause()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -2686,54 +2641,6 @@
     <hint type="destinationlabel">
      <x>325</x>
      <y>262</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionPlay</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>actionPause</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionNext</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>actionPause</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionPrev</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>actionPause</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
     </hint>
    </hints>
   </connection>
