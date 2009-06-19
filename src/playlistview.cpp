@@ -232,6 +232,7 @@ void PlaylistView::prev()
 	if(prev.row() >= 0) {
 		clearSelection();
 		setCurrentIndex(pmodel.mapFromSource(prev));
+		scrollTo(pmodel.mapFromSource(prev));
 		curindex = prev;
 		play();
 	}
@@ -255,6 +256,7 @@ void PlaylistView::next()
 		clearSelection();
 		curindex = next;
 		setCurrentIndex(pmodel.mapFromSource(curindex));
+		scrollTo(pmodel.mapFromSource(curindex));
 		play();
 	}
 	//else stop();
@@ -265,6 +267,7 @@ void PlaylistView::play(int index, double pos)
 	if(index >= 0 && index < model.rowCount()) {
 		curindex = model.index(index, 0);
 		setCurrentIndex(pmodel.mapFromSource(curindex));
+		scrollTo(pmodel.mapFromSource(curindex));
 		play();
 		if(pos >= 0 && pos <= 1)
 			PlayerManager::Self().setPosition(pos);
@@ -285,6 +288,7 @@ void PlaylistView::play()
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
 	model.setCurrent(plindex.row());
 	setCurrentIndex(pmodel.mapFromSource(plindex));
+	scrollTo(pmodel.mapFromSource(plindex));
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
@@ -556,6 +560,7 @@ void PlaylistView::updateStatus()
 		delayedPlay = false;
 		curindex = model.index(delayedIndex, 0);
 		setCurrentIndex(pmodel.mapFromSource(curindex));
+		scrollTo(pmodel.mapFromSource(curindex));
 		//play();
 		//if(delayedPos >= 0 && delayedPos <= 1)
 		//	position(delayedPos);
@@ -563,6 +568,7 @@ void PlaylistView::updateStatus()
 	if(!delayedPlay && delayedIndex >= 0 && model.rowCount() > delayedIndex) {
 		curindex = model.index(delayedIndex, 0);
 		setCurrentIndex(pmodel.mapFromSource(curindex));
+		scrollTo(pmodel.mapFromSource(curindex));
 	}
 	long len = 0;
 	for(int i=0; i<model.rowCount(); i++) {
@@ -640,6 +646,7 @@ void PlaylistView::findCurrent()
 {
 	if(plindex.row() >= 0) {
 		setCurrentIndex(pmodel.mapFromSource(plindex));
+		scrollTo(pmodel.mapFromSource(plindex));
 	}
 }
 

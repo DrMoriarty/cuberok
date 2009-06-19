@@ -54,6 +54,7 @@ Cuberok::Cuberok(QWidget *parent)
 	trayIconMenu->addAction(ui.actionPrev);
 	trayIconMenu->addAction(ui.actionPlay);
 	trayIconMenu->addAction(ui.actionPause);
+	trayIconMenu->addAction(ui.actionStop);
 	trayIconMenu->addAction(ui.actionNext);
 	trayIconMenu->addSeparator();
 	trayIconMenu->addAction(ui.actionExit);
