@@ -63,17 +63,17 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 			if(QFile::exists(fname)) loadList(fname);
 		}
 	}
-	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
-		setColumnHidden(i, !PLSet.columnVisible(i));
-		setColumnWidth(i, PLSet.columnWidth(i));
-		header()->moveSection(header()->visualIndex(i), PLSet.columnPosition(i));
-	}
 	hideColumn(PlaylistModel::Empty);
 	hideColumn(PlaylistModel::CueStart);
 	hideColumn(PlaylistModel::CueLength);
 	hideColumn(PlaylistModel::DBIndex);
 	hideColumn(PlaylistModel::StartTime);
 	header()->moveSection(PlaylistModel::Number, PlaylistModel::Stat);
+	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
+		setColumnHidden(i, !PLSet.columnVisible(i));
+		setColumnWidth(i, PLSet.columnWidth(i));
+		header()->moveSection(header()->visualIndex(i), PLSet.columnPosition(i));
+	}
 	connect(&PLSet, SIGNAL(visibleChanged(int,bool)), this, SLOT(setColVisible(int,bool)));
 	connect(&PLSet, SIGNAL(widthChanged(int,int)), this, SLOT(setColWidth(int,int)));
 	connect(&PLSet, SIGNAL(positionChanged(int,int)), this, SLOT(setColPosition(int,int)));

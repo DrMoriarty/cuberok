@@ -36,7 +36,7 @@ void audio_callback(void *userdata, Uint8 *stream, int len)
 	}
 }
 	
-PlayerFfmpeg::PlayerFfmpeg() : inited(false), opened(false), pFormatCtx(0), pCodecCtx(0), pFrame(0), audioStream(-1), needToStop(false)
+PlayerFfmpeg::PlayerFfmpeg() : inited(false), opened(false), pFormatCtx(0), pCodecCtx(0), pFrame(0), audioStream(-1), needToStop(false), curvolume(1.f)
 {
 	av_register_all();
 	instance = this;
@@ -158,6 +158,8 @@ bool PlayerFfmpeg::stop()
 bool PlayerFfmpeg::setPause(bool p)
 {
 	SDL_PauseAudio(p);
+	if(p) av_read_pause(pFormatCtx);
+	else av_read_play(pFormatCtx);
     return true;
 }
 
@@ -187,26 +189,31 @@ bool PlayerFfmpeg::close()
 
 bool PlayerFfmpeg::setPosition(double pos)
 {
-    return false;
+	int64_t ts;
+	ts = pos / pFormatCtx->streams[audioStream]->time_base.num * pFormatCtx->streams[audioStream]->time_base.den * pFormatCtx->duration / AV_TIME_BASE;
+	int flags = AVSEEK_FLAG_ANY;
+	if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
+	return av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
 }
 
 double PlayerFfmpeg::getPosition()
 {
-	return 0.0;
+	return (double)pFormatCtx->streams[audioStream]->time_base.num*curts / pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->duration * AV_TIME_BASE;
 }
 
 int  PlayerFfmpeg::volume()
 {
-	return 0;
+	return curvolume * 100.f;
 }
 
 void PlayerFfmpeg::setVolume(int v)
 {
+	curvolume = (float)v * 0.01f;
 }
 
 bool PlayerFfmpeg::playing()
 {
-    return false;
+    return SDL_GetAudioStatus() == SDL_AUDIO_PLAYING;
 }
 
 int PlayerFfmpeg::weight()
@@ -324,6 +331,7 @@ void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 				audio_buf_size = audio_buf_ptr;
 			}
 			audio_buf_index = 0;
+			correctVolume(audio_buf + audio_buf_index, audio_buf + audio_buf_size, curvolume);
 		}
 		len1 = audio_buf_size - audio_buf_index;
 		if(len1 > len)
@@ -352,3 +360,18 @@ void PlayerFfmpeg::timeSlot()
 	SDL_UnlockAudio();
 }
 
+void PlayerFfmpeg::correctVolume(uint8_t* start, uint8_t *end, float volume)
+{
+	if(volume <= .0f) {
+		memset(start, 0, end - start);
+	} else if(volume == 1.f) return;
+	int16_t *i = (int16_t*)start, *e = (int16_t*)end;
+	int32_t l;
+	while(i <= e) {
+		l = *i * volume;
+		if(l > SHRT_MAX) l = SHRT_MAX;
+		if(l < SHRT_MIN) l = SHRT_MIN;
+		*i = l;
+		i ++;
+	}
+}
