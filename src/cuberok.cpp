@@ -149,6 +149,8 @@ Cuberok::Cuberok(QWidget *parent)
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
 
+	ui.list_bookmarks->addItems(qVariantValue<QStringList>(set.value("bookmarks")));
+
 	applySettings();
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
@@ -168,6 +170,11 @@ void Cuberok::storeState()
 	set.setValue("shuffle", ui.actionShuffle->isChecked());
 	set.setValue("iconview", ui.actionIconView->isChecked());
 	qDebug("Cuberok, state was stored");
+	QStringList marks;
+	for(int i=0; i<ui.list_bookmarks->count(); i++) {
+		marks << ui.list_bookmarks->item(i)->text();
+	}
+	set.setValue("bookmarks", marks);
 }
 
 void Cuberok::firstStart()
@@ -479,4 +486,21 @@ void Cuberok::setPlayPauseIcon (bool playPause) {
      ui.actionPlayPause->setToolTip ("Pause"); 
      ui.actionPlayPause->setText ("Pause"); 
   }
+}
+
+void Cuberok::setBookmark()
+{
+	ui.list_bookmarks->addItem(dirmodel.filePath(ui.treeView_2->currentIndex()));
+}
+
+void Cuberok::removeBookmark()
+{
+	ui.list_bookmarks->model()->removeRow(ui.list_bookmarks->currentRow());
+}
+
+void Cuberok::selectBookmark(QString)
+{
+	const QModelIndex &i = dirmodel.index(ui.list_bookmarks->currentItem()->text());
+	ui.treeView_2->scrollTo(i);
+	ui.treeView_2->setCurrentIndex(i);
 }

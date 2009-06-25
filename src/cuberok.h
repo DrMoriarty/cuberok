@@ -83,6 +83,9 @@ public slots:
 	void applySettings();
 	void collectionSettings();
 	void importCollection();
+	void setBookmark();
+	void removeBookmark();
+	void selectBookmark(QString);
 };
 
 #endif // CUBEROK_H

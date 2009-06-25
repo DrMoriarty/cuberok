@@ -29,7 +29,7 @@ unix {
     DESTDIR = ../../unix/plugins
     CONFIG += link_pkgconfig
     CONFIG += ffmpeg
-    PKGCONFIG += libavcodec libavformat libavutil
+    PKGCONFIG += libavcodec libavformat libavutil sdl
     include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }

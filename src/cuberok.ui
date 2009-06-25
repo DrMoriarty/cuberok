@@ -338,6 +338,26 @@
       <number>4</number>
      </property>
      <item>
+      <widget class="QListWidget" name="list_bookmarks">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>64</height>
+        </size>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::ActionsContextMenu</enum>
+       </property>
+       <addaction name="actionRemoveBookmark"/>
+      </widget>
+     </item>
+     <item>
       <widget class="QTreeView" name="treeView_2">
        <property name="contextMenuPolicy">
         <enum>Qt::ActionsContextMenu</enum>
@@ -370,6 +390,7 @@
         <bool>true</bool>
        </property>
        <addaction name="actionRefreshTree"/>
+       <addaction name="actionBookmarkFolder"/>
       </widget>
      </item>
     </layout>
@@ -1418,6 +1439,24 @@
    </property>
    <property name="toolTip">
     <string>Queue position</string>
+   </property>
+  </action>
+  <action name="actionBookmarkFolder">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/star.png</normaloff>:/icons/star.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mark this folder</string>
+   </property>
+  </action>
+  <action name="actionRemoveBookmark">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove mark</string>
    </property>
   </action>
  </widget>
@@ -2660,9 +2699,60 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionBookmarkFolder</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>setBookmark()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemoveBookmark</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>removeBookmark()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_bookmarks</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>selectBookmark(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>569</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
   <slot>importCollection()</slot>
+  <slot>setBookmark()</slot>
+  <slot>removeBookmark()</slot>
+  <slot>selectBookmark(QString)</slot>
  </slots>
 </ui>
