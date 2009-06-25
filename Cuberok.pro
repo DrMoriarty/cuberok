@@ -20,7 +20,7 @@ player_phonon {
 }
 
 win32 {
-    exists(./ffmpeg/lib/avcodec-52.lib) {
+    exists(./ffmpeg/lib/avcodec.lib) {
         message(using ffmpeg backend)
         SUBDIRS += plugins/player_ffmpeg
     }

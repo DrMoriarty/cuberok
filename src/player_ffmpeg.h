@@ -67,8 +67,10 @@ class PlayerFfmpeg : public Player
 	QTimer *timer;
 	bool needToStop;
 	int64_t curts;
+	float curvolume;
 
 	bool getNextFrame();
+	void correctVolume(uint8_t* start, uint8_t* end, float volume);
 };
 
 
