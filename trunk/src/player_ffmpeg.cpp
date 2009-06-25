@@ -256,8 +256,8 @@ bool PlayerFfmpeg::getNextFrame()
         {
 			audio_buf_size = sizeof(audio_buf) - audio_buf_ptr;
             // Decode the next chunk of data
-			//bytesDecoded=avcodec_decode_audio2(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, rawData, bytesRemaining);
-			bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
+			bytesDecoded=avcodec_decode_audio2(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, rawData, bytesRemaining);
+			//bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
 
             // Was there an error?
             if(bytesDecoded < 0)

@@ -38,8 +38,10 @@ win32 {
 unix {
     CONFIG += link_pkgconfig
     system(pkg-config --modversion libavcodec 2>/dev/null) {
-        message(using ffmpeg backend)
-        SUBDIRS += plugins/player_ffmpeg
+	system(pkg-config --modversion sdl 2>/dev/null) {
+            message(using ffmpeg backend)
+	    SUBDIRS += plugins/player_ffmpeg
+        }
     }
     system(audiere-config --version) {
         message(using audiere backend)
