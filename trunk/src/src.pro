@@ -41,6 +41,7 @@ HEADERS += aboutdialog.h \
            lyricwiki.h \
            magnatune_browser.h \
            main.h \
+           marklistwidget.h \
            myapplication.h \
            player.h \
            player_manager.h \
@@ -98,6 +99,7 @@ SOURCES += aboutdialog.cpp \
            lyricwiki.cpp \
            magnatune_browser.cpp \
            main.cpp \
+           marklistwidget.cpp \
            myapplication.cpp \
            player_manager.cpp \
            playlistcontainer.cpp \

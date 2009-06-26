@@ -495,12 +495,16 @@ void Cuberok::setBookmark()
 
 void Cuberok::removeBookmark()
 {
-	ui.list_bookmarks->model()->removeRow(ui.list_bookmarks->currentRow());
+	if(ui.list_bookmarks->currentRow() >= 0)
+		ui.list_bookmarks->model()->removeRow(ui.list_bookmarks->currentRow());
 }
 
 void Cuberok::selectBookmark(QString)
 {
+	if(ui.list_bookmarks->currentRow() < 0) return;
 	const QModelIndex &i = dirmodel.index(ui.list_bookmarks->currentItem()->text());
+	ui.treeView_2->collapseAll();
 	ui.treeView_2->scrollTo(i);
 	ui.treeView_2->setCurrentIndex(i);
+	ui.treeView_2->expand(i);
 }
