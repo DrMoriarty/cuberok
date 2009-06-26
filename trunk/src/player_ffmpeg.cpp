@@ -189,11 +189,16 @@ bool PlayerFfmpeg::close()
 
 bool PlayerFfmpeg::setPosition(double pos)
 {
-	int64_t ts;
-	ts = pos / pFormatCtx->streams[audioStream]->time_base.num * pFormatCtx->streams[audioStream]->time_base.den * pFormatCtx->duration / AV_TIME_BASE;
-	int flags = AVSEEK_FLAG_ANY;
-	if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
-	return av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
+	bool result = false;
+	try {
+		int64_t ts;
+		ts = pos / pFormatCtx->streams[audioStream]->time_base.num * pFormatCtx->streams[audioStream]->time_base.den * pFormatCtx->duration / AV_TIME_BASE;
+		int flags = AVSEEK_FLAG_ANY;
+		if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
+		result = av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
+	} catch(...) {
+	}
+	return result;
 }
 
 double PlayerFfmpeg::getPosition()
@@ -321,7 +326,11 @@ void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 		if(audio_buf_index >= audio_buf_size) {
 			// We have already sent all our data; get more 
 			audio_buf_ptr = 0;
-			if(!getNextFrame()) return;
+			try {
+				if(!getNextFrame()) return;
+			} catch (...) {
+				return;
+			}
 			//audio_size = audio_decode_frame(aCodecCtx, audio_buf,	sizeof(audio_buf));
 			if(audio_buf_ptr < 0) {
 				// If error, output silence 
