@@ -1559,8 +1559,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>376</x>
-     <y>317</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1575,8 +1575,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>376</x>
-     <y>317</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1591,8 +1591,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>376</x>
-     <y>317</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1607,8 +1607,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>376</x>
-     <y>259</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1623,8 +1623,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>376</x>
-     <y>259</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1879,8 +1879,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>376</x>
-     <y>380</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -1907,12 +1907,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>376</x>
-     <y>380</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
-     <x>357</x>
-     <y>495</y>
+     <x>480</x>
+     <y>357</y>
     </hint>
    </hints>
   </connection>
@@ -2035,8 +2035,8 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>140</x>
-     <y>214</y>
+     <x>629</x>
+     <y>489</y>
     </hint>
     <hint type="destinationlabel">
      <x>49</x>
@@ -2051,8 +2051,8 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>376</x>
-     <y>236</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
      <x>49</x>
@@ -2084,11 +2084,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>136</x>
-     <y>138</y>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>35</x>
-     <y>116</y>
+     <y>146</y>
     </hint>
    </hints>
   </connection>
@@ -2100,11 +2100,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>136</x>
-     <y>138</y>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
-     <x>74</x>
-     <y>116</y>
+     <x>80</x>
+     <y>146</y>
     </hint>
    </hints>
   </connection>
@@ -2115,12 +2115,12 @@
    <slot>clearSubset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>116</y>
+     <x>80</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
      <x>136</x>
-     <y>138</y>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -2264,7 +2264,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>136</x>
-     <y>146</y>
+     <y>253</y>
     </hint>
    </hints>
   </connection>
@@ -2311,8 +2311,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>532</x>
-     <y>501</y>
+     <x>646</x>
+     <y>489</y>
     </hint>
    </hints>
   </connection>
@@ -2327,8 +2327,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>532</x>
-     <y>501</y>
+     <x>646</x>
+     <y>489</y>
     </hint>
    </hints>
   </connection>
@@ -2343,8 +2343,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>532</x>
-     <y>501</y>
+     <x>646</x>
+     <y>489</y>
     </hint>
    </hints>
   </connection>
@@ -2388,11 +2388,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>171</x>
-     <y>487</y>
+     <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>409</x>
-     <y>262</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2404,11 +2404,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>171</x>
-     <y>487</y>
+     <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>409</x>
-     <y>262</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2420,11 +2420,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>171</x>
-     <y>487</y>
+     <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>409</x>
-     <y>262</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2436,11 +2436,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>171</x>
-     <y>487</y>
+     <y>435</y>
     </hint>
     <hint type="destinationlabel">
-     <x>409</x>
-     <y>262</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2535,8 +2535,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>261</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2551,8 +2551,8 @@
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>248</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2563,12 +2563,12 @@
    <slot>setFilter(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>337</x>
-     <y>74</y>
+     <x>453</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
-     <x>351</x>
-     <y>266</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2579,12 +2579,12 @@
    <slot>clearFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>439</x>
-     <y>74</y>
+     <x>480</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>351</x>
-     <y>266</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2595,12 +2595,12 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>444</x>
-     <y>69</y>
+     <x>480</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>337</x>
-     <y>69</y>
+     <x>453</x>
+     <y>79</y>
     </hint>
    </hints>
   </connection>
@@ -2611,12 +2611,12 @@
    <slot>findCurrent()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>258</x>
-     <y>69</y>
+     <x>359</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>351</x>
-     <y>261</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2631,8 +2631,8 @@
      <y>481</y>
     </hint>
     <hint type="destinationlabel">
-     <x>325</x>
-     <y>261</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2647,8 +2647,8 @@
      <y>407</y>
     </hint>
     <hint type="destinationlabel">
-     <x>374</x>
-     <y>261</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2663,8 +2663,8 @@
      <y>266</y>
     </hint>
     <hint type="destinationlabel">
-     <x>374</x>
-     <y>261</y>
+     <x>480</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -2750,17 +2750,17 @@
   </connection>
   <connection>
    <sender>list_bookmarks</sender>
-   <signal>currentTextChanged(QString)</signal>
+   <signal>itemClicked(QListWidgetItem*)</signal>
    <receiver>CuberokClass</receiver>
-   <slot>selectBookmark(QString)</slot>
+   <slot>selectBookmark(QListWidgetItem*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>569</x>
-     <y>112</y>
+     <x>603</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>325</x>
-     <y>262</y>
+     <x>469</x>
+     <y>396</y>
     </hint>
    </hints>
   </connection>
@@ -2770,6 +2770,6 @@
   <slot>importCollection()</slot>
   <slot>setBookmark()</slot>
   <slot>removeBookmark()</slot>
-  <slot>selectBookmark(QString)</slot>
+  <slot>selectBookmark(QListWidgetItem*)</slot>
  </slots>
 </ui>

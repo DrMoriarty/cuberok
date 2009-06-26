@@ -85,7 +85,7 @@ public slots:
 	void importCollection();
 	void setBookmark();
 	void removeBookmark();
-	void selectBookmark(QString);
+	void selectBookmark(QListWidgetItem*);
 };
 
 #endif // CUBEROK_H
