@@ -22,6 +22,11 @@
 #include <SDL_audio.h>
 
 #define SDL_AUDIO_BUFFER_SIZE 1024
+#ifdef WIN32
+#define localAV_NOPTS_VALUE int64_t(0x8000000000000000)
+#else
+#define localAV_NOPTS_VALUE AV_NOPTS_VALUE
+#endif
 
 Q_EXPORT_PLUGIN2(player_ffmpeg, PlayerFfmpeg) 
 
@@ -327,7 +332,7 @@ bool PlayerFfmpeg::getNextFrame(bool fFirstTime)
 			}
         } while(packet.stream_index!=audioStream);
 
-		if(packet.pts != int64_t(0x8000000000000000))
+		if(packet.pts != localAV_NOPTS_VALUE)
 			curts = packet.pts;
 		if(stopts && curts >= stopts) {
 			if(packet.data!=NULL)
@@ -340,7 +345,7 @@ bool PlayerFfmpeg::getNextFrame(bool fFirstTime)
         rawData=packet.data;
     }
 frame_unpacked:
-	if(packet.pts == int64_t(0x8000000000000000)) {
+	if(packet.pts == localAV_NOPTS_VALUE) {
 		curts += audio_buf_ptr / 2 / pCodecCtx->channels;
 	}
 
