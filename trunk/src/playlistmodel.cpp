@@ -349,6 +349,14 @@ void PlaylistFiller::proceedUrl(QUrl url)
 	if(!path.size() || !dir.cd(path)) {
 			QList<TagEntry> tags = Tagger::readEntry(url);
 			foreach(TagEntry tag, tags) {
+				{
+					QString ff = ToLocalFile(tag.url);
+					if(ff.size() && !QFileInfo(ff).exists()) {
+						// file not found
+						Console::Self().error("File not found: " + ff + " Link from " + tag.url.toString());
+						continue;
+					}
+				}
 				QList<QVariant> l;
 				l.append(QVariant(tag.title));
 				l.append(QVariant(tag.artist));
@@ -363,10 +371,25 @@ void PlaylistFiller::proceedUrl(QUrl url)
 				emit sendFile(tag.url, index, l, tag.start, tag.length);
 				setTerminationEnabled(true);
 				index++;
+				if(!processedFiles.contains(tag.url)) processedFiles.append(tag.url);
 			}
 	} else /*if(dir.cd(path))*/ {
-		foreach(QFileInfo file, dir.entryInfoList()) {
+		//processedFiles.clear();
+		// first round is for playlists
+		foreach(QFileInfo file, dir.entryInfoList()) if (Tagger::playlistDetected(QUrl::fromLocalFile(file.filePath()))) {
 			if(file.fileName() == "." || file.fileName() == "..") continue;
+			QString suf = file.suffix().toLower();
+			if(file.isFile()) {
+				if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
+					continue;
+			}
+			proceedUrl(QUrl::fromLocalFile(file.filePath()));
+		}
+		// second round is for other files
+		foreach(QFileInfo file, dir.entryInfoList()) if (!Tagger::playlistDetected(QUrl::fromLocalFile(file.filePath()))) {
+			if(file.fileName() == "." || file.fileName() == "..") continue;
+			if(processedFiles.contains(QUrl::fromLocalFile(file.filePath())))
+			   continue;
 			QString suf = file.suffix().toLower();
 			if(file.isFile()) {
 				if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())

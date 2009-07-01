@@ -55,6 +55,8 @@ class PlayerManager : public Player
 	QList<Player*> players;
 	Player *player;
 	QString info;
+	QUrl filename;
+	long filestart, filelength;
 };
 
 #endif //PLAYER_MANAGER_H

@@ -101,6 +101,9 @@ PlayerManager &PlayerManager::Self()
 
 bool PlayerManager::open(QUrl fname, long start, long length)
 {
+	filename = fname;
+	filestart = start;
+	filelength = length;
     return player ? player->open(fname, start, length) : false;
 }
 
@@ -177,14 +180,27 @@ QStringList PlayerManager::getPlayers()
 bool PlayerManager::setPrefferedPlayer(QString name)
 {
 	if(player && name == player->name()) return true;
+	double pos = .0f;
+	bool needToContinue = false;
+	if(player && player->playing()) {
+		needToContinue = true;
+		pos = player->getPosition();
+	}
 	if(player) player->stop();
 	foreach(Player *pl, players) 
 		if(pl->name() == name && ( pl->ready() || pl->prepare() )) {
 			player = pl;
 			Console::Self().message("User select engine: " + player->name());
+			if(needToContinue) {
+				if(!player->open(filename, filestart, filelength) ||
+				   !player->play() ||
+				   !player->setPosition(pos))
+					emit finish();
+			}
 			return true;
 		}
 	Console::Self().error(tr("Can't start engine %1").arg(name));
+	emit finish();
 	return false;
 }
 

@@ -372,40 +372,40 @@
         </property>
         <addaction name="actionRemoveBookmark"/>
        </widget>
-      <widget class="QTreeView" name="treeView_2">
-       <property name="contextMenuPolicy">
-        <enum>Qt::ActionsContextMenu</enum>
-       </property>
-       <property name="dragEnabled">
-        <bool>true</bool>
-       </property>
-       <property name="dragDropMode">
-        <enum>QAbstractItemView::DragOnly</enum>
-       </property>
-       <property name="selectionMode">
-        <enum>QAbstractItemView::ExtendedSelection</enum>
-       </property>
-       <property name="verticalScrollMode">
-        <enum>QAbstractItemView::ScrollPerItem</enum>
-       </property>
-       <property name="autoExpandDelay">
-        <number>5</number>
-       </property>
-       <property name="uniformRowHeights">
-        <bool>true</bool>
-       </property>
-       <property name="sortingEnabled">
-        <bool>true</bool>
-       </property>
-       <property name="animated">
-        <bool>false</bool>
-       </property>
-       <property name="headerHidden">
-        <bool>true</bool>
-       </property>
-       <addaction name="actionRefreshTree"/>
-       <addaction name="actionBookmarkFolder"/>
-      </widget>
+       <widget class="QTreeView" name="treeView_2">
+        <property name="contextMenuPolicy">
+         <enum>Qt::ActionsContextMenu</enum>
+        </property>
+        <property name="dragEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::DragOnly</enum>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="verticalScrollMode">
+         <enum>QAbstractItemView::ScrollPerItem</enum>
+        </property>
+        <property name="autoExpandDelay">
+         <number>5</number>
+        </property>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="animated">
+         <bool>false</bool>
+        </property>
+        <property name="headerHidden">
+         <bool>true</bool>
+        </property>
+        <addaction name="actionRefreshTree"/>
+        <addaction name="actionBookmarkFolder"/>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -2767,6 +2767,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>list_bookmarks</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>selectBookmark(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>569</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
@@ -2774,5 +2790,6 @@
   <slot>setBookmark()</slot>
   <slot>removeBookmark()</slot>
   <slot>selectBookmark(QListWidgetItem*)</slot>
+  <slot>selectBookmark(QString)</slot>
  </slots>
 </ui>

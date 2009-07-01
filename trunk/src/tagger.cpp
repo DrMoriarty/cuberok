@@ -466,7 +466,12 @@ QList<TagEntry> Tagger::readM3U(QString fname)
 			while (!in.atEnd()) {
 				QString line = in.readLine();
 				if(line[0] == '#' || !line.size()) continue;
-				if(QFileInfo(line).exists()) line = QUrl::fromLocalFile(line).toString();
+				if(QFileInfo(line).exists()) {
+					line = QUrl::fromLocalFile(line).toString();
+				} else {
+					QString line2 = QFileInfo(fname).absolutePath() + QDir::separator() + line;
+					if(QFileInfo(line2).exists()) line = QUrl::fromLocalFile(line2).toString();
+				}
 				QUrl url(line);
 				if(playlistDetected(url))
 					list << readEntry(url);
