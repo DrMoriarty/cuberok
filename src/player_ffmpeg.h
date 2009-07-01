@@ -67,14 +67,14 @@ class PlayerFfmpeg : public Player
 	AVCodecContext *pCodecCtx;
 	AVFrame *pFrame;
 	int audioStream;
-	static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 3) / 2];
+	static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 4)];
 	int audio_buf_ptr;
 	QTimer *timer;
 	bool needToStop;
-	int64_t curts;
+	int64_t curts, startts, stopts;
 	float curvolume;
 
-	bool getNextFrame();
+	bool getNextFrame(bool fFirstFrame = false);
 	void correctVolume(uint8_t* start, uint8_t* end, float volume);
 };
 
