@@ -42,6 +42,7 @@ protected:
 	QList<QUrl> paths;
 	int index;
 	bool cancel;
+	QList<QUrl> processedFiles;
 
  private slots:
 	void cancelEvent();

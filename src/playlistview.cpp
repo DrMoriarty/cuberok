@@ -573,11 +573,21 @@ void PlaylistView::updateStatus()
 		setCurrentIndex(pmodel.mapFromSource(curindex));
 		scrollTo(pmodel.mapFromSource(curindex));
 	}
-	long len = 0;
+	QDateTime time;
 	for(int i=0; i<model.rowCount(); i++) {
-		len += model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+		time = time.addSecs(model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75);
 	}
-	emit status(tr("Playlist - %n song(s)", "", model.rowCount()) + " (" + QTime().addSecs(len).toString()+")");
+	QString st = tr("Playlist - %n song(s)", "", model.rowCount());
+	if(QDateTime().daysTo(time) > 1) {
+		st += " (" +
+			QString::number(QDateTime().daysTo(time)-1) +
+			"d " +
+			QString::number(time.time().hour()) +
+			"h)";
+	} else {
+		st += " (" + time.time().toString()+")";
+	}
+	emit status(st);
 }
 
 QString PlaylistView::getName()

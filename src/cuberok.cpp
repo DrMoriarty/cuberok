@@ -148,6 +148,9 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(ui.toolBar_3, SIGNAL(orientationChanged(Qt::Orientation)), ui.volumeSlider, SLOT(setOrientation(Qt::Orientation)));
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
+	QByteArray arr;
+	arr = qVariantValue<QByteArray>(set.value("filesplitter"));
+	ui.widget->restoreState(arr);
 
 	ui.list_bookmarks->addItems(qVariantValue<QStringList>(set.value("bookmarks")));
 
@@ -175,6 +178,9 @@ void Cuberok::storeState()
 		marks << ui.list_bookmarks->item(i)->text();
 	}
 	set.setValue("bookmarks", marks);
+	QByteArray arr;
+	arr = ui.widget->saveState();
+	set.setValue("filesplitter", arr);
 }
 
 void Cuberok::firstStart()
@@ -507,4 +513,9 @@ void Cuberok::selectBookmark(QListWidgetItem* it)
 	ui.treeView_2->scrollTo(i);
 	ui.treeView_2->setCurrentIndex(i);
 	ui.treeView_2->expand(i);
+}
+
+void Cuberok::selectBookmark(QString str)
+{
+	selectBookmark(ui.list_bookmarks->currentItem());
 }
