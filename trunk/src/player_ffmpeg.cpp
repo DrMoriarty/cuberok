@@ -25,7 +25,7 @@
 
 Q_EXPORT_PLUGIN2(player_ffmpeg, PlayerFfmpeg) 
 
-uint8_t PlayerFfmpeg::audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 3) / 2];
+uint8_t PlayerFfmpeg::audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 4)];
 
 PlayerFfmpeg *instance = 0;
 
@@ -137,7 +137,12 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 
 	opened = true;
 	audio_buf_ptr = 0;
-	getNextFrame();
+	curts = 0;
+	startts = start * pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->streams[audioStream]->time_base.num / 75;
+	stopts = double(length + start) * pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->streams[audioStream]->time_base.num / 75;
+	bool result = !startts || av_seek_frame(pFormatCtx, audioStream, startts, AVSEEK_FLAG_ANY) >= 0;
+
+	getNextFrame(true);
 	
 	return true;
 }
@@ -158,8 +163,10 @@ bool PlayerFfmpeg::stop()
 bool PlayerFfmpeg::setPause(bool p)
 {
 	SDL_PauseAudio(p);
-	if(p) av_read_pause(pFormatCtx);
-	else av_read_play(pFormatCtx);
+	if(pFormatCtx) {
+		if(p) av_read_pause(pFormatCtx);
+		else av_read_play(pFormatCtx);
+	}
     return true;
 }
 
@@ -189,10 +196,15 @@ bool PlayerFfmpeg::close()
 
 bool PlayerFfmpeg::setPosition(double pos)
 {
+	SDL_LockAudio();
 	bool result = false;
 	try {
 		int64_t ts;
-		ts = pos / pFormatCtx->streams[audioStream]->time_base.num * pFormatCtx->streams[audioStream]->time_base.den * pFormatCtx->duration / AV_TIME_BASE;
+		if(stopts) {
+			ts = pos * (stopts - startts) + startts;
+		} else {
+			ts = pos / pFormatCtx->streams[audioStream]->time_base.num * pFormatCtx->streams[audioStream]->time_base.den * pFormatCtx->duration / AV_TIME_BASE;
+		}
 		int flags = AVSEEK_FLAG_ANY;
 		if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
 		result = av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
@@ -203,6 +215,9 @@ bool PlayerFfmpeg::setPosition(double pos)
 
 double PlayerFfmpeg::getPosition()
 {
+	if(stopts) {
+		return (double)(curts - startts) / (stopts - startts);
+	}
 	return (double)pFormatCtx->streams[audioStream]->time_base.num*curts / pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->duration * AV_TIME_BASE;
 }
 
@@ -231,12 +246,12 @@ QString PlayerFfmpeg::name()
 	return "FFmpeg";
 }
 
-bool PlayerFfmpeg::getNextFrame()
+bool PlayerFfmpeg::getNextFrame(bool fFirstTime)
 {
     static AVPacket packet;
     static int      bytesRemaining=0;
     static uint8_t  *rawData;
-    static bool     fFirstTime=true;
+    //static bool     fFirstTime=true;
     int             bytesDecoded;
     int             frameFinished;
 	int             audio_buf_size = sizeof(audio_buf) - audio_buf_ptr;
@@ -245,9 +260,11 @@ bool PlayerFfmpeg::getNextFrame()
     // doesn't have to be freed
     if(fFirstTime)
     {
-        fFirstTime=false;
+        //fFirstTime=false;
         //packet.data=NULL;
 		av_init_packet(&packet);
+		bytesRemaining = 0;
+		rawData = 0;
     }
 
     // Decode packets until we have decoded a complete frame
@@ -260,6 +277,9 @@ bool PlayerFfmpeg::getNextFrame()
         while(bytesRemaining > 0)
         {
 			audio_buf_size = sizeof(audio_buf) - audio_buf_ptr;
+			if(audio_buf_size < AVCODEC_MAX_AUDIO_FRAME_SIZE && audio_buf_ptr > 0) 
+				goto frame_unpacked;
+				//return true;
             // Decode the next chunk of data
 			bytesDecoded=avcodec_decode_audio2(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, rawData, bytesRemaining);
 			//bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
@@ -272,6 +292,8 @@ bool PlayerFfmpeg::getNextFrame()
 				bytesDecoded = 0;
 				audio_buf_size = 0;
 				bytesRemaining = 0;
+				//return true;
+				goto frame_unpacked;
             }
 			audio_buf_ptr += audio_buf_size;
 			//audio_buf_size -= bytesDecoded;
@@ -280,9 +302,10 @@ bool PlayerFfmpeg::getNextFrame()
             rawData+=bytesDecoded;
 
             // Did we finish the current frame? Then we can return
-			if(bytesRemaining <= 0 && audio_buf_size > 0) {
+			if(bytesRemaining <= 0 && audio_buf_ptr > 0) {
 				av_free_packet(&packet);
-                return true;
+                //return true;
+				goto frame_unpacked;
 			}
         }
 
@@ -302,13 +325,26 @@ bool PlayerFfmpeg::getNextFrame()
 				needToStop = true;
 				return false;
 			}
-			curts = packet.pts;
         } while(packet.stream_index!=audioStream);
 
+		if(packet.pts != int64_t(0x8000000000000000))
+			curts = packet.pts;
+		if(stopts && curts >= stopts) {
+			if(packet.data!=NULL)
+				av_free_packet(&packet);
+			SDL_PauseAudio(1);
+			needToStop = true;
+			return false;
+		}
         bytesRemaining=packet.size;
         rawData=packet.data;
     }
-	return false;
+frame_unpacked:
+	if(packet.pts == int64_t(0x8000000000000000)) {
+		curts += audio_buf_ptr / 2 / pCodecCtx->channels;
+	}
+
+	return true;
 }
 
 void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
@@ -362,8 +398,11 @@ void PlayerFfmpeg::timeSlot()
 	}
 	if(opened) {
 		if(SDL_GetAudioStatus() == SDL_AUDIO_PLAYING) {
-			emit position((double)pFormatCtx->streams[audioStream]->time_base.num*curts / pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->duration * AV_TIME_BASE);
-			
+			if(stopts) {
+				emit position( (double)(curts - startts) / (stopts - startts) );
+			} else {
+				emit position((double)pFormatCtx->streams[audioStream]->time_base.num*curts / pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->duration * AV_TIME_BASE);
+			}
 		}
 	}
 	SDL_UnlockAudio();
