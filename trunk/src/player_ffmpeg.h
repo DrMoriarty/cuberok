@@ -73,6 +73,7 @@ class PlayerFfmpeg : public Player
 	bool needToStop;
 	int64_t curts, startts, stopts;
 	float curvolume;
+	bool byteSeek;
 
 	bool getNextFrame(bool fFirstFrame = false);
 	void correctVolume(uint8_t* start, uint8_t* end, float volume);
