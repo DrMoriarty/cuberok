@@ -22,11 +22,11 @@
 #include <SDL_audio.h>
 
 #define SDL_AUDIO_BUFFER_SIZE 1024
-#ifdef WIN32
-#define localAV_NOPTS_VALUE int64_t(0x8000000000000000)
-#else
-#define localAV_NOPTS_VALUE AV_NOPTS_VALUE
-#endif
+//#ifdef WIN32
+#define localAV_NOPTS_VALUE int64_t(0x8000000000000000LL)
+//#else
+//#define localAV_NOPTS_VALUE AV_NOPTS_VALUE
+//#endif
 
 Q_EXPORT_PLUGIN2(player_ffmpeg, PlayerFfmpeg) 
 
@@ -41,7 +41,7 @@ void audio_callback(void *userdata, Uint8 *stream, int len)
 	}
 }
 	
-PlayerFfmpeg::PlayerFfmpeg() : inited(false), opened(false), pFormatCtx(0), pCodecCtx(0), pFrame(0), audioStream(-1), needToStop(false), curvolume(1.f)
+PlayerFfmpeg::PlayerFfmpeg() : inited(false), opened(false), pFormatCtx(0), pCodecCtx(0), pFrame(0), audioStream(-1), needToStop(false), curvolume(1.f), byteSeek(false)
 {
 	av_register_all();
 	instance = this;
@@ -75,6 +75,8 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	if(!filename.size()) {
 		filename = fname.toString();
 	}
+
+	if(fname.toString().right(4).toLower() == "flac") byteSeek = true;
 
 	if(av_open_input_file(&pFormatCtx, filename.toLocal8Bit(), NULL, 0, NULL)!=0) {
 		processErrorMessage("FFmpeg: Couldn't open file "+ filename);
@@ -145,7 +147,15 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	curts = 0;
 	startts = start * pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->streams[audioStream]->time_base.num / 75;
 	stopts = double(length + start) * pFormatCtx->streams[audioStream]->time_base.den / pFormatCtx->streams[audioStream]->time_base.num / 75;
-	bool result = !startts || av_seek_frame(pFormatCtx, audioStream, startts, AVSEEK_FLAG_ANY) >= 0;
+	if(stopts > pFormatCtx->streams[audioStream]->duration) stopts = pFormatCtx->streams[audioStream]->duration;
+	int64_t ts = startts;
+	int flags = AVSEEK_FLAG_ANY;
+	if(byteSeek) {
+		flags |= AVSEEK_FLAG_BYTE;
+		ts *= 3;
+	}
+	bool result = !startts || av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
+	curts = startts;
 
 	getNextFrame(true);
 	
@@ -211,10 +221,17 @@ bool PlayerFfmpeg::setPosition(double pos)
 			ts = pos / pFormatCtx->streams[audioStream]->time_base.num * pFormatCtx->streams[audioStream]->time_base.den * pFormatCtx->duration / AV_TIME_BASE;
 		}
 		int flags = AVSEEK_FLAG_ANY;
+		curts = ts;
+		if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
+		if(byteSeek) {
+			flags |= AVSEEK_FLAG_BYTE;
+			ts *= 3;
+		}
 		if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
 		result = av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
 	} catch(...) {
 	}
+	SDL_UnlockAudio();
 	return result;
 }
 
