@@ -77,6 +77,7 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	}
 
 	if(fname.toString().right(4).toLower() == "flac") byteSeek = true;
+	else byteSeek = false;
 
 	if(av_open_input_file(&pFormatCtx, filename.toLocal8Bit(), NULL, 0, NULL)!=0) {
 		processErrorMessage("FFmpeg: Couldn't open file "+ filename);
@@ -303,8 +304,11 @@ bool PlayerFfmpeg::getNextFrame(bool fFirstTime)
 				goto frame_unpacked;
 				//return true;
             // Decode the next chunk of data
+#ifdef WIN32
+			bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
+#else
 			bytesDecoded=avcodec_decode_audio2(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, rawData, bytesRemaining);
-			//bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
+#endif
 
             // Was there an error?
             if(bytesDecoded < 0)

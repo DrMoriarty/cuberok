@@ -752,7 +752,7 @@
     <string>Previous track</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Shift+Z</string>
+    <string>Alt+Z</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -776,7 +776,7 @@
     <string>Next track</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Shift+B</string>
+    <string>Alt+V</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -800,7 +800,7 @@
     <string>Play track</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Shift+X</string>
+    <string>Alt+X</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -847,6 +847,9 @@
    <property name="statusTip">
     <string>Close the program</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="actionClear_playlist">
    <property name="icon">
@@ -861,6 +864,9 @@
    </property>
    <property name="statusTip">
     <string>Clear playlist</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
   <action name="actionQueueNext">
@@ -1006,6 +1012,9 @@
    <property name="statusTip">
     <string>Create new playlist</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="actionClosePlaylist">
    <property name="icon">
@@ -1017,6 +1026,9 @@
    </property>
    <property name="statusTip">
     <string>Close current playlist</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
   <action name="actionRemoveSong">
@@ -1169,7 +1181,7 @@
     <string>Stop</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Shift+V</string>
+    <string>Alt+C</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -1189,6 +1201,9 @@
    <property name="statusTip">
     <string>Save playlist into file</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionLoadPlaylist">
    <property name="icon">
@@ -1203,6 +1218,9 @@
    </property>
    <property name="statusTip">
     <string>Load playlist from a file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionAboutQt">
@@ -1250,6 +1268,9 @@
    </property>
    <property name="statusTip">
     <string>Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="actionSetImage">
@@ -1301,6 +1322,9 @@
    </property>
    <property name="statusTip">
     <string>Open Url</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionGetImageFromLastFM">
@@ -1415,6 +1439,9 @@
    </property>
    <property name="statusTip">
     <string>Mute</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionViewNumber">

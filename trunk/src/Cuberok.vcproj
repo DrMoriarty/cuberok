@@ -371,6 +371,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\cuecontrol.cpp"
+				>
+			</File>
+			<File
 				RelativePath="database.cpp"
 				>
 				<FileConfiguration
@@ -1276,6 +1280,20 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\cuecontrol.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running MOC on cuecontrol.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQTAGCONVERT -DAUDIERE -DGSTREAMER -DQT_DLL -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\win32-vs\obj\moc_cuecontrol.cpp&#x0D;&#x0A;"
+						Outputs="..\win32-vs\obj\moc_cuecontrol.cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="database.h"
 				>
 				<FileConfiguration
@@ -1672,7 +1690,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on marklistwidget.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQTAGCONVERT -DAUDIERE -DGSTREAMER -DQT_DLL -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\win32-vs\obj\moc_marklistwidget.cpp"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQTAGCONVERT -DAUDIERE -DGSTREAMER -DQT_DLL -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\win32-vs\obj\moc_marklistwidget.cpp&#x0D;&#x0A;"
 						Outputs="..\win32-vs\obj\moc_marklistwidget.cpp"
 					/>
 				</FileConfiguration>
@@ -1996,6 +2014,16 @@
 			<File
 				RelativePath="tagger.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running MOC on tagger.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQTAGCONVERT -DAUDIERE -DGSTREAMER -DQT_DLL -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\win32-vs\obj\moc_tagger.cpp"
+						Outputs="..\win32-vs\obj\moc_tagger.cpp"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="url_open.h"
@@ -2167,6 +2195,20 @@
 						Description="Running UIC on cuberok.ui"
 						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_cuberok.h&#x0D;&#x0A;"
 						Outputs=".\ui_cuberok.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\cuecontrol.ui"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running UIC on cuecontrol.ui"
+						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_cuecontrol.h&#x0D;&#x0A;"
+						Outputs=".\ui_cuecontrol.h"
 					/>
 				</FileConfiguration>
 			</File>
@@ -2673,6 +2715,10 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\win32-vs\obj\moc_cuecontrol.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\win32-vs\obj\moc_database.cpp"
@@ -3317,6 +3363,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\win32-vs\obj\moc_tagger.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\win32-vs\obj\moc_url_open.cpp"
 				>
 				<FileConfiguration
@@ -3404,6 +3454,10 @@
 			</File>
 			<File
 				RelativePath="ui_cuberok.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ui_cuecontrol.h"
 				>
 			</File>
 			<File

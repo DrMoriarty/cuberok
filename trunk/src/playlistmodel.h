@@ -49,6 +49,7 @@ protected:
 
 signals:
 	void sendFile(QUrl str, int index, QList<QVariant>, long, long);
+	void fixPlaylistItem(QString playlist, QString* item, bool* result);
 };
 
 class PlaylistModel: public QAbstractListModel
@@ -80,6 +81,7 @@ public:
     
 private slots:
 	void addItem(QUrl path, int row, QList<QVariant>, long, long);
+	void fixPlaylistItem(QString, QString*, bool*);
 
 private:
 	

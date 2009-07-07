@@ -25,6 +25,7 @@ HEADERS += aboutdialog.h \
            collectionview.h \
            console.h \
            cuberok.h \
+           cuecontrol.h \
            database.h \
            downloader.h \
            firststartwizard.h \
@@ -73,7 +74,8 @@ FORMS += aboutdialog.ui \
          sqledit.ui \
          browser_viewer.ui \
          importcollection.ui \
-         firststartwizard.ui
+         firststartwizard.ui \
+         cuecontrol.ui 
 TRANSLATIONS = ../translations/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
@@ -83,6 +85,7 @@ SOURCES += aboutdialog.cpp \
            collectionview.cpp \
            console.cpp \
            cuberok.cpp \
+           cuecontrol.cpp \
            database.cpp \
            downloader.cpp \
            firststartwizard.cpp \

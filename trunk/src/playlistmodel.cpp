@@ -24,6 +24,7 @@
 #include "starrating.h"
 #include "indicator.h"
 #include "console.h"
+#include "cuecontrol.h"
 
 PlaylistModel::PlaylistModel(QObject *parent) : QAbstractListModel(parent),
 _current(-1)
@@ -86,6 +87,7 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
 	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
 	if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>, long, long)), this, SLOT(addItem(QUrl, int, QList<QVariant>, long, long)), Qt::QueuedConnection))
 		Console::Self().error("connection error (addItem)");
+	connect(filler, SIGNAL(fixPlaylistItem(QString, QString*, bool*)), this, SLOT(fixPlaylistItem(QString, QString*, bool*)), Qt::BlockingQueuedConnection);
 	filler->start(QThread::IdlePriority);
 	return true;
 }
@@ -273,6 +275,10 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
 
 void PlaylistModel::appendList(QList<TagEntry> list)
 {
+	if(!list.size()) {
+		Console::Self().warning("append empty list");
+		return;
+	}
     beginInsertRows(QModelIndex(), rowCount(), rowCount()+list.size()-1);
 	foreach(TagEntry tag, list) {
     	struct sData d;
@@ -313,6 +319,16 @@ void PlaylistModel::setCurrent(int c)
 		emit dataChanged(index(_current, 0), index(_current, ColumnCount));
 }
 
+void PlaylistModel::fixPlaylistItem(QString list, QString* file, bool* result)
+{
+	CueControl cuecontrol (list, *file);
+	if(cuecontrol.exec() == QDialog::Accepted) {
+		*file = cuecontrol.newfile;
+		*result = true;
+	}
+	else *result = false;
+}
+
 /************************
  * 
  * PlaylistFiller
@@ -347,32 +363,34 @@ void PlaylistFiller::proceedUrl(QUrl url)
 	QDir dir;
 	QString path = ToLocalFile(url);
 	if(!path.size() || !dir.cd(path)) {
-			QList<TagEntry> tags = Tagger::readEntry(url);
-			foreach(TagEntry tag, tags) {
-				{
-					QString ff = ToLocalFile(tag.url);
-					if(ff.size() && !QFileInfo(ff).exists()) {
-						// file not found
-						Console::Self().error("File not found: " + ff + " Link from " + tag.url.toString());
-						continue;
-					}
+		connect(&Tagger::Self(), SIGNAL(fixPlaylistItem(QString, QString*, bool*)), this, SIGNAL(fixPlaylistItem(QString, QString*, bool*)), Qt::DirectConnection);
+		QList<TagEntry> tags = Tagger::readEntry(url);
+		Tagger::Self().disconnect(this);
+		foreach(TagEntry tag, tags) {
+			{
+				QString ff = ToLocalFile(tag.url);
+				if(ff.size() && !QFileInfo(ff).exists()) {
+					// file not found
+					Console::Self().error("File not found: " + ff + " Link from " + tag.url.toString());
+					continue;
 				}
-				QList<QVariant> l;
-				l.append(QVariant(tag.title));
-				l.append(QVariant(tag.artist));
-				l.append(QVariant(tag.album));
-				l.append(QVariant(tag.comment));
-				l.append(QVariant(tag.genre));
-				l.append(QVariant(tag.slength));
-				l.append(QVariant(tag.track));
-				l.append(QVariant(tag.year));
-				l.append(qVariantFromValue(StarRating(tag.rating)));
-				setTerminationEnabled(false);
-				emit sendFile(tag.url, index, l, tag.start, tag.length);
-				setTerminationEnabled(true);
-				index++;
-				if(!processedFiles.contains(tag.url)) processedFiles.append(tag.url);
 			}
+			QList<QVariant> l;
+			l.append(QVariant(tag.title));
+			l.append(QVariant(tag.artist));
+			l.append(QVariant(tag.album));
+			l.append(QVariant(tag.comment));
+			l.append(QVariant(tag.genre));
+			l.append(QVariant(tag.slength));
+			l.append(QVariant(tag.track));
+			l.append(QVariant(tag.year));
+			l.append(qVariantFromValue(StarRating(tag.rating)));
+			setTerminationEnabled(false);
+			emit sendFile(tag.url, index, l, tag.start, tag.length);
+			setTerminationEnabled(true);
+			index++;
+			if(!processedFiles.contains(tag.url)) processedFiles.append(tag.url);
+		}
 	} else /*if(dir.cd(path))*/ {
 		//processedFiles.clear();
 		// first round is for playlists
