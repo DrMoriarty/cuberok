@@ -71,6 +71,7 @@ bool PlayerFfmpeg::ready()
 bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 {
 	close();
+	SDL_LockAudio();
 	QString filename = ToLocalFile(fname);
 	if(!filename.size()) {
 		filename = fname.toString();
@@ -157,6 +158,7 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	}
 	bool result = !startts || av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
 	curts = startts;
+	SDL_UnlockAudio();
 
 	getNextFrame(true);
 	
@@ -204,9 +206,14 @@ bool PlayerFfmpeg::close()
 		av_close_input_file(pFormatCtx);
 		pFormatCtx = 0;
 	}
-	if(opened) SDL_CloseAudio();
+	if(opened) {
+		SDL_PauseAudio(1);
+		SDL_Delay(1000);
+		SDL_CloseAudio();
+		SDL_UnlockAudio();
+	} else
+		SDL_UnlockAudio();
 	opened = false;
-	SDL_UnlockAudio();
     return true;
 }
 
@@ -304,11 +311,11 @@ bool PlayerFfmpeg::getNextFrame(bool fFirstTime)
 				goto frame_unpacked;
 				//return true;
             // Decode the next chunk of data
-#ifdef WIN32
-			bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
-#else
+//#ifdef WIN32
+//			bytesDecoded=avcodec_decode_audio3(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, &packet);
+//#else
 			bytesDecoded=avcodec_decode_audio2(pCodecCtx, (int16_t *)audio_buf + audio_buf_ptr, &audio_buf_size, rawData, bytesRemaining);
-#endif
+//#endif
 
             // Was there an error?
             if(bytesDecoded < 0)
@@ -376,7 +383,7 @@ frame_unpacked:
 void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 {
 	int len1, audio_size;
-
+	SDL_LockAudio();
 	//static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 3) / 2];
 	static unsigned int audio_buf_size = audio_buf_ptr;
 	static unsigned int audio_buf_index = 0;
@@ -389,8 +396,12 @@ void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 			// We have already sent all our data; get more 
 			audio_buf_ptr = 0;
 			try {
-				if(!getNextFrame()) return;
+				if(!getNextFrame()) {
+					SDL_UnlockAudio();
+					return;
+				}
 			} catch (...) {
+				SDL_UnlockAudio();
 				return;
 			}
 			//audio_size = audio_decode_frame(aCodecCtx, audio_buf,	sizeof(audio_buf));
@@ -412,6 +423,7 @@ void PlayerFfmpeg::fetchData(unsigned char *stream, int len)
 		stream += len1;
 		audio_buf_index += len1;
 	}
+	SDL_UnlockAudio();
 }
 
 void PlayerFfmpeg::timeSlot()
