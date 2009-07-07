@@ -17,7 +17,7 @@
    <item>
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="geometry">
@@ -161,6 +161,16 @@
         <widget class="QCheckBox" name="checkBox_textToolbuttons">
          <property name="text">
           <string>Show text below tool buttons</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_controlCuePath">
+         <property name="toolTip">
+          <string>Check existance of CUE image</string>
+         </property>
+         <property name="text">
+          <string>Check image path in CUE sheets</string>
          </property>
         </widget>
        </item>

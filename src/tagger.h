@@ -52,12 +52,13 @@ typedef struct _TagEntry: _CueEntry {
     }
 } TagEntry;
 
-class Tagger
+class Tagger :public QObject
 {
+	Q_OBJECT
 public:
-    virtual ~Tagger() {}
+    virtual ~Tagger();
 
-    //static Tagger& self();
+    static Tagger& Self();
     static bool readTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length);
     static bool writeTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year);
     static bool updateArtist(QString file, QString artist);
@@ -80,14 +81,18 @@ public:
 
     static bool playlistDetected(QUrl);
 
+signals:
+	void fixPlaylistItem(QString list, QString* item, bool* result);
+
 private:
-    Tagger() {}
+    Tagger();
 
     static QString getWord(QString &str);
 	static QString hack1251(QString text);
 
     //static bool corrected = false;
 
+    QList<CueEntry> _readCue(QString file);
 };
 
 #endif /*TAGGER_H_*/

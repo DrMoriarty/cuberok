@@ -66,6 +66,7 @@ Q_OBJECT
 	int sizeToolbuttons;
 
 	QString collectionPath;
+	bool controlCuePath;
 
  signals:
 	void visibleChanged(int, bool);

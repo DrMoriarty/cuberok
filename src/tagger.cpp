@@ -29,20 +29,17 @@
 
 const QString XMLNS("http://code.google.com/p/cuberok");
 
-// Tagger::Tagger()
-// {
-// }
+Tagger::Tagger()
+{}
 
-// Tagger::~Tagger()
-// {
-// }
+Tagger::~Tagger()
+{}
 
-/*Tagger& Tagger::Self()
+Tagger& Tagger::Self()
 {
-	static Tagger *instance = 0;
-	if(!instance) instance = new Tagger();
-	return *instance;
-}*/
+	static Tagger instance;
+	return instance;
+}
 
 bool Tagger::readTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, QString &length)
 {
@@ -267,6 +264,11 @@ QString Tagger::correctBrokenUnicode(QString str, bool *corrected)
 
 QList<CueEntry> Tagger::readCue(QString filename)
 {
+	return Self()._readCue(filename);
+}
+
+QList<CueEntry> Tagger::_readCue(QString filename)
+{
 	QList<CueEntry> list;
 	CueEntry item;
 	QString file, artist, artist2, album, title;
@@ -299,6 +301,14 @@ QList<CueEntry> Tagger::readCue(QString filename)
 					file = getWord(line);
 					if(QFileInfo(file).isRelative()) file = path + QDir::separator() + file;
 					getWord(line); // type
+					if(PLSet.controlCuePath) {
+						if(!QFileInfo(file).exists()) {
+							bool res;
+							emit fixPlaylistItem(filename, &file, &res);
+							if(!res) return list;
+							if(QFileInfo(file).isRelative()) file = path + QDir::separator() + file;
+						}
+					}
 				}
 				else if(word == "TRACK") {
 					skip = false;
