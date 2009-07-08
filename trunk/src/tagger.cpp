@@ -456,7 +456,7 @@ TagEntry Tagger::readTags(QUrl &url)
 			tags.year = year;
 			tags.slength = length;
 		} else {
-			tags.title = QFileInfo(file).baseName();
+			tags.title = QFileInfo(file).completeBaseName();
 		}
 	} else { // can not read tags from remote source
 		tags.title = url.toString();

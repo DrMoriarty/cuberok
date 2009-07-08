@@ -265,7 +265,7 @@ void CollectionModel::updateMode(ListMode m)
 				px2 = icon;
 			drawStars(px2, attr.rating, false);
 			if(QFileInfo(attr.name).exists()) 
-				i = new QStandardItem(QIcon(px2), QFileInfo(attr.name).baseName());
+				i = new QStandardItem(QIcon(px2), QFileInfo(attr.name).completeBaseName());
 			else
 				i = new QStandardItem(QIcon(px2), attr.name);
 			i->setData(attr.name);

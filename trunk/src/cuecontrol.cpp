@@ -49,7 +49,7 @@ void CueControl::maybeSave(QAbstractButton* button)
 			}
 			newfile = ui.lineEdit->text();
 			QFileInfo cueinfo(cue);
-			QFile fin(cue), fout(cueinfo.path() + QDir::separator() + cueinfo.baseName()+"_fixed.cue");
+			QFile fin(cue), fout(cueinfo.path() + QDir::separator() + cueinfo.completeBaseName()+"_fixed.cue");
 			if(!fin.open(QFile::ReadOnly) || !fout.open(QFile::WriteOnly)) {
 				QMessageBox::critical(this, tr("Error"), tr("Unable to create file %1").arg(fout.fileName()));
 				errorDuringSave = true;

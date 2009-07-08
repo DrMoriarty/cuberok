@@ -384,7 +384,7 @@ void Info::albumInfo(QString response)
 
 void Info::lyricInfo(QString response)
 {
-	disconnect(&LyricWiki::Self(), SLOT(xmlInfo(QString)), this, SIGNAL(lyricInfo(QString)));
+	disconnect(&LyricWiki::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(lyricInfo(QString)));
 	if(w_ly) {
 		w_ly->setText(response);
 	}
@@ -486,6 +486,7 @@ void Info::infoResponse(QString info)
 
 void Info::dlComplete(QString file)
 {
+	Database::Self().AddArtist(ar);
 	QList<QString> data;
 	if(!al_pic)
 		data = Database::Self().Songs(&ar, Database::Self().AddAlbum(al, Database::Self().AddArtist(ar)), 0);

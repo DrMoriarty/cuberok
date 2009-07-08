@@ -102,7 +102,7 @@ void PlaylistContainer::prepare()
 	foreach(QString file, dir.entryList()) {
 		//int st = file.lastIndexOf('\\')+1;
 		//QString plname = file.mid(st, file.lastIndexOf('.')-st);
-		newList(QFileInfo(file).baseName());
+		newList(QFileInfo(file).completeBaseName());
 		counter ++;
 		if(file.toLower().endsWith(".m3u")) QFile::remove(file);
 	}
@@ -359,7 +359,7 @@ void PlaylistContainer::loadList()
 {
 	QString filename = QFileDialog::getOpenFileName(this, tr("Open playlist"), QDir::homePath(), "*.xspf *.m3u");
 	if(filename.size()) {
-		newList(QFileInfo(filename).baseName());
+		newList(QFileInfo(filename).completeBaseName());
 		if(filename.toLower().endsWith(".m3u"))
 			curlist->loadList(filename);
 		else if(filename.toLower().endsWith(".xspf"))
@@ -377,7 +377,7 @@ void PlaylistContainer::saveList()
 				curlist->storeListM3U(filename);
 			else if(filter == "*.xspf")
 				curlist->storeListXSPF(filename);
-			QString listname = QFileInfo(filename).baseName();
+			QString listname = QFileInfo(filename).completeBaseName();
 			curlist->setName(listname);
 			tabs->setTabText(tabs->currentIndex(), listname);
 		}
