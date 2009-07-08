@@ -120,7 +120,7 @@ void PlaylistView::storeListXSPF(QString fname)
 		xml.writeAttribute("version", "1");
 		xml.writeDefaultNamespace("http://xspf.org/ns/0/");
 		xml.writeNamespace(XMLNS, "cuberok");
-		xml.writeTextElement("title", QFileInfo(fname).baseName());
+		xml.writeTextElement("title", QFileInfo(fname).completeBaseName());
 		xml.writeTextElement("creator", "Cuberok");
 		xml.writeTextElement("date", QDateTime::currentDateTime().toUTC().toString("yyyy-MM-dd'T'hh:mm:ss"));
 		xml.writeStartElement("trackList");

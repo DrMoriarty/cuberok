@@ -574,10 +574,16 @@ QList<struct Database::Attr> Database::Artists(QString *patt)
     QList<struct Database::Attr> res;
     QSqlQuery q("", db);
     if(subset) {
-        QString com;
-        com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.mbid from Song left join Artist as A on Song.Artist=A.ID where "+ssFilter;
-        if(patt)  com += " and A.value like :pattern ";
-        com += " order by WR DESC, A.value ASC";
+        QString com = ssFilter;
+		if(!ssAlbum && !ssGenre.size()) {
+			com = "select value, refs, rating/refs as WR, art, mbid from Artist where "+com.replace("Artist", "ID");
+			if(patt)  com += " and value like :pattern ";
+			com += " order by WR DESC, value ASC";
+		} else {
+			com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.mbid from Song left join Artist as A on Song.Artist=A.ID where "+ssFilter;
+			if(patt)  com += " and A.value like :pattern ";
+			com += " order by WR DESC, A.value ASC";
+		}
         q.prepare(com);
         if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
     } else {
@@ -607,9 +613,15 @@ QList<struct Database::AttrAl> Database::Albums(QString *patt)
     QSqlQuery q("", db);
     if(subset) {
         QString com = ssFilter;
-        com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist, A.mbid from Song left join Album as A on Song.Album=A.ID where "+com.replace("Artist", "Song.Artist");
-        if(patt)  com += " and A.value like :pattern ";
-        com += " order by WR DESC, A.value ASC";
+		if(!ssGenre.size()) {
+			com = "select value, refs, rating/refs as WR, art, artist, mbid from Album where "+com.replace("Album", "ID");
+			if(patt)  com += " and value like :pattern ";
+			com += " order by WR DESC, value ASC";
+		} else {
+			com = "select distinct A.value, A.refs, A.rating/A.refs as WR, A.art, A.artist, A.mbid from Song left join Album as A on Song.Album=A.ID where "+com.replace("Artist", "Song.Artist");
+			if(patt)  com += " and A.value like :pattern ";
+			com += " order by WR DESC, A.value ASC";
+		}
         q.prepare(com);
         if(patt) q.bindValue(":pattern", QString("%")+*patt+QString("%"));
     } else {
