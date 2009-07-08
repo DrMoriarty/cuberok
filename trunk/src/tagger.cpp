@@ -719,3 +719,25 @@ bool Tagger::playlistDetected(QUrl url)
 	}
 	return false;
 }
+
+bool Tagger::garbageDetected(QUrl url)
+{
+	QFileInfo file(ToLocalFile(url));
+	if(file.fileName() == "." || file.fileName() == "..") return true;
+	QString suf = file.suffix().toLower();
+	QString base = file.completeBaseName().toLower();
+	if(file.isFile()) {
+		if(suf == "jpg" ||
+		   suf == "png" ||
+		   suf == "txt" ||
+		   suf == "doc" ||
+		   suf == "log" ||
+		   suf.startsWith("htm") ||
+		   !suf.size() ||
+		   !base.size())
+			{
+				return true;
+			}
+	}
+	return false;
+}

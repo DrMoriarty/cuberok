@@ -80,6 +80,7 @@ public:
     static void setSaveCorrected(bool);*/
 
     static bool playlistDetected(QUrl);
+	static bool garbageDetected(QUrl);
 
 signals:
 	void fixPlaylistItem(QString list, QString* item, bool* result);
