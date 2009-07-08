@@ -395,23 +395,15 @@ void PlaylistFiller::proceedUrl(QUrl url)
 		//processedFiles.clear();
 		// first round is for playlists
 		foreach(QFileInfo file, dir.entryInfoList()) if (Tagger::playlistDetected(QUrl::fromLocalFile(file.filePath()))) {
-			if(file.fileName() == "." || file.fileName() == "..") continue;
-			QString suf = file.suffix().toLower();
-			if(file.isFile()) {
-				if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
-					continue;
+			if(Tagger::garbageDetected(QUrl::fromLocalFile(file.filePath()))) {
+				continue;
 			}
 			proceedUrl(QUrl::fromLocalFile(file.filePath()));
 		}
 		// second round is for other files
 		foreach(QFileInfo file, dir.entryInfoList()) if (!Tagger::playlistDetected(QUrl::fromLocalFile(file.filePath()))) {
-			if(file.fileName() == "." || file.fileName() == "..") continue;
-			if(processedFiles.contains(QUrl::fromLocalFile(file.filePath())))
-			   continue;
-			QString suf = file.suffix().toLower();
-			if(file.isFile()) {
-				if(suf == "jpg" || suf == "png" || suf == "txt" || suf == "doc" || suf.startsWith("htm") || !suf.size())
-					continue;
+			if(Tagger::garbageDetected(QUrl::fromLocalFile(file.filePath()))) {
+				continue;
 			}
 			proceedUrl(QUrl::fromLocalFile(file.filePath()));
 		}
