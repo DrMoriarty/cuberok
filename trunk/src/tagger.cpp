@@ -280,12 +280,11 @@ QList<CueEntry> Tagger::_readCue(QString filename)
 	QFile f(filename);
 	if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		QTextStream in(&f);
+		if(PLSet.cue_codepage.size()) {
+			in.setCodec(PLSet.cue_codepage.toLocal8Bit());
+		}
 		while (!in.atEnd()) {
 			QString line = in.readLine(), word;
-			if(PLSet.cue_codepage.size()) {
-				QTextCodec *codec = QTextCodec::codecForName(PLSet.cue_codepage.toLocal8Bit());
-				line = codec->toUnicode(line.toLocal8Bit());  
-			}
 			while(line.size()) {
 				word = getWord(line);
 				if(skip && word != "TRACK") break;

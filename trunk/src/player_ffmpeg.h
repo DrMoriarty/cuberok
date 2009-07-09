@@ -67,7 +67,7 @@ class PlayerFfmpeg : public Player
 	AVCodecContext *pCodecCtx;
 	AVFrame *pFrame;
 	int audioStream;
-	static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 4)];
+	static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 5)];
 	int audio_buf_ptr;
 	QTimer *timer;
 	bool needToStop;
