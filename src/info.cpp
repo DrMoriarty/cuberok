@@ -132,7 +132,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ar = artist;
 	al = album;
 	so = song;
-	if(Database::Self().GetArtist(artist) <= 0 || Database::Self().GetAlbum(album, Database::Self().GetArtist(artist)) <= 0) {
+	if((artist.size() && Database::Self().GetArtist(artist) <= 0) || (album.size() && Database::Self().GetAlbum(album, Database::Self().GetArtist(artist)) <= 0)) {
 		ui.actionBan->setDisabled(true);
 		ui.actionRateDown->setDisabled(true);
 		ui.actionRateUp->setDisabled(true);
