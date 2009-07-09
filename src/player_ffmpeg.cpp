@@ -159,6 +159,12 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	if(byteSeek) {
 		flags |= AVSEEK_FLAG_BYTE;
 		//ts *= 3;
+		if(pFormatCtx->bit_rate)
+			ts = ts * pFormatCtx->streams[audioStream]->time_base.den * 60 / pFormatCtx->bit_rate / pFormatCtx->streams[audioStream]->time_base.num;
+		else {
+			qDebug("pFormatCtx->bit_rate is null, multiply by %f", (float)pFormatCtx->streams[audioStream]->time_base.den / 180000 / pFormatCtx->streams[audioStream]->time_base.num);
+			ts = ts * pFormatCtx->streams[audioStream]->time_base.den / 180000 / pFormatCtx->streams[audioStream]->time_base.num;
+		}
 	}
 	bool result = !startts || av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
 	curts = startts;
@@ -238,7 +244,13 @@ bool PlayerFfmpeg::setPosition(double pos)
 		if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
 		if(byteSeek) {
 			flags |= AVSEEK_FLAG_BYTE;
+			if(pFormatCtx->bit_rate)
+				ts = ts * pFormatCtx->streams[audioStream]->time_base.den * 60 / pFormatCtx->bit_rate / pFormatCtx->streams[audioStream]->time_base.num;
+			else {
+				qDebug("pFormatCtx->bit_rate is null, multiply by %f", (float)pFormatCtx->streams[audioStream]->time_base.den / 180000 / pFormatCtx->streams[audioStream]->time_base.num);
+				ts = ts * pFormatCtx->streams[audioStream]->time_base.den / 180000 / pFormatCtx->streams[audioStream]->time_base.num;
 			//ts *= 3;
+			}
 		}
 		if(curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
 		result = av_seek_frame(pFormatCtx, audioStream, ts, flags) >= 0;
@@ -383,8 +395,8 @@ frame_unpacked:
 	if(packet.pts == (int64_t)localAV_NOPTS_VALUE) {
 		curts += audio_buf_ptr / 2 / pCodecCtx->channels;
 	}
-	int64_t nopts = localAV_NOPTS_VALUE;
-	processErrorMessage(QString("curpts %1, stopts %2").arg(QString(QByteArray((const char*)&curts, sizeof(int64_t)).toHex())).arg(QString(QByteArray((const char*)&stopts, sizeof(int64_t)).toHex())));
+	//int64_t nopts = localAV_NOPTS_VALUE;
+	//processErrorMessage(QString("curpts %1, stopts %2").arg(QString(QByteArray((const char*)&curts, sizeof(int64_t)).toHex())).arg(QString(QByteArray((const char*)&stopts, sizeof(int64_t)).toHex())));
 	return audio_buf_ptr > 0;
 }
 
