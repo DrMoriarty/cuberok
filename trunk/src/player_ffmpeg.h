@@ -32,6 +32,15 @@ extern "C" {
 #endif
 }
 
+class PlayThread : public QThread
+{
+    Q_OBJECT
+public:
+	PlayThread ( QObject * parent = 0 ) :QThread(parent) {};
+	~PlayThread() {};
+    void run();
+};
+
 class PlayerFfmpeg : public Player
 {
     Q_OBJECT
@@ -56,27 +65,13 @@ class PlayerFfmpeg : public Player
 	virtual int  weight();	
 	virtual QString name();
 
-	void fetchData(unsigned char *stream, int len);
-
  private slots:
 	 void timeSlot();
 
  protected:
 	bool inited, opened;
-	AVFormatContext *pFormatCtx;
-	AVCodecContext *pCodecCtx;
-	AVFrame *pFrame;
-	int audioStream;
-	static uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 5)];
-	int audio_buf_ptr;
 	QTimer *timer;
-	bool needToStop;
-	int64_t curts, startts, stopts;
-	float curvolume;
-	bool byteSeek;
-
-	bool getNextFrame(bool fFirstFrame = false);
-	void correctVolume(uint8_t* start, uint8_t* end, float volume);
+	QThread* threadId;
 };
 
 
