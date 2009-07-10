@@ -1,4 +1,4 @@
-!define VERSION "0.0.10"
+!define VERSION "0.0.11-rc"
 
 Name "Cuberok ${VERSION}"
 
@@ -103,12 +103,20 @@ Section "Phonon plugin"
   File /oname=plugins\player_phonon.dll "win32-vs\plugins\player_phonon.dll"
 SectionEnd
 
+Section "FFmpeg plugin"
+  CreateDirectory $INSTDIR\plugins
+  File /oname=plugins\player_ffmpeg.dll "win32\plugins\player_ffmpeg.dll"
+  File "win32\avcodec-52.dll"
+  File "win32\avformat-52.dll"
+  File "win32\avutil-50.dll"
+SectionEnd
+
 Section "Desktop Shortcut"
   CreateShortCut "$DESKTOP\Cuberok.lnk" "$INSTDIR\Cuberok.exe" "" "$INSTDIR\Cuberok.exe" 0
 SectionEnd
 
 Section /o "Sources"
-  File "..\cuberok-${VERSION}.tar.gz"
+  File /nonfatal "..\cuberok-${VERSION}.tar.gz"
 SectionEnd
 
 Section "Uninstall"

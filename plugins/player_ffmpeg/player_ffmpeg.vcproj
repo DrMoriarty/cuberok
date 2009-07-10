@@ -76,7 +76,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/LIBPATH:c:\Qt\4.5.0-vs\lib /out:..\..\win32-vs\plugins\player_ffmpeg.dll /implib:..\..\win32-vs\plug /implib:..\..\win32-vs\plugins\player_ffmpeg.lib "
-				AdditionalDependencies="../../SDL-1.2.13/lib/SDL.lib ../../ffmpeg/lib/avutil-49.lib ../../ffmpeg/lib/avformat-52.lib ../../ffmpeg/lib/avcodec-52.lib c:\Qt\4.5.0-vs\lib\QtGui4.lib c:\Qt\4.5.0-vs\lib\QtCore4.lib"
+				AdditionalDependencies="../../SDL-1.2.13/lib/SDL.lib ../../ffmpeg/lib/avutil.lib ../../ffmpeg/lib/avformat.lib ../../ffmpeg/lib/avcodec.lib c:\Qt\4.5.0-vs\lib\QtGui4.lib c:\Qt\4.5.0-vs\lib\QtCore4.lib"
 				OutputFile=".\..\..\win32-vs\plugins/player_ffmpeg.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
