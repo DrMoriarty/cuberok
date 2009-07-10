@@ -402,6 +402,8 @@ void PlaylistFiller::proceedUrl(QUrl url)
 		}
 		// second round is for other files
 		foreach(QFileInfo file, dir.entryInfoList()) if (!Tagger::playlistDetected(QUrl::fromLocalFile(file.filePath()))) {
+			if(processedFiles.contains(QUrl::fromLocalFile(file.filePath())))
+				continue;
 			if(Tagger::garbageDetected(QUrl::fromLocalFile(file.filePath()))) {
 				continue;
 			}
