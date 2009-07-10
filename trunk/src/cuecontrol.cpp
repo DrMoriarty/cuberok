@@ -60,8 +60,8 @@ void CueControl::maybeSave(QAbstractButton* button)
 			do {
 				line = sin.readLine();
 				if(line.startsWith("FILE")) {
-					QStringList l = line.split(' ', QString::SkipEmptyParts);
-					sout << "FILE \"" << newfile << "\" " << l.last();
+					//QStringList l = line.split(' ', QString::SkipEmptyParts);
+					sout << "FILE \"" << newfile << "\" WAVE";// << l.last();
 				} else {
 					sout << line;
 				}
