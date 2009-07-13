@@ -109,6 +109,7 @@ Section "FFmpeg plugin"
   File "win32\avcodec-52.dll"
   File "win32\avformat-52.dll"
   File "win32\avutil-50.dll"
+  File "win32\SDL.dll"
 SectionEnd
 
 Section "Desktop Shortcut"
@@ -135,6 +136,7 @@ Section "Uninstall"
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\Cuberok\*.*"
+  Delete "$DESKTOP\Cuberok.lnk"
 
   ; Remove directories used
   RMDir "$SMPROGRAMS\Cuberok"

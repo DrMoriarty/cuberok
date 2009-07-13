@@ -33,11 +33,11 @@ Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
 {
 	QUrl url("file:///home/vasya/music/song\\123.mp3");
-	Console::Self().log(url.toString());
-	Console::Self().log(url.toLocalFile());
-	Console::Self().log(ToLocalFile(url));
+	//Console::Self().log(url.toString());
+	//Console::Self().log(url.toLocalFile());
+	//Console::Self().log(ToLocalFile(url));
 	// FIX_QT_PLEASE
-	Console::Self().log(QUrl::fromLocalFile("/home/vasya/music/song\\123.mp3").toString());
+	//Console::Self().log(QUrl::fromLocalFile("/home/vasya/music/song\\123.mp3").toString());
 #ifdef QTAGCONVERT
 	qtag = 0;
 #endif
