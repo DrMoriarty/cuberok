@@ -46,11 +46,17 @@ Section "Cuberok"
   File "win32-vs\tag.dll"
   File "win32-vs\msvcp71.dll"
   File "win32-vs\msvcr71.dll"
-  File "win32-vs\msvcp80.dll"
-  File "win32-vs\msvcr80.dll"
-  File "win32-vs\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.762_x-ww_6b128700.manifest"
+;  File "win32-vs\msvcp80.dll"
+;  File "win32-vs\msvcr80.dll"
+;  File "win32-vs\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.762_x-ww_6b128700.manifest"
   File "license.txt"
   
+  CreateDirectory $INSTDIR\Microsoft.VC80.CRT
+  File /oname=Microsoft.VC80.CRT\msvcp80.dll "win32-vs\Microsoft.VC80.CRT\msvcp80.dll"
+  File /oname=Microsoft.VC80.CRT\msvcr80.dll "win32-vs\Microsoft.VC80.CRT\msvcr80.dll"
+  File /oname=Microsoft.VC80.CRT\msvcm80.dll "win32-vs\Microsoft.VC80.CRT\msvcm80.dll"
+  File /oname=Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest "win32-vs\Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest"
+
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\Cuberok "Install_Dir" "$INSTDIR"
   
@@ -133,6 +139,7 @@ Section "Uninstall"
   Delete "$INSTDIR\imageformats\*.*"
   Delete "$INSTDIR\translations\*.*"
   Delete "$INSTDIR\phonon_backend\*.*"
+  Delete "$INSTDIR\Microsoft.VC80.CRT\*.*"
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\Cuberok\*.*"
@@ -145,6 +152,7 @@ Section "Uninstall"
   RMDir "$INSTDIR\sqldrivers"
   RMDir "$INSTDIR\imageformats"
   RMDir "$INSTDIR\phonon_backend"
+  RMDir "$INSTDIR\Microsoft.VC80.CRT"
   RMDir "$INSTDIR"
 SectionEnd
 

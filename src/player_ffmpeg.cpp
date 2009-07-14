@@ -30,6 +30,7 @@
 #include <SDL.h>
 #include <SDL_audio.h>
 #define SDL_AUDIO_BUFFER_SIZE 1024
+#define QUEUESIZE 1
 
 Q_EXPORT_PLUGIN2(player_ffmpeg, PlayerFfmpeg) 
 
@@ -59,7 +60,7 @@ struct _ffmpeg{
 	AVCodecContext *pCodecCtx;
 	AVFrame *pFrame;
 	int audioStream;
-	uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 5)];
+	uint8_t audio_buf[(AVCODEC_MAX_AUDIO_FRAME_SIZE * 4)];
 	int audio_buf_ptr;
 	bool needToStop;
 	int64_t curts, startts, stopts;
@@ -71,6 +72,7 @@ struct _ffmpeg{
 	float seekTo;
 	SampleFormat audio_src_format;
 	ReSampleContext* resampleCtx;
+	QQueue<AVPacket> packetQueue;
 } ffmpeg;
 
 
@@ -159,24 +161,18 @@ bool getNextFrame(bool fFirstTime)
 			}
         }
 
-        // Read the next packet, skipping all packets that aren't for this
-        // stream
-        do
-        {
-            // Free old packet
-            if(packet.data!=NULL)
-                av_free_packet(&packet);
+		// Free old packet
+		if(packet.data!=NULL)
+			av_free_packet(&packet);
 
-            // Read new packet
-            if(av_read_frame(ffmpeg.pFormatCtx, &packet)<0) {
-				if(packet.data!=NULL)
-					av_free_packet(&packet);
-				SDL_PauseAudio(1);
-				ffmpeg.needToStop = true;
-				return false;
-			}
-        } while(packet.stream_index!= ffmpeg.audioStream);
-
+		// Read new packet
+		if(ffmpeg.packetQueue.size()) {
+			packet = ffmpeg.packetQueue.dequeue();
+		} else {
+			//SDL_PauseAudio(1);
+			//ffmpeg.needToStop = true;
+			return false;
+		}
 		if(packet.pts != (int64_t)localAV_NOPTS_VALUE)
 			ffmpeg.curts = packet.pts;
 		if(ffmpeg.stopts > 0 && ffmpeg.curts >= ffmpeg.stopts) {
@@ -208,6 +204,7 @@ void fetchData(unsigned char *stream, int len)
 			ffmpeg.audio_buf_ptr = 0;
 			try {
 				if(!getNextFrame()) {
+					memset(stream, 0, len);
 					return;
 				}
 			} catch (...) {
@@ -215,8 +212,8 @@ void fetchData(unsigned char *stream, int len)
 			}
 			if(ffmpeg.audio_buf_ptr < 0) {
 				// If error, output silence 
-				audio_buf_size = 1024;
-				memset(ffmpeg.audio_buf, 0, audio_buf_size);
+				memset(stream, 0, len);
+				return;
 			} else {
 				audio_buf_size = ffmpeg.audio_buf_ptr;
 			}
@@ -281,8 +278,29 @@ void PlayThread::run()
 			if(ffmpeg.curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
 			bool result = av_seek_frame(ffmpeg.pFormatCtx, ffmpeg.audioStream, ts, flags) >= 0;
 			ffmpeg.seekTo = .0f;
+			ffmpeg.packetQueue.clear();
 		}
-		SDL_Delay(100);
+        // Read the next packet, skipping all packets that aren't for this
+        // stream
+		bool eofstream = false;
+		while (ffmpeg.packetQueue.size() < QUEUESIZE && !eofstream) {
+			AVPacket packet;
+			av_init_packet(&packet);
+			do {
+				// Free old packet
+				if(packet.data!=NULL)
+					av_free_packet(&packet);
+				// Read new packet
+				if(av_read_frame(ffmpeg.pFormatCtx, &packet)<0) {
+					if(packet.data!=NULL)
+						av_free_packet(&packet);
+					eofstream = true;
+				}
+			} while(packet.stream_index!= ffmpeg.audioStream && !eofstream);
+			if(!eofstream) ffmpeg.packetQueue.enqueue(packet);
+		}
+		if(eofstream) ffmpeg.needToStop = true;
+		//SDL_Delay(100);
 	}
 	SDL_LockAudio();
 	SDL_PauseAudio(1);
