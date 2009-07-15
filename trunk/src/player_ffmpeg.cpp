@@ -73,6 +73,9 @@ struct _ffmpeg{
 	SampleFormat audio_src_format;
 	ReSampleContext* resampleCtx;
 	QQueue<AVPacket> packetQueue;
+    AVPacket packet;
+    int      bytesRemaining;
+	bool eofstream;
 } ffmpeg;
 
 
@@ -102,27 +105,24 @@ void freePacket(AVPacket &packet)
 
 bool getNextFrame(bool fFirstTime)
 {
-    static AVPacket packet;
-    static int      bytesRemaining=0;
     static uint8_t  *rawData;
     int             bytesDecoded;
 	int             audio_buf_size = sizeof(ffmpeg.audio_buf) - ffmpeg.audio_buf_ptr;
 
     if(fFirstTime) {
 		//av_init_packet(&packet);
-		freePacket(packet);
-		bytesRemaining = 0;
+		freePacket(ffmpeg.packet);
+		ffmpeg.bytesRemaining = 0;
 		rawData = 0;
     }
 
     // Decode packets until we have decoded a complete frame
-    while(1)
-    {
+    while(1) {
 		audio_buf_size = sizeof(ffmpeg.audio_buf) - ffmpeg.audio_buf_ptr;
-		if(bytesRemaining > audio_buf_size) bytesRemaining = audio_buf_size;
+		if(ffmpeg.bytesRemaining > audio_buf_size) ffmpeg.bytesRemaining = audio_buf_size;
 		
         // Work on the current packet until we have decoded all of it
-        while(bytesRemaining > 0)
+        while(ffmpeg.bytesRemaining > 0)
         {
 			audio_buf_size = sizeof(ffmpeg.audio_buf) - ffmpeg.audio_buf_ptr;
 			if(audio_buf_size < AVCODEC_MAX_AUDIO_FRAME_SIZE && ffmpeg.audio_buf_ptr > 0) 
@@ -130,19 +130,19 @@ bool getNextFrame(bool fFirstTime)
 //#ifdef WIN32
 //			bytesDecoded=avcodec_decode_audio3(ffmpeg.pCodecCtx, (int16_t *)ffmpeg.audio_buf + ffmpeg.audio_buf_ptr, &audio_buf_size, &packet);
 //#else
-			bytesDecoded=avcodec_decode_audio2(ffmpeg.pCodecCtx, (int16_t *)ffmpeg.audio_buf + ffmpeg.audio_buf_ptr, &audio_buf_size, rawData, bytesRemaining);
+			bytesDecoded=avcodec_decode_audio2(ffmpeg.pCodecCtx, (int16_t *)ffmpeg.audio_buf + ffmpeg.audio_buf_ptr, &audio_buf_size, rawData, ffmpeg.bytesRemaining);
 //#endif
             if(bytesDecoded < 0)
             {
 				bytesDecoded = 0;
 				audio_buf_size = 0;
-				bytesRemaining = 0;
+				ffmpeg.bytesRemaining = 0;
 				goto frame_unpacked;
             }
 			ffmpeg.audio_buf_ptr += audio_buf_size;
 			//audio_buf_size -= bytesDecoded;
 
-            bytesRemaining-=bytesDecoded;
+            ffmpeg.bytesRemaining-=bytesDecoded;
             rawData+=bytesDecoded;
 
 			if(ffmpeg.audio_src_format != ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->codec->sample_fmt) {
@@ -164,44 +164,45 @@ bool getNextFrame(bool fFirstTime)
 				ffmpeg.audio_src_format = ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->codec->sample_fmt;
 			}
             // Did we finish the current frame? Then we can return
-			if(bytesRemaining <= 0 && ffmpeg.audio_buf_ptr > 0) {
+			if(ffmpeg.bytesRemaining <= 0 && ffmpeg.audio_buf_ptr > 0) {
 				//av_free_packet(&packet);
-				freePacket(packet);
+				freePacket(ffmpeg.packet);
 				goto frame_unpacked;
 			}
         }
 
 		// Free old packet
-		if(packet.data!=NULL) {
+		if(ffmpeg.packet.data!=NULL) {
 			//av_free_packet(&packet);
-			freePacket(packet);
+			freePacket(ffmpeg.packet);
 		}
 
 		// Read new packet
 		if(ffmpeg.packetQueue.size()) {
-			packet = ffmpeg.packetQueue.dequeue();
+			ffmpeg.packet = ffmpeg.packetQueue.dequeue();
 		} else {
 			//SDL_PauseAudio(1);
-			//ffmpeg.needToStop = true;
+			if(ffmpeg.eofstream) ffmpeg.needToStop = true;
 			return false;
 		}
-		if(packet.pts != (int64_t)localAV_NOPTS_VALUE)
-			ffmpeg.curts = packet.pts;
+		if(ffmpeg.packet.pts != (int64_t)localAV_NOPTS_VALUE) {
+			ffmpeg.curts = ffmpeg.packet.pts;
+		}
 		if(ffmpeg.stopts > 0 && ffmpeg.curts >= ffmpeg.stopts) {
 			//if(packet.data!=NULL)
 			//	av_free_packet(&packet);
-			freePacket(packet);
+			freePacket(ffmpeg.packet);
 			SDL_PauseAudio(1);
 			ffmpeg.needToStop = true;
 			return false;
 		}
-        bytesRemaining=packet.size;
-        rawData=packet.data;
+        ffmpeg.bytesRemaining=ffmpeg.packet.size;
+        rawData=ffmpeg.packet.data;
     }
 frame_unpacked:
-	if(packet.pts == (int64_t)localAV_NOPTS_VALUE) {
+	if(ffmpeg.packet.pts == (int64_t)localAV_NOPTS_VALUE) {
 		ffmpeg.curts += ffmpeg.audio_buf_ptr / 2 / ffmpeg.pCodecCtx->channels;
-	}
+	} 
 	return ffmpeg.audio_buf_ptr > 0;
 }
 
@@ -257,6 +258,8 @@ void PlayThread::run()
 {
 	SDL_AudioSpec spec;
 	ffmpeg.audio_src_format = SAMPLE_FMT_S16;
+	ffmpeg.eofstream = false;
+	ffmpeg.packetQueue.clear();
 	if(SDL_OpenAudio(&ffmpeg.sdl_spec, &spec) < 0) {
 		ffmpeg.error = QString("SDL_OpenAudio: ")+ SDL_GetError();
 		return;
@@ -295,8 +298,7 @@ void PlayThread::run()
 		}
         // Read the next packet, skipping all packets that aren't for this
         // stream
-		bool eofstream = false;
-		while (ffmpeg.packetQueue.size() < QUEUESIZE && !eofstream) {
+		while (ffmpeg.packetQueue.size() < QUEUESIZE && !ffmpeg.eofstream) {
 			AVPacket packet;
 			av_init_packet(&packet);
 			do {
@@ -307,10 +309,10 @@ void PlayThread::run()
 				if(av_read_frame(ffmpeg.pFormatCtx, &packet)<0) {
 					if(packet.data!=NULL)
 						av_free_packet(&packet);
-					eofstream = true;
+					ffmpeg.eofstream = true;
 				}
-			} while(packet.stream_index!= ffmpeg.audioStream && !eofstream);
-			if(!eofstream) {
+			} while(packet.stream_index!= ffmpeg.audioStream && !ffmpeg.eofstream);
+			if(!ffmpeg.eofstream) {
 				AVPacket p2;
 				av_init_packet(&p2);
 				p2.size = packet.size;
@@ -321,7 +323,7 @@ void PlayThread::run()
 			}
 			av_free_packet(&packet);
 		}
-		if(eofstream) ffmpeg.needToStop = true;
+		//if(ffmpeg.eofstream) ffmpeg.needToStop = true;
 		SDL_Delay(100);
 	}
 	SDL_LockAudio();
@@ -576,8 +578,9 @@ void PlayerFfmpeg::timeSlot()
 	
 	if(ffmpeg.needToStop && threadId && threadId->isFinished()) {
 		//stop();
+		//ffmpeg.needToStop = false;
+		close();
 		emit finish();
-		ffmpeg.needToStop = false;
 	}
 	if(opened) {
 		if(SDL_GetAudioStatus() == SDL_AUDIO_PLAYING) {

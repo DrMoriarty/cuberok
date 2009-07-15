@@ -41,6 +41,9 @@
 
 #include <QtCore>
 
+extern QSharedMemory shm;
+#define SHMEM_SIZE 1024
+
 static QString CUBEROK_VERSION = QString("%1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
 
 //#define TRAYICONARTIFACKTWORKAROUND

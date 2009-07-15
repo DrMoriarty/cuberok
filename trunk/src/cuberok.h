@@ -53,6 +53,7 @@ private:
 #ifdef QTAGCONVERT
 	mp3Dialog *qtag;
 #endif
+	QTimer *timer;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);
@@ -72,6 +73,7 @@ private slots:
 #endif
 	void storeState();
  	void setPlayPauseIcon  (bool);
+	void timeSlot();
 
 public slots:
 	void lookAndFeel();

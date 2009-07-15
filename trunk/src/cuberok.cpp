@@ -41,6 +41,10 @@ Cuberok::Cuberok(QWidget *parent)
 #ifdef QTAGCONVERT
 	qtag = 0;
 #endif
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(timeSlot()));
+	timer->start(100);
+	
 	QSettings set;
 
 	QString engine = set.value("engine", "").toString();
@@ -518,4 +522,48 @@ void Cuberok::selectBookmark(QListWidgetItem* it)
 void Cuberok::selectBookmark(QString str)
 {
 	selectBookmark(ui.list_bookmarks->currentItem());
+}
+
+void Cuberok::timeSlot()
+{
+	shm.lock();
+	char *data = (char*)shm.data();
+	QStringList list;
+	if(data[0]) {
+		QByteArray bytes(data+1, SHMEM_SIZE-1);
+		QDataStream stream(bytes);
+		stream >> list;
+		data[0] = 0;
+	}
+	shm.unlock();
+	foreach(QString str, list) {
+		Console::Self().log(QString("Remote command: %1").arg(str));
+		if(!str.size()) {
+			ui.listView->addList();
+			continue;
+		}
+		if(str[0] == '#') {
+			// commands
+			QStringList arg = str.split(' ', QString::SkipEmptyParts);
+			if(arg[0] == "#volume") {
+				if(arg.size() > 1) {
+					int v = arg[1].toInt();
+					ui.volumeSlider->setValue(v);
+				}
+			} else if(arg[0] == "#prev") {
+				ui.actionPrev->trigger();
+			} else if(arg[0] == "#next") {
+				ui.actionNext->trigger();
+			} else if(arg[0] == "#play") {
+				ui.actionPlayPause->trigger();
+			} else if(arg[0] == "#stop") {
+				ui.actionStop->trigger();
+			}
+			continue;
+		}
+		QUrl url = QUrl(str);
+ 		if(url.isValid()) {
+			ui.listView->addUrl(url);
+		}
+	}
 }
