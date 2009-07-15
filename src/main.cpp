@@ -152,7 +152,7 @@ void putCommands(int argc, char *argv[])
 		if(url) {
 			list << argv[i];
 			url = false;
-		} if(volume) {
+		} else if(volume) {
 			list << QString("#volume %1").arg(argv[i]);
 			volume = false;
 		} else {
