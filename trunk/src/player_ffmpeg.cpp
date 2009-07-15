@@ -30,7 +30,7 @@
 #include <SDL.h>
 #include <SDL_audio.h>
 #define SDL_AUDIO_BUFFER_SIZE 1024
-#define QUEUESIZE 1
+#define QUEUESIZE 16
 
 Q_EXPORT_PLUGIN2(player_ffmpeg, PlayerFfmpeg) 
 
@@ -92,6 +92,14 @@ void correctVolume(uint8_t* start, uint8_t *end, float volume)
 	}
 }
 
+void freePacket(AVPacket &packet)
+{
+	if(packet.data) free(packet.data);
+	packet.data = 0;
+	packet.size = 0;
+	packet.pts = (int64_t)localAV_NOPTS_VALUE;
+}
+
 bool getNextFrame(bool fFirstTime)
 {
     static AVPacket packet;
@@ -101,7 +109,8 @@ bool getNextFrame(bool fFirstTime)
 	int             audio_buf_size = sizeof(ffmpeg.audio_buf) - ffmpeg.audio_buf_ptr;
 
     if(fFirstTime) {
-		av_init_packet(&packet);
+		//av_init_packet(&packet);
+		freePacket(packet);
 		bytesRemaining = 0;
 		rawData = 0;
     }
@@ -156,14 +165,17 @@ bool getNextFrame(bool fFirstTime)
 			}
             // Did we finish the current frame? Then we can return
 			if(bytesRemaining <= 0 && ffmpeg.audio_buf_ptr > 0) {
-				av_free_packet(&packet);
+				//av_free_packet(&packet);
+				freePacket(packet);
 				goto frame_unpacked;
 			}
         }
 
 		// Free old packet
-		if(packet.data!=NULL)
-			av_free_packet(&packet);
+		if(packet.data!=NULL) {
+			//av_free_packet(&packet);
+			freePacket(packet);
+		}
 
 		// Read new packet
 		if(ffmpeg.packetQueue.size()) {
@@ -176,8 +188,9 @@ bool getNextFrame(bool fFirstTime)
 		if(packet.pts != (int64_t)localAV_NOPTS_VALUE)
 			ffmpeg.curts = packet.pts;
 		if(ffmpeg.stopts > 0 && ffmpeg.curts >= ffmpeg.stopts) {
-			if(packet.data!=NULL)
-				av_free_packet(&packet);
+			//if(packet.data!=NULL)
+			//	av_free_packet(&packet);
+			freePacket(packet);
 			SDL_PauseAudio(1);
 			ffmpeg.needToStop = true;
 			return false;
@@ -297,10 +310,19 @@ void PlayThread::run()
 					eofstream = true;
 				}
 			} while(packet.stream_index!= ffmpeg.audioStream && !eofstream);
-			if(!eofstream) ffmpeg.packetQueue.enqueue(packet);
+			if(!eofstream) {
+				AVPacket p2;
+				av_init_packet(&p2);
+				p2.size = packet.size;
+				p2.pts = packet.pts;
+				p2.data = (uint8_t*)malloc(p2.size);
+				memcpy(p2.data, packet.data, p2.size);
+				ffmpeg.packetQueue.enqueue(p2);
+			}
+			av_free_packet(&packet);
 		}
 		if(eofstream) ffmpeg.needToStop = true;
-		//SDL_Delay(100);
+		SDL_Delay(100);
 	}
 	SDL_LockAudio();
 	SDL_PauseAudio(1);
