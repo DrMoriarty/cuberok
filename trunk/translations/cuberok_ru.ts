@@ -37,7 +37,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Copyright (C) 2008-2009 &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Vasiliy Makarov&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;a href=&quot;mailto:drmoriarty.0@gmail.com&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;drmoriarty.0@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://code.google.com/p/cuberok/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://code.google.com/p/cuberok/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://sites.google.com/site/cuberok/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://sites.google.com/site/cuberok/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -316,7 +316,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Cuberok</name>
     <message>
-        <location filename="../src/cuberok.cpp" line="77"/>
+        <location filename="../src/cuberok.cpp" line="81"/>
         <source>Addons</source>
         <translation type="unfinished">Дополнения</translation>
     </message>
@@ -324,77 +324,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CuberokClass</name>
     <message>
-        <location filename="../src/cuberok.ui" line="671"/>
+        <location filename="../src/cuberok.ui" line="707"/>
         <source>About</source>
         <translation type="unfinished">О Программе</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="674"/>
+        <location filename="../src/cuberok.ui" line="710"/>
         <source>About dialog</source>
         <translation type="unfinished">Информация о программе</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1091"/>
+        <location filename="../src/cuberok.ui" line="1139"/>
         <source>Add Item</source>
         <translation type="unfinished">Добавить элемент</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1037"/>
+        <location filename="../src/cuberok.ui" line="1085"/>
         <source>Album</source>
         <translation type="unfinished">Альбом</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1022"/>
+        <location filename="../src/cuberok.ui" line="1070"/>
         <source>Artist</source>
         <translation type="unfinished">Исполнитель</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="695"/>
+        <location filename="../src/cuberok.ui" line="731"/>
         <source>Break</source>
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="824"/>
+        <location filename="../src/cuberok.ui" line="863"/>
         <source>Clear</source>
         <translation type="unfinished">Очистить</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="827"/>
+        <location filename="../src/cuberok.ui" line="866"/>
         <source>Clear playlist</source>
         <translation type="unfinished">Очистить список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="980"/>
+        <location filename="../src/cuberok.ui" line="1025"/>
         <source>Close playlist</source>
         <translation type="unfinished">Закрыть список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="812"/>
+        <location filename="../src/cuberok.ui" line="848"/>
         <source>Close the program</source>
         <translation type="unfinished">Закрыть программу</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="593"/>
+        <location filename="../src/cuberok.ui" line="629"/>
         <source>Collection</source>
         <translation type="unfinished">Коллекция</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="533"/>
+        <location filename="../src/cuberok.ui" line="569"/>
         <source>Columns</source>
         <translation type="unfinished">Столбцы</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="930"/>
+        <location filename="../src/cuberok.ui" line="972"/>
         <source>Comment</source>
         <translation type="unfinished">Комментарий</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="504"/>
+        <location filename="../src/cuberok.ui" line="540"/>
         <source>Control</source>
         <translation type="unfinished">Управление</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="956"/>
+        <location filename="../src/cuberok.ui" line="998"/>
         <source>Edit Tag</source>
         <translation type="unfinished">Редактировать теги</translation>
     </message>
@@ -404,12 +404,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Введите строку поиска</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="809"/>
+        <location filename="../src/cuberok.ui" line="845"/>
         <source>Exit</source>
         <translation type="unfinished">Выход</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="853"/>
+        <location filename="../src/cuberok.ui" line="895"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
@@ -419,42 +419,42 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Файлы</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1052"/>
+        <location filename="../src/cuberok.ui" line="1100"/>
         <source>Genre</source>
         <translation type="unfinished">Жанр</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="491"/>
+        <location filename="../src/cuberok.ui" line="527"/>
         <source>Help</source>
         <translation type="unfinished">Помощь</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="941"/>
+        <location filename="../src/cuberok.ui" line="983"/>
         <source>Length</source>
         <translation type="unfinished">Длительность</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="580"/>
+        <location filename="../src/cuberok.ui" line="616"/>
         <source>List</source>
         <translation type="unfinished">Список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1010"/>
+        <location filename="../src/cuberok.ui" line="1058"/>
         <source>Look and Feel</source>
         <translation type="unfinished">Внешний вид</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="968"/>
+        <location filename="../src/cuberok.ui" line="1010"/>
         <source>New playlist</source>
         <translation type="unfinished">Новый список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="734"/>
+        <location filename="../src/cuberok.ui" line="770"/>
         <source>Next</source>
         <translation type="unfinished">Следующий</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="740"/>
+        <location filename="../src/cuberok.ui" line="776"/>
         <source>Next track</source>
         <translation type="unfinished">Следующий трек</translation>
     </message>
@@ -464,77 +464,77 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Пауза</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="758"/>
+        <location filename="../src/cuberok.ui" line="794"/>
         <source>Play</source>
         <translation type="unfinished">Играть</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="764"/>
+        <location filename="../src/cuberok.ui" line="800"/>
         <source>Play track</source>
         <translation type="unfinished">Играть трек</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="710"/>
+        <location filename="../src/cuberok.ui" line="746"/>
         <source>Previous</source>
         <translation type="unfinished">Предыдущий</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="716"/>
+        <location filename="../src/cuberok.ui" line="752"/>
         <source>Previous track</source>
         <translation type="unfinished">Предыдущий трек</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="836"/>
+        <location filename="../src/cuberok.ui" line="878"/>
         <source>Queue as Next</source>
         <translation type="unfinished">Поставить в очередь</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1115"/>
+        <location filename="../src/cuberok.ui" line="1163"/>
         <source>Remove Item</source>
         <translation type="unfinished">Удалить элемент</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="992"/>
+        <location filename="../src/cuberok.ui" line="1040"/>
         <source>Remove song</source>
         <translation type="unfinished">Удалить песню</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="797"/>
+        <location filename="../src/cuberok.ui" line="833"/>
         <source>Repeat</source>
         <translation type="unfinished">Повторять</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="800"/>
+        <location filename="../src/cuberok.ui" line="836"/>
         <source>Repeat mode</source>
         <translation type="unfinished">Режим повтора</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="782"/>
+        <location filename="../src/cuberok.ui" line="818"/>
         <source>Shuffle</source>
         <translation type="unfinished">Тасовать</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="785"/>
+        <location filename="../src/cuberok.ui" line="821"/>
         <source>Shuffle mode</source>
         <translation type="unfinished">Режим перетасовки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1067"/>
+        <location filename="../src/cuberok.ui" line="1115"/>
         <source>Song</source>
         <translation type="unfinished">Песня</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1133"/>
+        <location filename="../src/cuberok.ui" line="1181"/>
         <source>Stop</source>
         <translation type="unfinished">Стоп</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="953"/>
+        <location filename="../src/cuberok.ui" line="995"/>
         <source>Tag</source>
         <translation type="unfinished">Теги</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="875"/>
+        <location filename="../src/cuberok.ui" line="917"/>
         <source>Title</source>
         <translation type="unfinished">Название</translation>
     </message>
@@ -544,42 +544,42 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Инструменты</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="864"/>
+        <location filename="../src/cuberok.ui" line="906"/>
         <source>Track</source>
         <translation type="unfinished">Трек</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="523"/>
+        <location filename="../src/cuberok.ui" line="559"/>
         <source>View</source>
         <translation type="unfinished">Вид</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="919"/>
+        <location filename="../src/cuberok.ui" line="961"/>
         <source>Year</source>
         <translation type="unfinished">Год</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1148"/>
+        <location filename="../src/cuberok.ui" line="1196"/>
         <source>Save playlist</source>
         <translation type="unfinished">Записать список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1154"/>
+        <location filename="../src/cuberok.ui" line="1202"/>
         <source>Save playlist into file</source>
         <translation type="unfinished">Записать список в файл</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1163"/>
+        <location filename="../src/cuberok.ui" line="1214"/>
         <source>Open playlist</source>
         <translation type="unfinished">Открыть список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1169"/>
+        <location filename="../src/cuberok.ui" line="1220"/>
         <source>Load playlist from a file</source>
         <translation type="unfinished">Загрузить список из файла</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1190"/>
+        <location filename="../src/cuberok.ui" line="1244"/>
         <source>Reload tags</source>
         <translation type="unfinished">Перечитать теги</translation>
     </message>
@@ -589,7 +589,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Снять фильтр</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1204"/>
+        <location filename="../src/cuberok.ui" line="1258"/>
         <source>Rating</source>
         <translation type="unfinished">Рейтинг</translation>
     </message>
@@ -599,87 +599,87 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Перетащите файлы в коллекцию</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1216"/>
+        <location filename="../src/cuberok.ui" line="1270"/>
         <source>Preferences</source>
         <translation type="unfinished">Параметры</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1237"/>
+        <location filename="../src/cuberok.ui" line="1294"/>
         <source>Set Image</source>
         <translation type="unfinished">Установить изображение</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1252"/>
+        <location filename="../src/cuberok.ui" line="1309"/>
         <source>Icon View</source>
         <translation type="unfinished">Значки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="383"/>
+        <location filename="../src/cuberok.ui" line="419"/>
         <source>Library</source>
         <translation type="unfinished">Библиотека</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="411"/>
+        <location filename="../src/cuberok.ui" line="447"/>
         <source>Drag&apos;n&apos;Drop playlists to the library</source>
         <translation type="unfinished">Перетащите списки проигрывания в библиотеку</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1267"/>
+        <location filename="../src/cuberok.ui" line="1324"/>
         <source>Open Url</source>
         <translation type="unfinished">Открыть URL</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="436"/>
+        <location filename="../src/cuberok.ui" line="472"/>
         <source>Information</source>
         <translation type="unfinished">Информация</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1181"/>
+        <location filename="../src/cuberok.ui" line="1235"/>
         <source>About Qt</source>
         <translation type="unfinished">О Qt</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1282"/>
+        <location filename="../src/cuberok.ui" line="1342"/>
         <source>Load image from Last.FM</source>
         <translation type="unfinished">Загрузить изображение с Last.FM</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1291"/>
+        <location filename="../src/cuberok.ui" line="1351"/>
         <source>Messages</source>
         <translation type="unfinished">Сообщения</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1306"/>
+        <location filename="../src/cuberok.ui" line="1366"/>
         <source>View SQL Playlists</source>
         <translation type="unfinished">SQL Списки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1321"/>
+        <location filename="../src/cuberok.ui" line="1381"/>
         <source>View Regular Playlists</source>
         <translation type="unfinished">Обычные списки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1336"/>
+        <location filename="../src/cuberok.ui" line="1396"/>
         <source>Edit SQL Playist</source>
         <translation type="unfinished">Редактировать SQL список</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1351"/>
+        <location filename="../src/cuberok.ui" line="1411"/>
         <source>Edit tags with QTagConvert</source>
         <translation type="unfinished">Редактирование тегов в QTagConvert</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1363"/>
+        <location filename="../src/cuberok.ui" line="1423"/>
         <source>Refresh Tree</source>
         <translation type="unfinished">Обновить дерево каталогов</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1381"/>
+        <location filename="../src/cuberok.ui" line="1441"/>
         <source>Mute</source>
         <translation type="unfinished">Выкл. звук</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1392"/>
+        <location filename="../src/cuberok.ui" line="1455"/>
         <source>Number</source>
         <translation type="unfinished">Номер</translation>
     </message>
@@ -699,142 +699,142 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Текущая</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="698"/>
+        <location filename="../src/cuberok.ui" line="734"/>
         <source>Cancel task</source>
         <translation type="unfinished">Отменить задание</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="839"/>
+        <location filename="../src/cuberok.ui" line="881"/>
         <source>Enqueue selected song</source>
         <translation type="unfinished">Поставить в очередь выбранную песню</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="959"/>
+        <location filename="../src/cuberok.ui" line="1001"/>
         <source>Edit tags</source>
         <translation type="unfinished">Редактировать теги</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="971"/>
+        <location filename="../src/cuberok.ui" line="1013"/>
         <source>Create new playlist</source>
         <translation type="unfinished">Создать новый список воспроизведения</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="983"/>
+        <location filename="../src/cuberok.ui" line="1028"/>
         <source>Close current playlist</source>
         <translation type="unfinished">Закрыть текущий список воспроизведения</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="995"/>
+        <location filename="../src/cuberok.ui" line="1043"/>
         <source>Remove song from the playlist</source>
         <translation type="unfinished">Удалить песню из списка</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1025"/>
+        <location filename="../src/cuberok.ui" line="1073"/>
         <source>Show artists</source>
         <translation type="unfinished">Показать исполнителей</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1040"/>
+        <location filename="../src/cuberok.ui" line="1088"/>
         <source>Show albums</source>
         <translation type="unfinished">Показать альбомы</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1055"/>
+        <location filename="../src/cuberok.ui" line="1103"/>
         <source>Show genres</source>
         <translation type="unfinished">Показать жанры</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1070"/>
+        <location filename="../src/cuberok.ui" line="1118"/>
         <source>Show songs</source>
         <translation type="unfinished">Показать песни</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1082"/>
+        <location filename="../src/cuberok.ui" line="1130"/>
         <source>Create new collection item</source>
         <translation type="unfinished">Создать новый элемент коллекции</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1094"/>
+        <location filename="../src/cuberok.ui" line="1142"/>
         <source>Create new library item</source>
         <translation type="unfinished">Создать новый элемент библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1106"/>
+        <location filename="../src/cuberok.ui" line="1154"/>
         <source>Remove selected item from collection</source>
         <translation type="unfinished">Удалить выбранный элемент из коллекции</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1118"/>
+        <location filename="../src/cuberok.ui" line="1166"/>
         <source>Remove selected item from library</source>
         <translation type="unfinished">Удалить выбранный элемент из библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1193"/>
+        <location filename="../src/cuberok.ui" line="1247"/>
         <source>Reload tags in selected song</source>
         <translation type="unfinished">Перечитать теги для выбранной песни</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1228"/>
+        <location filename="../src/cuberok.ui" line="1285"/>
         <source>Set image for collection item</source>
         <translation type="unfinished">Установить изображение для элемента коллекции</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1240"/>
+        <location filename="../src/cuberok.ui" line="1297"/>
         <source>Set image for library item</source>
         <translation type="unfinished">Установить изображение для элемента библиотеки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1255"/>
+        <location filename="../src/cuberok.ui" line="1312"/>
         <source>View icons for collection items</source>
         <translation type="unfinished">Включить отображение значков для элементов коллекции</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1294"/>
+        <location filename="../src/cuberok.ui" line="1354"/>
         <source>Show system log</source>
         <translation type="unfinished">Показать системные сообщения</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1309"/>
+        <location filename="../src/cuberok.ui" line="1369"/>
         <source>Show SQL playlists</source>
         <translation type="unfinished">Показать SQL списки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1324"/>
+        <location filename="../src/cuberok.ui" line="1384"/>
         <source>Show regular playlists</source>
         <translation type="unfinished">Показать обычные списки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="599"/>
+        <location filename="../src/cuberok.ui" line="635"/>
         <source>Playing Controls</source>
         <translation type="unfinished">Управление проигрыванием</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="614"/>
+        <location filename="../src/cuberok.ui" line="650"/>
         <source>Playlist Controls</source>
         <translation type="unfinished">Управление списками</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="635"/>
+        <location filename="../src/cuberok.ui" line="671"/>
         <source>Track Controls</source>
         <translation type="unfinished">Управление дорожкой</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="646"/>
+        <location filename="../src/cuberok.ui" line="682"/>
         <source>Internet Services</source>
         <translation type="unfinished">Сервисы интернет</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1401"/>
+        <location filename="../src/cuberok.ui" line="1464"/>
         <source>Settings</source>
         <translation type="unfinished">Настройки</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1404"/>
+        <location filename="../src/cuberok.ui" line="1467"/>
         <source>Collection Settings</source>
         <translation type="unfinished">Установки коллекции</translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1409"/>
+        <location filename="../src/cuberok.ui" line="1472"/>
         <source>Import Amarok collection</source>
         <translation type="unfinished">Импортировать коллекцию Amarok</translation>
     </message>
@@ -854,53 +854,161 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="677"/>
+        <location filename="../src/cuberok.ui" line="713"/>
         <source>Alt+F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="719"/>
-        <source>Alt+Shift+Z</source>
+        <location filename="../src/cuberok.ui" line="755"/>
+        <source>Alt+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="743"/>
-        <source>Alt+Shift+B</source>
+        <location filename="../src/cuberok.ui" line="779"/>
+        <source>Alt+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="767"/>
-        <source>Alt+Shift+X</source>
+        <location filename="../src/cuberok.ui" line="803"/>
+        <source>Alt+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="842"/>
+        <location filename="../src/cuberok.ui" line="851"/>
+        <source>Ctrl+Q</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="869"/>
+        <source>Ctrl+L</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="884"/>
         <source>Ctrl+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="998"/>
+        <location filename="../src/cuberok.ui" line="1016"/>
+        <source>Ctrl+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1031"/>
+        <source>Ctrl+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1046"/>
         <source>Del</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1136"/>
-        <source>Alt+Shift+V</source>
+        <location filename="../src/cuberok.ui" line="1184"/>
+        <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1345"/>
+        <location filename="../src/cuberok.ui" line="1205"/>
+        <source>Ctrl+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1223"/>
+        <source>Ctrl+O</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1273"/>
+        <source>Ctrl+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1327"/>
+        <source>Ctrl+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1405"/>
         <source>QTagConvert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1417"/>
+        <location filename="../src/cuberok.ui" line="1444"/>
+        <source>Ctrl+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1480"/>
         <source>Queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cuberok.ui" line="1420"/>
+        <location filename="../src/cuberok.ui" line="1483"/>
         <source>Queue position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1492"/>
+        <source>Mark this folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuberok.ui" line="1501"/>
+        <source>Remove mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CueControl</name>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="32"/>
+        <source>Select an image file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="32"/>
+        <source>Audio images (*.flac *.ape *.wav);;All files (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="90"/>
+        <source>Error</source>
+        <translation type="unfinished">Ошибка</translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="90"/>
+        <source>File %1 not found!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="54"/>
+        <source>Unable to create file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="72"/>
+        <source>Success</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.cpp" line="72"/>
+        <source>New CUE sheet stored as %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.ui" line="14"/>
+        <source>Fix CUE sheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.ui" line="30"/>
+        <source>You can select correct image file and save it into the CUE sheet or simply use it now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cuecontrol.ui" line="74"/>
+        <source>...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1495,7 +1603,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PlayerManager</name>
     <message>
-        <location filename="../src/player_manager.cpp" line="187"/>
+        <location filename="../src/player_manager.cpp" line="202"/>
         <source>Can&apos;t start engine %1</source>
         <translation type="unfinished">Не могу запустить вывод звука %1</translation>
     </message>
@@ -1571,62 +1679,62 @@ Do you forget to install proper phonon backend?</source>
 <context>
     <name>PlaylistModel</name>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="198"/>
+        <location filename="../src/playlistmodel.cpp" line="200"/>
         <source>Album</source>
         <translation type="unfinished">Альбом</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="197"/>
+        <location filename="../src/playlistmodel.cpp" line="199"/>
         <source>Artist</source>
         <translation type="unfinished">Исполнитель</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="199"/>
+        <location filename="../src/playlistmodel.cpp" line="201"/>
         <source>Comment</source>
         <translation type="unfinished">Комментарий</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="194"/>
+        <location filename="../src/playlistmodel.cpp" line="196"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="200"/>
+        <location filename="../src/playlistmodel.cpp" line="202"/>
         <source>Genre</source>
         <translation type="unfinished">Жанр</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="202"/>
+        <location filename="../src/playlistmodel.cpp" line="204"/>
         <source>Length</source>
         <translation type="unfinished">Длительность</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="203"/>
+        <location filename="../src/playlistmodel.cpp" line="205"/>
         <source>Rating</source>
         <translation type="unfinished">Рейтинг</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="196"/>
+        <location filename="../src/playlistmodel.cpp" line="198"/>
         <source>Title</source>
         <translation type="unfinished">Название</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="195"/>
+        <location filename="../src/playlistmodel.cpp" line="197"/>
         <source>Track</source>
         <translation type="unfinished">Трек</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="201"/>
+        <location filename="../src/playlistmodel.cpp" line="203"/>
         <source>Year</source>
         <translation type="unfinished">Год</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="204"/>
+        <location filename="../src/playlistmodel.cpp" line="206"/>
         <source>Number</source>
         <translation type="unfinished">Номер</translation>
     </message>
     <message>
-        <location filename="../src/playlistmodel.cpp" line="193"/>
+        <location filename="../src/playlistmodel.cpp" line="195"/>
         <source>Queue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1702,7 +1810,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Язык</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="196"/>
+        <location filename="../src/settings.ui" line="206"/>
         <source>Engine Settings</source>
         <translation type="unfinished">Настройки звука</translation>
     </message>
@@ -1732,32 +1840,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Использовать хак для CP1251</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="213"/>
+        <location filename="../src/settings.ui" line="223"/>
         <source>Internet connection</source>
         <translation type="unfinished">Соединение с Интернет</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="225"/>
+        <location filename="../src/settings.ui" line="235"/>
         <source>Use proxy</source>
         <translation type="unfinished">Использовать прокси</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="246"/>
+        <location filename="../src/settings.ui" line="256"/>
         <source>Proxy host</source>
         <translation type="unfinished">Прокси</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="256"/>
+        <location filename="../src/settings.ui" line="266"/>
         <source>Port</source>
         <translation type="unfinished">Порт</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="411"/>
+        <location filename="../src/settings.ui" line="421"/>
         <source>User name</source>
         <translation type="unfinished">Пользователь</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="421"/>
+        <location filename="../src/settings.ui" line="431"/>
         <source>Password</source>
         <translation type="unfinished">Пароль</translation>
     </message>
@@ -1767,7 +1875,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Last.FM</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="342"/>
+        <location filename="../src/settings.ui" line="352"/>
         <source>Enable Last.FM scrobbling</source>
         <translation type="unfinished">Включить Last.FM scrobbling</translation>
     </message>
@@ -1777,7 +1885,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Не показывать безымянные альбомы</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="310"/>
+        <location filename="../src/settings.ui" line="320"/>
         <source>Cache downloaded information</source>
         <translation type="unfinished">Кешировать информацию полученную из Интернет</translation>
     </message>
@@ -1812,14 +1920,24 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Показывать подписи к кнопкам</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="330"/>
+        <location filename="../src/settings.ui" line="340"/>
         <source>Scrobbling</source>
         <translation type="unfinished">Скробблинг</translation>
     </message>
     <message>
-        <location filename="../src/settings.ui" line="390"/>
+        <location filename="../src/settings.ui" line="400"/>
         <source>Enable Libre.FM scrobbling</source>
         <translation type="unfinished">Включить скробблинг Libre.FM</translation>
+    </message>
+    <message>
+        <location filename="../src/settings.ui" line="170"/>
+        <source>Check existance of CUE image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/settings.ui" line="173"/>
+        <source>Check image path in CUE sheets</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1923,1007 +2041,237 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.cpp" line="446"/>
         <source>Ready</source>
-        <translation type="unfinished">Готово</translation>
+        <translation type="obsolete">Готово</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.cpp" line="398"/>
         <source> of </source>
-        <translation type="unfinished"> из </translation>
+        <translation type="obsolete"> из </translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="33"/>
         <source>Go up</source>
-        <translation type="unfinished">Переместиться вверх</translation>
+        <translation type="obsolete">Переместиться вверх</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="36"/>
         <source>Up</source>
-        <translation type="unfinished">Вверх</translation>
+        <translation type="obsolete">Вверх</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="53"/>
         <source>Select file or folder</source>
-        <translation type="unfinished">Выберите файл или папку</translation>
+        <translation type="obsolete">Выберите файл или папку</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="89"/>
         <source>Go Home</source>
-        <translation type="unfinished">Домой</translation>
+        <translation type="obsolete">Домой</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="108"/>
         <source>Convert Settings</source>
-        <translation type="unfinished">Параметры преобразования</translation>
+        <translation type="obsolete">Параметры преобразования</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="120"/>
         <source>Action</source>
-        <translation type="unfinished">Действие</translation>
+        <translation type="obsolete">Действие</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="133"/>
         <source>From codepage</source>
-        <translation type="unfinished">Из кодовой страницы</translation>
+        <translation type="obsolete">Из кодовой страницы</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="140"/>
         <source>Select action from combo box</source>
-        <translation type="unfinished">Выберите действие из списка</translation>
+        <translation type="obsolete">Выберите действие из списка</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2480"/>
         <source>Convert</source>
-        <translation type="unfinished">Конвертировать</translation>
+        <translation type="obsolete">Конвертировать</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="149"/>
         <source>Fix broken UTF</source>
-        <translation type="unfinished">Исправить сломанный UTF</translation>
+        <translation type="obsolete">Исправить сломанный UTF</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="157"/>
         <source>What codepage tags will be converted from?</source>
-        <translation type="unfinished">Из какой кодовой страницы будут конвертированы теги?</translation>
+        <translation type="obsolete">Из какой кодовой страницы будут конвертированы теги?</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2016"/>
         <source>Title</source>
-        <translation type="unfinished">Название</translation>
+        <translation type="obsolete">Название</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2405"/>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation type="obsolete">Исполнитель</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2415"/>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation type="obsolete">Альбом</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2395"/>
         <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
+        <translation type="obsolete">Жанр</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2425"/>
         <source>Year</source>
-        <translation type="unfinished">Год</translation>
+        <translation type="obsolete">Год</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2435"/>
         <source>Comment</source>
-        <translation type="unfinished">Комментарий</translation>
+        <translation type="obsolete">Комментарий</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2235"/>
         <source>Reload</source>
-        <translation type="unfinished">Перечитать</translation>
+        <translation type="obsolete">Перечитать</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1236"/>
         <source>Copy ID3v1 tags into ID3v2</source>
-        <translation type="unfinished">Копировать ID3v1 теги в ID3v2</translation>
+        <translation type="obsolete">Копировать ID3v1 теги в ID3v2</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2086"/>
         <source>Copy ID3v2 tags into ID3v1</source>
-        <translation type="unfinished">Копировать ID3v2 теги в ID3v1</translation>
+        <translation type="obsolete">Копировать ID3v2 теги в ID3v1</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2096"/>
         <source>Save selected tags in file</source>
-        <translation type="unfinished">Сохранить выбранные теги в файл</translation>
+        <translation type="obsolete">Сохранить выбранные теги в файл</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2099"/>
         <source>Save Tags</source>
-        <translation type="unfinished">Сохранить теги</translation>
+        <translation type="obsolete">Сохранить теги</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2110"/>
         <source>Save ID3v1 tags or remove them</source>
-        <translation type="unfinished">Сохранить теги ID3v1 или удалить их</translation>
+        <translation type="obsolete">Сохранить теги ID3v1 или удалить их</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2123"/>
         <source>Save ID3v2 tags or remove them</source>
-        <translation type="unfinished">Сохранить теги ID3v2 или удалить их</translation>
+        <translation type="obsolete">Сохранить теги ID3v2 или удалить их</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2377"/>
         <source>Save selected tags from ID3v2 group in all files in current directory</source>
-        <translation type="unfinished">Сохранить выбранные теги из группы ID3v2 во все файлы текущей директории</translation>
+        <translation type="obsolete">Сохранить выбранные теги из группы ID3v2 во все файлы текущей директории</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2380"/>
         <source>Save for all mp3 files in folder</source>
-        <translation type="unfinished">Применить для всех mp3-файлов в открытом каталоге</translation>
+        <translation type="obsolete">Применить для всех mp3-файлов в открытом каталоге</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2392"/>
         <source>Use this Genre tag for all files</source>
-        <translation type="unfinished">Использовать данный тег жанра для всех файлов</translation>
+        <translation type="obsolete">Использовать данный тег жанра для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2402"/>
         <source>Use this Artist tag for all files</source>
-        <translation type="unfinished">Использовать данный тег автора для всех файлов</translation>
+        <translation type="obsolete">Использовать данный тег автора для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2412"/>
         <source>Use this Album tag for all files</source>
-        <translation type="unfinished">Использовать данный тег альбома для всех файлов</translation>
+        <translation type="obsolete">Использовать данный тег альбома для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2422"/>
         <source>Use this Year tag for all files</source>
-        <translation type="unfinished">Использовать данный тег года для всех файлов</translation>
+        <translation type="obsolete">Использовать данный тег года для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2432"/>
         <source>Use this Comment tag for all files</source>
-        <translation type="unfinished">Использовать данный тег коментария для всех файлов</translation>
+        <translation type="obsolete">Использовать данный тег коментария для всех файлов</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2442"/>
         <source>Save selected tags for all files</source>
-        <translation type="unfinished">Сохранить выбранные теги во все файлы</translation>
+        <translation type="obsolete">Сохранить выбранные теги во все файлы</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2445"/>
         <source>Save All</source>
-        <translation type="unfinished">Сохранить всё</translation>
+        <translation type="obsolete">Сохранить всё</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2465"/>
         <source>Convert codepage for all mp3 files in folder</source>
-        <translation type="unfinished">Преобразовать кодовую страницу для всех файлов в каталоге</translation>
+        <translation type="obsolete">Преобразовать кодовую страницу для всех файлов в каталоге</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2477"/>
         <source>Convert selected groups of tags for all files in current directory</source>
-        <translation type="unfinished">Преобразовать выбранные группы тегов во всех файлах текущей директории</translation>
+        <translation type="obsolete">Преобразовать выбранные группы тегов во всех файлах текущей директории</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2491"/>
         <source>Convert ID3v1 tags or keep them as is</source>
-        <translation type="unfinished">Преобразовать теги ID3v1 или оставить их как есть</translation>
+        <translation type="obsolete">Преобразовать теги ID3v1 или оставить их как есть</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2494"/>
         <source>Convert ID3v1</source>
-        <translation type="unfinished">Преобразовать ID3v1</translation>
+        <translation type="obsolete">Преобразовать ID3v1</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2504"/>
         <source>Convert ID3v2 tags or keep them as is</source>
-        <translation type="unfinished">Преобразовать теги ID3v2 или оставить их как есть</translation>
+        <translation type="obsolete">Преобразовать теги ID3v2 или оставить их как есть</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2507"/>
         <source>Convert ID3v2</source>
-        <translation type="unfinished">Преобразовать ID3v2</translation>
+        <translation type="obsolete">Преобразовать ID3v2</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2531"/>
         <source>&amp;Menu</source>
-        <translation type="unfinished">&amp;Меню</translation>
+        <translation type="obsolete">&amp;Меню</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2537"/>
         <source>Help</source>
-        <translation type="unfinished">Помощь</translation>
+        <translation type="obsolete">Помощь</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2547"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished">В&amp;ыход</translation>
+        <translation type="obsolete">В&amp;ыход</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2550"/>
         <source>Exit</source>
-        <translation type="unfinished">Выход</translation>
+        <translation type="obsolete">Выход</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2555"/>
         <source>About</source>
-        <translation type="unfinished">О Программе</translation>
+        <translation type="obsolete">О Программе</translation>
     </message>
     <message>
         <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2560"/>
         <source>About Qt</source>
-        <translation type="unfinished">О Qt</translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="14"/>
-        <source>QTagConvert</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2113"/>
-        <source>ID3v1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1273"/>
-        <source>Blues</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1278"/>
-        <source>Classic Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1283"/>
-        <source>Country</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1288"/>
-        <source>Dance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1293"/>
-        <source>Disco</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1298"/>
-        <source>Funk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1303"/>
-        <source>Grunge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1308"/>
-        <source>Hip-Hop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1313"/>
-        <source>Jazz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1318"/>
-        <source>Metal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1323"/>
-        <source>New Age</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1328"/>
-        <source>Oldies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1333"/>
-        <source>Other</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1338"/>
-        <source>Pop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1343"/>
-        <source>R&amp;B</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1348"/>
-        <source>Rap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1353"/>
-        <source>Reggae</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1358"/>
-        <source>Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1363"/>
-        <source>Techno</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1368"/>
-        <source>Industrial</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1373"/>
-        <source>Alternative</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1378"/>
-        <source>Ska</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1383"/>
-        <source>Death Metal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1388"/>
-        <source>Pranks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1393"/>
-        <source>Soundtrack</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1398"/>
-        <source>Euro-Techno</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1403"/>
-        <source>Ambient</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1408"/>
-        <source>Trip-Hop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1413"/>
-        <source>Vocal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1418"/>
-        <source>Jazz+Funk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1423"/>
-        <source>Fusion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1428"/>
-        <source>Trance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1433"/>
-        <source>Classical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1438"/>
-        <source>Instrumental</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1443"/>
-        <source>Acid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1448"/>
-        <source>House</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1453"/>
-        <source>Game</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1458"/>
-        <source>Sound Clip</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1463"/>
-        <source>Gospel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1468"/>
-        <source>Noise</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1473"/>
-        <source>Alt. Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1478"/>
-        <source>Bass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1483"/>
-        <source>Soul</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1488"/>
-        <source>Punk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1493"/>
-        <source>Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1498"/>
-        <source>Meditative</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1503"/>
-        <source>Instrumental Pop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1508"/>
-        <source>Instrumental Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1513"/>
-        <source>Ethnic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1518"/>
-        <source>Gothic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1523"/>
-        <source>Darkwave</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1528"/>
-        <source>Techno-Industrial</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1533"/>
-        <source>Electronic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1538"/>
-        <source>Pop-Folk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1543"/>
-        <source>Eurodance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1548"/>
-        <source>Dream</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1553"/>
-        <source>Southern Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1558"/>
-        <source>Comedy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1563"/>
-        <source>Cult</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1568"/>
-        <source>Gangsta Rap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1573"/>
-        <source>Top 40</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1578"/>
-        <source>Christian Rap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1583"/>
-        <source>Pop/Funk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1588"/>
-        <source>Jungle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1593"/>
-        <source>Native American</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1598"/>
-        <source>Cabaret</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1603"/>
-        <source>New Wave</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1608"/>
-        <source>Psychedelic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1613"/>
-        <source>Rave</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1618"/>
-        <source>Showtunes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1623"/>
-        <source>Trailer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1628"/>
-        <source>Lo-Fi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1633"/>
-        <source>Tribal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1638"/>
-        <source>Acid Punk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1643"/>
-        <source>Acid Jazz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1648"/>
-        <source>Polka</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1653"/>
-        <source>Retro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1658"/>
-        <source>Musical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1663"/>
-        <source>Rock &amp; Roll</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1668"/>
-        <source>Hard Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1673"/>
-        <source>Folk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1678"/>
-        <source>Folk/Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1683"/>
-        <source>National Folk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1688"/>
-        <source>Swing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1693"/>
-        <source>Fast-Fusion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1698"/>
-        <source>Bebob</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1703"/>
-        <source>Latin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1708"/>
-        <source>Revival</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1713"/>
-        <source>Celtic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1718"/>
-        <source>Bluegrass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1723"/>
-        <source>Avantgarde</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1728"/>
-        <source>Gothic Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1733"/>
-        <source>Progressive Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1738"/>
-        <source>Psychedelic Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1743"/>
-        <source>Symphonic Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1748"/>
-        <source>Slow Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1753"/>
-        <source>Big Band</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1758"/>
-        <source>Chorus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1763"/>
-        <source>Easy Listening</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1768"/>
-        <source>Acoustic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1773"/>
-        <source>Humour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1778"/>
-        <source>Speech</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1783"/>
-        <source>Chanson</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1788"/>
-        <source>Opera</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1793"/>
-        <source>Chamber Music</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1798"/>
-        <source>Sonata</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1803"/>
-        <source>Symphony</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1808"/>
-        <source>Booty Bass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1813"/>
-        <source>Primus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1818"/>
-        <source>Porn Groove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1823"/>
-        <source>Satire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1828"/>
-        <source>Slow Jam</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1833"/>
-        <source>Club</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1838"/>
-        <source>Tango</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1843"/>
-        <source>Samba</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1848"/>
-        <source>Folklore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1853"/>
-        <source>Ballad</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1858"/>
-        <source>Power Ballad</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1863"/>
-        <source>Rhythmic Soul</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1868"/>
-        <source>Freestyle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1873"/>
-        <source>Duet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1878"/>
-        <source>Punk Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1883"/>
-        <source>Drum Solo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1888"/>
-        <source>A Cappella</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1893"/>
-        <source>Euro-House</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1898"/>
-        <source>Dance Hall</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1903"/>
-        <source>Goa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1908"/>
-        <source>Drum &amp; Bass</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1913"/>
-        <source>Club-House</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1918"/>
-        <source>Hardcore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1923"/>
-        <source>Terror</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1928"/>
-        <source>Indie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1933"/>
-        <source>BritPop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1938"/>
-        <source>Negerpunk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1943"/>
-        <source>Polsk Punk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1948"/>
-        <source>Beat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1953"/>
-        <source>Christian Gangsta Rap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1958"/>
-        <source>Heavy Metal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1963"/>
-        <source>Black Metal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1968"/>
-        <source>Crossover</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1973"/>
-        <source>Contemporary Christian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1978"/>
-        <source>Christian Rock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1983"/>
-        <source>Merengue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1988"/>
-        <source>Salsa</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1993"/>
-        <source>Thrash Metal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1998"/>
-        <source>Anime</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2003"/>
-        <source>JPop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2008"/>
-        <source>Synthpop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2057"/>
-        <source>0000; </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="1239"/>
-        <source>ID3v1 -&gt; ID3v2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2126"/>
-        <source>ID3v2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qtagconvert/src/KCmp3Tag.ui" line="2089"/>
-        <source>ID3v2 -&gt; ID3v1</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">О Qt</translation>
     </message>
 </context>
 </TS>
