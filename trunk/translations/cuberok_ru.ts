@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ru">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru">
 <context>
     <name>AboutDialogClass</name>
     <message>
@@ -164,7 +165,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/collectionsettings.cpp" line="50"/>
         <source>%1 link(s) has been removed from the collection.</source>
-        <translation type="unfinished">%1 ссылок было удалено из коллекции</translation>
+        <translation>%1 ссылок было удалено из коллекции.</translation>
     </message>
     <message>
         <location filename="../src/collectionsettings.cpp" line="67"/>
@@ -941,22 +942,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/cuberok.ui" line="1480"/>
         <source>Queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Очередь</translation>
     </message>
     <message>
         <location filename="../src/cuberok.ui" line="1483"/>
         <source>Queue position</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиция в очереди</translation>
     </message>
     <message>
         <location filename="../src/cuberok.ui" line="1492"/>
         <source>Mark this folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Отметить эту папку</translation>
     </message>
     <message>
         <location filename="../src/cuberok.ui" line="1501"/>
         <source>Remove mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Снять отметку</translation>
     </message>
 </context>
 <context>
@@ -964,47 +965,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/cuecontrol.cpp" line="32"/>
         <source>Select an image file</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите файл образа</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.cpp" line="32"/>
         <source>Audio images (*.flac *.ape *.wav);;All files (*.*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Аудио форматы (*.flac *.ape *.wav);;Все файлы (*.*)</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.cpp" line="90"/>
         <source>Error</source>
-        <translation type="unfinished">Ошибка</translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.cpp" line="90"/>
         <source>File %1 not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 не найден!</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.cpp" line="54"/>
         <source>Unable to create file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно создать файл %1</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.cpp" line="72"/>
         <source>Success</source>
-        <translation type="unfinished"></translation>
+        <translation>Успех</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.cpp" line="72"/>
         <source>New CUE sheet stored as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый файл CUE сохранён как %1</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.ui" line="14"/>
         <source>Fix CUE sheet</source>
-        <translation type="unfinished"></translation>
+        <translation>Исправить CUE файл</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.ui" line="30"/>
         <source>You can select correct image file and save it into the CUE sheet or simply use it now</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете выбрать правильный образ и сохранить его в файл CUE, или просто использовать образ сейчас</translation>
     </message>
     <message>
         <location filename="../src/cuecontrol.ui" line="74"/>
@@ -1736,7 +1737,7 @@ Do you forget to install proper phonon backend?</source>
     <message>
         <location filename="../src/playlistmodel.cpp" line="195"/>
         <source>Queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Очередь</translation>
     </message>
 </context>
 <context>
@@ -1932,12 +1933,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/settings.ui" line="170"/>
         <source>Check existance of CUE image</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверять существование образа CUE</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="173"/>
         <source>Check image path in CUE sheets</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверять путь образа в CUE файлах</translation>
     </message>
 </context>
 <context>
