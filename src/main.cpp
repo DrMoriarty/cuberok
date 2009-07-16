@@ -228,7 +228,11 @@ int main(int argc, char *argv[])
     splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::black);
     QString locale = QLocale::system().name().left(2);
     QTranslator translator;
-    QString trpath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+    QString trpath;
+	//trpath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+#ifndef WIN32
+    trpath = qApp->applicationDirPath() + "/../share/cuberok/locale/";
+#endif
     QString trfile = QString("cuberok_") + QLocale::system().name().left(2);
     if (!translator.load(trfile, trpath)) {
 		qDebug("%s %s", (const char*)(trpath + QDir::separator() + trfile).toLocal8Bit() , " not found");
@@ -236,19 +240,8 @@ int main(int argc, char *argv[])
         translator.load(trfile, trpath);
     }
     a.installTranslator(&translator);
-	/*    QString loc_path;
-#ifndef WIN32
-    loc_path = qApp->applicationDirPath() + "/../share/cuberok/locale/";
-    //loc_path = "/usr/share/cuberok/locale/";
-#endif
-    loc_path += QString("cuberok_") + locale;
-    translator.load(loc_path);
-    qDebug("Loading l10n from %s", (const char*)loc_path.toLocal8Bit());
-    a.installTranslator(&translator);
-	*/
     a.processEvents();
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
-    //qApp->setWindowIcon(QIcon(":/icons/application.png"));
     Cuberok w;
 	MyApplication::restoreState();
     w.show();

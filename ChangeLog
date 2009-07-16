@@ -1,3 +1,4 @@
+Version 0.0.11 16.07.09
 	Command line options. You can control playing by scripts or other events. Type 'cuberok -h' for details.
 	Hotkeys for common actions
 	New backend: FFmpeg
