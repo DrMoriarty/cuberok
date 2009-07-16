@@ -76,6 +76,7 @@ struct _ffmpeg{
     AVPacket packet;
     int      bytesRemaining;
 	bool eofstream;
+	QMutex mutex;
 } ffmpeg;
 
 
@@ -105,6 +106,7 @@ void freePacket(AVPacket &packet)
 
 bool getNextFrame(bool fFirstTime)
 {
+	QMutexLocker locker(&ffmpeg.mutex);
     static uint8_t  *rawData;
     int             bytesDecoded;
 	int             audio_buf_size = sizeof(ffmpeg.audio_buf) - ffmpeg.audio_buf_ptr;
@@ -301,6 +303,7 @@ void PlayThread::run()
         // Read the next packet, skipping all packets that aren't for this
         // stream
 		while (ffmpeg.packetQueue.size() < QUEUESIZE && !ffmpeg.eofstream) {
+			QMutexLocker locker(&ffmpeg.mutex);
 			AVPacket packet;
 			av_init_packet(&packet);
 			do {

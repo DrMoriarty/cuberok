@@ -146,7 +146,7 @@
 				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtNetwork /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\QtXml /Ic:\Qt\4.5.0-vs\include\QtSql /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
 				Optimization="4"
 				AdditionalIncludeDirectories=".,..\taglib\include,..\taglib\include\toolkit,..\taglib\include\mpeg,..\taglib\include\mpeg\id3v2"
-				PreprocessorDefinitions="_WINDOWS;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=10;QTAGCONVERT;AUDIERE;GSTREAMER;QT_DLL;QT_SQL_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				PreprocessorDefinitions="_WINDOWS;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QTAGCONVERT;AUDIERE;GSTREAMER;QT_DLL;QT_SQL_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
 				PrecompiledHeaderFile=".\..\win32-vs\obj/Cuberok.pch"
@@ -2020,7 +2020,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on tagger.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQTAGCONVERT -DAUDIERE -DGSTREAMER -DQT_DLL -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\win32-vs\obj\moc_tagger.cpp"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQTAGCONVERT -DAUDIERE -DGSTREAMER -DQT_DLL -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\win32-vs\obj\moc_tagger.cpp&#x0D;&#x0A;"
 						Outputs="..\win32-vs\obj\moc_tagger.cpp"
 					/>
 				</FileConfiguration>
