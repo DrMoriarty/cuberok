@@ -1,3 +1,9 @@
+cuberok (0.0.11-0lenny) lenny; urgency=low
+
+  * New upstream release
+
+ -- DrMoriarty <drmoriarty.0@gmail.com>  Thu, 16 Jul 2009 11:08:44 +0400
+
 cuberok (0.0.10-0lenny) lenny; urgency=low
 
   * New upstream release
