@@ -472,7 +472,7 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
     threadId = new PlayThread();
 	threadId->start();
 
-	getNextFrame(true);
+	//getNextFrame(true);
 	
 	return true;
 }
