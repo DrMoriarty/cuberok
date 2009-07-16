@@ -146,6 +146,7 @@ bool getNextFrame(bool fFirstTime)
             rawData+=bytesDecoded;
 
 			if(ffmpeg.audio_src_format != ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->codec->sample_fmt) {
+#ifdef AVRESAMPLE
 				// need to convert
 				if(ffmpeg.resampleCtx)
 					audio_resample_close(ffmpeg.resampleCtx);
@@ -162,6 +163,7 @@ bool getNextFrame(bool fFirstTime)
 					ffmpeg.error = QString("Enable convert from %1 to %2").arg(QString::number(ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->codec->sample_fmt)).arg(QString::number(SAMPLE_FMT_S16));
 				}
 				ffmpeg.audio_src_format = ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->codec->sample_fmt;
+#endif
 			}
             // Did we finish the current frame? Then we can return
 			if(ffmpeg.bytesRemaining <= 0 && ffmpeg.audio_buf_ptr > 0) {
