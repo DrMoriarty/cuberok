@@ -77,6 +77,7 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.checkBox_textToolbuttons->setChecked(PLSet.textToolbuttons);
 	ui.comboBox_sizeToolbuttons->setCurrentIndex(PLSet.sizeToolbuttons);
 	ui.checkBox_controlCuePath->setChecked(PLSet.controlCuePath);
+	ui.checkBox_trayMessage->setChecked(PLSet.trayMessage);
 }
 
 Settings::~Settings()
@@ -130,6 +131,7 @@ void Settings::accept()
 	PLSet.textToolbuttons = ui.checkBox_textToolbuttons->isChecked();
 	PLSet.sizeToolbuttons = ui.comboBox_sizeToolbuttons->currentIndex();
 	PLSet.controlCuePath = ui.checkBox_controlCuePath->isChecked();
+	PLSet.trayMessage = ui.checkBox_trayMessage->isChecked();
 
 	PLSet.save();
 	QDialog::accept();
