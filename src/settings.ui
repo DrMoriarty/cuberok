@@ -165,6 +165,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="checkBox_trayMessage">
+         <property name="text">
+          <string>Show messages in the system tray</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="checkBox_controlCuePath">
          <property name="toolTip">
           <string>Check existance of CUE image</string>

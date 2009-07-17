@@ -67,6 +67,7 @@ Q_OBJECT
 
 	QString collectionPath;
 	bool controlCuePath;
+	bool trayMessage;
 
  signals:
 	void visibleChanged(int, bool);

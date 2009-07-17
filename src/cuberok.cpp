@@ -234,7 +234,9 @@ void Cuberok::message(QString title, QString album, QString artist, long len)
 		//ui.progressBar->setFormat(title + " %p%");
 		ui.progressBar->setFormatText(title);
 		ui.progressBar->setDuration(len);
-		trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
+		if(PLSet.trayMessage) {
+			trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
+		}
 		setWindowTitle(QString(titlepref).append(title));
 		trayIcon->setToolTip(QString("%1 - %2").arg(artist, title));
 		setWindowIcon(QIcon(":/icons/cuberok.png"));
