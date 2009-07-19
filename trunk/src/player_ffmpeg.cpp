@@ -73,8 +73,9 @@ struct _ffmpeg{
 	SampleFormat audio_src_format;
 	ReSampleContext* resampleCtx;
 	QQueue<AVPacket> packetQueue;
-    AVPacket packet;
-    int      bytesRemaining;
+	QQueue<AVPacket> emptyQueue;
+	AVPacket packet;
+	int      bytesRemaining;
 	bool eofstream;
 	QMutex mutex;
 } ffmpeg;
@@ -98,7 +99,10 @@ void correctVolume(uint8_t* start, uint8_t *end, float volume)
 
 void freePacket(AVPacket &packet)
 {
-	if(packet.data) free(packet.data);
+	if(packet.data && packet.size) {
+		//free(packet.data);
+		ffmpeg.emptyQueue.enqueue(packet);
+	}
 	packet.data = 0;
 	packet.size = 0;
 	packet.pts = (int64_t)localAV_NOPTS_VALUE;
@@ -320,9 +324,15 @@ void PlayThread::run()
 			if(!ffmpeg.eofstream) {
 				AVPacket p2;
 				av_init_packet(&p2);
+				while(p2.size < packet.size && ffmpeg.emptyQueue.size()) {
+					free(p2.data);
+					p2 = ffmpeg.emptyQueue.dequeue();
+				}
+				if(p2.size < packet.size) {
+					p2.data = (uint8_t*)malloc(p2.size);
+				}
 				p2.size = packet.size;
 				p2.pts = packet.pts;
-				p2.data = (uint8_t*)malloc(p2.size);
 				memcpy(p2.data, packet.data, p2.size);
 				ffmpeg.packetQueue.enqueue(p2);
 			}
