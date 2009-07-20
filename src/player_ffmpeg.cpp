@@ -50,7 +50,7 @@ void fetchData(unsigned char *stream, int len);
 
 void audio_callback(void *userdata, Uint8 *stream, int len)
 {
-	//if(instance) {
+
 		fetchData(stream, len);
 	//}
 }
@@ -323,13 +323,16 @@ void PlayThread::run()
 			} while(packet.stream_index!= ffmpeg.audioStream && !ffmpeg.eofstream);
 			if(!ffmpeg.eofstream) {
 				AVPacket p2;
-				av_init_packet(&p2);
+				//av_init_packet(&p2);
+				p2.data = 0;
+				p2.size = 0;
 				while(p2.size < packet.size && ffmpeg.emptyQueue.size()) {
-					free(p2.data);
+					if(p2.data) free(p2.data);
 					p2 = ffmpeg.emptyQueue.dequeue();
 				}
 				if(p2.size < packet.size) {
-					p2.data = (uint8_t*)malloc(p2.size);
+					if(p2.data) free(p2.data);
+					p2.data = (uint8_t*)malloc(packet.size);
 				}
 				p2.size = packet.size;
 				p2.pts = packet.pts;
@@ -339,7 +342,15 @@ void PlayThread::run()
 			av_free_packet(&packet);
 		}
 		//if(ffmpeg.eofstream) ffmpeg.needToStop = true;
-		SDL_Delay(100);
+		SDL_Delay(50);
+	}
+	while( ffmpeg.packetQueue.size()) {
+		AVPacket p = ffmpeg.packetQueue.dequeue();
+		free(p.data);
+	}
+	while( ffmpeg.emptyQueue.size()) {
+		AVPacket p = ffmpeg.emptyQueue.dequeue();
+		free(p.data);
 	}
 	SDL_LockAudio();
 	SDL_PauseAudio(1);
