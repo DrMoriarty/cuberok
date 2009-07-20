@@ -342,7 +342,7 @@ void PlayThread::run()
 			av_free_packet(&packet);
 		}
 		//if(ffmpeg.eofstream) ffmpeg.needToStop = true;
-		SDL_Delay(50);
+		SDL_Delay(10);
 	}
 	while( ffmpeg.packetQueue.size()) {
 		AVPacket p = ffmpeg.packetQueue.dequeue();

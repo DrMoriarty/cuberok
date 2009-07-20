@@ -260,6 +260,7 @@ int main(int argc, char *argv[])
 #ifdef WIN32
     //cUnregisterWinKeys(w.winId());
 #endif
+	shm.detach();
 #ifndef DEBUG
     a.storeState(&w);
     a.storeState();
