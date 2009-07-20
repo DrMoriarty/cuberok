@@ -323,7 +323,7 @@ int Database::AddGenre(QString genre)
 {
     if(!open) return 0;
     QMutexLocker locker(&lock);
-    return AddGenre(genre);
+    return _AddGenre(genre);
 }
 
 int Database::_AddGenre(QString genre)
