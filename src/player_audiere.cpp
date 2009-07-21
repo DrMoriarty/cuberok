@@ -2,16 +2,16 @@
  * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
+ * modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU Library General Public
+ * You should have received a copy of the GNU General Public
  * License along with this software; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
@@ -26,11 +26,26 @@
 
 Q_EXPORT_PLUGIN2(player_audiere, PlayerAudiere) 
 
+QStringList whiteList;
+
 PlayerAudiere::PlayerAudiere() : repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false), paused(false)
 {
     stream = 0;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerUpdate()));
+	whiteList << "application/ogg";
+	whiteList << "audio/ogg";
+	whiteList << "audio/x-vorbis+ogg";
+	whiteList << "audio/x-flac+ogg";
+	whiteList << "audio/mpeg";
+	whiteList << "audio/x-flac";
+	whiteList << "audio/x-wav";
+	whiteList << "audio/x-aiff";
+	whiteList << "audio/x-aiffc";
+	whiteList << "audio/x-mod";
+	whiteList << "audio/x-s3m";
+	whiteList << "audio/x-xm";
+	whiteList << "audio/x-it";
 }
 
 PlayerAudiere::~PlayerAudiere()
@@ -60,6 +75,11 @@ void PlayerAudiere::streamStopped(StopEvent* event)
 		sync = false;
 		sem.release();
     } else emit finish();
+}
+
+bool PlayerAudiere::canOpen(QString mime)
+{
+	return whiteList.contains(mime);
 }
 
 bool PlayerAudiere::open(QUrl fname, long start, long length)
@@ -199,4 +219,9 @@ void PlayerAudiere::sync_stop()
 		stream->stop();
 		sem.acquire();
     }
+}
+
+QStringList PlayerAudiere::hardcodedList()
+{
+	return whiteList;
 }
