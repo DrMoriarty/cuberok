@@ -19,7 +19,7 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language files\Russian.nlf"
 
 LicenseData license.txt
 
-SetCompressor /SOLID lzma
+SetCompressor /SOLID /FINAL lzma
 
 ; Pages
 
@@ -34,6 +34,9 @@ UninstPage instfiles
 Section "Cuberok"
 
   SectionIn RO
+
+  KillProcDLL::KillProc "cuberok.exe"
+  Sleep 100
   
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
@@ -44,18 +47,15 @@ Section "Cuberok"
   CreateDirectory $INSTDIR\translations
   File /oname=translations\cuberok_ru.qm "win32-vs\translations\cuberok_ru.qm"
   File "win32-vs\tag.dll"
-  File "win32-vs\msvcp71.dll"
-  File "win32-vs\msvcr71.dll"
-;  File "win32-vs\msvcp80.dll"
-;  File "win32-vs\msvcr80.dll"
-;  File "win32-vs\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.762_x-ww_6b128700.manifest"
+;  File "win32-vs\msvcp71.dll"
+;  File "win32-vs\msvcr71.dll"
   File "license.txt"
   
-  CreateDirectory $INSTDIR\Microsoft.VC80.CRT
-  File /oname=Microsoft.VC80.CRT\msvcp80.dll "win32-vs\Microsoft.VC80.CRT\msvcp80.dll"
-  File /oname=Microsoft.VC80.CRT\msvcr80.dll "win32-vs\Microsoft.VC80.CRT\msvcr80.dll"
-  File /oname=Microsoft.VC80.CRT\msvcm80.dll "win32-vs\Microsoft.VC80.CRT\msvcm80.dll"
-  File /oname=Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest "win32-vs\Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest"
+;  CreateDirectory $INSTDIR\Microsoft.VC80.CRT
+;  File /oname=Microsoft.VC80.CRT\msvcp80.dll "win32-vs\Microsoft.VC80.CRT\msvcp80.dll"
+;  File /oname=Microsoft.VC80.CRT\msvcr80.dll "win32-vs\Microsoft.VC80.CRT\msvcr80.dll"
+;  File /oname=Microsoft.VC80.CRT\msvcm80.dll "win32-vs\Microsoft.VC80.CRT\msvcm80.dll"
+;  File /oname=Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest "win32-vs\Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest"
 
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\Cuberok "Install_Dir" "$INSTDIR"
@@ -93,6 +93,14 @@ Section "Qt4 library"
   File /oname=imageformats\qtiff4.dll "win32-vs\imageformats\qtiff4.dll"
 SectionEnd
 
+Section "MSVC"
+  InitPluginsDir
+  SetOutPath $PLUGINSDIR
+  File "win32-vs\vcredist_x86.exe"
+  DetailPrint "Installing Visual C++ 2005 Libraries"
+  ExecWait '"$PLUGINSDIR\vcredist_x86.exe" /q:a /c:"msiexec /i vcredist.msi /quiet"'
+SectionEnd
+
 Section "Audiere plugin"
   CreateDirectory $INSTDIR\plugins
   File "win32-vs\audiere.dll"
@@ -127,6 +135,9 @@ Section /o "Sources"
 SectionEnd
 
 Section "Uninstall"
+  KillProcDLL::KillProc "cuberok.exe"
+  Sleep 100
+
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Cuberok"
   DeleteRegKey HKLM SOFTWARE\Cuberok
@@ -152,7 +163,7 @@ Section "Uninstall"
   RMDir "$INSTDIR\sqldrivers"
   RMDir "$INSTDIR\imageformats"
   RMDir "$INSTDIR\phonon_backend"
-  RMDir "$INSTDIR\Microsoft.VC80.CRT"
+;  RMDir "$INSTDIR\Microsoft.VC80.CRT"
   RMDir "$INSTDIR"
 SectionEnd
 
