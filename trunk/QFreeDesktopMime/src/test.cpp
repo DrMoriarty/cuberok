@@ -35,6 +35,7 @@ int main (int argc, char **argv) {
 	qDebug() << mime.description("text/x-xslfo");
 	qDebug() << mime.acronym("text/x-xslfo");
 	qDebug() << mime.alias("text/x-xslfo");
+	qDebug() << mime.alias("audio/mpeg");
 
 	qDebug() << mime.fromFileName("test.jpg");
 	qDebug() << mime.description();
