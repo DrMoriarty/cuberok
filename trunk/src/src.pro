@@ -58,7 +58,8 @@ HEADERS += aboutdialog.h \
            starrating.h \
            tageditor.h \
            tagger.h \
-           url_open.h
+           url_open.h \
+	   ../QFreeDesktopMime/src/freedesktopmime.h
 
 FORMS += aboutdialog.ui \
          collectionsettings.ui \
@@ -117,7 +118,8 @@ SOURCES += aboutdialog.cpp \
            starrating.cpp \
            tageditor.cpp \
            tagger.cpp \
-           url_open.cpp
+           url_open.cpp \
+	   ../QFreeDesktopMime/src/freedesktopmime.cpp
 RESOURCES += resource.qrc
 
 exists(../qtagconvert/src/KCmp3Tag.ui) {

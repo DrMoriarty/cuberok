@@ -48,4 +48,6 @@ static QString CUBEROK_VERSION = QString("%1.%2.%3").arg(QString::number(CUBEROK
 
 //#define TRAYICONARTIFACKTWORKAROUND
 
+#include "../QFreeDesktopMime/src/freedesktopmime.h"
+
 #endif /*MAIN_H_*/
