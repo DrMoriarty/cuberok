@@ -73,9 +73,8 @@ Cuberok::Cuberok(QWidget *parent)
 
 	if(!connect(ui.listView, SIGNAL(message(QString,QString,QString,long)), this, SLOT(message(QString,QString,QString,long)), Qt::DirectConnection))
 		Console::Self().error("Can't connect to the listView.message");
-        // connect the ui.actionPlayPause triggered signal to our own slot for icon switching:
-        connect(ui.listView, SIGNAL(updatePlayPauseButton (bool) ), this, SLOT(setPlayPauseIcon (bool) ));
-	ui.listView->prepare();
+	// connect the ui.actionPlayPause triggered signal to our own slot for icon switching:
+	connect(ui.listView, SIGNAL(updatePlayPauseButton (bool) ), this, SLOT(setPlayPauseIcon (bool) ));
 
 	QMenu * cm = createPopupMenu();
 	cm->setTitle(tr("Addons"));
@@ -109,6 +108,8 @@ Cuberok::Cuberok(QWidget *parent)
 	
 	if(!connect(ui.progressBar, SIGNAL(userevent(double)), this, SLOT(progressEvent(double))))
 		Console::Self().error("connection error (progressEvent)");
+
+	ui.listView->prepare();
 
 	ui.statusbar->addPermanentWidget(ui.listStatus);
 	ui.statusbar->addPermanentWidget(ui.collectionStatus);

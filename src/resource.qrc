@@ -1,4 +1,7 @@
 <RCC>
+    <qresource prefix="/">
+	<file alias="freedesktopmime.xml" >../QFreeDesktopMime/freedesktop.org.xml</file>
+    </qresource>
     <qresource prefix="/icons" >
         <file alias="cuberok.png" >../images/cuberok.png</file>
         <file alias="cuberok_bw.png" >../images/cuberok_bw.png</file>
