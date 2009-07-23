@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>364</width>
-    <height>390</height>
+    <height>430</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>329</width>
-        <height>200</height>
+        <width>346</width>
+        <height>231</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -114,7 +114,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>191</height>
+        <height>231</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -202,7 +202,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>191</height>
+        <height>231</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -212,6 +212,102 @@
       <attribute name="label">
        <string>Engine Settings</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="margin">
+        <number>4</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_currentEngine">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget">
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="page_6">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="margin">
+            <number>4</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>There aren't any settings for selected engine</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_7">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="margin">
+            <number>4</number>
+           </property>
+           <item>
+            <widget class="QTableWidget" name="tableWidget">
+             <column>
+              <property name="text">
+               <string>Mime-Type</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Engine</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="margin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_addMimeRow">
+                <property name="text">
+                 <string>Add Row</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_removeMimeRow">
+                <property name="text">
+                 <string>Remove Row</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="page_3">
       <property name="geometry">
@@ -219,7 +315,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>191</height>
+        <height>231</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -336,7 +432,7 @@
         <x>0</x>
         <y>0</y>
         <width>346</width>
-        <height>191</height>
+        <height>231</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -520,5 +616,58 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>comboBox_engine</sender>
+   <signal>activated(QString)</signal>
+   <receiver>Settings</receiver>
+   <slot>engineChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_addMimeRow</sender>
+   <signal>clicked()</signal>
+   <receiver>Settings</receiver>
+   <slot>addRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_removeMimeRow</sender>
+   <signal>clicked()</signal>
+   <receiver>Settings</receiver>
+   <slot>removeRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>engineChanged(QString)</slot>
+  <slot>addRow()</slot>
+  <slot>removeRow()</slot>
+ </slots>
 </ui>

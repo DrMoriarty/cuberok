@@ -30,6 +30,8 @@ class QFreeDesktopMime : public QObject {
 		QFreeDesktopMime (QObject *parent = 0);
 		~QFreeDesktopMime();
 
+		QStringList getList();
+
 		QString fromFileName (const QString& fileName);
 
 		QString fromFile (const QString& fileName);
