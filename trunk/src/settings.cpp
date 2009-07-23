@@ -21,6 +21,7 @@
 #include "player_manager.h"
 #include "tagger.h"
 #include "playlistsettings.h"
+#include "main.h"
 
 Settings::Settings(QWidget *parent): QDialog(parent)
 {
@@ -32,6 +33,7 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	QString engine = set.value("engine", "").toString();
 	if(!engine.size()) engine = auto_engine;
 	ui.comboBox_engine->setCurrentIndex(ui.comboBox_engine->findText(engine));
+	engineChanged(engine);
 
 	ui.comboBox_language->addItem(auto_engine);
 	//ui.comboBox_language->addItem(tr("Russian"));
@@ -40,6 +42,19 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	//if(Tagger::autoCorrect()) ui.checkBox_autofix8bit->setCheckState(Qt::Checked);
 	//if(Tagger::saveCorrected()) ui.checkBox_autosave->setCheckState(Qt::Checked);
 
+	cbd1 = new ComboBoxDelegate(PlayerManager::Self().getPlayers());
+	ui.tableWidget->setItemDelegateForColumn(1, cbd1);
+	QStringList audioMimes, allMimes;
+	QFreeDesktopMime mime;
+	allMimes = mime.getList();
+	foreach(QString m, allMimes) {
+		if(m.contains("audio")) audioMimes << m;
+	}
+	audioMimes.removeDuplicates();
+	audioMimes.sort();
+	cbd2 = new ComboBoxDelegate(audioMimes);
+	ui.tableWidget->setItemDelegateForColumn(0, cbd2);
+	
 	if(PLSet.autoRating)
 		ui.checkBox_autorating->setCheckState(Qt::Checked);
 
@@ -133,4 +148,25 @@ void Settings::accept()
 
 	PLSet.save();
 	QDialog::accept();
+}
+
+void Settings::engineChanged(QString en)
+{
+	ui.label_currentEngine->setText(tr("Current engine is '%1'").arg(en));
+	if(en == auto_engine) {
+		ui.stackedWidget->setCurrentIndex(1);
+	} else {
+		// no settings
+		ui.stackedWidget->setCurrentIndex(0);
+	}
+}
+
+void Settings::addRow()
+{
+	ui.tableWidget->insertRow(ui.tableWidget->rowCount());
+}
+
+void Settings::removeRow()
+{
+	ui.tableWidget->removeRow(ui.tableWidget->currentRow());
 }

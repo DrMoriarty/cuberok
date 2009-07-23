@@ -23,6 +23,7 @@ HEADERS += aboutdialog.h \
            collectionsettings.h \
            collectionfiller.h \
            collectionview.h \
+           comboboxdelegate.h \
            console.h \
            cuberok.h \
            cuecontrol.h \
@@ -84,6 +85,7 @@ SOURCES += aboutdialog.cpp \
            collectionsettings.cpp \
            collectionfiller.cpp \
            collectionview.cpp \
+           comboboxdelegate.cpp \
            console.cpp \
            cuberok.cpp \
            cuecontrol.cpp \

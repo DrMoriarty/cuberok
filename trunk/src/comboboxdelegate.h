@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -17,32 +17,28 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef CONMOBOXDELEGATE_H
+#define CONMOBOXDELEGATE_H
 
 #include <QtGui>
-#include "ui_settings.h"
-#include "comboboxdelegate.h"
 
-class Settings : public QDialog
+class ComboBoxDelegate: public QItemDelegate
 {
 	Q_OBJECT
-
  public:
-	Settings(QWidget *parent = 0);
-	~Settings();
+	ComboBoxDelegate(QStringList list, QObject *parent = 0);
 
- public slots:
-	virtual void accept();
-	void engineChanged(QString);
-	void removeRow();
-	void addRow();
+	QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+						  const QModelIndex &index) const;
 
+	void setEditorData(QWidget *editor, const QModelIndex &index) const;
+	void setModelData(QWidget *editor, QAbstractItemModel *model,
+					  const QModelIndex &index) const;
+
+	void updateEditorGeometry(QWidget *editor,
+							  const QStyleOptionViewItem &option, const QModelIndex &index) const;
  private:
-    Ui::Settings ui;
-	QString auto_engine;
-	ComboBoxDelegate *cbd1, *cbd2;
-
+	QStringList sl;
 };
 
-#endif // SETTINGS_H
+#endif //CONMOBOXDELEGATE_H

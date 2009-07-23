@@ -21,6 +21,7 @@
 #include <QDomDocument>
 #include <QFileInfo>
 #include <QRegExp>
+#include <QStringList>
 
 // Quartica File Info
 #include "freedesktopmime.h"
@@ -247,6 +248,21 @@ QFreeDesktopMime::QFreeDesktopMime (QObject *parent)
 QFreeDesktopMime::~QFreeDesktopMime() {
 	delete d;
 	d = NULL;
+}
+
+// =============================================================================
+//  FreeDesktopMime: PUBLIC Methods (MIME list)
+// =============================================================================
+QStringList QFreeDesktopMime::getList() {
+	QStringList list;
+	QDomElement root = d->xmlDocument.documentElement();
+	QDomNodeList globList = root.elementsByTagName("glob");
+	for (uint i = 0; i < globList.length(); ++i) {
+		QDomElement globNode = globList.item(i).toElement();
+		d->mimeNode = globNode.parentNode().toElement();
+		list << d->mimeNode.attribute("type");
+	}
+	return(list);
 }
 
 // =============================================================================
