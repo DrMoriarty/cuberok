@@ -211,7 +211,11 @@ bool getNextFrame(bool fFirstTime)
     }
 frame_unpacked:
 	if(ffmpeg.packet.pts == (int64_t)localAV_NOPTS_VALUE) {
+#ifdef WIN32
 		ffmpeg.curts += ffmpeg.audio_buf_ptr / 2 / ffmpeg.pCodecCtx->channels;
+#else
+		ffmpeg.curts += ffmpeg.audio_buf_ptr / ffmpeg.pCodecCtx->channels;
+#endif
 	} 
 	return ffmpeg.audio_buf_ptr > 0;
 }
@@ -324,7 +328,11 @@ void PlayThread::run()
 						if(bytesDecoded < 0) break;
 						bytesRemaining-=bytesDecoded;
 						rawData+=bytesDecoded;
+#ifdef WIN32
 						ffmpeg.curts += audio_buf_size / 2 / ffmpeg.pCodecCtx->channels;
+#else
+						ffmpeg.curts += audio_buf_size / ffmpeg.pCodecCtx->channels;
+#endif
 					}
 					if(avfree) av_free_packet(&packet);
 					else {
