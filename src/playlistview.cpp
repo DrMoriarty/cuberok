@@ -141,6 +141,7 @@ void PlaylistView::storeListXSPF(QString fname)
 			xml.writeTextElement(XMLNS, "length", model.data(model.index(i, PlaylistModel::Length), Qt::DisplayRole).toString());
 			xml.writeTextElement(XMLNS, "year", QString::number(model.data(model.index(i, PlaylistModel::Year), Qt::DisplayRole).toInt()));
 			xml.writeTextElement(XMLNS, "rating", QString::number(qVariantValue<StarRating>(model.data(model.index(i, PlaylistModel::Rating), Qt::DisplayRole)).rating()));
+			xml.writeTextElement(XMLNS, "filetype", model.data(model.index(i, PlaylistModel::FileType), Qt::DisplayRole).toString());
 			xml.writeEndElement(); //extension
 			xml.writeEndElement(); //track
 		}

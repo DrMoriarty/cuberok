@@ -46,6 +46,7 @@ typedef struct _TagEntry: _CueEntry {
     int year;
     long dbindex;
     int rating;
+	QString filetype;
     _TagEntry() {
         year = rating = 0;
         dbindex = 0L;
@@ -66,6 +67,7 @@ public:
     static bool updateGenre(QString file, QString genre);
     static QString correct8bit(QString str, bool *corrected = 0);
     static QString correctBrokenUnicode(QString str, bool *corrected = 0);
+	static QString getFileType(QUrl);
 
     static TagEntry readTags(QUrl &url);
     static QList<CueEntry> readCue(QString file);

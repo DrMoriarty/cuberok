@@ -1501,6 +1501,14 @@
     <string>Remove mark</string>
    </property>
   </action>
+  <action name="actionViewType">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Type</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1515,6 +1523,7 @@
     <slot>findCurrent()</slot>
     <slot>addUrl(QUrl)</slot>
     <slot>viewQueue(bool)</slot>
+    <slot>viewType(bool)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2807,6 +2816,22 @@
     <hint type="destinationlabel">
      <x>325</x>
      <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionViewType</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>listView</receiver>
+   <slot>viewType(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>408</x>
+     <y>152</y>
     </hint>
    </hints>
   </connection>

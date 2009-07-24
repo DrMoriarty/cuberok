@@ -101,7 +101,7 @@ QVariant PlaylistModel::removeReturns(const QVariant& v)
 void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, long length)
 {
 	try {
-		if(l.count() >= 9) {
+		if(l.count() >= 10) {
 	    	insertRows(row, 1);
 	    	if(row >= rowCount()) row = rowCount() - 1;
 	        *_data.at(row).values[File] = path;
@@ -118,6 +118,7 @@ void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, l
 			*_data.at(row).values[CueLength] = QVariant((qlonglong)length);
 			*_data.at(row).values[DBIndex] = QVariant((qlonglong)0);
 			*_data.at(row).values[Number] = QVariant(rowCount());
+			*_data.at(row).values[FileType] =  l[9];
 
 	        emit dataChanged(index(row, 0), index(row, ColumnCount-1));
 		}
@@ -192,18 +193,19 @@ QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation,
 
     if (orientation == Qt::Horizontal)
 		switch(section) {
-		case 1: return tr("Queue");
-		case 2: return tr("File");
-		case 3: return tr("Track");
-		case 4: return tr("Title");
-		case 5: return tr("Artist");
-		case 6: return tr("Album");
-		case 7: return tr("Comment");
-		case 8: return tr("Genre");
-		case 9: return tr("Year");
-		case 10: return tr("Length");
-		case 11: return tr("Rating");
-		case 16: return tr("Number");
+		case Stat: return tr("Queue");
+		case File: return tr("File");
+		case Track: return tr("Track");
+		case Title: return tr("Title");
+		case Artist: return tr("Artist");
+		case Album: return tr("Album");
+		case Comment: return tr("Comment");
+		case Genre: return tr("Genre");
+		case Year: return tr("Year");
+		case Length: return tr("Length");
+		case Rating: return tr("Rating");
+		case Number: return tr("Number");
+		case FileType: return tr("Type");
 		default: return "";
 		}
 		//return tr(colnames[section]);
@@ -232,6 +234,11 @@ bool PlaylistModel::setData(const QModelIndex &index,
 
         *_data.at(index.row()).values[index.column()] =  value;
         emit dataChanged(index, index);
+		if(index.column() == File) {
+			// reset file type
+			QUrl url = qvariant_cast<QUrl>(value);
+			*_data.at(index.row()).values[FileType] = Tagger::getFileType(url);
+		}
         return true;
     }
     return false;
@@ -299,6 +306,13 @@ void PlaylistModel::appendList(QList<TagEntry> list)
     	d.values[PlaylistModel::Rating] = new QVariant(qVariantFromValue(StarRating(tag.rating)));
     	d.values[PlaylistModel::StartTime] = new QVariant();
     	d.values[PlaylistModel::Number] = new QVariant(rowCount());
+		if(tag.filetype.size()) {
+			d.values[PlaylistModel::FileType] =  new QVariant(tag.filetype);
+		} else {
+			// set file type from url
+			qDebug("empty file type");
+			d.values[PlaylistModel::FileType] =  new QVariant(Tagger::getFileType(tag.url));
+		}
 		_data.append(d); 
 	}
     endInsertRows();
@@ -385,6 +399,7 @@ void PlaylistFiller::proceedUrl(QUrl url)
 			l.append(QVariant(tag.track));
 			l.append(QVariant(tag.year));
 			l.append(qVariantFromValue(StarRating(tag.rating)));
+			l.append(QVariant(tag.filetype));
 			setTerminationEnabled(false);
 			emit sendFile(tag.url, index, l, tag.start, tag.length);
 			setTerminationEnabled(true);
