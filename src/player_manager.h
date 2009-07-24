@@ -50,14 +50,14 @@ class PlayerManager : public Player
 	QStringList getPlayers();
 	bool setPrefferedPlayer(QString);
 	QString getInfo();
-	QStringList& blackList(QString playerName);
-	QStringList& whiteList(QString playerName);
+	//QStringList& blackList(QString playerName);
+	//QStringList& whiteList(QString playerName);
 
  private:
     PlayerManager();
 	QList<Player*> players;
-	QMap<QString, QStringList> blackLists, whiteLists;
-	QStringList dummy;
+	//QMap<QString, QStringList> blackLists, whiteLists;
+	//QStringList dummy;
 	Player *player;
 	QString info;
 	QUrl filename;

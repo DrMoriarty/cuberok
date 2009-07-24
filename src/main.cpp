@@ -92,7 +92,7 @@ cuberok [OPTIONS] [FILES]\n\
 --new\t-n\tCreate a new playlist\n\
 --url URL\t-u URL\tOpen given URL\n\
 --volume NN\t-v NN\tSet volume to NN percent\n\
---next\t-n\tNext track\n\
+--next\t-x\tNext track\n\
 --prev\t-r\tPrevious track\n\
 --stop\t-s\tStop\n\
 --play\t-p\tPlay or pause current track\n\

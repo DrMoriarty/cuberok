@@ -31,6 +31,7 @@
 #include <SDL_audio.h>
 #define SDL_AUDIO_BUFFER_SIZE 1024
 #define QUEUESIZE 16
+#define STUPIDSEEK
 
 Q_EXPORT_PLUGIN2(player_ffmpeg, PlayerFfmpeg) 
 
@@ -70,6 +71,7 @@ struct _ffmpeg{
 	QString error;
 	bool pause;
 	float seekTo;
+	int64_t seekToTS;
 	SampleFormat audio_src_format;
 	ReSampleContext* resampleCtx;
 	QQueue<AVPacket> packetQueue;
@@ -279,17 +281,58 @@ void PlayThread::run()
 		if(!ffmpeg.pause && SDL_GetAudioStatus() != SDL_AUDIO_PLAYING) {
 			SDL_PauseAudio(0);
 		}
-		if(ffmpeg.seekTo != .0f) {
+		if(ffmpeg.seekTo != .0f || ffmpeg.seekToTS >= 0) {
 			int64_t ts;
-			if(ffmpeg.stopts) {
-				ts = ffmpeg.seekTo * (ffmpeg.stopts - ffmpeg.startts) + ffmpeg.startts;
-			} else {
-				ts = ffmpeg.seekTo / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den * ffmpeg.pFormatCtx->duration / AV_TIME_BASE;
+			if(ffmpeg.seekToTS >= 0) ts = ffmpeg.seekToTS;
+			else {
+				if(ffmpeg.stopts) {
+					ts = ffmpeg.seekTo * (ffmpeg.stopts - ffmpeg.startts) + ffmpeg.startts;
+				} else {
+					ts = ffmpeg.seekTo / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den * ffmpeg.pFormatCtx->duration / AV_TIME_BASE;
+				}
 			}
 			int flags = AVSEEK_FLAG_ANY;
-			ffmpeg.curts = ts;
 			if(ffmpeg.curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
 			if(ffmpeg.byteSeek) {
+#ifdef STUPIDSEEK
+				if(ffmpeg.curts > ts) {
+					bool result = av_seek_frame(ffmpeg.pFormatCtx, ffmpeg.audioStream, 0, AVSEEK_FLAG_ANY|AVSEEK_FLAG_BACKWARD|AVSEEK_FLAG_BYTE) >= 0;
+					ffmpeg.curts = 0;
+					ffmpeg.packetQueue.clear();
+				}
+				AVPacket packet;
+				av_init_packet(&packet);
+				do {
+					bool avfree = true;
+					if(!ffmpeg.packetQueue.size()) {
+						do {
+							if(packet.data!=NULL) av_free_packet(&packet);
+							if(av_read_frame(ffmpeg.pFormatCtx, &packet)<0) {
+								if(packet.data!=NULL) av_free_packet(&packet);
+								ffmpeg.eofstream = true;
+							}
+						} while(packet.stream_index!= ffmpeg.audioStream && !ffmpeg.eofstream);
+					} else {
+						packet = ffmpeg.packetQueue.dequeue();
+						avfree = false;
+					}
+					int bytesRemaining=packet.size;
+					uint8_t* rawData=packet.data;
+					while (bytesRemaining > 0) {
+						int audio_buf_size = sizeof(ffmpeg.audio_buf);
+						int bytesDecoded=avcodec_decode_audio2(ffmpeg.pCodecCtx, (int16_t *)ffmpeg.audio_buf, &audio_buf_size, rawData, bytesRemaining);
+						if(bytesDecoded < 0) break;
+						bytesRemaining-=bytesDecoded;
+						rawData+=bytesDecoded;
+						ffmpeg.curts += audio_buf_size / 2 / ffmpeg.pCodecCtx->channels;
+					}
+					if(avfree) av_free_packet(&packet);
+					else {
+						free(packet.data);
+						packet.data = 0;
+					}
+				} while (ffmpeg.curts < ts && !ffmpeg.eofstream);
+#else
 				flags |= AVSEEK_FLAG_BYTE;
 				if(ffmpeg.pFormatCtx->bit_rate)
 					ts = ts * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den * 60 / ffmpeg.pFormatCtx->bit_rate / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num;
@@ -298,10 +341,15 @@ void PlayThread::run()
 					ts = ts * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / 180000 / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num;
 					//ts *= 3;
 				}
+				bool result = av_seek_frame(ffmpeg.pFormatCtx, ffmpeg.audioStream, ts, flags) >= 0;
+#endif // STUPIDSEEK
+			} else {
+				bool result = av_seek_frame(ffmpeg.pFormatCtx, ffmpeg.audioStream, ts, flags) >= 0;
 			}
-			if(ffmpeg.curts >= ts) flags |= AVSEEK_FLAG_BACKWARD;
-			bool result = av_seek_frame(ffmpeg.pFormatCtx, ffmpeg.audioStream, ts, flags) >= 0;
+			ffmpeg.curts = ts;
 			ffmpeg.seekTo = .0f;
+			ffmpeg.seekToTS = -1;
+			ffmpeg.bytesRemaining = 0;
 			ffmpeg.packetQueue.clear();
 		}
         // Read the next packet, skipping all packets that aren't for this
@@ -484,6 +532,7 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	ffmpeg.stopts = double(length + start) * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num / 75;
 	if(ffmpeg.stopts > ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->duration && ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->duration > 0) 
 		ffmpeg.stopts = ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->duration;
+	/*
 	int64_t ts = ffmpeg.startts;
 	int flags = AVSEEK_FLAG_ANY;
 	if(ffmpeg.byteSeek) {
@@ -498,6 +547,9 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	}
 	bool result = !ffmpeg.startts || av_seek_frame(ffmpeg.pFormatCtx, ffmpeg.audioStream, ts, flags) >= 0;
 	ffmpeg.curts = ffmpeg.startts;
+	*/
+	ffmpeg.seekTo = .0f;
+	ffmpeg.seekToTS = ffmpeg.startts;
 
 	ffmpeg.pause = true;
     threadId = new PlayThread();

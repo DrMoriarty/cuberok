@@ -54,6 +54,11 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	audioMimes.sort();
 	cbd2 = new ComboBoxDelegate(audioMimes);
 	ui.tableWidget->setItemDelegateForColumn(0, cbd2);
+	foreach(QString mime, PLSet.mimeMap.keys()) {
+		ui.tableWidget->insertRow(ui.tableWidget->rowCount());
+		ui.tableWidget->setItem(ui.tableWidget->rowCount()-1, 0, new QTableWidgetItem(mime));
+		ui.tableWidget->setItem(ui.tableWidget->rowCount()-1, 1, new QTableWidgetItem(PLSet.mimeMap[mime]));
+	}
 	
 	if(PLSet.autoRating)
 		ui.checkBox_autorating->setCheckState(Qt::Checked);
@@ -145,6 +150,13 @@ void Settings::accept()
 	PLSet.sizeToolbuttons = ui.comboBox_sizeToolbuttons->currentIndex();
 	PLSet.controlCuePath = ui.checkBox_controlCuePath->isChecked();
 	PLSet.trayMessage = ui.checkBox_trayMessage->isChecked();
+
+	PLSet.mimeMap.clear();
+	for(int i = 0; i<ui.tableWidget->rowCount(); i++) {
+		QString mime = ui.tableWidget->item(i, 0)->text();
+		QString engine = ui.tableWidget->item(i, 1)->text();
+		PLSet.mimeMap[mime] = engine;
+	}
 
 	PLSet.save();
 	QDialog::accept();
