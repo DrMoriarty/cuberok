@@ -98,6 +98,9 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.comboBox_sizeToolbuttons->setCurrentIndex(PLSet.sizeToolbuttons);
 	ui.checkBox_controlCuePath->setChecked(PLSet.controlCuePath);
 	ui.checkBox_trayMessage->setChecked(PLSet.trayMessage);
+
+	ui.comboBox_defaultPlayer->addItems(PlayerManager::Self().getPlayers());
+	ui.comboBox_defaultPlayer->setCurrentIndex(ui.comboBox_defaultPlayer->findText(PLSet.defaultPlayer));
 }
 
 Settings::~Settings()
@@ -157,6 +160,7 @@ void Settings::accept()
 		QString engine = ui.tableWidget->item(i, 1)->text();
 		PLSet.mimeMap[mime] = engine;
 	}
+	PLSet.defaultPlayer = ui.comboBox_defaultPlayer->currentText();
 
 	PLSet.save();
 	QDialog::accept();
