@@ -528,7 +528,7 @@ bool PlayerFfmpeg::open(QUrl fname, long start, long length)
 	opened = true;
 	ffmpeg.audio_buf_ptr = 0;
 	ffmpeg.curts = 0;
-	ffmpeg.startts = start * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num / 75;
+	ffmpeg.startts = (double)start * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num / 75;
 	ffmpeg.stopts = double(length + start) * ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num / 75;
 	if(ffmpeg.stopts > ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->duration && ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->duration > 0) 
 		ffmpeg.stopts = ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->duration;
