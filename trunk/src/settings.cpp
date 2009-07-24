@@ -50,7 +50,9 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	foreach(QString m, allMimes) {
 		if(m.contains("audio") || m.contains("ogg")) audioMimes << m;
 	}
+#if QT_VERSION >= 0x040500
 	audioMimes.removeDuplicates();
+#endif
 	audioMimes.sort();
 	cbd2 = new ComboBoxDelegate(audioMimes);
 	ui.tableWidget->setItemDelegateForColumn(0, cbd2);
