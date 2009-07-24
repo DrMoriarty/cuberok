@@ -70,7 +70,8 @@ Q_OBJECT
 	bool trayMessage;
 
 	QMap<QString, QString> mimeMap;
-
+	QString defaultPlayer;
+	
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);

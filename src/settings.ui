@@ -303,6 +303,22 @@
              </layout>
             </widget>
            </item>
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Default engine for other mime-types:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_defaultPlayer">
+             <item>
+              <property name="text">
+               <string/>
+              </property>
+             </item>
+            </widget>
+           </item>
           </layout>
          </widget>
         </widget>

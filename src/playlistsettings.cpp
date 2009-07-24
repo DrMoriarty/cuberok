@@ -61,6 +61,7 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 		QDataStream s(mimeArr);
 		s >> mimeMap;
 	}
+	defaultPlayer = set.value("defaultPlayer", "").toString();
 }
 
 PlaylistSettings::~PlaylistSettings()
@@ -108,6 +109,7 @@ void PlaylistSettings::save()
 	QDataStream s(&mimeArr, QIODevice::WriteOnly);
 	s << mimeMap;
 	set.setValue("mimeMap", mimeArr);
+	set.setValue("defaultPlayer", defaultPlayer);
 }
 
 PlaylistSettings& PlaylistSettings::Self()

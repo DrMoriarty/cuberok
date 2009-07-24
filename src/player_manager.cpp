@@ -141,10 +141,16 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 					break;
 				}
 			}
+		} else if(PLSet.defaultPlayer.size()) {
+			foreach(Player *pl, players) {
+				if( pl->name() == PLSet.defaultPlayer && (pl->ready() || pl->prepare()) ) {
+					player = pl;
+				}
+			}
+			Console::Self().message(tr("Selected engine: %1").arg(player->name()));
 		} else if(!player->canOpen(mimeString)) {
 			int weight = 0;
 			foreach(Player *pl, players) {
-				QString name = pl->name();
 				if( pl->ready() || pl->prepare() ) {
 					if(pl->weight() >= weight && pl->canOpen(mimeString)) {
 						player = pl;
@@ -154,35 +160,6 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 			}
 			Console::Self().message(tr("Selected engine: %1").arg(player->name()));
 		}
-		/*if(!whiteLists[player->name()].contains(mimeString)) {
-			if(blackLists[player->name()].contains(mimeString)) {
-				change = true;
-			} else {
-				if(!player->canOpen(mimeString)) {
-					change = true;
-				}
-			}
-		}
-		if(change) {
-			int weight = 0;
-			foreach(Player *pl, players) {
-				QString name = pl->name();
-				if( pl->ready() || pl->prepare() ) {
-					if(pl->weight() >= weight && (whiteLists[name].contains(mimeString) || pl->canOpen(mimeString)) && !blackLists[name].contains(mimeString)) {
-						player = pl;
-						weight = pl->weight();
-						change = false;
-					}
-				}
-			}
-			if(change) {
-				Console::Self().warning(tr("Can't find backend for mime type %1").arg(mimeString));
-				return false;
-			} else {
-				Console::Self().message(tr("Selected engine: %1").arg(player->name()));
-			}
-		}
-		*/
 	}
 	filename = fname;
 	filestart = start;
