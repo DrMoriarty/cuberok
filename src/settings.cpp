@@ -48,7 +48,7 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	QFreeDesktopMime mime;
 	allMimes = mime.getList();
 	foreach(QString m, allMimes) {
-		if(m.contains("audio")) audioMimes << m;
+		if(m.contains("audio") || m.contains("ogg")) audioMimes << m;
 	}
 	audioMimes.removeDuplicates();
 	audioMimes.sort();
