@@ -427,6 +427,7 @@ TagEntry Tagger::readTags(QUrl &url)
 // 	tags.year = 0;
 	tags.url = url;
 	QString file = ToLocalFile(url);
+	tags.filetype = getFileType(url);
 	if(file.size()) {
 		QString title, artist, album, comment, genre, length;
 		int track, year, rating;
@@ -552,6 +553,8 @@ QList<TagEntry> Tagger::readXSPF(QString fname)
 										tags.year = xml.readElementText().toInt();
 									} else if(xml.name() == "rating") {
 										tags.rating = xml.readElementText().toInt();
+									} else if(xml.name() == "filetype") {
+										tags.filetype = xml.readElementText();
 									}
 								} else if(tt == QXmlStreamReader::EndElement && xml.name() == "extension") break;
 							}
@@ -621,7 +624,8 @@ QList<TagEntry> Tagger::readEntry(QUrl url)
 	else if(file.toLower().endsWith(".cue")) {
 		QList<TagEntry> tlist;
 		QList<CueEntry> clist = readCue(file);
-		TagEntry t = readTags(url);
+		TagEntry t;
+		if(clist.size()) t = readTags(clist[0].url);
 		foreach(CueEntry cue, clist) {
 			TagEntry tt = t;
 			tt.url = cue.url;
@@ -739,4 +743,16 @@ bool Tagger::garbageDetected(QUrl url)
 			}
 	}
 	return false;
+}
+
+QString Tagger::getFileType(QUrl url)
+{
+	// set file type from url
+	QString lf = ToLocalFile(url);
+	if(lf.size()) {
+		QFreeDesktopMime mime;
+		return mime.fromFile(lf);
+	} else {
+		return url.scheme();
+	}
 }

@@ -79,6 +79,7 @@ public slots:
 	void viewRating(bool);
 	void viewNumber(bool);
 	void viewQueue(bool);
+	void viewType(bool);
 	void editTag();
 	void removeSong();
 	void reloadTags();
