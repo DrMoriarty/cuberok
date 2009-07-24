@@ -69,6 +69,8 @@ Q_OBJECT
 	bool controlCuePath;
 	bool trayMessage;
 
+	QMap<QString, QString> mimeMap;
+
  signals:
 	void visibleChanged(int, bool);
 	void widthChanged(int, int);

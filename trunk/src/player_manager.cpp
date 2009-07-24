@@ -20,6 +20,7 @@
 #include "player_manager.h"
 #include "console.h"
 #include "main.h"
+#include "playlistsettings.h"
 
 #include <QtGui>
 
@@ -59,7 +60,7 @@ PlayerManager::PlayerManager() : player(0), autoEngine(true)
 				connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
 				connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
 				info += pl->name() + "\n";
-				if(set.contains(pl->name() + "/blackList")) {
+				/*if(set.contains(pl->name() + "/blackList")) {
 					blackLists[pl->name()] = qVariantValue<QStringList>(set.value(pl->name() + "/blackList"));
 				} else {
 					blackLists[pl->name()] = pl->hardcodedBlacklist();
@@ -69,6 +70,7 @@ PlayerManager::PlayerManager() : player(0), autoEngine(true)
 				} else {
 					whiteLists[pl->name()] = pl->hardcodedList();
 				}
+				*/
 			}
 		} else {
 			qDebug((const char*)("Can't load " + fileName).toLocal8Bit());
@@ -79,10 +81,11 @@ PlayerManager::PlayerManager() : player(0), autoEngine(true)
 PlayerManager::~PlayerManager()
 {
 	QSettings set;
-	foreach(Player *pl, players) {
+	/*foreach(Player *pl, players) {
 		set.setValue(pl->name() + "/blackList", blackLists[pl->name()]);
 		set.setValue(pl->name() + "/whiteList", whiteLists[pl->name()]);
 	}
+	*/
 	while(players.size()) {
 		delete players.last();
 		players.pop_back();
@@ -129,7 +132,29 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 		QFreeDesktopMime mime;
 		QString mimeString = mime.fromFile(file);
 		bool change = false;
-		if(!whiteLists[player->name()].contains(mimeString)) {
+		if(PLSet.mimeMap.contains(mimeString)) {
+			QString engName = PLSet.mimeMap[mimeString];
+			foreach(Player *pl, players) {
+				if( pl->name() == engName && ( pl->ready() || pl->prepare() )) {
+					player = pl;
+					Console::Self().message(tr("Selected engine: %1").arg(player->name()));
+					break;
+				}
+			}
+		} else if(!player->canOpen(mimeString)) {
+			int weight = 0;
+			foreach(Player *pl, players) {
+				QString name = pl->name();
+				if( pl->ready() || pl->prepare() ) {
+					if(pl->weight() >= weight && pl->canOpen(mimeString)) {
+						player = pl;
+						weight = pl->weight();
+					}
+				}
+			}
+			Console::Self().message(tr("Selected engine: %1").arg(player->name()));
+		}
+		/*if(!whiteLists[player->name()].contains(mimeString)) {
 			if(blackLists[player->name()].contains(mimeString)) {
 				change = true;
 			} else {
@@ -157,6 +182,7 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 				Console::Self().message(tr("Selected engine: %1").arg(player->name()));
 			}
 		}
+		*/
 	}
 	filename = fname;
 	filestart = start;
@@ -256,6 +282,7 @@ bool PlayerManager::setPrefferedPlayer(QString name)
 			}
 		}
 	} else {
+		autoEngine = false;
 		foreach(Player *pl, players) 
 			if(pl->name() == name && ( pl->ready() || pl->prepare() )) {
 				player = pl;
@@ -282,7 +309,7 @@ QString PlayerManager::getInfo()
 	return info;
 }
 
-QStringList& PlayerManager::blackList(QString playerName)
+/*QStringList& PlayerManager::blackList(QString playerName)
 {
 	if(blackLists.contains(playerName)) return blackLists[playerName];
 	dummy.clear();
@@ -295,4 +322,4 @@ QStringList& PlayerManager::whiteList(QString playerName)
 	dummy.clear();
 	return dummy;
 }
-
+*/
