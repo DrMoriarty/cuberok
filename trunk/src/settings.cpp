@@ -45,6 +45,10 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	cbd1 = new ComboBoxDelegate(PlayerManager::Self().getPlayers());
 	ui.tableWidget->setItemDelegateForColumn(1, cbd1);
 	QStringList audioMimes, allMimes;
+	audioMimes << "http";
+	audioMimes << "https";
+	audioMimes << "mms";
+	// TODO other protocols
 	QFreeDesktopMime mime;
 	allMimes = mime.getList();
 	foreach(QString m, allMimes) {

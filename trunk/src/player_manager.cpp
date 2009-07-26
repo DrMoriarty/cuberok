@@ -127,11 +127,8 @@ bool PlayerManager::canOpen(QString mime)
 
 bool PlayerManager::open(QUrl fname, long start, long length)
 {
-	QString file = ToLocalFile(fname);
-	if(file.size() && autoEngine) {
-		QFreeDesktopMime mime;
-		QString mimeString = mime.fromFile(file);
-		bool change = false;
+	if(autoEngine) {
+		QString mimeString = Tagger::getFileType(fname);
 		if(PLSet.mimeMap.contains(mimeString)) {
 			QString engName = PLSet.mimeMap[mimeString];
 			foreach(Player *pl, players) {
