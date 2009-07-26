@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>drmoriarty.cuberok.0_1</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <customFilter name="Cuberok 0.1">
+		<filterAttribute>cuberok</filterAttribute>
+		<filterAttribute>0.1</filterAttribute>
+    </customFilter>
+    <filterSection>
+		<filterAttribute>myapp</filterAttribute>
+		<filterAttribute>1.0</filterAttribute>
+	<toc>
+	<section title="Cuberok Manual" ref="index.html">
+		<section title="Three easy things" ref="three.html#first"/>
+		<section title="Tags and so on" ref="tags.html"/>
+		<section title="Hacking cuberok" ref="hack.html"/>
+	</section>
+	</toc>
+	<keywords>
+	    <keyword name="firsh start settings" id="Cuberok::firststart" ref="three.html#first"/>
+	    <keyword name="music listening" id="Cuberok::listen" ref="three.html#listen"/>
+	    <keyword name="collection" id="Cuberok::collection" ref="three.html#collection"/>
+	    <keyword name="library" id="Cuberok::library" ref="three.html#library"/>
+	    <keyword id="Suberok::index" ref="index.html"/>
+	</keywords>
+	<files>
+	    <file>classic.css</file>
+	    <file>index.html</file>
+        <file>tree.html</file>
+        <file>tags.html</file>
+        <file>hack.html</file>
+    </files>
+    </filterSection>
+</QtHelpProject> 
