@@ -29,6 +29,8 @@
 #include "importcollection.h"
 #include "firststartwizard.h"
 
+#include <QDesktopServices>
+
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false)
 {
@@ -568,5 +570,29 @@ void Cuberok::timeSlot()
  		if(url.isValid()) {
 			ui.listView->addUrl(url);
 		}
+	}
+}
+
+void Cuberok::showHelp()
+{
+	QProcess *process = new QProcess;
+	QStringList args;
+	args << QLatin1String("-collectionFile")
+		 << QLatin1String("E:/nw/workspace/Cuberok/help/cuberok-collection.qhc")
+		 << QLatin1String("-enableRemoteControl");
+	//args << QLatin1String("-showUrl") << QLatin1String("https://sites.google.com/site/cuberok");
+	process->start(QLatin1String("assistant"), args);
+	if (!process->waitForStarted())
+		return;	
+	QByteArray ba;
+	ba.append("setSource qthelp://cuberok.0_1_0/doc/index.html");
+	ba.append('\0');
+	process->write(ba);
+}
+
+void Cuberok::goToSite()
+{
+	if(!QDesktopServices::openUrl(QUrl("https://sites.google.com/site/cuberok/"))) {
+		QMessageBox::warning(this, tr("Something wrong"), tr("It seems your browser isn't configured properly"));
 	}
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QHelpCollectionProject version="1.0">
+    <assistant>
+        <title>Cuberok Help</title>
+        <startPage>qthelp://cuberok.0_1_0/doc/index.html</startPage>
+        <currentFilter>myfilter</currentFilter>
+        <applicationIcon>cuberok.png</applicationIcon>
+        <enableFilterFunctionality>false</enableFilterFunctionality>
+        <enableDocumentationManager>false</enableDocumentationManager>
+        <enableAddressBar visible="true">true</enableAddressBar>
+        <cacheDirectory>drmoriarty/cuberok</cacheDirectory>
+        <aboutMenuText>
+            <text>About Cuberok</text>
+            <text language="ru">О программе Cuberok</text>
+        </aboutMenuText>
+        <aboutDialog>
+            <file>about.txt</file>
+            <file language="ru">about_ru.txt</file>
+            <icon>about.png</icon>
+        </aboutDialog>
+    </assistant>
+    <docFiles>
+        <generate>
+            <file>
+                <input>cuberok-help.qhp</input>
+                <output>../help_compiled/cuberok-help.qch</output>
+            </file>
+        </generate>
+        <register>
+            <file>../help_compiled/cuberok-help.qch</file>
+        </register>
+    </docFiles>
+</QHelpCollectionProject>

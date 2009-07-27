@@ -531,6 +531,8 @@
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionAboutQt"/>
+    <addaction name="actionHelp"/>
+    <addaction name="actionCuberok_online"/>
    </widget>
    <widget class="QMenu" name="menuControl">
     <property name="tearOffEnabled">
@@ -713,7 +715,7 @@
     <string>Alt+F1</string>
    </property>
    <property name="shortcutContext">
-    <enum>Qt::WindowShortcut</enum>
+    <enum>Qt::ApplicationShortcut</enum>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
@@ -1507,6 +1509,30 @@
    </property>
    <property name="text">
     <string>Type</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/antistar.png</normaloff>:/icons/antistar.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionCuberok_online">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/internet.png</normaloff>:/icons/internet.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cuberok online</string>
    </property>
   </action>
  </widget>
@@ -2835,6 +2861,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionHelp</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>showHelp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCuberok_online</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>goToSite()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
@@ -2843,5 +2901,7 @@
   <slot>removeBookmark()</slot>
   <slot>selectBookmark(QListWidgetItem*)</slot>
   <slot>selectBookmark(QString)</slot>
+  <slot>showHelp()</slot>
+  <slot>goToSite()</slot>
  </slots>
 </ui>
