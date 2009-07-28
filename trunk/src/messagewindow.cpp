@@ -23,11 +23,10 @@
 MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 	:QWidget(0, Qt::Popup), closing(false), iterate(0), mainwindow(mw)
 {
-	QPoint p = mainwindow->pos() + QPoint(0, mainwindow->frameGeometry().height() - 150);
-	move(p);
-	resize(150, 150);
+	setSizePos();
 	QBoxLayout *vl = new QBoxLayout(QBoxLayout::TopToBottom, this);
 	QFrame *fr = new QFrame(this);
+	fr->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
 	QBoxLayout *hl = new QBoxLayout(QBoxLayout::LeftToRight, fr);
 	hl->setContentsMargins(0, 0, 0, 0);
 	vl->addWidget(fr);
@@ -39,21 +38,27 @@ MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 	b->setMaximumSize(24, 24);
 	hl->addWidget(b);
 	QString title;
+	QPalette pal(palette());
 	switch(type) {
 	case Console::C_MES:
-		title = tr("Message");
+		//pal.setColor(QPalette::Window, QColor("white"));
+		title = tr("Cuberok");
 		break;
 	case Console::C_WAR:
+		pal.setColor(QPalette::Window, QColor("yellow"));
 		title = tr("Warning");
 		break;
 	case Console::C_ERR:
+		pal.setColor(QPalette::Window, QColor("orange"));
 		title = tr("Error");
 		break;
 	case Console::C_FAT:
+		pal.setColor(QPalette::Window, QColor("red"));
 		title = tr("Fatal error");
 		break;
 	}
 	hl->addWidget(new QLabel(title, this));
+	setPalette(pal);
 	//setAttribute(Qt::WA_DeleteOnClose);
 	QTimer::singleShot(10000, this, SLOT(close()));
 	//timer = new QTimer(this);
@@ -74,6 +79,17 @@ void MessageWindow::updateSize()
 // 		timer->stop();
 // 		if(closing) close();
 // 	}
+}
+
+void MessageWindow::setSizePos(float s)
+{
+	QPoint p;
+	if(mainwindow->isActiveWindow())
+		p = mainwindow->pos() + QPoint(0, mainwindow->frameGeometry().height() - 150*s);
+	else
+		p = QPoint(0, QApplication::desktop()->screenGeometry().height() - 150*s);
+	move(p);
+	resize(150, 150 * s);
 }
 
 void MessageWindow::startClose()

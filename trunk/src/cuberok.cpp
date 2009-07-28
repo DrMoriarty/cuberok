@@ -29,8 +29,11 @@
 #include "importcollection.h"
 #include "firststartwizard.h"
 #include "messagewindow.h"
+#include "main.h"
 
 #include <QDesktopServices>
+
+QFreeDesktopMime mime;
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false), useMessageWindow(false)
@@ -239,8 +242,12 @@ void Cuberok::message(QString title, QString album, QString artist, long len)
 		//ui.progressBar->setFormat(title + " %p%");
 		ui.progressBar->setFormatText(title);
 		ui.progressBar->setDuration(len);
+		QString trayMessage = QString("%1 - %2").arg(artist, album);
 		if(PLSet.trayMessage) {
-			trayIcon->showMessage(title, QString("%1 - %2").arg(artist, album), QSystemTrayIcon::Information/*NoIcon*/);
+			trayIcon->showMessage(title, trayMessage, QSystemTrayIcon::Information/*NoIcon*/);
+		}
+		if(PLSet.popupMessage) {
+			messageQueue.enqueue(QPair<QString, int>(title + "\n" + trayMessage, Console::C_MES));
 		}
 		setWindowTitle(QString(titlepref).append(title));
 		trayIcon->setToolTip(QString("%1 - %2").arg(artist, title));
@@ -398,9 +405,8 @@ void Cuberok::newConsoleMessage(QString mes, int type)
 		break;
 	}
 	but->setIcon(icon);
-	if(type != Console::C_NONE && useMessageWindow) {
-		MessageWindow *mw = new MessageWindow(this, mes, type);
-		mw->show();
+	if(useMessageWindow && PLSet.popupMessage && type != Console::C_NONE) {
+		messageQueue.enqueue(QPair<QString, int>(mes, type));
 	}
 }
 
@@ -537,6 +543,15 @@ void Cuberok::selectBookmark(QString str)
 
 void Cuberok::timeSlot()
 {
+	// messages
+	if(useMessageWindow && messageQueue.size()) {
+		QPair<QString, int> m = messageQueue.dequeue();
+		MessageWindow *mw = new MessageWindow(this, m.first, m.second);
+		mw->show();
+	} else if(!useMessageWindow) {
+		messageQueue.clear();
+	}
+	// remote control
 	shm.lock();
 	char *data = (char*)shm.data();
 	QStringList list;
