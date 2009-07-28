@@ -21,7 +21,7 @@
 #include "console.h"
 
 MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
-	:QWidget(0, Qt::Popup), closing(false), iterate(0), mainwindow(mw)
+	:QWidget(0, Qt::ToolTip), closing(false), iterate(0), mainwindow(mw)
 {
 	setSizePos();
 	QBoxLayout *vl = new QBoxLayout(QBoxLayout::TopToBottom, this);

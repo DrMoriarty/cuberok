@@ -228,7 +228,7 @@ static QByteArray parse_string_mask(const char *mask, int len)
 class QFreeDesktopMime::Private {
 public:
 	Private() {
-		if(!instances) {
+		if(!_xmlDocument) {
 			_xmlDocument = new QDomDocument();
 			// Load Xml Freedesktop
 			QFile xml(":/freedesktopmime.xml");
@@ -242,8 +242,8 @@ public:
 	~Private() {
 		instances --;
 		if(instances <= 0 && _xmlDocument) {
-			delete _xmlDocument;
-			_xmlDocument = 0;
+			//delete _xmlDocument;
+			//_xmlDocument = 0;
 		}
 	}
 	QDomDocument& xmlDocument() {
