@@ -68,6 +68,7 @@ Q_OBJECT
 	QString collectionPath;
 	bool controlCuePath;
 	bool trayMessage;
+	bool popupMessage;
 
 	QMap<QString, QString> mimeMap;
 	QString defaultPlayer;

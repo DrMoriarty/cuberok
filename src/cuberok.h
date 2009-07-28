@@ -55,6 +55,7 @@ private:
 #endif
 	QTimer *timer;
 	bool useMessageWindow;
+	QQueue<QPair<QString, int> > messageQueue;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);

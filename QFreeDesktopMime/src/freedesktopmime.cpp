@@ -226,23 +226,43 @@ static QByteArray parse_string_mask(const char *mask, int len)
 //  FreeDesktopMime: PRIVATE Class
 // =============================================================================
 class QFreeDesktopMime::Private {
-	public:
-		QDomDocument xmlDocument;
-		QDomElement mimeNode;
+public:
+	Private() {
+		if(!instances) {
+			_xmlDocument = new QDomDocument();
+			// Load Xml Freedesktop
+			QFile xml(":/freedesktopmime.xml");
+			if (xml.open(QIODevice::ReadOnly)) {
+				_xmlDocument->setContent(&xml);
+				xml.close();
+			}
+		}
+		instances ++;
+	}
+	~Private() {
+		instances --;
+		if(instances <= 0 && _xmlDocument) {
+			delete _xmlDocument;
+			_xmlDocument = 0;
+		}
+	}
+	QDomDocument& xmlDocument() {
+		return *_xmlDocument;
+	}
+	QDomElement mimeNode;
+private:
+	static int instances;
+	static QDomDocument *_xmlDocument;
 };
 
+int QFreeDesktopMime::Private::instances = 0;
+QDomDocument *QFreeDesktopMime::Private::_xmlDocument = 0;
 // =============================================================================
 //  FreeDesktopMime: PUBLIC Constructors/Destructors
 // =============================================================================
 QFreeDesktopMime::QFreeDesktopMime (QObject *parent)
 	: QObject(parent), d(new QFreeDesktopMime::Private)
 {
-	// Load Xml Freedesktop
-	QFile xml(":/freedesktopmime.xml");
-	if (xml.open(QIODevice::ReadOnly)) {
-		d->xmlDocument.setContent(&xml);
-		xml.close();
-	}
 }
 
 QFreeDesktopMime::~QFreeDesktopMime() {
@@ -255,7 +275,7 @@ QFreeDesktopMime::~QFreeDesktopMime() {
 // =============================================================================
 QStringList QFreeDesktopMime::getList() {
 	QStringList list;
-	QDomElement root = d->xmlDocument.documentElement();
+	QDomElement root = d->xmlDocument().documentElement();
 	QDomNodeList globList = root.elementsByTagName("glob");
 	for (uint i = 0; i < globList.length(); ++i) {
 		QDomElement globNode = globList.item(i).toElement();
@@ -271,7 +291,7 @@ QStringList QFreeDesktopMime::getList() {
 QString QFreeDesktopMime::fromFileName (const QString& fileName) {
 	QFileInfo fileInfo(fileName);
 
-	QDomElement root = d->xmlDocument.documentElement();
+	QDomElement root = d->xmlDocument().documentElement();
 	QDomNodeList globList = root.elementsByTagName("glob");
 	for (uint i = 0; i < globList.length(); ++i) {
 		QDomElement globNode = globList.item(i).toElement();
@@ -307,7 +327,7 @@ QString QFreeDesktopMime::fromFile (const QString& fileName) {
 }
 
 QString QFreeDesktopMime::fromFile (QFile *file) {
-	QDomElement root = d->xmlDocument.documentElement();
+	QDomElement root = d->xmlDocument().documentElement();
 	QDomNodeList magicList = root.elementsByTagName("magic");
 
 	QList<QDomElement> matchMagicList;
@@ -407,7 +427,7 @@ bool QFreeDesktopMime::getMimeNode (const QString& mimeType) {
 	if (!d->mimeNode.isNull() && d->mimeNode.attribute("type") == mimeType)
 		return(true);
 
-	QDomElement root = d->xmlDocument.documentElement();
+	QDomElement root = d->xmlDocument().documentElement();
 	QDomNodeList mimeList = root.elementsByTagName("mime-type");
 	for (uint i = 0; i < mimeList.length(); ++i) {
 		QDomElement xmlNode = mimeList.item(i).toElement();
