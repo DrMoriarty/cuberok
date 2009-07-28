@@ -23,7 +23,7 @@
 #include "tagger.h"
 #include "console.h"
 
-#define DB_VERSION 6
+#define DB_VERSION 7
 
 Database::Database() :QObject(0), subset(false), ssAlbum(0)
 {
@@ -60,7 +60,7 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
             QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer, mbid varchar(50))", db);
             QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
             //QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-            QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer)", db);
+            QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer, Type varchar(30))", db);
             QSqlQuery q5("create table Version (value integer)", db);
             QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
             QSqlQuery q7("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
@@ -146,6 +146,10 @@ bool Database::updateDatabase(int fromver)
 		CreateDefaultSqlPlaylists();
 		qDebug("Update database from version 5");
 	}
+	case 6: {
+		QSqlQuery q0("alter table Song add column Type varchar(30)", db);
+		qDebug("Update database from version 6");
+	}
     }
     Console::Self().message("Database update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version");
@@ -194,16 +198,17 @@ int Database::AddFile(QString file)
     q0.bindValue(":file", file);
     q0.exec();
     if(q0.next()) return q0.value(0).toString().toInt();
-    QString title, artist, album, comment, genre, length;
+    QString title, artist, album, comment, genre, length, type;
     int track, year;
     if(Tagger::readTags(file, title, artist, album, comment, genre, track, year, length)) {
+		type = Tagger::getFileType(QUrl::fromLocalFile(file));
     //	TagLib::FileRef fr(file.toLocal8Bit().constData());
         int art = _AddArtist(artist);
         int alb = _AddAlbum(album, art);
         int gen = _AddGenre(genre);
         //QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment) values ('%1', %2, '%3', %4, %5, %6, %7, '%8')")
         //.arg(file, QString::number(fr.tag()->track()), QS(fr.tag()->title()), QString::number(art), QString::number(alb), QString::number(gen), QString::number(fr.tag()->year()), QS(fr.tag()->comment()));
-        QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment, Length) values (:file, %1, :title, %2, %3, %4, %5, :comment, :length) ")
+        QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment, Length, Type) values (:file, %1, :title, %2, %3, %4, %5, :comment, :length, :type) ")
         .arg(QString::number(track), QString::number(art), QString::number(alb), QString::number(gen), QString::number(year));
         QSqlQuery q("", db);
         q.prepare(com);
@@ -211,6 +216,7 @@ int Database::AddFile(QString file)
         q.bindValue(":title", title);
         q.bindValue(":comment", comment);
         q.bindValue(":length", length);
+		q.bindValue(":type", type);
         q.exec();
         QSqlQuery q1("", db);
         q1.prepare("select ID from Song where File = :file");
@@ -866,12 +872,12 @@ QString Database::_GetFile(int id)
 // 	else return "";
 // }
 
-bool Database::GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length)
+bool Database::GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length, QString &type)
 {
     if(!open) return false;
     QMutexLocker locker(&lock);
     QSqlQuery q("", db);
-    QString com = "select Title, Artist, Album, Comment, Genre, Track, Year, Rating, Length from Song where File = :file";
+    QString com = "select Title, Artist, Album, Comment, Genre, Track, Year, Rating, Length, Type from Song where File = :file";
     q.prepare(com);
     q.bindValue(":file", file);
     q.exec();
@@ -890,6 +896,7 @@ bool Database::GetTags(QString file, QString &title, QString &artist, QString &a
         year = q.value(6).toInt(&ok);
         rating = q.value(7).toInt(&ok);
         length = q.value(8).toString();
+		type = q.value(9).toString();
         return true;
     }
     return false;
@@ -1301,4 +1308,13 @@ void Database::cleanUpGenres()
 {
 	QSqlQuery q0("delete from Genre where refs = 0", db);
 	QSqlQuery q1("delete from Genre where refs is null", db);
+}
+
+void Database::SetFileType(QString file, QString type)
+{
+	QSqlQuery q("", db);
+	q.prepare("update Song set Type = :type where File = :file");
+	q.bindValue(":type", type);
+	q.bindValue(":file", file);
+	q.exec();
 }

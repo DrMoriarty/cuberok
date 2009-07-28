@@ -238,9 +238,9 @@ void CollectionModel::updateMode(ListMode m)
 		icon.load(":/icons/def_song.png");
 		stat = tr("Collection - %n song(s)", "", data.count());
 		foreach(QString it, data) {
-			QString title, artist, album, comment, genre, length;
+			QString title, artist, album, comment, genre, length, type;
 			int track, year, rating;
-			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length)) {
+			if(Database::Self().GetTags(it, title, artist, album, comment, genre, track, year, rating, length, type)) {
 				QPixmap px2 = icon;
 				drawStars(px2, rating, true);
 				QStandardItem *row = new QStandardItem(QIcon(px2), title);

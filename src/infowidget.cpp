@@ -176,9 +176,9 @@ void InfoWidget::setAlbum(QString a)
 	while(al->childCount()) delete al->child(0);
 	QList<QString> songs = Database::Self().Songs();
 	foreach(QString song, songs) {
-		QString title, artist, album, comment, genre, length;
+		QString title, artist, album, comment, genre, length, type;
 		int track, year, rating;
-		Database::Self().GetTags(song, title, artist, album, comment, genre, track, year, rating, length);
+		Database::Self().GetTags(song, title, artist, album, comment, genre, track, year, rating, length, type);
 		QTreeWidgetItem *it = new QTreeWidgetItem(al);
 // 		it->setText(1, title);
 // 		it->setIcon(1, QIcon(":/icons/def_song.png"));

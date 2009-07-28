@@ -479,7 +479,7 @@ void PlaylistView::updateTag(int i)
 void PlaylistView::resetTags(QModelIndex& ind)
 {
 	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
-	QString title, artist, album, comment, genre, length;
+	QString title, artist, album, comment, genre, length, type;
 	int track, year, rating=0;
 	
 	Tagger::readTags(path, title, artist, album, comment, genre, track, year, length);
@@ -492,7 +492,7 @@ void PlaylistView::resetTags(QModelIndex& ind)
 	addItem(QString::number(track), PlaylistModel::Track, &ind);
 	addItem(genre, PlaylistModel::Genre, &ind);
 
-	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
+	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
 		addItem(qVariantFromValue(StarRating(rating)), PlaylistModel::Rating, &ind);
 	}
 }
@@ -609,9 +609,9 @@ void PlaylistView::rateSong(QModelIndex &ind, int r, int offset)
 {
 	if(!PLSet.autoRating || (!r && !offset)) return;
 	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
-	QString title, artist, album, comment, genre, length;
+	QString title, artist, album, comment, genre, length, type;
 	int track, year, rating;
-	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length)) {
+	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
 		if(r) {
 			r = r * (5 - abs(rating/10));
 		} else {
