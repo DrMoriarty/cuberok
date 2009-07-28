@@ -33,7 +33,7 @@
 
 #include <QDesktopServices>
 
-QFreeDesktopMime mime;
+QFreeDesktopMime __mime;
 
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false), useMessageWindow(false)
