@@ -66,9 +66,9 @@ int CollectionFiller::proceed(QString path)
 			if(file == "." || file == "..") continue;
 			if(proceed(dir.filePath(file)) > 0) {
 				count ++;
-				QString title, artist, album, comment, genre, length;
+				QString title, artist, album, comment, genre, length, type;
 				int track, year, rating;
-				Database::Self().GetTags(dir.filePath(file), title, artist, album, comment, genre, track, year, rating, length);
+				Database::Self().GetTags(dir.filePath(file), title, artist, album, comment, genre, track, year, rating, length, type);
 				if(count > 1) {
 					if(_album != album) _album = "";
 					if(_artist != artist) _artist = "";
@@ -102,7 +102,8 @@ int CollectionFiller::proceed(QString path)
 	} else {
 		QString p2 = path.toLower();
 		// check playlists
-		if(p2.endsWith(".m3u") || p2.endsWith(".xspf") || p2.endsWith(".asx") || p2.endsWith(".asp") || p2.endsWith(".cue")) {
+		if(Tagger::playlistDetected(QUrl::fromLocalFile(path))) {
+			//if(p2.endsWith(".m3u") || p2.endsWith(".xspf") || p2.endsWith(".asx") || p2.endsWith(".asp") || p2.endsWith(".cue")) {
 			return Database::Self().AddPlaylist(path);
 		}
 		// drop into item
@@ -130,9 +131,9 @@ int CollectionFiller::proceed(QString path)
 				return -1;
 			}
 			// check songs
-			QString title, artist, album, comment, genre, length;
+			QString title, artist, album, comment, genre, length, type;
 			int track, year, rating;
-			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length);
+			bool exist = Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type);
 			switch(mode) {
 			case M_ALBUM:
 				Tagger::updateAlbum(path, attrname);

@@ -85,7 +85,7 @@ public:
     void ArtForSQLPlaylist(QString val, QString art);
     QList<QString> Songs(QString *ar = 0, int al = 0, QString *ge = 0, QString *so = 0);
 	QList<QString> SongsBySQLPlaylist(QString sqlname);
-    bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length);
+    bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length, QString &type);
     bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
 	void MbidForAlbum(QString val, QString mbid, int artist);
 	void MbidForArtist(QString val, QString mbid);
@@ -98,6 +98,7 @@ public:
 	void setInfo(QString mbid, QString text);
 	QString GetSQLPlaylist(QString name);
 	void SetSQLPlaylist(QString name, QString sql);
+	void SetFileType(QString file, QString type);
 
     void clearSubset();
     void pushSubset();

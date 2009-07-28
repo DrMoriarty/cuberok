@@ -187,7 +187,7 @@ TagEditor::TagEditor(QString fname, QWidget *parent)
 	sl.sort();
 	ui.comboBox_Genre->addItems(sl);
 	//ui.comboBox_Genre->setEditText(QS(fr.tag()->genre()));
-	QString title, artist, album, comment, genre, length;
+	QString title, artist, album, comment, genre, length, type;
 	int track, year, rating=0;
 	Tagger::readTags(fname, title, artist, album, comment, genre, track, year, length);
 	ui.label->setText(file);
@@ -198,7 +198,7 @@ TagEditor::TagEditor(QString fname, QWidget *parent)
 	ui.spinBox_Track->setValue(track);
 	ui.spinBox_Year->setValue(year);
 	ui.comboBox_Genre->setEditText(genre);
-	if(Database::Self().GetTags(fname, title, artist, album, comment, genre, track, year, rating, length)) {
+	if(Database::Self().GetTags(fname, title, artist, album, comment, genre, track, year, rating, length, type)) {
 		ui.spinBox_Rating->setValue(rating);
 	}
 	//Tagger::setAutoCorrect(savedcor);

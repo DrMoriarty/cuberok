@@ -427,15 +427,14 @@ TagEntry Tagger::readTags(QUrl &url)
 // 	tags.year = 0;
 	tags.url = url;
 	QString file = ToLocalFile(url);
-	tags.filetype = getFileType(url);
 	if(file.size()) {
-		QString title, artist, album, comment, genre, length;
+		QString title, artist, album, comment, genre, length, type;
 		int track, year, rating;
 		TagLib::FileRef fr(file.toLocal8Bit().constData());
 		if(!fr.isNull() && fr.audioProperties()) {
 			tags.length = fr.audioProperties()->length() * 75;
 		}
-		if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length)) {
+		if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length, type)) {
 			tags.title = title;
 			tags.artist = artist;
 			tags.album = album;
@@ -445,6 +444,11 @@ TagEntry Tagger::readTags(QUrl &url)
 			tags.year = year;
 			tags.rating = rating;
 			tags.slength = length;
+			tags.filetype = type;
+			if(!type.size()) {
+				tags.filetype = getFileType(url);
+				Database::Self().SetFileType(file, tags.filetype);
+			}
 		} else
 		if(readTags(file, title, artist, album, comment, genre, track, year, length)) {
 			tags.title = title;
@@ -461,6 +465,7 @@ TagEntry Tagger::readTags(QUrl &url)
 	} else { // can not read tags from remote source
 		tags.title = url.toString();
 	}
+	if(!tags.filetype.size()) tags.filetype = getFileType(url);
 	return tags;
 }
 

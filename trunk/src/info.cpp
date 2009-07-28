@@ -213,9 +213,9 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	rating = 0;
 	if(songs.size() > 0) {
 		foreach(QString s, songs) {
-			QString title, artist, album, comment, genre, length;
+			QString title, artist, album, comment, genre, length, type;
 			int track, year, r;
-			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length);
+			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length, type);
 			if(song == title) {
 				rating = r;
 				break;
@@ -275,9 +275,9 @@ void Info::updateRating()
 	rating = 0;
 	if(songs.size() > 0) {
 		foreach(QString s, songs) {
-			QString title, artist, album, comment, genre, length;
+			QString title, artist, album, comment, genre, length, type;
 			int track, year, r;
-			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length);
+			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length, type);
 			if(so == title) {
 				rating = r;
 				break;
