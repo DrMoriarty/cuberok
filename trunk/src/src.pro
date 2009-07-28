@@ -44,6 +44,7 @@ HEADERS += aboutdialog.h \
            magnatune_browser.h \
            main.h \
            marklistwidget.h \
+           messagewindow.h \
            myapplication.h \
            player.h \
            player_manager.h \
@@ -106,6 +107,7 @@ SOURCES += aboutdialog.cpp \
            magnatune_browser.cpp \
            main.cpp \
            marklistwidget.cpp \
+           messagewindow.cpp \
            myapplication.cpp \
            player_manager.cpp \
            playlistcontainer.cpp \

@@ -54,6 +54,7 @@ private:
 	mp3Dialog *qtag;
 #endif
 	QTimer *timer;
+	bool useMessageWindow;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);

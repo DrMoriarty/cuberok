@@ -28,11 +28,12 @@
 #include "collectionsettings.h"
 #include "importcollection.h"
 #include "firststartwizard.h"
+#include "messagewindow.h"
 
 #include <QDesktopServices>
 
 Cuberok::Cuberok(QWidget *parent)
-    : QMainWindow(parent), cv(0), needToClose(false)
+    : QMainWindow(parent), cv(0), needToClose(false), useMessageWindow(false)
 {
 	QUrl url("file:///home/vasya/music/song\\123.mp3");
 	//Console::Self().log(url.toString());
@@ -164,6 +165,7 @@ Cuberok::Cuberok(QWidget *parent)
 	applySettings();
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
+	useMessageWindow = true;
 }
 
 Cuberok::~Cuberok()
@@ -374,7 +376,7 @@ void Cuberok::consoleClosed(QObject*)
 	cv = 0;
 }
 
-void Cuberok::newConsoleMessage(QString, int)
+void Cuberok::newConsoleMessage(QString mes, int type)
 {
 	QIcon icon;
 	QAbstractButton *but = (QAbstractButton*)ui.toolBar_2->widgetForAction(ui.actionConsole);
@@ -396,6 +398,10 @@ void Cuberok::newConsoleMessage(QString, int)
 		break;
 	}
 	but->setIcon(icon);
+	if(type != Console::C_NONE && useMessageWindow) {
+		MessageWindow *mw = new MessageWindow(this, mes, type);
+		mw->show();
+	}
 }
 
 bool Cuberok::reallyClose()
