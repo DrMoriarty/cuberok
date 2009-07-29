@@ -103,7 +103,7 @@ bool PlayerManager::prepare()
 		}
 	}
 	qDebug("Selected engine %s", (const char*)player->name().toLocal8Bit());
-	Console::Self().message(tr("Selected engine: %1").arg(player->name()));
+	Console::Self().log(tr("Selected engine: %1").arg(player->name()));
 	autoEngine = true;
 	return player;
 }
@@ -134,7 +134,7 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 			foreach(Player *pl, players) {
 				if( pl->name() == engName && ( pl->ready() || pl->prepare() )) {
 					player = pl;
-					Console::Self().message(tr("Selected engine: %1").arg(player->name()));
+					Console::Self().log(tr("Selected engine: %1").arg(player->name()));
 					break;
 				}
 			}
@@ -144,7 +144,7 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 					player = pl;
 				}
 			}
-			Console::Self().message(tr("Selected engine: %1").arg(player->name()));
+			Console::Self().log(tr("Selected engine: %1").arg(player->name()));
 		} else if(!player->canOpen(mimeString)) {
 			int weight = 0;
 			foreach(Player *pl, players) {
@@ -155,7 +155,7 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 					}
 				}
 			}
-			Console::Self().message(tr("Selected engine: %1").arg(player->name()));
+			Console::Self().log(tr("Selected engine: %1").arg(player->name()));
 		}
 	}
 	filename = fname;
@@ -264,7 +264,7 @@ bool PlayerManager::setPrefferedPlayer(QString name)
 			}
 	}
 	if(res) {
-		Console::Self().message(tr("User select engine: %1").arg(player->name()));
+		Console::Self().message(tr("%1 engine is selected by user").arg(player->name()));
 		if(needToContinue) {
 			if(!player->open(filename, filestart, filelength) ||
 			   !player->play() ||

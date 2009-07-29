@@ -23,6 +23,9 @@
 MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 	:QWidget(0, Qt::ToolTip), closing(false), iterate(0), mainwindow(mw)
 {
+	if(mainwindow->isActiveWindow()) {
+		setWindowFlags(Qt::Popup);
+	}
 	setSizePos();
 	QBoxLayout *vl = new QBoxLayout(QBoxLayout::TopToBottom, this);
 	QFrame *fr = new QFrame(this);
@@ -33,7 +36,8 @@ MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 	QLabel *label = new QLabel(mes, this);
 	label->setWordWrap(true);
 	vl->addWidget(label);
-	QPushButton *b = new QPushButton("X", this);
+	//QPushButton *b = new QPushButton("X", this);
+	QPushButton *b = new QPushButton(QIcon(":/icons/edit-add.png"), "", this);
 	connect(b, SIGNAL(clicked(bool)), this, SLOT(close()));
 	b->setMaximumSize(24, 24);
 	hl->addWidget(b);
