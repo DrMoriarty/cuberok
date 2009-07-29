@@ -61,5 +61,6 @@
 	<file alias="gohome.png">../images/gohome.png</file>
 	<file alias="back.png">../images/back.png</file>
 	<file alias="forward.png">../images/forward.png</file>
+	<file alias="edit-add.png">../images/edit-add.png</file>
     </qresource>
 </RCC>
