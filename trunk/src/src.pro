@@ -200,7 +200,18 @@ unix {
     INSTALLS += target documentation locale pixmap desktop
 }
 
+mac {
+    INCLUDEPATH += . \
+               /usr/local/include/taglib
+    LIBS += -L/usr/local/lib  -ltag
+    ICON = ../images/cuberok.icns
+}
+
 LIBS += -L$${DESTDIR}/plugins -lplayer_void
+
+macx {
+    LIBS += -L$${DESTDIR}/plugins -lplayer_phonon
+}
 
 audiere {
     DEFINES += AUDIERE

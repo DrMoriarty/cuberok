@@ -66,7 +66,7 @@ void BrowserViewer::browserChanged(int i)
 
 void BrowserViewer::putList(QList< QStringList > list)
 {
-	Console::Self().message("Put "+QString::number(list.size())+" items into browser viewer");
+        Console::Self().log("Put "+QString::number(list.size())+" items into browser viewer");
 	ui.listWidget->clear();
 	foreach(QStringList item, list) {
 		if(item.size() >= 4 && item[0].size()) {
