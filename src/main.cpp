@@ -194,6 +194,19 @@ void putCommands(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     srand(0);
+<<<<<<< .mine
+#ifdef WIN32
+    qInstallMsgHandler(myMessageOutput);
+#endif
+    MyApplication a(argc, argv);
+        qRegisterMetaType<StarRating>("StarRating");
+	qRegisterMetaTypeStreamOperators<StarRating>("StarRating");
+    QApplication::setDesktopSettingsAware(false);
+    QCoreApplication::setOrganizationName("DrMoriarty");
+    //QCoreApplication::setOrganizationDomain("");
+    QCoreApplication::setApplicationName("Cuberok");
+=======
+>>>>>>> .r292
 	if(shm.attach(QSharedMemory::ReadWrite)) {
 		if(argc == 1) {
 			qDebug("Cuberok already started\n exiting...");
@@ -230,8 +243,13 @@ int main(int argc, char *argv[])
     QTranslator translator;
     QString trpath;
 	//trpath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-#ifndef WIN32
+#ifdef WIN32
+#else
+#if defined(MAC)
+    trpath = qApp->applicationDirPath() + "/../Resources/locale/";
+#else
     trpath = qApp->applicationDirPath() + "/../share/cuberok/locale/";
+#endif
 #endif
     QString trfile = QString("cuberok_") + QLocale::system().name().left(2);
     if (!translator.load(trfile, trpath)) {
@@ -243,7 +261,7 @@ int main(int argc, char *argv[])
     a.processEvents();
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
     Cuberok w;
-	MyApplication::restoreState();
+        MyApplication::restoreState();
     w.show();
     splash.finish(&w);
 #ifndef DEBUG

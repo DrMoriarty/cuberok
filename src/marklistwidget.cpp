@@ -44,4 +44,5 @@ bool MarkListWidget::dropMimeData(int index, const QMimeData* data, Qt::DropActi
 	} else if(data->hasText()) {
 		addItem(data->text());
 	} else return true;
+    return true;
 }

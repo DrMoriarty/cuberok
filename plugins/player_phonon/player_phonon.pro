@@ -22,6 +22,9 @@ win32 {
 }
 
 unix {
+    macx {
+        CONFIG += static
+    }
     DESTDIR = ../../unix/plugins
     #INCLUDEPATH += $$system(audiere-config --cxxflags)
     #LIBS += $$system(audiere-config --libs)
@@ -30,6 +33,7 @@ unix {
     include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
+
 
 OBJECTS_DIR = $${DESTDIR}/../obj
 MOC_DIR = $${DESTDIR}/../obj
