@@ -25,6 +25,9 @@
 #include <QtGui>
 
 Q_IMPORT_PLUGIN(player_void)
+#ifdef Q_OS_MAC
+Q_IMPORT_PLUGIN(player_phonon)
+#endif
 
 PlayerManager::PlayerManager() : player(0), autoEngine(true)
 {

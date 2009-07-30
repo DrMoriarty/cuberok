@@ -17,15 +17,16 @@ fi
 make distclean --quiet
 qmake -r -config release -spec macx-g++
 make --quiet
-$QTDIR/macdeployqt unix/$APP.app/
+cp -rf unix/$APP.app mac/
+$QTDIR/macdeployqt mac/$APP.app/
 
 # other staff
-mkdir unix/$APP.app/Contents/Resources/locale
-cp translations/*.qm unix/$APP.app/Contents/Resources/locale/
+mkdir mac/$APP.app/Contents/Resources/locale
+cp translations/*.qm mac/$APP.app/Contents/Resources/locale/
  
 # Create Bundle
 mkdir $DIR
-cp -rf unix/$APP.app $DIR/
+cp -rf mac/$APP.app $DIR/
 hdiutil create -ov -srcfolder $DIR -format UDBZ -volname "$APP $VERSION" "$APP.dmg"
 hdiutil internet-enable -yes "$APP.dmg"
 rm -rf $DIR
