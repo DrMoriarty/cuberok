@@ -210,6 +210,7 @@ mac {
 LIBS += -L$${DESTDIR}/plugins -lplayer_void
 
 macx {
+    QT += phonon
     LIBS += -L$${DESTDIR}/plugins -lplayer_phonon
 }
 

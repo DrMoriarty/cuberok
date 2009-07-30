@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
 	//trpath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
 #ifdef WIN32
 #else
-#if defined(MAC)
+#if defined(Q_OS_MAC)
     trpath = qApp->applicationDirPath() + "/../Resources/locale/";
 #else
     trpath = qApp->applicationDirPath() + "/../share/cuberok/locale/";
