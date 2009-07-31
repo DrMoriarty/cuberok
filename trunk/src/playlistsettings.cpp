@@ -57,6 +57,8 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	controlCuePath = set.value("controlCuePath", true).toBool();
 	trayMessage = set.value("trayMessage", true).toBool();
 	popupMessage = set.value("popupMessage", true).toBool();
+	popupPosition = set.value("popupPosition", 0).toInt();
+	popupSize = set.value("popupSize", 0).toInt();
 	QByteArray mimeArr = qvariant_cast<QByteArray>(set.value("mimeMap"));
 	if(mimeArr.size()) {
 		QDataStream s(mimeArr);
@@ -106,6 +108,8 @@ void PlaylistSettings::save()
 	set.setValue("controlCuePath", controlCuePath);
 	set.setValue("trayMessage", trayMessage);
 	set.setValue("popupMessage", popupMessage);
+	set.setValue("popupPosition", popupPosition);
+	set.setValue("popupSize", popupSize);
 
 	QByteArray mimeArr;
 	QDataStream s(&mimeArr, QIODevice::WriteOnly);

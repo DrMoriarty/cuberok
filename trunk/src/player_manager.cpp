@@ -240,6 +240,7 @@ QStringList PlayerManager::getPlayers()
 bool PlayerManager::setPrefferedPlayer(QString name)
 {
 	if(player && name == player->name()) return true;
+	if(!name.size() && autoEngine) return true;
 	double pos = .0f;
 	bool needToContinue = false;
 	if(player && player->playing()) {
