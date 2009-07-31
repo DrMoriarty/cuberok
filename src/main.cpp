@@ -194,6 +194,16 @@ void putCommands(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     srand(0);
+    if(shm.attach(QSharedMemory::ReadWrite)) {
+        if(argc == 1) {
+            qDebug("Cuberok already started\n exiting...");
+            usage();
+            return 1;
+        } else {
+            putCommands(argc, argv);
+            return 0;
+        }
+    }
 #ifdef WIN32
     qInstallMsgHandler(myMessageOutput);
 #endif
@@ -204,16 +214,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("DrMoriarty");
     //QCoreApplication::setOrganizationDomain("");
     QCoreApplication::setApplicationName("Cuberok");
-	if(shm.attach(QSharedMemory::ReadWrite)) {
-		if(argc == 1) {
-			qDebug("Cuberok already started\n exiting...");
-			usage();
-			return 1;
-		} else {
-			putCommands(argc, argv);
-			return 0;
-		}
-	}
 	if(!shm.create(SHMEM_SIZE)) {
 		qFatal("Can not create shared memory segment!");
 	} else {
