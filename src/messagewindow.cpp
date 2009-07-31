@@ -19,14 +19,29 @@
 
 #include "messagewindow.h"
 #include "console.h"
+#include "playlistsettings.h"
+
+int WSIZE = 100;
 
 MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 	:QWidget(0, Qt::ToolTip), closing(false), iterate(0), mainwindow(mw)
 {
+	switch(PLSet.popupSize) {
+	case 0:
+		WSIZE = 100;
+		break;
+	case 1:
+		WSIZE = 125;
+		break;
+	case 2:
+	default:
+		WSIZE = 150;
+		break;
+	}
 	if(mainwindow->isActiveWindow()) {
 		setWindowFlags(Qt::Popup);
 	}
-	setSizePos();
+	//setSizePos();
 	QBoxLayout *vl = new QBoxLayout(QBoxLayout::TopToBottom, this);
 	QFrame *fr = new QFrame(this);
 	fr->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
@@ -65,35 +80,47 @@ MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 	setPalette(pal);
 	//setAttribute(Qt::WA_DeleteOnClose);
 	QTimer::singleShot(10000, this, SLOT(close()));
-	//timer = new QTimer(this);
-	//connect(timer, SIGNAL(timeout()), this, SLOT(updateSize()));
-	//timer->start(100);
+	timer = new QTimer(this);
+	if(!mainwindow->isActiveWindow()) {
+		setSizePos(.0f);
+		connect(timer, SIGNAL(timeout()), this, SLOT(updateSize()));
+		timer->start(50);
+	} else {
+		setSizePos();
+	}
 }
 
 void MessageWindow::updateSize()
 {
-// 	iterate ++;
-// 	int h;
-// 	if(closing) h = 150 - iterate * 15;
-// 	else h = iterate * 15;
-// 	QPoint p = mainwindow->pos() + QPoint(0, mainwindow->height() - h);
-// 	move(p);
-// 	resize(150, h);
-// 	if(iterate >= 10) {
-// 		timer->stop();
-// 		if(closing) close();
-// 	}
+	iterate ++;
+	setSizePos(.05f * iterate);
+	if(iterate >= 20) {
+		timer->stop();
+	}
 }
 
 void MessageWindow::setSizePos(float s)
 {
 	QPoint p;
 	if(mainwindow->isActiveWindow())
-		p = mainwindow->pos() + QPoint(0, mainwindow->frameGeometry().height() - 150*s);
-	else
-		p = QPoint(0, QApplication::desktop()->screenGeometry().height() - 150*s);
+		p = mainwindow->pos() + QPoint(0, mainwindow->frameGeometry().height() - WSIZE);
+	else switch(PLSet.popupPosition) {
+		case 0:
+			p = QPoint((1.f-s)*(-WSIZE), 0);
+			break;
+		case 1:
+			p = QPoint(QApplication::desktop()->screenGeometry().width() - (s*WSIZE), 0);
+			break;
+		case 2:
+			p = QPoint((1.f-s)*(-WSIZE), QApplication::desktop()->screenGeometry().height() - WSIZE);
+			break;
+		case 3:
+			p = QPoint(QApplication::desktop()->screenGeometry().width() - (s*WSIZE), QApplication::desktop()->screenGeometry().height() - WSIZE);
+			break;
+		}
 	move(p);
-	resize(150, 150 * s);
+	resize(WSIZE, WSIZE);
+	update();
 }
 
 void MessageWindow::startClose()

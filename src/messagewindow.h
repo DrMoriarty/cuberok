@@ -33,7 +33,7 @@ class MessageWindow: public QWidget
  private:
 	bool closing;
 	int iterate;
-	//QTimer *timer;
+	QTimer *timer;
 	QMainWindow *mainwindow;
 
 	void setSizePos(float p = 1.f);
