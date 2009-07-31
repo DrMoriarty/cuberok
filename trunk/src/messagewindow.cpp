@@ -24,7 +24,7 @@
 int WSIZE = 100;
 
 MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
-	:QWidget(0, Qt::ToolTip), closing(false), iterate(0), mainwindow(mw)
+    :QWidget(0, Qt::SplashScreen), closing(false), iterate(0), mainwindow(mw)
 {
 	switch(PLSet.popupSize) {
 	case 0:
@@ -38,9 +38,9 @@ MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
 		WSIZE = 150;
 		break;
 	}
-	if(mainwindow->isActiveWindow()) {
+    /*if(mainwindow->isActiveWindow()) {
 		setWindowFlags(Qt::Popup);
-	}
+    }*/
 	//setSizePos();
 	QBoxLayout *vl = new QBoxLayout(QBoxLayout::TopToBottom, this);
 	QFrame *fr = new QFrame(this);
