@@ -14,8 +14,6 @@ include(../qmakeroot.pri)
 
 include(../plugins/plugins_path-$${QT_ARCH}.pri)
 
-#           src/player_void.h \
-#           src/player_void.cpp \
 # Input
 HEADERS += aboutdialog.h \
            browser.h \
@@ -154,38 +152,12 @@ win32 {
     } else {
         LIBS += ../taglib/lib/release/libtaglib.a
     }
-    exists(../audiere/lib/audiere.lib) {
-	CONFIG += audiere
-    }
-    exists(../gstreamer/lib/libgstreamer-0.10.lib) {
-    	CONFIG += gstreamer
-    }
-    audiere {
-#        INCLUDEPATH += ../audiere/include
-#    	LIBS += ../audiere/lib/audiere.lib
-    }
-    gstreamer {
-#        INCLUDEPATH += ../gstreamer/include ../gstreamer/include/glib-2.0
-#    	LIBS += ../gstreamer/lib/libgstreamer-0.10.lib ../gstreamer/lib/gobject-2.0.lib "C:\Program Files\Mono-1.2.4\lib\libglib-2.0.dll.a"
-    }
 }
 unix {
     DESTDIR = ../unix
     TARGET = cuberok
     CONFIG += link_pkgconfig
     PKGCONFIG += taglib
-    system(audiere-config --version) {
-	CONFIG += audiere
-    }
-    system(pkg-config --modversion gstreamer-0.10 2>/dev/null) {
-	CONFIG += gstreamer
-#	PKGCONFIG += gstreamer-0.10
-    }
-    # other engines
-    audiere {
-#	INCLUDEPATH += $$system(audiere-config --cxxflags)
-#        LIBS += $$system(audiere-config --libs)
-    }
     target.path = /bin
     documentation.path = /share/doc/cuberok
     documentation.files = README ChangeLog
@@ -212,21 +184,6 @@ LIBS += -L$${DESTDIR}/plugins -lplayer_void
 macx {
     QT += phonon
     LIBS += -L$${DESTDIR}/plugins -lplayer_phonon
-}
-
-audiere {
-    DEFINES += AUDIERE
-#    LIBS += -lplayer_audiere
-#    message(using audiere backend)
-#    HEADERS += player_audiere.h 
-#    SOURCES += player_audiere.cpp
-}
-
-gstreamer {
-    DEFINES += GSTREAMER
-#    message(using gstreamer backend)
-#    HEADERS += player_gst.h
-#    SOURCES += player_gst.cpp
 }
 
 OBJECTS_DIR = $${DESTDIR}/obj
