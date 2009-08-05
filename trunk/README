@@ -3,19 +3,31 @@ Cuberok is yet another music player based on Qt4
 Compiling & Installation
 ------------------------
 
-In order to compile Cuberok from sources you need Qt4 >= 4.3.1, TagLib and one of the
-engines (Audiere, GStreamer 0.10). Then run following commands:
+In order to compile Cuberok from sources you need Qt4 >= 4.4.0, TagLib and one of the
+engines (Audiere, GStreamer 0.10, ...). Then run following commands:
 
 	qmake Cuberok.pro
 	make
 	sudo make install INSTALL_ROOT=/usr/local
 
-Note: If you want to build the Phonon plugin you should run 
+All plugins except phonon will be builded if it is possible. Phonon plugin require 
+config flag at Qt <= 4.4. Type
 
 	qmake "CONFIG+=player_phonon" Cuberok.pro
 
 instead of 'qmake Cuberok.pro' in previous paragraph.
+In order to disable build of plugin use flag 'disable_<pluginname>' or use 'disable_all'
+to disable all of them. For example following line disables build of gstreamer plugin:
 
+    qmake "CONFIG+=disable_gst" Cuberok.pro
+
+All config flags are:
+	player_phonon
+	disable_all
+	disable_audiere
+	disable_gst
+	disable_phonon
+	disable_ffmpeg
 
 Compiling in Windows
 --------------------
