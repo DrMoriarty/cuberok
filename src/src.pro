@@ -46,10 +46,10 @@ HEADERS += aboutdialog.h \
            myapplication.h \
            player.h \
            player_manager.h \
+           playlist.h \
            playlistcontainer.h \
            playlistmodel.h \
            playlistsettings.h \
-           playlistview.h \
            progressbar.h \
            settings.h \
            sqledit.h \
@@ -111,7 +111,6 @@ SOURCES += aboutdialog.cpp \
            playlistcontainer.cpp \
            playlistmodel.cpp \
            playlistsettings.cpp \
-           playlistview.cpp \
            progressbar.cpp \
            settings.cpp \
            sqledit.cpp \
@@ -179,7 +178,8 @@ mac {
     ICON = ../images/cuberok.icns
 }
 
-LIBS += -L$${DESTDIR}/plugins -lplayer_void
+#static plugins
+LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard
 
 macx {
     QT += phonon

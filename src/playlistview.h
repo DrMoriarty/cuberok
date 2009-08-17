@@ -20,39 +20,39 @@
 #ifndef PLAYLISTVIEW_H
 #define PLAYLISTVIEW_H
 
-#if !_WIN32 && !WIN32
+#if !defined(_WIN32) && !defined(WIN32)
 #include <unistd.h>
 #else
 #include <time.h>
 #endif // WIN32
 #include <QtGui>
+#include "playlist.h"
 #include "playlistmodel.h"
 #include "player.h"
-#include "main.h"
+#include "global.h"
 
-class PlaylistView : public QTreeView
+class MyTreeView : public QTreeView
 {
     Q_OBJECT
-
 public:
-    PlaylistView(QString &str, QWidget *parent = 0);
-    ~PlaylistView();
+    MyTreeView(QString &str, QWidget *parent = 0);
+    ~MyTreeView();
 	virtual void dragEnterEvent(QDragEnterEvent *event);
-    bool isPlaying();
-    void dropEvent(QDropEvent *event);
-    void startDrag(Qt::DropActions supportedActions);
-	void storeListM3U(QString fname);
-	void storeListXSPF(QString fname);
-	void loadList(QString fname);
-	void setAutosave(bool);
-	QString getName();
-	void setName(QString newname);
-	int curIndex();
-	double curPosition();
-	void play(int index, double pos);
-	void rateCurrent(int offset, int value = 0);
-	QString curFile();
-	void setCurrent(int index);
+    virtual bool isPlaying();
+    virtual void dropEvent(QDropEvent *event);
+    virtual void startDrag(Qt::DropActions supportedActions);
+	virtual void storeListM3U(QString fname);
+	virtual void storeListXSPF(QString fname);
+	virtual void loadList(QString fname);
+	virtual void setAutosave(bool);
+	virtual QString getName();
+	virtual void setName(QString newname);
+	virtual int curIndex();
+	virtual double curPosition();
+	virtual void play(int index, double pos);
+	virtual void rateCurrent(int offset, int value = 0);
+	virtual QString curFile();
+	virtual void setCurrent(int index);
     
 protected:
 	virtual void hideEvent ( QHideEvent * event );
@@ -96,24 +96,77 @@ private slots:
 	void updateStatus();
 
 public slots:
-	void prev();
-	void next();
-	void play();
-	void stop();
-	void clear();
-	void queueNext();
-	void editTag();
-	void removeSong();
-	void reloadTags();
-	void addUrl(QUrl);
-	void setFilter(QString);
-	void findCurrent();
+	virtual void prev();
+	virtual void next();
+	virtual void play();
+	virtual void stop();
+	virtual void clear();
+	virtual void queueNext();
+	virtual void editTag();
+	virtual void removeSong();
+	virtual void reloadTags();
+	virtual void addUrl(QUrl);
+	virtual void setFilter(QString);
+	virtual void findCurrent();
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);
-	void started(PlaylistView*);
+	void started();
 	void songPosition(int);
 	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
 };
+
+class PlaylistStandard : public Playlist
+{
+    Q_OBJECT
+	Q_INTERFACES(Playlist) 
+public:
+	PlaylistStandard(QString &str, QWidget *parent = 0) : Playlist(str, parent) {
+		tree = new MyTreeView(str, parent);
+		connect(tree, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
+		connect(tree, SIGNAL(message(QString, QString, QString, long)), this, SIGNAL(message(QString, QString, QString, long)));
+		connect(tree, SIGNAL(started()), this, SIGNAL(startedSlot()));
+		connect(tree, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
+		connect(tree, SIGNAL(playPauseIcon (bool)), this, SIGNAL(playPauseIcon (bool)));
+	};
+    ~PlaylistStandard() {};
+	virtual QWidget* getWidget() { return tree; };
+    virtual bool isPlaying() { return tree->isPlaying(); };
+	virtual void storeListM3U(QString fname) { tree->storeListM3U(fname); };
+	virtual void storeListXSPF(QString fname) { tree->storeListXSPF(fname); };
+	virtual void loadList(QString fname) { loadList(fname); };
+	virtual void setAutosave(bool b) { setAutosave(b); };
+	virtual QString getName() { return tree->getName(); };
+	virtual void setName(QString newname) { tree->setName(newname); };
+	virtual int curIndex() { return tree->curIndex(); };
+	virtual double curPosition() { return tree->curPosition(); };
+	virtual void play(int index, double pos) { tree->play(index, pos); };
+	virtual void rateCurrent(int offset, int value = 0) { tree->rateCurrent(offset, value); };
+	virtual QString curFile() { return tree->curFile(); };
+	virtual void setCurrent(int index) { tree->setCurrent(index); };
+public slots:
+	virtual void prev() { tree->prev(); };
+	virtual void next() { tree->next(); };
+	virtual void play() { tree->play(); };
+	virtual void stop() { tree->stop(); };
+	virtual void clear() { tree->clear(); };
+	virtual void queueNext() { tree->queueNext(); };
+	virtual void editTag() { tree->editTag(); };
+	virtual void removeSong() { tree->removeSong(); };
+	virtual void reloadTags() { tree->reloadTags(); };
+	virtual void addUrl(QUrl url) { tree->addUrl(url); };
+	virtual void setFilter(QString s) { tree->setFilter(s); };
+	virtual void findCurrent() { tree->findCurrent(); };
+	void startedSlot() { emit started(this); };
+signals:
+	void status(QString);
+	void message(QString, QString, QString, long);
+	void started(Playlist*);
+	void songPosition(int);
+	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
+ private:
+	MyTreeView *tree;
+};
+
 
 #endif // PLAYLISTVIEW_H

@@ -25,6 +25,8 @@
 #include "lastfm.h"
 #include "console.h"
 
+Q_IMPORT_PLUGIN(playlist_standard)
+
 /************************
  * 
  *    PlaylistContainer
@@ -36,6 +38,18 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
    alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true), _volume(0), _mute(false),
    isPaused(false)
 {
+	// playlist builders
+	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
+		Player *pl = qobject_cast<Playlist *>(plugin);
+		if (pl) {
+			pl->setManager(this);
+			players.push_back(pl);
+			connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
+			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+			info += pl->name() + "\n";
+		}
+	}
+	
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setContentsMargins(0,0,0,0);
 	vboxLayout->setSpacing(2);

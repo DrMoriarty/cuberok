@@ -28,9 +28,7 @@
 #include "lastfm.h"
 #include "console.h"
 #include "librefm.h"
-#include <QtXml>
 
-const QString XMLNS("http://code.google.com/p/cuberok");
 
 /***********************
  * 
@@ -38,11 +36,11 @@ const QString XMLNS("http://code.google.com/p/cuberok");
  * 
  ***********************/ 
 
-PlaylistView::PlaylistView(QString &str, QWidget *parent)
-    : QTreeView(parent), correct(false), playing(false), dragStarted(false), autosave(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+MyTreeView::MyTreeView(QString &str, QWidget *parent)
+  : QTreeView(parent), correct(false), playing(false), dragStarted(false), autosave(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
+	setName(str);
 	setItemDelegate(new StarDelegate);
-	plistname = str;
     pmodel.setDynamicSortFilter(true);
 	pmodel.setFilterCaseSensitivity(Qt::CaseInsensitive);
 	pmodel.setFilterKeyColumn(-1);
@@ -82,20 +80,30 @@ PlaylistView::PlaylistView(QString &str, QWidget *parent)
 	//connect(&header(), SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
 }
 
-PlaylistView::~PlaylistView()
+MyTreeView::~MyTreeView()
 {
 	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
 	if(autosave) storeListXSPF(fname);
 	else QFile::remove(fname);
 }
 
-void PlaylistView::dragEnterEvent(QDragEnterEvent *event)
+QString MyTreeView::getName()
+{
+	return plistname;
+}
+
+void MyTreeView::setName(QString str)
+{
+	plistname = str;
+}
+
+void MyTreeView::dragEnterEvent(QDragEnterEvent *event)
 {
 	if(event->source() != this)
 		event->acceptProposedAction();
 }
 
-void PlaylistView::storeListM3U(QString fname)
+void MyTreeView::storeListM3U(QString fname)
 {
 	if(!fname.size()) return;
 	QFile file(fname);
@@ -109,7 +117,7 @@ void PlaylistView::storeListM3U(QString fname)
 	}
 }
 
-void PlaylistView::storeListXSPF(QString fname)
+void MyTreeView::storeListXSPF(QString fname)
 {
 	QFile file(fname);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -151,13 +159,13 @@ void PlaylistView::storeListXSPF(QString fname)
 	}
 }
 
-void PlaylistView::loadList(QString fname)
+void MyTreeView::loadList(QString fname)
 {
 	while(model.rowCount()) model.removeRow(0);
 	addUrl(QUrl::fromLocalFile(fname));
 }
 
-void PlaylistView::addUrl(QUrl url)
+void MyTreeView::addUrl(QUrl url)
 {
 // 	if(url.scheme().toLower() == "http") {
 // 		QMimeData data;
@@ -189,13 +197,13 @@ void PlaylistView::addUrl(QUrl url)
 // 	}
 }
 
-bool PlaylistView::isPlaying()
+bool MyTreeView::isPlaying()
 {
 	return playing;
 }
 
 // start drag&drop block
-void PlaylistView::dropEvent(QDropEvent *event)
+void MyTreeView::dropEvent(QDropEvent *event)
 {
 	if(dragStarted) {
 	    QModelIndex index = indexAt(event->pos());
@@ -209,7 +217,7 @@ void PlaylistView::dropEvent(QDropEvent *event)
 	} else QTreeView::dropEvent(event);
 }
 
-void PlaylistView::startDrag(Qt::DropActions supportedActions)
+void MyTreeView::startDrag(Qt::DropActions supportedActions)
 {
 	dragStarted = true;
 	QTreeView::startDrag(supportedActions);
@@ -219,7 +227,7 @@ void PlaylistView::startDrag(Qt::DropActions supportedActions)
 
 // end drag&drop block
 
-void PlaylistView::addItem(QVariant item, int id, QModelIndex* ind)
+void MyTreeView::addItem(QVariant item, int id, QModelIndex* ind)
 {
 	if(!ind) ind = &insindex;
 	if(id == PlaylistModel::File)
@@ -227,7 +235,7 @@ void PlaylistView::addItem(QVariant item, int id, QModelIndex* ind)
 	model.setData(ind->row()<0 ? model.index(model.rowCount()-1, id) : model.index(ind->row(), id), item, Qt::EditRole);
 }
 
-void PlaylistView::prev()
+void MyTreeView::prev()
 {
 	QModelIndex prev = prevItem();
 	if(prev.row() >= 0) {
@@ -239,7 +247,7 @@ void PlaylistView::prev()
 	}
 }
 
-void PlaylistView::next()
+void MyTreeView::next()
 {
 	QModelIndex next;
 	do {
@@ -263,7 +271,7 @@ void PlaylistView::next()
 	//else stop();
 }
 
-void PlaylistView::play(int index, double pos)
+void MyTreeView::play(int index, double pos)
 {
 	if(index >= 0 && index < model.rowCount()) {
 		curindex = model.index(index, 0);
@@ -280,7 +288,7 @@ void PlaylistView::play(int index, double pos)
 	}
 }
 
-void PlaylistView::play()
+void MyTreeView::play()
 {
 	if(curindex.row() < 0) {
 		curindex = pmodel.mapToSource(pmodel.index(0, 0));
@@ -309,7 +317,7 @@ void PlaylistView::play()
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
 	PlayerManager::Self().play();
 	playing = true;
-	emit started(this);
+	emit started();
 	emit playPauseIcon (false); // finished playing, show the "pause" icon
 	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
@@ -326,7 +334,7 @@ void PlaylistView::play()
 	}
 }
 
-void PlaylistView::stop()
+void MyTreeView::stop()
 {
 	model.setCurrent(-1);
 	plindex = model.index(-1, 0);
@@ -336,7 +344,7 @@ void PlaylistView::stop()
 	emit songPosition(0);
 }
 
-void PlaylistView::playFinished()
+void MyTreeView::playFinished()
 {
 	if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler) {
 		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
@@ -352,7 +360,7 @@ void PlaylistView::playFinished()
 	next();
 }
 
-QModelIndex PlaylistView::nextItem()
+QModelIndex MyTreeView::nextItem()
 {
 	srand( time(NULL) );
 	if(model.rowCount() < 1) return model.index(-1, 0);
@@ -395,7 +403,7 @@ QModelIndex PlaylistView::nextItem()
 	return next;
 }
 
-QModelIndex PlaylistView::prevItem()
+QModelIndex MyTreeView::prevItem()
 {
 	QModelIndex prev;
 	if(prev_queue.count()) {
@@ -412,13 +420,13 @@ QModelIndex PlaylistView::prevItem()
 	return prev;
 }
 
-void PlaylistView::onClick(const QModelIndex &index)
+void MyTreeView::onClick(const QModelIndex &index)
 {
 	//if(curindex.row() >= 0) prev_queue.push_back(curindex);
 	curindex = pmodel.mapToSource(index);
 }
 
-void PlaylistView::onDoubleClick(const QModelIndex &index)
+void MyTreeView::onDoubleClick(const QModelIndex &index)
 {
 	//if(curindex.row() >= 0) prev_queue.push_back(curindex);
 	if(plindex.row() >= 0) prev_queue.push_back(plindex);
@@ -428,12 +436,12 @@ void PlaylistView::onDoubleClick(const QModelIndex &index)
 	emit playPauseIcon (false); // show a "pause" 
 }
 
-void PlaylistView::position(double pos)
+void MyTreeView::position(double pos)
 {
 	emit songPosition((int)(1000*pos));
 }
 
-void PlaylistView::clear()
+void MyTreeView::clear()
 {
 	plindex = curindex = insindex = model.index(-1, 0);
 	queue.clear();
@@ -442,7 +450,7 @@ void PlaylistView::clear()
 	model.removeRows(0, model.rowCount());
 }
 
-void PlaylistView::queueNext()
+void MyTreeView::queueNext()
 {
 	foreach(QModelIndex i1, this->selectedIndexes()) {
 		QModelIndex ind = pmodel.mapToSource(i1);
@@ -458,7 +466,7 @@ void PlaylistView::queueNext()
 	}
 }
 
-void PlaylistView::editTag()
+void MyTreeView::editTag()
 {
 	if(curindex.row() >= 0) {
 		TagEditor *te = new TagEditor(ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()), this);
@@ -470,13 +478,13 @@ void PlaylistView::editTag()
 	}
 }
 
-void PlaylistView::updateTag(int i)
+void MyTreeView::updateTag(int i)
 {
 	QModelIndex ind = model.index(i, 0); 
 	resetTags(ind);
 }
 
-void PlaylistView::resetTags(QModelIndex& ind)
+void MyTreeView::resetTags(QModelIndex& ind)
 {
 	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length, type;
@@ -497,7 +505,7 @@ void PlaylistView::resetTags(QModelIndex& ind)
 	}
 }
 
-void PlaylistView::removeSong()
+void MyTreeView::removeSong()
 {
 	QList<int> list;
 	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/this->selectedIndexes()) {
@@ -514,7 +522,7 @@ void PlaylistView::removeSong()
 	}
 }
 
-void PlaylistView::reloadTags()
+void MyTreeView::reloadTags()
 {
 	foreach(QModelIndex ind, this->selectedIndexes()) {
 		QModelIndex i2 = pmodel.mapToSource(ind);
@@ -523,28 +531,28 @@ void PlaylistView::reloadTags()
 	//if(curindex.row() >= 0) resetTags(curindex);
 }
 
-void PlaylistView::setColVisible(int c, bool v)
+void MyTreeView::setColVisible(int c, bool v)
 {
 	if(v) showColumn(c);
 	else hideColumn(c);
 }
 
-void PlaylistView::setColWidth(int c, int w)
+void MyTreeView::setColWidth(int c, int w)
 {
 	setColumnWidth(c, w);
 }
 
-void PlaylistView::setColPosition(int c, int p)
+void MyTreeView::setColPosition(int c, int p)
 {
 	header()->moveSection(header()->visualIndex(c), p);
 }
 
-void PlaylistView::setAutosave(bool b)
+void MyTreeView::setAutosave(bool b)
 {
 	autosave = b;
 }
 
-void PlaylistView::hideEvent ( QHideEvent * event )
+void MyTreeView::hideEvent ( QHideEvent * event )
 {
 	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
 		PLSet.setColumnWidth(i, columnWidth(i));
@@ -553,12 +561,12 @@ void PlaylistView::hideEvent ( QHideEvent * event )
 	QTreeView::hideEvent(event);
 }
 
-void PlaylistView::showEvent ( QShowEvent * event )
+void MyTreeView::showEvent ( QShowEvent * event )
 {
 	updateStatus();
 }
 
-void PlaylistView::updateStatus()
+void MyTreeView::updateStatus()
 {
 	if(delayedPlay && model.rowCount() > delayedIndex) {
 		delayedPlay = false;
@@ -591,21 +599,7 @@ void PlaylistView::updateStatus()
 	emit status(st);
 }
 
-QString PlaylistView::getName()
-{
-	return plistname;
-}
-
-void PlaylistView::setName(QString newname)
-{
-	if(plistname != newname) {
-		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-		QFile::remove(fname);
-		plistname = newname;
-	}
-}
-
-void PlaylistView::rateSong(QModelIndex &ind, int r, int offset)
+void MyTreeView::rateSong(QModelIndex &ind, int r, int offset)
 {
 	if(!PLSet.autoRating || (!r && !offset)) return;
 	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
@@ -622,17 +616,17 @@ void PlaylistView::rateSong(QModelIndex &ind, int r, int offset)
 	Console::Self().log((r>0?"rate up ":"rate down ") + title);
 }
 
-int PlaylistView::curIndex()
+int MyTreeView::curIndex()
 {
 	return plindex.row() >= 0 ? plindex.row() : curindex.row();
 }
 
-double PlaylistView::curPosition()
+double MyTreeView::curPosition()
 {
 	return PlayerManager::Self().getPosition();
 }
 
-void PlaylistView::rateCurrent(int offset, int value)
+void MyTreeView::rateCurrent(int offset, int value)
 {
 	if(playing) {
 		bool ar = PLSet.autoRating;
@@ -643,7 +637,7 @@ void PlaylistView::rateCurrent(int offset, int value)
 	}
 }
 
-QString PlaylistView::curFile()
+QString MyTreeView::curFile()
 {
 	if(curindex.row() >= 0) {
 		return ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
@@ -651,12 +645,12 @@ QString PlaylistView::curFile()
 	return "";
 }
 
-void PlaylistView::setFilter(QString s)
+void MyTreeView::setFilter(QString s)
 {
 	pmodel.setFilterRegExp(s);
 }
 
-void PlaylistView::findCurrent()
+void MyTreeView::findCurrent()
 {
 	if(plindex.row() >= 0) {
 		setCurrentIndex(pmodel.mapFromSource(plindex));
@@ -664,7 +658,7 @@ void PlaylistView::findCurrent()
 	}
 }
 
-void PlaylistView::setCurrent(int index)
+void MyTreeView::setCurrent(int index)
 {
 	if(index >= 0 && index < model.rowCount()) {
 		curindex = model.index(index, 0);
