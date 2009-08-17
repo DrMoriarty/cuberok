@@ -22,9 +22,11 @@
 #include "playlistsettings.h"
 #include <QtGui>
 #include <QtXml>
+#include <QtNetwork>
 #include "console.h"
 
 const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
+QHttp http;
 
 LastFM::LastFM() : QObject(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
 {

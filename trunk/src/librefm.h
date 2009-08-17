@@ -21,7 +21,6 @@
 #define LIBREFM_H
 
 #include <QtCore>
-#include <QtNetwork>
 
 class LibreFM : public QObject
 {
@@ -42,7 +41,6 @@ class LibreFM : public QObject
 	LibreFM();
 	void doQueue();
 	
-	QHttp http;
 	int httpGetId, httpPostId;
 	QString session, nowPlayingUrl, submissionUrl;
 	bool connected;

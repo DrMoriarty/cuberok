@@ -27,8 +27,6 @@
 #include "QtGui"
 #include <QtXml>
 
-const QString XMLNS("http://code.google.com/p/cuberok");
-
 Tagger::Tagger()
 {}
 

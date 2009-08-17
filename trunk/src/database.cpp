@@ -19,11 +19,14 @@
 
 #include "database.h"
 #include <QtGui>
+#include <QtSql>
 #include "main.h"
 #include "tagger.h"
 #include "console.h"
 
 #define DB_VERSION 7
+
+QSqlDatabase db;
 
 Database::Database() :QObject(0), subset(false), ssAlbum(0)
 {

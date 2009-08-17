@@ -21,7 +21,6 @@
 #define DATABASE_H_
 
 #include <QtCore>
-#include <QtSql>
 
 typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_LIST, M_SQLLIST} ListMode;
 
@@ -114,7 +113,6 @@ public:
 
  private:
     Database();
-    QSqlDatabase db;
     bool open;
     bool subset;
     int ssAlbum;

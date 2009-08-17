@@ -21,7 +21,6 @@
 #define LASTFM_H
 
 #include <QtCore>
-#include <QtNetwork>
 
 class LastFM : public QObject
 {
@@ -44,7 +43,6 @@ class LastFM : public QObject
 	LastFM();
 	void doQueue();
 	
-	QHttp http;
 	int httpGetId, httpPostId;
 	QString session, nowPlayingUrl, submissionUrl;
 	bool connected;

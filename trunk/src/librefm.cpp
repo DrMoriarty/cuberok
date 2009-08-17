@@ -21,10 +21,12 @@
 #include "librefm.h"
 #include "playlistsettings.h"
 #include <QtGui>
+#include <QtNetwork>
 #include "console.h"
 
 //const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
 const QString HOST("turtle.libre.fm");
+QHttp http;
 
 LibreFM::LibreFM() : QObject(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
 {

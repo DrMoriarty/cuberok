@@ -20,7 +20,7 @@
 #ifndef PLAYLISTCONTAINER_H_
 #define PLAYLISTCONTAINER_H_
 
-#include "playlistview.h"
+#include "playlist.h"
 
 class PlaylistContainer : public QWidget
 {
@@ -35,19 +35,19 @@ public:
     
 private:
     
-    QList<PlaylistView*> lists;
+    QList<Playlist*> lists;
     QVBoxLayout *vboxLayout;
     QTabWidget *tabs;
 	QToolButton *newButton;
 	QToolButton *closeButton;
-    PlaylistView *curlist, *actlist;
+    Playlist *curlist, *actlist;
     int counter;
     bool alv, arv, cov, trv, tiv, yev, gev, fiv, lev, isPaused;
 	int _volume;
 	bool _mute;
     
 private slots:
-	void listStarted(PlaylistView*);
+	void listStarted(Playlist*);
 	void tabChanged(int);
 	void storeState();
 	void detectPlayPauseIcon (bool);
