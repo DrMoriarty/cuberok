@@ -29,10 +29,11 @@
 #include "console.h"
 #include "librefm.h"
 
+Q_EXPORT_PLUGIN2(playlist_standard, PlaylistStandardFactory) 
 
 /***********************
  * 
- *    PlaylistView
+ *    MyTreeView
  * 
  ***********************/ 
 
@@ -78,6 +79,11 @@ MyTreeView::MyTreeView(QString &str, QWidget *parent)
 	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
 	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
 	//connect(&header(), SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
+	
+	setDragEnabled(true);
+	setDragDropMode(QAbstractItemView::DragDrop);
+	setDropIndicatorShown(true);
+	setSortingEnabled(true);
 }
 
 MyTreeView::~MyTreeView()

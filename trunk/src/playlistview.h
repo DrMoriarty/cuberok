@@ -168,5 +168,19 @@ signals:
 	MyTreeView *tree;
 };
 
+class PlaylistStandardFactory : public PlaylistFactory
+{
+	Q_OBJECT
+	Q_INTERFACES(PlaylistFactory)
+ public:
+	PlaylistStandardFactory() {};
+	virtual QStringList getAvailableTypes() {
+		QStringList l; l << "Standard"; return l;
+	};
+	virtual Playlist* getNewPlaylist(QString type, QWidget* parent, QString name) {
+		return new PlaylistStandard(name, parent);
+	};
+};
+
 
 #endif // PLAYLISTVIEW_H

@@ -18,6 +18,7 @@
  */
 
 #include <stdlib.h>
+#include "global.h"
 #include "cuberok.h"
 #include "database.h"
 #include "playlistsettings.h"
