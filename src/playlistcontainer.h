@@ -34,7 +34,8 @@ public:
 	QString getCurrentFile();
     
 private:
-    
+
+	QList<PlaylistFactory*> factories;
     QList<Playlist*> lists;
     QVBoxLayout *vboxLayout;
     QTabWidget *tabs;

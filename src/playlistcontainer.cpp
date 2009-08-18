@@ -38,15 +38,11 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
    alv(true), arv(true), cov(true), trv(true), tiv(true), yev(true), gev(true), fiv(true), lev(true), _volume(0), _mute(false),
    isPaused(false)
 {
-	// playlist builders
+	// playlist factories
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
-		Player *pl = qobject_cast<Playlist *>(plugin);
-		if (pl) {
-			pl->setManager(this);
-			players.push_back(pl);
-			connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
-			info += pl->name() + "\n";
+		PlaylistFactory *pf = qobject_cast<PlaylistFactory *>(plugin);
+		if (pf) {
+			factories.push_back(pf);
 		}
 	}
 	
@@ -124,10 +120,10 @@ void PlaylistContainer::prepare()
 	
 	QSettings set;
 	QString curlistname = set.value("curlist", "").toString();
-	foreach(PlaylistView *p, lists) if(p->getName() == curlistname) {
+	foreach(Playlist *p, lists) if(p->getName() == curlistname) {
 		actlist = p;
  		connect(actlist, SIGNAL(playPauseIcon (bool) ), this, SLOT(detectPlayPauseIcon (bool) ));
-		tabs->setCurrentIndex(tabs->indexOf(p));
+		tabs->setCurrentIndex(tabs->indexOf(p->getWidget()));
 		if(set.value("playing", false).toBool() && curlistname.size()) {
 			actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
  		        emit updatePlayPauseButton (false); // we are playing, so set play/pause to "pause" mode
@@ -138,9 +134,9 @@ void PlaylistContainer::prepare()
 	}
 }
 
-void PlaylistContainer::listStarted(PlaylistView* pl)
+void PlaylistContainer::listStarted(Playlist* pl)
 {
-	foreach(PlaylistView *p, lists) {
+	foreach(Playlist *p, lists) {
 		if(p == pl) {
 			if(!actlist) {
 				actlist = p;
@@ -165,29 +161,25 @@ void PlaylistContainer::newList(QString listname)
 		do {
 			found = false;
 			listname = str+QString::number(++i);
-			foreach(PlaylistView *p, lists) if(p->getName() == listname) {
+			foreach(Playlist *p, lists) if(p->getName() == listname) {
 				found = true;
 				break;
 			}
 		} while(found);
 	}
-	PlaylistView *pl = new PlaylistView(listname, this); 
+	Playlist *pl = factories[0]->getNewPlaylist("", this, listname); 
 	lists.append(pl);
-	tabs->addTab(lists.last(), listname);
+	tabs->addTab(lists.last()->getWidget(), listname);
 	curlist = lists.last();
 	tabs->setCurrentIndex(tabs->count()-1);
-	curlist->setContextMenuPolicy(Qt::ActionsContextMenu);
-	curlist->actions() << actions();
-	curlist->setAcceptDrops(true);
-	curlist->setDragEnabled(true);
-	curlist->setDragDropMode(QAbstractItemView::DragDrop);
-	curlist->setDropIndicatorShown(true);
-	curlist->setSortingEnabled(true);
-	curlist->setToolTip(tr("Drag'n'Drop files to the playlist"));
+	curlist->getWidget()->setContextMenuPolicy(Qt::ActionsContextMenu);
+	curlist->getWidget()->actions() << actions();
+	curlist->getWidget()->setAcceptDrops(true);
+	curlist->getWidget()->setToolTip(tr("Drag'n'Drop files to the playlist"));
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	connect(pl, SIGNAL(message(QString, QString, QString, long)), this, SIGNAL(message(QString, QString, QString, long)));
 	connect(pl, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
-	connect(pl, SIGNAL(started(PlaylistView*)), this, SLOT(listStarted(PlaylistView*)));
+	connect(pl, SIGNAL(started(Playlist*)), this, SLOT(listStarted(Playlist*)));
  	connect(pl, SIGNAL(playPauseIcon (bool) ), this, SLOT(detectPlayPauseIcon (bool) ));
 	closeButton->setDisabled(false);
 }
@@ -297,48 +289,39 @@ void PlaylistContainer::clear()
 void PlaylistContainer::queueNext()
 { if(curlist) curlist->queueNext(); }
 void PlaylistContainer::viewAlbum(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewAlbum(b); 
-  //alv = b; 
+{ 
 	PLSet.setColumnVisible(PlaylistModel::Album, b);
 }
 void PlaylistContainer::viewArtist(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewArtist(b); 
-  //arv = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Artist, b);
 }
 void PlaylistContainer::viewComment(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewComment(b); 
-  //cov = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Comment, b);
 }
 void PlaylistContainer::viewTrack(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewTrack(b); 
-  //trv = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Track, b);
 }
 void PlaylistContainer::viewTitle(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewTitle(b); 
-  //tiv = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Title, b);
 }
 void PlaylistContainer::viewYear(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewYear(b); 
-  //yev = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Year, b);
 }
 void PlaylistContainer::viewGenre(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewGenre(b); 
-  //gev = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Genre, b);
 }
 void PlaylistContainer::viewFile(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewFile(b); 
-  //fiv = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::File, b);
 }
 void PlaylistContainer::viewLength(bool b)
-{ //foreach(PlaylistView *pl, lists) pl->viewLength(b); 
-  //lev = b; 
+{
 	PLSet.setColumnVisible(PlaylistModel::Length, b);
 }
 void PlaylistContainer::viewRating(bool b)
@@ -457,12 +440,12 @@ QString PlaylistContainer::getCurrentFile()
 
 void PlaylistContainer::setFilter(QString s)
 {
-	foreach(PlaylistView *pl, lists) pl->setFilter(s); 
+	foreach(Playlist *pl, lists) pl->setFilter(s); 
 }
 
 void PlaylistContainer::clearFilter()
 {
-	foreach(PlaylistView *pl, lists) pl->setFilter("");
+	foreach(Playlist *pl, lists) pl->setFilter("");
 }
 
 void PlaylistContainer::findCurrent()
