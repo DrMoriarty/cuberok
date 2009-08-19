@@ -29,6 +29,7 @@ public:
 	Playlist(QString &str, QObject *parent = 0):QObject(parent) {
 		plistname = str;
 	};
+	virtual ~Playlist() {};
 	virtual QWidget* getWidget() = 0;
     virtual bool isPlaying() = 0;
 	virtual void storeListM3U(QString fname) = 0;

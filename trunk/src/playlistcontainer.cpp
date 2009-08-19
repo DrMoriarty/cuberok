@@ -167,7 +167,7 @@ void PlaylistContainer::newList(QString listname)
 			}
 		} while(found);
 	}
-	Playlist *pl = factories[0]->getNewPlaylist("", this, listname); 
+	Playlist *pl = factories[0]->getNewPlaylist("Standard", this, listname); 
 	lists.append(pl);
 	tabs->addTab(lists.last()->getWidget(), listname);
 	curlist = lists.last();
