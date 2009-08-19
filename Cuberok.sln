@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cuberok", "src\Cuberok.vcpr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "player_ffmpeg", "plugins\player_ffmpeg\player_ffmpeg.vcproj", "{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "playlist_standard", "plugins\playlist_standard\playlist_standard.vcproj", "{0EE59742-7709-348E-AFC9-CF5F61058AE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -46,6 +48,10 @@ Global
 		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Debug|Win32.Build.0 = Debug|Win32
 		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Release|Win32.ActiveCfg = Release|Win32
 		{114F01BB-19C9-40BA-AE56-FA3F696BF6AC}.Release|Win32.Build.0 = Release|Win32
+		{0EE59742-7709-348E-AFC9-CF5F61058AE6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0EE59742-7709-348E-AFC9-CF5F61058AE6}.Debug|Win32.Build.0 = Debug|Win32
+		{0EE59742-7709-348E-AFC9-CF5F61058AE6}.Release|Win32.ActiveCfg = Release|Win32
+		{0EE59742-7709-348E-AFC9-CF5F61058AE6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

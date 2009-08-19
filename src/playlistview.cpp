@@ -38,9 +38,8 @@ Q_EXPORT_PLUGIN2(playlist_standard, PlaylistStandardFactory)
  ***********************/ 
 
 MyTreeView::MyTreeView(QString &str, QWidget *parent)
-  : QTreeView(parent), correct(false), playing(false), dragStarted(false), autosave(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+  : QTreeView(parent), correct(false), playing(false), dragStarted(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
-	setName(str);
 	setItemDelegate(new StarDelegate);
     pmodel.setDynamicSortFilter(true);
 	pmodel.setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -54,14 +53,6 @@ MyTreeView::MyTreeView(QString &str, QWidget *parent)
 	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	sortByColumn(PlaylistModel::Number, Qt::AscendingOrder);
-	if(plistname.size()) {  // read stored playlist
-		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
-		if(QFile::exists(fname)) loadList(fname);
-		else {
-			fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-			if(QFile::exists(fname)) loadList(fname);
-		}
-	}
 	hideColumn(PlaylistModel::Empty);
 	hideColumn(PlaylistModel::CueStart);
 	hideColumn(PlaylistModel::CueLength);
@@ -86,19 +77,37 @@ MyTreeView::MyTreeView(QString &str, QWidget *parent)
 	setSortingEnabled(true);
 }
 
-MyTreeView::~MyTreeView()
+PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : Playlist(str, parent), autosave(false)
+{
+	tree = new MyTreeView(str, parent);
+	connect(tree, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
+	connect(tree, SIGNAL(message(QString, QString, QString, long)), this, SIGNAL(message(QString, QString, QString, long)));
+	connect(tree, SIGNAL(started()), this, SLOT(startedSlot()));
+	connect(tree, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
+	connect(tree, SIGNAL(playPauseIcon (bool)), this, SIGNAL(playPauseIcon (bool)));
+	if(plistname.size()) {  // read stored playlist
+		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
+		if(QFile::exists(fname)) loadList(fname);
+		else {
+			fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
+			if(QFile::exists(fname)) loadList(fname);
+		}
+	}
+};
+
+PlaylistStandard::~PlaylistStandard()
 {
 	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
 	if(autosave) storeListXSPF(fname);
 	else QFile::remove(fname);
 }
 
-QString MyTreeView::getName()
+QString PlaylistStandard::getName()
 {
 	return plistname;
 }
 
-void MyTreeView::setName(QString str)
+void PlaylistStandard::setName(QString str)
 {
 	plistname = str;
 }
@@ -109,21 +118,21 @@ void MyTreeView::dragEnterEvent(QDragEnterEvent *event)
 		event->acceptProposedAction();
 }
 
-void MyTreeView::storeListM3U(QString fname)
+void PlaylistStandard::storeListM3U(QString fname)
 {
 	if(!fname.size()) return;
 	QFile file(fname);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
 		QTextStream out(&file);
 		out << "#EXTM3U" << endl;
-		for(int i=0; i<model.rowCount(); i++) {
-			out << model.data(model.index(i, PlaylistModel::File), Qt::UserRole).toUrl().toString() << endl;
+		for(int i=0; i<tree->model.rowCount(); i++) {
+			out << tree->model.data(tree->model.index(i, PlaylistModel::File), Qt::UserRole).toUrl().toString() << endl;
 		}
 		file.close();
 	}
 }
 
-void MyTreeView::storeListXSPF(QString fname)
+void PlaylistStandard::storeListXSPF(QString fname)
 {
 	QFile file(fname);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -138,24 +147,24 @@ void MyTreeView::storeListXSPF(QString fname)
 		xml.writeTextElement("creator", "Cuberok");
 		xml.writeTextElement("date", QDateTime::currentDateTime().toUTC().toString("yyyy-MM-dd'T'hh:mm:ss"));
 		xml.writeStartElement("trackList");
-		for(int i=0; i<model.rowCount(); i++) {
+		for(int i=0; i<tree->model.rowCount(); i++) {
 			xml.writeStartElement("track");
-			xml.writeTextElement("location", model.data(model.index(i, PlaylistModel::File), Qt::UserRole).toUrl().toString());
-			xml.writeTextElement("title", model.data(model.index(i, PlaylistModel::Title), Qt::DisplayRole).toString());
-			xml.writeTextElement("creator", model.data(model.index(i, PlaylistModel::Artist), Qt::DisplayRole).toString());
-			xml.writeTextElement("annotation", model.data(model.index(i, PlaylistModel::Comment), Qt::DisplayRole).toString());
-			xml.writeTextElement("album", model.data(model.index(i, PlaylistModel::Album), Qt::DisplayRole).toString());
-			xml.writeTextElement("trackNum", QString::number(model.data(model.index(i, PlaylistModel::Track), Qt::DisplayRole).toInt()));
+			xml.writeTextElement("location", tree->model.data(tree->model.index(i, PlaylistModel::File), Qt::UserRole).toUrl().toString());
+			xml.writeTextElement("title", tree->model.data(tree->model.index(i, PlaylistModel::Title), Qt::DisplayRole).toString());
+			xml.writeTextElement("creator", tree->model.data(tree->model.index(i, PlaylistModel::Artist), Qt::DisplayRole).toString());
+			xml.writeTextElement("annotation", tree->model.data(tree->model.index(i, PlaylistModel::Comment), Qt::DisplayRole).toString());
+			xml.writeTextElement("album", tree->model.data(tree->model.index(i, PlaylistModel::Album), Qt::DisplayRole).toString());
+			xml.writeTextElement("trackNum", QString::number(tree->model.data(tree->model.index(i, PlaylistModel::Track), Qt::DisplayRole).toInt()));
 			xml.writeStartElement("extension");
 			xml.writeAttribute("application", XMLNS);
-			xml.writeTextElement(XMLNS, "cuestart", QString::number(model.data(model.index(i, PlaylistModel::CueStart), Qt::DisplayRole).toLongLong()));
-			xml.writeTextElement(XMLNS, "cuelength", QString::number(model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong()));
-			xml.writeTextElement(XMLNS, "dbindex", QString::number(model.data(model.index(i, PlaylistModel::DBIndex), Qt::DisplayRole).toLongLong()));
-			xml.writeTextElement(XMLNS, "genre", model.data(model.index(i, PlaylistModel::Genre), Qt::DisplayRole).toString());
-			xml.writeTextElement(XMLNS, "length", model.data(model.index(i, PlaylistModel::Length), Qt::DisplayRole).toString());
-			xml.writeTextElement(XMLNS, "year", QString::number(model.data(model.index(i, PlaylistModel::Year), Qt::DisplayRole).toInt()));
-			xml.writeTextElement(XMLNS, "rating", QString::number(qVariantValue<StarRating>(model.data(model.index(i, PlaylistModel::Rating), Qt::DisplayRole)).rating()));
-			xml.writeTextElement(XMLNS, "filetype", model.data(model.index(i, PlaylistModel::FileType), Qt::DisplayRole).toString());
+			xml.writeTextElement(XMLNS, "cuestart", QString::number(tree->model.data(tree->model.index(i, PlaylistModel::CueStart), Qt::DisplayRole).toLongLong()));
+			xml.writeTextElement(XMLNS, "cuelength", QString::number(tree->model.data(tree->model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong()));
+			xml.writeTextElement(XMLNS, "dbindex", QString::number(tree->model.data(tree->model.index(i, PlaylistModel::DBIndex), Qt::DisplayRole).toLongLong()));
+			xml.writeTextElement(XMLNS, "genre", tree->model.data(tree->model.index(i, PlaylistModel::Genre), Qt::DisplayRole).toString());
+			xml.writeTextElement(XMLNS, "length", tree->model.data(tree->model.index(i, PlaylistModel::Length), Qt::DisplayRole).toString());
+			xml.writeTextElement(XMLNS, "year", QString::number(tree->model.data(tree->model.index(i, PlaylistModel::Year), Qt::DisplayRole).toInt()));
+			xml.writeTextElement(XMLNS, "rating", QString::number(qVariantValue<StarRating>(tree->model.data(tree->model.index(i, PlaylistModel::Rating), Qt::DisplayRole)).rating()));
+			xml.writeTextElement(XMLNS, "filetype", tree->model.data(tree->model.index(i, PlaylistModel::FileType), Qt::DisplayRole).toString());
 			xml.writeEndElement(); //extension
 			xml.writeEndElement(); //track
 		}
@@ -165,45 +174,20 @@ void MyTreeView::storeListXSPF(QString fname)
 	}
 }
 
-void MyTreeView::loadList(QString fname)
+void PlaylistStandard::loadList(QString fname)
 {
-	while(model.rowCount()) model.removeRow(0);
+	while(tree->model.rowCount()) tree->model.removeRow(0);
 	addUrl(QUrl::fromLocalFile(fname));
 }
 
-void MyTreeView::addUrl(QUrl url)
+void PlaylistStandard::addUrl(QUrl url)
 {
-// 	if(url.scheme().toLower() == "http") {
-// 		QMimeData data;
-// 		QList<QUrl> list;
-// 		list << url;
-// 		data.setUrls(list);
-// 		model.dropMimeData(&data, Qt::CopyAction, model.rowCount(), 0, QModelIndex());
-// 		return;
-// 	}
 	QList<TagEntry> list = Tagger::readEntry(url);
 	Console::Self().log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
-	model.appendList(list);
-// 	foreach(TagEntry tag, list) {
-// 		int row = model.rowCount();
-// 		model.insertRow(row);
-// 		model.setData(model.index(row, PlaylistModel::File), tag.url, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Title), tag.title, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Artist), tag.artist, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Comment), tag.comment, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Album), tag.album, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Track), tag.track, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::CueStart), (qlonglong)tag.start, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::CueLength), (qlonglong)tag.length, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::DBIndex), (qlonglong)tag.dbindex, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Genre), tag.genre, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Length), tag.slength, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Year), tag.year, Qt::EditRole);
-// 		model.setData(model.index(row, PlaylistModel::Rating), qVariantFromValue(StarRating(tag.rating)), Qt::EditRole);
-// 	}
+	tree->model.appendList(list);
 }
 
-bool MyTreeView::isPlaying()
+bool PlaylistStandard::isPlaying()
 {
 	return playing;
 }
@@ -553,7 +537,7 @@ void MyTreeView::setColPosition(int c, int p)
 	header()->moveSection(header()->visualIndex(c), p);
 }
 
-void MyTreeView::setAutosave(bool b)
+void PlaylistStandard::setAutosave(bool b)
 {
 	autosave = b;
 }
