@@ -49,64 +49,25 @@ public:
 	//virtual void setName(QString newname);
 	virtual int curIndex();
 	virtual double curPosition();
-	virtual void play(int index, double pos);
 	virtual void rateCurrent(int offset, int value = 0);
-	virtual QString curFile();
 	virtual void setCurrent(int index);
     
     PlaylistModel model;
+    QSortFilterProxyModel pmodel;
 protected:
 	virtual void hideEvent ( QHideEvent * event );
 	virtual void showEvent ( QShowEvent * event );
 
 private:
-    QModelIndex nextItem();
-    QModelIndex prevItem();
-    void resetTags(QModelIndex& ind);
-	void rateSong(QModelIndex &ind, int r, int offset=0);
-    
-	//QString plistname;
-    QSortFilterProxyModel pmodel;
-    QModelIndex insindex;
-    QModelIndex curindex;
-    QModelIndex plindex;
-    QList<QModelIndex> queue;
-    QList<QModelIndex> prev_queue;
-    QString info;
     bool correct;
-    bool playing;
     bool dragStarted;
-	int  shuffle_count;
-	bool delayedPlay;
-	int delayedIndex;
-	double delayedPos;
-	int error_count;
     
 private slots:
-	void addItem(QVariant item, int id, QModelIndex* ind = 0);
-	void playFinished();
-	void onClick( const QModelIndex & index );
-	void onDoubleClick( const QModelIndex & index );
-	void position(double pos);
-	void updateTag(int);
 	void setColVisible(int,bool);
 	void setColWidth(int,int);
 	void setColPosition(int,int);
-	void updateStatus();
 
 public slots:
-	virtual void prev();
-	virtual void next();
-	virtual void play();
-	virtual void stop();
-	virtual void clear();
-	virtual void queueNext();
-	virtual void editTag();
-	virtual void removeSong();
-	virtual void reloadTags();
-	//virtual void addUrl(QUrl);
-	virtual void setFilter(QString);
-	virtual void findCurrent();
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);
@@ -132,24 +93,32 @@ public:
 	virtual void setName(QString newname);
 	virtual int curIndex() { return tree->curIndex(); };
 	virtual double curPosition() { return tree->curPosition(); };
-	virtual void play(int index, double pos) { tree->play(index, pos); };
+	virtual void play(int index, double pos);
 	virtual void rateCurrent(int offset, int value = 0) { tree->rateCurrent(offset, value); };
-	virtual QString curFile() { return tree->curFile(); };
+	virtual QString curFile();
 	virtual void setCurrent(int index) { tree->setCurrent(index); };
 public slots:
-	virtual void prev() { tree->prev(); };
-	virtual void next() { tree->next(); };
-	virtual void play() { tree->play(); };
-	virtual void stop() { tree->stop(); };
-	virtual void clear() { tree->clear(); };
-	virtual void queueNext() { tree->queueNext(); };
-	virtual void editTag() { tree->editTag(); };
-	virtual void removeSong() { tree->removeSong(); };
-	virtual void reloadTags() { tree->reloadTags(); };
+	virtual void prev();
+	virtual void next();
+	virtual void play();
+	virtual void stop();
+	virtual void clear();
+	virtual void queueNext();
+	virtual void editTag();
+	virtual void removeSong();
+	virtual void reloadTags();
 	virtual void addUrl(QUrl url);// { tree->addUrl(url); };
-	virtual void setFilter(QString s) { tree->setFilter(s); };
-	virtual void findCurrent() { tree->findCurrent(); };
+	virtual void setFilter(QString s);
+	virtual void findCurrent();
 	void startedSlot() { emit started(this); };
+private slots:
+	void onClick( const QModelIndex & index );
+	void onDoubleClick( const QModelIndex & index );
+	void addItem(QVariant item, int id, QModelIndex* ind = 0);
+	void playFinished();
+	void updateTag(int);
+	void position(double pos);
+	void updateStatus();
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);
@@ -157,8 +126,25 @@ signals:
 	void songPosition(int);
 	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
  private:
+    QModelIndex nextItem();
+    QModelIndex prevItem();
+	void rateSong(QModelIndex &ind, int r, int offset=0);
+    void resetTags(QModelIndex& ind);
+
 	MyTreeView *tree;
 	bool autosave;
+    bool playing;
+    QModelIndex insindex;
+    QModelIndex curindex;
+    QModelIndex plindex;
+    QList<QModelIndex> queue;
+    QList<QModelIndex> prev_queue;
+	int  shuffle_count;
+	bool delayedPlay;
+	int delayedIndex;
+	double delayedPos;
+	int error_count;
+    QString info;
 };
 /*
 class PlaylistWinamp : public Playlist
