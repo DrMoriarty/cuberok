@@ -38,7 +38,7 @@ Q_EXPORT_PLUGIN2(playlist_standard, PlaylistStandardFactory)
  ***********************/ 
 
 MyTreeView::MyTreeView(QString &str, QWidget *parent)
-  : QTreeView(parent), correct(false), playing(false), dragStarted(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+  : QTreeView(parent), correct(false), dragStarted(false)
 {
 	setItemDelegate(new StarDelegate);
     pmodel.setDynamicSortFilter(true);
@@ -50,8 +50,6 @@ MyTreeView::MyTreeView(QString &str, QWidget *parent)
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	//setSortingEnabled(true);
 	setAlternatingRowColors(true);
-	connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
-	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	sortByColumn(PlaylistModel::Number, Qt::AscendingOrder);
 	hideColumn(PlaylistModel::Empty);
 	hideColumn(PlaylistModel::CueStart);
@@ -77,7 +75,7 @@ MyTreeView::MyTreeView(QString &str, QWidget *parent)
 	setSortingEnabled(true);
 }
 
-PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : Playlist(str, parent), autosave(false)
+PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : Playlist(str, parent), autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
 	tree = new MyTreeView(str, parent);
 	connect(tree, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
@@ -85,6 +83,8 @@ PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : Playlist(str
 	connect(tree, SIGNAL(started()), this, SLOT(startedSlot()));
 	connect(tree, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
 	connect(tree, SIGNAL(playPauseIcon (bool)), this, SIGNAL(playPauseIcon (bool)));
+	connect(tree, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
+	connect(tree, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
 	if(plistname.size()) {  // read stored playlist
 		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
 		if(QFile::exists(fname)) loadList(fname);
@@ -217,56 +217,56 @@ void MyTreeView::startDrag(Qt::DropActions supportedActions)
 
 // end drag&drop block
 
-void MyTreeView::addItem(QVariant item, int id, QModelIndex* ind)
+void PlaylistStandard::addItem(QVariant item, int id, QModelIndex* ind)
 {
 	if(!ind) ind = &insindex;
 	if(id == PlaylistModel::File)
-		model.insertRows(ind->row()<0 ? model.rowCount() : ind->row(), 1);
-	model.setData(ind->row()<0 ? model.index(model.rowCount()-1, id) : model.index(ind->row(), id), item, Qt::EditRole);
+		tree->model.insertRows(ind->row()<0 ? tree->model.rowCount() : ind->row(), 1);
+	tree->model.setData(ind->row()<0 ? tree->model.index(tree->model.rowCount()-1, id) : tree->model.index(ind->row(), id), item, Qt::EditRole);
 }
 
-void MyTreeView::prev()
+void PlaylistStandard::prev()
 {
 	QModelIndex prev = prevItem();
 	if(prev.row() >= 0) {
-		clearSelection();
-		setCurrentIndex(pmodel.mapFromSource(prev));
-		scrollTo(pmodel.mapFromSource(prev));
+		tree->clearSelection();
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(prev));
+		tree->scrollTo(tree->pmodel.mapFromSource(prev));
 		curindex = prev;
 		play();
 	}
 }
 
-void MyTreeView::next()
+void PlaylistStandard::next()
 {
 	QModelIndex next;
 	do {
 		next = nextItem();
-	} while(qVariantValue<StarRating>(model.data(model.index(next.row(), PlaylistModel::Rating), Qt::DisplayRole)).rating() <= -50);
+	} while(qVariantValue<StarRating>(tree->model.data(tree->model.index(next.row(), PlaylistModel::Rating), Qt::DisplayRole)).rating() <= -50);
 	if(next.row() >= 0) {
 		if(plindex.row() >= 0) {
 			prev_queue.push_back(plindex);
 			if(PlayerManager::Self().shuffle_mode) {
-				model.setData(model.index(plindex.row(), PlaylistModel::Empty), "1", Qt::EditRole);
+				tree->model.setData(tree->model.index(plindex.row(), PlaylistModel::Empty), "1", Qt::EditRole);
 				shuffle_count ++;
 			}
 			if(PlayerManager::Self().playing()) rateSong(plindex, -1);
 		}
-		clearSelection();
+		tree->clearSelection();
 		curindex = next;
-		setCurrentIndex(pmodel.mapFromSource(curindex));
-		scrollTo(pmodel.mapFromSource(curindex));
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
+		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
 		play();
 	}
 	//else stop();
 }
 
-void MyTreeView::play(int index, double pos)
+void PlaylistStandard::play(int index, double pos)
 {
-	if(index >= 0 && index < model.rowCount()) {
-		curindex = model.index(index, 0);
-		setCurrentIndex(pmodel.mapFromSource(curindex));
-		scrollTo(pmodel.mapFromSource(curindex));
+	if(index >= 0 && index < tree->model.rowCount()) {
+		curindex = tree->model.index(index, 0);
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
+		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
 		play();
 		if(pos >= 0 && pos <= 1)
 			PlayerManager::Self().setPosition(pos);
@@ -278,21 +278,21 @@ void MyTreeView::play(int index, double pos)
 	}
 }
 
-void MyTreeView::play()
+void PlaylistStandard::play()
 {
 	if(curindex.row() < 0) {
-		curindex = pmodel.mapToSource(pmodel.index(0, 0));
+		curindex = tree->pmodel.mapToSource(tree->pmodel.index(0, 0));
 	}
-	plindex = model.index(curindex.row(), header()->logicalIndex(0));
+	plindex = tree->model.index(curindex.row(), tree->header()->logicalIndex(0));
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
-	model.setCurrent(plindex.row());
-	setCurrentIndex(pmodel.mapFromSource(plindex));
-	scrollTo(pmodel.mapFromSource(plindex));
+	tree->model.setCurrent(plindex.row());
+	tree->setCurrentIndex(tree->pmodel.mapFromSource(plindex));
+	tree->scrollTo(tree->pmodel.mapFromSource(plindex));
 	disconnect(&PlayerManager::Self(), SIGNAL(finish()), 0, 0);
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
-	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
-		Console::Self().error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
+	if(!PlayerManager::Self().open(tree->model.data(tree->model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), tree->model.data(tree->model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), tree->model.data(tree->model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
+		Console::Self().error(tr("Can not open %1").arg(tree->model.data(tree->model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
 		//Console::Self().error(ToLocalFile(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()));
 		playing = false;
 		error_count ++;
@@ -307,15 +307,15 @@ void MyTreeView::play()
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
 	PlayerManager::Self().play();
 	playing = true;
-	emit started();
+	emit started(this);
 	emit playPauseIcon (false); // finished playing, show the "pause" icon
-	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
-	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-	QString ar = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
-	QString alb = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-	long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+	tree->model.setData(tree->model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
+	info = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+	QString ar = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+	QString alb = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+	long len = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
 	emit message(info, alb, ar, len);
-	int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+	int n = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
 	if(PLSet.lastfmScrobbler && ar.size()) {
 		LastFM::Self().nowplaying(ar, info, alb, 0, n);
 	}
@@ -324,25 +324,25 @@ void MyTreeView::play()
 	}
 }
 
-void MyTreeView::stop()
+void PlaylistStandard::stop()
 {
-	model.setCurrent(-1);
-	plindex = model.index(-1, 0);
+	tree->model.setCurrent(-1);
+	plindex = tree->model.index(-1, 0);
     PlayerManager::Self().stop();
     playing = false;
 	emit message("", "", "", 0);
 	emit songPosition(0);
 }
 
-void MyTreeView::playFinished()
+void PlaylistStandard::playFinished()
 {
 	if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler) {
-		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
-		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
-		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
-		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
+		QString a = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		QString t = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+		QString b = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		int n = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+		long len = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+		uint start = tree->model.data(tree->model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
 		if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
 		if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
 	}	
@@ -350,50 +350,50 @@ void MyTreeView::playFinished()
 	next();
 }
 
-QModelIndex MyTreeView::nextItem()
+QModelIndex PlaylistStandard::nextItem()
 {
 	srand( time(NULL) );
-	if(model.rowCount() < 1) return model.index(-1, 0);
+	if(tree->model.rowCount() < 1) return tree->model.index(-1, 0);
 	QModelIndex next;
 	if(queue.count()) {
 		next = queue.first();
 		queue.pop_front();
-		model.setData(model.index(next.row(), PlaylistModel::Stat), "", Qt::EditRole);
+		tree->model.setData(tree->model.index(next.row(), PlaylistModel::Stat), "", Qt::EditRole);
 		for(int i=0; i<queue.count(); i++)
-			model.setData(model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
+			tree->model.setData(tree->model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
 	} else if(PlayerManager::Self().shuffle_mode) {
-		if(shuffle_count >= model.rowCount()) {
+		if(shuffle_count >= tree->model.rowCount()) {
 			if(PlayerManager::Self().repeat_mode) {
 				shuffle_count = 0;
-				next = model.index(rand()%model.rowCount(), 0);
-				for(int i = 0; i < model.rowCount(); i++)
-					model.setData(model.index(i, PlaylistModel::Empty), "", Qt::EditRole);
+				next = tree->model.index(rand()%tree->model.rowCount(), 0);
+				for(int i = 0; i < tree->model.rowCount(); i++)
+					tree->model.setData(tree->model.index(i, PlaylistModel::Empty), "", Qt::EditRole);
 			} else {
-				next = model.index(-1, 0);
+				next = tree->model.index(-1, 0);
 			}
-		} else if(shuffle_count == model.rowCount()-1) {
-			for(int i = 0; i < model.rowCount(); i++)
-				if(!model.data(model.index(i, PlaylistModel::Empty), Qt::DisplayRole).toString().size())
-					next = model.index(i, 0);
+		} else if(shuffle_count == tree->model.rowCount()-1) {
+			for(int i = 0; i < tree->model.rowCount(); i++)
+				if(!tree->model.data(tree->model.index(i, PlaylistModel::Empty), Qt::DisplayRole).toString().size())
+					next = tree->model.index(i, 0);
 		} else {
 			do {
-				if(plindex.row() >= 0) next = model.index((plindex.row()+rand())%model.rowCount(), 0);
-				else if(curindex.row() >= 0) next = model.index((curindex.row()+rand())%model.rowCount(), 0);
-				else next = model.index(rand()%model.rowCount(), 0);
-			} while(model.data(model.index(next.row(), PlaylistModel::Empty), Qt::DisplayRole).toString().size());
+				if(plindex.row() >= 0) next = tree->model.index((plindex.row()+rand())%tree->model.rowCount(), 0);
+				else if(curindex.row() >= 0) next = tree->model.index((curindex.row()+rand())%tree->model.rowCount(), 0);
+				else next = tree->model.index(rand()%tree->model.rowCount(), 0);
+			} while(tree->model.data(tree->model.index(next.row(), PlaylistModel::Empty), Qt::DisplayRole).toString().size());
 		}
 	} else {
-		if(pmodel.mapFromSource(curindex).row() >= 0) 
-			next = pmodel.mapToSource(pmodel.index(pmodel.mapFromSource(curindex).row()+1, 0));
+		if(tree->pmodel.mapFromSource(curindex).row() >= 0) 
+			next = tree->pmodel.mapToSource(tree->pmodel.index(tree->pmodel.mapFromSource(curindex).row()+1, 0));
 		if(next.row() < 0) {
-			if(PlayerManager::Self().repeat_mode) next = pmodel.mapToSource(pmodel.index(0, 0));
-			else next = model.index(-1, 0);
+			if(PlayerManager::Self().repeat_mode) next = tree->pmodel.mapToSource(tree->pmodel.index(0, 0));
+			else next = tree->model.index(-1, 0);
 		}
 	}
 	return next;
 }
 
-QModelIndex MyTreeView::prevItem()
+QModelIndex PlaylistStandard::prevItem()
 {
 	QModelIndex prev;
 	if(prev_queue.count()) {
@@ -401,49 +401,49 @@ QModelIndex MyTreeView::prevItem()
 		prev_queue.pop_back();
 		return prev;
 	}
-	if(pmodel.mapFromSource(curindex).row() >= 0) 
-		prev = pmodel.mapToSource(pmodel.index(pmodel.mapFromSource(curindex).row()-1, 0));
+	if(tree->pmodel.mapFromSource(curindex).row() >= 0) 
+		prev = tree->pmodel.mapToSource(tree->pmodel.index(tree->pmodel.mapFromSource(curindex).row()-1, 0));
 	if(prev.row() < 0) {
-		if(PlayerManager::Self().repeat_mode) prev = pmodel.mapToSource(pmodel.index(pmodel.rowCount()-1, 0));
-		else prev = model.index(-1, 0);
+		if(PlayerManager::Self().repeat_mode) prev = tree->pmodel.mapToSource(tree->pmodel.index(tree->pmodel.rowCount()-1, 0));
+		else prev = tree->model.index(-1, 0);
 	}
 	return prev;
 }
 
-void MyTreeView::onClick(const QModelIndex &index)
+void PlaylistStandard::onClick(const QModelIndex &index)
 {
 	//if(curindex.row() >= 0) prev_queue.push_back(curindex);
-	curindex = pmodel.mapToSource(index);
+	curindex = tree->pmodel.mapToSource(index);
 }
 
-void MyTreeView::onDoubleClick(const QModelIndex &index)
+void PlaylistStandard::onDoubleClick(const QModelIndex &index)
 {
 	//if(curindex.row() >= 0) prev_queue.push_back(curindex);
 	if(plindex.row() >= 0) prev_queue.push_back(plindex);
-	curindex = pmodel.mapToSource(index);
+	curindex = tree->pmodel.mapToSource(index);
 	rateSong(curindex, +1);
 	play();
 	emit playPauseIcon (false); // show a "pause" 
 }
 
-void MyTreeView::position(double pos)
+void PlaylistStandard::position(double pos)
 {
 	emit songPosition((int)(1000*pos));
 }
 
-void MyTreeView::clear()
+void PlaylistStandard::clear()
 {
-	plindex = curindex = insindex = model.index(-1, 0);
+	plindex = curindex = insindex = tree->model.index(-1, 0);
 	queue.clear();
 	prev_queue.clear();
-	setCurrentIndex(curindex);
-	model.removeRows(0, model.rowCount());
+	tree->setCurrentIndex(curindex);
+	tree->model.removeRows(0, tree->model.rowCount());
 }
 
-void MyTreeView::queueNext()
+void PlaylistStandard::queueNext()
 {
-	foreach(QModelIndex i1, this->selectedIndexes()) {
-		QModelIndex ind = pmodel.mapToSource(i1);
+	foreach(QModelIndex i1, tree->selectedIndexes()) {
+		QModelIndex ind = tree->pmodel.mapToSource(i1);
 		bool duplicate = false;
 		foreach(QModelIndex ind2, queue) if(ind.row() == ind2.row()) {
 			duplicate = true;
@@ -452,14 +452,14 @@ void MyTreeView::queueNext()
 		if(duplicate) continue;
 		queue.append(ind);
 		rateSong(ind, +1);
-		model.setData(model.index(ind.row(), PlaylistModel::Stat), QVariant(queue.count()), Qt::EditRole);
+		tree->model.setData(tree->model.index(ind.row(), PlaylistModel::Stat), QVariant(queue.count()), Qt::EditRole);
 	}
 }
 
-void MyTreeView::editTag()
+void PlaylistStandard::editTag()
 {
 	if(curindex.row() >= 0) {
-		TagEditor *te = new TagEditor(ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()), this);
+		TagEditor *te = new TagEditor(ToLocalFile(tree->model.data(tree->model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()), 0);
 		te->index = curindex.row();
 		connect(te, SIGNAL(editComplete(int)), this, SLOT(updateTag(int)));
 		//resetTags(curindex);
@@ -468,15 +468,15 @@ void MyTreeView::editTag()
 	}
 }
 
-void MyTreeView::updateTag(int i)
+void PlaylistStandard::updateTag(int i)
 {
-	QModelIndex ind = model.index(i, 0); 
+	QModelIndex ind = tree->model.index(i, 0); 
 	resetTags(ind);
 }
 
-void MyTreeView::resetTags(QModelIndex& ind)
+void PlaylistStandard::resetTags(QModelIndex& ind)
 {
-	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	QString path = ToLocalFile(tree->model.data(tree->model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length, type;
 	int track, year, rating=0;
 	
@@ -495,27 +495,27 @@ void MyTreeView::resetTags(QModelIndex& ind)
 	}
 }
 
-void MyTreeView::removeSong()
+void PlaylistStandard::removeSong()
 {
 	QList<int> list;
-	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/this->selectedIndexes()) {
+	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/tree->selectedIndexes()) {
 		if(!list.contains(ind.row())) 
 			list << /*pmodel.mapToSource(*/ind.row();
 	}
 	qSort(list.begin(), list.end(), qGreater<int>());
 	foreach(int ind, list) {
-		if(curindex.row() == pmodel.mapToSource(pmodel.index(ind, 0)).row()) {
-			curindex = model.index(-1, 0);
-			setCurrentIndex(curindex);
+		if(curindex.row() == tree->pmodel.mapToSource(tree->pmodel.index(ind, 0)).row()) {
+			curindex = tree->model.index(-1, 0);
+			tree->setCurrentIndex(curindex);
 		}
-		pmodel.removeRows(ind, 1);
+		tree->pmodel.removeRows(ind, 1);
 	}
 }
 
-void MyTreeView::reloadTags()
+void PlaylistStandard::reloadTags()
 {
-	foreach(QModelIndex ind, this->selectedIndexes()) {
-		QModelIndex i2 = pmodel.mapToSource(ind);
+	foreach(QModelIndex ind, tree->selectedIndexes()) {
+		QModelIndex i2 = tree->pmodel.mapToSource(ind);
 		resetTags(i2);
 	}
 	//if(curindex.row() >= 0) resetTags(curindex);
@@ -556,27 +556,27 @@ void MyTreeView::showEvent ( QShowEvent * event )
 	updateStatus();
 }
 
-void MyTreeView::updateStatus()
+void PlaylistStandard::updateStatus()
 {
-	if(delayedPlay && model.rowCount() > delayedIndex) {
+	if(delayedPlay && tree->model.rowCount() > delayedIndex) {
 		delayedPlay = false;
-		curindex = model.index(delayedIndex, 0);
-		setCurrentIndex(pmodel.mapFromSource(curindex));
-		scrollTo(pmodel.mapFromSource(curindex));
+		curindex = tree->model.index(delayedIndex, 0);
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
+		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
 		//play();
 		//if(delayedPos >= 0 && delayedPos <= 1)
 		//	position(delayedPos);
 	}
-	if(!delayedPlay && delayedIndex >= 0 && model.rowCount() > delayedIndex) {
-		curindex = model.index(delayedIndex, 0);
-		setCurrentIndex(pmodel.mapFromSource(curindex));
-		scrollTo(pmodel.mapFromSource(curindex));
+	if(!delayedPlay && delayedIndex >= 0 && tree->model.rowCount() > delayedIndex) {
+		curindex = tree->model.index(delayedIndex, 0);
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
+		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
 	}
 	QDateTime time;
-	for(int i=0; i<model.rowCount(); i++) {
-		time = time.addSecs(model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75);
+	for(int i=0; i<tree->model.rowCount(); i++) {
+		time = time.addSecs(tree->model.data(tree->model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75);
 	}
-	QString st = tr("Playlist - %n song(s)", "", model.rowCount());
+	QString st = tr("Playlist - %n song(s)", "", tree->model.rowCount());
 	if(QDateTime().daysTo(time) > 1) {
 		st += " (" +
 			QString::number(QDateTime().daysTo(time)-1) +
@@ -589,10 +589,10 @@ void MyTreeView::updateStatus()
 	emit status(st);
 }
 
-void MyTreeView::rateSong(QModelIndex &ind, int r, int offset)
+void PlaylistStandard::rateSong(QModelIndex &ind, int r, int offset)
 {
 	if(!PLSet.autoRating || (!r && !offset)) return;
-	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	QString path = ToLocalFile(tree->model.data(tree->model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length, type;
 	int track, year, rating;
 	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
@@ -627,24 +627,24 @@ void MyTreeView::rateCurrent(int offset, int value)
 	}
 }
 
-QString MyTreeView::curFile()
+QString PlaylistStandard::curFile()
 {
 	if(curindex.row() >= 0) {
-		return ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+		return ToLocalFile(tree->model.data(tree->model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	}
 	return "";
 }
 
-void MyTreeView::setFilter(QString s)
+void PlaylistStandard::setFilter(QString s)
 {
-	pmodel.setFilterRegExp(s);
+	tree->pmodel.setFilterRegExp(s);
 }
 
-void MyTreeView::findCurrent()
+void PlaylistStandard::findCurrent()
 {
 	if(plindex.row() >= 0) {
-		setCurrentIndex(pmodel.mapFromSource(plindex));
-		scrollTo(pmodel.mapFromSource(plindex));
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(plindex));
+		tree->scrollTo(tree->pmodel.mapFromSource(plindex));
 	}
 }
 
