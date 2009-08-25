@@ -38,7 +38,7 @@ Q_EXPORT_PLUGIN2(playlist_standard, PlaylistStandardFactory)
  ***********************/ 
 
 MyTreeView::MyTreeView(QString &str, QWidget *parent)
-  : QTreeView(parent), correct(false), dragStarted(false)
+  : QTreeView(parent), dragStarted(false)
 {
 	setItemDelegate(new StarDelegate);
     pmodel.setDynamicSortFilter(true);
@@ -75,10 +75,79 @@ MyTreeView::MyTreeView(QString &str, QWidget *parent)
 	setSortingEnabled(true);
 }
 
+// start drag&drop block
+void MyTreeView::dragEnterEvent(QDragEnterEvent *event)
+{
+	if(event->source() != this)
+		event->acceptProposedAction();
+}
+
+void MyTreeView::dropEvent(QDropEvent *event)
+{
+	if(dragStarted) {
+	    QModelIndex index = indexAt(event->pos());
+        if (model.dropMimeData(event->mimeData(),
+            Qt::MoveAction, index.row(), index.column(), index)) {
+            event->setDropAction(Qt::MoveAction);
+            event->accept();
+        }
+	    stopAutoScroll();
+	    setState(NoState);
+	} else QTreeView::dropEvent(event);
+}
+
+void MyTreeView::startDrag(Qt::DropActions supportedActions)
+{
+	dragStarted = true;
+	QTreeView::startDrag(supportedActions);
+	dragStarted = false;
+}
+
+
+// end drag&drop block
+
+void MyTreeView::setColVisible(int c, bool v)
+{
+	if(v) showColumn(c);
+	else hideColumn(c);
+}
+
+void MyTreeView::setColWidth(int c, int w)
+{
+	setColumnWidth(c, w);
+}
+
+void MyTreeView::setColPosition(int c, int p)
+{
+	header()->moveSection(header()->visualIndex(c), p);
+}
+
+void MyTreeView::hideEvent ( QHideEvent * event )
+{
+	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
+		PLSet.setColumnWidth(i, columnWidth(i));
+		PLSet.setColumnPosition(i, header()->visualIndex(i));
+	}
+	QTreeView::hideEvent(event);
+}
+
+void MyTreeView::showEvent ( QShowEvent * event )
+{
+	//updateStatus();
+	emit needUpdate();
+}
+
+/***********************
+ * 
+ *    PlaylistStandard
+ * 
+ ***********************/ 
+
 PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : Playlist(str, parent), autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
 	tree = new MyTreeView(str, parent);
-	connect(tree, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
+	connect(tree, SIGNAL(needUpdate()), this, SLOT(updateStatus()));
+	//connect(tree, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	connect(tree, SIGNAL(message(QString, QString, QString, long)), this, SIGNAL(message(QString, QString, QString, long)));
 	connect(tree, SIGNAL(started()), this, SLOT(startedSlot()));
 	connect(tree, SIGNAL(songPosition(int)), this, SIGNAL(songPosition(int)));
@@ -110,12 +179,6 @@ QString PlaylistStandard::getName()
 void PlaylistStandard::setName(QString str)
 {
 	plistname = str;
-}
-
-void MyTreeView::dragEnterEvent(QDragEnterEvent *event)
-{
-	if(event->source() != this)
-		event->acceptProposedAction();
 }
 
 void PlaylistStandard::storeListM3U(QString fname)
@@ -192,31 +255,6 @@ bool PlaylistStandard::isPlaying()
 	return playing;
 }
 
-// start drag&drop block
-void MyTreeView::dropEvent(QDropEvent *event)
-{
-	if(dragStarted) {
-	    QModelIndex index = indexAt(event->pos());
-        if (model.dropMimeData(event->mimeData(),
-            Qt::MoveAction, index.row(), index.column(), index)) {
-            event->setDropAction(Qt::MoveAction);
-            event->accept();
-        }
-	    stopAutoScroll();
-	    setState(NoState);
-	} else QTreeView::dropEvent(event);
-}
-
-void MyTreeView::startDrag(Qt::DropActions supportedActions)
-{
-	dragStarted = true;
-	QTreeView::startDrag(supportedActions);
-	dragStarted = false;
-}
-
-
-// end drag&drop block
-
 void PlaylistStandard::addItem(QVariant item, int id, QModelIndex* ind)
 {
 	if(!ind) ind = &insindex;
@@ -229,10 +267,7 @@ void PlaylistStandard::prev()
 {
 	QModelIndex prev = prevItem();
 	if(prev.row() >= 0) {
-		tree->clearSelection();
-		tree->setCurrentIndex(tree->pmodel.mapFromSource(prev));
-		tree->scrollTo(tree->pmodel.mapFromSource(prev));
-		curindex = prev;
+		setCurrent(prev.row());
 		play();
 	}
 }
@@ -252,10 +287,7 @@ void PlaylistStandard::next()
 			}
 			if(PlayerManager::Self().playing()) rateSong(plindex, -1);
 		}
-		tree->clearSelection();
-		curindex = next;
-		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
-		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
+		setCurrent(next.row());
 		play();
 	}
 	//else stop();
@@ -264,9 +296,7 @@ void PlaylistStandard::next()
 void PlaylistStandard::play(int index, double pos)
 {
 	if(index >= 0 && index < tree->model.rowCount()) {
-		curindex = tree->model.index(index, 0);
-		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
-		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
+		setCurrent(index);
 		play();
 		if(pos >= 0 && pos <= 1)
 			PlayerManager::Self().setPosition(pos);
@@ -442,7 +472,7 @@ void PlaylistStandard::clear()
 
 void PlaylistStandard::queueNext()
 {
-	foreach(QModelIndex i1, tree->selectedIndexes()) {
+	foreach(QModelIndex i1, tree->getSelectedIndexes()) {
 		QModelIndex ind = tree->pmodel.mapToSource(i1);
 		bool duplicate = false;
 		foreach(QModelIndex ind2, queue) if(ind.row() == ind2.row()) {
@@ -498,7 +528,7 @@ void PlaylistStandard::resetTags(QModelIndex& ind)
 void PlaylistStandard::removeSong()
 {
 	QList<int> list;
-	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/tree->selectedIndexes()) {
+	foreach(QModelIndex ind, /*pmodel.mapSelectionToSource(*/tree->getSelectedIndexes()) {
 		if(!list.contains(ind.row())) 
 			list << /*pmodel.mapToSource(*/ind.row();
 	}
@@ -514,27 +544,11 @@ void PlaylistStandard::removeSong()
 
 void PlaylistStandard::reloadTags()
 {
-	foreach(QModelIndex ind, tree->selectedIndexes()) {
+	foreach(QModelIndex ind, tree->getSelectedIndexes()) {
 		QModelIndex i2 = tree->pmodel.mapToSource(ind);
 		resetTags(i2);
 	}
 	//if(curindex.row() >= 0) resetTags(curindex);
-}
-
-void MyTreeView::setColVisible(int c, bool v)
-{
-	if(v) showColumn(c);
-	else hideColumn(c);
-}
-
-void MyTreeView::setColWidth(int c, int w)
-{
-	setColumnWidth(c, w);
-}
-
-void MyTreeView::setColPosition(int c, int p)
-{
-	header()->moveSection(header()->visualIndex(c), p);
 }
 
 void PlaylistStandard::setAutosave(bool b)
@@ -542,35 +556,17 @@ void PlaylistStandard::setAutosave(bool b)
 	autosave = b;
 }
 
-void MyTreeView::hideEvent ( QHideEvent * event )
-{
-	for(int i=0; i<PlaylistModel::ColumnCount; i++) {
-		PLSet.setColumnWidth(i, columnWidth(i));
-		PLSet.setColumnPosition(i, header()->visualIndex(i));
-	}
-	QTreeView::hideEvent(event);
-}
-
-void MyTreeView::showEvent ( QShowEvent * event )
-{
-	updateStatus();
-}
-
 void PlaylistStandard::updateStatus()
 {
 	if(delayedPlay && tree->model.rowCount() > delayedIndex) {
 		delayedPlay = false;
-		curindex = tree->model.index(delayedIndex, 0);
-		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
-		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
+		setCurrent(delayedIndex);
 		//play();
 		//if(delayedPos >= 0 && delayedPos <= 1)
 		//	position(delayedPos);
 	}
 	if(!delayedPlay && delayedIndex >= 0 && tree->model.rowCount() > delayedIndex) {
-		curindex = tree->model.index(delayedIndex, 0);
-		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
-		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
+		setCurrent(delayedIndex);
 	}
 	QDateTime time;
 	for(int i=0; i<tree->model.rowCount(); i++) {
@@ -606,17 +602,17 @@ void PlaylistStandard::rateSong(QModelIndex &ind, int r, int offset)
 	Console::Self().log((r>0?"rate up ":"rate down ") + title);
 }
 
-int MyTreeView::curIndex()
+int PlaylistStandard::curIndex()
 {
 	return plindex.row() >= 0 ? plindex.row() : curindex.row();
 }
 
-double MyTreeView::curPosition()
+double PlaylistStandard::curPosition()
 {
 	return PlayerManager::Self().getPosition();
 }
 
-void MyTreeView::rateCurrent(int offset, int value)
+void PlaylistStandard::rateCurrent(int offset, int value)
 {
 	if(playing) {
 		bool ar = PLSet.autoRating;
@@ -648,11 +644,14 @@ void PlaylistStandard::findCurrent()
 	}
 }
 
-void MyTreeView::setCurrent(int index)
+void PlaylistStandard::setCurrent(int index)
 {
-	if(index >= 0 && index < model.rowCount()) {
-		curindex = model.index(index, 0);
-		setCurrentIndex(pmodel.mapFromSource(curindex));
+	if(index >= 0 && index < tree->model.rowCount()) {
+		curindex = tree->model.index(index, 0);
+		tree->clearSelection();
+		tree->setCurrentIndex(tree->pmodel.mapFromSource(curindex));
+		//tree->model.setCurrent(index);
+		tree->scrollTo(tree->pmodel.mapFromSource(curindex));
 	} else {
 		delayedIndex = index;
 		delayedPlay = false;
