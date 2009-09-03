@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>651</width>
-    <height>525</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -372,6 +372,71 @@
         </property>
         <addaction name="actionRemoveBookmark"/>
        </widget>
+       <widget class="QWidget" name="treeViewLabelAndToolBar">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>37</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="treeViewVerticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <item>
+          <widget class="QToolBar" name="treeViewToolbar">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>39</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>39</height>
+            </size>
+           </property>
+           <addaction name="actionRefreshTree"/>
+           <addaction name="actionBookmarkFolder"/>
+           <addaction name="actionRemoveBookmark"/>
+           <addaction name="actionSetRootCurrentDir"/>
+           <addaction name="actionOneLevelUp"/>
+          </widget>
+         </item>
+         <item>
+          <widget class="KSqueezedTextLabel" name="treeViewLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="textElideMode">
+            <enum>Qt::ElideLeft</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
        <widget class="QTreeView" name="treeView_2">
         <property name="contextMenuPolicy">
          <enum>Qt::ActionsContextMenu</enum>
@@ -494,7 +559,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>21</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -1535,8 +1600,49 @@
     <string>Cuberok online</string>
    </property>
   </action>
+  <action name="actionSetRootCurrentDir">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/folder-locked.png</normaloff>:/icons/folder-locked.png</iconset>
+   </property>
+   <property name="text">
+    <string>Set Current Dir as Root</string>
+   </property>
+   <property name="whatsThis">
+    <string>Locks directory tree below to currently selected directory</string>
+   </property>
+  </action>
+  <action name="actionOneLevelUp">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/go-up.png</normaloff>:/icons/go-up.png</iconset>
+   </property>
+   <property name="text">
+    <string>One Level Up</string>
+   </property>
+   <property name="iconText">
+    <string>One Level Up</string>
+   </property>
+   <property name="toolTip">
+    <string>Change root to one level up directory</string>
+   </property>
+   <property name="whatsThis">
+    <string>Locks directory tree below to directory one level up form current</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KSqueezedTextLabel</class>
+   <extends>QLabel</extends>
+   <header>ksqueezedtextlabel.h</header>
+  </customwidget>
   <customwidget>
    <class>PlaylistContainer</class>
    <extends>QWidget</extends>
@@ -1594,6 +1700,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="resource.qrc"/>
   <include location="resource.qrc"/>
  </resources>
  <connections>
@@ -2830,22 +2937,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>list_bookmarks</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>CuberokClass</receiver>
-   <slot>selectBookmark(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>569</x>
-     <y>137</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>325</x>
-     <y>262</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionViewType</sender>
    <signal>toggled(bool)</signal>
    <receiver>listView</receiver>
@@ -2893,6 +2984,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSetRootCurrentDir</sender>
+   <signal>activated()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>setRootCurrent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOneLevelUp</sender>
+   <signal>activated()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>oneLevelUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSetRootCurrentDir</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>actionOneLevelUp</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
@@ -2903,5 +3042,7 @@
   <slot>selectBookmark(QString)</slot>
   <slot>showHelp()</slot>
   <slot>goToSite()</slot>
+  <slot>setRootCurrent()</slot>
+  <slot>oneLevelUp()</slot>
  </slots>
 </ui>

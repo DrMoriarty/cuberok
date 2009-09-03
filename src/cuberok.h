@@ -87,12 +87,19 @@ public slots:
 	void applySettings();
 	void collectionSettings();
 	void importCollection();
+ // 'files' dock widget
+	void setCurrent_files(const QModelIndex &index);
 	void setBookmark();
 	void removeBookmark();
 	void selectBookmark(QListWidgetItem*);
 	void selectBookmark(QString);
+	void setRootCurrent();
+	void oneLevelUp();
+	void changeRootIndex_files(const QModelIndex &index);
+
 	void showHelp();
 	void goToSite();
+
 };
 
 #endif // CUBEROK_H

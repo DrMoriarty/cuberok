@@ -59,7 +59,8 @@ HEADERS += aboutdialog.h \
            tageditor.h \
            tagger.h \
            url_open.h \
-	   ../QFreeDesktopMime/src/freedesktopmime.h
+	   ../QFreeDesktopMime/src/freedesktopmime.h \
+	   ksqueezedtextlabel.h
 
 FORMS += aboutdialog.ui \
          collectionsettings.ui \
@@ -120,7 +121,8 @@ SOURCES += aboutdialog.cpp \
            tageditor.cpp \
            tagger.cpp \
            url_open.cpp \
-	   ../QFreeDesktopMime/src/freedesktopmime.cpp
+	   ../QFreeDesktopMime/src/freedesktopmime.cpp \
+	   ksqueezedtextlabel.cpp
 RESOURCES += resource.qrc
 
 exists(../qtagconvert/src/KCmp3Tag.ui) {
