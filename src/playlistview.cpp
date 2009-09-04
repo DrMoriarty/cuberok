@@ -340,11 +340,6 @@ void PlaylistAbstract::playFinished()
 	next();
 }
 
-void PlaylistAbstract::position(double pos)
-{
-	emit songPosition((int)(1000*pos));
-}
-
 void PlaylistAbstract::updateTag(int i)
 {
 	QModelIndex ind = model.index(i, 0); 
@@ -614,6 +609,11 @@ void PlaylistStandard::onDoubleClick(const QModelIndex &index)
 	rateSong(curindex, +1);
 	play();
 	emit playPauseIcon (false); // show a "pause" 
+}
+
+void PlaylistStandard::position(double pos)
+{
+	emit songPosition((int)(1000*pos));
 }
 
 void PlaylistStandard::clear()
