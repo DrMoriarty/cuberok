@@ -97,7 +97,6 @@ class PlaylistAbstract : public Playlist
 
 	void addItem(QVariant item, int id, QModelIndex* ind = 0);
 	void playFinished();
-	void position(double pos);
 	void updateTag(int);
 	void updateStatus();
  private slots:
@@ -145,6 +144,7 @@ public slots:
 private slots:
 	void onClick( const QModelIndex & index );
 	void onDoubleClick( const QModelIndex & index );
+	void position(double pos);
 signals:
 	void status(QString);
 	void message(QString, QString, QString, long);
