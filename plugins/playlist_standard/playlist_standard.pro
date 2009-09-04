@@ -4,8 +4,10 @@
  INCLUDEPATH  += ../../src
  HEADERS       = \
  	../../src/playlist.h \
- 	../../src/playlistview.h
- SOURCES       = ../../src/playlistview.cpp
+ 	../../src/playlistview.h 
+#    ../../src/playlistview_wa.h
+ SOURCES       = ../../src/playlistview.cpp 
+#                 ../../src/playlistview_wa.cpp
  TARGET        = $$qtLibraryTarget(playlist_standard)
 
 include(../../qmakeroot.pri)

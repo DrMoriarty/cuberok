@@ -18,6 +18,7 @@
  */
 
 #include "playlistview.h"
+//#include "playlistview_wa.h"
 #include "player_manager.h"
 #include "tageditor.h"
 #include "tagger.h"
@@ -168,51 +169,25 @@ void MyTreeView::showEvent ( QShowEvent * event )
 
 /***********************
  * 
- *    PlaylistStandard
+ *    PlaylistAbstract
  * 
  ***********************/ 
 
-PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : Playlist(str, parent), autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
-{
-	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
-	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
-	view = new MyTreeView(str, model, parent);
-	connect(view, SIGNAL(needUpdate()), this, SLOT(updateStatus()));
-	connect(view, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
-	connect(view, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
-	if(plistname.size()) {  // read stored playlist
-		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
-		if(QFile::exists(fname)) loadList(fname);
-		else {
-			fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
-			if(QFile::exists(fname)) loadList(fname);
-		}
-	}
-};
+PlaylistAbstract::PlaylistAbstract(QString &str, QWidget *parent) : Playlist(str, parent)
+, autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+{}
 
-PlaylistStandard::~PlaylistStandard()
-{
-	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
-	if(autosave) storeListXSPF(fname);
-	else QFile::remove(fname);
-}
-
-QWidget* PlaylistStandard::getWidget()
-{
-	return view;
-}
-
-QString PlaylistStandard::getName()
+QString PlaylistAbstract::getName()
 {
 	return plistname;
 }
 
-void PlaylistStandard::setName(QString str)
+void PlaylistAbstract::setName(QString str)
 {
 	plistname = str;
 }
 
-void PlaylistStandard::storeListM3U(QString fname)
+void PlaylistAbstract::storeListM3U(QString fname)
 {
 	if(!fname.size()) return;
 	QFile file(fname);
@@ -226,7 +201,7 @@ void PlaylistStandard::storeListM3U(QString fname)
 	}
 }
 
-void PlaylistStandard::storeListXSPF(QString fname)
+void PlaylistAbstract::storeListXSPF(QString fname)
 {
 	QFile file(fname);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -268,25 +243,25 @@ void PlaylistStandard::storeListXSPF(QString fname)
 	}
 }
 
-void PlaylistStandard::loadList(QString fname)
+void PlaylistAbstract::loadList(QString fname)
 {
 	while(model.rowCount()) model.removeRow(0);
 	addUrl(QUrl::fromLocalFile(fname));
 }
 
-void PlaylistStandard::addUrl(QUrl url)
+void PlaylistAbstract::addUrl(QUrl url)
 {
 	QList<TagEntry> list = Tagger::readEntry(url);
 	Console::Self().log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
 	model.appendList(list);
 }
 
-bool PlaylistStandard::isPlaying()
+bool PlaylistAbstract::isPlaying()
 {
 	return playing;
 }
 
-void PlaylistStandard::addItem(QVariant item, int id, QModelIndex* ind)
+void PlaylistAbstract::addItem(QVariant item, int id, QModelIndex* ind)
 {
 	if(!ind) ind = &insindex;
 	if(id == PlaylistModel::File)
@@ -294,7 +269,7 @@ void PlaylistStandard::addItem(QVariant item, int id, QModelIndex* ind)
 	model.setData(ind->row()<0 ? model.index(model.rowCount()-1, id) : model.index(ind->row(), id), item, Qt::EditRole);
 }
 
-void PlaylistStandard::prev()
+void PlaylistAbstract::prev()
 {
 	QModelIndex prev = prevItem();
 	if(prev.row() >= 0) {
@@ -303,7 +278,7 @@ void PlaylistStandard::prev()
 	}
 }
 
-void PlaylistStandard::next()
+void PlaylistAbstract::next()
 {
 	QModelIndex next;
 	do {
@@ -324,7 +299,7 @@ void PlaylistStandard::next()
 	//else stop();
 }
 
-void PlaylistStandard::play(int index, double pos)
+void PlaylistAbstract::play(int index, double pos)
 {
 	if(index >= 0 && index < model.rowCount()) {
 		setCurrent(index);
@@ -337,6 +312,186 @@ void PlaylistStandard::play(int index, double pos)
 		delayedIndex = index;
 		delayedPos = pos;
 	}
+}
+
+void PlaylistAbstract::stop()
+{
+	model.setCurrent(-1);
+	plindex = model.index(-1, 0);
+    PlayerManager::Self().stop();
+    playing = false;
+	emit message("", "", "", 0);
+	emit songPosition(0);
+}
+
+void PlaylistAbstract::playFinished()
+{
+	if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler) {
+		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
+		if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
+		if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
+	}	
+	emit playPauseIcon (true); // finished playing, show the "play" icon
+	next();
+}
+
+void PlaylistAbstract::position(double pos)
+{
+	emit songPosition((int)(1000*pos));
+}
+
+void PlaylistAbstract::updateTag(int i)
+{
+	QModelIndex ind = model.index(i, 0); 
+	resetTags(ind);
+}
+
+void PlaylistAbstract::resetTags(QModelIndex& ind)
+{
+	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	QString title, artist, album, comment, genre, length, type;
+	int track, year, rating=0;
+	
+	Tagger::readTags(path, title, artist, album, comment, genre, track, year, length);
+	
+	addItem(title, PlaylistModel::Title, &ind);
+	addItem(artist, PlaylistModel::Artist, &ind);
+	addItem(album, PlaylistModel::Album, &ind);
+	addItem(QString::number(year), PlaylistModel::Year, &ind);
+	addItem(comment, PlaylistModel::Comment, &ind);
+	addItem(QString::number(track), PlaylistModel::Track, &ind);
+	addItem(genre, PlaylistModel::Genre, &ind);
+
+	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
+		addItem(qVariantFromValue(StarRating(rating)), PlaylistModel::Rating, &ind);
+	}
+}
+
+void PlaylistAbstract::setAutosave(bool b)
+{
+	autosave = b;
+}
+
+void PlaylistAbstract::updateStatus()
+{
+	if(delayedPlay && model.rowCount() > delayedIndex) {
+		delayedPlay = false;
+		setCurrent(delayedIndex);
+		//play();
+		//if(delayedPos >= 0 && delayedPos <= 1)
+		//	position(delayedPos);
+	}
+	if(!delayedPlay && delayedIndex >= 0 && model.rowCount() > delayedIndex) {
+		setCurrent(delayedIndex);
+	}
+	QDateTime time;
+	for(int i=0; i<model.rowCount(); i++) {
+		time = time.addSecs(model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75);
+	}
+	QString st = tr("Playlist - %n song(s)", "", model.rowCount());
+	if(QDateTime().daysTo(time) > 1) {
+		st += " (" +
+			QString::number(QDateTime().daysTo(time)-1) +
+			"d " +
+			QString::number(time.time().hour()) +
+			"h)";
+	} else {
+		st += " (" + time.time().toString()+")";
+	}
+	emit status(st);
+}
+
+void PlaylistAbstract::rateSong(QModelIndex &ind, int r, int offset)
+{
+	if(!PLSet.autoRating || (!r && !offset)) return;
+	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	QString title, artist, album, comment, genre, length, type;
+	int track, year, rating;
+	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
+		if(r) {
+			r = r * (5 - abs(rating/10));
+		} else {
+			r = offset;
+		}
+		Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating+r);
+	}
+	Console::Self().log((r>0?"rate up ":"rate down ") + title);
+}
+
+int PlaylistAbstract::curIndex()
+{
+	return plindex.row() >= 0 ? plindex.row() : curindex.row();
+}
+
+double PlaylistAbstract::curPosition()
+{
+	return PlayerManager::Self().getPosition();
+}
+
+void PlaylistAbstract::rateCurrent(int offset, int value)
+{
+	if(playing) {
+		bool ar = PLSet.autoRating;
+		PLSet.autoRating = true;
+		rateSong(plindex, 0, offset+value);
+		PLSet.autoRating = ar;
+		resetTags(plindex);
+	}
+}
+
+QString PlaylistAbstract::curFile()
+{
+	if(curindex.row() >= 0) {
+		return ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	}
+	return "";
+}
+
+void PlaylistAbstract::findCurrent()
+{
+	if(plindex.row() >= 0) {
+		setCurrent(plindex.row());
+	}
+}
+
+/***********************
+ * 
+ *    PlaylistStandard
+ * 
+ ***********************/ 
+
+PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : PlaylistAbstract(str, parent){
+	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
+	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
+	view = new MyTreeView(str, model, parent);
+	connect(view, SIGNAL(needUpdate()), this, SLOT(updateStatus()));
+	connect(view, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
+	connect(view, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
+	if(plistname.size()) {  // read stored playlist
+		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
+		if(QFile::exists(fname)) loadList(fname);
+		else {
+			fname = QDir::homePath() + "/.cuberok/" + plistname + ".m3u";
+			if(QFile::exists(fname)) loadList(fname);
+		}
+	}
+};
+
+PlaylistStandard::~PlaylistStandard()
+{
+	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
+	if(autosave) storeListXSPF(fname);
+	else QFile::remove(fname);
+}
+
+QWidget* PlaylistStandard::getWidget()
+{
+	return view;
 }
 
 void PlaylistStandard::play()
@@ -383,32 +538,6 @@ void PlaylistStandard::play()
 	if(PLSet.librefmScrobbler && ar.size()) {
 		LibreFM::Self().nowplaying(ar, info, alb, 0, n);
 	}
-}
-
-void PlaylistStandard::stop()
-{
-	model.setCurrent(-1);
-	plindex = model.index(-1, 0);
-    PlayerManager::Self().stop();
-    playing = false;
-	emit message("", "", "", 0);
-	emit songPosition(0);
-}
-
-void PlaylistStandard::playFinished()
-{
-	if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler) {
-		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
-		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
-		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
-		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
-		if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
-		if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
-	}	
-	emit playPauseIcon (true); // finished playing, show the "play" icon
-	next();
 }
 
 QModelIndex PlaylistStandard::nextItem()
@@ -487,11 +616,6 @@ void PlaylistStandard::onDoubleClick(const QModelIndex &index)
 	emit playPauseIcon (false); // show a "pause" 
 }
 
-void PlaylistStandard::position(double pos)
-{
-	emit songPosition((int)(1000*pos));
-}
-
 void PlaylistStandard::clear()
 {
 	plindex = curindex = insindex = model.index(-1, 0);
@@ -529,33 +653,6 @@ void PlaylistStandard::editTag()
 	}
 }
 
-void PlaylistStandard::updateTag(int i)
-{
-	QModelIndex ind = model.index(i, 0); 
-	resetTags(ind);
-}
-
-void PlaylistStandard::resetTags(QModelIndex& ind)
-{
-	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
-	QString title, artist, album, comment, genre, length, type;
-	int track, year, rating=0;
-	
-	Tagger::readTags(path, title, artist, album, comment, genre, track, year, length);
-	
-	addItem(title, PlaylistModel::Title, &ind);
-	addItem(artist, PlaylistModel::Artist, &ind);
-	addItem(album, PlaylistModel::Album, &ind);
-	addItem(QString::number(year), PlaylistModel::Year, &ind);
-	addItem(comment, PlaylistModel::Comment, &ind);
-	addItem(QString::number(track), PlaylistModel::Track, &ind);
-	addItem(genre, PlaylistModel::Genre, &ind);
-
-	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
-		addItem(qVariantFromValue(StarRating(rating)), PlaylistModel::Rating, &ind);
-	}
-}
-
 void PlaylistStandard::removeSong()
 {
 	QList<int> list;
@@ -582,96 +679,9 @@ void PlaylistStandard::reloadTags()
 	//if(curindex.row() >= 0) resetTags(curindex);
 }
 
-void PlaylistStandard::setAutosave(bool b)
-{
-	autosave = b;
-}
-
-void PlaylistStandard::updateStatus()
-{
-	if(delayedPlay && model.rowCount() > delayedIndex) {
-		delayedPlay = false;
-		setCurrent(delayedIndex);
-		//play();
-		//if(delayedPos >= 0 && delayedPos <= 1)
-		//	position(delayedPos);
-	}
-	if(!delayedPlay && delayedIndex >= 0 && model.rowCount() > delayedIndex) {
-		setCurrent(delayedIndex);
-	}
-	QDateTime time;
-	for(int i=0; i<model.rowCount(); i++) {
-		time = time.addSecs(model.data(model.index(i, PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75);
-	}
-	QString st = tr("Playlist - %n song(s)", "", model.rowCount());
-	if(QDateTime().daysTo(time) > 1) {
-		st += " (" +
-			QString::number(QDateTime().daysTo(time)-1) +
-			"d " +
-			QString::number(time.time().hour()) +
-			"h)";
-	} else {
-		st += " (" + time.time().toString()+")";
-	}
-	emit status(st);
-}
-
-void PlaylistStandard::rateSong(QModelIndex &ind, int r, int offset)
-{
-	if(!PLSet.autoRating || (!r && !offset)) return;
-	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
-	QString title, artist, album, comment, genre, length, type;
-	int track, year, rating;
-	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
-		if(r) {
-			r = r * (5 - abs(rating/10));
-		} else {
-			r = offset;
-		}
-		Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating+r);
-	}
-	Console::Self().log((r>0?"rate up ":"rate down ") + title);
-}
-
-int PlaylistStandard::curIndex()
-{
-	return plindex.row() >= 0 ? plindex.row() : curindex.row();
-}
-
-double PlaylistStandard::curPosition()
-{
-	return PlayerManager::Self().getPosition();
-}
-
-void PlaylistStandard::rateCurrent(int offset, int value)
-{
-	if(playing) {
-		bool ar = PLSet.autoRating;
-		PLSet.autoRating = true;
-		rateSong(plindex, 0, offset+value);
-		PLSet.autoRating = ar;
-		resetTags(plindex);
-	}
-}
-
-QString PlaylistStandard::curFile()
-{
-	if(curindex.row() >= 0) {
-		return ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl());
-	}
-	return "";
-}
-
 void PlaylistStandard::setFilter(QString s)
 {
 	view->setFilterRegExp(s);
-}
-
-void PlaylistStandard::findCurrent()
-{
-	if(plindex.row() >= 0) {
-		setCurrent(plindex.row());
-	}
 }
 
 void PlaylistStandard::setCurrent(int index)
@@ -701,12 +711,12 @@ QStringList PlaylistStandardFactory::getAvailableTypes()
 {
 	QStringList l;
 	l << "Standard";
-	l << "WinAmp style";
+//	l << "WinAmp style";
 	return l;
 }
 
 Playlist* PlaylistStandardFactory::getNewPlaylist(QString type, QWidget* parent, QString name) {
 	if(type == "Standard") return new PlaylistStandard(name, parent);
-	//if(type == "WinAmp style") return new PlaylistWinamp(name, parent);
+//	if(type == "WinAmp style") return new PlaylistWinamp(name, parent);
 	return 0;
 };
