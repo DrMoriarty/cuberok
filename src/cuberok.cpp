@@ -96,7 +96,7 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.treeView_2->sortByColumn(0, Qt::AscendingOrder);
 	ui.treeViewLabel->setVisible(false);
 	//ui.treeView_2->actions().append(ui.actionRefreshTree);
-	setCurrent_files(dirmodel.index(QDir::homePath())); // move treeView_2 to homedir
+	setCurrent_files(dirmodel.index(set.value("filesStartDir", QDir::homePath()).toString())); // move treeView_2 to homedir
 
 	connect(ui.volumeSlider, SIGNAL(valueChanged(int)), ui.listView, SLOT(setVolume(int)));
 	ui.volumeSlider->setValue(set.value("volume", 99).toInt(0));
@@ -552,8 +552,8 @@ void Cuberok::setCurrent_files(const QModelIndex &i/*index*/) { // 'files' dock 
 	ui.treeView_2->collapseAll();
 	ui.treeView_2->setCurrentIndex(i);
 	ui.treeView_2->expand(i);
-	ui.treeView_2->resizeColumnToContents(0);
 	ui.treeView_2->scrollTo(i, QAbstractItemView::PositionAtTop);
+	ui.treeView_2->resizeColumnToContents(0);
 }
 
 void Cuberok::setRootCurrent() { // 'files' dock widget
@@ -565,6 +565,8 @@ void Cuberok::oneLevelUp() { // 'files' dock widget
 }
 
 void Cuberok::changeRootIndex_files(const QModelIndex &index_) {
+	if (!index_.isValid())
+		return;
 	QModelIndex index(index_);
 	if ( ui.treeView_2->rootIndex() == index ) {
 		if ( index == dirmodel.parent(dirmodel.index(QDir::rootPath())) )
@@ -572,6 +574,8 @@ void Cuberok::changeRootIndex_files(const QModelIndex &index_) {
 		else
 			index = dirmodel.parent(dirmodel.index(QDir::rootPath()));
 	}
+	if ( index != dirmodel.parent(dirmodel.index(QDir::rootPath())) && !dirmodel.fileInfo(index).isDir() )
+		index = ui.treeView_2->rootIndex();
 	QString oldRoot = dirmodel.filePath(ui.treeView_2->currentIndex());
 	ui.treeView_2->setCurrentIndex(index);
 	ui.treeView_2->setRootIndex(index);
@@ -592,6 +596,15 @@ void Cuberok::changeRootIndex_files(const QModelIndex &index_) {
 		ui.treeViewLabel->setText(dirmodel.filePath(ui.treeView_2->rootIndex()));
 	}
 	ui.treeView_2->resizeColumnToContents(0);
+}
+
+void Cuberok::rememberStart_files() {
+	QModelIndex index(ui.treeView_2->currentIndex());
+	if ( !index.isValid() || !dirmodel.isDir(index) ) {
+		return;
+	}
+	QSettings set;
+	set.setValue("filesStartDir", dirmodel.filePath(index));
 }
 
 void Cuberok::timeSlot()

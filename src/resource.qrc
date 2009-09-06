@@ -64,5 +64,6 @@
 	<file alias="edit-add.png">../images/edit-add.png</file>
 	<file alias="folder-locked.png">../images/folder-locked.png</file>
 	<file alias="go-up.png">../images/go-up.png</file>
+	<file alias="user-home.png">../images/user-home.png</file>
     </qresource>
 </RCC>
