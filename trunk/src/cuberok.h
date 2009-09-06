@@ -96,6 +96,7 @@ public slots:
 	void setRootCurrent();
 	void oneLevelUp();
 	void changeRootIndex_files(const QModelIndex &index);
+	void rememberStart_files();
 
 	void showHelp();
 	void goToSite();

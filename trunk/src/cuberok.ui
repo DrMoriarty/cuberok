@@ -415,6 +415,7 @@
            <addaction name="actionRefreshTree"/>
            <addaction name="actionBookmarkFolder"/>
            <addaction name="actionRemoveBookmark"/>
+           <addaction name="separator"/>
            <addaction name="actionSetRootCurrentDir"/>
            <addaction name="actionOneLevelUp"/>
           </widget>
@@ -470,6 +471,8 @@
         </property>
         <addaction name="actionRefreshTree"/>
         <addaction name="actionBookmarkFolder"/>
+        <addaction name="actionSetCurrentStart"/>
+        <addaction name="actionSetRootCurrentDir"/>
        </widget>
       </widget>
      </item>
@@ -1634,6 +1637,18 @@
    </property>
    <property name="whatsThis">
     <string>Locks directory tree below to directory one level up form current</string>
+   </property>
+  </action>
+  <action name="actionSetCurrentStart">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/user-home.png</normaloff>:/icons/user-home.png</iconset>
+   </property>
+   <property name="text">
+    <string>Set This Dir as Start Directory</string>
+   </property>
+   <property name="toolTip">
+    <string>Set current selected directory as a startup directory</string>
    </property>
   </action>
  </widget>
@@ -3032,6 +3047,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSetCurrentStart</sender>
+   <signal>activated()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>rememberStart_files()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
@@ -3044,5 +3075,6 @@
   <slot>goToSite()</slot>
   <slot>setRootCurrent()</slot>
   <slot>oneLevelUp()</slot>
+  <slot>rememberStart_files()</slot>
  </slots>
 </ui>
