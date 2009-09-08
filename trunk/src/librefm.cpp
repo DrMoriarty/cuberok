@@ -24,11 +24,10 @@
 #include <QtNetwork>
 #include "console.h"
 
-//const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
 const QString HOST("turtle.libre.fm");
 static QHttp http;
 
-LibreFM::LibreFM() : QObject(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
+LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
 {
 	connect(&http, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(requestStarted(int)));
@@ -49,11 +48,54 @@ LibreFM::~LibreFM()
 	out << stack;
 }
 
-LibreFM& LibreFM::Self()
+bool LibreFM::prepare()
 {
-	static LibreFM inst;
-	return inst;
+	QString user, password;
+	bool enabled = set.value("librefmScrobbler", false).toBool();
+	user = set.value("librefmUser", "").toString();
+	password = set.value("librefmPassword", "").toString();
+	if(enabled) handshake(user, password);
 }
+
+bool LibreFM::ready()
+{
+	return connected;
+}
+
+bool LibreFM::update()
+{
+	if(proxy->getStatus().playing == SStatus::Playing && proxy->getPrevStatus().playing == SStatus::Stopped) {
+		// track started
+		STags t = proxy->getTags();
+		nowplaying(t.tag0.artist, t.tag0.title, t.tag0.album, t.tag0, t.tag0.length/75, t.tag0.track);
+	} else if(proxy->getPrevStatus().playing == SStatus::Playing && proxy->getStatus().playing == SStatus::Stopped) {
+		// track finished
+		STags t = proxy->getTags();
+		int time = t.tag0.length/75;
+		submission(t.tag0.artist, t.tag0.title, time, t.tag0.album, t.tag0, t.tag0.length/75, "P", "", t.tag0.track);
+	}
+}
+
+QString LibreFM::getName()
+{
+	return tr("Libre.FM Scrobbler");
+}
+
+QWidget* LibreFM::getWidget()
+{
+	return 0;
+}
+
+QWidget* LibreFM::getSetupWidget()
+{
+	return 0;
+}
+
+int LibreFM::getDisturbs()
+{
+	return DisturbOnTags | DisturbOnStatus;
+}
+
 
 void LibreFM::handshake(QString user, QString password)
 {

@@ -1,7 +1,7 @@
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin static
- INCLUDEPATH  += ../../src
+ INCLUDEPATH  += ../../src ../../include
  HEADERS       = \
  	../../src/playlist.h \
  	../../src/playlistview.h 

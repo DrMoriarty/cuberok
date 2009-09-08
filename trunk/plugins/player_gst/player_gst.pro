@@ -1,7 +1,7 @@
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin
- INCLUDEPATH  += ../../src
+ INCLUDEPATH  += ../../src ../../include
  HEADERS       = ../../src/player_gst.h \
                  ../../src/player.h
  SOURCES       = ../../src/player_gst.cpp

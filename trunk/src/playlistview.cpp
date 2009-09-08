@@ -28,7 +28,7 @@
 #include "playlistsettings.h"
 #include "lastfm.h"
 #include "console.h"
-#include "librefm.h"
+//#include "librefm.h"
 
 Q_EXPORT_PLUGIN2(playlist_standard, PlaylistStandardFactory) 
 
@@ -326,7 +326,7 @@ void PlaylistAbstract::stop()
 
 void PlaylistAbstract::playFinished()
 {
-	if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler) {
+	if(PLSet.lastfmScrobbler /*|| PLSet.librefmScrobbler*/) {
 		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
 		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
@@ -334,7 +334,7 @@ void PlaylistAbstract::playFinished()
 		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
 		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
 		if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
-		if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
+		//if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
 	}	
 	emit playPauseIcon (true); // finished playing, show the "play" icon
 	next();
@@ -530,9 +530,9 @@ void PlaylistStandard::play()
 	if(PLSet.lastfmScrobbler && ar.size()) {
 		LastFM::Self().nowplaying(ar, info, alb, 0, n);
 	}
-	if(PLSet.librefmScrobbler && ar.size()) {
+	/*if(PLSet.librefmScrobbler && ar.size()) {
 		LibreFM::Self().nowplaying(ar, info, alb, 0, n);
-	}
+	}*/
 }
 
 QModelIndex PlaylistStandard::nextItem()

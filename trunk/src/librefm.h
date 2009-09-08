@@ -20,25 +20,29 @@
 #ifndef LIBREFM_H
 #define LIBREFM_H
 
-#include <QtCore>
+#include "interfaces.h"
 
-class LibreFM : public QObject
+class LibreFM : public Extension
 {
 	Q_OBJECT
 
  public:
-	static LibreFM& Self();
-	~LibreFM();
+	LibreFM();
+	virtual ~LibreFM();
 
+	virtual bool prepare();
+	virtual bool ready();
+	virtual bool update();
+	virtual QString getName();
+	virtual QWidget* getWidget();
+	virtual QWidget* getSetupWidget();
+	virtual int getDisturbs();
+
+ private:
 	void handshake(QString user, QString password);
 	void nowplaying(QString artist, QString title, QString album, int sec = 0, int track = 0, QString mb = "");
 	void submission(QString artist, QString title, int time, QString album, int sec, QString src = "P", QString rating = "", int track = 0, QString mb = "");
 
-	//void artistInfo(QString artist);
-	//void albumInfo(QString artist, QString album);
-
- private:
-	LibreFM();
 	void doQueue();
 	
 	int httpGetId, httpPostId;

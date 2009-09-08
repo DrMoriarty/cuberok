@@ -14,8 +14,14 @@ include(../qmakeroot.pri)
 
 include(../plugins/plugins_path-$${QT_ARCH}.pri)
 
+INCLUDEPATH += ../include
+
 # Input
-HEADERS += aboutdialog.h \
+HEADERS += \
+           ../include/global.h \
+           ../include/tagentry.h \
+           ../include/interfaces.h \
+           aboutdialog.h \
            browser.h \
            browser_viewer.h \
            collectionsettings.h \
@@ -36,7 +42,7 @@ HEADERS += aboutdialog.h \
            jamendo_browser.h \
            lastfm.h \
            libraryview.h \
-           librefm.h \
+#           librefm.h \
            lookandfeel.h \
            lyricwiki.h \
            magnatune_browser.h \
@@ -100,7 +106,7 @@ SOURCES += aboutdialog.cpp \
            jamendo_browser.cpp \
            lastfm.cpp \
            libraryview.cpp \
-           librefm.cpp \
+#           librefm.cpp \
            lookandfeel.cpp \
            lyricwiki.cpp \
            magnatune_browser.cpp \
