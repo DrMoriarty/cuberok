@@ -1,7 +1,7 @@
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin
- INCLUDEPATH  += ../../src
+ INCLUDEPATH  += ../../src ../../include
  HEADERS       = ../../src/style.h
  SOURCES       = ../../src/style.cpp
  TARGET        = $$qtLibraryTarget(cuberok_style)

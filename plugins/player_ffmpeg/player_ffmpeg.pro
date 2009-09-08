@@ -1,7 +1,7 @@
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin
- INCLUDEPATH  += ../../src
+ INCLUDEPATH  += ../../src ../../include
  HEADERS       = ../../src/player_ffmpeg.h \
                  ../../src/player.h
  SOURCES       = ../../src/player_ffmpeg.cpp

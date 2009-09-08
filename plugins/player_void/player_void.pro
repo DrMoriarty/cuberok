@@ -1,7 +1,7 @@
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin static
- INCLUDEPATH  += ../../src
+ INCLUDEPATH  += ../../src ../../include
  HEADERS       = ../../src/player_void.h
  SOURCES       = ../../src/player_void.cpp
  TARGET        = $$qtLibraryTarget(player_void)
