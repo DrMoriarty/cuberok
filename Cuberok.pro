@@ -1,8 +1,7 @@
 TEMPLATE      = subdirs
 SUBDIRS      += ./plugins/player_void 
-SUBDIRS      += plugins/cuberok_style \
-		plugins/playlist_standard
-#		plugins/arthur_style
+SUBDIRS      += extensions 
+#		plugins/playlist_standard
 
 # install
 target.path = ../Cuberok
