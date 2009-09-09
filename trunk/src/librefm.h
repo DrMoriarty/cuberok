@@ -25,6 +25,7 @@
 class LibreFM : public Extension
 {
 	Q_OBJECT
+	Q_INTERFACES(Extension) 
 
  public:
 	LibreFM();
@@ -46,7 +47,7 @@ class LibreFM : public Extension
 	void doQueue();
 	
 	int httpGetId, httpPostId;
-	QString session, nowPlayingUrl, submissionUrl;
+	QString session, nowPlayingUrl, submissionUrl, librefmUser, librefmPassword;
 	bool connected;
 	QVector< QList<QVariant> > stack;
 	bool needInfo, delayed;
