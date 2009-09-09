@@ -17,15 +17,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "main.h"
+#include "global.h"
 #include "librefm.h"
-#include "playlistsettings.h"
+//#include "playlistsettings.h"
 #include <QtGui>
 #include <QtNetwork>
 #include "console.h"
 
 const QString HOST("turtle.libre.fm");
 static QHttp http;
+
+Q_EXPORT_PLUGIN2(scrobbler_librefm, LibreFM) 
 
 LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
 {
@@ -50,11 +52,11 @@ LibreFM::~LibreFM()
 
 bool LibreFM::prepare()
 {
-	QString user, password;
+	QSettings set;
 	bool enabled = set.value("librefmScrobbler", false).toBool();
-	user = set.value("librefmUser", "").toString();
-	password = set.value("librefmPassword", "").toString();
-	if(enabled) handshake(user, password);
+	librefmUser = set.value("librefmUser", "").toString();
+	librefmPassword = set.value("librefmPassword", "").toString();
+	if(enabled) handshake(librefmUser, librefmPassword);
 }
 
 bool LibreFM::ready()
@@ -67,12 +69,12 @@ bool LibreFM::update()
 	if(proxy->getStatus().playing == SStatus::Playing && proxy->getPrevStatus().playing == SStatus::Stopped) {
 		// track started
 		STags t = proxy->getTags();
-		nowplaying(t.tag0.artist, t.tag0.title, t.tag0.album, t.tag0, t.tag0.length/75, t.tag0.track);
+		nowplaying(t.tag0.artist, t.tag0.title, t.tag0.album, t.tag0.length/75, t.tag0.track);
 	} else if(proxy->getPrevStatus().playing == SStatus::Playing && proxy->getStatus().playing == SStatus::Stopped) {
 		// track finished
 		STags t = proxy->getTags();
 		int time = t.tag0.length/75;
-		submission(t.tag0.artist, t.tag0.title, time, t.tag0.album, t.tag0, t.tag0.length/75, "P", "", t.tag0.track);
+		submission(t.tag0.artist, t.tag0.title, time, t.tag0.album, t.tag0.length/75, "P", "", t.tag0.track);
 	}
 }
 
@@ -105,8 +107,11 @@ void LibreFM::handshake(QString user, QString password)
 		stack << item;
 		return;
 	}
-	if(PLSet.proxyEnabled) {
-		http.setProxy(PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword);
+	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
+		http.setProxy(proxy->getVariable("proxyHost"),
+					  proxy->getVariable("proxyPort").toInt(),
+					  proxy->getVariable("proxyUser"),
+					  proxy->getVariable("proxyPassword"));
 	}
 
 	try_count ++;
@@ -205,7 +210,7 @@ void LibreFM::doQueue()
 	if(stack.size() && !httpGetId && !httpPostId) {
 		QList<QVariant> &item = *stack.begin();
 		if(item.size() == 0) {
-			handshake(PLSet.librefmUser, PLSet.librefmPassword);
+			handshake(librefmUser, librefmPassword);
 			stack.pop_front();
 		} else if(item.size() == 1) {
 			//artistInfo(item[0].toString());
@@ -226,7 +231,7 @@ void LibreFM::doQueue()
 void LibreFM::nowplaying(QString artist, QString title, QString album, int sec, int track, QString mb)
 {
 	if(!connected || httpPostId) {
-		handshake(PLSet.librefmUser, PLSet.librefmPassword);
+		handshake(librefmUser, librefmPassword);
 		QList<QVariant> item;
 		item << artist;
 		item << title;
@@ -237,8 +242,11 @@ void LibreFM::nowplaying(QString artist, QString title, QString album, int sec, 
 		stack << item;
 		return;
 	}
-	if(PLSet.proxyEnabled) {
-		http.setProxy(PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword);
+	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
+		http.setProxy(proxy->getVariable("proxyHost"),
+					  proxy->getVariable("proxyPort").toInt(),
+					  proxy->getVariable("proxyUser"),
+					  proxy->getVariable("proxyPassword"));
 	}
 
 	QUrl u(nowPlayingUrl);
@@ -267,7 +275,7 @@ void LibreFM::submission(QString artist, QString title, int time, QString album,
 {
 	if(sec < 30 || (QDateTime::currentDateTime().toTime_t() - time) < (sec/2)) return;
 	if(!connected || httpPostId) {
-		handshake(PLSet.librefmUser, PLSet.librefmPassword);
+		handshake(librefmUser, librefmPassword);
 		QList<QVariant> item;
 		item << artist;
 		item << title;
@@ -281,8 +289,11 @@ void LibreFM::submission(QString artist, QString title, int time, QString album,
 		stack << item;
 		return;
 	}
-	if(PLSet.proxyEnabled) {
-		http.setProxy(PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword);
+	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
+		http.setProxy(proxy->getVariable("proxyHost"),
+					  proxy->getVariable("proxyPort").toInt(),
+					  proxy->getVariable("proxyUser"),
+					  proxy->getVariable("proxyPassword"));
 	}
 
 	QUrl u(submissionUrl);
@@ -366,5 +377,5 @@ void LibreFM::timerConnect()
 {
 	delayed = false;
 	try_count = 0;
-	handshake(PLSet.librefmUser, PLSet.librefmPassword);
+	handshake(librefmUser, librefmPassword);
 }

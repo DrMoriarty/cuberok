@@ -44,6 +44,8 @@ class SControl {
 	};
 	int command;
 	float value;
+
+ SControl() : command(0), value(.0f) {};
 };
 
 class SStatus {
@@ -54,6 +56,8 @@ class SStatus {
 	int playing;
 	float pos;
 	float volume;
+
+ SStatus() : playing(0), pos(.0f), volume(.0f) {};
 };
 
 class STags {
@@ -70,11 +74,15 @@ class SInfo {
 	int type;
 	QString text;
 	QString url;
+
+ SInfo() : type(0) {};
 };
 
 class SRequest {
  public:
 	int type;
+
+ SRequest() : type(0) {};
 };
 
 // proxy object for sending messages between plugins
@@ -88,7 +96,7 @@ class Proxy : public QObject
 	virtual void beginTransaction() = 0;
 	virtual void endTransaction() = 0;
 	
-	virtual void setControl(SControl colntrol) = 0;
+	virtual void setControl(SControl control) = 0;
 	virtual void setStatus(SStatus status) = 0;
 	virtual void setTags(STags tags) = 0;
 	virtual void setUrl(QUrl url) = 0;
@@ -102,6 +110,9 @@ class Proxy : public QObject
 	virtual QUrl     getUrl() = 0;
 	virtual SInfo    getInfo() = 0;
 	virtual SRequest getRequest() = 0;
+
+	virtual bool hasVariable(QString varname) = 0;
+	virtual QString getVariable(QString varname) = 0;
 };
 
 // 

@@ -1,4 +1,4 @@
 TEMPLATE      = subdirs
 SUBDIRS      += \
-		playlist_standard
-
+		playlist_standard \
+		scrobbler_librefm

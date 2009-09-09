@@ -30,4 +30,7 @@
 #define SHMEM_SIZE 1024
 const QString XMLNS("http://code.google.com/p/cuberok");
 
+static QString CUBEROK_VERSION = QString("%1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
+
+
 #endif //GLOBAL_H
