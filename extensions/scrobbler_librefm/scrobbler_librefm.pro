@@ -5,9 +5,10 @@
  INCLUDEPATH  += ../../src ../../include
  HEADERS       = \
  	../../include/interfaces.h \
- 	../../src/librefm.h 
+ 	librefm.h \
+    librefm_settings.h
 
- SOURCES       = ../../src/librefm.cpp 
+ SOURCES       = librefm.cpp librefm_settings.cpp
  TARGET        = $$qtLibraryTarget(scrobbler_librefm)
 
 include(../../qmakeroot.pri)

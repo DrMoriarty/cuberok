@@ -23,13 +23,8 @@
 #include <QtCore>
 #include "player.h"
 extern "C" {
-#ifdef WIN32
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
-#else
-#include <avcodec.h>
-#include <avformat.h>
-#endif
 }
 
 class PlayThread : public QThread

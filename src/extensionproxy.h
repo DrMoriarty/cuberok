@@ -53,6 +53,11 @@ class ExtensionProxy : Proxy {
 	virtual QString getVariable(QString varname);
 	void setVariable(QString varname, QString value);
 
+	virtual void log(QString);
+	virtual void message(QString);
+	virtual void warning(QString);
+	virtual void error(QString);
+
  protected:
 	ExtensionProxy();
 	void update(int);

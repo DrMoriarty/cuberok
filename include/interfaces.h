@@ -115,6 +115,11 @@ class Proxy : public QObject
 
 	virtual bool hasVariable(QString varname) = 0;
 	virtual QString getVariable(QString varname) = 0;
+
+	virtual void log(QString) = 0;
+	virtual void message(QString) = 0;
+	virtual void warning(QString) = 0;
+	virtual void error(QString) = 0;
 };
 
 // 

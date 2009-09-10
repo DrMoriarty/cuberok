@@ -18,6 +18,7 @@
  */
 
 #include "extensionproxy.h"
+#include "console.h"
 
 Q_IMPORT_PLUGIN(scrobbler_librefm)
 
@@ -189,3 +190,24 @@ void ExtensionProxy::update(int flag)
 		}
 	}
 }
+
+void ExtensionProxy::log(QString s)
+{
+	Console::Self().log(s);
+}
+
+void ExtensionProxy::message(QString s)
+{
+	Console::Self().message(s);
+}
+
+void ExtensionProxy::warning(QString s)
+{
+	Console::Self().warning(s);
+}
+
+void ExtensionProxy::error(QString s)
+{
+	Console::Self().error(s);
+}
+
