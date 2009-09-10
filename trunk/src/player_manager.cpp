@@ -21,6 +21,7 @@
 #include "console.h"
 #include "main.h"
 #include "playlistsettings.h"
+#include "extensionproxy.h"
 
 #include <QtGui>
 
@@ -29,15 +30,15 @@ Q_IMPORT_PLUGIN(player_void)
 Q_IMPORT_PLUGIN(player_phonon)
 #endif
 
-PlayerManager::PlayerManager() : player(0), autoEngine(true)
+PlayerManager::PlayerManager() : player(0), autoEngine(true), vol(.0f), pos(.0f)
 {
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		Player *pl = qobject_cast<Player *>(plugin);
 		if (pl) {
 			pl->setManager(this);
 			players.push_back(pl);
-			connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-			connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+			connect(players.last(), SIGNAL(position(double)), this, SLOT(positionSlot(double)));
+			connect(players.last(), SIGNAL(finish()), this, SLOT(finishSlot()));
 			info += pl->name() + "\n";
 		}
 	}
@@ -54,8 +55,8 @@ PlayerManager::PlayerManager() : player(0), autoEngine(true)
 			if (pl) {
 				pl->setManager(this);
 				players.push_back(pl);
-				connect(players.last(), SIGNAL(position(double)), this, SIGNAL(position(double)));
-				connect(players.last(), SIGNAL(finish()), this, SIGNAL(finish()));
+				connect(players.last(), SIGNAL(position(double)), this, SLOT(positionSlot(double)));
+				connect(players.last(), SIGNAL(finish()), this, SLOT(finishSlot()));
 				info += pl->name() + "\n";
 				/*if(set.contains(pl->name() + "/blackList")) {
 					blackLists[pl->name()] = qVariantValue<QStringList>(set.value(pl->name() + "/blackList"));
@@ -163,17 +164,25 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 
 bool PlayerManager::play()
 {
-    return player ? player->play() : false;
+    bool res = player ? player->play() : false;
+	if(res) {
+		ExtensionProxy::Self().setStatus(SStatus(true, .0f, vol));
+	}
+	return res;
 }
 
 bool PlayerManager::stop()
 {
-    return player ? player->stop() : false;
+    bool res = player ? player->stop() : false;
+	if(res) ExtensionProxy::Self().setStatus(SStatus(false, .0f, vol));
+	return res;
 }
 
 bool PlayerManager::setPause(bool p)
 {
-    return player ? player->setPause(p) : false;
+    bool res = player ? player->setPause(p) : false;
+	if(res) ExtensionProxy::Self().setStatus(SStatus(!p, pos, vol));
+	return res;
 }
 
 bool PlayerManager::close()
@@ -181,25 +190,34 @@ bool PlayerManager::close()
     return player ? player->close() : false;
 }
 
-bool PlayerManager::setPosition(double pos)
+bool PlayerManager::setPosition(double _pos)
 {
-    return player ? player->setPosition(pos) : false;
+    bool res = player ? player->setPosition(_pos) : false;
+	if(res) {
+		pos = _pos;
+		ExtensionProxy::Self().setStatus(SStatus(playing(), pos, vol));
+	}
+	return res;
 }
 
 double PlayerManager::getPosition()
 {
-    return player ? player->getPosition() : 0.0;
+    return pos = (player ? player->getPosition() : 0.0);
 }
 
 int  PlayerManager::volume()
 {
-    return player ? player->volume() : 0;
+    int v = player ? player->volume() : 0;
+	vol = .01f * v;
+	return v;
 }
 
 void PlayerManager::setVolume(int v)
 {
 	foreach(Player *pl, players)
 		pl->setVolume(v);
+	vol = .01f * v;
+	ExtensionProxy::Self().setStatus(SStatus(playing(), pos, vol));
 }
 
 bool PlayerManager::playing()
@@ -267,18 +285,31 @@ bool PlayerManager::setPrefferedPlayer(QString name)
 			if(!player->open(filename, filestart, filelength) ||
 			   !player->play() ||
 			   !player->setPosition(pos))
-				emit finish();
+				finishSlot();
 		}
 		return true;
 	}
 	Console::Self().error(tr("Can't start engine %1").arg(name));
-	emit finish();
+	finishSlot();
 	return false;
 }
 
 QString PlayerManager::getInfo()
 {
 	return info;
+}
+
+void PlayerManager::positionSlot(double _pos)
+{
+	pos = _pos;
+	ExtensionProxy::Self().setStatus(SStatus(playing(), pos, vol));
+	emit position(pos);
+}
+
+void PlayerManager::finishSlot()
+{
+	ExtensionProxy::Self().setStatus(SStatus(false, .0f, vol));
+	emit finish();
 }
 
 /*QStringList& PlayerManager::blackList(QString playerName)

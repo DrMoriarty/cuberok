@@ -40,12 +40,13 @@ class SControl {
  public:
 	enum Command {
 		Nothing = 0,
-		Stop, Play, Volume, Position
+		Stop, Play, Pause, Volume, Position
 	};
 	int command;
 	float value;
 
  SControl() : command(0), value(.0f) {};
+ SControl(int c, float v = .0f) :command(c), value(v) {};
 };
 
 class SStatus {
@@ -58,6 +59,7 @@ class SStatus {
 	float volume;
 
  SStatus() : playing(0), pos(.0f), volume(.0f) {};
+ SStatus(bool p, float po, float vo) : playing(p), pos(po), volume(vo) {};
 };
 
 class STags {
@@ -126,7 +128,7 @@ class Extension : public QObject
 	virtual void setProxy(Proxy* p) { proxy = p; };
 	virtual bool prepare() = 0;
 	virtual bool ready() = 0;
-	virtual bool update() = 0;
+	virtual void update() = 0;
 	virtual QString getName() = 0;
 	virtual QWidget* getWidget() = 0;
 	virtual QWidget* getSetupWidget() = 0;

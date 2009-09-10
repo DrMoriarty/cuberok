@@ -19,7 +19,7 @@
 
 #include "extensionproxy.h"
 
-Q_IMPORT_PLUGIN(player_void)
+Q_IMPORT_PLUGIN(scrobbler_librefm)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
@@ -29,12 +29,14 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 		if (ex) {
 			ex->setProxy(this);
 			extensions.push_back(ex);
+			bool res = ex->prepare();
+			qDebug("Load static extension '%s'", (const char*)ex->getName().toLocal8Bit());
 		}
 	}
 
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
 	pluginsDir.cd(CUBEROK_PLUGINS);
-	qDebug((const char*)("Plugins dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
+	qDebug((const char*)("Extension dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
 	QSettings set;
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 	    qDebug((const char*)("Try to load extension " + fileName).toLocal8Bit());
@@ -45,6 +47,8 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 			if (ex) {
 				ex->setProxy(this);
 				extensions.push_back(ex);
+				bool res = ex->prepare();
+				qDebug("Load extension %s", (const char*)ex->getName().toLocal8Bit());
 			}
 		} else {
 			qDebug((const char*)("Can't load extension " + fileName).toLocal8Bit());
