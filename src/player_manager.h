@@ -53,6 +53,10 @@ class PlayerManager : public Player
 	//QStringList& blackList(QString playerName);
 	//QStringList& whiteList(QString playerName);
 
+ private slots:
+	void positionSlot(double);
+	void finishSlot();
+	
  private:
     PlayerManager();
 	QList<Player*> players;
@@ -63,6 +67,7 @@ class PlayerManager : public Player
 	QUrl filename;
 	long filestart, filelength;
 	bool autoEngine;
+	float vol, pos;
 };
 
 #endif //PLAYER_MANAGER_H

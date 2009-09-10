@@ -57,6 +57,7 @@ bool LibreFM::prepare()
 	librefmUser = set.value("librefmUser", "").toString();
 	librefmPassword = set.value("librefmPassword", "").toString();
 	if(enabled) handshake(librefmUser, librefmPassword);
+	return enabled;
 }
 
 bool LibreFM::ready()
@@ -64,9 +65,9 @@ bool LibreFM::ready()
 	return connected;
 }
 
-bool LibreFM::update()
+void LibreFM::update()
 {
-	if(proxy->getStatus().playing == SStatus::Playing && proxy->getPrevStatus().playing == SStatus::Stopped) {
+	if(proxy->getStatus().playing == SStatus::Playing && proxy->getStatus().pos == .0f) {
 		// track started
 		STags t = proxy->getTags();
 		nowplaying(t.tag0.artist, t.tag0.title, t.tag0.album, t.tag0.length/75, t.tag0.track);
@@ -95,7 +96,7 @@ QWidget* LibreFM::getSetupWidget()
 
 int LibreFM::getDisturbs()
 {
-	return DisturbOnTags | DisturbOnStatus;
+	return DisturbOnStatus;// | DisturbOnTags;
 }
 
 

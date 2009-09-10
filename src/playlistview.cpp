@@ -29,6 +29,7 @@
 #include "lastfm.h"
 #include "console.h"
 //#include "librefm.h"
+#include "extensionproxy.h"
 
 Q_EXPORT_PLUGIN2(playlist_standard, PlaylistStandardFactory) 
 
@@ -514,12 +515,6 @@ void PlaylistStandard::play()
 		}
 	}
 	error_count = 0;
-	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
-	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
-	PlayerManager::Self().play();
-	playing = true;
-	emit started(this);
-	emit playPauseIcon (false); // finished playing, show the "pause" icon
 	model.setData(model.index(plindex.row(), PlaylistModel::StartTime), QDateTime::currentDateTime().toTime_t(), Qt::EditRole);
 	info = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
 	QString ar = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
@@ -533,6 +528,19 @@ void PlaylistStandard::play()
 	/*if(PLSet.librefmScrobbler && ar.size()) {
 		LibreFM::Self().nowplaying(ar, info, alb, 0, n);
 	}*/
+	STags t;
+	t.tag0.title = info;
+	t.tag0.artist = ar;
+	t.tag0.album = alb;
+	t.tag0.track = n;
+	ExtensionProxy::Self().setTags(t);
+
+	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
+	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
+	PlayerManager::Self().play();
+	playing = true;
+	emit started(this);
+	emit playPauseIcon (false); // finished playing, show the "pause" icon
 }
 
 QModelIndex PlaylistStandard::nextItem()
