@@ -8,6 +8,7 @@
  TARGET        = $$qtLibraryTarget(player_gst)
 
 include(../../qmakeroot.pri)
+include(../plugins_path-$${QT_ARCH}.pri)
 
 win32 {
     DESTDIR = ../../win32/plugins
@@ -20,8 +21,6 @@ unix {
     CONFIG += link_pkgconfig
     CONFIG += gstreamer
     PKGCONFIG += gstreamer-0.10
-#    target.path = /lib/cuberok
-    include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
 

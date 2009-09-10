@@ -8,6 +8,7 @@
  TARGET        = $$qtLibraryTarget(player_ffmpeg)
 
 include(../../qmakeroot.pri)
+include(../plugins_path-$${QT_ARCH}.pri)
 
 win32 {
     MSVC {
@@ -30,7 +31,6 @@ unix {
     CONFIG += link_pkgconfig
     CONFIG += ffmpeg
     PKGCONFIG += libavcodec libavformat libavutil sdl
-    include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
 

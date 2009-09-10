@@ -33,6 +33,7 @@ HEADERS += \
            cuecontrol.h \
            database.h \
            downloader.h \
+           extensionproxy.h \
            firststartwizard.h \
            importcollection.h \
            info.h \
@@ -97,6 +98,7 @@ SOURCES += aboutdialog.cpp \
            cuecontrol.cpp \
            database.cpp \
            downloader.cpp \
+           extensionproxy.cpp \
            firststartwizard.cpp \
            importcollection.cpp \
            info.cpp \
@@ -187,7 +189,7 @@ mac {
 }
 
 #static plugins
-LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard
+LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm
 
 macx {
     QT += phonon

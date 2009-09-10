@@ -9,6 +9,7 @@
 #REQUIRES += "contains(styles, motif)"
 
 include(../../qmakeroot.pri)
+include(../plugins_path-$${QT_ARCH}.pri)
 
 win32 {
     MSVC {
@@ -21,8 +22,6 @@ win32 {
 
 unix {
     DESTDIR = ../../unix/styles
-#    target.path = /lib/cuberok
-    include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
 

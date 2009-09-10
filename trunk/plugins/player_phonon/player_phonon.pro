@@ -9,6 +9,7 @@
  TARGET        = $$qtLibraryTarget(player_phonon)
 
 include(../../qmakeroot.pri)
+include(../plugins_path-$${QT_ARCH}.pri)
 
 win32 {
     MSVC {
@@ -29,8 +30,6 @@ unix {
     #INCLUDEPATH += $$system(audiere-config --cxxflags)
     #LIBS += $$system(audiere-config --libs)
     PKGCONFIG += phonon
-#    target.path = /lib/cuberok
-    include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
 
