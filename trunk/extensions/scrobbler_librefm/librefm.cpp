@@ -19,10 +19,10 @@
 
 #include "global.h"
 #include "librefm.h"
+#include "librefm_settings.h"
 //#include "playlistsettings.h"
 #include <QtGui>
 #include <QtNetwork>
-#include "console.h"
 
 const QString HOST("turtle.libre.fm");
 static QHttp http;
@@ -86,7 +86,7 @@ QString LibreFM::getName()
 
 QWidget* LibreFM::getWidget()
 {
-	return 0;
+	return new LibreFMSettings();
 }
 
 QWidget* LibreFM::getSetupWidget()
@@ -144,13 +144,13 @@ void LibreFM::handshake(QString user, QString password)
 
 void LibreFM::requestStarted(int id)
 {
-	Console::Self().log("Libre.FM: Request started " + http.currentRequest().toString());
+	proxy->log("Libre.FM: Request started " + http.currentRequest().toString());
 }
 
 void LibreFM::requestFinished(int id, bool err)
 {
 	if(err) {
-		Console::Self().error(QString("Libre.FM: Request failed: %1.").arg(http.errorString()));
+		proxy->error(QString("Libre.FM: Request failed: %1.").arg(http.errorString()));
 		if(httpGetId == id) httpGetId = 0;
 		if(httpPostId == id) httpPostId = 0;
 	} else {
@@ -158,7 +158,7 @@ void LibreFM::requestFinished(int id, bool err)
 			httpGetId = 0;
 			if(needInfo) {
 				QByteArray arr = http.readAll();
-				Console::Self().log("Libre.FM response:" + arr);
+				proxy->log("Libre.FM response:" + arr);
 				emit xmlInfo(QString::fromUtf8((const char*)arr));
 				needInfo = false;
 			} else {
@@ -170,22 +170,22 @@ void LibreFM::requestFinished(int id, bool err)
 					submissionUrl = request.section('\n', 3, 3);
 					connected = true;
 
-					Console::Self().log("Libre.FM: handshake complete");
+					proxy->log("Libre.FM: handshake complete");
 				} else if(status.startsWith("BANNED")) {
-					Console::Self().error("Libre.FM: I was banned at Libre.FM, I don't want to live any more.");
+					proxy->error("Libre.FM: I was banned at Libre.FM, I don't want to live any more.");
 					connected = false;
 				} else if(status.startsWith("BADAUTH")) {
-					Console::Self().error("Libre.FM: Incorrect user name or password.");
+					proxy->error("Libre.FM: Incorrect user name or password.");
 					connected = false;
 				} else if(status.startsWith("BADTIME")) {
-					Console::Self().error("Libre.FM: Incorrect time. The system clock must be corrected.");
+					proxy->error("Libre.FM: Incorrect time. The system clock must be corrected.");
 					connected = false;
 				} else if(status.startsWith("FAILED")) {
-					Console::Self().error("Libre.FM: " + status);
+					proxy->error("Libre.FM: " + status);
 					connected = false;
 				} else {
 					connected = false;
-					Console::Self().warning("Libre.FM: Unknown response:  " + status);
+					proxy->warning("Libre.FM: Unknown response:  " + status);
 				}
 			}
 		} else if(httpPostId == id) {
@@ -195,11 +195,11 @@ void LibreFM::requestFinished(int id, bool err)
 				// nothing to do
 			} else if(request.startsWith("BADSESSION")) {
 				connected = false;
-				Console::Self().error("Libre.FM: Bad session identifier. Need for reconnect to the server.");
+				proxy->error("Libre.FM: Bad session identifier. Need for reconnect to the server.");
 			} else if(request.startsWith("FAILED")) {
-				Console::Self().error("Libre.FM: " + request);
+				proxy->error("Libre.FM: " + request);
 			} else {
-				Console::Self().warning("Libre.FM: Unknown response:  " + request);
+				proxy->warning("Libre.FM: Unknown response:  " + request);
 			}
 		}
 	}

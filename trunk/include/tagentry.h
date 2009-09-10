@@ -19,7 +19,7 @@
 
 #ifndef TAGENTRY_H
 #define TAGENTRY_H
-
+#include <QtCore>
 typedef struct _CueEntry {
     QUrl url;
     long start;
