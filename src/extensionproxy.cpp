@@ -18,13 +18,46 @@
  */
 
 #include "extensionproxy.h"
+
+Q_IMPORT_PLUGIN(player_void)
+
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
-	// TODO loading extensions
+	// loading extensions
+	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
+		Extension *ex = qobject_cast<Extension *>(plugin);
+		if (ex) {
+			ex->setProxy(this);
+			extensions.push_back(ex);
+		}
+	}
+
+	QDir pluginsDir = QDir(qApp->applicationDirPath());
+	pluginsDir.cd(CUBEROK_PLUGINS);
+	qDebug((const char*)("Plugins dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
+	QSettings set;
+	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+	    qDebug((const char*)("Try to load extension " + fileName).toLocal8Bit());
+		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+		QObject *plugin = loader.instance();
+		if (plugin) {
+			Extension *ex = qobject_cast<Extension *>(plugin);
+			if (ex) {
+				ex->setProxy(this);
+				extensions.push_back(ex);
+			}
+		} else {
+			qDebug((const char*)("Can't load extension " + fileName).toLocal8Bit());
+		}
+	} 
 }
 
 ExtensionProxy::~ExtensionProxy()
 {
+	while(extensions.size()) {
+		delete extensions.last();
+		extensions.pop_back();
+	}
 }
 
 ExtensionProxy& ExtensionProxy::Self()
@@ -50,7 +83,7 @@ void ExtensionProxy::endTransaction()
 
 void ExtensionProxy::setControl(SControl c)
 {
-	control = s;
+	control = c;
 	if(transaction) transflag |= DisturbOnControl;
 	else update(DisturbOnControl);
 }
@@ -138,7 +171,7 @@ QString ExtensionProxy::getVariable(QString varname)
 
 void ExtensionProxy::setVariable(QString varname, QString value)
 {
-	values[varname] = value;
+	variables[varname] = value;
 }
 
 void ExtensionProxy::update(int flag)

@@ -8,6 +8,7 @@
  TARGET        = $$qtLibraryTarget(player_audiere)
 
 include(../../qmakeroot.pri)
+include(../plugins_path-$${QT_ARCH}.pri)
 
 win32 {
     MSVC {
@@ -25,8 +26,6 @@ unix {
     INCLUDEPATH += $$system(audiere-config --cxxflags)
     LIBS += $$system(audiere-config --libs)
     #plugin_audiere.files = ../../unix/plugins/libplayer_audiere.so
-#    target.path = /lib/cuberok
-    include(../plugins_path-$${QT_ARCH}.pri)
     INSTALLS += target
 }
 
