@@ -34,6 +34,7 @@ HEADERS += \
            database.h \
            downloader.h \
            extensionproxy.h \
+           extensionsettings.h \
            firststartwizard.h \
            importcollection.h \
            info.h \
@@ -99,6 +100,7 @@ SOURCES += aboutdialog.cpp \
            database.cpp \
            downloader.cpp \
            extensionproxy.cpp \
+           extensionsettings.cpp \
            firststartwizard.cpp \
            importcollection.cpp \
            info.cpp \

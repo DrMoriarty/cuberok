@@ -211,3 +211,7 @@ void ExtensionProxy::error(QString s)
 	Console::Self().error(s);
 }
 
+const QVector<Extension*>& ExtensionProxy::extensionList()
+{
+	return extensions;
+}

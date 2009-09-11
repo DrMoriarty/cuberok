@@ -58,6 +58,7 @@ class ExtensionProxy : Proxy {
 	virtual void warning(QString);
 	virtual void error(QString);
 
+	const QVector<Extension*>& extensionList();
  protected:
 	ExtensionProxy();
 	void update(int);

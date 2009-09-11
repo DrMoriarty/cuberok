@@ -431,9 +431,6 @@
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
-           <property name="textElideMode">
-            <enum>Qt::ElideLeft</enum>
-           </property>
           </widget>
          </item>
         </layout>
@@ -562,7 +559,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>28</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -584,6 +581,7 @@
     <addaction name="actionSavePlaylist"/>
     <addaction name="actionClosePlaylist"/>
     <addaction name="actionSettings"/>
+    <addaction name="actionExtensions"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -1649,6 +1647,11 @@
    </property>
    <property name="toolTip">
     <string>Set current selected directory as a startup directory</string>
+   </property>
+  </action>
+  <action name="actionExtensions">
+   <property name="text">
+    <string>Extensions</string>
    </property>
   </action>
  </widget>
@@ -3063,6 +3066,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionExtensions</sender>
+   <signal>triggered()</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>setupExtensions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
@@ -3076,5 +3095,6 @@
   <slot>setRootCurrent()</slot>
   <slot>oneLevelUp()</slot>
   <slot>rememberStart_files()</slot>
+  <slot>setupExtensions()</slot>
  </slots>
 </ui>

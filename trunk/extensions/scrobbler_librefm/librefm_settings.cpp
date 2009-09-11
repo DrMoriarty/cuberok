@@ -22,6 +22,12 @@
 LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
+
+	gridLayout3 = new QGridLayout(this);
+	gridLayout3->setSpacing(4);
+	gridLayout3->setMargin(4);
+	gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
+	
     checkBox_librefmScrobbling = new QGroupBox(this);
     checkBox_librefmScrobbling->setObjectName(QString::fromUtf8("checkBox_librefmScrobbling"));
     checkBox_librefmScrobbling->setFlat(true);
@@ -57,9 +63,8 @@ LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
     gridLayout3->addItem(verticalSpacer_2, 3, 0, 1, 1);
 
     QIcon icon4;
-    icon4.addPixmap(QPixmap(QString::fromUtf8(":/icons/lastfm.png")), QIcon::Normal, QIcon::Off);
+    icon4.addPixmap(QPixmap(QString::fromUtf8(":/icons/librefm.png")), QIcon::Normal, QIcon::Off);
 	setWindowIcon(icon4);
-    //toolBox->addItem(this, icon4, QApplication::translate("Settings", "Scrobbling", 0, QApplication::UnicodeUTF8));
 
 	QSettings set;
 	checkBox_librefmScrobbling->setChecked(set.value("librefmScrobbler", false).toBool());
@@ -69,8 +74,10 @@ LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
 
 LibreFMSettings::~LibreFMSettings()
 {
+	/*
 	QSettings set;
 	set.setValue("librefmScrobbler", checkBox_librefmScrobbling->isChecked());
 	set.setValue("librefmUser", lineEdit_librefmUser->text());
 	set.setValue("librefmPassword", lineEdit_librefmPassword->text());
+	*/
 }

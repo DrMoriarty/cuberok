@@ -59,7 +59,7 @@ class SStatus {
 	float volume;
 
  SStatus() : playing(0), pos(.0f), volume(.0f) {};
- SStatus(bool p, float po, float vo) : playing(p), pos(po), volume(vo) {};
+ SStatus(int p, float po, float vo) : playing(p), pos(po), volume(vo) {};
 };
 
 class STags {
