@@ -30,6 +30,7 @@
 #include "firststartwizard.h"
 #include "messagewindow.h"
 #include "main.h"
+#include "extensionsettings.h"
 
 #include <QDesktopServices>
 
@@ -682,4 +683,10 @@ void Cuberok::goToSite()
 	if(!QDesktopServices::openUrl(QUrl("https://sites.google.com/site/cuberok/"))) {
 		QMessageBox::warning(this, tr("Something wrong"), tr("It seems your browser isn't configured properly"));
 	}
+}
+
+void Cuberok::setupExtensions()
+{
+	ExtensionSettings *es = new ExtensionSettings();
+	es->show();
 }

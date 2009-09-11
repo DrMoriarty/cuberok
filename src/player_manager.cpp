@@ -166,7 +166,7 @@ bool PlayerManager::play()
 {
     bool res = player ? player->play() : false;
 	if(res) {
-		ExtensionProxy::Self().setStatus(SStatus(true, .0f, vol));
+		ExtensionProxy::Self().setStatus(SStatus(SStatus::Playing, .0f, vol));
 	}
 	return res;
 }
@@ -174,14 +174,14 @@ bool PlayerManager::play()
 bool PlayerManager::stop()
 {
     bool res = player ? player->stop() : false;
-	if(res) ExtensionProxy::Self().setStatus(SStatus(false, .0f, vol));
+	if(res) ExtensionProxy::Self().setStatus(SStatus(SStatus::Stopped, .0f, vol));
 	return res;
 }
 
 bool PlayerManager::setPause(bool p)
 {
     bool res = player ? player->setPause(p) : false;
-	if(res) ExtensionProxy::Self().setStatus(SStatus(!p, pos, vol));
+	if(res) ExtensionProxy::Self().setStatus(SStatus(p?SStatus::Paused:SStatus::Playing, pos, vol));
 	return res;
 }
 
@@ -195,7 +195,7 @@ bool PlayerManager::setPosition(double _pos)
     bool res = player ? player->setPosition(_pos) : false;
 	if(res) {
 		pos = _pos;
-		ExtensionProxy::Self().setStatus(SStatus(playing(), pos, vol));
+		ExtensionProxy::Self().setStatus(SStatus(playing()?SStatus::Playing:SStatus::Paused, pos, vol));
 	}
 	return res;
 }
@@ -217,7 +217,7 @@ void PlayerManager::setVolume(int v)
 	foreach(Player *pl, players)
 		pl->setVolume(v);
 	vol = .01f * v;
-	ExtensionProxy::Self().setStatus(SStatus(playing(), pos, vol));
+	ExtensionProxy::Self().setStatus(SStatus(playing()?SStatus::Playing:SStatus::Paused, pos, vol));
 }
 
 bool PlayerManager::playing()
@@ -302,13 +302,13 @@ QString PlayerManager::getInfo()
 void PlayerManager::positionSlot(double _pos)
 {
 	pos = _pos;
-	ExtensionProxy::Self().setStatus(SStatus(playing(), pos, vol));
+	ExtensionProxy::Self().setStatus(SStatus(SStatus::Playing, pos, vol));
 	emit position(pos);
 }
 
 void PlayerManager::finishSlot()
 {
-	ExtensionProxy::Self().setStatus(SStatus(false, .0f, vol));
+	ExtensionProxy::Self().setStatus(SStatus(SStatus::Stopped, .0f, vol));
 	emit finish();
 }
 

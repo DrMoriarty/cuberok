@@ -29,7 +29,7 @@ static QHttp http;
 
 Q_EXPORT_PLUGIN2(scrobbler_librefm, LibreFM) 
 
-LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0)
+LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0), enabled(false)
 {
 	connect(&http, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(requestStarted(int)));
@@ -53,7 +53,7 @@ LibreFM::~LibreFM()
 bool LibreFM::prepare()
 {
 	QSettings set;
-	bool enabled = set.value("librefmScrobbler", false).toBool();
+	enabled = set.value("librefmScrobbler", false).toBool();
 	librefmUser = set.value("librefmUser", "").toString();
 	librefmPassword = set.value("librefmPassword", "").toString();
 	if(enabled) handshake(librefmUser, librefmPassword);
@@ -62,20 +62,27 @@ bool LibreFM::prepare()
 
 bool LibreFM::ready()
 {
-	return connected;
+	return enabled;
 }
 
 void LibreFM::update()
 {
+	static int starttime = 0;
+	static bool listening = false;
+	if(listening && proxy->getStatus().playing == SStatus::Stopped) {
+		// track finished
+		listening = false;
+		STags t = proxy->getTags();
+		int len = t.tag0.length/75;
+		submission(t.tag0.artist, t.tag0.title, starttime, t.tag0.album, len, "P", "", t.tag0.track);
+		proxy->log("submission");
+	}
 	if(proxy->getStatus().playing == SStatus::Playing && proxy->getStatus().pos == .0f) {
 		// track started
+		listening = true;
+		starttime = QDateTime::currentDateTime().toTime_t();
 		STags t = proxy->getTags();
 		nowplaying(t.tag0.artist, t.tag0.title, t.tag0.album, t.tag0.length/75, t.tag0.track);
-	} else if(proxy->getPrevStatus().playing == SStatus::Playing && proxy->getStatus().playing == SStatus::Stopped) {
-		// track finished
-		STags t = proxy->getTags();
-		int time = t.tag0.length/75;
-		submission(t.tag0.artist, t.tag0.title, time, t.tag0.album, t.tag0.length/75, "P", "", t.tag0.track);
 	}
 }
 
@@ -86,12 +93,12 @@ QString LibreFM::getName()
 
 QWidget* LibreFM::getWidget()
 {
-	return new LibreFMSettings();
+	return 0;
 }
 
 QWidget* LibreFM::getSetupWidget()
 {
-	return 0;
+	return new LibreFMSettings();
 }
 
 int LibreFM::getDisturbs()
@@ -274,7 +281,11 @@ void LibreFM::nowplaying(QString artist, QString title, QString album, int sec, 
 
 void LibreFM::submission(QString artist, QString title, int time, QString album, int sec, QString src, QString rating, int track, QString mb)
 {
-	if(sec < 30 || (QDateTime::currentDateTime().toTime_t() - time) < (sec/2)) return;
+	if(sec < 30 || (QDateTime::currentDateTime().toTime_t() - time) < (sec/2)) {
+		proxy->log(QString("sec %1").arg(QString::number(sec)));
+		proxy->log(QString("time %1").arg(QString::number(QDateTime::currentDateTime().toTime_t() - time)));
+		return;
+	}
 	if(!connected || httpPostId) {
 		handshake(librefmUser, librefmPassword);
 		QList<QVariant> item;

@@ -533,6 +533,7 @@ void PlaylistStandard::play()
 	t.tag0.artist = ar;
 	t.tag0.album = alb;
 	t.tag0.track = n;
+	t.tag0.length = len * 75;
 	ExtensionProxy::Self().setTags(t);
 
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));

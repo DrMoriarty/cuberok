@@ -50,7 +50,7 @@ class LibreFM : public Extension
 	QString session, nowPlayingUrl, submissionUrl, librefmUser, librefmPassword;
 	bool connected;
 	QVector< QList<QVariant> > stack;
-	bool needInfo, delayed;
+	bool needInfo, delayed, enabled;
 	int try_count;
 
  private slots:
