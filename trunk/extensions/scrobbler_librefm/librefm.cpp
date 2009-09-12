@@ -38,8 +38,8 @@ LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false),
 	file.open(QIODevice::ReadOnly);
 	QDataStream in(&file);
 	in >> stack;
-	if(stack.size())
-		doQueue();
+	//if(stack.size())
+	//	doQueue();
 }
 
 LibreFM::~LibreFM()
