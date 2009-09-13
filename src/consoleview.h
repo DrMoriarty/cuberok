@@ -17,49 +17,37 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef CONSOLE_H
-#define CONSOLE_H
+#ifndef CONSOLEVIEW_H
+#define CONSOLEVIEW_H
 
 #include <QtCore>
 #include <QtGui>
+#include "console.h"
+#include "ui_console.h"
 
 #define MAXLOGSIZE 100
 
-class Console: public QObject
+class ConsoleView: public QDialog
 {
 	Q_OBJECT
  public:
-	enum C_TYPE {C_NONE=0, C_MES, C_WAR, C_ERR, C_FAT};
+	ConsoleView(QWidget *parent=0);
+	~ConsoleView();
 
-	typedef struct _Log {
-		C_TYPE type;
-		uint time;
-		QString text;
-	} Log;
-
-	~Console();
-	static Console& Self();
-	void fatal(const QString&);
-	void error(const QString&);
-	void warning(const QString&);
-	void message(const QString&);
-
-	void log(const QString&, C_TYPE t = C_NONE);
-
-	QStringList plainText(C_TYPE t = C_NONE);
-	QString htmlText(C_TYPE t = C_NONE);
-
+ public slots:
 	void clear();
-
-	C_TYPE getLevel();
- signals:
-	void newMessage(QString, int);
+	void refresh();
+	void autorefresh(bool);
+	void all(bool);
+	void message(bool);
+	void warning(bool);
+	void error(bool);
+	void fatal(bool);
 
  private:
-	Console();
-
-	QVector<Log> logs;
-	C_TYPE level;
+	Ui::ConsoleWindow ui;
+	Console::C_TYPE type;
+	QTimer *timer;
 };
 
-#endif // CONSOLE_H
+#endif // CONSOLEVIEW_H

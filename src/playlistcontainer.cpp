@@ -22,7 +22,7 @@
 #include "playlistmodel.h"
 #include "player_manager.h"
 #include "url_open.h"
-#include "lastfm.h"
+//#include "lastfm.h"
 #include "console.h"
 
 Q_IMPORT_PLUGIN(playlist_standard)

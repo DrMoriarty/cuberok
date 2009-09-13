@@ -1,7 +1,6 @@
 TEMPLATE      = subdirs
 SUBDIRS      += ./plugins/player_void 
 SUBDIRS      += extensions 
-#		plugins/playlist_standard
 
 # install
 target.path = ../Cuberok

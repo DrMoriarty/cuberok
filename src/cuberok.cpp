@@ -241,9 +241,7 @@ void Cuberok::lookAndFeel()
 
 void Cuberok::message(QString title, QString album, QString artist, long len)
 {
-	//ui.infoWidget->setArtist(artist);
-	//ui.infoWidget->setAlbum(album);
-	ui.infoWidget->setCurrent(artist, album, title);
+	//ui.infoWidget->setCurrent(artist, album, title);
 	if(title.size() || album.size() || artist.size()) {
 		//ui.progressBar->setFormat(title + " %p%");
 		ui.progressBar->setFormatText(title);

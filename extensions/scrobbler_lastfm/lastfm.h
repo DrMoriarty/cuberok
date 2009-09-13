@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -17,19 +17,19 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef LIBREFM_H
-#define LIBREFM_H
+#ifndef LASTFMSCROBBLER_H
+#define LASTFMSCROBBLER_H
 
 #include "interfaces.h"
 
-class LibreFM : public Extension
+class LastFM : public Extension
 {
 	Q_OBJECT
 	Q_INTERFACES(Extension) 
 
  public:
-	LibreFM();
-	virtual ~LibreFM();
+	LastFM();
+	virtual ~LastFM();
 
 	virtual bool prepare();
 	virtual bool ready();
@@ -47,7 +47,7 @@ class LibreFM : public Extension
 	void doQueue();
 	
 	int httpGetId, httpPostId;
-	QString session, nowPlayingUrl, submissionUrl, librefmUser, librefmPassword;
+	QString session, nowPlayingUrl, submissionUrl, lastfmUser, lastfmPassword;
 	bool connected;
 	QVector< QList<QVariant> > stack;
 	bool needInfo, delayed, enabled;
@@ -63,4 +63,4 @@ class LibreFM : public Extension
 	void xmlInfo(QString);
 };
 
-#endif // LIBREFM_H
+#endif // LASTFMSCROBBLER_H

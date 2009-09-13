@@ -43,7 +43,7 @@ ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
 		if(ex) {
 			QWidget *setup = ex->getSetupWidget();
-			//if(setup) tabs->addTab(setup, setup->windowIcon(), ex->getName());
+			if(setup) tabs->addTab(setup, setup->windowIcon(), ex->getName());
 		}
 	}
 	tabs->setCurrentIndex(0);

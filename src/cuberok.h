@@ -24,7 +24,7 @@
 //#include <QtGui/QMainWindow>
 #include "ui_cuberok.h"
 //#include "playlistmodel.h"
-#include "console.h"
+#include "consoleview.h"
 #ifdef QTAGCONVERT
 #include "../qtagconvert/src/KCmp3Tag.h"
 #endif
