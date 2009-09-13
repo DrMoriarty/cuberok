@@ -35,8 +35,6 @@ class LibreFMSettings : public QWidget
     QGridLayout *gridLayout4;
     QLabel *label_8;
     QLabel *label_9;
-    QLineEdit *lineEdit_lastfmUser;
-    QLineEdit *lineEdit_lastfmPassword;
     QGroupBox *checkBox_librefmScrobbling;
     QGridLayout *gridLayout5;
     QLabel *label_11;

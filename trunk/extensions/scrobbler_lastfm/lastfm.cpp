@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -18,51 +18,52 @@
  */
 
 #include "global.h"
-#include "librefm.h"
-#include "librefm_settings.h"
+#include "lastfm.h"
+#include "lastfm_settings.h"
 #include <QtGui>
+#include <QtXml>
 #include <QtNetwork>
 
-const QString HOST("turtle.libre.fm");
+const QString apiKey("e8a336ea701a463d6c83533dfe1310fa");
 static QHttp http;
 
-Q_EXPORT_PLUGIN2(scrobbler_librefm, LibreFM) 
+Q_EXPORT_PLUGIN2(scrobbler_lastfm, LastFM) 
 
-LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0), enabled(false)
+LastFM::LastFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0), enabled(false)
 {
 	connect(&http, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(requestStarted(int)));
-	QFile file(QDir::homePath()+"/.cuberok/queue.librefm");
+	QFile file(QDir::homePath()+"/.cuberok/queue.lastfm");
 	if(!file.exists()) return;
 	file.open(QIODevice::ReadOnly);
 	QDataStream in(&file);
 	in >> stack;
 }
 
-LibreFM::~LibreFM()
+LastFM::~LastFM()
 {
-	QFile file(QDir::homePath()+"/.cuberok/queue.librefm");
+	QFile file(QDir::homePath()+"/.cuberok/queue.lastfm");
 	file.open(QIODevice::WriteOnly);
 	QDataStream out(&file);
 	out << stack;
 }
 
-bool LibreFM::prepare()
+bool LastFM::prepare()
 {
 	QSettings set;
-	enabled = set.value("librefmScrobbler", false).toBool();
-	librefmUser = set.value("librefmUser", "").toString();
-	librefmPassword = set.value("librefmPassword", "").toString();
-	if(enabled) handshake(librefmUser, librefmPassword);
+	enabled = set.value("lastfmScrobbler", false).toBool();
+	lastfmUser = set.value("lastfmUser", "").toString();
+	lastfmPassword = set.value("lastfmPassword", "").toString();
+	if(enabled) handshake(lastfmUser, lastfmPassword);
 	return enabled;
 }
 
-bool LibreFM::ready()
+bool LastFM::ready()
 {
 	return enabled;
 }
 
-void LibreFM::update()
+void LastFM::update()
 {
 	static int starttime = 0;
 	static bool listening = false;
@@ -82,30 +83,29 @@ void LibreFM::update()
 	}
 }
 
-QString LibreFM::getName()
+QString LastFM::getName()
 {
-	return tr("Libre.FM Scrobbler");
+	return tr("Last.FM Scrobbler");
 }
 
-QWidget* LibreFM::getWidget()
+QWidget* LastFM::getWidget()
 {
 	return 0;
 }
 
-QWidget* LibreFM::getSetupWidget()
+QWidget* LastFM::getSetupWidget()
 {
-	LibreFMSettings *set = new LibreFMSettings();
+	LastFMSettings *set = new LastFMSettings();
 	connect(set, SIGNAL(destroyed(QObject*)), this, SLOT(settingsUpdate(QObject*)));
 	return set;
 }
 
-int LibreFM::getDisturbs()
+int LastFM::getDisturbs()
 {
 	return DisturbOnStatus;// | DisturbOnTags;
 }
 
-
-void LibreFM::handshake(QString user, QString password)
+void LastFM::handshake(QString user, QString password)
 {
 	if(connected || delayed) return;
 	if(httpPostId) {
@@ -114,10 +114,7 @@ void LibreFM::handshake(QString user, QString password)
 		return;
 	}
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
-		http.setProxy(proxy->getVariable("proxyHost"),
-					  proxy->getVariable("proxyPort").toInt(),
-					  proxy->getVariable("proxyUser"),
-					  proxy->getVariable("proxyPassword"));
+		http.setProxy(proxy->getVariable("proxyHost"), proxy->getVariable("proxyPort").toInt(), proxy->getVariable("proxyUser"), proxy->getVariable("proxyPassword"));
 	}
 
 	try_count ++;
@@ -134,7 +131,7 @@ void LibreFM::handshake(QString user, QString password)
 	cr.addData((QString(cr_p.result().toHex())+QString::number(time)).toLocal8Bit());
 	QString token = QString(cr.result().toHex());
 
-	QUrl url("http://"+HOST+"/?");
+	QUrl url("http://post.audioscrobbler.com/?");
 	url.addQueryItem("hs", "true");
 	url.addQueryItem("p", "1.2.1");
 	url.addQueryItem("c", "cub");
@@ -143,19 +140,19 @@ void LibreFM::handshake(QString user, QString password)
 	url.addQueryItem("t", QString::number(time));
 	url.addQueryItem("a", token);
 
-	http.setHost(HOST, QHttp::ConnectionModeHttp, 80);
+	http.setHost("post.audioscrobbler.com", QHttp::ConnectionModeHttp, 80);
 	httpGetId = http.get(QString(url.toEncoded()));
 }
 
-void LibreFM::requestStarted(int id)
+void LastFM::requestStarted(int id)
 {
-	proxy->log("Libre.FM: Request started " + http.currentRequest().toString());
+	proxy->log("Last.FM: Request started " + http.currentRequest().toString());
 }
 
-void LibreFM::requestFinished(int id, bool err)
+void LastFM::requestFinished(int id, bool err)
 {
 	if(err) {
-		proxy->error(QString("Libre.FM: Request failed: %1.").arg(http.errorString()));
+		proxy->error(QString("Last.FM: Request failed: %1.").arg(http.errorString()));
 		if(httpGetId == id) httpGetId = 0;
 		if(httpPostId == id) httpPostId = 0;
 	} else {
@@ -163,7 +160,7 @@ void LibreFM::requestFinished(int id, bool err)
 			httpGetId = 0;
 			if(needInfo) {
 				QByteArray arr = http.readAll();
-				proxy->log("Libre.FM response:" + arr);
+				proxy->log("Last.FM response:" + QString::fromUtf8(arr));
 				emit xmlInfo(QString::fromUtf8((const char*)arr));
 				needInfo = false;
 			} else {
@@ -175,22 +172,22 @@ void LibreFM::requestFinished(int id, bool err)
 					submissionUrl = request.section('\n', 3, 3);
 					connected = true;
 
-					proxy->log("Libre.FM: handshake complete");
+					proxy->log("Last.FM: handshake complete");
 				} else if(status.startsWith("BANNED")) {
-					proxy->error("Libre.FM: I was banned at Libre.FM, I don't want to live any more.");
+					proxy->error("Last.FM: I was banned at Last.FM, I don't need to live any more.");
 					connected = false;
 				} else if(status.startsWith("BADAUTH")) {
-					proxy->error("Libre.FM: Incorrect user name or password.");
+					proxy->error("Last.FM: Incorrect user name or password.");
 					connected = false;
 				} else if(status.startsWith("BADTIME")) {
-					proxy->error("Libre.FM: Incorrect time. The system clock must be corrected.");
+					proxy->error("Last.FM: Incorrect time. The system clock must be corrected.");
 					connected = false;
 				} else if(status.startsWith("FAILED")) {
-					proxy->error("Libre.FM: " + status);
+					proxy->error("Last.FM: " + status);
 					connected = false;
 				} else {
 					connected = false;
-					proxy->warning("Libre.FM: Unknown response:  " + status);
+					proxy->warning("Last.FM: Unknown response:  " + status);
 				}
 			}
 		} else if(httpPostId == id) {
@@ -200,23 +197,23 @@ void LibreFM::requestFinished(int id, bool err)
 				// nothing to do
 			} else if(request.startsWith("BADSESSION")) {
 				connected = false;
-				proxy->error("Libre.FM: Bad session identifier. Need for reconnect to the server.");
+				proxy->error("Last.FM: Bad session identifier. Need for reconnect to the server.");
 			} else if(request.startsWith("FAILED")) {
-				proxy->error("Libre.FM: " + request);
+				proxy->error("Last.FM: " + request);
 			} else {
-				proxy->warning("Libre.FM: Unknown response:  " + request);
+				proxy->warning("Last.FM: Unknown response:  " + request);
 			}
 		}
 	}
 	doQueue();
 }
 
-void LibreFM::doQueue()
+void LastFM::doQueue()
 {
 	if(stack.size() && !httpGetId && !httpPostId) {
 		QList<QVariant> &item = *stack.begin();
 		if(item.size() == 0) {
-			handshake(librefmUser, librefmPassword);
+			handshake(lastfmUser, lastfmPassword);
 			stack.pop_front();
 		} else if(item.size() == 1) {
 			//artistInfo(item[0].toString());
@@ -234,10 +231,10 @@ void LibreFM::doQueue()
 	}
 }
 
-void LibreFM::nowplaying(QString artist, QString title, QString album, int sec, int track, QString mb)
+void LastFM::nowplaying(QString artist, QString title, QString album, int sec, int track, QString mb)
 {
 	if(!connected || httpPostId) {
-		handshake(librefmUser, librefmPassword);
+		handshake(lastfmUser, lastfmPassword);
 		QList<QVariant> item;
 		item << artist;
 		item << title;
@@ -249,10 +246,7 @@ void LibreFM::nowplaying(QString artist, QString title, QString album, int sec, 
 		return;
 	}
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
-		http.setProxy(proxy->getVariable("proxyHost"),
-					  proxy->getVariable("proxyPort").toInt(),
-					  proxy->getVariable("proxyUser"),
-					  proxy->getVariable("proxyPassword"));
+		http.setProxy(proxy->getVariable("proxyHost"), proxy->getVariable("proxyPort").toInt(), proxy->getVariable("proxyUser"), proxy->getVariable("proxyPassword"));
 	}
 
 	QUrl u(nowPlayingUrl);
@@ -277,15 +271,11 @@ void LibreFM::nowplaying(QString artist, QString title, QString album, int sec, 
 	httpPostId = http.request(header, url.toString().toUtf8().remove(0,1));
 }
 
-void LibreFM::submission(QString artist, QString title, int time, QString album, int sec, QString src, QString rating, int track, QString mb)
+void LastFM::submission(QString artist, QString title, int time, QString album, int sec, QString src, QString rating, int track, QString mb)
 {
-	if(sec < 30 || (QDateTime::currentDateTime().toTime_t() - time) < (sec/2)) {
-		proxy->log(QString("sec %1").arg(QString::number(sec)));
-		proxy->log(QString("time %1").arg(QString::number(QDateTime::currentDateTime().toTime_t() - time)));
-		return;
-	}
+	if(sec < 30 || (QDateTime::currentDateTime().toTime_t() - time) < (sec/2)) return;
 	if(!connected || httpPostId) {
-		handshake(librefmUser, librefmPassword);
+		handshake(lastfmUser, lastfmPassword);
 		QList<QVariant> item;
 		item << artist;
 		item << title;
@@ -300,10 +290,7 @@ void LibreFM::submission(QString artist, QString title, int time, QString album,
 		return;
 	}
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
-		http.setProxy(proxy->getVariable("proxyHost"),
-					  proxy->getVariable("proxyPort").toInt(),
-					  proxy->getVariable("proxyUser"),
-					  proxy->getVariable("proxyPassword"));
+		http.setProxy(proxy->getVariable("proxyHost"), proxy->getVariable("proxyPort").toInt(), proxy->getVariable("proxyUser"), proxy->getVariable("proxyPassword"));
 	}
 
 	QUrl u(submissionUrl);
@@ -331,25 +318,25 @@ void LibreFM::submission(QString artist, QString title, int time, QString album,
 	httpPostId = http.request(header, url.toString().toUtf8().remove(0,1));
 }
 
-void LibreFM::timerConnect()
+void LastFM::timerConnect()
 {
 	delayed = false;
 	try_count = 0;
-	handshake(librefmUser, librefmPassword);
+	handshake(lastfmUser, lastfmPassword);
 }
 
-void LibreFM::settingsUpdate(QObject* o)
+void LastFM::settingsUpdate(QObject* o)
 {
 	o->disconnect();
 	QSettings set;
-	bool newEnabled = set.value("librefmScrobbler", false).toBool();
-	QString newLibrefmUser = set.value("librefmUser", "").toString();
-	QString newLibrefmPassword = set.value("librefmPassword", "").toString();
-	if(newEnabled != enabled || newLibrefmPassword != librefmPassword || newLibrefmUser != librefmUser) {
+	bool newEnabled = set.value("lastfmScrobbler", false).toBool();
+	QString newLastfmUser = set.value("lastfmUser", "").toString();
+	QString newLastfmPassword = set.value("lastfmPassword", "").toString();
+	if(newEnabled != enabled || newLastfmPassword != lastfmPassword || newLastfmUser != lastfmUser) {
 		enabled = newEnabled;
-		librefmUser = newLibrefmUser;
-		librefmPassword = newLibrefmPassword;
-		if(enabled) handshake(librefmUser, librefmPassword);
+		lastfmUser = newLastfmUser;
+		lastfmPassword = newLastfmPassword;
+		if(enabled) handshake(lastfmUser, lastfmPassword);
 		else connected = false;
 	}
 }

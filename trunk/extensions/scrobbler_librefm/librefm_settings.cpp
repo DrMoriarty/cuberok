@@ -74,10 +74,8 @@ LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
 
 LibreFMSettings::~LibreFMSettings()
 {
-	/*
 	QSettings set;
 	set.setValue("librefmScrobbler", checkBox_librefmScrobbling->isChecked());
 	set.setValue("librefmUser", lineEdit_librefmUser->text());
 	set.setValue("librefmPassword", lineEdit_librefmPassword->text());
-	*/
 }

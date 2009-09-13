@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -16,50 +16,31 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+ 
+#ifndef LASTFM_SETTINGS_H
+#define LASTFM_SETTINGS_H
 
-#ifndef CONSOLE_H
-#define CONSOLE_H
-
-#include <QtCore>
 #include <QtGui>
 
-#define MAXLOGSIZE 100
-
-class Console: public QObject
+class LastFMSettings : public QWidget
 {
 	Q_OBJECT
  public:
-	enum C_TYPE {C_NONE=0, C_MES, C_WAR, C_ERR, C_FAT};
-
-	typedef struct _Log {
-		C_TYPE type;
-		uint time;
-		QString text;
-	} Log;
-
-	~Console();
-	static Console& Self();
-	void fatal(const QString&);
-	void error(const QString&);
-	void warning(const QString&);
-	void message(const QString&);
-
-	void log(const QString&, C_TYPE t = C_NONE);
-
-	QStringList plainText(C_TYPE t = C_NONE);
-	QString htmlText(C_TYPE t = C_NONE);
-
-	void clear();
-
-	C_TYPE getLevel();
- signals:
-	void newMessage(QString, int);
+	LastFMSettings(QWidget *parent = 0);
+	~LastFMSettings();
 
  private:
-	Console();
-
-	QVector<Log> logs;
-	C_TYPE level;
+    QSpacerItem *verticalSpacer_2;
+    QGridLayout *gridLayout3;
+    QGridLayout *gridLayout4;
+    QLabel *label_8;
+    QLabel *label_9;
+    QLineEdit *lineEdit_lastfmUser;
+    QLineEdit *lineEdit_lastfmPassword;
+    QGroupBox *checkBox_lastfmScrobbling;
+    QGridLayout *gridLayout5;
+    QLabel *label_11;
+    QLabel *label_12;
 };
 
-#endif // CONSOLE_H
+#endif //LASTFM_SETTINGS_H

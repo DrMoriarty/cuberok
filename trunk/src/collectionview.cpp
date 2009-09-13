@@ -22,7 +22,7 @@
 #include "database.h"
 #include "tagger.h"
 #include "indicator.h"
-#include "lastfm.h"
+//#include "lastfm.h"
 #include "console.h"
 #include "main.h"
 #include "playlistsettings.h"
@@ -698,7 +698,7 @@ void CollectionView::loadImage()
 }
 
 void CollectionView::doRequest()
-{
+{/*
 	if(wait_response || !request_stack.size()) return;
 	QList<QString> &item = *request_stack.begin();
 	
@@ -719,10 +719,10 @@ void CollectionView::doRequest()
 	}
 
 	request_stack.pop_front();
-}
+ */}
 
 void CollectionView::infoResponse(QString info)
-{
+{/*
 	wait_response = false;
 	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
 	QString newArtist, newAlbum, mbid, imageUrl, information;
@@ -781,7 +781,7 @@ void CollectionView::infoResponse(QString info)
 
 	if(request_stack.size())
 		doRequest();
-}
+ */}
 
 void CollectionView::dlComplete(QString file)
 {

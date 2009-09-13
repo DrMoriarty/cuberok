@@ -29,6 +29,7 @@ HEADERS += \
            collectionview.h \
            comboboxdelegate.h \
            console.h \
+           consoleview.h \
            cuberok.h \
            cuecontrol.h \
            database.h \
@@ -37,12 +38,12 @@ HEADERS += \
            extensionsettings.h \
            firststartwizard.h \
            importcollection.h \
-           info.h \
-           infowidget.h \
-           infowindow.h \
+#           info.h \
+#           infowidget.h \
+#           infowindow.h \
            indicator.h \
            jamendo_browser.h \
-           lastfm.h \
+#           lastfm.h \
            libraryview.h \
 #           librefm.h \
            lookandfeel.h \
@@ -64,7 +65,7 @@ HEADERS += \
            stardelegate.h \
            stareditor.h \
            starrating.h \
-           tageditor.h \
+@           tageditor.h \
            tagger.h \
            url_open.h \
 	   ../QFreeDesktopMime/src/freedesktopmime.h \
@@ -74,13 +75,13 @@ FORMS += aboutdialog.ui \
          collectionsettings.ui \
          cuberok.ui \
          lookandfeel.ui \
-         tageditor.ui \
+#         tageditor.ui \
          settings.ui \
          url_open.ui \
          authenticationdialog.ui \
          console.ui \
-         info.ui \
-         infowindow.ui \
+#         info.ui \
+#         infowindow.ui \
          sqledit.ui \
          browser_viewer.ui \
          importcollection.ui \
@@ -95,6 +96,7 @@ SOURCES += aboutdialog.cpp \
            collectionview.cpp \
            comboboxdelegate.cpp \
            console.cpp \
+           consoleview.cpp \
            cuberok.cpp \
            cuecontrol.cpp \
            database.cpp \
@@ -103,12 +105,12 @@ SOURCES += aboutdialog.cpp \
            extensionsettings.cpp \
            firststartwizard.cpp \
            importcollection.cpp \
-           info.cpp \
-           infowidget.cpp \
-           infowindow.cpp \
+#           info.cpp \
+#           infowidget.cpp \
+#           infowindow.cpp \
            indicator.cpp \
            jamendo_browser.cpp \
-           lastfm.cpp \
+#           lastfm.cpp \
            libraryview.cpp \
 #           librefm.cpp \
            lookandfeel.cpp \
@@ -128,7 +130,7 @@ SOURCES += aboutdialog.cpp \
            stardelegate.cpp \
            stareditor.cpp \
            starrating.cpp \
-           tageditor.cpp \
+#           tageditor.cpp \
            tagger.cpp \
            url_open.cpp \
 	   ../QFreeDesktopMime/src/freedesktopmime.cpp \
