@@ -18,7 +18,7 @@
  */
 
 #include "tageditor.h"
-#include "main.h"
+#include "global.h"
 #include "tagger.h"
 #include "database.h"
 
