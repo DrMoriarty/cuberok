@@ -11,7 +11,7 @@ disable_all {
 }
 
 eval(QT_VERSION >= "4.5.0") {
-    message($$[QT_VERSION])
+#    message($$[QT_VERSION])
     CONFIG += player_phonon
 }
 

@@ -47,6 +47,7 @@ PlayerManager::PlayerManager() : player(0), autoEngine(true), vol(.0f), pos(.0f)
 	qDebug((const char*)("Plugins dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
 	QSettings set;
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+		if(!QLibrary::isLibrary(fileName)) continue;
 	    qDebug((const char*)("Try to load " + fileName).toLocal8Bit());
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
 		QObject *plugin = loader.instance();
@@ -72,6 +73,7 @@ PlayerManager::PlayerManager() : player(0), autoEngine(true), vol(.0f), pos(.0f)
 			}
 		} else {
 			qDebug((const char*)("Can't load " + fileName).toLocal8Bit());
+			qDebug((const char*)loader.errorString().toLocal8Bit());
 		}
 	} 
 }

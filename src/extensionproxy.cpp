@@ -21,6 +21,7 @@
 #include "console.h"
 
 Q_IMPORT_PLUGIN(scrobbler_librefm)
+Q_IMPORT_PLUGIN(scrobbler_lastfm)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
@@ -40,6 +41,7 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 	qDebug((const char*)("Extension dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
 	QSettings set;
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
+		if(!QLibrary::isLibrary(fileName)) continue;
 	    qDebug((const char*)("Try to load extension " + fileName).toLocal8Bit());
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
 		QObject *plugin = loader.instance();
@@ -53,6 +55,7 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 			}
 		} else {
 			qDebug((const char*)("Can't load extension " + fileName).toLocal8Bit());
+			qDebug((const char*)loader.errorString().toLocal8Bit());
 		}
 	} 
 }
