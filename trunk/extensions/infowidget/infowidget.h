@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -20,34 +20,30 @@
 #ifndef INFOWIDGET_H
 #define INFOWIDGET_H
 
-#include <QtGui>
-#include "starrating.h"
-#include "stareditor.h"
+#include "interfaces.h"
+#include "info.h"
 
-class ItemWidget : public QWidget
+class InfoWidget : public Extension
 {
 	Q_OBJECT
- public:
-	ItemWidget(const QPixmap &pm, QString n, QString a, const StarRating &r, int level, QWidget *parent=0);
+	Q_INTERFACES(Extension) 
 
  public:
-	QLabel *pic, *name, *appendix;
-	StarEditor *rating;
-};
+	InfoWidget();
+	virtual ~InfoWidget();
 
-class InfoWidget : public QTreeWidget
-{
-	Q_OBJECT
- public:
-	InfoWidget(QWidget *parent = 0);
+	virtual bool prepare();
+	virtual bool ready();
+	virtual void update();
+	virtual QString getName();
+	virtual QWidget* getWidget();
+	virtual QWidget* getSetupWidget();
+	virtual int getDisturbs();
 
  public slots:
-	void setArtist(QString ar);
-	void setAlbum(QString al);
 
  private:
-	QString artist, album;
-	QTreeWidgetItem *ar, *al;
+	Info* info;
 };
 
 #endif //INFOWIDGET_H

@@ -28,7 +28,6 @@
 
 Info::Info(QWidget *parent)
     : QWidget(parent),
-	  id(-1),
 	  ar_complete(false),
 	  al_complete(false),
 	  ar_pic(false),
@@ -109,11 +108,6 @@ void Info::tabChanged(int t)
 	}
 		break;
 	}
-}
-
-void Info::setCurrent(int _id)
-{
-	id = _id;
 }
 
 void Info::setCurrent(QString artist, QString album, QString song)
