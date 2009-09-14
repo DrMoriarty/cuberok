@@ -22,6 +22,7 @@
 
 #include <QtGui>
 #include "ui_info.h"
+#include "interfaces.h"
 #include "infowindow.h"
 #include "downloader.h"
 
@@ -29,13 +30,13 @@ class Info: public QWidget
 {
 	Q_OBJECT
 
-public:
+ public:
 	Info(QWidget *parent = 0);
 	~Info();
+	void updateTags(STags tags);
 
  private:
 	Ui::Info ui;
-	int id;
 	QString ar, al, so, ar_mbid, al_mbid;
 	bool ar_complete, al_complete, ar_pic, al_pic;
 	InfoWindow *w_ar, *w_al, *w_ly;
@@ -55,7 +56,6 @@ public:
 	void slot_rateUp();
 	void slot_loveIt();
 	void tabChanged(int);
-	void setCurrent(int id);
 	void setCurrent(QString artist, QString album, QString song);
 	void showArtist();
 	void showAlbum();
