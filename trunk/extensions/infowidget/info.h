@@ -64,14 +64,14 @@ class Info: public QWidget
 	void getImages();
 	
  private slots:
-	void artistInfo(QString);
-	void albumInfo(QString);
-	void lyricInfo(QString);
+	//void artistInfo(QString);
+	//void albumInfo(QString);
+	//void lyricInfo(QString);
 	void artistClosed(QObject*);
 	void albumClosed(QObject*);
 	void lyricClosed(QObject*);
 	void storeState();
-	void infoResponse(QString info);
+	//void infoResponse(QString info);
 	void dlComplete(QString file);
 	void dlCancel(QString);
 };

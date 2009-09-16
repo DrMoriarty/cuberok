@@ -123,6 +123,44 @@ void Info::updateTags(STags tags)
 
 void Info::updateInfo()
 {
+	if(!ar_complete && proxy->infoExist(SInfo::ArtistText)) {
+		QString text = proxy->getInfo(SInfo::ArtistText).text;
+		if(text.size()) {
+			ui.textEdit->setHtml(text);
+			ui.textEdit->update();
+			if(w_ar) {
+				w_ar->setText(text);
+			}
+			ar_complete = true;
+		}
+	}
+	if(!al_complete && proxy->infoExist(SInfo::AlbumText)) {
+		QString text = proxy->getInfo(SInfo::AlbumText).text;
+		if(text.size()) {
+			ui.textEdit_2->setHtml(text);
+			ui.textEdit_2->update();
+			if(w_al) {
+				w_al->setText(text);
+			}
+			al_complete = true;
+		}
+	}
+	if(w_ly && proxy->infoExist(SInfo::Lyric)) {
+		QString text = proxy->getInfo(SInfo::Lyric).text;
+		if(text.size()) w_ly->setText(text);
+	}
+	if(!al_pic && proxy->infoExist(SInfo::AlbumArt)) {
+		QString imageUrl = proxy->getInfo(SInfo::AlbumArt).url;
+		if(imageUrl.size() && downloader.done()) {
+			downloader.download(imageUrl);
+		}
+	}
+	if(!ar_pic && proxy->infoExist(SInfo::ArtistArt)) {
+		QString imageUrl = proxy->getInfo(SInfo::ArtistArt).url;
+		if(imageUrl.size() && downloader.done()) {
+			downloader.download(imageUrl);
+		}
+	}
 }
 
 void Info::tabChanged(int t)
@@ -131,7 +169,7 @@ void Info::tabChanged(int t)
 	case 0:
 		break;
 	case 1: if(!ar_complete && ar.size()) {
-			proxy->
+			proxy->setRequest(SInfo::ArtistText);
 			/*QString text;
 		if(ar_mbid.size()) {
 			text = Database::Self().getInfo(ar_mbid);
@@ -150,7 +188,8 @@ void Info::tabChanged(int t)
 	}
 		break;
 	case 2: if(!al_complete && al.size()) {
-		QString text;
+			proxy->setRequest(SInfo::AlbumText);
+			/*QString text;
 		if(al_mbid.size()) {
 			text = Database::Self().getInfo(al_mbid);
 		}
@@ -165,7 +204,7 @@ void Info::tabChanged(int t)
 				w_al->setText(text);
 			}
 			al_complete = true;
-		}
+			}*/
 	}
 		break;
 	}
@@ -196,7 +235,7 @@ void Info::slot_rateDown()
 }
 
 void Info::updateRating()
-{
+{/*
 	int rating = 0;
 	Database::Self().pushSubset();
 	Database::Self().subsetArtist(ar);
@@ -228,9 +267,10 @@ void Info::updateRating()
 	ui.songRating->noEdit();
 	ui.songRating->update();
 	Database::Self().popSubset();
+ */
 }
 
-void Info::artistInfo(QString response)
+/*void Info::artistInfo(QString response)
 {
 	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(artistInfo(QString)));
 	QDomDocument doc;
@@ -275,8 +315,9 @@ void Info::artistInfo(QString response)
 		}
 	}
 }
+*/
 
-void Info::albumInfo(QString response)
+/*void Info::albumInfo(QString response)
 {
 	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(albumInfo(QString)));
 	QDomDocument doc;
@@ -321,14 +362,16 @@ void Info::albumInfo(QString response)
 		}
 	}
 }
+*/
 
-void Info::lyricInfo(QString response)
+/*void Info::lyricInfo(QString response)
 {
 	disconnect(&LyricWiki::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(lyricInfo(QString)));
 	if(w_ly) {
 		w_ly->setText(response);
 	}
 }
+*/
 
 void Info::showArtist()
 {
@@ -377,8 +420,9 @@ void Info::showLyric()
 		w_ly->setWindowTitle(so);
 		connect(w_ly, SIGNAL( destroyed(QObject*)), this, SLOT(lyricClosed(QObject*)));
 		w_ly->show();
-		connect(&LyricWiki::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(lyricInfo(QString)));
-		LyricWiki::Self().getSong(ar, so);
+		proxy->setRequest(SRequest(SInfo::Lyric));
+		//connect(&LyricWiki::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(lyricInfo(QString)));
+		//LyricWiki::Self().getSong(ar, so);
 	}
 }
 
@@ -399,15 +443,17 @@ void Info::lyricClosed(QObject*)
 
 void Info::getImages()
 {
-	connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
+	//connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
 	if(!al_pic) {
-		LastFM::Self().albumInfo(ar, al);
+		proxy->setRequest(SRequest(SInfo::AlbumArt));
+		//LastFM::Self().albumInfo(ar, al);
 	} else if(!ar_pic) {
-		LastFM::Self().artistInfo(ar);
+		proxy->setRequest(SRequest(SInfo::ArtistArt));
+		//LastFM::Self().artistInfo(ar);
 	}
 }
 
-void Info::infoResponse(QString info)
+/*void Info::infoResponse(QString info)
 {
 	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
 	QString newArtist, newAlbum, mbid, imageUrl, information;
@@ -423,6 +469,7 @@ void Info::infoResponse(QString info)
 		ar_pic = true;
 	}
 }
+*/
 
 void Info::dlComplete(QString file)
 {

@@ -21,7 +21,7 @@
 
 Q_EXPORT_PLUGIN2(infowidget, InfoWidget) 
 
-InfoWidget::InfoWidget(QWidget *parent) : Extension(), info(0)
+InfoWidget::InfoWidget() : Extension(), info(0)
 {
 }
 
@@ -36,7 +36,7 @@ bool InfoWidget::prepare()
 
 bool InfoWidget::ready()
 {
-	return enabled;
+	return true;
 }
 
 void InfoWidget::update(int d)
@@ -52,7 +52,7 @@ QString InfoWidget::getName()
 
 QWidget* InfoWidget::getWidget()
 {
-	if(!info) info = new Info();
+	if(!info) info = new Info(proxy);
 	return info;
 }
 
