@@ -46,8 +46,8 @@ class SControl {
 	int command;
 	float value;
 
- SControl() : command(0), value(.0f) {};
- SControl(int c, float v = .0f) :command(c), value(v) {};
+	SControl() : command(0), value(.0f) {};
+	SControl(int c, float v = .0f) :command(c), value(v) {};
 };
 
 class SStatus {
@@ -59,8 +59,8 @@ class SStatus {
 	float pos;
 	float volume;
 
- SStatus() : playing(0), pos(.0f), volume(.0f) {};
- SStatus(int p, float po, float vo) : playing(p), pos(po), volume(vo) {};
+	SStatus() : playing(0), pos(.0f), volume(.0f) {};
+	SStatus(int p, float po, float vo) : playing(p), pos(po), volume(vo) {};
 };
 
 class STags {
@@ -85,14 +85,16 @@ class SInfo {
 	QString text;
 	QString url;
 
- SInfo() : type(0) {};
+	SInfo() : type(0) {};
+	SInfo(int ty, QString te, QString ur) : type(ty), text(te), url(ur) {};
 };
 
 class SRequest {
  public:
 	int type;
 
- SRequest() : type(0) {};
+	SRequest() : type(0) {};
+	SRequest(int t) : type(t) {};
 };
 
 // proxy object for sending messages between plugins

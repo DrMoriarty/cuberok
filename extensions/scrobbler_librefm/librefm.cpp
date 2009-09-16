@@ -28,7 +28,7 @@ static QHttp http;
 
 Q_EXPORT_PLUGIN2(scrobbler_librefm, LibreFM) 
 
-LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), try_count(0), enabled(false)
+LibreFM::LibreFM() : Extension(), httpGetId(0), httpPostId(0), connected(false), needInfo(false), delayed(false), enabled(false), try_count(0)
 {
 	connect(&http, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(requestStarted(int)));
