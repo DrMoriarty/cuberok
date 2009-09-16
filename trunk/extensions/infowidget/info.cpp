@@ -18,15 +18,17 @@
  */
 
 #include "info.h"
-#include "database.h"
-#include "lastfm.h"
-#include "lyricwiki.h"
-#include "console.h"
-#include "playlistsettings.h"
+//#include "database.h"
+//#include "lastfm.h"
+//#include "lyricwiki.h"
+//#include "console.h"
+//#include "playlistsettings.h"
 
 #include <QtXml>
 
-Info::Info(QWidget *parent)
+const int MAXLEN = 25;
+
+Info::Info(Proxy* p, QWidget *parent)
     : QWidget(parent),
 	  ar_complete(false),
 	  al_complete(false),
@@ -34,7 +36,8 @@ Info::Info(QWidget *parent)
 	  al_pic(false),
 	  w_ar(0),
 	  w_al(0),
-	  w_ly(0)
+	  w_ly(0),
+	  proxy(p)
 {
 	ui.setupUi(this);
 	QSettings set;
@@ -64,19 +67,122 @@ void Info::storeState()
 	set.setValue("info_show_artist_name", ui.actionShow_Artist_Name->isChecked());
 }
 
+void Info::updateTags(STags tags)
+{
+	QString artist = tags.tag0.artist, album = tags.tag0.album, song = tags.tag0.title;
+	ar_pic = false;
+	al_pic = false;
+	if(ar != artist) {
+		ar_complete = false;
+		ui.textEdit->setText("");
+	}	
+	if(al != album) {
+		al_complete = false;
+		ui.textEdit_2->setText("");
+	}
+	ar = artist;
+	al = album;
+	so = song;
+	//if((artist.size() && Database::Self().GetArtist(artist) <= 0) || (album.size() && Database::Self().GetAlbum(album, Database::Self().GetArtist(artist)) <= 0)) {
+		ui.actionBan->setDisabled(true);
+		ui.actionRateDown->setDisabled(true);
+		ui.actionRateUp->setDisabled(true);
+		ui.actionLoveIt->setDisabled(true);
+		//return;
+		/*} else {
+		ui.actionBan->setDisabled(false);
+		ui.actionRateDown->setDisabled(false);
+		ui.actionRateUp->setDisabled(false);
+		ui.actionLoveIt->setDisabled(false);
+		}*/
+	QString art(":/icons/def_artist.png"), text;
+	int rating = 0;
+ 	/*QList<struct Database::Attr> attrs;
+ 	Database::Self().pushSubset();
+ 	Database::Self().subsetArtist(artist);
+ 	attrs = Database::Self().Artists();
+ 	if(attrs.size()) {
+ 		if(attrs[0].art.size()) {
+ 			art = attrs[0].art;
+			ar_pic = true;
+ 		}
+		rating = attrs[0].rating;
+		ar_mbid = attrs[0].mbid;
+		} else	ar_mbid = "";*/
+	int picsize = 128;
+	QPixmap pm = QPixmap(art);
+	QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
+ 	ui.label_ar0->setPixmap(pm2);
+ 	ui.label_ar0->setMinimumSize(pm2.size());
+ 	ui.label_ar0->setMaximumSize(pm2.size());
+	if(artist.size() > MAXLEN) artist = artist.left(MAXLEN) + "...";
+ 	ui.label_ar1->setText(artist);
+	ui.artistRating->setStarRating(StarRating(rating, 5, 2));
+	ui.artistRating->noEdit();
+ 	//Database::Self().popSubset();
+
+
+	QString art_al = ":/icons/def_album.png";
+	rating = 0;
+	/*Database::Self().pushSubset();
+	Database::Self().subsetArtist(artist);
+	Database::Self().subsetAlbum(Database::Self().AddAlbum(album, Database::Self().AddArtist(artist)));
+ 	QList<struct Database::AttrAl> attral;
+	attral = Database::Self().Albums();
+	if(attral.size()) {
+		if(attral[0].art.size()) {
+			art_al = attral[0].art;
+			al_pic = true;
+		}
+		rating = attral[0].rating;
+		al_mbid = attral[0].mbid;
+		//text = tr("%n song(s)", "", attral[0].refs);
+		} else al_mbid = "";*/
+	pm = QPixmap(art_al);
+	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
+	ui.label_al0->setPixmap(pm2);
+	ui.label_al0->setMinimumSize(pm2.size());
+	ui.label_al0->setMaximumSize(pm2.size());
+	if(album.size() > MAXLEN) album = album.left(MAXLEN) + "...";
+	ui.label_al1->setText(album);
+	ui.albumRating->setStarRating(StarRating(rating, 5, 2));
+	ui.albumRating->noEdit();
+
+	/*QList<QString> songs = Database::Self().Songs(0, 0, 0, &song);
+	rating = 0;
+	if(songs.size() > 0) {
+		foreach(QString s, songs) {
+			QString title, artist, album, comment, genre, length, type;
+			int track, year, r;
+			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length, type);
+			if(song == title) {
+				rating = r;
+				break;
+			} 
+		}
+		}*/
+	if(song.size()>MAXLEN) song = song.left(MAXLEN) + "...";
+	ui.label_so1->setText(song);
+	ui.songRating->setStarRating(StarRating(rating));
+	ui.songRating->noEdit();
+	//Database::Self().popSubset();
+
+	tabChanged(ui.tabWidget->currentIndex());
+}
+
 void Info::tabChanged(int t)
 {
 	switch(t) {
 	case 0:
 		break;
 	case 1: if(!ar_complete && ar.size()) {
-		QString text;
+			proxy->
+			/*QString text;
 		if(ar_mbid.size()) {
 			text = Database::Self().getInfo(ar_mbid);
 		}
 		if(!text.size()) {
-			if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(artistInfo(QString))))
-				Console::Self().error("Unable connection to xmlInfo");
+			connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(artistInfo(QString)));
 			LastFM::Self().artistInfo(ar);
 		} else {
 			ui.textEdit->setHtml(text);
@@ -85,7 +191,7 @@ void Info::tabChanged(int t)
 				w_ar->setText(text);
 			}
 			ar_complete = true;
-		}
+			}*/
 	}
 		break;
 	case 2: if(!al_complete && al.size()) {
@@ -95,7 +201,7 @@ void Info::tabChanged(int t)
 		}
 		if(!text.size()) {
 			if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(albumInfo(QString))))
-				Console::Self().error("Unable connection to xmlInfo");
+				proxy->error("Unable connection to xmlInfo");
 			LastFM::Self().albumInfo(ar, al);
 		} else {
 			ui.textEdit_2->setHtml(text);
@@ -112,7 +218,7 @@ void Info::tabChanged(int t)
 
 void Info::setCurrent(QString artist, QString album, QString song)
 {
-	const int MAXLEN = 25;
+	/*const int MAXLEN = 25;
 	ar_pic = false;
 	al_pic = false;
 	if(ar != artist) {
@@ -222,7 +328,7 @@ void Info::setCurrent(QString artist, QString album, QString song)
 	ui.songRating->noEdit();
 	Database::Self().popSubset();
 
-	tabChanged(ui.tabWidget->currentIndex());
+	tabChanged(ui.tabWidget->currentIndex());*/
 }
 
 void Info::slot_ban()
@@ -313,8 +419,8 @@ void Info::artistInfo(QString response)
 							QString info = el2.firstChild().nodeValue();
 							if(info.size()) {
 								info = "<html><body>" + info + "</html></body>";
-								if(PLSet.cacheInfo && mbid.size())
-									Database::Self().setInfo(mbid, info);
+								//if(PLSet.cacheInfo && mbid.size())
+								//	Database::Self().setInfo(mbid, info);
 								ui.textEdit->setHtml(info);
 								ui.textEdit->update();
 								if(w_ar) {
@@ -359,8 +465,8 @@ void Info::albumInfo(QString response)
 							QString info = el2.firstChild().nodeValue();
 							if(info.size()) {
 								info = "<html><body>" + info + "</html></body>";
-								if(PLSet.cacheInfo && mbid.size())
-									Database::Self().setInfo(mbid, info);
+								//if(PLSet.cacheInfo && mbid.size())
+								//	Database::Self().setInfo(mbid, info);
 								ui.textEdit_2->setHtml(info);
 								ui.textEdit_2->update();
 								if(w_al) {
