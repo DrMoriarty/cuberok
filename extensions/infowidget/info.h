@@ -31,7 +31,7 @@ class Info: public QWidget
 	Q_OBJECT
 
  public:
-	Info(QWidget *parent = 0);
+	Info(Proxy* proxy, QWidget *parent = 0);
 	~Info();
 	void updateTags(STags tags);
 
@@ -41,6 +41,7 @@ class Info: public QWidget
 	bool ar_complete, al_complete, ar_pic, al_pic;
 	InfoWindow *w_ar, *w_al, *w_ly;
 	Downloader downloader;
+	Proxy *proxy;
 
 	void updateRating();
 
