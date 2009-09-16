@@ -34,6 +34,7 @@ class Info: public QWidget
 	Info(Proxy* proxy, QWidget *parent = 0);
 	~Info();
 	void updateTags(STags tags);
+	void updateInfo();
 
  private:
 	Ui::Info ui;
@@ -57,7 +58,6 @@ class Info: public QWidget
 	void slot_rateUp();
 	void slot_loveIt();
 	void tabChanged(int);
-	void setCurrent(QString artist, QString album, QString song);
 	void showArtist();
 	void showAlbum();
 	void showLyric();

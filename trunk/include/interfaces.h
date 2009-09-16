@@ -33,7 +33,8 @@ enum Disturbs {
 	DisturbOnTags = 0x04,
 	DisturbOnUrl = 0x08,
 	DisturbOnInfo = 0x10,
-	DisturbOnRequest = 0x20
+	DisturbOnRequest = 0x20,
+	DisturbAlways = 0xffff
 };
 
 class SControl {
@@ -71,7 +72,14 @@ class SInfo {
  public:
 	enum InfoType {
 		Nothing = 0,
-		ArtistArt, AlbumArt, GenreArt, ArtistText, AlbumText, GenreText, Lyric
+		ArtistArt = 0x01,
+		AlbumArt = 0x02,
+		GenreArt = 0x04,
+		ArtistText = 0x08,
+		AlbumText = 0x10,
+		GenreText = 0x20,
+		Lyric = 0x40,
+		AllTypes = 0xffff
 	};
 	int type;
 	QString text;
@@ -110,8 +118,9 @@ class Proxy : public QObject
 	virtual SStatus  getPrevStatus() = 0;
 	virtual STags    getTags() = 0;
 	virtual QUrl     getUrl() = 0;
-	virtual SInfo    getInfo() = 0;
+	virtual SInfo    getInfo(int type) = 0;
 	virtual SRequest getRequest() = 0;
+	virtual bool     infoExist(int type) = 0;
 
 	virtual bool hasVariable(QString varname) = 0;
 	virtual QString getVariable(QString varname) = 0;
@@ -133,7 +142,7 @@ class Extension : public QObject
 	virtual void setProxy(Proxy* p) { proxy = p; };
 	virtual bool prepare() = 0;
 	virtual bool ready() = 0;
-	virtual void update() = 0;
+	virtual void update(int) = 0;
 	virtual QString getName() = 0;
 	virtual QWidget* getWidget() = 0;
 	virtual QWidget* getSetupWidget() = 0;

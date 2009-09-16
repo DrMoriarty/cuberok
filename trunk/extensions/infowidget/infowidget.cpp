@@ -39,9 +39,10 @@ bool InfoWidget::ready()
 	return enabled;
 }
 
-void InfoWidget::update()
+void InfoWidget::update(int d)
 {
-	info->updateTags(proxy->getTags());
+	if(d & DisturbOnTags) info->updateTags(proxy->getTags());
+	if(d & DisturbOnInfo) info->updateInfo();
 }
 
 QString InfoWidget::getName()
@@ -62,5 +63,5 @@ QWidget* InfoWidget::getSetupWidget()
 
 int InfoWidget::getDisturbs()
 {
-	return /*DisturbOnStatus |*/ DisturbOnTags;
+	return /*DisturbOnStatus |*/ DisturbOnTags | DisturbOnInfo;
 }

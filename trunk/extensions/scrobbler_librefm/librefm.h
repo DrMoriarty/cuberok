@@ -33,7 +33,7 @@ class LibreFM : public Extension
 
 	virtual bool prepare();
 	virtual bool ready();
-	virtual void update();
+	virtual void update(int);
 	virtual QString getName();
 	virtual QWidget* getWidget();
 	virtual QWidget* getSetupWidget();
