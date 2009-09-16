@@ -83,32 +83,13 @@ void Info::updateTags(STags tags)
 	ar = artist;
 	al = album;
 	so = song;
-	//if((artist.size() && Database::Self().GetArtist(artist) <= 0) || (album.size() && Database::Self().GetAlbum(album, Database::Self().GetArtist(artist)) <= 0)) {
-		ui.actionBan->setDisabled(true);
-		ui.actionRateDown->setDisabled(true);
-		ui.actionRateUp->setDisabled(true);
-		ui.actionLoveIt->setDisabled(true);
-		//return;
-		/*} else {
-		ui.actionBan->setDisabled(false);
-		ui.actionRateDown->setDisabled(false);
-		ui.actionRateUp->setDisabled(false);
-		ui.actionLoveIt->setDisabled(false);
-		}*/
+
+	ui.actionBan->setDisabled(true);
+	ui.actionRateDown->setDisabled(true);
+	ui.actionRateUp->setDisabled(true);
+	ui.actionLoveIt->setDisabled(true);
 	QString art(":/icons/def_artist.png"), text;
 	int rating = 0;
- 	/*QList<struct Database::Attr> attrs;
- 	Database::Self().pushSubset();
- 	Database::Self().subsetArtist(artist);
- 	attrs = Database::Self().Artists();
- 	if(attrs.size()) {
- 		if(attrs[0].art.size()) {
- 			art = attrs[0].art;
-			ar_pic = true;
- 		}
-		rating = attrs[0].rating;
-		ar_mbid = attrs[0].mbid;
-		} else	ar_mbid = "";*/
 	int picsize = 128;
 	QPixmap pm = QPixmap(art);
 	QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
@@ -119,25 +100,9 @@ void Info::updateTags(STags tags)
  	ui.label_ar1->setText(artist);
 	ui.artistRating->setStarRating(StarRating(rating, 5, 2));
 	ui.artistRating->noEdit();
- 	//Database::Self().popSubset();
-
 
 	QString art_al = ":/icons/def_album.png";
 	rating = 0;
-	/*Database::Self().pushSubset();
-	Database::Self().subsetArtist(artist);
-	Database::Self().subsetAlbum(Database::Self().AddAlbum(album, Database::Self().AddArtist(artist)));
- 	QList<struct Database::AttrAl> attral;
-	attral = Database::Self().Albums();
-	if(attral.size()) {
-		if(attral[0].art.size()) {
-			art_al = attral[0].art;
-			al_pic = true;
-		}
-		rating = attral[0].rating;
-		al_mbid = attral[0].mbid;
-		//text = tr("%n song(s)", "", attral[0].refs);
-		} else al_mbid = "";*/
 	pm = QPixmap(art_al);
 	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
 	ui.label_al0->setPixmap(pm2);
@@ -148,26 +113,16 @@ void Info::updateTags(STags tags)
 	ui.albumRating->setStarRating(StarRating(rating, 5, 2));
 	ui.albumRating->noEdit();
 
-	/*QList<QString> songs = Database::Self().Songs(0, 0, 0, &song);
-	rating = 0;
-	if(songs.size() > 0) {
-		foreach(QString s, songs) {
-			QString title, artist, album, comment, genre, length, type;
-			int track, year, r;
-			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length, type);
-			if(song == title) {
-				rating = r;
-				break;
-			} 
-		}
-		}*/
 	if(song.size()>MAXLEN) song = song.left(MAXLEN) + "...";
 	ui.label_so1->setText(song);
 	ui.songRating->setStarRating(StarRating(rating));
 	ui.songRating->noEdit();
-	//Database::Self().popSubset();
 
 	tabChanged(ui.tabWidget->currentIndex());
+}
+
+void Info::updateInfo()
+{
 }
 
 void Info::tabChanged(int t)
@@ -214,121 +169,6 @@ void Info::tabChanged(int t)
 	}
 		break;
 	}
-}
-
-void Info::setCurrent(QString artist, QString album, QString song)
-{
-	/*const int MAXLEN = 25;
-	ar_pic = false;
-	al_pic = false;
-	if(ar != artist) {
-		ar_complete = false;
-		ui.textEdit->setText("");
-	}	
-	if(al != album) {
-		al_complete = false;
-		ui.textEdit_2->setText("");
-	}
-	ar = artist;
-	al = album;
-	so = song;
-	if((artist.size() && Database::Self().GetArtist(artist) <= 0) || (album.size() && Database::Self().GetAlbum(album, Database::Self().GetArtist(artist)) <= 0)) {
-		ui.actionBan->setDisabled(true);
-		ui.actionRateDown->setDisabled(true);
-		ui.actionRateUp->setDisabled(true);
-		ui.actionLoveIt->setDisabled(true);
-		//return;
-	} else {
-		ui.actionBan->setDisabled(false);
-		ui.actionRateDown->setDisabled(false);
-		ui.actionRateUp->setDisabled(false);
-		ui.actionLoveIt->setDisabled(false);
-	}
-	QString art(":/icons/def_artist.png"), text;
-	int rating = 0;
- 	QList<struct Database::Attr> attrs;
- 	Database::Self().pushSubset();
- 	Database::Self().subsetArtist(artist);
- 	attrs = Database::Self().Artists();
- 	if(attrs.size()) {
- 		if(attrs[0].art.size()) {
- 			art = attrs[0].art;
-			ar_pic = true;
- 		}
-		rating = attrs[0].rating;
-		ar_mbid = attrs[0].mbid;
- 	} else	ar_mbid = "";
-	int picsize = 128;
-	QPixmap pm = QPixmap(art);
-	QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
- 	ui.label_ar0->setPixmap(pm2);
- 	ui.label_ar0->setMinimumSize(pm2.size());
- 	ui.label_ar0->setMaximumSize(pm2.size());
-	if(artist.size() > MAXLEN) artist = artist.left(MAXLEN) + "...";
- 	ui.label_ar1->setText(artist);
-	ui.artistRating->setStarRating(StarRating(rating, 5, 2));
-	ui.artistRating->noEdit();
- 	QList<struct Database::AttrAl> attral;
-// 	attral = Database::Self().Albums();
-// 	int alb_count = 0;
-// 	foreach(struct Database::AttrAl attr, attral) {
-// 		if(!attr.name.size() || attr.name == " ") continue;
-// 		alb_count ++;
-// 	}
-	//if(alb_count)
-	//ui.label_ar2->setText(tr("%n album(s)", "", alb_count));
-	//setItemWidget(ar, 1, new ItemWidget(QPixmap(art), artist, text, StarRating(rating, 5, 2), 0, this));
- 	Database::Self().popSubset();
-
-
-	QString art_al = ":/icons/def_album.png";
-	rating = 0;
-	attral.clear();
-	Database::Self().pushSubset();
-	Database::Self().subsetArtist(artist);
-	//QList<struct Database::Attr> attrs;
-	Database::Self().subsetAlbum(Database::Self().AddAlbum(album, Database::Self().AddArtist(artist)));
-	attral = Database::Self().Albums();
-	if(attral.size()) {
-		if(attral[0].art.size()) {
-			art_al = attral[0].art;
-			al_pic = true;
-		}
-		rating = attral[0].rating;
-		al_mbid = attral[0].mbid;
-		//text = tr("%n song(s)", "", attral[0].refs);
-	} else al_mbid = "";
-	pm = QPixmap(art_al);
-	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
-	ui.label_al0->setPixmap(pm2);
-	ui.label_al0->setMinimumSize(pm2.size());
-	ui.label_al0->setMaximumSize(pm2.size());
-	if(album.size() > MAXLEN) album = album.left(MAXLEN) + "...";
-	ui.label_al1->setText(album);
-	//ui.label_al2->setText(text)
-	ui.albumRating->setStarRating(StarRating(rating, 5, 2));
-	ui.albumRating->noEdit();
-
-	QList<QString> songs = Database::Self().Songs(0, 0, 0, &song);
-	rating = 0;
-	if(songs.size() > 0) {
-		foreach(QString s, songs) {
-			QString title, artist, album, comment, genre, length, type;
-			int track, year, r;
-			Database::Self().GetTags(s, title, artist, album, comment, genre, track, year, r, length, type);
-			if(song == title) {
-				rating = r;
-				break;
-			} 
-		}
-	}
-	if(song.size()>MAXLEN) song = song.left(MAXLEN) + "...";
-	ui.label_so1->setText(song);
-	ui.songRating->setStarRating(StarRating(rating));
-	ui.songRating->noEdit();
-	Database::Self().popSubset();
-
-	tabChanged(ui.tabWidget->currentIndex());*/
 }
 
 void Info::slot_ban()

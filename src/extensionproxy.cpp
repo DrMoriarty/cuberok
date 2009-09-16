@@ -106,6 +106,19 @@ void ExtensionProxy::setStatus(SStatus s)
 
 void ExtensionProxy::setTags(STags t)
 {
+	if(tags.tag0.title != t.tag0.title) info.remove(SInfo::Lyrics);
+	if(tags.tag0.artist != t.tag0.artist) {
+		info.remove(SInfo::ArtistArt);
+		info.remove(SInfo::ArtistText);
+	}
+	if(tags.tag0.album != t.tag0.album) {
+		info.remove(SInfo::AlbumArt);
+		info.remove(SInfo::AlbumText);
+	}
+	if(tags.tag0.genre != t.tag0.genre) {
+		info.remove(SInfo::GenreArt);
+		info.remove(SInfo::GenreText);
+	}
 	tags = t;
 	if(transaction) transflag |= DisturbOnTags;
 	else update(DisturbOnTags);
@@ -120,7 +133,7 @@ void ExtensionProxy::setUrl(QUrl u)
 
 void ExtensionProxy::setInfo(SInfo i)
 {
-	info = i;
+	info[i.type] = i;
 	if(transaction) transflag |= DisturbOnInfo;
 	else update(DisturbOnInfo);
 }
@@ -157,9 +170,15 @@ QUrl     ExtensionProxy::getUrl()
 	return url;
 }
 
-SInfo    ExtensionProxy::getInfo()
+SInfo    ExtensionProxy::getInfo(int type)
 {
-	return info;
+	if(info.contains(type)) return info[type];
+	else return SInfo();
+}
+
+bool ExtensionProxy::infoExist(int type)
+{
+	return info.contains(type);
 }
 
 SRequest ExtensionProxy::getRequest()

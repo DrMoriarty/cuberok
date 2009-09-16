@@ -46,8 +46,9 @@ class ExtensionProxy : Proxy {
 	virtual SStatus  getPrevStatus();
 	virtual STags    getTags();
 	virtual QUrl     getUrl();
-	virtual SInfo    getInfo();
+	virtual SInfo    getInfo(int type);
 	virtual SRequest getRequest();
+	virtual bool     infoExist(int type);
 
 	virtual bool hasVariable(QString varname);
 	virtual QString getVariable(QString varname);
@@ -69,7 +70,7 @@ class ExtensionProxy : Proxy {
 	SStatus status, prevstatus;
 	STags tags;
 	QUrl url;
-	SInfo info;
+	QMap<int, SInfo> info;
 	SRequest request;
 	bool transaction;
 	int transflag;

@@ -62,7 +62,7 @@ bool LibreFM::ready()
 	return enabled;
 }
 
-void LibreFM::update()
+void LibreFM::update(int)
 {
 	static int starttime = 0;
 	static bool listening = false;

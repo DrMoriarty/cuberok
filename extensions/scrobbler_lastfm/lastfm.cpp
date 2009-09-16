@@ -63,7 +63,7 @@ bool LastFM::ready()
 	return enabled;
 }
 
-void LastFM::update()
+void LastFM::update(int)
 {
 	static int starttime = 0;
 	static bool listening = false;
