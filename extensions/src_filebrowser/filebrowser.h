@@ -39,6 +39,7 @@ class FileBrowser : public Extension
 	virtual QWidget* getWidget();
 	virtual QWidget* getSetupWidget();
 	virtual int getDisturbs();
+	virtual void storeState();
 
  private:
 	FileBrowserWidget* widget;

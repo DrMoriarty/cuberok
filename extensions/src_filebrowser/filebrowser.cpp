@@ -19,6 +19,8 @@
 
 #include "filebrowser.h"
 
+Q_EXPORT_PLUGIN2(src_filebrowser, FileBrowser) 
+
 FileBrowser::FileBrowser() : Extension(), widget(0)
 {
 }
@@ -62,4 +64,9 @@ QWidget* FileBrowser::getSetupWidget()
 int FileBrowser::getDisturbs()
 {
 	return DoNotDisturb;
+}
+
+void FileBrowser::storeState()
+{
+	if(widget) widget->storeState();
 }

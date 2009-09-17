@@ -23,6 +23,7 @@
 Q_IMPORT_PLUGIN(scrobbler_librefm)
 Q_IMPORT_PLUGIN(scrobbler_lastfm)
 Q_IMPORT_PLUGIN(infowidget)
+Q_IMPORT_PLUGIN(src_filebrowser)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
@@ -237,4 +238,11 @@ void ExtensionProxy::error(QString s)
 const QVector<Extension*>& ExtensionProxy::extensionList()
 {
 	return extensions;
+}
+
+void ExtensionProxy::storeState()
+{
+	foreach(Extension* e, extensions) {
+		if(e->ready()) e->storeState();
+	}
 }

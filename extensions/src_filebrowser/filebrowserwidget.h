@@ -28,9 +28,24 @@ class FileBrowserWidget : public QWidget
 	Q_OBJECT
  public:
 	FileBrowserWidget(QWidget *parent = 0);
+	void storeState();
+
+ public slots:
+
+	void refreshTree();
+	void setCurrent_files(const QModelIndex &index);
+	void setBookmark();
+	void removeBookmark();
+	void selectBookmark(QListWidgetItem*);
+	void selectBookmark(QString);
+	void setRootCurrent();
+	void oneLevelUp();
+	void changeRootIndex_files(const QModelIndex &index);
+	void rememberStart_files();
 
  private:
 	Ui::FileBrowserWidget ui;
+    QDirModel dirmodel;
 };
 
 #endif //FILEBROWSERWIDGET_H
