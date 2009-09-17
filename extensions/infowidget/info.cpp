@@ -472,7 +472,7 @@ void Info::getImages()
 */
 
 void Info::dlComplete(QString file)
-{
+{/*
 	Database::Self().AddArtist(ar);
 	QList<QString> data;
 	if(!al_pic)
@@ -504,6 +504,7 @@ void Info::dlComplete(QString file)
 		}
 	}
 	setCurrent(ar, al, so);
+ */
 }
 
 void Info::dlCancel(QString)

@@ -193,7 +193,7 @@ mac {
 }
 
 #static plugins
-LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm -lscrobbler_lastfm
+LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm -lscrobbler_lastfm -linfowidget
 
 macx {
     QT += phonon
