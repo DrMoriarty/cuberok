@@ -50,7 +50,7 @@ HEADERS += \
            lyricwiki.h \
            magnatune_browser.h \
            main.h \
-           marklistwidget.h \
+#           marklistwidget.h \
            messagewindow.h \
            myapplication.h \
            player.h \
@@ -65,11 +65,11 @@ HEADERS += \
            stardelegate.h \
            stareditor.h \
            starrating.h \
-@           tageditor.h \
+#           tageditor.h \
            tagger.h \
            url_open.h \
-	   ../QFreeDesktopMime/src/freedesktopmime.h \
-	   ksqueezedtextlabel.h
+	   ../QFreeDesktopMime/src/freedesktopmime.h 
+#	   ksqueezedtextlabel.h
 
 FORMS += aboutdialog.ui \
          collectionsettings.ui \
@@ -117,7 +117,7 @@ SOURCES += aboutdialog.cpp \
            lyricwiki.cpp \
            magnatune_browser.cpp \
            main.cpp \
-           marklistwidget.cpp \
+#           marklistwidget.cpp \
            messagewindow.cpp \
            myapplication.cpp \
            player_manager.cpp \
@@ -133,8 +133,8 @@ SOURCES += aboutdialog.cpp \
 #           tageditor.cpp \
            tagger.cpp \
            url_open.cpp \
-	   ../QFreeDesktopMime/src/freedesktopmime.cpp \
-	   ksqueezedtextlabel.cpp
+	   ../QFreeDesktopMime/src/freedesktopmime.cpp 
+#	   ksqueezedtextlabel.cpp
 RESOURCES += resource.qrc
 
 exists(../qtagconvert/src/KCmp3Tag.ui) {
@@ -193,7 +193,7 @@ mac {
 }
 
 #static plugins
-LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm -lscrobbler_lastfm -linfowidget
+LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm -lscrobbler_lastfm -linfowidget -lsrc_filebrowser
 
 macx {
     QT += phonon

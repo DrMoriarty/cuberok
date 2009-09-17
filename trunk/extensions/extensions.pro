@@ -3,4 +3,6 @@ SUBDIRS      += \
 		playlist_standard \
 		scrobbler_lastfm \
 		scrobbler_librefm \
-		infowidget
+		infowidget \
+		src_filebrowser
+		

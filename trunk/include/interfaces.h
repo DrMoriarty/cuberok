@@ -149,6 +149,7 @@ class Extension : public QObject
 	virtual QWidget* getWidget() = 0;
 	virtual QWidget* getSetupWidget() = 0;
 	virtual int getDisturbs() = 0;
+	virtual void storeState() {};
 
  signals:
 

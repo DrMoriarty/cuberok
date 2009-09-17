@@ -43,7 +43,6 @@ public:
 private:
 	void showhide(bool s);
     Ui::CuberokClass ui;
-    QDirModel dirmodel;
     QSpinBox volumeBox;
     //PlaylistModel playlist;
     QSystemTrayIcon *trayIcon;
@@ -83,20 +82,9 @@ public slots:
 	void viewConsole();
 	bool reallyClose();
 	void qTagConvert();
-	void refreshTree();
 	void applySettings();
 	void collectionSettings();
 	void importCollection();
- // 'files' dock widget
-	void setCurrent_files(const QModelIndex &index);
-	void setBookmark();
-	void removeBookmark();
-	void selectBookmark(QListWidgetItem*);
-	void selectBookmark(QString);
-	void setRootCurrent();
-	void oneLevelUp();
-	void changeRootIndex_files(const QModelIndex &index);
-	void rememberStart_files();
 
 	void showHelp();
 	void goToSite();

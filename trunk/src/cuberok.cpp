@@ -89,16 +89,6 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.menuView->addMenu(cm);
 	
 	//ui.line->restoreState(set.value("splitter").toByteArray());
-	dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
-	ui.treeView_2->setModel(&dirmodel);
-	ui.treeView_2->hideColumn(1);
-	ui.treeView_2->hideColumn(2);
-	ui.treeView_2->hideColumn(3);
-	ui.treeView_2->setAllColumnsShowFocus(true);
-	ui.treeView_2->sortByColumn(0, Qt::AscendingOrder);
-	ui.treeViewLabel->setVisible(false);
-	//ui.treeView_2->actions().append(ui.actionRefreshTree);
-	setCurrent_files(dirmodel.index(set.value("filesStartDir", QDir::homePath()).toString())); // move treeView_2 to homedir
 
 	connect(ui.volumeSlider, SIGNAL(valueChanged(int)), ui.listView, SLOT(setVolume(int)));
 	ui.volumeSlider->setValue(set.value("volume", 99).toInt(0));
@@ -162,11 +152,6 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(ui.toolBar_3, SIGNAL(orientationChanged(Qt::Orientation)), ui.volumeSlider, SLOT(setOrientation(Qt::Orientation)));
 	if(set.value("iconview", false).toBool())
 		ui.actionIconView->trigger();
-	QByteArray arr;
-	arr = qVariantValue<QByteArray>(set.value("filesplitter"));
-	ui.widget->restoreState(arr);
-
-	ui.list_bookmarks->addItems(qVariantValue<QStringList>(set.value("bookmarks")));
 
 	applySettings();
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
@@ -200,15 +185,8 @@ void Cuberok::storeState()
 	set.setValue("repeat", ui.actionRepeat->isChecked());
 	set.setValue("shuffle", ui.actionShuffle->isChecked());
 	set.setValue("iconview", ui.actionIconView->isChecked());
+	ExtensionProxy::Self().storeState();
 	qDebug("Cuberok, state was stored");
-	QStringList marks;
-	for(int i=0; i<ui.list_bookmarks->count(); i++) {
-		marks << ui.list_bookmarks->item(i)->text();
-	}
-	set.setValue("bookmarks", marks);
-	QByteArray arr;
-	arr = ui.widget->saveState();
-	set.setValue("filesplitter", arr);
 }
 
 void Cuberok::firstStart()
@@ -471,11 +449,6 @@ void Cuberok::qtagClosed(QObject*)
 }
 #endif
 
-void Cuberok::refreshTree()
-{
-	dirmodel.refresh();
-}
-
 void Cuberok::applySettings()
 {
 	if(PLSet.textToolbuttons) {
@@ -531,93 +504,6 @@ void Cuberok::setPlayPauseIcon (bool playPause) {
      ui.actionPlayPause->setToolTip ("Pause"); 
      ui.actionPlayPause->setText ("Pause"); 
   }
-}
-
-void Cuberok::setBookmark() // 'files' dock widget
-{
-	ui.list_bookmarks->addItem(dirmodel.filePath(ui.treeView_2->currentIndex()));
-}
-
-void Cuberok::removeBookmark() // 'files' dock widget
-{
-	if(ui.list_bookmarks->currentRow() >= 0)
-		ui.list_bookmarks->model()->removeRow(ui.list_bookmarks->currentRow());
-}
-
-void Cuberok::selectBookmark(QListWidgetItem* it) // 'files' dock widget
-{
-	if(ui.list_bookmarks->currentRow() < 0) return;
-	selectBookmark(it->text());
-}
-
-void Cuberok::selectBookmark(QString str) // 'files' dock widget
-{
-	const QModelIndex &i = dirmodel.index(str);
-	if ( ui.treeView_2->rootIndex() != dirmodel.parent(dirmodel.index(QDir::rootPath()))
-		&& ui.treeView_2->rootIndex() != i )
-		changeRootIndex_files(i);
-	else {
-		setCurrent_files(i);
-	}
-}
-
-void Cuberok::setCurrent_files(const QModelIndex &i/*index*/) { // 'files' dock widget
-	ui.treeView_2->collapseAll();
-	ui.treeView_2->setCurrentIndex(i);
-	ui.treeView_2->expand(i);
-	ui.treeView_2->scrollTo(i, QAbstractItemView::PositionAtTop);
-	ui.treeView_2->resizeColumnToContents(0);
-}
-
-void Cuberok::setRootCurrent() { // 'files' dock widget
-	changeRootIndex_files(ui.treeView_2->currentIndex());
-}
-
-void Cuberok::oneLevelUp() { // 'files' dock widget
-	changeRootIndex_files(dirmodel.parent(ui.treeView_2->rootIndex()));
-}
-
-void Cuberok::changeRootIndex_files(const QModelIndex &index_) {
-	if (!index_.isValid())
-		return;
-	QModelIndex index(index_);
-	if ( ui.treeView_2->rootIndex() == index ) {
-		if ( index == dirmodel.parent(dirmodel.index(QDir::rootPath())) )
-			return;
-		else
-			index = dirmodel.parent(dirmodel.index(QDir::rootPath()));
-	}
-	if ( index != dirmodel.parent(dirmodel.index(QDir::rootPath())) && !dirmodel.fileInfo(index).isDir() )
-		index = ui.treeView_2->rootIndex();
-	QString oldRoot = dirmodel.filePath(ui.treeView_2->currentIndex());
-	ui.treeView_2->setCurrentIndex(index);
-	ui.treeView_2->setRootIndex(index);
-	ui.treeView_2->collapseAll();
-	ui.treeView_2->expand(ui.treeView_2->rootIndex());
-	// check for very root dir
-	// if it is a zero-level, turn to ald style (only dirs)
-	// if not - show files and set label text to pathname
-	if ( index == dirmodel.parent(dirmodel.index(QDir::rootPath())) ) {
-		dirmodel.setFilter( QDir::AllDirs | QDir::NoDotAndDotDot );
-		setCurrent_files(dirmodel.index(oldRoot));
-		ui.actionSetRootCurrentDir->setChecked(false);
-		ui.treeViewLabel->setVisible(false);
-	} else {
-		dirmodel.setFilter( QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Files );
-		ui.actionSetRootCurrentDir->setChecked(true);
-		ui.treeViewLabel->setVisible(true);
-		ui.treeViewLabel->setText(dirmodel.filePath(ui.treeView_2->rootIndex()));
-	}
-	ui.treeView_2->resizeColumnToContents(0);
-}
-
-void Cuberok::rememberStart_files() {
-	QModelIndex index(ui.treeView_2->currentIndex());
-	if ( !index.isValid() || !dirmodel.isDir(index) ) {
-		return;
-	}
-	QSettings set;
-	set.setValue("filesStartDir", dirmodel.filePath(index));
 }
 
 void Cuberok::timeSlot()
