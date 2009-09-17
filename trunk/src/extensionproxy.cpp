@@ -22,6 +22,7 @@
 
 Q_IMPORT_PLUGIN(scrobbler_librefm)
 Q_IMPORT_PLUGIN(scrobbler_lastfm)
+Q_IMPORT_PLUGIN(infowidget)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
@@ -106,7 +107,7 @@ void ExtensionProxy::setStatus(SStatus s)
 
 void ExtensionProxy::setTags(STags t)
 {
-	if(tags.tag0.title != t.tag0.title) info.remove(SInfo::Lyrics);
+	if(tags.tag0.title != t.tag0.title) info.remove(SInfo::Lyric);
 	if(tags.tag0.artist != t.tag0.artist) {
 		info.remove(SInfo::ArtistArt);
 		info.remove(SInfo::ArtistText);
@@ -207,7 +208,7 @@ void ExtensionProxy::update(int flag)
 		foreach(Extension* e, extensions) {
 			if(!e->ready()) continue;
 			if(e->getDisturbs() & flag) {
-				e->update();
+				e->update(flag);
 			}
 		}
 	}

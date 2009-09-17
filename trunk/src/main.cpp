@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
     a.processEvents();
     a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
     Cuberok w;
-        MyApplication::restoreState();
+	MyApplication::restoreState();
     w.show();
     splash.finish(&w);
 #ifndef DEBUG

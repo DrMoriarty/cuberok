@@ -30,6 +30,7 @@
 #include "firststartwizard.h"
 #include "messagewindow.h"
 #include "main.h"
+#include "extensionproxy.h"
 #include "extensionsettings.h"
 
 #include <QDesktopServices>
@@ -171,6 +172,19 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	useMessageWindow = true;
+
+	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
+		if(ex) {
+			QWidget *widget = ex->getWidget();
+			if(widget) {
+				QDockWidget *dock = new QDockWidget(this);
+				dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
+				dock->setWidget(widget);
+				this->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dock);
+				dock->setWindowTitle(ex->getName());
+			}
+		}
+	}
 }
 
 Cuberok::~Cuberok()
