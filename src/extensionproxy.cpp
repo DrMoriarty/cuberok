@@ -24,6 +24,7 @@ Q_IMPORT_PLUGIN(scrobbler_librefm)
 Q_IMPORT_PLUGIN(scrobbler_lastfm)
 Q_IMPORT_PLUGIN(infowidget)
 Q_IMPORT_PLUGIN(src_filebrowser)
+Q_IMPORT_PLUGIN(info_lastfm)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {

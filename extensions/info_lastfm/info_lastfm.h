@@ -20,43 +20,42 @@
 #ifndef LASTFM_H
 #define LASTFM_H
 
-#include <QtCore>
+#include "interfaces.h"
 
-class LastFM : public QObject
+class InfoLastFM : public Extension
 {
 	Q_OBJECT
+	Q_INTERFACES(Extension) 
 
  public:
-	static LastFM& Self();
-	~LastFM();
+	InfoLastFM();
+	virtual ~InfoLastFM();
 
-	void handshake(QString user, QString password);
-	void nowplaying(QString artist, QString title, QString album, int sec = 0, int track = 0, QString mb = "");
-	void submission(QString artist, QString title, int time, QString album, int sec, QString src = "P", QString rating = "", int track = 0, QString mb = "");
+	virtual bool prepare();
+	virtual bool ready();
+	virtual void update(int);
+	virtual QString getName();
+	virtual QWidget* getWidget();
+	virtual QWidget* getSetupWidget();
+	virtual int getDisturbs();
+
+ private:
 
 	void artistInfo(QString artist);
 	void albumInfo(QString artist, QString album);
 
-	static bool parseInfo(const QString& xml, QString& artist, QString& album, QString& mbid, QString& imageUrl, QString& info);
+	bool parseInfo(const QString& xml, QString& artist, QString& album, QString& mbid, QString& imageUrl, QString& info);
 
- private:
-	LastFM();
 	void doQueue();
 	
 	int httpGetId, httpPostId;
-	QString session, nowPlayingUrl, submissionUrl;
-	bool connected;
 	QVector< QList<QVariant> > stack;
-	bool needInfo, delayed;
-	int try_count;
+	bool needInfo;
 
  private slots:
 	void requestFinished(int, bool);
 	void requestStarted(int);
 	void timerConnect();
-
- signals:
-	void xmlInfo(QString);
 };
 
 #endif // LASTFM_H
