@@ -27,7 +27,7 @@ FileBrowser::FileBrowser() : Extension(), widget(0)
 
 FileBrowser::~FileBrowser()
 {
-	if(widget) delete widget;
+	//if(widget) delete widget;
 }
 
 bool FileBrowser::prepare()

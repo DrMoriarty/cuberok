@@ -40,6 +40,10 @@ FileBrowserWidget::FileBrowserWidget(QWidget *parent) : QWidget(parent)
 	ui.list_bookmarks->addItems(qVariantValue<QStringList>(set.value("bookmarks")));
 }
 
+FileBrowserWidget::~FileBrowserWidget()
+{
+}
+
 void FileBrowserWidget::storeState()
 {
 	QSettings set;
