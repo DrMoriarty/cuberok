@@ -4,5 +4,6 @@ SUBDIRS      += \
 		scrobbler_lastfm \
 		scrobbler_librefm \
 		infowidget \
-		src_filebrowser
+		src_filebrowser \
+		info_lastfm
 		
