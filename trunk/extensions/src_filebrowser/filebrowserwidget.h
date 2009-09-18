@@ -28,6 +28,7 @@ class FileBrowserWidget : public QWidget
 	Q_OBJECT
  public:
 	FileBrowserWidget(QWidget *parent = 0);
+	~FileBrowserWidget();
 	void storeState();
 
  public slots:
