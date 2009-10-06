@@ -22,6 +22,32 @@
 #include "jamendo_browser.h"
 #include "console.h"
 
+BrowserList::BrowserList(QWidget*parent): QListWidget(parent)
+{
+}
+
+QStringList BrowserList::mimeTypes () const
+{
+	QStringList list;
+	//list << "application/cuberok-tags";
+	list.append("text/uri-list");
+	return list;
+}
+
+QMimeData * BrowserList::mimeData ( const QList<QListWidgetItem *> items ) const
+{
+	QList<QUrl> urls;
+	foreach(QListWidgetItem *it, items) {
+		QString url;
+		url = it->data(Qt::UserRole).toString();
+		if(url.size())
+			urls << QUrl(url);
+	}
+	QMimeData *mime = new QMimeData();
+	mime->setUrls(urls);
+	return mime;
+}
+
 BrowserViewer::BrowserViewer(QWidget * parent, Qt::WindowFlags f)
 	: QWidget(parent, f), browser(0), dl(0)
 {

@@ -21,9 +21,20 @@
 #define BROWSER_VIEWER_H
 
 #include <QtGui>
-#include "ui_browser_viewer.h"
 #include "browser.h"
 #include "downloader.h"
+
+class BrowserList: public QListWidget
+{
+	Q_OBJECT
+ public:
+	BrowserList(QWidget* parent = 0);
+ protected:
+	virtual QStringList mimeTypes () const;
+	virtual QMimeData * mimeData ( const QList<QListWidgetItem *> items ) const;
+};
+
+#include "ui_browser_viewer.h"
 
 class BrowserViewer: public QWidget
 {
