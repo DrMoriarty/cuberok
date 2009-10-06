@@ -195,8 +195,8 @@ void PlaylistContainer::delList()
 		for(i=0; i<lists.count(); i++)
 			if(lists[i] == curlist) {
 				curlist->disconnect();
+				tabs->removeTab(tabs->currentIndex());
 				lists.removeAt(i);
-				//tabs->removeTab(i);
 				delete curlist;
 				break;
 			}

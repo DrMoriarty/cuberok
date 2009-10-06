@@ -66,7 +66,7 @@ void BrowserViewer::browserChanged(int i)
 
 void BrowserViewer::putList(QList< QStringList > list)
 {
-        Console::Self().log("Put "+QString::number(list.size())+" items into browser viewer");
+	Console::Self().log("Put "+QString::number(list.size())+" items into browser viewer");
 	ui.listWidget->clear();
 	foreach(QStringList item, list) {
 		if(item.size() >= 4 && item[0].size()) {
@@ -121,19 +121,19 @@ void BrowserViewer::back()
 }
 
 /*void BrowserViewer::forward()
-{
-	QString last;
-	if(fhistory.size() && browser) {
-		last = fhistory[0];
-		fhistory.removeFirst();
-		history.push_back(current);
-		current = last;
-		pathItems.push_back(fpathItems.first());
-		fpathItems.removeFirst();
-		updatePath();
-		browser->GetList(last);
-	}
-	}*/
+  {
+  QString last;
+  if(fhistory.size() && browser) {
+  last = fhistory[0];
+  fhistory.removeFirst();
+  history.push_back(current);
+  current = last;
+  pathItems.push_back(fpathItems.first());
+  fpathItems.removeFirst();
+  updatePath();
+  browser->GetList(last);
+  }
+  }*/
 
 void BrowserViewer::home()
 {

@@ -20,7 +20,6 @@
 #include "playlistview.h"
 //#include "playlistview_wa.h"
 #include "player_manager.h"
-#include "tageditor.h"
 #include "tagger.h"
 #include "database.h"
 #include "stardelegate.h"
@@ -341,10 +340,18 @@ void PlaylistAbstract::playFinished()
 	next();
 }
 
-void PlaylistAbstract::updateTag(int i)
+void PlaylistAbstract::updateTag(TagEditor* ed)
 {
-	QModelIndex ind = model.index(i, 0); 
-	resetTags(ind);
+	QModelIndex ind = model.index(ed->index, 0); 
+	//resetTags(ind);
+	addItem(ed->tag.tag0.title, PlaylistModel::Title, &ind);
+	addItem(ed->tag.tag0.artist, PlaylistModel::Artist, &ind);
+	addItem(ed->tag.tag0.album, PlaylistModel::Album, &ind);
+	addItem(QString::number(ed->tag.tag0.year), PlaylistModel::Year, &ind);
+	addItem(ed->tag.tag0.comment, PlaylistModel::Comment, &ind);
+	addItem(QString::number(ed->tag.tag0.track), PlaylistModel::Track, &ind);
+	addItem(ed->tag.tag0.genre, PlaylistModel::Genre, &ind);
+	addItem(qVariantFromValue(StarRating(ed->tag.tag0.rating)), PlaylistModel::Rating, &ind);
 }
 
 void PlaylistAbstract::resetTags(QModelIndex& ind)
@@ -653,9 +660,19 @@ void PlaylistStandard::queueNext()
 void PlaylistStandard::editTag()
 {
 	if(curindex.row() >= 0) {
-		TagEditor *te = new TagEditor(ToLocalFile(model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()), 0);
+		STags t;
+		t.tag0.url = model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl();
+		t.tag0.title = model.data(model.index(curindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+		t.tag0.artist = model.data(model.index(curindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		t.tag0.album = model.data(model.index(curindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		t.tag0.genre = model.data(model.index(curindex.row(), PlaylistModel::Genre), Qt::DisplayRole).toString();
+		t.tag0.track = model.data(model.index(curindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+		t.tag0.year = model.data(model.index(curindex.row(), PlaylistModel::Year), Qt::DisplayRole).toInt();
+		t.tag0.comment = model.data(model.index(curindex.row(), PlaylistModel::Comment), Qt::DisplayRole).toString();
+
+		TagEditor *te = new TagEditor(t, 0);
 		te->index = curindex.row();
-		connect(te, SIGNAL(editComplete(int)), this, SLOT(updateTag(int)));
+		connect(te, SIGNAL(editComplete(TagEditor*)), this, SLOT(updateTag(TagEditor*)));
 		//resetTags(curindex);
 		te->setAttribute(Qt::WA_DeleteOnClose);
 		te->show();
