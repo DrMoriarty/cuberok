@@ -30,6 +30,7 @@
 #include "playlistmodel.h"
 #include "player.h"
 #include "global.h"
+#include "tageditor.h"
 
 class MyTreeView : public QTreeView
 {
@@ -97,7 +98,7 @@ class PlaylistAbstract : public Playlist
 
 	void addItem(QVariant item, int id, QModelIndex* ind = 0);
 	void playFinished();
-	void updateTag(int);
+	void updateTag(TagEditor*);
 	void updateStatus();
  private slots:
 

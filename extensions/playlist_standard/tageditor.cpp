@@ -174,34 +174,31 @@ static const QString genres[] = {
       "Synthpop"
 };
 
-TagEditor::TagEditor(QString fname, QWidget *parent)
+TagEditor::TagEditor(STags t, QWidget *parent)
     : QDialog(parent), index(0)
 {
 	ui.setupUi(this);
-	file = fname;
-	//bool savedcor = Tagger::autoCorrect();
-	//Tagger::setAutoCorrect(false);
+	tag = t;
+	file = t.tag0.url.toString();
 	
 	QStringList sl;
 	for(int i=0; i<genresSize; i++) sl.append(genres[i]);
 	sl.sort();
 	ui.comboBox_Genre->addItems(sl);
 	//ui.comboBox_Genre->setEditText(QS(fr.tag()->genre()));
-	QString title, artist, album, comment, genre, length, type;
-	int track, year, rating=0;
-	Tagger::readTags(fname, title, artist, album, comment, genre, track, year, length);
-	ui.label->setText(file);
-	ui.lineTitle->setText(title);
-	ui.lineArtist->setText(artist);
-	ui.lineAlbum->setText(album);
-	ui.lineComment->setText(comment);
-	ui.spinBox_Track->setValue(track);
-	ui.spinBox_Year->setValue(year);
-	ui.comboBox_Genre->setEditText(genre);
-	if(Database::Self().GetTags(fname, title, artist, album, comment, genre, track, year, rating, length, type)) {
-		ui.spinBox_Rating->setValue(rating);
-	}
-	//Tagger::setAutoCorrect(savedcor);
+	//QString title, artist, album, comment, genre, length, type;
+	//int track, year, rating=0;
+	//Tagger::readTags(fname, title, artist, album, comment, genre, track, year, length);
+	QString f = ToLocalFile(t.tag0.url);
+	ui.label->setText(f.size() ? f : file);
+	ui.lineTitle->setText(t.tag0.title);
+	ui.lineArtist->setText(t.tag0.artist);
+	ui.lineAlbum->setText(t.tag0.album);
+	ui.lineComment->setText(t.tag0.comment);
+	ui.spinBox_Track->setValue(t.tag0.track);
+	ui.spinBox_Year->setValue(t.tag0.year);
+	ui.comboBox_Genre->setEditText(t.tag0.genre);
+	ui.spinBox_Rating->setValue(t.tag0.rating);
 }
 
 TagEditor::~TagEditor()
@@ -229,9 +226,20 @@ void TagEditor::correct2()
 
 void TagEditor::save()
 {
-	Tagger::writeTags(file, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value());
-	Database::Self().SetTags(file, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value(), ui.spinBox_Rating->value());
-	emit editComplete(index);
+	tag.tag0.title = ui.lineTitle->text();
+	tag.tag0.artist = ui.lineArtist->text();
+	tag.tag0.album = ui.lineAlbum->text();
+	tag.tag0.comment = ui.lineComment->text();
+	tag.tag0.genre = ui.comboBox_Genre->currentText();
+	tag.tag0.track = ui.spinBox_Track->value();
+	tag.tag0.year = ui.spinBox_Year->value();
+	tag.tag0.rating = ui.spinBox_Rating->value();
+	QString f = ToLocalFile(QUrl(file));
+	if(f.size()) {
+		Tagger::writeTags(f, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value());
+	}
+	//Database::Self().SetTags(file, ui.lineTitle->text(), ui.lineArtist->text(), ui.lineAlbum->text(), ui.lineComment->text(), ui.comboBox_Genre->currentText(), ui.spinBox_Track->value(), ui.spinBox_Year->value(), ui.spinBox_Rating->value());
+	emit editComplete(this);
 	this->close();
 }
 

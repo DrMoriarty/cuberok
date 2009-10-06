@@ -22,6 +22,7 @@
 
 //#include <QtGui/QDialog>
 #include <QtGui>
+#include "interfaces.h"
 #include "ui_tageditor.h"
 
 class TagEditor : public QDialog
@@ -29,9 +30,10 @@ class TagEditor : public QDialog
     Q_OBJECT
 
 public:
-    TagEditor(QString fname, QWidget *parent = 0);
+    TagEditor(STags t, QWidget *parent = 0);
     ~TagEditor();
     int index;
+	STags tag;
 
 private:
     Ui::TagEditorClass ui;
@@ -43,7 +45,7 @@ public slots:
 	void save();
 
 signals:
-	void editComplete(int);
+	void editComplete(TagEditor*);
 };
 
 #endif // TAGEDITOR_H
