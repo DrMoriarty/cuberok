@@ -352,10 +352,32 @@ PlaylistFiller::PlaylistFiller(QList<QUrl> dir, int ind, QObject *parent)
 : QThread(parent), paths(dir), index(ind)
 {
 	cancel = false;
+	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 }
 
 PlaylistFiller::~PlaylistFiller()
 {
+}
+
+void PlaylistFiller::dlCancel(QString)
+{
+	proccessCache();
+}
+
+void PlaylistFiller::dlComplete(QString file)
+{
+	proceedUrl(QUrl::fromLocalFile(file));
+	proccessCache();
+}
+
+void PlaylistFiller::proccessCache()
+{
+	if(downloadCache.size()) {
+		QUrl url = downloadCache.front();
+		downloadCache.pop_front();
+		downloader.download(url);
+	}
 }
 
 void PlaylistFiller::run()
@@ -366,6 +388,7 @@ void PlaylistFiller::run()
 		if(cancel) break;
 		proceedUrl(s);
 	}
+	while(downloadCache.size()) {}
 	//Indicator::Self().delTask(taskID);
 	//disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()));
 }
@@ -376,6 +399,14 @@ void PlaylistFiller::proceedUrl(QUrl url)
 	//Indicator::Self().update();
 	QDir dir;
 	QString path = ToLocalFile(url);
+	if(!path.size() && Tagger::playlistDetected(url)) {
+		if(downloader.done()) {
+			downloader.download(url);
+		} else {
+			downloadCache << url;
+		}
+		return;
+	}
 	if(!path.size() || !dir.cd(path)) {
 		connect(&Tagger::Self(), SIGNAL(fixPlaylistItem(QString, QString*, bool*)), this, SIGNAL(fixPlaylistItem(QString, QString*, bool*)), Qt::DirectConnection);
 		QList<TagEntry> tags = Tagger::readEntry(url);

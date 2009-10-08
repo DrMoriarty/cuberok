@@ -1,4 +1,4 @@
- QT += xml
+ QT += xml network
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin static

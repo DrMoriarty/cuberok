@@ -26,7 +26,7 @@
 #include "playlistsettings.h"
 #include "console.h"
 
-Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true)
+Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true), file(0)
 {
 	http = new QHttp(this);
 	if(PLSet.proxyEnabled) {
@@ -46,8 +46,25 @@ Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted
 
 Downloader::~Downloader()
 {
-	delete http;
+	clean();
+}
+
+void Downloader::clean()
+{
+	if(http) {
+		delete http;
+		http = 0;
+	}
+	if(taskID) {
+		Indicator::Self().delTask(taskID);
+		taskID = 0;
+	}
 	disconnect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelDownload()));
+	if(file) {
+		file->close();
+		delete file;
+		file = 0;
+	}
 }
 
 bool Downloader::download(QUrl url, QString f)
@@ -110,9 +127,12 @@ bool Downloader::done()
 
 void Downloader::cancelDownload()
 {
+	taskID = 0;
 	httpRequestAborted = true;
 	http->abort();
-	emit cancel("Operation canceled by user");
+	QString w = tr("Operation canceled by user");
+	Console::Self().log(w);
+	emit cancel(w);
 }
 
 void Downloader::httpRequestFinished(int requestId, bool error)
@@ -132,12 +152,16 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 	file->close();
 	
 	if (error) {
+		file->close();
 		file->remove();
-		Console::Self().error(QString("Download failed: %1.").arg(http->errorString()));
+		QString err = tr("Download failed: %1.").arg(http->errorString());
+		Console::Self().error(err);
 		httpRequestAborted = true;
-		emit cancel(tr("Download failed: %1.").arg(http->errorString()));
+		Indicator::Self().delTask(taskID);
+		emit cancel(err);
 	} else {
 		finished = true;
+		Indicator::Self().delTask(taskID);
 		emit complete(file->fileName());
 	}
 	Indicator::Self().delTask(taskID);
@@ -152,6 +176,7 @@ void Downloader::readResponseHeader(const QHttpResponseHeader &responseHeader)
 		Console::Self().error(QString("Download failed: %1.").arg(responseHeader.reasonPhrase()));
 		httpRequestAborted = true;
 		http->abort();
+		clean();
 		emit cancel(tr("Download failed: %1.").arg(responseHeader.reasonPhrase()));
 		return;
 	}
@@ -192,6 +217,7 @@ void SyncDownloader::run()
 		return;
 	}
 	mutex.lock();
+	mutex.unlock();
 }
 
 void SyncDownloader::complete(QString f)
