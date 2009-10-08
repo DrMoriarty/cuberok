@@ -49,6 +49,7 @@ class Downloader : public QObject
      QFile *file;
      int httpGetId, taskID;
      bool httpRequestAborted, finished;
+	 void clean();
 };
 
 class SyncDownloader : public QThread

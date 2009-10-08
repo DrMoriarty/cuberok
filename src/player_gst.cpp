@@ -18,7 +18,7 @@
  */
 
 #include "player_gst.h"
-#include "playlistsettings.h"
+//#include "playlistsettings.h"
 //#define ToLocalFile(url) url.toString().toLocal8Bit().mid(8)
 
 #define TIME 200

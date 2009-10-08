@@ -23,6 +23,7 @@
 #include <QtCore>
 #include <QtGui>
 #include "tagger.h"
+#include "downloader.h"
 
 //QString correctStr(QString);
 //extern bool corrected;
@@ -38,14 +39,19 @@ public:
     void run();
 protected:
 	void proceedUrl(QUrl url);
+	void proccessCache();
 	
 	QList<QUrl> paths;
 	int index;
 	bool cancel;
 	QList<QUrl> processedFiles;
+	Downloader downloader;
+	QList<QUrl> downloadCache;
 
  private slots:
 	void cancelEvent();
+	void dlComplete(QString);
+	void dlCancel(QString);
 
 signals:
 	void sendFile(QUrl str, int index, QList<QVariant>, long, long);

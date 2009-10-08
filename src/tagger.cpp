@@ -608,8 +608,10 @@ QList<TagEntry> Tagger::readEntry(QUrl url)
 			dl.start();
 			dl.wait();
 			//file = dl.download(url);
-			if(!file.size())  // error
+			if(!file.size()) { // error
+				Console::Self().warning(QString("Can't download playlist ")+url.toString());
 				return list;
+			}
 		} else {
 			TagEntry tags;
 			tags.url = url;
