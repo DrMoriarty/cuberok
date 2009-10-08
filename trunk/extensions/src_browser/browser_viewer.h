@@ -42,6 +42,7 @@ class BrowserViewer: public QWidget
  public:
 	BrowserViewer( QWidget * parent = 0, Qt::WindowFlags f = 0 );
 	~BrowserViewer();
+	void storeState();
  public slots:
 	void browserChanged(int);
 	void back();
@@ -49,13 +50,13 @@ class BrowserViewer: public QWidget
 	void home();
 	void reload();
  signals:
-	void openUrl(QUrl);
+	//void openUrl(QUrl);
  private:
     Ui::BrowserViewer ui;
 	Browser *browser;
 	QStringList history;
 	QString current;
-	Downloader *dl;
+	//Downloader *dl;
 	QStringList pathItems;
 
 	void goTo(QString s);
@@ -63,8 +64,8 @@ class BrowserViewer: public QWidget
  private slots:
 	void putList(QList< QStringList >);
 	void itemActivated(QListWidgetItem*);
-	void dlComplete(QString);
-	void dlCancel(QString);
+	//void dlComplete(QString);
+	//void dlCancel(QString);
 };
 
 #endif // BROWSER_VIEWER_H

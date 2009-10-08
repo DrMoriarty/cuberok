@@ -745,7 +745,7 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <!--widget class="QDockWidget" name="dockWidget">
    <property name="windowTitle">
     <string>Internet Services</string>
    </property>
@@ -765,7 +765,7 @@
      </item>
     </layout>
    </widget>
-  </widget>
+  </widget-->
   <action name="actionAbout">
    <property name="icon">
     <iconset resource="resource.qrc">
