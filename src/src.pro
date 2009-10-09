@@ -22,8 +22,8 @@ HEADERS += \
            ../include/tagentry.h \
            ../include/interfaces.h \
            aboutdialog.h \
-           browser.h \
-           browser_viewer.h \
+#           browser.h \
+#           browser_viewer.h \
            collectionsettings.h \
            collectionfiller.h \
            collectionview.h \
@@ -42,13 +42,13 @@ HEADERS += \
 #           infowidget.h \
 #           infowindow.h \
            indicator.h \
-           jamendo_browser.h \
+#           jamendo_browser.h \
 #           lastfm.h \
            libraryview.h \
 #           librefm.h \
            lookandfeel.h \
            lyricwiki.h \
-           magnatune_browser.h \
+#           magnatune_browser.h \
            main.h \
 #           marklistwidget.h \
            messagewindow.h \
@@ -83,14 +83,14 @@ FORMS += aboutdialog.ui \
 #         info.ui \
 #         infowindow.ui \
          sqledit.ui \
-         browser_viewer.ui \
+#         browser_viewer.ui \
          importcollection.ui \
          firststartwizard.ui \
          cuecontrol.ui 
 TRANSLATIONS = ../translations/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
-           browser_viewer.cpp \
+#           browser_viewer.cpp \
            collectionsettings.cpp \
            collectionfiller.cpp \
            collectionview.cpp \
@@ -109,13 +109,13 @@ SOURCES += aboutdialog.cpp \
 #           infowidget.cpp \
 #           infowindow.cpp \
            indicator.cpp \
-           jamendo_browser.cpp \
+#           jamendo_browser.cpp \
 #           lastfm.cpp \
            libraryview.cpp \
 #           librefm.cpp \
            lookandfeel.cpp \
            lyricwiki.cpp \
-           magnatune_browser.cpp \
+#           magnatune_browser.cpp \
            main.cpp \
 #           marklistwidget.cpp \
            messagewindow.cpp \

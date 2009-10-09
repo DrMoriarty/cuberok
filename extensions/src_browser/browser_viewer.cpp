@@ -49,7 +49,7 @@ QMimeData * BrowserList::mimeData ( const QList<QListWidgetItem *> items ) const
 }
 
 BrowserViewer::BrowserViewer(QWidget * parent, Qt::WindowFlags f)
-	: QWidget(parent, f), browser(0), dl(0)
+	: QWidget(parent, f), browser(0)
 {
  	ui.setupUi(this);
 	connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(itemActivated(QListWidgetItem*)));

@@ -1702,7 +1702,7 @@
    <extends>QWidget</extends>
    <header>info.h</header>
   </customwidget-->
-  <customwidget>
+  <!--customwidget>
    <class>BrowserViewer</class>
    <extends>QWidget</extends>
    <header>browser_viewer.h</header>
@@ -1711,7 +1711,7 @@
     <signal>openUrl(QUrl)</signal>
    </slots>
   </customwidget>
-  <!--customwidget>
+  <customwidget>
    <class>MarkListWidget</class>
    <extends>QListWidget</extends>
    <header location="global">marklistwidget.h</header>
