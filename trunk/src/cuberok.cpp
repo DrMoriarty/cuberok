@@ -191,7 +191,7 @@ void Cuberok::storeState()
 
 void Cuberok::firstStart()
 {
-	tabifyDockWidget(ui.dockWidget, ui.dockWidget3);
+	//tabifyDockWidget(ui.dockWidget, ui.dockWidget3);
 	tabifyDockWidget(ui.dockWidget3, ui.dockWidget2);
 	tabifyDockWidget(ui.dockWidget2, ui.dockWidget1);
 	tabifyDockWidget(ui.dockWidget1, ui.dockWidget4);
