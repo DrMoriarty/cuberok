@@ -1,7 +1,7 @@
 TEMPLATE      = subdirs
 SUBDIRS      += ./plugins/player_void 
 SUBDIRS      += extensions 
-
+CONFIG += ordered
 # install
 target.path = ../Cuberok
 INSTALLS += target

@@ -678,7 +678,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Internet Services</source>
-        <translation type="unfinished">Сервисы интернет</translation>
+        <translation type="obsolete">Сервисы интернет</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -1816,6 +1816,13 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Default engine for other mime-types:</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Src_Browser</name>
+    <message>
+        <source>Internet Services</source>
+        <translation type="unfinished">Сервисы интернет</translation>
     </message>
 </context>
 <context>
