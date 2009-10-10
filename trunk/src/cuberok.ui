@@ -316,7 +316,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget2">
+  <!--widget class="QDockWidget" name="dockWidget2">
    <property name="floating">
     <bool>false</bool>
    </property>
@@ -337,7 +337,7 @@
      <property name="margin">
       <number>0</number>
      </property>
-     <!--item>
+     <item>
       <widget class="QSplitter" name="widget">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -472,10 +472,10 @@
         <addaction name="actionSetRootCurrentDir"/>
        </widget>
       </widget>
-     </item-->
+     </item>
     </layout>
    </widget>
-  </widget>
+  </widget-->
   <widget class="QDockWidget" name="dockWidget3">
    <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
@@ -532,7 +532,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget4">
+  <!--widget class="QDockWidget" name="dockWidget4">
    <property name="windowTitle">
     <string>Information</string>
    </property>
@@ -547,12 +547,12 @@
      <property name="margin">
       <number>4</number>
      </property>
-     <!--item>
+     <item>
       <widget class="Info" name="infoWidget" native="true"/>
-     </item-->
+     </item>
     </layout>
    </widget>
-  </widget>
+  </widget-->
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>

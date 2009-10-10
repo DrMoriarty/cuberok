@@ -354,7 +354,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Files</source>
-        <translation type="unfinished">Файлы</translation>
+        <translation type="obsolete">Файлы</translation>
     </message>
     <message>
         <source>Genre</source>
@@ -526,7 +526,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Информация</translation>
+        <translation type="obsolete">Информация</translation>
     </message>
     <message>
         <source>About Qt</source>
