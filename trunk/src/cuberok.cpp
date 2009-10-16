@@ -163,6 +163,7 @@ Cuberok::Cuberok(QWidget *parent)
 			QWidget *widget = ex->getWidget();
 			if(widget) {
 				QDockWidget *dock = new QDockWidget(this);
+				dock->setObjectName(ex->getName());
 				dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 				dock->setWidget(widget);
 				this->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dock);
