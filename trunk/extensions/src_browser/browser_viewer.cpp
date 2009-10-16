@@ -22,29 +22,47 @@
 #include "jamendo_browser.h"
 #include "console.h"
 
-BrowserList::BrowserList(QWidget*parent): QListWidget(parent)
+BrowserList::BrowserList(QWidget*parent): QListWidget(parent), browser(0)
 {
 }
 
 QStringList BrowserList::mimeTypes () const
 {
 	QStringList list;
-	//list << "application/cuberok-tags";
 	list.append("text/uri-list");
+	list << CUBEROK_MIME_TYPE;
 	return list;
 }
 
 QMimeData * BrowserList::mimeData ( const QList<QListWidgetItem *> items ) const
 {
-	QList<QUrl> urls;
-	foreach(QListWidgetItem *it, items) {
-		QString url;
-		url = it->data(Qt::UserRole).toString();
-		if(url.size())
-			urls << QUrl(url);
-	}
 	QMimeData *mime = new QMimeData();
-	mime->setUrls(urls);
+	if(browser && browser->tagsAvailable()) {
+		QVector<STags> tags;
+		foreach(QListWidgetItem *it, items) {
+			QStringList list;
+			list << it->text();
+			list << it->data(Qt::ToolTipRole).toString();
+			list << it->data(Qt::StatusTipRole).toString();
+			list << it->data(Qt::UserRole).toString();
+			STags tag = browser->getTags(list);
+			tags << tag;
+			//qDebug((const char*)tag.tag0.title.toLocal8Bit());
+		}
+		QByteArray array;
+		QDataStream stream(&array, QIODevice::WriteOnly);
+		stream << tags;
+		mime->setData(CUBEROK_MIME_TYPE, array);
+	} else {
+		QList<QUrl> urls;
+		foreach(QListWidgetItem *it, items) {
+			QString url;
+			url = it->data(Qt::UserRole).toString();
+			if(url.size())
+				urls << QUrl(url);
+		}
+		mime->setUrls(urls);
+	}
 	return mime;
 }
 
@@ -68,6 +86,7 @@ BrowserViewer::~BrowserViewer()
 void BrowserViewer::browserChanged(int i)
 {
 	if(browser) {
+		ui.listWidget->browser = 0;
 		browser->disconnect();
 		delete browser;
 		browser = 0;
@@ -87,6 +106,7 @@ void BrowserViewer::browserChanged(int i)
 	}
 	if(!connect(browser, SIGNAL(list(QList< QStringList >)), this, SLOT(putList(QList< QStringList >))))
 		Console::Self().error("Can't connect to browser.list");
+	ui.listWidget->browser = browser;
 	home();
 }
 
@@ -118,7 +138,7 @@ void BrowserViewer::itemActivated(QListWidgetItem* it)
 	if(id.size()) {
 		pathItems << it->data(Qt::DisplayRole).toString();
 		history << current;
-		goTo(id);
+		goTo(id, it->text());
 	} /*else if(url.size()) {
 		if(url.toLower().indexOf("xspf") >= 0) { // need to download a playlist
 			dl = new Downloader();
@@ -165,20 +185,20 @@ void BrowserViewer::home()
 {
 	pathItems.clear();
 	history.clear();
-	goTo("");
+	goTo("", "");
 }
 
 void BrowserViewer::reload()
 {
-	goTo(current);
+	goTo(current, "");
 }
 
-void BrowserViewer::goTo(QString s)
+void BrowserViewer::goTo(QString s, QString text)
 {
 	if(!browser) return;
 	current = s;
 	updatePath();
-	browser->GetList(current);
+	browser->GetList(current, text);
 }
 
 void BrowserViewer::updatePath()

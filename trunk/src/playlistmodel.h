@@ -22,6 +22,7 @@
 
 #include <QtCore>
 #include <QtGui>
+#include "interfaces.h"
 #include "tagger.h"
 #include "downloader.h"
 
@@ -87,6 +88,7 @@ public:
     
 private slots:
 	void addItem(QUrl path, int row, QList<QVariant>, long, long);
+	void addItem(STags tags);
 	void fixPlaylistItem(QString, QString*, bool*);
 
 private:

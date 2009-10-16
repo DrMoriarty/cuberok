@@ -68,6 +68,9 @@ class STags {
 	TagEntry tag0;
 };
 
+QDataStream& operator<<(QDataStream& s, const STags& v);
+QDataStream& operator>>(QDataStream& s, STags& v);
+
 class SInfo {
  public:
 	enum InfoType {

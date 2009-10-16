@@ -109,6 +109,7 @@ SOURCES += aboutdialog.cpp \
 #           infowidget.cpp \
 #           infowindow.cpp \
            indicator.cpp \
+           interfaces.cpp \
 #           jamendo_browser.cpp \
 #           lastfm.cpp \
            libraryview.cpp \
@@ -130,6 +131,7 @@ SOURCES += aboutdialog.cpp \
            stardelegate.cpp \
            stareditor.cpp \
            starrating.cpp \
+           tagentry.cpp \
 #           tageditor.cpp \
            tagger.cpp \
            url_open.cpp \

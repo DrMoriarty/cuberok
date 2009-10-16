@@ -29,6 +29,7 @@ class BrowserList: public QListWidget
 	Q_OBJECT
  public:
 	BrowserList(QWidget* parent = 0);
+	Browser *browser;
  protected:
 	virtual QStringList mimeTypes () const;
 	virtual QMimeData * mimeData ( const QList<QListWidgetItem *> items ) const;
@@ -59,7 +60,7 @@ class BrowserViewer: public QWidget
 	//Downloader *dl;
 	QStringList pathItems;
 
-	void goTo(QString s);
+	void goTo(QString s, QString text);
 	void updatePath();
  private slots:
 	void putList(QList< QStringList >);

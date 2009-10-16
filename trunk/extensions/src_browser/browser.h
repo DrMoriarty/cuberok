@@ -21,6 +21,8 @@
 #define BROWSER_H
 
 #include <QtCore>
+#include "global.h"
+#include "interfaces.h"
 // abstract class for internet services
 class Browser: public QObject
 {
@@ -28,12 +30,14 @@ class Browser: public QObject
  public:
 	Browser(QObject *parent = 0):QObject(parent) {};
 	~Browser() {};
+	virtual bool tagsAvailable() = 0;
+	virtual STags getTags(QStringList) = 0;
 	// request a list of vectors
 	// first vector item is a title
 	// second one is a comment
 	// third one is an identifier (input parameter if user select it)
 	// fourth one is an URL (if exist)
-	virtual void GetList(QString = "") = 0;
+	virtual void GetList(QString = "", QString = "") = 0;
  signals:
 	// send list of vectors to owner
 	virtual void list(QList< QStringList >);
