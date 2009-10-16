@@ -22,7 +22,7 @@
 #include "console.h"
 
 JamendoBrowser::JamendoBrowser(QObject *owner)
-	:Browser(owner)
+	:Browser(owner), listType(LIST_NONE)
 {
 	connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 }
@@ -31,7 +31,21 @@ JamendoBrowser::~JamendoBrowser()
 {
 }
 
-void JamendoBrowser::GetList(QString comefrom)
+bool JamendoBrowser::tagsAvailable()
+{
+	return true;
+}
+
+STags JamendoBrowser::getTags(QStringList list)
+{
+	STags tags;
+	tags = _tag;
+	tags.tag0.title = list[0];
+	tags.tag0.url = QUrl(list[3]);
+	return tags;
+}
+
+void JamendoBrowser::GetList(QString comefrom, QString text)
 {
 	if(PLSet.proxyEnabled) {
 		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy, PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword));
@@ -40,6 +54,17 @@ void JamendoBrowser::GetList(QString comefrom)
 	comefrom += "&n=50";
 	reply = manager.get(QNetworkRequest(QUrl(comefrom)));
 	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotError(QNetworkReply::NetworkError)));
+	if (text.size()) switch(listType) {
+	case LIST_GENRE:
+		_tag.tag0.genre = text; break;
+	case LIST_ARTIST:
+		_tag.tag0.artist = text; break;
+	case LIST_ALBUM:
+		_tag.tag0.album = text; break;
+	case LIST_NONE:
+	default:
+		;
+	}
 }
 
 void JamendoBrowser::replyFinished(QNetworkReply* reply)
@@ -57,15 +82,19 @@ void JamendoBrowser::replyFinished(QNetworkReply* reply)
 		switch(fields.size()) {
 		case 2: // song
 			url = QUrl::fromPercentEncoding(fields[0].toLocal8Bit());
+			listType = LIST_NONE;
 			break;
 		case 3: // album
 			id = "http://www.jamendo.com/get2/stream+name/track/plain/track_album/?order=rating&album_id="+fields[0];
+			listType = LIST_ALBUM;
 			break;
 		case 4: // artist
 			id = "http://www.jamendo.com/get2/id+name+rating/album/plain/album_artist/?order=rating&artist_id="+fields[0];
+			listType = LIST_ARTIST;
 			break;
 		case 5: // tag
 			id = "http://www.jamendo.com/get2/id+name+rating+url/artist/plain/artist_tag/?order=weight&tag_idstr="+title;
+			listType = LIST_GENRE;
 			break;
 		}
 		data << QStringList();

@@ -17,20 +17,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#include "interfaces.h"
 
-#include <QtCore>
-#ifndef WIN32
-#define ToLocalFile(url) (url.scheme().toLower() == "file" ? url.toString().mid(7) : "")
-#else
-#define ToLocalFile(url) (url.scheme().toLower() == "file" ? url.toString().mid(8) : "")
-#endif
+QDataStream& operator<<(QDataStream& s, const STags& v) {
+	//s.writeRawData((const char*)&v, sizeof(v));
+	s << v.tag0;
+	return s;
+}
 
-#define SHMEM_SIZE 1024
-const QString XMLNS("http://code.google.com/p/cuberok");
-
-static QString CUBEROK_VERSION = QString("%1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
-
-static QString CUBEROK_MIME_TYPE = QString("application/cuberok-tags");
-#endif //GLOBAL_H
+QDataStream& operator>>(QDataStream& s, STags& v) {
+	//s.readRawData((char*)&v, sizeof(v));
+	s >> v.tag0;
+	return s;
+}

@@ -42,6 +42,7 @@ QStringList PlaylistModel::mimeTypes() const
 	QStringList list;
 	list.append("text/uri-list");
 	list.append("text/plain");
+	list.append(CUBEROK_MIME_TYPE);
 	return list;
 }
 
@@ -71,19 +72,28 @@ bool PlaylistModel::dropMimeData ( const QMimeData * data, Qt::DropAction action
         return true;
     
 	int beginRow;
-	QList<QUrl> list;
-	if(data->hasUrls()) 
-		list = data->urls();
-	else if(data->hasText())
-		list << QUrl(data->text());
-	else return true;
-
 	if (row != -1)
 		beginRow = row; 
 	//else if (parent.isValid())
 	//    beginRow = parent.row()+1; 
 	else
 		beginRow = rowCount();
+	QList<QUrl> list;
+	if(data->hasUrls()) 
+		list = data->urls();
+	else if(data->hasText())
+		list << QUrl(data->text());
+	else if(data->hasFormat(CUBEROK_MIME_TYPE)) {
+		QVector<STags> tags;
+		QByteArray array = data->data(CUBEROK_MIME_TYPE);
+		QDataStream stream(array);
+		stream >> tags;
+		foreach(STags tag, tags) {
+			addItem(tag);
+		}
+		return true;
+	} else return true;
+
 	PlaylistFiller *filler = new PlaylistFiller(list, beginRow);
 	if(!connect(filler, SIGNAL(sendFile(QUrl, int, QList<QVariant>, long, long)), this, SLOT(addItem(QUrl, int, QList<QVariant>, long, long)), Qt::QueuedConnection))
 		Console::Self().error("connection error (addItem)");
@@ -96,6 +106,33 @@ QVariant PlaylistModel::removeReturns(const QVariant& v)
 {
 	QString str = v.toString();
 	return QVariant(str.replace('\n', ' ').replace('\r', ""));
+}
+
+void PlaylistModel::addItem(STags tag)
+{
+	try {
+		int row = rowCount();
+		insertRows(row, 1);
+		*_data.at(row).values[File] = tag.tag0.url;
+		*_data.at(row).values[Title] = removeReturns(tag.tag0.title);
+		*_data.at(row).values[Artist] = removeReturns(tag.tag0.artist);
+		*_data.at(row).values[Album] = removeReturns(tag.tag0.album);
+		*_data.at(row).values[Comment] = removeReturns(tag.tag0.comment);
+		*_data.at(row).values[Genre] = tag.tag0.genre;
+		*_data.at(row).values[Length] = tag.tag0.slength;
+		*_data.at(row).values[Track] = tag.tag0.track;
+		*_data.at(row).values[Year] = tag.tag0.year;
+		*_data.at(row).values[Rating] = tag.tag0.rating;
+		*_data.at(row).values[CueStart] = QVariant((qlonglong)tag.tag0.start);
+		*_data.at(row).values[CueLength] = QVariant((qlonglong)tag.tag0.length);
+		*_data.at(row).values[DBIndex] = QVariant((qlonglong)tag.tag0.dbindex);
+		*_data.at(row).values[Number] = QVariant(rowCount());
+		*_data.at(row).values[FileType] = tag.tag0.filetype;
+
+		emit dataChanged(index(row, 0), index(row, ColumnCount-1));
+	} catch (char * mes) {
+		Console::Self().error(QString(mes));
+	}
 }
 
 void PlaylistModel::addItem(QUrl path, int row, QList<QVariant> l, long start, long length)

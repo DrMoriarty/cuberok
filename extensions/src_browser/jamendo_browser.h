@@ -29,12 +29,18 @@ class JamendoBrowser: public Browser
  public:
 	JamendoBrowser(QObject *owner=0);
 	~JamendoBrowser();
-	virtual void GetList(QString = "");
+	virtual void GetList(QString = "", QString = "");
+	virtual bool tagsAvailable();
+	virtual STags getTags(QStringList);
 
  signals:
 	virtual void list(QList< QStringList >);
 
  private:
+	enum LIST_TYPE { LIST_NONE = 0, LIST_GENRE, LIST_ARTIST, LIST_ALBUM};
+	enum LIST_TYPE listType;
+	STags _tag;
+	
 	QNetworkAccessManager manager;
 	QNetworkReply *reply;
 	

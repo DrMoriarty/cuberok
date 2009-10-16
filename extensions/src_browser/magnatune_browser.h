@@ -29,7 +29,9 @@ class MagnatuneBrowser: public Browser
 public:
 	MagnatuneBrowser(QObject *parent = 0);
 	~MagnatuneBrowser();
-	virtual void GetList(QString = "");
+	virtual void GetList(QString = "", QString = "");
+	virtual bool tagsAvailable();
+	virtual STags getTags(QStringList);
  signals:
 	virtual void list(QList< QStringList >);
  private:

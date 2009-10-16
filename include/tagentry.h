@@ -42,10 +42,13 @@ typedef struct _TagEntry: _CueEntry {
     long dbindex;
     int rating;
 	QString filetype;
-    _TagEntry() {
+ _TagEntry():_CueEntry() {
         year = rating = 0;
         dbindex = 0L;
     }
 } TagEntry;
+
+QDataStream& operator<<(QDataStream& s, const TagEntry& t);
+QDataStream& operator>>(QDataStream& s, TagEntry& t);
 
 #endif // TAGENTRY_H

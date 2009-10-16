@@ -31,7 +31,17 @@ MagnatuneBrowser::~MagnatuneBrowser()
 {
 }
 
-void MagnatuneBrowser::GetList(QString comefrom)
+bool MagnatuneBrowser::tagsAvailable()
+{
+	return false;
+}
+
+STags MagnatuneBrowser::getTags(QStringList)
+{
+	return STags();
+}
+
+void MagnatuneBrowser::GetList(QString comefrom, QString text)
 {
 	if(PLSet.proxyEnabled) {
 		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy, PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword));
