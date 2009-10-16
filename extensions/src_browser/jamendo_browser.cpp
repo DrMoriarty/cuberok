@@ -42,6 +42,7 @@ STags JamendoBrowser::getTags(QStringList list)
 	tags = _tag;
 	tags.tag0.title = list[0];
 	tags.tag0.url = QUrl(list[3]);
+	tags.tag0.filetype = tags.tag0.url.scheme();
 	return tags;
 }
 

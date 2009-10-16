@@ -47,7 +47,6 @@ QMimeData * BrowserList::mimeData ( const QList<QListWidgetItem *> items ) const
 			list << it->data(Qt::UserRole).toString();
 			STags tag = browser->getTags(list);
 			tags << tag;
-			//qDebug((const char*)tag.tag0.title.toLocal8Bit());
 		}
 		QByteArray array;
 		QDataStream stream(&array, QIODevice::WriteOnly);
