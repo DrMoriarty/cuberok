@@ -20,41 +20,38 @@
 #include "tagentry.h"
 
 QDataStream& operator<<(QDataStream& s, const TagEntry& t) {
-    /*s << t.url;
+    s << t.url;
     s << (qint32)t.start;
     s << (qint32)t.length;
     s << t.artist;
-	s << t.album;*/
-    //s << t.title;
-    /*s << t.track;
+	s << t.album;
+    s << t.title;
+    s << t.track;
 	s << t.slength;
     s << t.comment;
     s << t.genre;
     s << t.year;
     s << (qint32)t.dbindex;
     s << t.rating;
-	s << t.filetype;*/
-	s << QString("00000000");
+	s << t.filetype;
 	return s;
 }
 
 QDataStream& operator>>(QDataStream& s, TagEntry& t) {
-	/*qint32 qi;
+	qint32 qi;
     s >> t.url;
     s >> qi; t.start = qi;
     s >> qi; t.length = qi;
     s >> t.artist;
-	s >> t.album;*/
-    //s >> t.title;
-    //s >> t.track;
-	/*s >> t.slength;
+	s >> t.album;
+    s >> t.title;
+    s >> t.track;
+	s >> t.slength;
     s >> t.comment;
-    s >> t.genre;*/
-    //s >> t.year;
-    /*s >> qi; t.dbindex = qi;
+    s >> t.genre;
+    s >> t.year;
+    s >> qi; t.dbindex = qi;
     s >> t.rating;
-	s >> t.filetype;*/
-	QString c;
-	s >> c;
+	s >> t.filetype;
 	return s;
 }
