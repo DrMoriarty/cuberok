@@ -6,5 +6,5 @@ SUBDIRS      += \
 		infowidget \
 		src_filebrowser \
 		info_lastfm \
-		src_browser
-		
+		src_browser \
+		src_library 
