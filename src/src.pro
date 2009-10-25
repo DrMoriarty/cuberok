@@ -44,7 +44,7 @@ HEADERS += \
            indicator.h \
 #           jamendo_browser.h \
 #           lastfm.h \
-           libraryview.h \
+#           libraryview.h \
 #           librefm.h \
            lookandfeel.h \
            lyricwiki.h \
@@ -112,7 +112,7 @@ SOURCES += aboutdialog.cpp \
            interfaces.cpp \
 #           jamendo_browser.cpp \
 #           lastfm.cpp \
-           libraryview.cpp \
+#           libraryview.cpp \
 #           librefm.cpp \
            lookandfeel.cpp \
            lyricwiki.cpp \
