@@ -17,40 +17,60 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef LIBRARY_DB_H_
-#define LIBRARY_DB_H_
+#include "src_library.h"
+#include "library_db.h"
 
-#include <QtCore>
-#include "interfaces.h"
+Q_EXPORT_PLUGIN2(src_library, SrcLibrary) 
 
-class LibraryDB : public QObject
+SrcLibrary::SrcLibrary() : Extension(), widget(0)
 {
-	Q_OBJECT
-public:
-    struct Attr {
-        QString name;
-        int refs, rating;
-        QString art;
-		QString mbid;
-    };
+}
 
-	Proxy* proxy;
+SrcLibrary::~SrcLibrary()
+{
+	//if(widget) delete widget;
+}
 
-    static LibraryDB& Self();
-    ~LibraryDB();
+bool SrcLibrary::prepare()
+{
+	QSettings set;
+	if(proxy) {
+		widget = new LibraryView();
+		LibraryDB::Self().proxy = proxy;
+	}
+	return widget;
+}
 
-    int AddPlaylist(QString list);
-    void RemovePlaylist(QString list);
-    void RenamePlaylist(QString oldval, QString newval);
-    QList<struct Attr> Playlists(QString *patt = 0);
-    void ArtForPlaylist(QString val, QString art);
+bool SrcLibrary::ready()
+{
+	return widget;
+}
 
- private:
-    LibraryDB();
-    bool open;
+void SrcLibrary::update(int)
+{
+}
 
-    bool updateDatabase(int fromver);
-    QMutex lock;
-};
+QString SrcLibrary::getName()
+{
+	return tr("Library");
+}
 
-#endif /*LIBRARY_DB_H_*/
+QWidget* SrcLibrary::getWidget()
+{
+	return widget;
+}
+
+QWidget* SrcLibrary::getSetupWidget()
+{
+	return 0;
+}
+
+int SrcLibrary::getDisturbs()
+{
+	return DoNotDisturb;
+}
+
+void SrcLibrary::storeState()
+{
+	if(widget) widget->storeState();
+}

@@ -27,7 +27,7 @@
 
 QSqlDatabase db;
 
-LibraryDB::LibraryDB() :QObject(0), subset(false), ssAlbum(0)
+LibraryDB::LibraryDB() :QObject(0)
 {
     QMutexLocker locker(&lock);
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -35,7 +35,7 @@ LibraryDB::LibraryDB() :QObject(0), subset(false), ssAlbum(0)
     if(QFile::exists(db.databaseName())) {
         if(!db.open()) {
             qDebug("Can not open library database");
-            Console::Self().error("Can not open library database");
+            proxy->error("Can not open library database");
             open = false;
         } else {
             open = true;
@@ -49,13 +49,13 @@ LibraryDB::LibraryDB() :QObject(0), subset(false), ssAlbum(0)
                 open = false;
                 db.close();
                 qDebug("Wrong database version (%d)", ver);
-                Console::Self().error("Wrong database version -" + QString::number(ver));
+                proxy->error("Wrong database version -" + QString::number(ver));
             }
         }
     } else {
         if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !db.open()) {
             qDebug("Can not create database");
-            Console::Self().error("Can not create database");
+            proxy->error("Can not create database");
             open = false;
         } else {
             QSqlQuery q0("create table Version (value integer)", db);
@@ -64,7 +64,7 @@ LibraryDB::LibraryDB() :QObject(0), subset(false), ssAlbum(0)
             open = true;
         }
     }
-    if(open) Console::Self().message("LibraryDB ready");
+    if(open) proxy->message("LibraryDB ready");
 }
 
 LibraryDB::~LibraryDB()
@@ -78,7 +78,7 @@ bool LibraryDB::updateDatabase(int fromver)
     case 0: {
 	}
     }
-    Console::Self().message("LibraryDB update from version "+QString::number(fromver));
+    proxy->message("LibraryDB update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version");
     QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
     return true;
@@ -168,7 +168,7 @@ void LibraryDB::ArtForPlaylist(QString val, QString art)
     QMutexLocker locker(&lock);
     if(!open) return;
     QSqlQuery q("", db);
-    q.prepare("update "+nPlaylist+" set art = :art where value = :val");
+    q.prepare("update Playlist set art = :art where value = :val");
     q.bindValue(":art", art);
     q.bindValue(":val", val);
     q.exec();

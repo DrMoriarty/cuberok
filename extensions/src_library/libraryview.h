@@ -21,7 +21,29 @@
 #define LIBRARYVIEW_H
 
 #include <QtGui>
-#include "collectionview.h"
+//#include "collectionview.h"
+
+class LibraryModel : public QStandardItemModel
+{
+	Q_OBJECT
+ public:
+    QString searchPattern;
+	
+	LibraryModel(QObject *parent = 0);
+	~LibraryModel();
+	virtual QStringList mimeTypes() const;
+	virtual QMimeData *mimeData( const QModelIndexList & indexes ) const;
+	virtual bool dropMimeData ( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent );
+	virtual Qt::DropActions supportedDropActions() const;
+    QList<QUrl> SelectByItem(QModelIndex i) const;
+    virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
+ private:
+	void drawStars(QPixmap &bg, int rating, bool song);
+ public slots:
+	void update();
+ signals:
+	void status(QString);
+};
 
 class LibraryView: public QListView
 {
@@ -39,17 +61,17 @@ public slots:
 	void regularPlaylist(bool);
 	void sqlListEdit();
 	void setStatus(QString);
+	void storeState();
 
  private slots:
 	void sendToPlaylist(QModelIndex);
 
  signals:
-	void modeChanged(int);
 	void status(QString);
 	void addUrl(QUrl);
 
  private:
-	CollectionModel model;
+	LibraryModel model;
 	QString stat;
 
  protected:

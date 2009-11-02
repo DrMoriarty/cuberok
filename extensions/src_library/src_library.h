@@ -17,40 +17,32 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef LIBRARY_DB_H_
-#define LIBRARY_DB_H_
+#ifndef SRC_LIBRARY_H
+#define SRC_LIBRARY_H
 
-#include <QtCore>
 #include "interfaces.h"
+#include "libraryview.h"
 
-class LibraryDB : public QObject
+class SrcLibrary : public Extension
 {
 	Q_OBJECT
-public:
-    struct Attr {
-        QString name;
-        int refs, rating;
-        QString art;
-		QString mbid;
-    };
+	Q_INTERFACES(Extension) 
 
-	Proxy* proxy;
+ public:
+	SrcLibrary();
+	virtual ~SrcLibrary();
 
-    static LibraryDB& Self();
-    ~LibraryDB();
-
-    int AddPlaylist(QString list);
-    void RemovePlaylist(QString list);
-    void RenamePlaylist(QString oldval, QString newval);
-    QList<struct Attr> Playlists(QString *patt = 0);
-    void ArtForPlaylist(QString val, QString art);
+	virtual bool prepare();
+	virtual bool ready();
+	virtual void update(int);
+	virtual QString getName();
+	virtual QWidget* getWidget();
+	virtual QWidget* getSetupWidget();
+	virtual int getDisturbs();
+	virtual void storeState();
 
  private:
-    LibraryDB();
-    bool open;
-
-    bool updateDatabase(int fromver);
-    QMutex lock;
+	LibraryView* widget;
 };
 
-#endif /*LIBRARY_DB_H_*/
+#endif //SRC_LIBRARY_H
