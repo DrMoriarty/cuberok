@@ -1,14 +1,15 @@
- QT += sql xml
+ QT += sql xml network
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin static
  INCLUDEPATH  += ../../src ../../include
  HEADERS       = \
  	../../include/interfaces.h \
+	src_library.h \
  	library_db.h \
     libraryview.h 
 
- SOURCES       = library_db.cpp libraryview.cpp 
+ SOURCES       = src_library.cpp library_db.cpp libraryview.cpp 
 # FORMS         = 
  TARGET        = $$qtLibraryTarget(src_library)
 

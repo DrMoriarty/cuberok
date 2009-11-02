@@ -22,7 +22,7 @@
 
 #include <QtCore>
 
-typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_LIST, M_SQLLIST} ListMode;
+typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_SQLLIST} ListMode;
 
 static const QString nArtist = "Artist",
     nAlbum = "Album",
@@ -57,7 +57,6 @@ public:
     int AddArtist(QString artist);
     int AddAlbum(QString album, int artist);
     int AddGenre(QString genre);
-    int AddPlaylist(QString list);
     int AddSQLPlaylist(QString list);
     int GetArtist(QString artist);
     int GetAlbum(QString album, int artist);
@@ -65,22 +64,18 @@ public:
     void RemoveArtist(QString artist);
     void RemoveAlbum(QString album, int artist);
     void RemoveGenre(QString genre);
-    void RemovePlaylist(QString list);
     void RemoveSQLPlaylist(QString list);
     void RenameArtist(QString oldval, QString newval);
     void RenameAlbum(QString oldval, QString newval, int artist);
     void RenameGenre(QString oldval, QString newval);
-    void RenamePlaylist(QString oldval, QString newval);
     void RenameSQLPlaylist(QString oldval, QString newval);
     QList<struct Attr> Artists(QString *patt = 0);
     QList<struct AttrAl> Albums(QString *patt = 0);
     QList<struct Attr> Genres(QString *patt = 0);
-    QList<struct Attr> Playlists(QString *patt = 0);
     QList<struct SAttr> SQLPlaylists(QString *patt = 0);
     void ArtForAlbum(QString val, QString art, int artist);
     void ArtForArtist(QString val, QString art);
     void ArtForGenre(QString val, QString art);
-    void ArtForPlaylist(QString val, QString art);
     void ArtForSQLPlaylist(QString val, QString art);
     QList<QString> Songs(QString *ar = 0, int al = 0, QString *ge = 0, QString *so = 0);
 	QList<QString> SongsBySQLPlaylist(QString sqlname);

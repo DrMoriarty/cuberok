@@ -1038,35 +1038,6 @@ QString Database::subsetFilter()
     return filter;
 }
 
-int Database::AddPlaylist(QString list)
-{
-    //return AddAttribute(nPlaylist, artist);
-    if(!open) return 0;
-    QMutexLocker locker(&lock);
-    QSqlQuery q("", db);
-    QString val = list;
-    q.prepare("select ID from Playlist where value = :val");
-    q.bindValue(":val", val);
-    q.exec();
-    if( !q.next() ) {
-        /*if(QFileInfo(list).exists()) {
-            // real play list
-            val = QFileInfo(list).baseName();
-            q.prepare("insert into Playlist (value, list) values (:val, :list)");
-            q.bindValue(":list", list);
-            } else*/
-            q.prepare("insert into Playlist (value) values (:val)");
-        q.bindValue(":val", val);
-        q.exec();
-        if(q.numRowsAffected() < 1) return -1;
-        q.prepare("select ID from Playlist where value = :val");
-        q.bindValue(":val", val);
-        q.exec();
-        q.next();
-    }
-    return q.value(0).toString().toInt();
-}
-
 int Database::AddSQLPlaylist(QString list)
 {
     if(!open) return 0;
@@ -1089,16 +1060,6 @@ int Database::AddSQLPlaylist(QString list)
     return q.value(0).toString().toInt();
 }
 
-void Database::RemovePlaylist(QString list)
-{
-    if(!open) return;
-    QMutexLocker locker(&lock);
-    QSqlQuery q("", db);
-    q.prepare("delete from Playlist where value = :val");
-    q.bindValue(":val", list);
-    q.exec();
-}
-
 void Database::RemoveSQLPlaylist(QString list)
 {
     if(!open) return;
@@ -1106,17 +1067,6 @@ void Database::RemoveSQLPlaylist(QString list)
     QSqlQuery q("", db);
     q.prepare("delete from SQLPlaylist where value = :val");
     q.bindValue(":val", list);
-    q.exec();
-}
-
-void Database::RenamePlaylist(QString oldval, QString newval)
-{
-    if(!open) return;
-    QMutexLocker locker(&lock);
-    QSqlQuery q("", db);
-    q.prepare("update Playlist set value = :newval where value = :oldval");
-    q.bindValue(":oldval", oldval);
-    q.bindValue(":newval", newval);
     q.exec();
 }
 
@@ -1129,28 +1079,6 @@ void Database::RenameSQLPlaylist(QString oldval, QString newval)
     q.bindValue(":oldval", oldval);
     q.bindValue(":newval", newval);
     q.exec();
-}
-
-QList<struct Database::Attr> Database::Playlists(QString *patt)
-{
-    QMutexLocker locker(&lock);
-    if(!open) return QList<struct Database::Attr>();
-    QList<struct Database::Attr> res;
-    QSqlQuery q("", db);
-	if(patt) {
-		q.prepare("select value, refs, art from Playlist where value like :pattern order by value ASC");
-		q.bindValue(":pattern", QString("%")+*patt+QString("%"));
-	} else q.prepare("select value, refs, art from Playlist order by value ASC");
-    q.exec();
-    while(q.next()) {
-        struct Attr attr;
-        attr.name = q.value(0).toString();
-        attr.refs = q.value(1).toString().toInt();
-        attr.rating = 0;//q.value(2).toString().toInt();
-        attr.art = q.value(2).toString();
-        res << attr;
-    }
-    return res;
 }
 
 QList<struct Database::SAttr> Database::SQLPlaylists(QString *patt)
@@ -1172,12 +1100,6 @@ QList<struct Database::SAttr> Database::SQLPlaylists(QString *patt)
         res << attr;
     }
     return res;
-}
-
-void Database::ArtForPlaylist(QString val, QString art)
-{
-    QMutexLocker locker(&lock);
-    return ArtForAttribute(nPlaylist, val, art);
 }
 
 void Database::ArtForSQLPlaylist(QString val, QString art)

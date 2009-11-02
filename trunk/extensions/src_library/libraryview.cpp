@@ -18,8 +18,174 @@
  */
 
 #include "libraryview.h"
-#include "database.h"
-#include "sqledit.h"
+#include "library_db.h"
+
+/************************
+ * 
+ *  LibraryModel
+ * 
+ ************************/
+
+LibraryModel::LibraryModel(QObject *parent): QStandardItemModel(parent)
+{
+	setSupportedDragActions(Qt::CopyAction | Qt::MoveAction);
+	searchPattern = "";
+}
+
+LibraryModel::~LibraryModel()
+{
+	
+}
+
+bool LibraryModel::setData ( const QModelIndex & index, const QVariant & value, int role )
+{
+	QString oldvalue = data(index, role).toString(),
+		newvalue = value.toString();
+	QList<QString> files;
+	if(oldvalue != newvalue) {
+		QString file1 = itemFromIndex(index)->data().toString();
+		QString file2 = QFileInfo(file1).absolutePath() + QDir::separator() + newvalue + "." + QFileInfo(file1).completeSuffix();
+		QFile::rename(file1, file2);
+		LibraryDB::Self().RenamePlaylist(file1, file2);
+		itemFromIndex(index)->setData(file2);
+	}
+	return QStandardItemModel::setData(index, value, role);
+}
+
+QStringList LibraryModel::mimeTypes() const
+{
+	QStringList list;
+	list << "text/uri-list";
+	return list;
+}
+
+QMimeData *LibraryModel::mimeData( const QModelIndexList & indexes ) const
+{
+    QMimeData *mimeData = QStandardItemModel::mimeData(indexes);
+    QList<QUrl> list;
+    foreach(QModelIndex ind, indexes) {
+		list += SelectByItem(ind);
+    }
+    mimeData->setUrls(list);
+    /*QByteArray itemData;
+    QDataStream dataStream(&itemData, QIODevice::WriteOnly);
+    dataStream << list.count();
+    foreach(QModelIndex ind, this->selectedIndexes()) {
+        dataStream << ind.column();
+        dataStream << model.data(ind, Qt::DisplayRole).toString();
+    }
+    mimeData->setData("application/x-playlist", itemData);*/
+    return mimeData;
+}
+
+// select files
+QList<QUrl> LibraryModel::SelectByItem(QModelIndex i) const
+{
+	QString s = data(i).toString();
+	QList<QString> res;
+	res.clear();
+	res << itemFromIndex(i)->data().toString();
+	QList<QUrl> urls;
+	foreach(QString f, res) {
+		urls << QUrl::fromLocalFile(f);
+	}
+	//QUrl::fromLocalFile(model.data(ind, Qt::UserRole).toString()));
+	return urls;
+}
+
+bool LibraryModel::dropMimeData ( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent )
+{
+    if (data->hasUrls()) {
+    	QString attrname("");
+		int param = 0;
+    	if(parent.isValid()) {
+			attrname = this->itemFromIndex(parent)->data().toString();
+		}
+    	QList<QUrl> urls = data->urls();
+    	CollectionFiller * cf = new CollectionFiller(urls, mode, attrname);
+    	connect(cf, SIGNAL(finished()), this, SLOT(update()));
+    	cf->start();
+        return true;
+    }
+    return false;
+}
+
+void LibraryModel::update()
+{
+	clear();
+	QList<struct LibraryDB::Attr> data;
+	QPixmap icon;
+	QString stat;
+	data = LibraryDB::Self().Playlists();
+	icon.load(":/icons/def_list.png");
+	stat = tr("Collection - %n lists(s)", "", data.count());
+	QString tt("");
+	QStandardItem *i;
+	foreach(struct LibraryDB::Attr attr, data) {
+		QPixmap px2;
+		if(!attr.art.size() || !px2.load(attr.art))
+			px2 = icon;
+		drawStars(px2, attr.rating, false);
+		if(QFileInfo(attr.name).exists()) 
+			i = new QStandardItem(QIcon(px2), QFileInfo(attr.name).completeBaseName());
+		else
+			i = new QStandardItem(QIcon(px2), attr.name);
+		i->setData(attr.name);
+		tt = attr.name;//+"\n"+tr("%n song(s)", "", attr.refs);
+		i->setToolTip(tt); 
+		appendRow(i);
+	}
+	emit status(stat);
+}
+
+Qt::DropActions LibraryModel::supportedDropActions() const
+{
+	return Qt::CopyAction | Qt::MoveAction;
+}
+
+void LibraryModel::drawStars(QPixmap &bg, int rating, bool song)
+{
+	static QPixmap px_5(":/icons/stars5.png"), px_4(":/icons/stars4.png"), px_3(":/icons/stars3.png"), px_2(":/icons/stars2.png"), px_1(":/icons/stars1.png");
+	QPixmap px(px_1.width(), px_1.height());
+	px.fill(QColor(0,0,0,0));
+	QPainter painter(&px);
+	painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform /*| QPainter::HighQualityAntialiasing*/);
+	int x=0, y=0, w, h;
+	float s;
+	w = bg.width();
+	h = bg.height();
+	s = h;
+	if(w > h) {
+		y = (w - h) / 2;
+		s = w;
+	} else if(h > w) {
+		x = (h - w) / 2;
+		s = h;
+	}
+	s = (float)px.width() / s;
+	x = (int)(s * x);
+	y = (int)(s * y);
+	w = (int)(s * w);
+	h = (int)(s * h);
+	painter.drawPixmap(QRect(x, y, w, h), bg, QRect(0, 0, bg.width(), bg.height()));
+	QPixmap *st = 0;
+	if(song) {
+		if(rating >= 50) st = &px_5;
+		else if(rating >= 40) st = &px_4;
+		else if(rating >= 30) st = &px_3;
+		else if(rating >= 20) st = &px_2;
+		else if(rating >= 10) st = &px_1;
+	} else {
+		if(rating >= 40) st = &px_5;
+		else if(rating >= 30) st = &px_4;
+		else if(rating >= 20) st = &px_3;
+		else if(rating >= 10) st = &px_2;
+		else if(rating >= 1)  st = &px_1;
+	}
+	if(st) painter.drawPixmap(0, 0, *st);
+	bg = px;
+}
+
 
 LibraryView::LibraryView(QWidget *parent): QListView(parent)
 {
@@ -37,8 +203,7 @@ LibraryView::LibraryView(QWidget *parent): QListView(parent)
 	setDropIndicatorShown(true);
  	connect(&model, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
  	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(sendToPlaylist(QModelIndex)));
- 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
-	model.updateMode(M_LIST);
+	model.update();
 }
 
 LibraryView::~LibraryView()
@@ -53,32 +218,14 @@ void LibraryView::setStatus(QString s)
 
 void LibraryView::addItem()
 {
-	switch(model.mode) {
-	case M_LIST:
-		Database::Self().AddPlaylist(tr("New Playlist"));
-		break;
-	case M_SQLLIST:
-		Database::Self().AddSQLPlaylist(tr("New Playlist"));
-		break;
-	default:
-		return;
-	}
+	LibraryDB::Self().AddPlaylist(tr("New Playlist"));
 	model.update();
 }
 
 void LibraryView::removeItem()
 {
     foreach(QModelIndex ind, this->selectedIndexes()) {
-		switch(model.mode) {
-		case M_LIST:
-			Database::Self().RemovePlaylist(model.itemFromIndex(ind)->data().toString());
-			break;
-		case M_SQLLIST:
-			Database::Self().RemoveSQLPlaylist(model.data(ind).toString());
-			break;
-		default:
-			return;
-		}
+		LibraryDB::Self().RemovePlaylist(model.itemFromIndex(ind)->data().toString());
     }
 	//model.updateMode(model.mode);
     while(this->selectedIndexes().count()) model.removeRows(this->selectedIndexes().at(0).row(), 1);
@@ -97,42 +244,9 @@ void LibraryView::setImage()
 	QString filename = QFileDialog::getOpenFileName(this, tr("Open image"), path, tr("Images (*.jpg *.gif *.png *.bmp)"));
 	if(filename.size()) {
 		foreach(QModelIndex ind, this->selectedIndexes()) {
-			switch(model.mode) {
-			case M_LIST:
-				Database::Self().ArtForPlaylist(model.data(ind).toString(), filename);
-				break;
-			case M_SQLLIST:
-				Database::Self().ArtForSQLPlaylist(model.data(ind).toString(), filename);
-				break;
-			default:
-				break;
-			}
+			LibraryDB::Self().ArtForPlaylist(model.data(ind).toString(), filename);
 		}
 		model.update();
-	}
-}
-
-void LibraryView::sqlPlaylist(bool)
-{
-	model.updateMode(M_SQLLIST);
-}
-
-void LibraryView::regularPlaylist(bool)
-{
-	model.updateMode(M_LIST);
-}
-
-void LibraryView::sqlListEdit()
-{
-	switch(model.mode) {
-	case M_LIST:
-		break;
-	case M_SQLLIST:
-		if(this->selectedIndexes().size()) {
-			SQLEdit *se = new SQLEdit(model.data(selectedIndexes()[0]).toString());
-			se->show();
-		}
-		break;
 	}
 }
 
@@ -148,4 +262,8 @@ void LibraryView::sendToPlaylist(QModelIndex ind)
 	foreach(QUrl url, list) {
 		emit addUrl(url);
 	}
+}
+
+void LibraryView::storeState()
+{
 }
