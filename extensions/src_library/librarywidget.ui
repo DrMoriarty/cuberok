@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>LibraryWidget</class>
+  <widget class="QWidget" name="FileBrowserWidget">
+	<layout class="QVBoxLayout" name="verticalLayout_2">
+	  <property name="margin">
+		<number>0</number>
+	  </property>
+	  <item>
+		<widget class="LibraryView" name="libview">
+		  <property name="contextMenuPolicy">
+			<enum>Qt::ActionsContextMenu</enum>
+		  </property>
+		  <property name="acceptDrops">
+			<bool>true</bool>
+		  </property>
+		  <property name="toolTip">
+			<string>Drag'n'Drop playlists to the library</string>
+		  </property>
+		  <property name="editTriggers">
+			<set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+		  </property>
+		  <property name="dragEnabled">
+			<bool>true</bool>
+		  </property>
+		  <property name="flow">
+			<enum>QListView::TopToBottom</enum>
+		  </property>
+		  <property name="isWrapping" stdset="0">
+			<bool>true</bool>
+		  </property>
+		  <addaction name="actionAddToLibrary"/>
+		  <addaction name="actionRemoveFromLibrary"/>
+		  <addaction name="actionLibrarySetImage"/>
+		</widget>
+	  </item>
+	</layout>
+	<action name="actionAddToLibrary">
+	  <property name="icon">
+		<iconset resource="resource.qrc">
+		  <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
+	  </property>
+	  <property name="text">
+		<string>Add Item</string>
+	  </property>
+	  <property name="statusTip">
+		<string>Create new library item</string>
+	  </property>
+	</action>
+	<action name="actionRemoveFromLibrary">
+	  <property name="icon">
+		<iconset resource="resource.qrc">
+		  <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
+	  </property>
+	  <property name="text">
+		<string>Remove Item</string>
+	  </property>
+	  <property name="statusTip">
+		<string>Remove selected item from library</string>
+	  </property>
+	</action>
+	<action name="actionLibrarySetImage">
+	  <property name="icon">
+		<iconset resource="resource.qrc">
+		  <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
+	  </property>
+	  <property name="text">
+		<string>Set Image</string>
+	  </property>
+	  <property name="statusTip">
+		<string>Set image for library item</string>
+	  </property>
+	</action>
+  </widget>
+  <resources>
+	<include location="../../src/resource.qrc"/>
+  </resources>
+  <customwidgets>
+	<customwidget>
+	  <class>LibraryView</class>
+	  <extends>QListView</extends>
+	  <header>libraryview.h</header>
+	  <slots>
+		<signal>addUrl(QUrl)</signal>
+	  </slots>
+	</customwidget>
+  </customwidgets>
+  <connections>
+	<connection>
+	  <sender>actionAddToLibrary</sender>
+	  <signal>triggered()</signal>
+	  <receiver>libview</receiver>
+	  <slot>addItem()</slot>
+	  <hints>
+		<hint type="sourcelabel">
+		  <x>-1</x>
+		  <y>-1</y>
+		</hint>
+		<hint type="destinationlabel">
+		  <x>646</x>
+		  <y>489</y>
+		</hint>
+	  </hints>
+	</connection>
+	<connection>
+	  <sender>actionRemoveFromLibrary</sender>
+	  <signal>triggered()</signal>
+	  <receiver>libview</receiver>
+	  <slot>removeItem()</slot>
+	  <hints>
+		<hint type="sourcelabel">
+		  <x>-1</x>
+		  <y>-1</y>
+		</hint>
+		<hint type="destinationlabel">
+		  <x>646</x>
+		  <y>489</y>
+		</hint>
+	  </hints>
+	</connection>
+	<connection>
+	  <sender>actionLibrarySetImage</sender>
+	  <signal>triggered()</signal>
+	  <receiver>libview</receiver>
+	  <slot>setImage()</slot>
+	  <hints>
+		<hint type="sourcelabel">
+		  <x>-1</x>
+		  <y>-1</y>
+		</hint>
+		<hint type="destinationlabel">
+		  <x>646</x>
+		  <y>489</y>
+		</hint>
+	  </hints>
+	</connection>
+  </connections>
+</ui>

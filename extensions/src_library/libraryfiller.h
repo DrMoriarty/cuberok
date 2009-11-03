@@ -17,60 +17,29 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "src_library.h"
-#include "library_db.h"
+#ifndef LIBRARYFILLER_H
+#define LIBRARYFILLER_H
 
-Q_EXPORT_PLUGIN2(src_library, SrcLibrary) 
+#include <QtCore>
 
-SrcLibrary::SrcLibrary() : Extension(), widget(0)
+class LibraryFiller : public QThread
 {
-}
+	Q_OBJECT
+public:
+	LibraryFiller(QList<QUrl> _urls, QString _attrname=QString(""), int _param=0, QObject * parent = 0);
+	~LibraryFiller();
+	void run();
+private:
+	QList<QUrl> urls;
+	QString attrname;
+	int  proceed(QString);
+	bool cancel;
+	int param;
+private slots:
+	void cancelEvent();
+signals:
+	void internalUpdate();
 
-SrcLibrary::~SrcLibrary()
-{
-	//if(widget) delete widget;
-}
+};
 
-bool SrcLibrary::prepare()
-{
-	QSettings set;
-	if(proxy) {
-		LibraryDB::Self(proxy).proxy = proxy;
-		widget = new LibraryWidget();
-	}
-	return widget;
-}
-
-bool SrcLibrary::ready()
-{
-	return widget;
-}
-
-void SrcLibrary::update(int)
-{
-}
-
-QString SrcLibrary::getName()
-{
-	return tr("Library");
-}
-
-QWidget* SrcLibrary::getWidget()
-{
-	return widget;
-}
-
-QWidget* SrcLibrary::getSetupWidget()
-{
-	return 0;
-}
-
-int SrcLibrary::getDisturbs()
-{
-	return DoNotDisturb;
-}
-
-void SrcLibrary::storeState()
-{
-	if(widget) widget->storeState();
-}
+#endif //LIBRARYFILLER_H

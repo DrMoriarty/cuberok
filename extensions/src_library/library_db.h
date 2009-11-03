@@ -36,7 +36,7 @@ public:
 
 	Proxy* proxy;
 
-    static LibraryDB& Self();
+    static LibraryDB& Self(Proxy *pr = 0);
     ~LibraryDB();
 
     int AddPlaylist(QString list);
@@ -46,10 +46,11 @@ public:
     void ArtForPlaylist(QString val, QString art);
 
  private:
-    LibraryDB();
+    LibraryDB(Proxy *pr);
     bool open;
 
     bool updateDatabase(int fromver);
+	void FillFromCollection();
     QMutex lock;
 };
 

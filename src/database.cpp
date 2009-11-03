@@ -24,14 +24,14 @@
 #include "tagger.h"
 #include "console.h"
 
-#define DB_VERSION 7
+#define DB_VERSION 8
 
-QSqlDatabase db;
+static QSqlDatabase db;
 
 Database::Database() :QObject(0), subset(false), ssAlbum(0)
 {
     QMutexLocker locker(&lock);
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    db = QSqlDatabase::addDatabase("QSQLITE", "CollectionDB");
     db.setDatabaseName(QDir::homePath()+"/.cuberok/collection.db");
     if(QFile::exists(db.databaseName())) {
         if(!db.open()) {
@@ -65,8 +65,8 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
             //QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
             QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer, Type varchar(30))", db);
             QSqlQuery q5("create table Version (value integer)", db);
-            QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
-            QSqlQuery q7("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
+            QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
+            //QSqlQuery q7("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
 			QSqlQuery q8("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
             QSqlQuery q9("create table SQLPlaylist (ID integer primary key autoincrement, value varchar(200), art varchar(250), data varchar(250))", db);
             open = true;
@@ -79,6 +79,7 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
 Database::~Database()
 {
     db.close();
+	QSqlDatabase::removeDatabase("CollectionDB");
 }
 
 bool Database::updateDatabase(int fromver)
@@ -153,10 +154,37 @@ bool Database::updateDatabase(int fromver)
 		QSqlQuery q0("alter table Song add column Type varchar(30)", db);
 		qDebug("Update database from version 6");
 	}
+	case 7: {
+		QSqlDatabase ldb;
+		ldb = QSqlDatabase::addDatabase("QSQLITE", "tempLibraryDB");
+		ldb.setDatabaseName(QDir::homePath()+"/.cuberok/library.db");
+		if(!QFile::exists(db.databaseName())) {
+			if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !ldb.open()) {
+				qDebug("Can not create library database");
+			} else {
+				QSqlQuery q0("create table Version (value integer)", ldb);
+				QSqlQuery q1("insert into Version (value) values (0)", ldb);
+				QSqlQuery q2("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", ldb);
+				QSqlQuery q("select value, art from Playlist order by value ASC", db);
+				q.exec();
+				while(q.next()) {
+					QSqlQuery q3("", ldb);
+					q3.prepare("insert into Playlist (value, art) values (:val, :art)");
+					q3.bindValue(":val", q.value(0).toString());
+					q3.bindValue(":art", q.value(1).toString());
+					q3.exec();
+				}
+				ldb.close();
+				QSqlDatabase::removeDatabase("tempLibraryDB");
+			}
+		}
+        QSqlQuery q2("drop table Playlist", db);
+		qDebug("Update database from version 7");
+	}
     }
     Console::Self().message("Database update from version "+QString::number(fromver));
-    QSqlQuery q1("delete from Version");
-    QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
+    QSqlQuery q1("delete from Version", db);
+    QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
     return true;
 }
 

@@ -102,10 +102,9 @@ int CollectionFiller::proceed(QString path)
 	} else {
 		QString p2 = path.toLower();
 		// check playlists
-		if(Tagger::playlistDetected(QUrl::fromLocalFile(path))) {
-			//if(p2.endsWith(".m3u") || p2.endsWith(".xspf") || p2.endsWith(".asx") || p2.endsWith(".asp") || p2.endsWith(".cue")) {
+		/*if(Tagger::playlistDetected(QUrl::fromLocalFile(path))) {
 			return Database::Self().AddPlaylist(path);
-		}
+			}*/
 		// drop into item
 		if(attrname.length()) {
 			// check images
@@ -121,9 +120,6 @@ int CollectionFiller::proceed(QString path)
 					Database::Self().ArtForGenre(attrname, path);
 					break;
 				case M_SONG:
-					break;
-				case M_LIST:
-					Database::Self().ArtForPlaylist(attrname, path);
 					break;
 				case M_SQLLIST:
 					break;
@@ -148,9 +144,6 @@ int CollectionFiller::proceed(QString path)
 				genre = attrname;
 				break;
 			case M_SONG:
-				return -1;
-			case M_LIST:
-				// TODO
 				return -1;
 			case M_SQLLIST:
 				return -1;

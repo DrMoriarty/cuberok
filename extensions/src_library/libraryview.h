@@ -21,7 +21,6 @@
 #define LIBRARYVIEW_H
 
 #include <QtGui>
-//#include "collectionview.h"
 
 class LibraryModel : public QStandardItemModel
 {
@@ -57,9 +56,6 @@ public slots:
 	void addItem();
 	void removeItem();
 	void setImage();
-	void sqlPlaylist(bool);
-	void regularPlaylist(bool);
-	void sqlListEdit();
 	void setStatus(QString);
 	void storeState();
 

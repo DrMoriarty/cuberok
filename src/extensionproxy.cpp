@@ -26,6 +26,7 @@ Q_IMPORT_PLUGIN(infowidget)
 Q_IMPORT_PLUGIN(src_filebrowser)
 Q_IMPORT_PLUGIN(info_lastfm)
 Q_IMPORT_PLUGIN(src_browser)
+Q_IMPORT_PLUGIN(src_library)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
