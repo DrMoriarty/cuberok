@@ -205,9 +205,9 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
-	//#ifdef WIN32
+#ifdef WIN32
     qInstallMsgHandler(myMessageOutput);
-	//#endif
+#endif
     MyApplication a(argc, argv);
     qRegisterMetaType<StarRating>("StarRating");
 	qRegisterMetaTypeStreamOperators<StarRating>("StarRating");

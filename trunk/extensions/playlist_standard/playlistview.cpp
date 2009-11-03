@@ -175,6 +175,13 @@ void MyTreeView::showEvent ( QShowEvent * event )
 
 PlaylistAbstract::PlaylistAbstract(QString &str, QWidget *parent) : Playlist(str, parent)
 , autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+{
+	timer.setSingleShot(true);
+	timer.setInterval(500);
+	connect(&timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
+}
+
+PlaylistAbstract::~PlaylistAbstract()
 {}
 
 QString PlaylistAbstract::getName()
@@ -241,6 +248,14 @@ void PlaylistAbstract::storeListXSPF(QString fname)
 		xml.writeEndElement(); //playlist
 		xml.writeEndDocument();
 	}
+}
+
+void PlaylistAbstract::storeState(bool save)
+{
+	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
+	if(save) storeListXSPF(fname);
+	else QFile::remove(fname);
+	qDebug("storeState");
 }
 
 void PlaylistAbstract::loadList(QString fname)
@@ -407,6 +422,12 @@ void PlaylistAbstract::updateStatus()
 		st += " (" + time.time().toString()+")";
 	}
 	emit status(st);
+	timer.start();
+}
+
+void PlaylistAbstract::timerSlot()
+{
+	storeState(true);
 }
 
 void PlaylistAbstract::rateSong(QModelIndex &ind, int r, int offset)
@@ -487,9 +508,7 @@ PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : PlaylistAbst
 
 PlaylistStandard::~PlaylistStandard()
 {
-	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
-	if(autosave) storeListXSPF(fname);
-	else QFile::remove(fname);
+	storeState(autosave);
 }
 
 QWidget* PlaylistStandard::getWidget()
