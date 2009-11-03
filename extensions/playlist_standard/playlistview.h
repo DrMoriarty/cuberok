@@ -74,6 +74,7 @@ class PlaylistAbstract : public Playlist
 	Q_OBJECT
  public:
 	PlaylistAbstract(QString &str, QWidget *parent = 0);
+	virtual ~PlaylistAbstract();
 	virtual QString getName();
 	virtual void setName(QString newname);
 	virtual void storeListM3U(QString fname);
@@ -88,6 +89,8 @@ class PlaylistAbstract : public Playlist
 	virtual QString curFile();
 	virtual void setCurrent(int index) = 0;
 
+	void storeState(bool save = true);
+
  public slots:
 	virtual void addUrl(QUrl url);
 	virtual void prev();
@@ -101,6 +104,7 @@ class PlaylistAbstract : public Playlist
 	void updateTag(TagEditor*);
 	void updateStatus();
  private slots:
+	void timerSlot();
 
  protected:
     PlaylistModel model;
@@ -117,6 +121,7 @@ class PlaylistAbstract : public Playlist
 	double delayedPos;
 	int error_count;
     QString info;
+	QTimer timer;
 
     virtual QModelIndex nextItem() = 0;
     virtual QModelIndex prevItem() = 0;
