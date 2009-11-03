@@ -21,7 +21,7 @@
 #define SRC_LIBRARY_H
 
 #include "interfaces.h"
-#include "libraryview.h"
+#include "librarywidget.h"
 
 class SrcLibrary : public Extension
 {
@@ -42,7 +42,7 @@ class SrcLibrary : public Extension
 	virtual void storeState();
 
  private:
-	LibraryView* widget;
+	LibraryWidget* widget;
 };
 
 #endif //SRC_LIBRARY_H

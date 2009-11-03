@@ -17,60 +17,22 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "src_library.h"
-#include "library_db.h"
+#ifndef LIBRARYWIDGET_H
+#define LIBRARYWIDGET_H
 
-Q_EXPORT_PLUGIN2(src_library, SrcLibrary) 
+#include <QtGui>
+#include "ui_librarywidget.h"
 
-SrcLibrary::SrcLibrary() : Extension(), widget(0)
+class LibraryWidget: public QWidget
 {
-}
+	Q_OBJECT
+ public:
+	LibraryWidget(QWidget* parent = 0);
+	void storeState();
+	
+ private:
+	Ui::LibraryWidget ui;
+	
+};
 
-SrcLibrary::~SrcLibrary()
-{
-	//if(widget) delete widget;
-}
-
-bool SrcLibrary::prepare()
-{
-	QSettings set;
-	if(proxy) {
-		LibraryDB::Self(proxy).proxy = proxy;
-		widget = new LibraryWidget();
-	}
-	return widget;
-}
-
-bool SrcLibrary::ready()
-{
-	return widget;
-}
-
-void SrcLibrary::update(int)
-{
-}
-
-QString SrcLibrary::getName()
-{
-	return tr("Library");
-}
-
-QWidget* SrcLibrary::getWidget()
-{
-	return widget;
-}
-
-QWidget* SrcLibrary::getSetupWidget()
-{
-	return 0;
-}
-
-int SrcLibrary::getDisturbs()
-{
-	return DoNotDisturb;
-}
-
-void SrcLibrary::storeState()
-{
-	if(widget) widget->storeState();
-}
+#endif //LIBRARYWIDGET_H

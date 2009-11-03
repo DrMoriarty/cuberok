@@ -7,10 +7,12 @@
  	../../include/interfaces.h \
 	src_library.h \
  	library_db.h \
-    libraryview.h 
+    libraryview.h \
+    libraryfiller.h \
+    librarywidget.h
 
- SOURCES       = src_library.cpp library_db.cpp libraryview.cpp 
-# FORMS         = 
+ SOURCES       = src_library.cpp library_db.cpp libraryview.cpp libraryfiller.cpp librarywidget.cpp
+ FORMS         = librarywidget.ui
  TARGET        = $$qtLibraryTarget(src_library)
 
 include(../../qmakeroot.pri)

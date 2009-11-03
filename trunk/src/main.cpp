@@ -53,6 +53,7 @@ void UnregisterWinKeys(WId hwnd)
     UnregisterHotKey(hwnd, 400);
     UnregisterHotKey(hwnd, 500);
 }
+#endif
 
 void myMessageOutput(QtMsgType type, const char *msg)
  {
@@ -83,7 +84,6 @@ void myMessageOutput(QtMsgType type, const char *msg)
          abort();
      }
  }
-#endif
 
 void usage()
 {
@@ -205,9 +205,9 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
-#ifdef WIN32
+	//#ifdef WIN32
     qInstallMsgHandler(myMessageOutput);
-#endif
+	//#endif
     MyApplication a(argc, argv);
     qRegisterMetaType<StarRating>("StarRating");
 	qRegisterMetaTypeStreamOperators<StarRating>("StarRating");

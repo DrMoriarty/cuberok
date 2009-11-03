@@ -514,11 +514,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Library</source>
-        <translation type="unfinished">Библиотека</translation>
+        <translation type="obsolete">Библиотека</translation>
     </message>
     <message>
         <source>Drag&apos;n&apos;Drop playlists to the library</source>
-        <translation type="unfinished">Перетащите списки проигрывания в библиотеку</translation>
+        <translation type="obsolete">Перетащите списки проигрывания в библиотеку</translation>
     </message>
     <message>
         <source>Open Url</source>
@@ -626,7 +626,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Create new library item</source>
-        <translation type="unfinished">Создать новый элемент библиотеки</translation>
+        <translation type="obsolete">Создать новый элемент библиотеки</translation>
     </message>
     <message>
         <source>Remove selected item from collection</source>
@@ -634,7 +634,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Remove selected item from library</source>
-        <translation type="unfinished">Удалить выбранный элемент из библиотеки</translation>
+        <translation type="obsolete">Удалить выбранный элемент из библиотеки</translation>
     </message>
     <message>
         <source>Reload tags in selected song</source>
@@ -646,7 +646,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Set image for library item</source>
-        <translation type="unfinished">Установить изображение для элемента библиотеки</translation>
+        <translation type="obsolete">Установить изображение для элемента библиотеки</translation>
     </message>
     <message>
         <source>View icons for collection items</source>
@@ -1309,6 +1309,17 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>LibraryModel</name>
+    <message numerus="yes">
+        <source>Collection - %n lists(s)</source>
+        <translation type="unfinished">
+            <numerusform>Коллекция - %n список</numerusform>
+            <numerusform>Коллекция - %n списка</numerusform>
+            <numerusform>Коллекция - %n списков</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>LibraryView</name>
     <message>
         <source>New Playlist</source>
@@ -1321,6 +1332,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
         <translation type="unfinished">Изображения (*.jpg *.gif *.png *.bmp)</translation>
+    </message>
+</context>
+<context>
+    <name>LibraryWidget</name>
+    <message>
+        <source>Drag&apos;n&apos;Drop playlists to the library</source>
+        <translation type="unfinished">Перетащите списки проигрывания в библиотеку</translation>
+    </message>
+    <message>
+        <source>Add Item</source>
+        <translation type="unfinished">Добавить элемент</translation>
+    </message>
+    <message>
+        <source>Create new library item</source>
+        <translation type="unfinished">Создать новый элемент библиотеки</translation>
+    </message>
+    <message>
+        <source>Remove Item</source>
+        <translation type="unfinished">Удалить элемент</translation>
+    </message>
+    <message>
+        <source>Remove selected item from library</source>
+        <translation type="unfinished">Удалить выбранный элемент из библиотеки</translation>
+    </message>
+    <message>
+        <source>Set Image</source>
+        <translation type="unfinished">Установить изображение</translation>
+    </message>
+    <message>
+        <source>Set image for library item</source>
+        <translation type="unfinished">Установить изображение для элемента библиотеки</translation>
     </message>
 </context>
 <context>
@@ -1816,6 +1858,13 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Default engine for other mime-types:</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SrcLibrary</name>
+    <message>
+        <source>Library</source>
+        <translation type="unfinished">Библиотека</translation>
     </message>
 </context>
 <context>

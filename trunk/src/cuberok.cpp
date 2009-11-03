@@ -140,8 +140,8 @@ Cuberok::Cuberok(QWidget *parent)
 	libmodeGroup->addAction(ui.actionLibraryRegularPlaylist);
 	libmodeGroup->addAction(ui.actionLibrarySQLPlaylist);
 	ui.actionLibraryRegularPlaylist->setChecked(true);
-	connect(ui.libView, SIGNAL(modeChanged(int)), this, SLOT(libmodeChanged(int)));
-	ui.actionAddToLibrary->setDisabled(true);
+	//connect(ui.libView, SIGNAL(modeChanged(int)), this, SLOT(libmodeChanged(int)));
+	//ui.actionAddToLibrary->setDisabled(true);
 	ui.actionSQLListEdit->setDisabled(true);
 
 	ui.toolBar_2->addAction(QWhatsThis::createAction(this));
@@ -193,7 +193,7 @@ void Cuberok::storeState()
 void Cuberok::firstStart()
 {
 	//tabifyDockWidget(ui.dockWidget, ui.dockWidget3);
-	tabifyDockWidget(ui.dockWidget3, ui.dockWidget1);
+	//tabifyDockWidget(ui.dockWidget3, ui.dockWidget1);
 	//tabifyDockWidget(ui.dockWidget2, ui.dockWidget1);
 	//tabifyDockWidget(ui.dockWidget1, ui.dockWidget4);
 	PLSet.setColumnVisible(PlaylistModel::File, false);
@@ -345,8 +345,6 @@ void Cuberok::colmodeChanged(int m)
 			needtoclear = true;
 		}
 		break;
-	case M_LIST:
-		break;
 	case M_SQLLIST:
 		break;
 	}
@@ -355,11 +353,11 @@ void Cuberok::colmodeChanged(int m)
 	}
 }
 
-void Cuberok::libmodeChanged(int m)
+/*void Cuberok::libmodeChanged(int m)
 {
 	ui.actionAddToLibrary->setDisabled(m == M_LIST);
 	ui.actionSQLListEdit->setDisabled(m == M_LIST);
-}
+	}*/
 
 void Cuberok::viewConsole()
 {

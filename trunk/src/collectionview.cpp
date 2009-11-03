@@ -70,14 +70,6 @@ bool CollectionModel::setData ( const QModelIndex & index, const QVariant & valu
 		case M_SONG: {
 			break;
 		}
-		case M_LIST: {
-			QString file1 = itemFromIndex(index)->data().toString();
-			QString file2 = QFileInfo(file1).absolutePath() + QDir::separator() + newvalue + "." + QFileInfo(file1).completeSuffix();
-			QFile::rename(file1, file2);
-			Database::Self().RenamePlaylist(file1, file2);
-			itemFromIndex(index)->setData(file2);
-			break;
-		}
 		case M_SQLLIST:
 			Database::Self().RenameSQLPlaylist(oldvalue, newvalue);
 			//itemFromIndex(index)->setData();
@@ -128,7 +120,6 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 		res = Database::Self().Songs(0, 0, &s, 0);
 		break;
 	case M_SONG:
-	case M_LIST:
 		res.clear();
 		res << itemFromIndex(i)->data().toString();
 		break;
@@ -150,10 +141,7 @@ bool CollectionModel::dropMimeData ( const QMimeData * data, Qt::DropAction acti
     	QString attrname("");
 		int param = 0;
     	if(parent.isValid()) {
-			if(mode == M_LIST)
-				attrname = this->itemFromIndex(parent)->data().toString();
-			else
-				attrname = this->data(parent, Qt::DisplayRole).toString();
+			attrname = this->data(parent, Qt::DisplayRole).toString();
 			if(mode == M_ALBUM) 
 				param = this->itemFromIndex(parent)->data().toInt();
 		}
@@ -248,30 +236,6 @@ void CollectionModel::updateMode(ListMode m)
 				row->setToolTip(title+"\n"+tr("%1, album \"%2\"").arg(artist).arg(album));
 				appendRow(row);
 			}
-		}
-		emit status(stat);
-		emit modeChanged(mode);
-		return;
-	}
-	case M_LIST: {
-		data = Database::Self().Playlists();
-		icon.load(":/icons/def_list.png");
-		stat = tr("Collection - %n lists(s)", "", data.count());
-		QString tt("");
-		QStandardItem *i;
-		foreach(struct Database::Attr attr, data) {
-			QPixmap px2;
-			if(!attr.art.size() || !px2.load(attr.art))
-				px2 = icon;
-			drawStars(px2, attr.rating, false);
-			if(QFileInfo(attr.name).exists()) 
-				i = new QStandardItem(QIcon(px2), QFileInfo(attr.name).completeBaseName());
-			else
-				i = new QStandardItem(QIcon(px2), attr.name);
-			i->setData(attr.name);
-			tt = attr.name;//+"\n"+tr("%n song(s)", "", attr.refs);
-			i->setToolTip(tt); 
-			appendRow(i);
 		}
 		emit status(stat);
 		emit modeChanged(mode);
@@ -688,7 +652,6 @@ void CollectionView::loadImage()
 		}
 		case M_GENRE:
 		case M_SONG:
-		case M_LIST:
 		case M_SQLLIST:
 			return;
 		}

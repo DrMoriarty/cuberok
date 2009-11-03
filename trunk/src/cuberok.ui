@@ -475,7 +475,7 @@
      </item>
     </layout>
    </widget>
-  </widget-->
+  </widget>
   <widget class="QDockWidget" name="dockWidget3">
    <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
@@ -532,7 +532,7 @@
     </layout>
    </widget>
   </widget>
-  <!--widget class="QDockWidget" name="dockWidget4">
+  <widget class="QDockWidget" name="dockWidget4">
    <property name="windowTitle">
     <string>Information</string>
    </property>
@@ -1198,7 +1198,7 @@
     <string>Create new collection item</string>
    </property>
   </action>
-  <action name="actionAddToLibrary">
+  <!--action name="actionAddToLibrary">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
@@ -1209,7 +1209,7 @@
    <property name="statusTip">
     <string>Create new library item</string>
    </property>
-  </action>
+  </action-->
   <action name="actionRemoveFromCollection">
    <property name="icon">
     <iconset resource="resource.qrc">
@@ -1222,7 +1222,7 @@
     <string>Remove selected item from collection</string>
    </property>
   </action>
-  <action name="actionRemoveFromLibrary">
+  <!--action name="actionRemoveFromLibrary">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
@@ -1233,7 +1233,7 @@
    <property name="statusTip">
     <string>Remove selected item from library</string>
    </property>
-  </action>
+  </action-->
   <action name="actionStop">
    <property name="icon">
     <iconset resource="resource.qrc">
@@ -1353,7 +1353,7 @@
     <string>Set image for collection item</string>
    </property>
   </action>
-  <action name="actionLibrarySetImage">
+  <!--action name="actionLibrarySetImage">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
@@ -1364,7 +1364,7 @@
    <property name="statusTip">
     <string>Set image for library item</string>
    </property>
-  </action>
+  </action-->
   <action name="actionIconView">
    <property name="checkable">
     <bool>true</bool>
@@ -1689,7 +1689,7 @@
     <signal>addUrl(QUrl)</signal>
    </slots>
   </customwidget>
-  <customwidget>
+  <!--customwidget>
    <class>LibraryView</class>
    <extends>QListView</extends>
    <header>libraryview.h</header>
@@ -1697,7 +1697,7 @@
     <signal>addUrl(QUrl)</signal>
    </slots>
   </customwidget>
-  <!--customwidget>
+  <customwidget>
    <class>Info</class>
    <extends>QWidget</extends>
    <header>info.h</header>
@@ -2490,7 +2490,7 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+  <!--connection>
    <sender>actionAddToLibrary</sender>
    <signal>triggered()</signal>
    <receiver>libView</receiver>
@@ -2537,7 +2537,7 @@
      <y>489</y>
     </hint>
    </hints>
-  </connection>
+  </connection-->
   <connection>
    <sender>actionGetImageFromLastFM</sender>
    <signal>triggered()</signal>

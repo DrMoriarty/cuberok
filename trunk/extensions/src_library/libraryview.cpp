@@ -19,6 +19,7 @@
 
 #include "libraryview.h"
 #include "library_db.h"
+#include "libraryfiller.h"
 
 /************************
  * 
@@ -97,12 +98,11 @@ bool LibraryModel::dropMimeData ( const QMimeData * data, Qt::DropAction action,
 {
     if (data->hasUrls()) {
     	QString attrname("");
-		int param = 0;
     	if(parent.isValid()) {
 			attrname = this->itemFromIndex(parent)->data().toString();
 		}
     	QList<QUrl> urls = data->urls();
-    	CollectionFiller * cf = new CollectionFiller(urls, mode, attrname);
+    	LibraryFiller * cf = new LibraryFiller(urls, attrname);
     	connect(cf, SIGNAL(finished()), this, SLOT(update()));
     	cf->start();
         return true;
@@ -186,6 +186,11 @@ void LibraryModel::drawStars(QPixmap &bg, int rating, bool song)
 	bg = px;
 }
 
+/************************
+ * 
+ *  LibraryView
+ * 
+ ************************/
 
 LibraryView::LibraryView(QWidget *parent): QListView(parent)
 {

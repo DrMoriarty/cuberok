@@ -25,12 +25,13 @@
 
 #define DB_VERSION 0
 
-QSqlDatabase db;
+static QSqlDatabase db;
 
-LibraryDB::LibraryDB() :QObject(0)
+LibraryDB::LibraryDB(Proxy *pr) :QObject(0)
 {
+	proxy = pr;
     QMutexLocker locker(&lock);
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    db = QSqlDatabase::addDatabase("QSQLITE", "LibraryDB");
     db.setDatabaseName(QDir::homePath()+"/.cuberok/library.db");
     if(QFile::exists(db.databaseName())) {
         if(!db.open()) {
@@ -59,8 +60,9 @@ LibraryDB::LibraryDB() :QObject(0)
             open = false;
         } else {
             QSqlQuery q0("create table Version (value integer)", db);
-            QSqlQuery q1("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
+            QSqlQuery q1("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
             QSqlQuery q2("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
+			FillFromCollection();
             open = true;
         }
     }
@@ -70,6 +72,32 @@ LibraryDB::LibraryDB() :QObject(0)
 LibraryDB::~LibraryDB()
 {
     db.close();
+	QSqlDatabase::removeDatabase("LibraryDB");
+}
+
+void LibraryDB::FillFromCollection()
+{
+	QSqlDatabase cdb;
+    cdb = QSqlDatabase::addDatabase("QSQLITE");
+    cdb.setDatabaseName(QDir::homePath()+"/.cuberok/collection.db");
+    if(QFile::exists(db.databaseName())) {
+        if(cdb.open()) {
+            QSqlQuery q1("select value from Version", cdb);
+            int ver = 0;
+            if(q1.next()) ver = q1.value(0).toString().toInt();
+            if(ver <= 7) {
+				QSqlQuery q("", cdb);
+				q.prepare("select value, art from Playlist order by value ASC");
+				q.exec();
+				while(q.next()) {
+					QString list = q.value(0).toString();
+					AddPlaylist(list);
+					ArtForPlaylist(list, q.value(1).toString());
+				}
+			}
+			cdb.close();
+		}
+	}
 }
 
 bool LibraryDB::updateDatabase(int fromver)
@@ -79,16 +107,16 @@ bool LibraryDB::updateDatabase(int fromver)
 	}
     }
     proxy->message("LibraryDB update from version "+QString::number(fromver));
-    QSqlQuery q1("delete from Version");
-    QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")");
+    QSqlQuery q1("delete from Version", db);
+    QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
     return true;
 }
 
-LibraryDB& LibraryDB::Self()
+LibraryDB& LibraryDB::Self(Proxy *pr)
 {
     static QMutex mutex;
     QMutexLocker locker(&mutex);
-    static LibraryDB* instance = new LibraryDB();
+    static LibraryDB* instance = new LibraryDB(pr);
     return *instance;
 }
 
