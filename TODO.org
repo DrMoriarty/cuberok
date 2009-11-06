@@ -1,0 +1,22 @@
+* TODO Milestone 1.0.0 [0%]
+
+* TODO Milestone 0.1.1 [0%]
+** TODO Mega playlist/Mega collection [0/4]
+*** TODO Extended tag list
+*** TODO Extended tag editor
+*** TODO Extended collection
+*** TODO Extended playlist
+** TODO WinAmp style playlist
+** TODO Documentation/online help
+** TODO More web sources
+
+
+* TODO Milestone 0.1.0 [0%]
+** TODO Collection plugin
+** TODO Images for Info widget
+** TODO Rating for Info widget
+** TODO D-Bus control
+** TODO Fix lyrics.org plugin
+** TODO New about dialog
+** TODO Make true shuffle
+		  
