@@ -179,10 +179,14 @@ PlaylistAbstract::PlaylistAbstract(QString &str, QWidget *parent) : Playlist(str
 	timer.setSingleShot(true);
 	timer.setInterval(500);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
+	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
+	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
 }
 
 PlaylistAbstract::~PlaylistAbstract()
-{}
+{
+	model.disconnect();
+}
 
 QString PlaylistAbstract::getName()
 {
@@ -490,8 +494,6 @@ void PlaylistAbstract::findCurrent()
  ***********************/ 
 
 PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : PlaylistAbstract(str, parent){
-	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
-	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
 	view = new MyTreeView(str, model, parent);
 	connect(view, SIGNAL(needUpdate()), this, SLOT(updateStatus()));
 	connect(view, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
