@@ -76,9 +76,17 @@ void JamendoBrowser::replyFinished(QNetworkReply* reply)
 	QList< QStringList > data;
 	QStringList strs = str.split('\n');
 	foreach(QString s, strs) {
-		QString title, comment, id, url;
+		QString title, title_en, comment, id, url;
 		QStringList fields = s.split('\t');
+		if(fields.size() < 2) {
+			Console::Self().warning(tr("Jamendo: Wrong response '%1'").arg(s));
+			continue;
+		}
 		title = fields[1];
+		if(fields.size() >=4) {
+			QStringList ttt = fields[3].split('/');
+			title_en = ttt[ttt.size()-1];
+		}
 		comment = title;
 		switch(fields.size()) {
 		case 2: // song
@@ -94,7 +102,7 @@ void JamendoBrowser::replyFinished(QNetworkReply* reply)
 			listType = LIST_ARTIST;
 			break;
 		case 5: // tag
-			id = "http://www.jamendo.com/get2/id+name+rating+url/artist/plain/artist_tag/?order=weight&tag_idstr="+title;
+			id = "http://www.jamendo.com/get2/id+name+rating+url/artist/plain/artist_tag/?order=weight&tag_idstr="+title_en;
 			listType = LIST_GENRE;
 			break;
 		}
@@ -110,7 +118,7 @@ void JamendoBrowser::slotError(QNetworkReply::NetworkError)
 	QList< QStringList > data;
 	data << QStringList();
 	data[0] << tr("Network error!");
-	data[0] << tr("There is error during download data from the jamendo.com");
+	data[0] << tr("There is an error during download data from the jamendo.com");
 	data[0] << "";
 	data[0] << "";
 	emit list(data);
