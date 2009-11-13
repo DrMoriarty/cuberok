@@ -158,7 +158,7 @@ bool Database::updateDatabase(int fromver)
 		QSqlDatabase ldb;
 		ldb = QSqlDatabase::addDatabase("QSQLITE", "tempLibraryDB");
 		ldb.setDatabaseName(QDir::homePath()+"/.cuberok/library.db");
-		if(!QFile::exists(db.databaseName())) {
+		if(!QFile::exists(ldb.databaseName())) {
 			if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !ldb.open()) {
 				qDebug("Can not create library database");
 			} else {
@@ -167,20 +167,23 @@ bool Database::updateDatabase(int fromver)
 				QSqlQuery q2("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", ldb);
 				QSqlQuery q("select value, art from Playlist order by value ASC", db);
 				q.exec();
+				int records = 0;
 				while(q.next()) {
 					QSqlQuery q3("", ldb);
 					q3.prepare("insert into Playlist (value, art) values (:val, :art)");
 					q3.bindValue(":val", q.value(0).toString());
 					q3.bindValue(":art", q.value(1).toString());
 					q3.exec();
+					records ++;
 				}
 				ldb.close();
-				QSqlDatabase::removeDatabase("tempLibraryDB");
+				qDebug("%d records has been moved", records);
 			}
 		}
         QSqlQuery q2("drop table Playlist", db);
 		qDebug("Update database from version 7");
 	}
+		QSqlDatabase::removeDatabase("tempLibraryDB");
     }
     Console::Self().message("Database update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version", db);
