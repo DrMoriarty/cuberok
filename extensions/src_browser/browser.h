@@ -28,7 +28,7 @@ class Browser: public QObject
 {
 	Q_OBJECT
  public:
-	Browser(QObject *parent = 0):QObject(parent) {};
+	Browser(Proxy *pr, QObject *parent = 0):QObject(parent), proxy(pr) {};
 	~Browser() {};
 	virtual bool tagsAvailable() = 0;
 	virtual STags getTags(QStringList) = 0;
@@ -41,6 +41,8 @@ class Browser: public QObject
  signals:
 	// send list of vectors to owner
 	virtual void list(QList< QStringList >);
+ protected:
+	Proxy *proxy;
 };
 
 #endif // BROWSER_H

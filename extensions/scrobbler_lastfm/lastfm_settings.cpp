@@ -33,12 +33,14 @@ LastFMSettings::LastFMSettings(QWidget *parent) : QWidget(parent)
     checkBox_lastfmScrobbling->setFlat(true);
     checkBox_lastfmScrobbling->setCheckable(true);
     checkBox_lastfmScrobbling->setChecked(false);
+	checkBox_lastfmScrobbling->setTitle(QApplication::translate("LastFM", "Enable Last.FM scrobbling", 0, QApplication::UnicodeUTF8));
     gridLayout5 = new QGridLayout(checkBox_lastfmScrobbling);
     gridLayout5->setSpacing(4);
     gridLayout5->setMargin(0);
     gridLayout5->setObjectName(QString::fromUtf8("gridLayout5"));
     label_11 = new QLabel(checkBox_lastfmScrobbling);
     label_11->setObjectName(QString::fromUtf8("label_11"));
+	label_11->setText(QApplication::translate("LastFM", "User name", 0, QApplication::UnicodeUTF8));
 
     gridLayout5->addWidget(label_11, 0, 0, 1, 1);
 
@@ -49,6 +51,7 @@ LastFMSettings::LastFMSettings(QWidget *parent) : QWidget(parent)
 
     label_12 = new QLabel(checkBox_lastfmScrobbling);
     label_12->setObjectName(QString::fromUtf8("label_12"));
+	label_12->setText(QApplication::translate("LastFM", "Password", 0, QApplication::UnicodeUTF8));
 
     gridLayout5->addWidget(label_12, 1, 0, 1, 1);
 
@@ -70,6 +73,7 @@ LastFMSettings::LastFMSettings(QWidget *parent) : QWidget(parent)
 	checkBox_lastfmScrobbling->setChecked(set.value("lastfmScrobbler", false).toBool());
 	lineEdit_lastfmUser->setText(set.value("lastfmUser", "").toString());
 	lineEdit_lastfmPassword->setText(set.value("lastfmPassword", "").toString());
+
 }
 
 LastFMSettings::~LastFMSettings()

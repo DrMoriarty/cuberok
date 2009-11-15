@@ -20,7 +20,6 @@
 #include "browser_viewer.h"
 #include "magnatune_browser.h"
 #include "jamendo_browser.h"
-#include "console.h"
 
 BrowserList::BrowserList(QWidget*parent): QListWidget(parent), browser(0)
 {
@@ -65,8 +64,8 @@ QMimeData * BrowserList::mimeData ( const QList<QListWidgetItem *> items ) const
 	return mime;
 }
 
-BrowserViewer::BrowserViewer(QWidget * parent, Qt::WindowFlags f)
-	: QWidget(parent, f), browser(0)
+BrowserViewer::BrowserViewer(Proxy *pr, QWidget * parent, Qt::WindowFlags f)
+	: QWidget(parent, f), proxy(pr), browser(0)
 {
  	ui.setupUi(this);
 	connect(ui.listWidget, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(itemActivated(QListWidgetItem*)));
@@ -95,23 +94,23 @@ void BrowserViewer::browserChanged(int i)
 	case 0:  // empty
 		return;
 	case 1:  // MagnaTune
-		browser = new MagnatuneBrowser();
+		browser = new MagnatuneBrowser(proxy);
 		break;
 	case 2:  // Jamendo
-		browser = new JamendoBrowser();
+		browser = new JamendoBrowser(proxy);
 		break;
 	default:
 		return;
 	}
 	if(!connect(browser, SIGNAL(list(QList< QStringList >)), this, SLOT(putList(QList< QStringList >))))
-		Console::Self().error("Can't connect to browser.list");
+		proxy->error("Can't connect to browser.list");
 	ui.listWidget->browser = browser;
 	home();
 }
 
 void BrowserViewer::putList(QList< QStringList > list)
 {
-	Console::Self().log("Put "+QString::number(list.size())+" items into browser viewer");
+	proxy->log("Put "+QString::number(list.size())+" items into browser viewer");
 	ui.listWidget->clear();
 	foreach(QStringList item, list) {
 		if(item.size() >= 4 && item[0].size()) {
