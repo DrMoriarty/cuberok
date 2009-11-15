@@ -25,7 +25,7 @@
 
 #include <QtGui>
 
-class ExtensionProxy : Proxy {
+class ExtensionProxy : public Proxy {
 	Q_OBJECT
  public:
 	virtual ~ExtensionProxy();

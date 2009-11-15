@@ -31,7 +31,7 @@
 #include "messagewindow.h"
 #include "main.h"
 #include "extensionproxy.h"
-#include "extensionsettings.h"
+//#include "extensionsettings.h"
 
 #include <QDesktopServices>
 
@@ -508,7 +508,7 @@ void Cuberok::setPlayPauseIcon (bool playPause) {
 void Cuberok::timeSlot()
 {
 	// messages
-	if(useMessageWindow && messageQueue.size()) {
+	if(useMessageWindow && messageQueue.size() && !isActiveWindow()) {
 		QPair<QString, int> m = messageQueue.dequeue();
 		MessageWindow *mw = new MessageWindow(this, m.first, m.second);
 		mw->show();
@@ -582,8 +582,8 @@ void Cuberok::goToSite()
 	}
 }
 
-void Cuberok::setupExtensions()
+/*void Cuberok::setupExtensions()
 {
 	ExtensionSettings *es = new ExtensionSettings();
 	es->show();
-}
+	}*/

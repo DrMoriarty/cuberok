@@ -26,6 +26,7 @@
 #include <time.h>
 #endif // WIN32
 #include <QtGui>
+#include "interfaces.h"
 #include "playlist.h"
 #include "playlistmodel.h"
 #include "player.h"
@@ -73,7 +74,7 @@ class PlaylistAbstract : public Playlist
 {
 	Q_OBJECT
  public:
-	PlaylistAbstract(QString &str, QWidget *parent = 0);
+	PlaylistAbstract(QString &str, Proxy *pr, QWidget *parent = 0);
 	virtual ~PlaylistAbstract();
 	virtual QString getName();
 	virtual void setName(QString newname);
@@ -107,6 +108,7 @@ class PlaylistAbstract : public Playlist
 	void timerSlot();
 
  protected:
+	Proxy *proxy;
     PlaylistModel model;
 	bool autosave;
     bool playing;
@@ -135,7 +137,7 @@ class PlaylistStandard : public PlaylistAbstract
     Q_OBJECT
 	Q_INTERFACES(Playlist) 
 public:
-	PlaylistStandard(QString &str, QWidget *parent = 0);
+	PlaylistStandard(QString &str, Proxy* pr, QWidget *parent = 0);
     virtual ~PlaylistStandard();
 	virtual QWidget* getWidget();
 	virtual void setCurrent(int index);
@@ -170,8 +172,11 @@ class PlaylistStandardFactory : public PlaylistFactory
 	Q_INTERFACES(PlaylistFactory)
  public:
 	PlaylistStandardFactory();
+	virtual void setProxy(Proxy *pr);
 	virtual QStringList getAvailableTypes();
 	virtual Playlist* getNewPlaylist(QString type, QWidget* parent, QString name);
+ protected:
+	Proxy *proxy;
 };
 
 

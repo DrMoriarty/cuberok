@@ -18,11 +18,10 @@
  */
 
 #include "magnatune_browser.h"
-#include "playlistsettings.h"
 #include <QtXml>
-#include "console.h"
+#include <QTextDocument>
 
-MagnatuneBrowser::MagnatuneBrowser(QObject *parent) : Browser(parent)
+MagnatuneBrowser::MagnatuneBrowser(Proxy *pr, QObject *parent) : Browser(pr, parent)
 {
 	connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 }
@@ -43,8 +42,12 @@ STags MagnatuneBrowser::getTags(QStringList)
 
 void MagnatuneBrowser::GetList(QString comefrom, QString text)
 {
-	if(PLSet.proxyEnabled) {
-		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy, PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword));
+	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
+		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy,
+									   proxy->getVariable("proxyHost"),
+									   proxy->getVariable("proxyPort").toInt(),
+									   proxy->getVariable("proxyUser"),
+									   proxy->getVariable("proxyPassword")));
 	}
 	if(!comefrom.size() || comefrom[0] != '/') comefrom = "/microbrowse/" + comefrom;
 	reply = manager.get(QNetworkRequest(QUrl("http://magnatune.com" + comefrom)));
@@ -55,7 +58,7 @@ void MagnatuneBrowser::replyFinished(QNetworkReply* reply)
 {
 	reply->disconnect();
 	QString str = QString::fromUtf8((const char*)reply->readAll());
-	Console::Self().log("Magnatune response:" + str);
+	proxy->log("Magnatune response:" + str);
 	if(str.indexOf("xspf") > 0) {
 		QString url, title;
 		int st = str.indexOf("playlist_url=");
@@ -87,7 +90,7 @@ void MagnatuneBrowser::replyFinished(QNetworkReply* reply)
 	QTextDocument tdoc;
 	tdoc.setHtml(str);
 	if(!doc.setContent(tdoc.toHtml(), &errString, &errLine, &errColumn)) {
-		Console::Self().error(tr("MagnaTune error: %1 at line %2 column %3").arg(errString).arg(QString::number(errLine)).arg(QString::number(errColumn)));
+		proxy->error(tr("MagnaTune error: %1 at line %2 column %3").arg(errString).arg(QString::number(errLine)).arg(QString::number(errColumn)));
 		return;
 	}
 	QDomNodeList l = doc.elementsByTagName("a");

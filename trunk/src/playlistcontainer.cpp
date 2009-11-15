@@ -24,6 +24,7 @@
 #include "url_open.h"
 //#include "lastfm.h"
 #include "console.h"
+#include "extensionproxy.h"
 
 Q_IMPORT_PLUGIN(playlist_standard)
 
@@ -42,6 +43,7 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		PlaylistFactory *pf = qobject_cast<PlaylistFactory *>(plugin);
 		if (pf) {
+			pf->setProxy(&ExtensionProxy::Self());
 			factories.push_back(pf);
 		}
 	}

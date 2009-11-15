@@ -18,11 +18,9 @@
  */
 
 #include "jamendo_browser.h"
-#include "playlistsettings.h"
-#include "console.h"
 
-JamendoBrowser::JamendoBrowser(QObject *owner)
-	:Browser(owner), listType(LIST_NONE)
+JamendoBrowser::JamendoBrowser(Proxy *pr, QObject *owner)
+	:Browser(pr, owner), listType(LIST_NONE)
 {
 	connect(&manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 }
@@ -48,8 +46,12 @@ STags JamendoBrowser::getTags(QStringList list)
 
 void JamendoBrowser::GetList(QString comefrom, QString text)
 {
-	if(PLSet.proxyEnabled) {
-		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy, PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword));
+	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
+		manager.setProxy(QNetworkProxy(QNetworkProxy::HttpProxy,
+									   proxy->getVariable("proxyHost"),
+									   proxy->getVariable("proxyPort").toInt(),
+									   proxy->getVariable("proxyUser"),
+									   proxy->getVariable("proxyPassword")));
 	}
 	if(!comefrom.size()) comefrom = "http://api.jamendo.com/get2/id+name+rating+url+weight/tag/plain/?order=rating_desc";
 	comefrom += "&n=50";
@@ -72,14 +74,14 @@ void JamendoBrowser::replyFinished(QNetworkReply* reply)
 {
 	reply->disconnect();
 	QString str = QString::fromUtf8((const char*)reply->readAll());
-	Console::Self().log("Jamendo response:" + str);
+	proxy->log("Jamendo response:" + str);
 	QList< QStringList > data;
 	QStringList strs = str.split('\n');
 	foreach(QString s, strs) {
 		QString title, title_en, comment, id, url;
 		QStringList fields = s.split('\t');
 		if(fields.size() < 2) {
-			Console::Self().warning(tr("Jamendo: Wrong response '%1'").arg(s));
+			proxy->warning(tr("Jamendo: Wrong response '%1'").arg(s));
 			continue;
 		}
 		title = fields[1];

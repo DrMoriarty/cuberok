@@ -8,32 +8,50 @@
         <translation type="unfinished">О Программе</translation>
     </message>
     <message>
+        <source>About</source>
+        <translation type="unfinished">О Программе</translation>
+    </message>
+    <message>
         <source>Cuberok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>v 0.0.0</source>
+        <source>Version 0.0.0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;©Vasiliy Makarov, 2008-2009&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://sites.google.com/site/cuberok/&quot;&gt;https://sites.google.com/site/cuberok/&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;License: &lt;a href=&quot;www.gnu.org/licenses/gpl-3.0.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#000000;&quot;&gt;In Cuberok used code of QTagConvert&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; color:#000000;&quot;&gt;&lt;a href=&quot;http://sourceforge.net/projects/qtagconvert/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://sourceforge.net/projects/qtagconvert/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; color:#000000;&quot;&gt;(C) 2007-2008 Skala &amp;lt;&lt;a href=&quot;mailto:skala@users.sourceforge.net&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;skala@users.sourceforge.net&lt;/span&gt;&lt;/a&gt;&amp;gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; color:#000000;&quot;&gt;(C) 2009 DrMoriarty &amp;lt;&lt;a href=&quot;mailto:drmoriarty.0@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;drmoriarty.0@gmail.com&lt;/span&gt;&lt;/a&gt;&amp;gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>Authors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Copyright (C) 2008-2009 &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Vasiliy Makarov&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;a href=&quot;mailto:drmoriarty.0@gmail.com&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;drmoriarty.0@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://sites.google.com/site/cuberok/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;https://sites.google.com/site/cuberok/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Please, send bug reports to &lt;a href=&quot;http://code.google.com/p/cuberok/issues/entry&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://code.google.com/p/cuberok/issues/entry&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vasiliy Makarov&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:drmoriarty.0@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;drmoriarty.0@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Developer&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;nomen.infitior&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:nomen.infitior@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;nomen.infitior@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Developer, tester&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Delidov.George&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://delidov.ru&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://delidov.ru&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Designer&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Informaton</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -800,10 +818,6 @@ p, li { white-space: pre-wrap; }
         <source>Cuberok online</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Extensions</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CueControl</name>
@@ -1298,11 +1312,31 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>There is error during download data from the jamendo.com</source>
-        <translation type="unfinished">Произошла ошибка в процессе получения данных с jamendo.com</translation>
+        <translation type="obsolete">Произошла ошибка в процессе получения данных с jamendo.com</translation>
+    </message>
+    <message>
+        <source>Jamendo: Wrong response &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is an error during download data from the jamendo.com</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LastFM</name>
+    <message>
+        <source>Enable Last.FM scrobbling</source>
+        <translation type="unfinished">Включить Last.FM scrobbling</translation>
+    </message>
+    <message>
+        <source>User name</source>
+        <translation type="unfinished">Пользователь</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Пароль</translation>
+    </message>
     <message>
         <source>Last.FM Scrobbler</source>
         <translation type="unfinished"></translation>
@@ -1367,6 +1401,18 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>LibreFM</name>
+    <message>
+        <source>Enable Libre.FM scrobbling</source>
+        <translation type="unfinished">Включить скробблинг Libre.FM</translation>
+    </message>
+    <message>
+        <source>User name</source>
+        <translation type="unfinished">Пользователь</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Пароль</translation>
+    </message>
     <message>
         <source>Libre.FM Scrobbler</source>
         <translation type="unfinished"></translation>
@@ -1737,7 +1783,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Enable Last.FM scrobbling</source>
-        <translation type="unfinished">Включить Last.FM scrobbling</translation>
+        <translation type="obsolete">Включить Last.FM scrobbling</translation>
     </message>
     <message>
         <source>Hide nameless albums</source>
@@ -1773,11 +1819,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Scrobbling</source>
-        <translation type="unfinished">Скробблинг</translation>
+        <translation type="obsolete">Скробблинг</translation>
     </message>
     <message>
         <source>Enable Libre.FM scrobbling</source>
-        <translation type="unfinished">Включить скробблинг Libre.FM</translation>
+        <translation type="obsolete">Включить скробблинг Libre.FM</translation>
     </message>
     <message>
         <source>Check existance of CUE image</source>
@@ -1786,6 +1832,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Check image path in CUE sheets</source>
         <translation type="unfinished">Проверять путь образа в CUE файлах</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Настройки</translation>
+    </message>
+    <message>
+        <source>Extensions</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Current engine is &apos;%1&apos;</source>

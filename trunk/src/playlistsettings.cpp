@@ -37,13 +37,6 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 	proxyUser = set.value("proxyUser", "").toString();
 	proxyPassword = set.value("proxyPassword", "").toString();
 
-	lastfmScrobbler = set.value("lastfmScrobbler", false).toBool();
-	lastfmUser = set.value("lastfmUser", "").toString();
-	lastfmPassword = set.value("lastfmPassword", "").toString();
-	librefmScrobbler = set.value("librefmScrobbler", false).toBool();
-	librefmUser = set.value("librefmUser", "").toString();
-	librefmPassword = set.value("librefmPassword", "").toString();
-
 	hideEmptyInCollection = set.value("hideEmptyInCollection", false).toBool();
 
 	cacheInfo = set.value("cacheInfo", true).toBool();
@@ -87,13 +80,6 @@ void PlaylistSettings::save()
 	set.setValue("proxyPort", proxyPort);
 	set.setValue("proxyUser", proxyUser);
 	set.setValue("proxyPassword", proxyPassword);
-
-	set.setValue("lastfmScrobbler", lastfmScrobbler);
-	set.setValue("lastfmUser", lastfmUser);
-	set.setValue("lastfmPassword", lastfmPassword);
-	set.setValue("librefmScrobbler", librefmScrobbler);
-	set.setValue("librefmUser", librefmUser);
-	set.setValue("librefmPassword", librefmPassword);
 
 	set.setValue("hideEmptyInCollection", hideEmptyInCollection);
 

@@ -11,12 +11,12 @@
 ** TODO More web sources
 
 
-* TODO Milestone 0.1.0 [0%]
+* TODO Milestone 0.1.0 [14%]
 ** TODO Collection plugin
 ** TODO Images for Info widget
 ** TODO Rating for Info widget
 ** TODO D-Bus control
 ** TODO Fix lyrics.org plugin
-** TODO New about dialog
+** DONE New about dialog
 ** TODO Make true shuffle
 		  

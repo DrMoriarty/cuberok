@@ -27,7 +27,7 @@ class JamendoBrowser: public Browser
 {
 	Q_OBJECT
  public:
-	JamendoBrowser(QObject *owner=0);
+	JamendoBrowser(Proxy *pr, QObject *owner=0);
 	~JamendoBrowser();
 	virtual void GetList(QString = "", QString = "");
 	virtual bool tagsAvailable();

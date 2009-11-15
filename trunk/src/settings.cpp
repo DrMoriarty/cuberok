@@ -22,10 +22,13 @@
 #include "tagger.h"
 #include "playlistsettings.h"
 #include "main.h"
+#include "extensionsettings.h"
 
 Settings::Settings(QWidget *parent): QDialog(parent)
 {
 	ui.setupUi(this);
+	ui.tabWidget->addTab(new ExtensionSettings(), tr("Extensions"));
+
 	QSettings set;
 	auto_engine = tr("Auto");
 	ui.comboBox_engine->addItem(auto_engine);
@@ -87,14 +90,6 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.spinBox_proxyPort->setValue(PLSet.proxyPort);
 	ui.lineEdit_proxyUser->setText(PLSet.proxyUser);
 	ui.lineEdit_proxyPassword->setText(PLSet.proxyPassword);
-
-	ui.checkBox_lastfmScrobbling->setChecked(PLSet.lastfmScrobbler);
-	ui.lineEdit_lastfmUser->setText(PLSet.lastfmUser);
-	ui.lineEdit_lastfmPassword->setText(PLSet.lastfmPassword);
-
-	ui.checkBox_librefmScrobbling->setChecked(PLSet.librefmScrobbler);
-	ui.lineEdit_librefmUser->setText(PLSet.librefmUser);
-	ui.lineEdit_librefmPassword->setText(PLSet.librefmPassword);
 
 	ui.checkBox_cacheInfo->setChecked(PLSet.cacheInfo);
 
@@ -159,14 +154,6 @@ void Settings::accept()
 	PLSet.proxyPort = ui.spinBox_proxyPort->value();
 	PLSet.proxyUser = ui.lineEdit_proxyUser->text();
 	PLSet.proxyPassword = ui.lineEdit_proxyPassword->text();
-
-	PLSet.lastfmScrobbler = ui.checkBox_lastfmScrobbling->isChecked();
-	PLSet.lastfmUser = ui.lineEdit_lastfmUser->text();
-	PLSet.lastfmPassword = ui.lineEdit_lastfmPassword->text();
-
-	PLSet.librefmScrobbler = ui.checkBox_librefmScrobbling->isChecked();
-	PLSet.librefmUser = ui.lineEdit_librefmUser->text();
-	PLSet.librefmPassword = ui.lineEdit_librefmPassword->text();
 
 	PLSet.cacheInfo = ui.checkBox_cacheInfo->isChecked();
 

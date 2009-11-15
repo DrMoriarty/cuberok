@@ -26,7 +26,7 @@
 #include "starrating.h"
 #include "playlistsettings.h"
 //#include "lastfm.h"
-#include "console.h"
+//#include "console.h"
 //#include "librefm.h"
 #include "extensionproxy.h"
 
@@ -173,8 +173,8 @@ void MyTreeView::showEvent ( QShowEvent * event )
  * 
  ***********************/ 
 
-PlaylistAbstract::PlaylistAbstract(QString &str, QWidget *parent) : Playlist(str, parent)
-, autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+PlaylistAbstract::PlaylistAbstract(QString &str, Proxy *pr, QWidget *parent) : Playlist(str, parent)
+, proxy(pr), autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
 	timer.setSingleShot(true);
 	timer.setInterval(500);
@@ -271,7 +271,7 @@ void PlaylistAbstract::loadList(QString fname)
 void PlaylistAbstract::addUrl(QUrl url)
 {
 	QList<TagEntry> list = Tagger::readEntry(url);
-	Console::Self().log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
+	proxy->log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
 	model.appendList(list);
 }
 
@@ -448,7 +448,7 @@ void PlaylistAbstract::rateSong(QModelIndex &ind, int r, int offset)
 		}
 		Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating+r);
 	}
-	Console::Self().log((r>0?"rate up ":"rate down ") + title);
+	proxy->log((r>0?"rate up ":"rate down ") + title);
 }
 
 int PlaylistAbstract::curIndex()
@@ -493,7 +493,7 @@ void PlaylistAbstract::findCurrent()
  * 
  ***********************/ 
 
-PlaylistStandard::PlaylistStandard(QString &str, QWidget *parent) : PlaylistAbstract(str, parent){
+PlaylistStandard::PlaylistStandard(QString &str, Proxy *pr, QWidget *parent) : PlaylistAbstract(str, pr, parent){
 	view = new MyTreeView(str, model, parent);
 	connect(view, SIGNAL(needUpdate()), this, SLOT(updateStatus()));
 	connect(view, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
@@ -532,8 +532,7 @@ void PlaylistStandard::play()
 	disconnect(&PlayerManager::Self(), SIGNAL(position(double)), 0, 0);
 	if(PlayerManager::Self().playing()) PlayerManager::Self().close();
 	if(!PlayerManager::Self().open(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl(), model.data(model.index(plindex.row(), PlaylistModel::CueStart), Qt::DisplayRole).toLongLong(), model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong())) {
-		Console::Self().error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
-		//Console::Self().error(ToLocalFile(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl()));
+		proxy->error(tr("Can not open %1").arg(model.data(model.index(plindex.row(), PlaylistModel::File), Qt::UserRole).toUrl().toString()));
 		playing = false;
 		error_count ++;
 		if(error_count < 5) next();
@@ -562,7 +561,7 @@ void PlaylistStandard::play()
 	t.tag0.album = alb;
 	t.tag0.track = n;
 	t.tag0.length = len * 75;
-	ExtensionProxy::Self().setTags(t);
+	proxy->setTags(t);
 
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
@@ -751,8 +750,13 @@ void PlaylistStandard::setCurrent(int index)
  * 
  ***********************/ 
 
-PlaylistStandardFactory::PlaylistStandardFactory()
+PlaylistStandardFactory::PlaylistStandardFactory() : proxy(0)
 {}
+
+void PlaylistStandardFactory::setProxy(Proxy *pr)
+{
+	proxy = pr;
+}
 
 QStringList PlaylistStandardFactory::getAvailableTypes()
 {
@@ -763,7 +767,7 @@ QStringList PlaylistStandardFactory::getAvailableTypes()
 }
 
 Playlist* PlaylistStandardFactory::getNewPlaylist(QString type, QWidget* parent, QString name) {
-	if(type == "Standard") return new PlaylistStandard(name, parent);
+	if(type == "Standard") return new PlaylistStandard(name, proxy, parent);
 //	if(type == "WinAmp style") return new PlaylistWinamp(name, parent);
 	return 0;
 };

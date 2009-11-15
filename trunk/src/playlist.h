@@ -21,6 +21,7 @@
 #define PLAYLIST_H
 
 #include <QtGui>
+#include "interfaces.h"
 
 class Playlist: public QObject
 {
@@ -71,6 +72,7 @@ class PlaylistFactory: public QObject
 {
 	Q_OBJECT
  public:
+	virtual void setProxy(Proxy *pr) = 0;
 	virtual QStringList getAvailableTypes() = 0;
 	virtual Playlist* getNewPlaylist(QString type, QWidget* parent, QString name) = 0;
 };

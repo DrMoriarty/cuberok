@@ -88,7 +88,7 @@ public slots:
 
 	void showHelp();
 	void goToSite();
-	void setupExtensions();
+	//void setupExtensions();
 };
 
 #endif // CUBEROK_H

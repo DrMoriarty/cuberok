@@ -33,7 +33,7 @@ Src_Browser::~Src_Browser()
 bool Src_Browser::prepare()
 {
 	QSettings set;
-	if(proxy) widget = new BrowserViewer();
+	if(proxy) widget = new BrowserViewer(proxy);
 	return widget;
 }
 

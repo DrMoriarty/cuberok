@@ -33,12 +33,14 @@ LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
     checkBox_librefmScrobbling->setFlat(true);
     checkBox_librefmScrobbling->setCheckable(true);
     checkBox_librefmScrobbling->setChecked(false);
+	checkBox_librefmScrobbling->setTitle(QApplication::translate("LibreFM", "Enable Libre.FM scrobbling", 0, QApplication::UnicodeUTF8));
     gridLayout5 = new QGridLayout(checkBox_librefmScrobbling);
     gridLayout5->setSpacing(4);
     gridLayout5->setMargin(0);
     gridLayout5->setObjectName(QString::fromUtf8("gridLayout5"));
     label_11 = new QLabel(checkBox_librefmScrobbling);
     label_11->setObjectName(QString::fromUtf8("label_11"));
+	label_11->setText(QApplication::translate("LibreFM", "User name", 0, QApplication::UnicodeUTF8));
 
     gridLayout5->addWidget(label_11, 0, 0, 1, 1);
 
@@ -49,6 +51,7 @@ LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
 
     label_12 = new QLabel(checkBox_librefmScrobbling);
     label_12->setObjectName(QString::fromUtf8("label_12"));
+	label_12->setText(QApplication::translate("LibreFM", "Password", 0, QApplication::UnicodeUTF8));
 
     gridLayout5->addWidget(label_12, 1, 0, 1, 1);
 

@@ -41,7 +41,7 @@ class BrowserViewer: public QWidget
 {
 	Q_OBJECT
  public:
-	BrowserViewer( QWidget * parent = 0, Qt::WindowFlags f = 0 );
+	BrowserViewer( Proxy *pr, QWidget * parent = 0, Qt::WindowFlags f = 0 );
 	~BrowserViewer();
 	void storeState();
  public slots:
@@ -54,6 +54,7 @@ class BrowserViewer: public QWidget
 	//void openUrl(QUrl);
  private:
     Ui::BrowserViewer ui;
+	Proxy *proxy;
 	Browser *browser;
 	QStringList history;
 	QString current;
