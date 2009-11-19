@@ -17,27 +17,46 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef INFOWINDOW_H
-#define INFOWINDOW_H
+#ifndef LYRIC_H
+#define LYRIC_H
 
 #include <QtCore>
-#include <QtGui>
-#include "ui_infowindow.h"
+#include <QtNetwork>
 #include "interfaces.h"
 
-class InfoWindow: public QDialog
+class Lyric : public Extension
 {
 	Q_OBJECT
+	Q_INTERFACES(Extension) 
+
  public:
-	InfoWindow(Proxy* pr, QWidget *parent=0);
-	~InfoWindow();
+	Lyric();
+	virtual ~Lyric();
 
- public slots:
-	void setText(QString);
-
+	virtual bool prepare();
+	virtual bool ready();
+	virtual void update(int);
+	virtual QString getName();
+	virtual QWidget* getWidget();
+	virtual QWidget* getSetupWidget();
+	virtual int getDisturbs();
+	
  private:
-	Ui::InfoWindow ui;
-	Proxy *proxy;
+	QNetworkAccessManager *manager;
+	QNetworkReply *reply;
+	int searchType;
+	bool foundUrl;
+	QString url;
+	
+	void getSong(QString artist, QString song);
+	QString getLuckyLink(QString json);
+	static int parseString(Lyric* that, const unsigned char * stringVal, unsigned int stringLen);
+	static int parseMapKey(Lyric* that, const unsigned char * stringVal, unsigned int stringLen);
+
+ private slots:
+	void replyFinished(QNetworkReply*);
+	void slotError(QNetworkReply::NetworkError);
+
 };
 
-#endif // INFOWINDOW_H
+#endif // LYRIC_H

@@ -11,12 +11,15 @@
 ** TODO More web sources
 
 
-* TODO Milestone 0.1.0 [14%]
+* TODO Milestone 0.1.0 [28%]
+** DONE New about dialog
+*** TODO Translator tab
+** DONE Fix lyrics.org plugin
+   - Note taken on [2009-11-19 Чтв 22:14] \\
+     new dependency library - yajl
 ** TODO Collection plugin
 ** TODO Images for Info widget
 ** TODO Rating for Info widget
-** TODO D-Bus control
-** TODO Fix lyrics.org plugin
-** DONE New about dialog
 ** TODO Make true shuffle
+** TODO D-Bus control
 		  

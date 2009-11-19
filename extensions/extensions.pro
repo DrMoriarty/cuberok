@@ -7,4 +7,5 @@ SUBDIRS      += \
 		src_filebrowser \
 		info_lastfm \
 		src_browser \
-		src_library 
+		src_library \
+		info_lyric 

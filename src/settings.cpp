@@ -22,6 +22,7 @@
 #include "tagger.h"
 #include "playlistsettings.h"
 #include "main.h"
+#include "extensionproxy.h"
 #include "extensionsettings.h"
 
 Settings::Settings(QWidget *parent): QDialog(parent)
@@ -104,8 +105,8 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.comboBox_defaultPlayer->setCurrentIndex(ui.comboBox_defaultPlayer->findText(PLSet.defaultPlayer));
 
 	ui.groupBox_popupMessages->setChecked(PLSet.popupMessage);
-	ui.comboBox_popupSize->setCurrentIndex(PLSet.popupSize);
-	switch(PLSet.popupPosition) {
+	ui.comboBox_popupSize->setCurrentIndex(EProxy.getVariable("popupSize").toInt());
+	switch(EProxy.getVariable("popupPosition").toInt()) {
 	case 0:
 		ui.radioButton_ptl->setChecked(true);
 		break;
@@ -172,11 +173,11 @@ void Settings::accept()
 	}
 	PLSet.defaultPlayer = ui.comboBox_defaultPlayer->currentText();
 	PLSet.popupMessage = ui.groupBox_popupMessages->isChecked();
-	PLSet.popupSize = ui.comboBox_popupSize->currentIndex();
-	if(ui.radioButton_ptl->isChecked()) PLSet.popupPosition = 0;
-	else if(ui.radioButton_ptr->isChecked()) PLSet.popupPosition = 1;
-	else if(ui.radioButton_pbl->isChecked()) PLSet.popupPosition = 2;
-	else if(ui.radioButton_pbr->isChecked()) PLSet.popupPosition = 3;
+	EProxy.setVariable("popupSize", QString::number(ui.comboBox_popupSize->currentIndex()));
+	if(ui.radioButton_ptl->isChecked()) EProxy.setVariable("popupPosition", "0");
+	else if(ui.radioButton_ptr->isChecked()) EProxy.setVariable("popupPosition", "1");
+	else if(ui.radioButton_pbl->isChecked()) EProxy.setVariable("popupPosition", "2");
+	else if(ui.radioButton_pbr->isChecked()) EProxy.setVariable("popupPosition", "3");
 
 	PLSet.save();
 	QDialog::accept();

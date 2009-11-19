@@ -19,14 +19,17 @@
 
 #include "messagewindow.h"
 #include "console.h"
-#include "playlistsettings.h"
+#include "extensionproxy.h"
 
 int WSIZE = 100;
 
 MessageWindow::MessageWindow(QMainWindow *mw, QString mes, int type)
     :QWidget(0, Qt::ToolTip), closing(false), iterate(0), mainwindow(mw)
 {
-	switch(PLSet.popupSize) {
+	int size = 0;
+	if(EProxy.hasVariable("popupSize"))
+		size = EProxy.getVariable("popupSize").toInt();
+	switch(size) {
 	case 0:
 		WSIZE = 100;
 		break;
@@ -102,9 +105,12 @@ void MessageWindow::updateSize()
 void MessageWindow::setSizePos(float s)
 {
 	QPoint p;
+	int position = 0;
+	if(EProxy.hasVariable("popupPosition"))
+		position = EProxy.getVariable("popupPosition").toInt();
 	if(mainwindow->isActiveWindow())
 		p = mainwindow->pos() + QPoint(0, mainwindow->frameGeometry().height() - WSIZE);
-	else switch(PLSet.popupPosition) {
+	else switch(position) {
 		case 0:
 			p = QPoint((1.f-s)*(-WSIZE), 0);
 			break;

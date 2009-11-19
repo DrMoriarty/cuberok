@@ -1,3 +1,6 @@
+Version 0.1.0rc1
+	Remake Lyric search plugin. Now we use Lucky Google instead LyricWiki.org. New dependency is yajl.
+	New plugin system. All extensions will be rewritten.
 	Smart auto engine. You can select preferred backends for mime-types.
 	Fix flac playing in the ffmpeg backend
 

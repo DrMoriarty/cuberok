@@ -1,5 +1,5 @@
 /* Cuberok
- * Copyright (C) 2008 Vasiliy Makarov <drmoriarty.0@gmail.com>
+ * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -16,33 +16,25 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+ 
+#ifndef LYRICWIDGET_H
+#define LYRICWIDGET_H
 
-#ifndef LYRICWIKI_H
-#define LYRICWIKI_H
+#include <QtGui>
+#include "interfaces.h"
 
-#include <QtCore>
-#include <QtNetwork>
-
-class LyricWiki : public QObject
+class LyricWidget : public QWidget
 {
 	Q_OBJECT
-
  public:
-	static LyricWiki& Self();
-	~LyricWiki();
-
-	void getSong(QString artist, QString song);
+	LyricWidget(Proxy *pr, QWidget *parent = 0);
+	~LyricWidget();
 
  private:
-	LyricWiki();
-	QHttp http;
-
- private slots:
-	void requestFinished(int, bool);
-	void requestStarted(int);
-
- signals:
-	void xmlInfo(QString);
+	Proxy *proxy;
+    QVBoxLayout *vLayout;
+    QLabel *label_1;
+	QComboBox *comboBox;
 };
 
-#endif // LYRICWIKI_H
+#endif //LYRICWIDGET_H
