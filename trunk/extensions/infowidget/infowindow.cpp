@@ -17,9 +17,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <QtXml>
 #include "infowindow.h"
 
-InfoWindow::InfoWindow(QWidget *parent) : QDialog(parent)
+InfoWindow::InfoWindow(Proxy *pr, QWidget *parent) : QDialog(parent), proxy(pr)
 {
 	ui.setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -31,5 +32,27 @@ InfoWindow::~InfoWindow()
 
 void InfoWindow::setText(QString text)
 {
+	/*
+	// remove any <img> tags from html
+	QDomDocument doc;
+	QString errString;
+	int errLine = 0, errColumn = 0;
+	QTextDocument tdoc;
+	tdoc.setHtml(text);
+	if(!doc.setContent(tdoc.toHtml(), &errString, &errLine, &errColumn)) {
+		proxy->error(tr("Info window error: %1 at line %2 column %3").arg(errString).arg(QString::number(errLine)).arg(QString::number(errColumn)));
+		return;
+	}
+	QDomNodeList l = doc.elementsByTagName("img");
+	for(int i=0; i<l.size(); i++) {
+		QDomNode parent = l.at(i).parentNode();
+		if(parent.isNull()) continue;
+		parent = parent.removeChild(l.at(i));
+		if(parent.isNull()) {
+			proxy->warning("Info window: can't remove img tag");
+			// error
+		}
+	}
+	*/
 	ui.textEdit->document()->setHtml(text);
 }

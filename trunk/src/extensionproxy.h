@@ -1,7 +1,7 @@
 /* Cuberok
  * Copyright (C) 2009 Vasiliy Makarov <drmoriarty.0@gmail.com>
  *
- * This program is free software; you can redistribute it and/or
+n * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
@@ -24,6 +24,8 @@
 #include "global.h"
 
 #include <QtGui>
+
+#define EProxy ExtensionProxy::Self()
 
 class ExtensionProxy : public Proxy {
 	Q_OBJECT
@@ -52,7 +54,7 @@ class ExtensionProxy : public Proxy {
 
 	virtual bool hasVariable(QString varname);
 	virtual QString getVariable(QString varname);
-	void setVariable(QString varname, QString value);
+	virtual void setVariable(QString varname, QString value);
 
 	virtual void log(QString);
 	virtual void message(QString);

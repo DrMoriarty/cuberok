@@ -380,7 +380,7 @@ void Info::showArtist()
 		delete w_ar;
 		w_ar = 0;
 	} else {
-		w_ar = new InfoWindow(this);
+		w_ar = new InfoWindow(proxy, this);
 		w_ar->setWindowTitle(ar);
 		connect(w_ar, SIGNAL( destroyed(QObject*)), this, SLOT(artistClosed(QObject*)));
 		w_ar->show();
@@ -398,7 +398,7 @@ void Info::showAlbum()
 		delete w_al;
 		w_al = 0;
 	} else {
-		w_al = new InfoWindow(this);
+		w_al = new InfoWindow(proxy, this);
 		w_al->setWindowTitle(al);
 		connect(w_al, SIGNAL( destroyed(QObject*)), this, SLOT(albumClosed(QObject*)));
 		w_al->show();
@@ -416,7 +416,7 @@ void Info::showLyric()
 		delete w_ly;
 		w_ly = 0;
 	} else {
-		w_ly = new InfoWindow(this);
+		w_ly = new InfoWindow(proxy, this);
 		w_ly->setWindowTitle(so);
 		connect(w_ly, SIGNAL( destroyed(QObject*)), this, SLOT(lyricClosed(QObject*)));
 		w_ly->show();

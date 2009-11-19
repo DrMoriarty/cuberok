@@ -47,7 +47,7 @@ HEADERS += \
 #           libraryview.h \
 #           librefm.h \
            lookandfeel.h \
-           lyricwiki.h \
+#           lyricwiki.h \
 #           magnatune_browser.h \
            main.h \
 #           marklistwidget.h \
@@ -115,7 +115,7 @@ SOURCES += aboutdialog.cpp \
 #           libraryview.cpp \
 #           librefm.cpp \
            lookandfeel.cpp \
-           lyricwiki.cpp \
+#           lyricwiki.cpp \
 #           magnatune_browser.cpp \
            main.cpp \
 #           marklistwidget.cpp \
@@ -204,13 +204,15 @@ CUBEROK_STATIC_PLUGINS = \
 	src_filebrowser \
 	info_lastfm \
 	src_browser \
-	src_library
+	src_library \
+	info_lyric 
 
 LIBS += -L$${DESTDIR}/plugins 
 for(p, CUBEROK_STATIC_PLUGINS) {
 	LIBS += -l$${p}
 	POST_TARGETDEPS += $${DESTDIR}/plugins/lib$${p}.a
 }
+LIBS += -lyajl
 #LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm -lscrobbler_lastfm -linfowidget -lsrc_filebrowser -linfo_lastfm -lsrc_browser -lsrc_library
 #POST_TARGETDEPS += $${DESTDIR}/plugins/libplayer_void.a $${DESTDIR}/plugins/libplaylist_standard.a $${DESTDIR}/plugins/libscrobbler_lastfm.a $${DESTDIR}/plugins/libinfowidget.a $${DESTDIR}/plugins/libsrc_filebrowser.a $${DESTDIR}/plugins/libinfo_lastfm.a $${DESTDIR}/plugins/libsrc_browser.a $${DESTDIR}/plugins/libsrc_library.a
 

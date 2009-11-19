@@ -27,9 +27,18 @@ Q_IMPORT_PLUGIN(src_filebrowser)
 Q_IMPORT_PLUGIN(info_lastfm)
 Q_IMPORT_PLUGIN(src_browser)
 Q_IMPORT_PLUGIN(src_library)
+Q_IMPORT_PLUGIN(info_lyric)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
+	// loading variables
+	QSettings set;
+	set.beginGroup("proxy_settings");
+	QStringList vars = set.childKeys();
+	foreach(QString var, vars)
+		variables[var] = set.value(var).toString();
+	set.endGroup();
+
 	// loading extensions
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		Extension *ex = qobject_cast<Extension *>(plugin);
@@ -44,7 +53,6 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
 	pluginsDir.cd(CUBEROK_PLUGINS);
 	qDebug((const char*)("Extension dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
-	QSettings set;
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		if(!QLibrary::isLibrary(fileName)) continue;
 	    qDebug((const char*)("Try to load extension " + fileName).toLocal8Bit());
@@ -139,15 +147,25 @@ void ExtensionProxy::setUrl(QUrl u)
 void ExtensionProxy::setInfo(SInfo i)
 {
 	info[i.type] = i;
-	if(transaction) transflag |= DisturbOnInfo;
-	else update(DisturbOnInfo);
+	if(transaction) {
+		transflag |= DisturbOnInfo;
+		log("Proxy: info in transaction");
+	} else {
+		log("Proxy: info");
+		update(DisturbOnInfo);
+	}
 }
 
 void ExtensionProxy::setRequest(SRequest r)
 {
 	request = r;
-	if(transaction) transflag |= DisturbOnRequest;
-	else update(DisturbOnRequest);
+	if(transaction) {
+		transflag |= DisturbOnRequest;
+		log("Proxy: request in transaction");
+	} else {
+		log("Proxy: request");
+		update(DisturbOnRequest);
+	}
 }
 
 SControl ExtensionProxy::getControl()
@@ -245,7 +263,13 @@ const QVector<Extension*>& ExtensionProxy::extensionList()
 
 void ExtensionProxy::storeState()
 {
+	QSettings set;
 	foreach(Extension* e, extensions) {
 		if(e->ready()) e->storeState();
 	}
+	set.beginGroup("proxy_settings");
+	foreach(QString var, variables.keys()) {
+		set.setValue(var, variables[var]);
+	}
+	set.endGroup();
 }
