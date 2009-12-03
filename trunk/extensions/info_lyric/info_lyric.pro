@@ -24,6 +24,10 @@ unix {
     DESTDIR = ../../unix/plugins
 }
 
+with_yajl {
+    DEFINES += HAVE_YAJL
+}
+
 OBJECTS_DIR = $${DESTDIR}/../obj
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj

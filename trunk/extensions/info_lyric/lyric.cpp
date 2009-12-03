@@ -19,9 +19,11 @@
 
 #include "lyric.h"
 #include "lyricwidget.h"
-#include <yajl/yajl_parse.h>
 
+#ifdef HAVE_YAJL
+#include <yajl/yajl_parse.h>
 typedef int (*yajl_strcallback)(void*, const unsigned char*, unsigned int);
+#endif
 
 Q_EXPORT_PLUGIN2(info_lyric, Lyric) 
 
@@ -144,6 +146,7 @@ QString Lyric::getLuckyLink(QString json)
 {
 	foundUrl = false;
 	url = "";
+#ifdef HAVE_YAJL
 	yajl_handle hand;
 	yajl_status stat;
 	yajl_parser_config cfg = { 1, 1 };
@@ -176,6 +179,9 @@ QString Lyric::getLuckyLink(QString json)
 		yajl_free_error(hand, str);
 	}
 	yajl_free(hand);
+#else
+	proxy->warning("In order to use Lucky Google you have to install yajl before compiling Cuberok");
+#endif
 	if(foundUrl) {
 		return url;
 	} else {

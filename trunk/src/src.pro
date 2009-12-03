@@ -1,9 +1,9 @@
 CONFIG += qt release
 QT += sql xml network
 
-TEMPLATE = app
-TARGET = 
-DEPENDPATH += . 
+#TEMPLATE = app
+#TARGET = 
+#DEPENDPATH += . 
 
 #QMAKE_CXXFLAGS_RELEASE -= -O2 
 #QMAKE_CXXFLAGS_RELEASE += -Os -fno-builtin -fomit-frame-pointer
@@ -212,9 +212,10 @@ for(p, CUBEROK_STATIC_PLUGINS) {
 	LIBS += -l$${p}
 	POST_TARGETDEPS += $${DESTDIR}/plugins/lib$${p}.a
 }
-LIBS += -lyajl
-#LIBS += -L$${DESTDIR}/plugins -lplayer_void -lplaylist_standard -lscrobbler_librefm -lscrobbler_lastfm -linfowidget -lsrc_filebrowser -linfo_lastfm -lsrc_browser -lsrc_library
-#POST_TARGETDEPS += $${DESTDIR}/plugins/libplayer_void.a $${DESTDIR}/plugins/libplaylist_standard.a $${DESTDIR}/plugins/libscrobbler_lastfm.a $${DESTDIR}/plugins/libinfowidget.a $${DESTDIR}/plugins/libsrc_filebrowser.a $${DESTDIR}/plugins/libinfo_lastfm.a $${DESTDIR}/plugins/libsrc_browser.a $${DESTDIR}/plugins/libsrc_library.a
+
+with_yajl {
+    LIBS += -lyajl
+}
 
 macx {
     QT += phonon
