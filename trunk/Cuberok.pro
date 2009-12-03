@@ -41,9 +41,6 @@ win32 {
     }
 }
 unix {
-    exists(/usr/include/yajl/yajl_parse.h) {
-	CONFIG += with_yajl
-    }
     CONFIG += link_pkgconfig
     system(pkg-config --modversion libavcodec 2>/dev/null) {
         system(pkg-config --modversion sdl 2>/dev/null) {

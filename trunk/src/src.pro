@@ -1,5 +1,5 @@
 CONFIG += qt release
-QT += sql xml network
+QT += sql xml network webkit
 
 #TEMPLATE = app
 #TARGET = 
@@ -213,14 +213,19 @@ for(p, CUBEROK_STATIC_PLUGINS) {
 	POST_TARGETDEPS += $${DESTDIR}/plugins/lib$${p}.a
 }
 
-with_yajl {
-    LIBS += -lyajl
-}
-
 macx {
     QT += phonon
     LIBS += -L$${DESTDIR}/plugins -lplayer_phonon
 }
+
+win32:exists(../yajl-1.0.5/lib/libyajl.a) {
+    LIBS += ../yajl-1.0.5/lib/libyajl.a
+}
+
+unix:exists(/usr/include/yajl/yajl_parse.h) {
+    LIBS += -lyajl
+}
+
 
 OBJECTS_DIR = $${DESTDIR}/obj
 MOC_DIR = $${DESTDIR}/obj
