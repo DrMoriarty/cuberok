@@ -25,6 +25,10 @@
 typedef int (*yajl_strcallback)(void*, const unsigned char*, unsigned int);
 #endif
 
+#if QT_VERSION >= 0x040600
+#include <QtWebKit>
+#endif
+
 Q_EXPORT_PLUGIN2(info_lyric, Lyric) 
 
 Lyric::Lyric() : Extension(), reply(0), searchType(-1)
@@ -83,25 +87,70 @@ int Lyric::getDisturbs()
 	return DisturbOnRequest;
 }
 
+QString Lyric::linkDigger(QString reply)
+{
+	proxy->log("Lyric response:" + reply);
+	switch(searchType) {
+	case 1:
+#if QT_VERSION >= 0x040600
+		{
+			QWebPage pg;
+			pg.mainFrame()->setHtml(reply);
+			QWebElement sr = pg.mainFrame()->documentElement().findFirst("ul.mw-search-results href");
+			proxy->log(QString("search results ") + sr.toOuterXml());
+			proxy->log(pg.mainFrame()->documentElement().findFirst("p.mw-search-pager-bottom").toOuterXml());
+			QString link = sr.findFirst("a").attribute("href");
+			searchType = -2;
+			return link;
+		}
+		break;
+#endif
+	case 0:
+	case 2:
+	default:
+		searchType = -1;
+		return getLuckyLink(reply);
+		break;
+	}
+}
+
+void Lyric::lyricDigger(QString reply)
+{
+	searchType = trueSearchType;
+	if(proxy->infoExist(SInfo::Lyric) || !reply.size()) return;
+	proxy->log("Lyric response:" + reply);
+#if QT_VERSION >= 0x040600
+	switch(searchType) {
+	case -2: // result page from LyricWikia
+		{
+			QWebPage pg;
+			pg.mainFrame()->setHtml(reply);
+			proxy->setInfo(SInfo(SInfo::Lyric, pg.mainFrame()->documentElement().findFirst("div.lyricbox").toOuterXml(), ""));
+		}
+		break;
+	default:
+		proxy->setInfo(SInfo(SInfo::Lyric, reply, ""));
+		break;
+	}
+#else
+		proxy->setInfo(SInfo(SInfo::Lyric, reply, ""));
+#endif
+}
+
 void Lyric::replyFinished(QNetworkReply* reply)
 {
 	reply->disconnect();
 	QString str = QString::fromUtf8((const char*)reply->readAll());
-	switch(searchType) {
-	case -1: // result page from Lucky Google
-		searchType = 0;
-		if(!proxy->infoExist(SInfo::Lyric) && str.size())
-			proxy->setInfo(SInfo(SInfo::Lyric, str, ""));
-		proxy->log("Lyric response:" + str);
-		break;
-	case 0:
-	default:
-		QString link = getLuckyLink(str);
+	if(searchType < 0) {
+		lyricDigger(str);
+	} else {
+		QString link = linkDigger(str);
 		if(link.size()) {
-			searchType = -1;
 			reply = manager->get(QNetworkRequest(QUrl(link)));
 			connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotError(QNetworkReply::NetworkError)));
-			proxy->log("Lucky Google link is " + link);
+			proxy->log("Lyric link is " + link);
+		} else {
+			proxy->log("Lyric: There isn't any link!");
 		}
 	}
 }
@@ -115,8 +164,8 @@ void Lyric::getSong(QString artist, QString song)
 									   proxy->getVariable("proxyUser"),
 									   proxy->getVariable("proxyPassword")));
 	}
-	if(proxy->hasVariable("lyricSearchType")) searchType = proxy->getVariable("lyricSearchType").toInt();
-	else searchType = 0;
+	if(proxy->hasVariable("lyricSearchType")) trueSearchType = searchType = proxy->getVariable("lyricSearchType").toInt();
+	else trueSearchType = searchType = 0;
 	QString ar = artist, so = song;
 	QUrl url;
 	switch(searchType) {
@@ -129,6 +178,24 @@ void Lyric::getSong(QString artist, QString song)
 		/*if(proxy->hasVariable("lang")) {
 			url.addQueryItem("lang", proxy->getVariable("lang"));
 			}*/
+		break;
+	case 1: // Lyrics.Wikia.Com
+		ar.replace(" ", "+");
+		so.replace(" ", "+");
+#if QT_VERSION >= 0x040600
+		url = QUrl("http://lyrics.wikia.com/index.php?");
+		url.addQueryItem("search", "\""+ar+"\":\""+so+"\"");
+#else
+		url = QUrl("http://ajax.googleapis.com/ajax/services/search/web?v=1.0");
+		url.addQueryItem("q", "\""+ar+"\":\""+so+"\"+site:lyrics.wikia.com");
+#endif
+		break;
+	case 2: // NoMoreLyrics.Net
+		ar.replace(" ", "+");
+		so.replace(" ", "+");
+		url = QUrl("http://ajax.googleapis.com/ajax/services/search/web?v=1.0");
+		url.addQueryItem("q", "\""+ar+"\":\""+so+"\"+site:nomorelyrics.net");
+		break;
 	}
 	proxy->log(tr("Lyric: search lyric at '%1'").arg(url.toString()));
 	reply = manager->get(QNetworkRequest(url));
@@ -137,7 +204,7 @@ void Lyric::getSong(QString artist, QString song)
 
 void Lyric::slotError(QNetworkReply::NetworkError)
 {
-	if(searchType == -1) searchType = 0;
+	if(searchType == -1) searchType = trueSearchType;
 	reply->disconnect();
 	proxy->error(tr("Lyric: Network error!"));
 }
@@ -200,6 +267,7 @@ int Lyric::parseString(Lyric* that, const unsigned char * stringVal, unsigned in
 			return 0;
 		} else that->foundUrl = false;
 	}
+
 	return 1;
 }
 

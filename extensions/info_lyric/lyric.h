@@ -44,12 +44,14 @@ class Lyric : public Extension
  private:
 	QNetworkAccessManager *manager;
 	QNetworkReply *reply;
-	int searchType;
+	int searchType, trueSearchType;
 	bool foundUrl;
 	QString url;
 	
 	void getSong(QString artist, QString song);
 	QString getLuckyLink(QString json);
+	QString linkDigger(QString reply);
+	void lyricDigger(QString reply);
 	static int parseString(Lyric* that, const unsigned char * stringVal, unsigned int stringLen);
 	static int parseMapKey(Lyric* that, const unsigned char * stringVal, unsigned int stringLen);
 

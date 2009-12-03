@@ -36,6 +36,8 @@ LyricWidget::LyricWidget(Proxy *pr, QWidget *parent) : QWidget(parent), proxy(pr
 
 	comboBox = new QComboBox(this);
 	comboBox->addItem("Lucky Google");
+	comboBox->addItem("Lyrics.Wikia.Com");
+	comboBox->addItem("NoMoreLyrics.Net");
 	int cur = 0;
 	if(proxy->hasVariable("lyricSearchType")) cur = proxy->getVariable("lyricSearchType").toInt();
 	comboBox->setCurrentIndex(cur);

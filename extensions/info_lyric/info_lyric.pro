@@ -1,4 +1,4 @@
- QT += xml network
+ QT += xml network webkit
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin static
@@ -18,14 +18,17 @@ win32 {
     } else {
         DESTDIR = ../../win32/plugins
     }
+    exists(../../yajl-1.0.5/include/yajl/yajl_parse.h) {
+	INCLUDEPATH += ../../yajl-1.0.5/include/
+	DEFINES += HAVE_YAJL
+    }
 }
 
 unix {
     DESTDIR = ../../unix/plugins
-}
-
-with_yajl {
-    DEFINES += HAVE_YAJL
+    exists(/usr/include/yajl/yajl_parse.h) {
+	DEFINES += HAVE_YAJL
+    }
 }
 
 OBJECTS_DIR = $${DESTDIR}/../obj

@@ -54,5 +54,6 @@ void InfoWindow::setText(QString text)
 		}
 	}
 	*/
-	ui.textEdit->document()->setHtml(text);
+	//ui.textEdit->document()->setHtml(text);
+	ui.webView->setHtml(text);
 }
