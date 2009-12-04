@@ -28,6 +28,7 @@ typedef int (*yajl_strcallback)(void*, const unsigned char*, unsigned int);
 #if QT_VERSION >= 0x040600
 #include <QtWebKit>
 #endif
+#include <QtXml>
 
 Q_EXPORT_PLUGIN2(info_lyric, Lyric) 
 
@@ -87,29 +88,51 @@ int Lyric::getDisturbs()
 	return DisturbOnRequest;
 }
 
-QString Lyric::linkDigger(QString reply)
+QString Lyric::linkDigger(const QByteArray& data)
 {
-	proxy->log("Lyric response:" + reply);
+	proxy->log("Lyric response:" + QString::fromUtf8((const char*)data));
 	switch(searchType) {
 	case 1:
-#if QT_VERSION >= 0x040600
+		//#if QT_VERSION >= 0x040600
 		{
-			QWebPage pg;
-			pg.mainFrame()->setHtml(reply);
-			QWebElement sr = pg.mainFrame()->documentElement().findFirst("ul.mw-search-results href");
-			proxy->log(QString("search results ") + sr.toOuterXml());
-			proxy->log(pg.mainFrame()->documentElement().findFirst("p.mw-search-pager-bottom").toOuterXml());
-			QString link = sr.findFirst("a").attribute("href");
-			searchType = -2;
-			return link;
+			QDomDocument doc;
+			QTextDocument tdoc;
+			tdoc.setHtml(QString::fromUtf8((const char*)data));
+			QString err;
+			int line = 0, col = 0;
+			if(doc.setContent(tdoc.toHtml(), &err, &line, &col)) {
+				QDomNodeList list = doc.elementsByTagName("a");
+				for(int i=0; i<list.size(); i++) {
+					QString link = list.at(i).toElement().attribute("href", "");
+					if(link.size() && link.startsWith("http://lyrics.wikia.com/wiki/"))
+						return link;
+						//proxy->log(link);
+				}
+			} else {
+				proxy->log(QString("Parsing error: %1, line=%2 col=%3").arg(err).arg(QString::number(line)).arg(QString::number(col)));
+			}
+			return "";
+			// QWebPage pg;
+			// pg.mainFrame()->setContent(data);
+			// proxy->log(pg.mainFrame()->toPlainText());
+			// QWebElement sr = pg.mainFrame()->documentElement().findFirst("ul.mw-search-results href");
+			// proxy->log(QString("search results ") + sr.toOuterXml());
+			// QString link = sr.findFirst("a").attribute("href");
+			// searchType = -2;
+
+			// QWebElementCollection col = pg.mainFrame()->findAllElements("a");
+			// foreach(QWebElement el, col) {
+			// 	proxy->log(el.toOuterXml());
+			// }
+			// return link;
 		}
 		break;
-#endif
+		//#endif
 	case 0:
 	case 2:
 	default:
 		searchType = -1;
-		return getLuckyLink(reply);
+		return getLuckyLink(QString::fromUtf8((const char*)data));
 		break;
 	}
 }
@@ -119,32 +142,33 @@ void Lyric::lyricDigger(QString reply)
 	searchType = trueSearchType;
 	if(proxy->infoExist(SInfo::Lyric) || !reply.size()) return;
 	proxy->log("Lyric response:" + reply);
-#if QT_VERSION >= 0x040600
-	switch(searchType) {
-	case -2: // result page from LyricWikia
-		{
-			QWebPage pg;
-			pg.mainFrame()->setHtml(reply);
-			proxy->setInfo(SInfo(SInfo::Lyric, pg.mainFrame()->documentElement().findFirst("div.lyricbox").toOuterXml(), ""));
-		}
-		break;
-	default:
+// #if QT_VERSION >= 0x040600
+// 	switch(searchType) {
+// 	case -2: // result page from LyricWikia
+// 		{
+// 			QWebPage pg;
+// 			pg.mainFrame()->setHtml(reply);
+// 			proxy->setInfo(SInfo(SInfo::Lyric, pg.mainFrame()->documentElement().findFirst("div.lyricbox").toOuterXml(), ""));
+// 		}
+// 		break;
+// 	default:
+// 		proxy->setInfo(SInfo(SInfo::Lyric, reply, ""));
+// 		break;
+// 	}
+// #else
 		proxy->setInfo(SInfo(SInfo::Lyric, reply, ""));
-		break;
-	}
-#else
-		proxy->setInfo(SInfo(SInfo::Lyric, reply, ""));
-#endif
+// #endif
 }
 
 void Lyric::replyFinished(QNetworkReply* reply)
 {
 	reply->disconnect();
-	QString str = QString::fromUtf8((const char*)reply->readAll());
-	if(searchType < 0) {
+	QByteArray data = reply->readAll();
+	if(searchType < 0 || searchType == 1) {
+		QString str = QString::fromUtf8((const char*)data);
 		lyricDigger(str);
 	} else {
-		QString link = linkDigger(str);
+		QString link = linkDigger(data);
 		if(link.size()) {
 			reply = manager->get(QNetworkRequest(QUrl(link)));
 			connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(slotError(QNetworkReply::NetworkError)));
@@ -180,15 +204,11 @@ void Lyric::getSong(QString artist, QString song)
 			}*/
 		break;
 	case 1: // Lyrics.Wikia.Com
-		ar.replace(" ", "+");
-		so.replace(" ", "+");
-#if QT_VERSION >= 0x040600
-		url = QUrl("http://lyrics.wikia.com/index.php?");
-		url.addQueryItem("search", "\""+ar+"\":\""+so+"\"");
-#else
-		url = QUrl("http://ajax.googleapis.com/ajax/services/search/web?v=1.0");
-		url.addQueryItem("q", "\""+ar+"\":\""+so+"\"+site:lyrics.wikia.com");
-#endif
+		ar.replace(" ", "_");
+		so.replace(" ", "_");
+		url = QUrl("http://lyrics.wikia.com/"+ar+":"+so);
+		// url = QUrl("http://ajax.googleapis.com/ajax/services/search/web?v=1.0");
+		// url.addQueryItem("q", "\""+ar+"\":\""+so+"\"+site:lyrics.wikia.com");
 		break;
 	case 2: // NoMoreLyrics.Net
 		ar.replace(" ", "+");

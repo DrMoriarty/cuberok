@@ -50,7 +50,7 @@ class Lyric : public Extension
 	
 	void getSong(QString artist, QString song);
 	QString getLuckyLink(QString json);
-	QString linkDigger(QString reply);
+	QString linkDigger(const QByteArray& data);
 	void lyricDigger(QString reply);
 	static int parseString(Lyric* that, const unsigned char * stringVal, unsigned int stringLen);
 	static int parseMapKey(Lyric* that, const unsigned char * stringVal, unsigned int stringLen);
