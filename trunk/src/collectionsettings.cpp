@@ -18,7 +18,7 @@
  */
 
 #include "collectionsettings.h"
-#include "playlistsettings.h"
+#include "extensionproxy.h"
 #include "database.h"
 #include "collectionfiller.h"
 
@@ -26,12 +26,12 @@ CollectionSettings::CollectionSettings(QWidget *parent)
     : QDialog(parent)
 {
     ui.setupUi(this);
-	ui.lineEdit_path->setText(PLSet.collectionPath);
+	ui.lineEdit_path->setText(EProxy.getVariable("collectionPath"));
 }
 
 CollectionSettings::~CollectionSettings()
 {
-	PLSet.collectionPath = ui.lineEdit_path->text();
+	EProxy.setVariable("collectionPath", ui.lineEdit_path->text());
 }
 
 void CollectionSettings::cleanup()
@@ -58,7 +58,7 @@ void CollectionSettings::scan()
 	CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
 	//connect(cf, SIGNAL(finished()), this, SLOT(update()));
 	cf->start();
-	PLSet.collectionPath = ui.lineEdit_path->text();
+	EProxy.setVariable("collectionPath", ui.lineEdit_path->text());
 	accept();
 }
 

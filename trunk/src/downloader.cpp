@@ -23,14 +23,17 @@
 #include "downloader.h"
 #include "ui_authenticationdialog.h"
 #include "indicator.h"
-#include "playlistsettings.h"
+#include "extensionproxy.h"
 #include "console.h"
 
 Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true), file(0)
 {
 	http = new QHttp(this);
-	if(PLSet.proxyEnabled) {
-		http->setProxy(PLSet.proxyHost, PLSet.proxyPort, PLSet.proxyUser, PLSet.proxyPassword);
+	if(EProxy.hasVariable("proxyEnabled") && EProxy.getVariable("proxyEnabled") == "true") {
+		http->setProxy(EProxy.getVariable("proxyHost"),
+					  EProxy.getVariable("proxyPort").toInt(),
+					  EProxy.getVariable("proxyUser"),
+					  EProxy.getVariable("proxyPassword"));
 	}
 	
 	connect(http, SIGNAL(requestFinished(int, bool)),

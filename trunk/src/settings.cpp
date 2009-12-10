@@ -82,7 +82,9 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	}
 	sl.sort();
 	ui.comboBox_cue->addItems(sl);
-	QString cue_codepage = set.value("cue_codepage", "System").toString();
+	QString cue_codepage = "System";
+	if(EProxy.hasVariable("cue_codepage"))
+		cue_codepage = EProxy.getVariable("cue_codepage");
 	if(!cue_codepage.size()) cue_codepage = "System";
 	ui.comboBox_cue->setCurrentIndex(ui.comboBox_cue->findText(cue_codepage));
 
@@ -94,17 +96,17 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 
 	ui.checkBox_cacheInfo->setChecked(PLSet.cacheInfo);
 
-	ui.checkBox_hack1251->setChecked(PLSet.hack1251);
+	ui.checkBox_hack1251->setChecked(EProxy.getVariable("hack1251") == "true");
 
-	ui.checkBox_textToolbuttons->setChecked(PLSet.textToolbuttons);
-	ui.comboBox_sizeToolbuttons->setCurrentIndex(PLSet.sizeToolbuttons);
-	ui.checkBox_controlCuePath->setChecked(PLSet.controlCuePath);
-	ui.checkBox_trayMessage->setChecked(PLSet.trayMessage);
+	ui.checkBox_textToolbuttons->setChecked(EProxy.getVariable("textToolbuttons") == "true");
+	ui.comboBox_sizeToolbuttons->setCurrentIndex(EProxy.getVariable("sizeToolbuttons").toInt());
+	ui.checkBox_controlCuePath->setChecked(EProxy.getVariable("controlCuePath") == "true");
+	ui.checkBox_trayMessage->setChecked(EProxy.getVariable("trayMessage") == "true");
 
 	ui.comboBox_defaultPlayer->addItems(PlayerManager::Self().getPlayers());
 	ui.comboBox_defaultPlayer->setCurrentIndex(ui.comboBox_defaultPlayer->findText(PLSet.defaultPlayer));
 
-	ui.groupBox_popupMessages->setChecked(PLSet.popupMessage);
+	ui.groupBox_popupMessages->setChecked(EProxy.getVariable("popupMessage") == "true");
 	ui.comboBox_popupSize->setCurrentIndex(EProxy.getVariable("popupSize").toInt());
 	switch(EProxy.getVariable("popupPosition").toInt()) {
 	case 0:
@@ -148,7 +150,7 @@ void Settings::accept()
 
 	PLSet.hideEmptyInCollection = ui.checkBox_hideEmpty->checkState() == Qt::Checked;
 
-	PLSet.cue_codepage = ui.comboBox_cue->currentText();
+	EProxy.setVariable("cue_codepage", ui.comboBox_cue->currentText());
 
 	PLSet.proxyEnabled = ui.checkBox_proxyEnabled->isChecked();
 	PLSet.proxyHost = ui.lineEdit_proxyHost->text();
@@ -158,12 +160,12 @@ void Settings::accept()
 
 	PLSet.cacheInfo = ui.checkBox_cacheInfo->isChecked();
 
-	PLSet.hack1251 = ui.checkBox_hack1251->isChecked();
+	EProxy.setVariable("hack1251", ui.checkBox_hack1251->isChecked() ? "true": "false");
 
-	PLSet.textToolbuttons = ui.checkBox_textToolbuttons->isChecked();
-	PLSet.sizeToolbuttons = ui.comboBox_sizeToolbuttons->currentIndex();
-	PLSet.controlCuePath = ui.checkBox_controlCuePath->isChecked();
-	PLSet.trayMessage = ui.checkBox_trayMessage->isChecked();
+	EProxy.setVariable("textToolbuttons", ui.checkBox_textToolbuttons->isChecked()? "true": "false");
+	EProxy.setVariable("sizeToolbuttons", QString::number(ui.comboBox_sizeToolbuttons->currentIndex()));
+	EProxy.setVariable("controlCuePath", ui.checkBox_controlCuePath->isChecked()? "true": "false");
+	EProxy.setVariable("trayMessage", ui.checkBox_trayMessage->isChecked()? "true": "false");
 
 	PLSet.mimeMap.clear();
 	for(int i = 0; i<ui.tableWidget->rowCount(); i++) {
@@ -172,7 +174,7 @@ void Settings::accept()
 		PLSet.mimeMap[mime] = engine;
 	}
 	PLSet.defaultPlayer = ui.comboBox_defaultPlayer->currentText();
-	PLSet.popupMessage = ui.groupBox_popupMessages->isChecked();
+	EProxy.setVariable("popupMessage", ui.groupBox_popupMessages->isChecked()? "true": "false");
 	EProxy.setVariable("popupSize", QString::number(ui.comboBox_popupSize->currentIndex()));
 	if(ui.radioButton_ptl->isChecked()) EProxy.setVariable("popupPosition", "0");
 	else if(ui.radioButton_ptr->isChecked()) EProxy.setVariable("popupPosition", "1");

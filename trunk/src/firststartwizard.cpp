@@ -20,7 +20,7 @@
 #include "firststartwizard.h"
 #include "collectionfiller.h"
 #include "importcollection.h"
-#include "playlistsettings.h"
+#include "extensionproxy.h"
 
 FirstStartWizard::FirstStartWizard(QWidget *parent) :QWizard(parent)
 {
@@ -79,7 +79,7 @@ void FirstStartWizard::doSomething()
 			 CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
 			 //connect(cf, SIGNAL(finished()), this, SLOT(update()));
 			 cf->start();
-			 PLSet.collectionPath = ui.lineEdit_collect->text();
+			 EProxy.setVariable("collectionPath", ui.lineEdit_collect->text());
 		 }
 		 break;
      case 4: // import
