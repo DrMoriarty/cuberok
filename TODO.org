@@ -13,7 +13,7 @@
 
 * TODO Milestone 0.1.0 [28%]
 ** DONE New about dialog
-*** TODO Translator tab
+*** DONE Translator tab
 ** DONE Fix lyrics.org plugin
    - Note taken on [2009-11-19 Чтв 22:14] \\
      new dependency library - yajl

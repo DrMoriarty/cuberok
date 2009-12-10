@@ -20,7 +20,7 @@
 #include "tagger.h"
 #include "main.h"
 #include "database.h"
-#include "playlistsettings.h"
+#include "extensionproxy.h"
 #include "downloader.h"
 #include "console.h"
 
@@ -45,7 +45,7 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 	//	return true;
 	bool corrected = false;
 //#define corstr(s) autoCorrect() ? correct8bit(s, &corrected) : s
-#define corstr(s) (PLSet.hack1251 ? hack1251(s) : s)
+#define corstr(s) ((EProxy.hasVariable("hack1251") && EProxy.getVariable("hack1251")=="true") ? hack1251(s) : s)
 #define local(s) s.toCString(false)
 	TagLib::FileRef fr(file.toLocal8Bit().constData());
 	TagLib::Tag *tag;
@@ -58,7 +58,7 @@ bool Tagger::readTags(QString file, QString &title, QString &artist, QString &al
 				TagLib::MPEG::File &mp3file = *((TagLib::MPEG::File*)fr.file());
 				// if id3v1 exist and id3v2 not
 				if(mp3file.ID3v1Tag()) {
-					if(PLSet.hack1251) {
+					if(EProxy.hasVariable("hack1251") && EProxy.getVariable("hack1251") == "true") {
 						QTextCodec::setCodecForCStrings (QTextCodec::codecForName("CP1251"));
 					} else {
 						QTextCodec::setCodecForCStrings (QTextCodec::codecForName("System"));
@@ -278,8 +278,8 @@ QList<CueEntry> Tagger::_readCue(QString filename)
 	QFile f(filename);
 	if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		QTextStream in(&f);
-		if(PLSet.cue_codepage.size()) {
-			in.setCodec(PLSet.cue_codepage.toLocal8Bit());
+		if(EProxy.hasVariable("cue_codepage")) {
+			in.setCodec(EProxy.getVariable("cue_codepage").toLocal8Bit());
 		}
 		while (!in.atEnd()) {
 			QString line = in.readLine(), word;
@@ -298,7 +298,7 @@ QList<CueEntry> Tagger::_readCue(QString filename)
 					file = getWord(line);
 					if(QFileInfo(file).isRelative()) file = path + QDir::separator() + file;
 					getWord(line); // type
-					if(PLSet.controlCuePath) {
+					if(EProxy.hasVariable("controlCuePath") && EProxy.getVariable("controlCuePath") == "true") {
 						if(!QFileInfo(file).exists()) {
 							bool res;
 							emit fixPlaylistItem(filename, &file, &res);

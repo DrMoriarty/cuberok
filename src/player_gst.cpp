@@ -233,10 +233,10 @@ void PlayerGst::setLink(int l, QUrl &url)
 	switch(link) {
 	case 2: {// http
 		g_object_set (G_OBJECT (http_src), "location", (const char*)url.toEncoded(), NULL);
-		QString proxy;
-// 		if(PLSet.proxyEnabled) 
-// 			proxy = PLSet.proxyHost + ":" + QString::number(PLSet.proxyPort);
-		//g_object_set (G_OBJECT (http_src), "proxy", (const char*)proxy.toLocal8Bit(), NULL);
+		QString proxyStr;
+		// if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") 
+		// 	proxyStr = proxy->getVariable("proxyHost") + ":" + proxy->getVariable("proxyPort");
+		// g_object_set (G_OBJECT (http_src), "proxy", (const char*)proxyStr.toLocal8Bit(), NULL);
 		break;
 	}
 	case 1: // file

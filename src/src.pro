@@ -22,8 +22,6 @@ HEADERS += \
            ../include/tagentry.h \
            ../include/interfaces.h \
            aboutdialog.h \
-#           browser.h \
-#           browser_viewer.h \
            collectionsettings.h \
            collectionfiller.h \
            collectionview.h \
@@ -38,19 +36,9 @@ HEADERS += \
            extensionsettings.h \
            firststartwizard.h \
            importcollection.h \
-#           info.h \
-#           infowidget.h \
-#           infowindow.h \
            indicator.h \
-#           jamendo_browser.h \
-#           lastfm.h \
-#           libraryview.h \
-#           librefm.h \
            lookandfeel.h \
-#           lyricwiki.h \
-#           magnatune_browser.h \
            main.h \
-#           marklistwidget.h \
            messagewindow.h \
            myapplication.h \
            player.h \
@@ -75,22 +63,17 @@ FORMS += aboutdialog.ui \
          collectionsettings.ui \
          cuberok.ui \
          lookandfeel.ui \
-#         tageditor.ui \
          settings.ui \
          url_open.ui \
          authenticationdialog.ui \
          console.ui \
-#         info.ui \
-#         infowindow.ui \
          sqledit.ui \
-#         browser_viewer.ui \
          importcollection.ui \
          firststartwizard.ui \
          cuecontrol.ui 
 TRANSLATIONS = ../translations/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
-#           browser_viewer.cpp \
            collectionsettings.cpp \
            collectionfiller.cpp \
            collectionview.cpp \
@@ -105,20 +88,10 @@ SOURCES += aboutdialog.cpp \
            extensionsettings.cpp \
            firststartwizard.cpp \
            importcollection.cpp \
-#           info.cpp \
-#           infowidget.cpp \
-#           infowindow.cpp \
            indicator.cpp \
            interfaces.cpp \
-#           jamendo_browser.cpp \
-#           lastfm.cpp \
-#           libraryview.cpp \
-#           librefm.cpp \
            lookandfeel.cpp \
-#           lyricwiki.cpp \
-#           magnatune_browser.cpp \
            main.cpp \
-#           marklistwidget.cpp \
            messagewindow.cpp \
            myapplication.cpp \
            player_manager.cpp \
@@ -132,7 +105,6 @@ SOURCES += aboutdialog.cpp \
            stareditor.cpp \
            starrating.cpp \
            tagentry.cpp \
-#           tageditor.cpp \
            tagger.cpp \
            url_open.cpp \
 	   ../QFreeDesktopMime/src/freedesktopmime.cpp 

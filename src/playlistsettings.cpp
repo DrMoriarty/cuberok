@@ -29,7 +29,7 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 		_data[i].p = set.value("colposition"+QString::number(i), i).toInt(0);
 	}
 	autoRating = set.value("autoRating", false).toBool();
-	cue_codepage = set.value("cue_codepage", "System").toString();
+	//cue_codepage = set.value("cue_codepage", "System").toString();
 
 	proxyEnabled = set.value("proxyEnabled", false).toBool();
 	proxyHost = set.value("proxyHost", "").toString();
@@ -41,15 +41,15 @@ PlaylistSettings::PlaylistSettings() : QObject(0), autoRating(false), proxyEnabl
 
 	cacheInfo = set.value("cacheInfo", true).toBool();
 
-	hack1251 = set.value("hack1251", false).toBool();
+	//hack1251 = set.value("hack1251", false).toBool();
 
-	textToolbuttons = set.value("textToolbuttons", false).toBool();
-	sizeToolbuttons = set.value("sizeToolbuttons", 1).toInt();
+	//textToolbuttons = set.value("textToolbuttons", false).toBool();
+	//sizeToolbuttons = set.value("sizeToolbuttons", 1).toInt();
 
-	collectionPath = set.value("collectionPath", "").toString();
-	controlCuePath = set.value("controlCuePath", true).toBool();
-	trayMessage = set.value("trayMessage", true).toBool();
-	popupMessage = set.value("popupMessage", true).toBool();
+	//collectionPath = set.value("collectionPath", "").toString();
+	//controlCuePath = set.value("controlCuePath", true).toBool();
+	//trayMessage = set.value("trayMessage", true).toBool();
+	//popupMessage = set.value("popupMessage", true).toBool();
 	// popupPosition = set.value("popupPosition", 0).toInt();
 	// popupSize = set.value("popupSize", 0).toInt();
 	QByteArray mimeArr = qvariant_cast<QByteArray>(set.value("mimeMap"));
@@ -74,7 +74,7 @@ void PlaylistSettings::save()
 		set.setValue("colposition"+QString::number(i), _data[i].p);
 	}
 	set.setValue("autoRating", autoRating);
-	set.setValue("cue_codepage", cue_codepage);
+	//set.setValue("cue_codepage", cue_codepage);
 	set.setValue("proxyEnabled", proxyEnabled);
 	set.setValue("proxyHost", proxyHost);
 	set.setValue("proxyPort", proxyPort);
@@ -85,15 +85,15 @@ void PlaylistSettings::save()
 
 	set.setValue("cacheInfo", cacheInfo);
 
-	set.setValue("hack1251", hack1251);
+	//set.setValue("hack1251", hack1251);
 
-	set.setValue("textToolbuttons", textToolbuttons);
-	set.setValue("sizeToolbuttons", sizeToolbuttons);
+	//set.setValue("textToolbuttons", textToolbuttons);
+	//set.setValue("sizeToolbuttons", sizeToolbuttons);
 
-	set.setValue("collectionPath", collectionPath);
-	set.setValue("controlCuePath", controlCuePath);
-	set.setValue("trayMessage", trayMessage);
-	set.setValue("popupMessage", popupMessage);
+	//set.setValue("collectionPath", collectionPath);
+	//set.setValue("controlCuePath", controlCuePath);
+	//set.setValue("trayMessage", trayMessage);
+	//set.setValue("popupMessage", popupMessage);
 	// set.setValue("popupPosition", popupPosition);
 	// set.setValue("popupSize", popupSize);
 

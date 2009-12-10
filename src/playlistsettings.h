@@ -39,7 +39,7 @@ Q_OBJECT
 	void save();
 
 	bool autoRating;
-	QString cue_codepage;
+	//QString cue_codepage;
 
 	bool    proxyEnabled;
 	QString proxyHost;
@@ -51,15 +51,15 @@ Q_OBJECT
 
 	bool cacheInfo;
 
-	bool hack1251;
+	//bool hack1251;
 	
-	bool textToolbuttons;
-	int sizeToolbuttons;
+	//bool textToolbuttons;
+	//int sizeToolbuttons;
 
-	QString collectionPath;
-	bool controlCuePath;
-	bool trayMessage;
-	bool popupMessage;
+	//QString collectionPath;
+	//bool controlCuePath;
+	//bool trayMessage;
+	//bool popupMessage;
 	/* int popupPosition; */
 	/* int popupSize; */
 

@@ -240,10 +240,10 @@ void Cuberok::message(QString title, QString album, QString artist, long len)
 		ui.progressBar->setFormatText(title);
 		ui.progressBar->setDuration(len);
 		QString trayMessage = QString("%1 - %2").arg(artist, album);
-		if(PLSet.trayMessage) {
+		if(EProxy.hasVariable("trayMessage") && EProxy.getVariable("trayMessage") == "true") {
 			trayIcon->showMessage(title, trayMessage, QSystemTrayIcon::Information/*NoIcon*/);
 		}
-		if(PLSet.popupMessage) {
+		if(EProxy.hasVariable("popupMessage") && EProxy.getVariable("popupMessage") == "true") {
 			messageQueue.enqueue(QPair<QString, int>(title + "\n" + trayMessage, Console::C_MES));
 		}
 		setWindowTitle(QString(titlepref).append(title));
@@ -400,7 +400,7 @@ void Cuberok::newConsoleMessage(QString mes, int type)
 		break;
 	}
 	but->setIcon(icon);
-	if(useMessageWindow && PLSet.popupMessage && type != Console::C_NONE) {
+	if(useMessageWindow && EProxy.getVariable("popupMessage") == "true" && type != Console::C_NONE) {
 		messageQueue.enqueue(QPair<QString, int>(mes, type));
 	}
 }
@@ -450,7 +450,7 @@ void Cuberok::qtagClosed(QObject*)
 
 void Cuberok::applySettings()
 {
-	if(PLSet.textToolbuttons) {
+	if(EProxy.getVariable("textToolbuttons") == "true") {
 		ui.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 		ui.toolBar_2->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 		ui.toolBar_3->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -459,7 +459,7 @@ void Cuberok::applySettings()
 		ui.toolBar_2->setToolButtonStyle(Qt::ToolButtonIconOnly);
 		ui.toolBar_3->setToolButtonStyle(Qt::ToolButtonIconOnly);
 	}
-	switch(PLSet.sizeToolbuttons) {
+	if(EProxy.hasVariable("sizeToolbuttons")) switch(EProxy.getVariable("sizeToolbuttons").toInt()) {
 	case 0:
 		ui.toolBar->setIconSize(QSize(16, 16));
 		ui.toolBar_2->setIconSize(QSize(16, 16));
