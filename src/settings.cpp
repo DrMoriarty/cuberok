@@ -104,7 +104,7 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 	ui.checkBox_trayMessage->setChecked(EProxy.getVariable("trayMessage") == "true");
 
 	ui.comboBox_defaultPlayer->addItems(PlayerManager::Self().getPlayers());
-	ui.comboBox_defaultPlayer->setCurrentIndex(ui.comboBox_defaultPlayer->findText(PLSet.defaultPlayer));
+	ui.comboBox_defaultPlayer->setCurrentIndex(ui.comboBox_defaultPlayer->findText(EProxy.getVariable("defaultPlayer")));
 
 	ui.groupBox_popupMessages->setChecked(EProxy.getVariable("popupMessage") == "true");
 	ui.comboBox_popupSize->setCurrentIndex(EProxy.getVariable("popupSize").toInt());
@@ -173,7 +173,7 @@ void Settings::accept()
 		QString engine = ui.tableWidget->item(i, 1)->text();
 		PLSet.mimeMap[mime] = engine;
 	}
-	PLSet.defaultPlayer = ui.comboBox_defaultPlayer->currentText();
+	EProxy.setVariable("defaultPlayer", ui.comboBox_defaultPlayer->currentText());
 	EProxy.setVariable("popupMessage", ui.groupBox_popupMessages->isChecked()? "true": "false");
 	EProxy.setVariable("popupSize", QString::number(ui.comboBox_popupSize->currentIndex()));
 	if(ui.radioButton_ptl->isChecked()) EProxy.setVariable("popupPosition", "0");
