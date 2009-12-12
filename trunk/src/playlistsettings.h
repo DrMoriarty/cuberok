@@ -64,7 +64,7 @@ Q_OBJECT
 	/* int popupSize; */
 
 	QMap<QString, QString> mimeMap;
-	QString defaultPlayer;
+	//QString defaultPlayer;
 	
  signals:
 	void visibleChanged(int, bool);

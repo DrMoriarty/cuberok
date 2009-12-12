@@ -138,9 +138,9 @@ bool PlayerManager::open(QUrl fname, long start, long length)
 					break;
 				}
 			}
-		} else if(PLSet.defaultPlayer.size()) {
+		} else if(EProxy.hasVariable("defaultPlayer")) {
 			foreach(Player *pl, players) {
-				if( pl->name() == PLSet.defaultPlayer && (pl->ready() || pl->prepare()) ) {
+				if( pl->name() == EProxy.getVariable("defaultPlayer") && (pl->ready() || pl->prepare()) ) {
 					player = pl;
 				}
 			}
