@@ -125,11 +125,10 @@
       <property name="batchSize" stdset="0">
        <number>100</number>
       </property>
-      <addaction name="actionQueueNext"/>
-      <addaction name="actionEditTag"/>
-      <addaction name="actionReloadTags"/>
-      <addaction name="actionRemoveSong"/>
-      <addaction name="actionClear_playlist"/>
+      <addaction name="actionNewPlaylist"/>
+      <addaction name="actionLoadPlaylist"/>
+      <addaction name="actionSavePlaylist"/>
+      <addaction name="actionClosePlaylist"/>
      </widget>
     </item>
     <item>

@@ -506,6 +506,7 @@ PlaylistStandard::PlaylistStandard(QString &str, Proxy *pr, QWidget *parent) : P
 			if(QFile::exists(fname)) loadList(fname);
 		}
 	}
+	addHardcodedActions(view);
 };
 
 PlaylistStandard::~PlaylistStandard()
@@ -516,6 +517,68 @@ PlaylistStandard::~PlaylistStandard()
 QWidget* PlaylistStandard::getWidget()
 {
 	return view;
+}
+
+void PlaylistStandard::addHardcodedActions(QWidget* w)
+{
+	w->setContextMenuPolicy(Qt::ActionsContextMenu);
+	// queue next
+	QAction *actionQueueNext = new QAction(this);
+	actionQueueNext->setObjectName(QString::fromUtf8("actionQueueNext"));
+	QIcon icon9;
+	icon9.addFile(QString::fromUtf8(":/icons/next.png"), QSize(), QIcon::Normal, QIcon::Off);
+	actionQueueNext->setIcon(icon9);
+	w->addAction(actionQueueNext);
+	QObject::connect(actionQueueNext, SIGNAL(triggered()), this, SLOT(queueNext()));
+	actionQueueNext->setText(QApplication::translate("PlaylistStandard", "Queue as Next", 0, QApplication::UnicodeUTF8));
+	actionQueueNext->setStatusTip(QApplication::translate("PlaylistStandard", "Enqueue selected song", 0, QApplication::UnicodeUTF8));
+	actionQueueNext->setShortcut(QApplication::translate("PlaylistStandard", "Ctrl+D", 0, QApplication::UnicodeUTF8));
+	// edit tags
+	QAction* actionEditTag = new QAction(this);
+	actionEditTag->setObjectName(QString::fromUtf8("actionEditTag"));
+	QIcon icon10;
+	icon10.addFile(QString::fromUtf8(":/icons/edittag.png"), QSize(), QIcon::Normal, QIcon::Off);
+	actionEditTag->setIcon(icon10);
+	w->addAction(actionEditTag);
+	QObject::connect(actionEditTag, SIGNAL(triggered()), this, SLOT(editTag()));
+	actionEditTag->setText(QApplication::translate("PlaylistStandard", "Edit Tag", 0, QApplication::UnicodeUTF8));
+	actionEditTag->setIconText(QApplication::translate("PlaylistStandard", "Tag", 0, QApplication::UnicodeUTF8));
+	actionEditTag->setToolTip(QApplication::translate("PlaylistStandard", "Edit Tag", 0, QApplication::UnicodeUTF8));
+	actionEditTag->setStatusTip(QApplication::translate("PlaylistStandard", "Edit tags", 0, QApplication::UnicodeUTF8));
+	// reload tags
+	QAction *actionReloadTags = new QAction(this);
+	actionReloadTags->setObjectName(QString::fromUtf8("actionReloadTags"));
+	QIcon icon24;
+	icon24.addFile(QString::fromUtf8(":/icons/reload.png"), QSize(), QIcon::Normal, QIcon::Off);
+	actionReloadTags->setIcon(icon24);
+	w->addAction(actionReloadTags);
+	QObject::connect(actionReloadTags, SIGNAL(triggered()), this, SLOT(reloadTags()));
+	actionReloadTags->setText(QApplication::translate("PlaylistStandard", "Reload tags", 0, QApplication::UnicodeUTF8));
+	actionReloadTags->setStatusTip(QApplication::translate("PlaylistStandard", "Reload tags in selected song", 0, QApplication::UnicodeUTF8));
+	// remove song
+	QAction *actionRemoveSong = new QAction(this);
+	actionRemoveSong->setObjectName(QString::fromUtf8("actionRemoveSong"));
+	QIcon icon13;
+	icon13.addFile(QString::fromUtf8(":/icons/col_rem.png"), QSize(), QIcon::Normal, QIcon::Off);
+	actionRemoveSong->setIcon(icon13);
+	actionRemoveSong->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+	w->addAction(actionRemoveSong);
+	QObject::connect(actionRemoveSong, SIGNAL(triggered()), this, SLOT(removeSong()));
+	actionRemoveSong->setText(QApplication::translate("PlaylistStandard", "Remove song", 0, QApplication::UnicodeUTF8));
+	actionRemoveSong->setStatusTip(QApplication::translate("PlaylistStandard", "Remove song from the playlist", 0, QApplication::UnicodeUTF8));
+	actionRemoveSong->setShortcut(QApplication::translate("PlaylistStandard", "Del", 0, QApplication::UnicodeUTF8));
+	// clear
+	QAction* actionClear_playlist = new QAction(this);
+	actionClear_playlist->setObjectName(QString::fromUtf8("actionClear_playlist"));
+	QIcon icon8;
+	icon8.addFile(QString::fromUtf8(":/icons/clearlist.png"), QSize(), QIcon::Normal, QIcon::Off);
+	actionClear_playlist->setIcon(icon8);
+	w->addAction(actionClear_playlist);
+	QObject::connect(actionClear_playlist, SIGNAL(triggered()), this, SLOT(clear()));
+	actionClear_playlist->setText(QApplication::translate("PlaylistStandard", "Clear playlist", 0, QApplication::UnicodeUTF8));
+	actionClear_playlist->setIconText(QApplication::translate("PlaylistStandard", "Clear", 0, QApplication::UnicodeUTF8));
+	actionClear_playlist->setStatusTip(QApplication::translate("PlaylistStandard", "Clear playlist", 0, QApplication::UnicodeUTF8));
+	actionClear_playlist->setShortcut(QApplication::translate("PlaylistStandard", "Ctrl+L", 0, QApplication::UnicodeUTF8));
 }
 
 void PlaylistStandard::play()
