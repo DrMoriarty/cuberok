@@ -174,8 +174,8 @@ void PlaylistContainer::newList(QString listname)
 	tabs->addTab(lists.last()->getWidget(), listname);
 	curlist = lists.last();
 	tabs->setCurrentIndex(tabs->count()-1);
-	curlist->getWidget()->setContextMenuPolicy(Qt::ActionsContextMenu);
-	curlist->getWidget()->actions() << actions();
+	//curlist->getWidget()->setContextMenuPolicy(Qt::ActionsContextMenu);
+	//curlist->getWidget()->addActions(actions());
 	curlist->getWidget()->setAcceptDrops(true);
 	curlist->getWidget()->setToolTip(tr("Drag'n'Drop files to the playlist"));
 	connect(pl, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
@@ -196,10 +196,11 @@ void PlaylistContainer::delList()
 		int i;
 		for(i=0; i<lists.count(); i++)
 			if(lists[i] == curlist) {
+				curlist->getWidget()->disconnect();
 				curlist->disconnect();
 				tabs->removeTab(tabs->currentIndex());
 				lists.removeAt(i);
-				delete curlist;
+				//delete curlist;
 				break;
 			}
 		if(i<tabs->count()) {

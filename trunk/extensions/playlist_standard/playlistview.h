@@ -160,6 +160,7 @@ signals:
 	void songPosition(int);
 	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
  protected:
+	void addHardcodedActions(QWidget* w);
     virtual QModelIndex nextItem();
     virtual QModelIndex prevItem();
 

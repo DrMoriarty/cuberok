@@ -1688,6 +1688,62 @@ Do you forget to install proper phonon backend?</source>
         <source>Can not open %1</source>
         <translation type="unfinished">Не могу открыть %1</translation>
     </message>
+    <message>
+        <source>Queue as Next</source>
+        <translation type="unfinished">Поставить в очередь</translation>
+    </message>
+    <message>
+        <source>Enqueue selected song</source>
+        <translation type="unfinished">Поставить в очередь выбранную песню</translation>
+    </message>
+    <message>
+        <source>Edit Tag</source>
+        <translation type="unfinished">Редактировать теги</translation>
+    </message>
+    <message>
+        <source>Tag</source>
+        <translation type="unfinished">Теги</translation>
+    </message>
+    <message>
+        <source>Edit tags</source>
+        <translation type="unfinished">Редактировать теги</translation>
+    </message>
+    <message>
+        <source>Reload tags</source>
+        <translation type="unfinished">Перечитать теги</translation>
+    </message>
+    <message>
+        <source>Reload tags in selected song</source>
+        <translation type="unfinished">Перечитать теги для выбранной песни</translation>
+    </message>
+    <message>
+        <source>Remove song</source>
+        <translation type="unfinished">Удалить песню</translation>
+    </message>
+    <message>
+        <source>Remove song from the playlist</source>
+        <translation type="unfinished">Удалить песню из списка</translation>
+    </message>
+    <message>
+        <source>Clear playlist</source>
+        <translation type="unfinished">Очистить список</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished">Очистить</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Del</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+L</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlaylistView</name>
