@@ -26,7 +26,7 @@
 
 Q_EXPORT_PLUGIN2(player_phonon, PlayerPhonon) 
 
-PlayerPhonon::PlayerPhonon() : repeat_mode(0), shuffle_mode(0), needPos(false)
+PlayerPhonon::PlayerPhonon() : needPos(false)
 {
 	audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
 	mediaObject = new Phonon::MediaObject(this);

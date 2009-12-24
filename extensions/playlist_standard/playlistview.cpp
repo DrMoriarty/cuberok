@@ -294,6 +294,8 @@ void PlaylistAbstract::prev()
 	if(prev.row() >= 0) {
 		setCurrent(prev.row());
 		play();
+	} else {
+		play();
 	}
 }
 
@@ -306,7 +308,7 @@ void PlaylistAbstract::next()
 	if(next.row() >= 0) {
 		if(plindex.row() >= 0) {
 			prev_queue.push_back(plindex);
-			if(PlayerManager::Self().shuffle_mode) {
+			if(EProxy.getVariable("order_mode") == "shuffle") {
 				model.setData(model.index(plindex.row(), PlaylistModel::Empty), "1", Qt::EditRole);
 				shuffle_count ++;
 			}
@@ -315,7 +317,7 @@ void PlaylistAbstract::next()
 		setCurrent(next.row());
 		play();
 	}
-	//else stop();
+	else stop();
 }
 
 void PlaylistAbstract::play(int index, double pos)
@@ -645,9 +647,9 @@ QModelIndex PlaylistStandard::nextItem()
 		model.setData(model.index(next.row(), PlaylistModel::Stat), "", Qt::EditRole);
 		for(int i=0; i<queue.count(); i++)
 			model.setData(model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
-	} else if(PlayerManager::Self().shuffle_mode) {
+	} else if(EProxy.getVariable("order_mode") == "shuffle") {
 		if(shuffle_count >= model.rowCount()) {
-			if(PlayerManager::Self().repeat_mode) {
+			if(EProxy.getVariable("repeat_mode") == "playlist") {
 				shuffle_count = 0;
 				next = model.index(rand()%model.rowCount(), 0);
 				for(int i = 0; i < model.rowCount(); i++)
@@ -670,7 +672,7 @@ QModelIndex PlaylistStandard::nextItem()
 		if(view->mapFromSource(curindex).row() >= 0) 
 			next = view->mapToSource(view->mapFromSource(curindex).row()+1, 0);
 		if(next.row() < 0) {
-			if(PlayerManager::Self().repeat_mode) next = view->mapToSource(0, 0);
+			if(EProxy.getVariable("repeat_mode") == "playlist") next = view->mapToSource(0, 0);
 			else next = model.index(-1, 0);
 		}
 	}
@@ -688,7 +690,7 @@ QModelIndex PlaylistStandard::prevItem()
 	if(view->mapFromSource(curindex).row() >= 0) 
 		prev = view->mapToSource(view->mapFromSource(curindex).row()-1, 0);
 	if(prev.row() < 0) {
-		if(PlayerManager::Self().repeat_mode) prev = view->mapToSource(model.rowCount()-1, 0);
+		if(EProxy.getVariable("repeat_mode") == "playlist") prev = view->mapToSource(model.rowCount()-1, 0);
 		else prev = model.index(-1, 0);
 	}
 	return prev;

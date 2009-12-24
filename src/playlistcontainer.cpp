@@ -267,12 +267,14 @@ void PlaylistContainer::stop()
         emit updatePlayPauseButton (true); // show "play" on stop
 }
 void PlaylistContainer::repeat(bool mode)
-{ 
-    PlayerManager::Self().repeat_mode = mode;
+{
+	EProxy.setVariable("repeat_mode", mode ? "true" : "false");
+    //PlayerManager::Self().repeat_mode = mode;
 }
 void PlaylistContainer::shuffle(bool mode)
 { 
-    PlayerManager::Self().shuffle_mode = mode;
+	EProxy.setVariable("order_mode", mode ? "shuffle" : "continues");
+    //PlayerManager::Self().shuffle_mode = mode;
 }
 void PlaylistContainer::setVolume(int volume)
 {

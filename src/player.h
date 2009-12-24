@@ -27,7 +27,7 @@ class Player : public QObject
 {
     Q_OBJECT
  public:
-    Player(): QObject(0), repeat_mode(false), shuffle_mode(false), manager(0) {};
+    Player(): QObject(0), manager(0) {};
     ~Player() {};
 
 	virtual bool prepare() = 0;
@@ -52,8 +52,8 @@ class Player : public QObject
 	virtual QStringList hardcodedList() { return QStringList(); };
 	virtual QStringList hardcodedBlacklist() { return QStringList(); };
 
-    int  repeat_mode;
-    int  shuffle_mode;
+    //int  repeat_mode;
+    //int  shuffle_mode;
 
  signals:
     void position(double);

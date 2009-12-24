@@ -442,19 +442,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Repeat</source>
-        <translation type="unfinished">Повторять</translation>
+        <translation type="obsolete">Повторять</translation>
     </message>
     <message>
         <source>Repeat mode</source>
-        <translation type="unfinished">Режим повтора</translation>
+        <translation type="obsolete">Режим повтора</translation>
     </message>
     <message>
         <source>Shuffle</source>
-        <translation type="unfinished">Тасовать</translation>
+        <translation type="obsolete">Тасовать</translation>
     </message>
     <message>
         <source>Shuffle mode</source>
-        <translation type="unfinished">Режим перетасовки</translation>
+        <translation type="obsolete">Режим перетасовки</translation>
     </message>
     <message>
         <source>Song</source>
