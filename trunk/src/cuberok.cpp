@@ -92,11 +92,11 @@ Cuberok::Cuberok(QWidget *parent)
 
 	connect(ui.volumeSlider, SIGNAL(valueChanged(int)), ui.listView, SLOT(setVolume(int)));
 	ui.volumeSlider->setValue(set.value("volume", 99).toInt(0));
-	
-	if(set.value("shuffle", false).toBool())
-		ui.actionShuffle->trigger();
-	if(set.value("repeat", false).toBool())
-		ui.actionRepeat->trigger();
+
+	//if(set.value("shuffle", false).toBool())
+	//	ui.actionShuffle->trigger();
+	//if(set.value("repeat", false).toBool())
+	//	ui.actionRepeat->trigger();
 	/*
 	if(set.value("correctTag", false).toBool())
 		Tagger::setAutoCorrect(true);
@@ -145,6 +145,20 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.actionSQLListEdit->setDisabled(true);
 
 	ui.toolBar_2->addAction(QWhatsThis::createAction(this));
+	order_mode = new QComboBox(this);
+	order_mode->setFrame(false);
+	order_mode->setToolTip("Order mode");
+	order_mode->addItem(QIcon(":/icons/forward.png"), "");
+	order_mode->addItem(QIcon(":/icons/shuffle_mode.png"), "");
+	connect(order_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(setOrderMode(int)));
+	repeat_mode = new QComboBox(this);
+	repeat_mode->setFrame(false);
+	repeat_mode->setToolTip("Repeat mode");
+	repeat_mode->addItem(QIcon(":/icons/forward.png"), "");
+	repeat_mode->addItem(QIcon(":/icons/repeat_mode.png"), "");
+	connect(repeat_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(setRepeatMode(int)));
+	ui.toolBar_2->insertWidget(ui.actionClear_playlist, order_mode);
+	ui.toolBar_2->insertWidget(ui.actionClear_playlist, repeat_mode);
 	ui.toolBar_3->addWidget(ui.progressBar);
 	ui.toolBar_3->addAction(ui.actionMute);
 	ui.toolBar_3->addWidget(ui.volumeSlider);
@@ -183,8 +197,8 @@ void Cuberok::storeState()
 	QSettings set;
 	//set.setValue("splitter", ui.line->saveState());
 	set.setValue("volume", ui.volumeSlider->value());
-	set.setValue("repeat", ui.actionRepeat->isChecked());
-	set.setValue("shuffle", ui.actionShuffle->isChecked());
+	//set.setValue("repeat", ui.actionRepeat->isChecked());
+	//set.setValue("shuffle", ui.actionShuffle->isChecked());
 	set.setValue("iconview", ui.actionIconView->isChecked());
 	ExtensionProxy::Self().storeState();
 	qDebug("Cuberok, state was stored");
@@ -450,6 +464,10 @@ void Cuberok::qtagClosed(QObject*)
 
 void Cuberok::applySettings()
 {
+	if(EProxy.getVariable("order_mode") == "shuffle")
+		order_mode->setCurrentIndex(1);
+	if(EProxy.getVariable("repeat_mode") == "playlist")
+		repeat_mode->setCurrentIndex(1);
 	if(EProxy.getVariable("textToolbuttons") == "true") {
 		ui.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 		ui.toolBar_2->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -461,16 +479,22 @@ void Cuberok::applySettings()
 	}
 	if(EProxy.hasVariable("sizeToolbuttons")) switch(EProxy.getVariable("sizeToolbuttons").toInt()) {
 	case 0:
+		repeat_mode->setIconSize(QSize(16, 16));
+		order_mode->setIconSize(QSize(16, 16));
 		ui.toolBar->setIconSize(QSize(16, 16));
 		ui.toolBar_2->setIconSize(QSize(16, 16));
 		ui.toolBar_3->setIconSize(QSize(16, 16));
 		break;
 	case 1:
+		repeat_mode->setIconSize(QSize(24, 24));
+		order_mode->setIconSize(QSize(24, 24));
 		ui.toolBar->setIconSize(QSize(24, 24));
 		ui.toolBar_2->setIconSize(QSize(24, 24));
 		ui.toolBar_3->setIconSize(QSize(24, 24));
 		break;
 	case 2:
+		repeat_mode->setIconSize(QSize(36, 36));
+		order_mode->setIconSize(QSize(36, 36));
 		ui.toolBar->setIconSize(QSize(36, 36));
 		ui.toolBar_2->setIconSize(QSize(36, 36));
 		ui.toolBar_3->setIconSize(QSize(36, 36));
@@ -587,3 +611,27 @@ void Cuberok::goToSite()
 	ExtensionSettings *es = new ExtensionSettings();
 	es->show();
 	}*/
+
+void Cuberok::setOrderMode(int m)
+{
+	switch(m) {
+	case 0:
+		EProxy.setVariable("order_mode", "continues");
+		break;
+	case 1:
+		EProxy.setVariable("order_mode", "shuffle");
+		break;
+	}
+}
+
+void Cuberok::setRepeatMode(int m)
+{
+	switch(m) {
+	case 0:
+		EProxy.setVariable("repeat_mode", "none");
+		break;
+	case 1:
+		EProxy.setVariable("repeat_mode", "playlist");
+		break;
+	}
+}

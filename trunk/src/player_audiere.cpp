@@ -28,7 +28,7 @@ Q_EXPORT_PLUGIN2(player_audiere, PlayerAudiere)
 
 QStringList whiteList;
 
-PlayerAudiere::PlayerAudiere() : repeat_mode(0), shuffle_mode(0), svolume(100), file(""), sync(false), paused(false)
+PlayerAudiere::PlayerAudiere() : svolume(100), file(""), sync(false), paused(false)
 {
     stream = 0;
     timer = new QTimer(this);

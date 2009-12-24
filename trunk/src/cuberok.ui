@@ -375,8 +375,6 @@
     <addaction name="actionPlayPause"/>
     <addaction name="actionNext"/>
     <addaction name="separator"/>
-    <addaction name="actionShuffle"/>
-    <addaction name="actionRepeat"/>
     <addaction name="separator"/>
     <addaction name="actionClear_playlist"/>
    </widget>
@@ -486,8 +484,6 @@
    </attribute>
    <addaction name="actionBreak"/>
    <addaction name="separator"/>
-   <addaction name="actionShuffle"/>
-   <addaction name="actionRepeat"/>
    <addaction name="actionClear_playlist"/>
    <addaction name="actionEditTag"/>
    <addaction name="actionQTagConvert"/>
@@ -612,36 +608,6 @@
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
-   </property>
-  </action>
-  <action name="actionShuffle">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/icons/shuffle_mode.png</normaloff>:/icons/shuffle_mode.png</iconset>
-   </property>
-   <property name="text">
-    <string>Shuffle</string>
-   </property>
-   <property name="statusTip">
-    <string>Shuffle mode</string>
-   </property>
-  </action>
-  <action name="actionRepeat">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/icons/repeat_mode.png</normaloff>:/icons/repeat_mode.png</iconset>
-   </property>
-   <property name="text">
-    <string>Repeat</string>
-   </property>
-   <property name="statusTip">
-    <string>Repeat mode</string>
    </property>
   </action>
   <action name="actionExit">
@@ -1364,38 +1330,6 @@
    <signal>triggered()</signal>
    <receiver>listView</receiver>
    <slot>play_pause()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>480</x>
-     <y>219</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionShuffle</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>listView</receiver>
-   <slot>shuffle(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>480</x>
-     <y>219</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionRepeat</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>listView</receiver>
-   <slot>repeat(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

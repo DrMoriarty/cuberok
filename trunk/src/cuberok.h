@@ -55,6 +55,7 @@ private:
 	QTimer *timer;
 	bool useMessageWindow;
 	QQueue<QPair<QString, int> > messageQueue;
+	QComboBox *order_mode, *repeat_mode;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);
@@ -89,6 +90,8 @@ public slots:
 	void showHelp();
 	void goToSite();
 	//void setupExtensions();
+	void setOrderMode(int);
+	void setRepeatMode(int);
 };
 
 #endif // CUBEROK_H
