@@ -31,7 +31,9 @@
         <file alias="col_add.png" >../images/document_new.png</file>
         <file alias="col_rem.png" >../images/draw_eraser.png</file>
         <file alias="repeat_mode.png" >../images/ico_repeat.png</file>
-        <file alias="shuffle_mode.png" >../images/ico_random.png</file>
+        <file alias="continue_mode.png" >../images/ico_continue.png</file>
+        <file alias="random_mode.png" >../images/ico_random.png</file>
+        <file alias="shuffle_mode.png" >../images/ico_shuffle.png</file>
         <file alias="edittag.png" >../images/ico_edit_tags.png</file>
         <file alias="clearlist.png" >../images/ico_playlist_clear.png</file>
         <file alias="iconview.png" >../images/view_icon.png</file>

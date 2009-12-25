@@ -321,7 +321,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -484,6 +484,7 @@
    </attribute>
    <addaction name="actionBreak"/>
    <addaction name="separator"/>
+   <addaction name="actionRepeat"/>
    <addaction name="actionClear_playlist"/>
    <addaction name="actionEditTag"/>
    <addaction name="actionQTagConvert"/>
@@ -1239,6 +1240,111 @@
    </property>
    <property name="text">
     <string>Cuberok online</string>
+   </property>
+  </action>
+  <action name="actionRepeat">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/repeat_mode.png</normaloff>:/icons/repeat_mode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Repeat</string>
+   </property>
+   <property name="toolTip">
+    <string>Repeat mode</string>
+   </property>
+  </action>
+  <action name="actionPlaySongMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_song.png</normaloff>:/icons/def_song.png</iconset>
+   </property>
+   <property name="text">
+    <string>Song mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Play one song</string>
+   </property>
+  </action>
+  <action name="actionPlayAlbumMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_album.png</normaloff>:/icons/def_album.png</iconset>
+   </property>
+   <property name="text">
+    <string>Album mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Play albums</string>
+   </property>
+  </action>
+  <action name="actionPlayListMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/def_list.png</normaloff>:/icons/def_list.png</iconset>
+   </property>
+   <property name="text">
+    <string>Playlist mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Play whole playlist</string>
+   </property>
+  </action>
+  <action name="actionOrderedMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/continue_mode.png</normaloff>:/icons/continue_mode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ordered</string>
+   </property>
+   <property name="toolTip">
+    <string>Ordered playing</string>
+   </property>
+  </action>
+  <action name="actionShuffleMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/shuffle_mode.png</normaloff>:/icons/shuffle_mode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shuffle</string>
+   </property>
+   <property name="toolTip">
+    <string>Shuffle playing</string>
+   </property>
+  </action>
+  <action name="actionRandomMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/random_mode.png</normaloff>:/icons/random_mode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Random</string>
+   </property>
+   <property name="toolTip">
+    <string>Random playing</string>
    </property>
   </action>
  </widget>
@@ -2253,6 +2359,118 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRepeat</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>toggleRepeat(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlaySongMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>switchPlayMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlayAlbumMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>switchPlayMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPlayListMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>switchPlayMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOrderedMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>switchOrderMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShuffleMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>switchOrderMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRandomMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CuberokClass</receiver>
+   <slot>switchOrderMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>collectionSettings()</slot>
@@ -2267,5 +2485,8 @@
   <slot>oneLevelUp()</slot>
   <slot>rememberStart_files()</slot>
   <slot>setupExtensions()</slot>
+  <slot>toggleRepeat(bool)</slot>
+  <slot>switchPlayMode()</slot>
+  <slot>switchOrderMode()</slot>
  </slots>
 </ui>
