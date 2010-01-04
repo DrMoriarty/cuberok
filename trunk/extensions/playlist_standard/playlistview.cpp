@@ -647,34 +647,44 @@ QModelIndex PlaylistStandard::nextItem()
 		model.setData(model.index(next.row(), PlaylistModel::Stat), "", Qt::EditRole);
 		for(int i=0; i<queue.count(); i++)
 			model.setData(model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
-	} else if(EProxy.getVariable("order_mode") == "shuffle") {
-		if(shuffle_count >= model.rowCount()) {
-			if(EProxy.getVariable("repeat_mode") == "playlist") {
-				shuffle_count = 0;
-				next = model.index(rand()%model.rowCount(), 0);
+	} else if(EProxy.getVariable("play_mode") == "song") {
+		if(plindex.row()>=0) return plindex;
+		if(curindex.row()>=0) return curindex;
+		return model.index(0,0);
+	} else if(EProxy.getVariable("play_mode") == "album") {
+	} else if(EProxy.getVariable("play_mode") == "list") {
+		if(EProxy.getVariable("order_mode") == "shuffle") {
+			if(shuffle_count >= model.rowCount()) {
+				if(EProxy.getVariable("repeat_mode") == "true") {
+					shuffle_count = 0;
+					next = model.index(rand()%model.rowCount(), 0);
+					for(int i = 0; i < model.rowCount(); i++)
+						model.setData(model.index(i, PlaylistModel::Empty), "", Qt::EditRole);
+				} else {
+					next = model.index(-1, 0);
+				}
+			} else if(shuffle_count == model.rowCount()-1) {
 				for(int i = 0; i < model.rowCount(); i++)
-					model.setData(model.index(i, PlaylistModel::Empty), "", Qt::EditRole);
+					if(!model.data(model.index(i, PlaylistModel::Empty), Qt::DisplayRole).toString().size())
+						next = model.index(i, 0);
 			} else {
-				next = model.index(-1, 0);
+				do {
+					if(plindex.row() >= 0) next = model.index((plindex.row()+rand())%model.rowCount(), 0);
+					else if(curindex.row() >= 0) next = model.index((curindex.row()+rand())%model.rowCount(), 0);
+					else next = model.index(rand()%model.rowCount(), 0);
+				} while(model.data(model.index(next.row(), PlaylistModel::Empty), Qt::DisplayRole).toString().size());
 			}
-		} else if(shuffle_count == model.rowCount()-1) {
-			for(int i = 0; i < model.rowCount(); i++)
-				if(!model.data(model.index(i, PlaylistModel::Empty), Qt::DisplayRole).toString().size())
-					next = model.index(i, 0);
-		} else {
-			do {
-				if(plindex.row() >= 0) next = model.index((plindex.row()+rand())%model.rowCount(), 0);
-				else if(curindex.row() >= 0) next = model.index((curindex.row()+rand())%model.rowCount(), 0);
-				else next = model.index(rand()%model.rowCount(), 0);
-			} while(model.data(model.index(next.row(), PlaylistModel::Empty), Qt::DisplayRole).toString().size());
-		}
-	} else {
-		if(view->mapFromSource(curindex).row() >= 0) 
-			next = view->mapToSource(view->mapFromSource(curindex).row()+1, 0);
-		if(next.row() < 0) {
-			if(EProxy.getVariable("repeat_mode") == "playlist") next = view->mapToSource(0, 0);
-			else next = model.index(-1, 0);
-		}
+		} else if(EProxy.getVariable("order_mode") == "random") {
+			next = model.index(rand()%model.rowCount(), 0);
+		} else //if(EProxy.getVariable("order_mode") == "ordered")
+			{
+				if(view->mapFromSource(curindex).row() >= 0) 
+					next = view->mapToSource(view->mapFromSource(curindex).row()+1, 0);
+				if(next.row() < 0) {
+					if(EProxy.getVariable("play_mode") == "list") next = view->mapToSource(0, 0);
+					else next = model.index(-1, 0);
+				}
+			}
 	}
 	return next;
 }

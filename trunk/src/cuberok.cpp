@@ -163,6 +163,9 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.actionOrderedMode->setChecked(true);
 	ui.actionPlayListMode->setChecked(true);
 	
+	connect(play_mode->menuAction(), SIGNAL(triggered(bool)), this, SLOT(PlayModeMenu()));
+	connect(order_mode->menuAction(), SIGNAL(triggered(bool)), this, SLOT(OrderModeMenu()));
+
 	ui.toolBar_2->addAction(QWhatsThis::createAction(this));
 	ui.toolBar_2->insertAction(ui.actionRepeat, play_mode->menuAction());
 	ui.toolBar_2->insertAction(ui.actionRepeat, order_mode->menuAction());
@@ -641,6 +644,7 @@ void Cuberok::switchOrderMode()
 	case 2:
 		EProxy.setVariable("order_mode", "random");
 		order_mode->setIcon(ui.actionRandomMode->icon());
+		ui.actionRepeat->setChecked(true);
 		break;
 	}
 }
@@ -676,6 +680,19 @@ void Cuberok::toggleRepeat(bool repeat)
 	EProxy.setVariable("repeat_mode", repeat ? "true" : "false");
 	if(!repeat) {
 		if(ui.actionPlaySongMode->isChecked())
-			ui.actionPlayListMode->setChecked();
+			ui.actionPlayListMode->setChecked(true);
+		if(ui.actionRandomMode->isChecked())
+			ui.actionShuffleMode->setChecked(true);
 	}
 }
+
+void Cuberok::PlayModeMenu()
+{
+	play_mode->exec(ui.toolBar_2->mapToGlobal(ui.toolBar_2->widgetForAction(play_mode->menuAction())->pos())+QPoint(0,ui.toolBar_2->widgetForAction(play_mode->menuAction())->height()));
+}
+
+void Cuberok::OrderModeMenu()
+{
+	order_mode->exec(ui.toolBar_2->mapToGlobal(ui.toolBar_2->widgetForAction(order_mode->menuAction())->pos())+QPoint(0,ui.toolBar_2->widgetForAction(order_mode->menuAction())->height()));
+}
+
