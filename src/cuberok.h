@@ -94,6 +94,8 @@ public slots:
 	void switchOrderMode();
 	void switchPlayMode();
     void toggleRepeat(bool);
+	void PlayModeMenu();
+	void OrderModeMenu();
 };
 
 #endif // CUBEROK_H
