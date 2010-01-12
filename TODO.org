@@ -1,5 +1,4 @@
-#+STARTUP: showall
-#+STARTUP: hidestars
+#+STARTUP: showall hidestars
 
 * TODO Milestone 1.0.0 [0%]
 

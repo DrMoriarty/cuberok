@@ -228,11 +228,11 @@ void Cuberok::firstStart()
 	PLSet.setColumnVisible(PlaylistModel::Length, false);
 	PLSet.setColumnVisible(PlaylistModel::Number, false);
 	PLSet.setColumnVisible(PlaylistModel::Year, false);
-        PLSet.setColumnVisible(PlaylistModel::CueStart, false);
-        PLSet.setColumnVisible(PlaylistModel::CueLength, false);
-        PLSet.setColumnVisible(PlaylistModel::DBIndex, false);
-        PLSet.setColumnVisible(PlaylistModel::StartTime, false);
-        PLSet.setColumnWidth(PlaylistModel::Title, 80);
+	PLSet.setColumnVisible(PlaylistModel::CueStart, false);
+	PLSet.setColumnVisible(PlaylistModel::CueLength, false);
+	PLSet.setColumnVisible(PlaylistModel::DBIndex, false);
+	PLSet.setColumnVisible(PlaylistModel::StartTime, false);
+	PLSet.setColumnWidth(PlaylistModel::Title, 80);
 	PLSet.setColumnWidth(PlaylistModel::Artist, 80);
 	PLSet.setColumnWidth(PlaylistModel::Album, 80);
 	ui.actionViewFile->setChecked(false);
