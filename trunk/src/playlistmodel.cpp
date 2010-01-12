@@ -230,6 +230,7 @@ QVariant PlaylistModel::headerData(int section, Qt::Orientation orientation,
 
     if (orientation == Qt::Horizontal)
 		switch(section) {
+		case Empty: return tr("Empty");
 		case Stat: return tr("Queue");
 		case File: return tr("File");
 		case Track: return tr("Track");

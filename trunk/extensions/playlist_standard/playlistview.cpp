@@ -309,8 +309,8 @@ void PlaylistAbstract::next()
 		if(plindex.row() >= 0) {
 			prev_queue.push_back(plindex);
 			if(EProxy.getVariable("order_mode") == "shuffle") {
-				model.setData(model.index(plindex.row(), PlaylistModel::Empty), "1", Qt::EditRole);
 				shuffle_count ++;
+				model.setData(model.index(plindex.row(), PlaylistModel::Empty), shuffle_count, Qt::EditRole);
 			}
 			if(PlayerManager::Self().playing()) rateSong(plindex, -1);
 		}
@@ -588,6 +588,9 @@ void PlaylistStandard::play()
 	if(curindex.row() < 0) {
 		curindex = view->mapToSource(0, 0);
 	}
+	if(EProxy.getVariable("order_mode") != "shuffle") {
+		shuffle_count = 0;
+	}
 	plindex = model.index(curindex.row(), view->header()->logicalIndex(0));
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
 	model.setCurrent(plindex.row());
@@ -652,6 +655,7 @@ QModelIndex PlaylistStandard::nextItem()
 		if(curindex.row()>=0) return curindex;
 		return model.index(0,0);
 	} else if(EProxy.getVariable("play_mode") == "album") {
+		// TODO
 	} else if(EProxy.getVariable("play_mode") == "list") {
 		if(EProxy.getVariable("order_mode") == "shuffle") {
 			if(shuffle_count >= model.rowCount()) {
