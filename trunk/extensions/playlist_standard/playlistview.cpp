@@ -174,7 +174,7 @@ void MyTreeView::showEvent ( QShowEvent * event )
  ***********************/ 
 
 PlaylistAbstract::PlaylistAbstract(QString &str, Proxy *pr, QWidget *parent) : Playlist(str, parent)
-, proxy(pr), autosave(false), playing(false), shuffle_count(0), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+, proxy(pr), autosave(false), playing(false), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
 {
 	timer.setSingleShot(true);
 	timer.setInterval(500);
@@ -308,16 +308,27 @@ void PlaylistAbstract::next()
 	if(next.row() >= 0) {
 		if(plindex.row() >= 0) {
 			prev_queue.push_back(plindex);
-			if(EProxy.getVariable("order_mode") == "shuffle") {
-				shuffle_count ++;
-				model.setData(model.index(plindex.row(), PlaylistModel::Empty), shuffle_count, Qt::EditRole);
-			}
 			if(PlayerManager::Self().playing()) rateSong(plindex, -1);
 		}
 		setCurrent(next.row());
 		play();
+		if(!shuffle_queue.size() && EProxy.getVariable("order_mode") == "shuffle" && EProxy.getVariable("repeat_mode") == "true") {
+			refillShuffleQueue();
+		}
 	}
 	else stop();
+}
+
+void PlaylistAbstract::refillShuffleQueue()
+{
+	shuffle_queue.clear();
+	QList<QModelIndex> cache;
+	for(int i = 0; i<model.rowCount(); i++) cache << model.index(i, 0);
+	while(cache.size()) {
+		int i = rand()%cache.size();
+		shuffle_queue << cache[i];
+		cache.erase(cache.begin() + i);
+	}
 }
 
 void PlaylistAbstract::play(int index, double pos)
@@ -339,6 +350,7 @@ void PlaylistAbstract::stop()
 {
 	model.setCurrent(-1);
 	plindex = model.index(-1, 0);
+	shuffle_queue.clear();
     PlayerManager::Self().stop();
     playing = false;
 	emit message("", "", "", 0);
@@ -588,8 +600,8 @@ void PlaylistStandard::play()
 	if(curindex.row() < 0) {
 		curindex = view->mapToSource(0, 0);
 	}
-	if(EProxy.getVariable("order_mode") != "shuffle") {
-		shuffle_count = 0;
+	if(!shuffle_queue.size() && !PlayerManager::Self().playing() && EProxy.getVariable("order_mode") == "shuffle") {
+		refillShuffleQueue();
 	}
 	plindex = model.index(curindex.row(), view->header()->logicalIndex(0));
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
@@ -658,7 +670,12 @@ QModelIndex PlaylistStandard::nextItem()
 		// TODO
 	} else if(EProxy.getVariable("play_mode") == "list") {
 		if(EProxy.getVariable("order_mode") == "shuffle") {
-			if(shuffle_count >= model.rowCount()) {
+			if(!shuffle_queue.size() && EProxy.getVariable("repeat_mode") == "true") refillShuffleQueue();
+			if(shuffle_queue.size()) {
+				next = shuffle_queue.first();
+				shuffle_queue.pop_front();
+			} else next = model.index(-1, 0);
+			/*if(shuffle_count >= model.rowCount()) {
 				if(EProxy.getVariable("repeat_mode") == "true") {
 					shuffle_count = 0;
 					next = model.index(rand()%model.rowCount(), 0);
@@ -677,7 +694,7 @@ QModelIndex PlaylistStandard::nextItem()
 					else if(curindex.row() >= 0) next = model.index((curindex.row()+rand())%model.rowCount(), 0);
 					else next = model.index(rand()%model.rowCount(), 0);
 				} while(model.data(model.index(next.row(), PlaylistModel::Empty), Qt::DisplayRole).toString().size());
-			}
+				}*/
 		} else if(EProxy.getVariable("order_mode") == "random") {
 			next = model.index(rand()%model.rowCount(), 0);
 		} else //if(EProxy.getVariable("order_mode") == "ordered")

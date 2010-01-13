@@ -117,7 +117,7 @@ class PlaylistAbstract : public Playlist
     QModelIndex plindex;
     QList<QModelIndex> queue;
     QList<QModelIndex> prev_queue;
-	int  shuffle_count;
+    QList<QModelIndex> shuffle_queue;
 	bool delayedPlay;
 	int delayedIndex;
 	double delayedPos;
@@ -129,6 +129,7 @@ class PlaylistAbstract : public Playlist
     virtual QModelIndex prevItem() = 0;
     void resetTags(QModelIndex& ind);
 	void rateSong(QModelIndex &ind, int r, int offset=0);
+	void refillShuffleQueue();
 };
 
 
