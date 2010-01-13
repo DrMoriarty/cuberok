@@ -1722,6 +1722,10 @@ Do you forget to install proper phonon backend?</source>
         <translation type="unfinished">Очередь</translation>
     </message>
     <message>
+        <source>Empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
