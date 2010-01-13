@@ -312,20 +312,24 @@ void PlaylistAbstract::next()
 		}
 		setCurrent(next.row());
 		play();
-		if(!shuffle_queue.size() && EProxy.getVariable("order_mode") == "shuffle" && EProxy.getVariable("repeat_mode") == "true") {
+		/*if(!shuffle_queue.size() && EProxy.getVariable("order_mode") == "shuffle" && EProxy.getVariable("repeat_mode") == "true") {
 			refillShuffleQueue();
-		}
+			}*/
 	}
 	else stop();
 }
 
-void PlaylistAbstract::refillShuffleQueue()
+void PlaylistAbstract::refillShuffleQueue(int except, int notstartwith)
 {
 	shuffle_queue.clear();
 	QList<QModelIndex> cache;
-	for(int i = 0; i<model.rowCount(); i++) cache << model.index(i, 0);
+	for(int i = 0; i<model.rowCount(); i++) if(i != except) cache << model.index(i, 0);
 	while(cache.size()) {
-		int i = rand()%cache.size();
+		int i;
+		do {
+			i = rand()%cache.size();
+		} while(i == notstartwith);
+		notstartwith = -1;
 		shuffle_queue << cache[i];
 		cache.erase(cache.begin() + i);
 	}
@@ -601,7 +605,7 @@ void PlaylistStandard::play()
 		curindex = view->mapToSource(0, 0);
 	}
 	if(!shuffle_queue.size() && !PlayerManager::Self().playing() && EProxy.getVariable("order_mode") == "shuffle") {
-		refillShuffleQueue();
+		refillShuffleQueue(curindex.row());
 	}
 	plindex = model.index(curindex.row(), view->header()->logicalIndex(0));
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
@@ -670,7 +674,8 @@ QModelIndex PlaylistStandard::nextItem()
 		// TODO
 	} else if(EProxy.getVariable("play_mode") == "list") {
 		if(EProxy.getVariable("order_mode") == "shuffle") {
-			if(!shuffle_queue.size() && EProxy.getVariable("repeat_mode") == "true") refillShuffleQueue();
+			if(!shuffle_queue.size() && EProxy.getVariable("repeat_mode") == "true")
+				refillShuffleQueue(-1, plindex.row());
 			if(shuffle_queue.size()) {
 				next = shuffle_queue.first();
 				shuffle_queue.pop_front();

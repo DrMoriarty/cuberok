@@ -160,8 +160,8 @@ Cuberok::Cuberok(QWidget *parent)
 	play_mode->addAction(ui.actionPlaySongMode);
 	play_mode->addAction(ui.actionPlayAlbumMode);
 	play_mode->addAction(ui.actionPlayListMode);
-	ui.actionOrderedMode->setChecked(true);
-	ui.actionPlayListMode->setChecked(true);
+	//ui.actionOrderedMode->setChecked(true);
+	//ui.actionPlayListMode->setChecked(true);
 	
 	connect(play_mode->menuAction(), SIGNAL(triggered(bool)), this, SLOT(PlayModeMenu()));
 	connect(order_mode->menuAction(), SIGNAL(triggered(bool)), this, SLOT(OrderModeMenu()));
@@ -488,6 +488,7 @@ void Cuberok::applySettings()
 		ui.actionPlayAlbumMode->setChecked(true);
 	if(EProxy.getVariable("play_mode") == "list")
 		ui.actionPlayListMode->setChecked(true);
+	ui.actionRepeat->setChecked(EProxy.getVariable("repeat_mode") == "true");
 	if(EProxy.getVariable("textToolbuttons") == "true") {
 		ui.toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 		ui.toolBar_2->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
