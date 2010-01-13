@@ -177,7 +177,7 @@
        </size>
       </property>
       <property name="maximum">
-       <number>200</number>
+       <number>100</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -321,7 +321,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="defaultUp">
