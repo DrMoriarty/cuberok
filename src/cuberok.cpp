@@ -37,6 +37,20 @@
 
 QFreeDesktopMime __mime;
 
+VolumeEventHandler::VolumeEventHandler(QSlider * const volSlider, QObject *parent) : QObject(parent), volSlider(volSlider)
+{}
+
+bool VolumeEventHandler::eventFilter(QObject *obj, QEvent *event)
+{
+    if(event->type() == QEvent::Wheel) {
+        int numDegrees = static_cast<QWheelEvent*>(event)->delta() / 8;
+        int numSteps = numDegrees / 5;
+        volSlider->setValue(volSlider->value() + numSteps);
+        return true;
+    }
+    return QObject::eventFilter(obj, event);
+}
+
 Cuberok::Cuberok(QWidget *parent)
     : QMainWindow(parent), cv(0), needToClose(false), useMessageWindow(false)
 {
@@ -92,6 +106,9 @@ Cuberok::Cuberok(QWidget *parent)
 
 	connect(ui.volumeSlider, SIGNAL(valueChanged(int)), ui.listView, SLOT(setVolume(int)));
 	ui.volumeSlider->setValue(set.value("volume", 99).toInt(0));
+	volumeEventHandler = new VolumeEventHandler(ui.volumeSlider, this);
+	ui.volumeSlider->installEventFilter(volumeEventHandler);
+	trayIcon->installEventFilter(volumeEventHandler);
 
 	//if(set.value("shuffle", false).toBool())
 	//	ui.actionShuffle->trigger();
@@ -295,7 +312,7 @@ void Cuberok::trayevent(QSystemTrayIcon::ActivationReason r)
 {
 	if(r == QSystemTrayIcon::Trigger) {
 		showhide(true);
-        } else if ( r == QSystemTrayIcon::MiddleClick ) {
+	} else if ( r == QSystemTrayIcon::MiddleClick ) {
                 ui.actionPlayPause->trigger();
 	}
 }

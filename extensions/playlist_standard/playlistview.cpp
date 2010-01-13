@@ -323,7 +323,11 @@ void PlaylistAbstract::refillShuffleQueue(int except, int notstartwith)
 {
 	shuffle_queue.clear();
 	QList<QModelIndex> cache;
-	for(int i = 0; i<model.rowCount(); i++) if(i != except) cache << model.index(i, 0);
+	if(EProxy.getVariable("play_mode") == "list") {
+		for(int i = 0; i<model.rowCount(); i++) if(i != except) cache << model.index(i, 0);
+	} else if(EProxy.getVariable("play_mode") == "album") {
+		// TODO
+	} else return;
 	while(cache.size()) {
 		int i;
 		do {
@@ -671,7 +675,18 @@ QModelIndex PlaylistStandard::nextItem()
 		if(curindex.row()>=0) return curindex;
 		return model.index(0,0);
 	} else if(EProxy.getVariable("play_mode") == "album") {
-		// TODO
+		if(EProxy.getVariable("order_mode") == "shuffle") {
+			if(!shuffle_queue.size())
+				prepareNextAlbum();
+			if(shuffle_queue.size()) {
+				next = shuffle_queue.first();
+				shuffle_queue.pop_front();
+			} else next = model.index(-1, 0);
+		} else if(EProxy.getVariable("order_mode") == "random") {
+			// TODO
+		} else { // ordered
+			// TODO
+		}
 	} else if(EProxy.getVariable("play_mode") == "list") {
 		if(EProxy.getVariable("order_mode") == "shuffle") {
 			if(!shuffle_queue.size() && EProxy.getVariable("repeat_mode") == "true")
@@ -680,26 +695,6 @@ QModelIndex PlaylistStandard::nextItem()
 				next = shuffle_queue.first();
 				shuffle_queue.pop_front();
 			} else next = model.index(-1, 0);
-			/*if(shuffle_count >= model.rowCount()) {
-				if(EProxy.getVariable("repeat_mode") == "true") {
-					shuffle_count = 0;
-					next = model.index(rand()%model.rowCount(), 0);
-					for(int i = 0; i < model.rowCount(); i++)
-						model.setData(model.index(i, PlaylistModel::Empty), "", Qt::EditRole);
-				} else {
-					next = model.index(-1, 0);
-				}
-			} else if(shuffle_count == model.rowCount()-1) {
-				for(int i = 0; i < model.rowCount(); i++)
-					if(!model.data(model.index(i, PlaylistModel::Empty), Qt::DisplayRole).toString().size())
-						next = model.index(i, 0);
-			} else {
-				do {
-					if(plindex.row() >= 0) next = model.index((plindex.row()+rand())%model.rowCount(), 0);
-					else if(curindex.row() >= 0) next = model.index((curindex.row()+rand())%model.rowCount(), 0);
-					else next = model.index(rand()%model.rowCount(), 0);
-				} while(model.data(model.index(next.row(), PlaylistModel::Empty), Qt::DisplayRole).toString().size());
-				}*/
 		} else if(EProxy.getVariable("order_mode") == "random") {
 			next = model.index(rand()%model.rowCount(), 0);
 		} else //if(EProxy.getVariable("order_mode") == "ordered")
@@ -843,6 +838,11 @@ void PlaylistStandard::setCurrent(int index)
 		delayedIndex = index;
 		delayedPlay = false;
 	}
+}
+
+void PlaylistStandard::prepareNextAlbum()
+{
+	// TODO
 }
 
 /***********************

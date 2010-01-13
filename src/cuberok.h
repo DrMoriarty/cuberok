@@ -31,6 +31,17 @@
 
 const char titlepref[] = "Cuberok - ";
 
+class VolumeEventHandler : public QObject
+{
+    Q_OBJECT
+public:
+	VolumeEventHandler(QSlider * const volSlider, QObject *parent = 0);
+    protected:
+	bool eventFilter(QObject *obj, QEvent *event);
+private:
+	QSlider *volSlider;
+};
+
 class Cuberok : public QMainWindow
 {
     Q_OBJECT
@@ -57,6 +68,7 @@ private:
 	QQueue<QPair<QString, int> > messageQueue;
 	QMenu *order_mode, *play_mode;
 	QActionGroup *order_group, *play_group;
+	VolumeEventHandler *volumeEventHandler;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);

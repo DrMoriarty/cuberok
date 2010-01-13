@@ -162,6 +162,7 @@ signals:
 	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
  protected:
 	void addHardcodedActions(QWidget* w);
+	void prepareNextAlbum();
     virtual QModelIndex nextItem();
     virtual QModelIndex prevItem();
 
