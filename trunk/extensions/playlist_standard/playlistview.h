@@ -167,6 +167,8 @@ signals:
     virtual QModelIndex prevItem();
 
 	MyTreeView *view;
+	QList<QModelIndex> current_album;
+	QString current_album_name;
 };
 
 class PlaylistStandardFactory : public PlaylistFactory
