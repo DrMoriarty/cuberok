@@ -326,7 +326,8 @@ void PlaylistAbstract::refillShuffleQueue(int except, int notstartwith)
 	if(EProxy.getVariable("play_mode") == "list") {
 		for(int i = 0; i<model.rowCount(); i++) if(i != except) cache << model.index(i, 0);
 	} else if(EProxy.getVariable("play_mode") == "album") {
-		// TODO
+		//prepareNextAlbum();
+		return;
 	} else return;
 	while(cache.size()) {
 		int i;
@@ -609,7 +610,10 @@ void PlaylistStandard::play()
 		curindex = view->mapToSource(0, 0);
 	}
 	if(!shuffle_queue.size() && !PlayerManager::Self().playing() && EProxy.getVariable("order_mode") == "shuffle") {
-		refillShuffleQueue(curindex.row());
+		if(EProxy.getVariable("play_mode") == "list")
+		   refillShuffleQueue(curindex.row());
+		else if(EProxy.getVariable("play_mode") == "album")
+			prepareNextAlbum();
 	}
 	plindex = model.index(curindex.row(), view->header()->logicalIndex(0));
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
@@ -675,17 +679,32 @@ QModelIndex PlaylistStandard::nextItem()
 		if(curindex.row()>=0) return curindex;
 		return model.index(0,0);
 	} else if(EProxy.getVariable("play_mode") == "album") {
-		if(EProxy.getVariable("order_mode") == "shuffle") {
-			if(!shuffle_queue.size())
-				prepareNextAlbum();
-			if(shuffle_queue.size()) {
-				next = shuffle_queue.first();
-				shuffle_queue.pop_front();
-			} else next = model.index(-1, 0);
-		} else if(EProxy.getVariable("order_mode") == "random") {
-			// TODO
-		} else { // ordered
-			// TODO
+		if(!current_album.size()) prepareNextAlbum();
+		if(!current_album.size())
+			next = model.index(-1, 0);
+		else {
+			if(EProxy.getVariable("order_mode") == "shuffle") {
+				if(!shuffle_queue.size())
+					prepareNextAlbum();
+				if(shuffle_queue.size()) {
+					next = shuffle_queue.first();
+					shuffle_queue.pop_front();
+				} else next = model.index(-1, 0);
+			} else if(EProxy.getVariable("order_mode") == "random") {
+				int r = rand()%current_album.size();
+				if(current_album.size() > 2) while(current_album[r].row() == plindex.row() || current_album[r].row() == curindex.row()) { r = rand()%current_album.size(); }
+				next = current_album[r];
+			} else { // ordered
+				int cur = 0;
+				while(cur < current_album.size() && current_album[cur].row() != curindex.row()) cur ++;
+				if(cur >= current_album.size()) {
+					prepareNextAlbum();
+					if(current_album.size()) next = current_album[0];
+					else next = model.index(-1, 0);
+				} else {
+					next = current_album[cur+1];
+				}
+			}
 		}
 	} else if(EProxy.getVariable("play_mode") == "list") {
 		if(EProxy.getVariable("order_mode") == "shuffle") {
@@ -696,6 +715,8 @@ QModelIndex PlaylistStandard::nextItem()
 				shuffle_queue.pop_front();
 			} else next = model.index(-1, 0);
 		} else if(EProxy.getVariable("order_mode") == "random") {
+			int r = rand()%model.rowCount();
+			if(model.rowCount() > 2) while(r == plindex.row() || r == curindex.row()) { r = rand()%model.rowCount(); }
 			next = model.index(rand()%model.rowCount(), 0);
 		} else //if(EProxy.getVariable("order_mode") == "ordered")
 			{
@@ -842,7 +863,57 @@ void PlaylistStandard::setCurrent(int index)
 
 void PlaylistStandard::prepareNextAlbum()
 {
-	// TODO
+	QString newAlbum;
+	if(current_album.size()) {
+		// find next album
+		if(EProxy.getVariable("order_mode") == "random") {
+			// the same album
+			return;
+		} else if(EProxy.getVariable("order_mode") == "shuffle") {
+			int max = 0;
+			for(int i = 0; i< current_album.size(); i++) if(current_album[i].row() > max) max = current_album[i].row();
+			max ++;
+			if(max < model.rowCount())
+				newAlbum = model.data(model.index(max, PlaylistModel::Album), Qt::DisplayRole).toString();
+			else {
+				if(EProxy.getVariable("repeat_mode") == "true")
+					newAlbum = model.data(model.index(0, PlaylistModel::Album), Qt::DisplayRole).toString();
+				else {
+					current_album.clear();
+					shuffle_queue.clear();
+				}
+			}
+		} else { // ordered
+			QString oldAlbum = model.data(model.index(current_album[0].row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+			if(current_album.size() < model.rowCount()) {
+				do {
+					newAlbum = model.data(model.index(rand()%model.rowCount(), PlaylistModel::Album), Qt::DisplayRole).toString();
+				} while(newAlbum == oldAlbum);
+			} else return;
+		}
+	} else if(curindex.row() >= 0) {
+		// get album from current item
+		newAlbum = model.data(model.index(curindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+	} else {
+		// get first album
+		newAlbum = model.data(model.index(0, PlaylistModel::Album), Qt::DisplayRole).toString();
+	}
+	// lets fill new current album
+	current_album.clear();
+	for(int i = 0; i<model.rowCount(); i++) {
+		if(newAlbum == model.data(model.index(i, PlaylistModel::Album), Qt::DisplayRole).toString())
+			current_album << model.index(i, PlaylistModel::Album);
+	}
+	// prepare shuffle list
+	if(EProxy.getVariable("order_mode") == "shuffle") {
+		QList<QModelIndex> cache = current_album;
+		shuffle_queue.clear();
+		while(cache.size()) {
+			int i = rand()%cache.size();
+			shuffle_queue << cache[i];
+			cache.erase(cache.begin() + i);
+		}
+	}
 }
 
 /***********************
