@@ -144,6 +144,7 @@ public:
 	virtual void setCurrent(int index);
 public slots:
 	virtual void play();
+	virtual void stop();
 	virtual void clear();
 	virtual void queueNext();
 	virtual void editTag();
@@ -162,13 +163,14 @@ signals:
 	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
  protected:
 	void addHardcodedActions(QWidget* w);
-	void prepareNextAlbum();
+	void prepareNextAlbum(int except = -1);
+	void prepareAlbumList(const QString* except=0, const QString* notStartWith=0);
     virtual QModelIndex nextItem();
     virtual QModelIndex prevItem();
 
 	MyTreeView *view;
 	QList<QModelIndex> current_album;
-	QString current_album_name;
+	QStringList album_queue;
 };
 
 class PlaylistStandardFactory : public PlaylistFactory
