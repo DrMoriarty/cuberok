@@ -613,7 +613,7 @@ void PlaylistStandard::play()
 		if(EProxy.getVariable("play_mode") == "list")
 		   refillShuffleQueue(curindex.row());
 		else if(EProxy.getVariable("play_mode") == "album")
-			prepareNextAlbum();
+			prepareNextAlbum(curindex.row());
 	}
 	plindex = model.index(curindex.row(), view->header()->logicalIndex(0));
 	//plindex = model.index(curindex.row(), PlaylistModel::File);
@@ -663,6 +663,13 @@ void PlaylistStandard::play()
 	emit playPauseIcon (false); // finished playing, show the "pause" icon
 }
 
+void PlaylistStandard::stop()
+{
+	current_album.clear();
+	album_queue.clear();
+	PlaylistAbstract::stop();
+}
+
 QModelIndex PlaylistStandard::nextItem()
 {
 	srand( time(NULL) );
@@ -697,7 +704,7 @@ QModelIndex PlaylistStandard::nextItem()
 			} else { // ordered
 				int cur = 0;
 				while(cur < current_album.size() && current_album[cur].row() != curindex.row()) cur ++;
-				if(cur >= current_album.size()) {
+				if(cur >= current_album.size()-1) {
 					prepareNextAlbum();
 					if(current_album.size()) next = current_album[0];
 					else next = model.index(-1, 0);
@@ -861,7 +868,7 @@ void PlaylistStandard::setCurrent(int index)
 	}
 }
 
-void PlaylistStandard::prepareNextAlbum()
+void PlaylistStandard::prepareNextAlbum(int except)
 {
 	QString newAlbum;
 	if(current_album.size()) {
@@ -869,8 +876,19 @@ void PlaylistStandard::prepareNextAlbum()
 		if(EProxy.getVariable("order_mode") == "random") {
 			// the same album
 			return;
-		} else if(EProxy.getVariable("order_mode") == "shuffle") {
-			int max = 0;
+		} else /*if(EProxy.getVariable("order_mode") == "shuffle")*/ {
+			QString oldAlbum = model.data(model.index(current_album[0].row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+			if(!album_queue.size() && EProxy.getVariable("repeat_mode") == "true")
+				prepareAlbumList(0, &oldAlbum);
+			if(album_queue.size()) {
+				newAlbum = album_queue.front();
+				album_queue.pop_front();
+			} else {
+				current_album.clear();
+				shuffle_queue.clear();
+				return;
+			}
+			/*int max = 0;
 			for(int i = 0; i< current_album.size(); i++) if(current_album[i].row() > max) max = current_album[i].row();
 			max ++;
 			if(max < model.rowCount())
@@ -889,14 +907,16 @@ void PlaylistStandard::prepareNextAlbum()
 				do {
 					newAlbum = model.data(model.index(rand()%model.rowCount(), PlaylistModel::Album), Qt::DisplayRole).toString();
 				} while(newAlbum == oldAlbum);
-			} else return;
+			} else return;*/
 		}
 	} else if(curindex.row() >= 0) {
 		// get album from current item
 		newAlbum = model.data(model.index(curindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		prepareAlbumList(&newAlbum);
 	} else {
 		// get first album
 		newAlbum = model.data(model.index(0, PlaylistModel::Album), Qt::DisplayRole).toString();
+		prepareAlbumList(&newAlbum);
 	}
 	// lets fill new current album
 	current_album.clear();
@@ -910,7 +930,34 @@ void PlaylistStandard::prepareNextAlbum()
 		shuffle_queue.clear();
 		while(cache.size()) {
 			int i = rand()%cache.size();
-			shuffle_queue << cache[i];
+			if(cache[i].row() != except) shuffle_queue << cache[i];
+			cache.erase(cache.begin() + i);
+		}
+	}
+}
+
+void PlaylistStandard::prepareAlbumList(const QString* except, const QString* notStartWith)
+{
+	album_queue.clear();
+	for(int i=0; i<model.rowCount(); i++) {
+		QString al = model.data(model.index(i, PlaylistModel::Album), Qt::DisplayRole).toString();
+		if(except && al == *except) continue;
+		bool coincidence = false;
+		for(int j = album_queue.size()-1; j >= 0; j--)
+			if(album_queue[j] == al) {
+				coincidence = true;
+				break;
+			}
+		if(!coincidence) album_queue << al;
+	}
+	if(EProxy.getVariable("order_mode") == "ordered") {
+		QStringList cache = album_queue;
+		album_queue.clear();
+		while(cache.size()) {
+			int i;
+			do { i = rand()%cache.size(); } while(notStartWith && cache[i] == notStartWith);
+			notStartWith = 0;
+			album_queue << cache[i];
 			cache.erase(cache.begin() + i);
 		}
 	}

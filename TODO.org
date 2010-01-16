@@ -13,7 +13,7 @@
 ** TODO More web sources
 
 
-* TODO Milestone 0.1.0 [28%]
+* TODO Milestone 0.1.0 [42%]
 ** DONE New about dialog
 *** DONE Translator tab
 ** DONE Fix lyrics.org plugin
@@ -22,6 +22,6 @@
 ** TODO Collection plugin
 ** TODO Images for Info widget
 ** TODO Rating for Info widget
-** TODO Make true shuffle
+** DONE Make true shuffle
 ** TODO D-Bus control
 
