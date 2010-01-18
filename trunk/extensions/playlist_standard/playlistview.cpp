@@ -366,17 +366,20 @@ void PlaylistAbstract::stop()
 void PlaylistAbstract::playFinished()
 {
 	/*if(PLSet.lastfmScrobbler || PLSet.librefmScrobbler)*/ {
-		QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
-		QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-		QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-		int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
-		long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
-		uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
+		// QString a = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		// QString t = model.data(model.index(plindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
+		// QString b = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		// int n = model.data(model.index(plindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
+		// long len = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong() / 75;
+		// uint start = model.data(model.index(plindex.row(), PlaylistModel::StartTime), Qt::DisplayRole).toLongLong();
 		//if(PLSet.lastfmScrobbler) LastFM::Self().submission(a, t, start, b, len, "P", "", n);
 		//if(PLSet.librefmScrobbler) LibreFM::Self().submission(a, t, start, b, len, "P", "", n);
 	}	
 	emit playPauseIcon (true); // finished playing, show the "play" icon
-	next();
+	if(EProxy.getVariable("play_mode") == "song" && EProxy.getVariable("repeat_mode") == "true")
+		play();
+	else
+		next();
 }
 
 void PlaylistAbstract::updateTag(TagEditor* ed)
@@ -688,11 +691,11 @@ QModelIndex PlaylistStandard::nextItem()
 		for(int i=0; i<queue.count(); i++)
 			model.setData(model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
 	} else if(EProxy.getVariable("play_mode") == "song") { // SONG
-		if(EProxy.getVariable("repeat_mode") == "true") {  // REPEAT
+		/*if(EProxy.getVariable("repeat_mode") == "true") {  // REPEAT
 			if(plindex.row()>=0) return plindex;
 			if(curindex.row()>=0) return curindex;
 			return model.index(0,0);
-		} else {
+			} else {*/
 			if(EProxy.getVariable("order_mode") == "shuffle") { // SHUFFLE
 				if(shuffle_queue.size()) {
 					next = shuffle_queue.first();
@@ -709,7 +712,7 @@ QModelIndex PlaylistStandard::nextItem()
 					next = model.index(-1, 0);
 				}
 			}
-		}
+			//}
 	} else if(EProxy.getVariable("play_mode") == "album") {  // ALBUM
 		if(!current_album.size()) prepareNextAlbum();
 		if(!current_album.size())

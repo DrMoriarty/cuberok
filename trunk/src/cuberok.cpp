@@ -702,7 +702,7 @@ void Cuberok::toggleRepeat(bool repeat)
 		//if(ui.actionPlaySongMode->isChecked())
 		//	ui.actionPlayListMode->setChecked(true);
 		if(ui.actionPlaySongMode->isChecked()) {
-			order_mode->setEnabled(!repeat);
+			//order_mode->setEnabled(!repeat);
 		} else {
 			if(ui.actionRandomMode->isChecked() && !repeat)
 				ui.actionShuffleMode->setChecked(true);
