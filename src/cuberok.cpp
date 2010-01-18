@@ -662,7 +662,8 @@ void Cuberok::switchOrderMode()
 	case 2:
 		EProxy.setVariable("order_mode", "random");
 		order_mode->setIcon(ui.actionRandomMode->icon());
-		ui.actionRepeat->setChecked(true);
+		if(!ui.actionPlaySongMode->isChecked())
+			ui.actionRepeat->setChecked(true);
 		break;
 	}
 }
@@ -677,8 +678,9 @@ void Cuberok::switchPlayMode()
 	case 0:
 		EProxy.setVariable("play_mode", "song");
 		play_mode->setIcon(ui.actionPlaySongMode->icon());
-		ui.actionRepeat->setChecked(true);
-		order_mode->setEnabled(false);
+		//ui.actionRepeat->setChecked(true);
+		//order_mode->setEnabled(false);
+		order_mode->setEnabled(!ui.actionRepeat->isChecked());
 		break;
 	case 1:
 		EProxy.setVariable("play_mode", "album");
@@ -696,12 +698,16 @@ void Cuberok::switchPlayMode()
 void Cuberok::toggleRepeat(bool repeat)
 {
 	EProxy.setVariable("repeat_mode", repeat ? "true" : "false");
-	if(!repeat) {
-		if(ui.actionPlaySongMode->isChecked())
-			ui.actionPlayListMode->setChecked(true);
-		if(ui.actionRandomMode->isChecked())
-			ui.actionShuffleMode->setChecked(true);
-	}
+	//if(!repeat) {
+		//if(ui.actionPlaySongMode->isChecked())
+		//	ui.actionPlayListMode->setChecked(true);
+		if(ui.actionPlaySongMode->isChecked()) {
+			order_mode->setEnabled(!repeat);
+		} else {
+			if(ui.actionRandomMode->isChecked() && !repeat)
+				ui.actionShuffleMode->setChecked(true);
+		}
+		//}
 }
 
 void Cuberok::PlayModeMenu()
