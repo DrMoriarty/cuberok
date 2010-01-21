@@ -22,15 +22,15 @@ HEADERS += \
            ../include/tagentry.h \
            ../include/interfaces.h \
            aboutdialog.h \
-           collectionsettings.h \
-           collectionfiller.h \
-           collectionview.h \
+#           collectionsettings.h \
+#           collectionfiller.h \
+#           collectionview.h \
            comboboxdelegate.h \
            console.h \
            consoleview.h \
            cuberok.h \
            cuecontrol.h \
-           database.h \
+#           database.h \
            downloader.h \
            extensionproxy.h \
            extensionsettings.h \
@@ -49,7 +49,7 @@ HEADERS += \
            playlistsettings.h \
            progressbar.h \
            settings.h \
-           sqledit.h \
+#           sqledit.h \
            stardelegate.h \
            stareditor.h \
            starrating.h \
@@ -60,29 +60,29 @@ HEADERS += \
 #	   ksqueezedtextlabel.h
 
 FORMS += aboutdialog.ui \
-         collectionsettings.ui \
+#         collectionsettings.ui \
          cuberok.ui \
          lookandfeel.ui \
          settings.ui \
          url_open.ui \
          authenticationdialog.ui \
          console.ui \
-         sqledit.ui \
+#         sqledit.ui \
          importcollection.ui \
          firststartwizard.ui \
          cuecontrol.ui 
 TRANSLATIONS = ../translations/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \
-           collectionsettings.cpp \
-           collectionfiller.cpp \
-           collectionview.cpp \
+#           collectionsettings.cpp \
+#           collectionfiller.cpp \
+#           collectionview.cpp \
            comboboxdelegate.cpp \
            console.cpp \
            consoleview.cpp \
            cuberok.cpp \
            cuecontrol.cpp \
-           database.cpp \
+#           database.cpp \
            downloader.cpp \
            extensionproxy.cpp \
            extensionsettings.cpp \
@@ -100,7 +100,7 @@ SOURCES += aboutdialog.cpp \
            playlistsettings.cpp \
            progressbar.cpp \
            settings.cpp \
-           sqledit.cpp \
+#           sqledit.cpp \
            stardelegate.cpp \
            stareditor.cpp \
            starrating.cpp \
@@ -177,7 +177,8 @@ CUBEROK_STATIC_PLUGINS = \
 	info_lastfm \
 	src_browser \
 	src_library \
-	info_lyric 
+	info_lyric \
+    src_collection
 
 LIBS += -L$${DESTDIR}/plugins 
 for(p, CUBEROK_STATIC_PLUGINS) {

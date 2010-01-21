@@ -167,6 +167,11 @@ void MyTreeView::showEvent ( QShowEvent * event )
 	emit needUpdate();
 }
 
+int MyTreeView::rowCount()
+{
+	return pmodel.rowCount();
+}
+
 /***********************
  * 
  *    PlaylistAbstract
@@ -316,27 +321,6 @@ void PlaylistAbstract::next()
 	else stop();
 }
 
-void PlaylistAbstract::refillShuffleQueue(int except, int notstartwith)
-{
-	shuffle_queue.clear();
-	QList<QModelIndex> cache;
-	if(EProxy.getVariable("play_mode") == "list" || EProxy.getVariable("play_mode") == "song") {
-		for(int i = 0; i<model.rowCount(); i++) if(i != except) cache << model.index(i, 0);
-	} else if(EProxy.getVariable("play_mode") == "album") {
-		//prepareNextAlbum();
-		return;
-	} else return;
-	while(cache.size()) {
-		int i;
-		do {
-			i = rand()%cache.size();
-		} while(i == notstartwith);
-		notstartwith = -1;
-		shuffle_queue << cache[i];
-		cache.erase(cache.begin() + i);
-	}
-}
-
 void PlaylistAbstract::play(int index, double pos)
 {
 	if(index >= 0 && index < model.rowCount()) {
@@ -412,9 +396,9 @@ void PlaylistAbstract::resetTags(QModelIndex& ind)
 	addItem(QString::number(track), PlaylistModel::Track, &ind);
 	addItem(genre, PlaylistModel::Genre, &ind);
 
-	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
+	/*if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
 		addItem(qVariantFromValue(StarRating(rating)), PlaylistModel::Rating, &ind);
-	}
+		}*/
 }
 
 void PlaylistAbstract::setAutosave(bool b)
@@ -460,7 +444,8 @@ void PlaylistAbstract::timerSlot()
 void PlaylistAbstract::rateSong(QModelIndex &ind, int r, int offset)
 {
 	if(!PLSet.autoRating || (!r && !offset)) return;
-	QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
+	// TODO
+	/*QString path = ToLocalFile(model.data(model.index(ind.row(), PlaylistModel::File), Qt::UserRole).toUrl());
 	QString title, artist, album, comment, genre, length, type;
 	int track, year, rating;
 	if(Database::Self().GetTags(path, title, artist, album, comment, genre, track, year, rating, length, type)) {
@@ -471,7 +456,7 @@ void PlaylistAbstract::rateSong(QModelIndex &ind, int r, int offset)
 		}
 		Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating+r);
 	}
-	proxy->log((r>0?"rate up ":"rate down ") + title);
+	proxy->log((r>0?"rate up ":"rate down ") + title);*/
 }
 
 int PlaylistAbstract::curIndex()
@@ -691,28 +676,24 @@ QModelIndex PlaylistStandard::nextItem()
 		for(int i=0; i<queue.count(); i++)
 			model.setData(model.index(queue[i].row(), PlaylistModel::Stat), QVariant(i+1), Qt::EditRole);
 	} else if(EProxy.getVariable("play_mode") == "song") { // SONG
-		/*if(EProxy.getVariable("repeat_mode") == "true") {  // REPEAT
-			if(plindex.row()>=0) return plindex;
-			if(curindex.row()>=0) return curindex;
-			return model.index(0,0);
-			} else {*/
-			if(EProxy.getVariable("order_mode") == "shuffle") { // SHUFFLE
-				if(shuffle_queue.size()) {
-					next = shuffle_queue.first();
-					shuffle_queue.pop_front();
-				} else next = model.index(-1, 0);
-			} else if(EProxy.getVariable("order_mode") == "random") { // RANDOM
-				int r = rand()%model.rowCount();
-				if(model.rowCount() > 2) while(r == plindex.row() || r == curindex.row()) { r = rand()%model.rowCount(); }
-				next = model.index(r, 0);
-			} else {                                          // ORDERED
-				if(view->mapFromSource(curindex).row() >= 0) 
-					next = view->mapToSource(view->mapFromSource(curindex).row()+1, 0);
-				if(next.row() < 0) {
-					next = model.index(-1, 0);
-				}
+		if(EProxy.getVariable("order_mode") == "shuffle") { // SHUFFLE
+			if(!shuffle_queue.size())
+				refillShuffleQueue(-1, plindex.row());
+			if(shuffle_queue.size()) {
+				next = shuffle_queue.first();
+				shuffle_queue.pop_front();
+			} else next = model.index(-1, 0);
+		} else if(EProxy.getVariable("order_mode") == "random") { // RANDOM
+			int r = rand()%view->rowCount();
+			if(view->rowCount() > 2) while(r == view->mapFromSource(plindex).row() || r == view->mapFromSource(curindex).row()) { r = rand()%view->rowCount(); }
+			next = view->mapToSource(r, 0);
+		} else {                                          // ORDERED
+			if(view->mapFromSource(curindex).row() >= 0) 
+				next = view->mapToSource(view->mapFromSource(curindex).row()+1, 0);
+			if(next.row() < 0) {
+				next = model.index(-1, 0);
 			}
-			//}
+		}
 	} else if(EProxy.getVariable("play_mode") == "album") {  // ALBUM
 		if(!current_album.size()) prepareNextAlbum();
 		if(!current_album.size())
@@ -754,10 +735,10 @@ QModelIndex PlaylistStandard::nextItem()
 			if(model.rowCount() > 2) while(r == plindex.row() || r == curindex.row()) { r = rand()%model.rowCount(); }
 			next = model.index(r, 0);
 		} else {                                                  // ORDERED
-			if(view->mapFromSource(curindex).row() >= 0) 
-				next = view->mapToSource(view->mapFromSource(curindex).row()+1, 0);
+			if(curindex.row() >= 0) 
+				next = model.index(curindex.row()+1, 0);
 			if(next.row() < 0) {
-				if(EProxy.getVariable("repeat_mode") == "true") next = view->mapToSource(0, 0);
+				if(EProxy.getVariable("repeat_mode") == "true") next = model.index(0, 0);
 				else next = model.index(-1, 0);
 			}
 		}
@@ -781,6 +762,29 @@ QModelIndex PlaylistStandard::prevItem()
 	}
 	return prev;
 }
+
+void PlaylistStandard::refillShuffleQueue(int except, int notstartwith)
+{
+	shuffle_queue.clear();
+	QList<QModelIndex> cache;
+	if(EProxy.getVariable("play_mode") == "song") {
+		for(int i = 0; i<view->rowCount(); i++) if(view->mapToSource(i,0).row() != except) cache << view->mapToSource(i, 0);
+	} else if(EProxy.getVariable("play_mode") == "list") {
+		for(int i = 0; i<model.rowCount(); i++) if(i != except) cache << model.index(i, 0);
+	} else if(EProxy.getVariable("play_mode") == "album") {
+		prepareNextAlbum(except);
+	} else return;
+	while(cache.size()) {
+		int i;
+		do {
+			i = rand()%cache.size();
+		} while(i == notstartwith);
+		notstartwith = -1;
+		shuffle_queue << cache[i];
+		cache.erase(cache.begin() + i);
+	}
+}
+
 
 void PlaylistStandard::onClick(const QModelIndex &index)
 {

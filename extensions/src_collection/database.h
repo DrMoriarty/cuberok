@@ -21,6 +21,7 @@
 #define DATABASE_H_
 
 #include <QtCore>
+#include "interfaces.h"
 
 typedef enum {M_ARTIST=0, M_ALBUM, M_GENRE, M_SONG, M_SQLLIST} ListMode;
 
@@ -81,6 +82,8 @@ public:
 	QList<QString> SongsBySQLPlaylist(QString sqlname);
     bool GetTags(QString file, QString &title, QString &artist, QString &album, QString &comment, QString &genre, int &track, int &year, int &rating, QString &length, QString &type);
     bool SetTags(QString file, QString title, QString artist, QString album, QString comment, QString genre, int track, int year, int rating);
+	bool GetTags(QString file, STags& tags);
+	bool SetTags(QString file, const STags& tags);
 	void MbidForAlbum(QString val, QString mbid, int artist);
 	void MbidForArtist(QString val, QString mbid);
     QString GetArtist(int);
