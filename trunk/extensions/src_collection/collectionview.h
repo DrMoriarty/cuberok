@@ -39,6 +39,7 @@ class CollectionModel : public QStandardItemModel
 	virtual Qt::DropActions supportedDropActions() const;
 	void updateMode(ListMode m);
     QList<QUrl> SelectByItem(QModelIndex i) const;
+	QVector<STags> TagsByItem(QModelIndex i) const;
     virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
  private:
 	void drawStars(QPixmap &bg, int rating, bool song);

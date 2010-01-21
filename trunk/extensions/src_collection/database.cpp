@@ -977,6 +977,78 @@ bool Database::SetTags(QString file, QString title, QString artist, QString albu
     return false;
 }
 
+bool Database::GetTags(QString file, STags& tags)
+{
+    if(!open) return false;
+    QMutexLocker locker(&lock);
+    QSqlQuery q("", db);
+    QString com = "select Title, Artist, Album, Comment, Genre, Track, Year, Rating, Length, Type from Song where File = :file";
+    q.prepare(com);
+    q.bindValue(":file", file);
+    q.exec();
+    if(q.next()) {
+		tags.tag0.url = QUrl::fromLocalFile(file);
+        int artistID, albumID, genreID;
+        bool ok;
+        tags.tag0.title = q.value(0).toString();
+        artistID = q.value(1).toInt(&ok);
+        if(ok) tags.tag0.artist = _GetArtist(artistID);
+        albumID = q.value(2).toInt(&ok);
+        if(ok) tags.tag0.album = _GetAlbum(albumID);
+        tags.tag0.comment = q.value(3).toString();
+        genreID = q.value(4).toInt(&ok);
+        if(ok) tags.tag0.genre = _GetGenre(genreID);
+        tags.tag0.track = q.value(5).toInt(&ok);
+        tags.tag0.year = q.value(6).toInt(&ok);
+        tags.tag0.rating = q.value(7).toInt(&ok);
+        tags.tag0.slength = q.value(8).toString();
+		tags.tag0.filetype = q.value(9).toString();
+        return true;
+    }
+    return false;
+}
+
+bool Database::SetTags(QString file, const STags& tags)
+{
+    if(!open) return false;
+    QMutexLocker locker(&lock);
+    QSqlQuery q("", db);
+    q.prepare("select Artist, Album, Genre, Rating from Song where File = :file");
+    q.bindValue(":file", file);
+    q.exec();
+    if(q.next()) {
+        int _artistID, _albumID, _genreID, _rating;
+        bool ok;
+        _artistID = q.value(0).toInt(&ok);
+        _albumID = q.value(1).toInt(&ok);
+        _genreID = q.value(2).toInt(&ok);
+        _rating  = q.value(3).toInt(&ok);
+        int artistID, albumID, genreID;
+        artistID = _AddArtist(tags.tag0.artist);
+        albumID = _AddAlbum(tags.tag0.album, artistID);
+        genreID = _AddGenre(tags.tag0.genre);
+        if(_artistID != artistID) {
+            RefAttribute(nArtist, _artistID, -1, -_rating);
+            RefAttribute(nArtist, artistID, 1, tags.tag0.rating);
+        } else RefAttribute(nArtist, artistID, 0, tags.tag0.rating - _rating);
+        if(_albumID != albumID) {
+            RefAttribute(nAlbum, _albumID, -1, -_rating);
+            RefAttribute(nAlbum, albumID, 1, tags.tag0.rating);
+        } else RefAttribute(nAlbum, albumID, 0, tags.tag0.rating - _rating);
+        if(_genreID != genreID) {
+            RefAttribute(nGenre, _genreID, -1, -_rating);
+            RefAttribute(nGenre, genreID, 1, tags.tag0.rating);
+        } else RefAttribute(nGenre, genreID, 0, tags.tag0.rating - _rating);
+        q.prepare("update Song set Title = :title, Artist = "+QString::number(artistID)+", Album = "+QString::number(albumID)+", Comment = :comment, Genre = "+QString::number(genreID)+", Track = "+QString::number(tags.tag0.track)+", Year = "+QString::number(tags.tag0.year)+", Rating = "+QString::number(tags.tag0.rating)+" where File = :file");
+        q.bindValue(":title", tags.tag0.title);
+        q.bindValue(":comment", tags.tag0.comment);
+        q.bindValue(":file", file);
+        q.exec();
+        return q.numRowsAffected() > 0;
+    }
+    return false;
+}
+
 // bool Database::SetMark(QString file, QString mark)
 // {
 // 	if(!open) return false;

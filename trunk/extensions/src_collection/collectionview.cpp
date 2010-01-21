@@ -82,17 +82,32 @@ QStringList CollectionModel::mimeTypes() const
 {
 	QStringList list;
 	list << "text/uri-list";
+	list.append(CUBEROK_MIME_TYPE);
 	return list;
 }
 
 QMimeData *CollectionModel::mimeData( const QModelIndexList & indexes ) const
 {
-    QMimeData *mimeData = QStandardItemModel::mimeData(indexes);
-    QList<QUrl> list;
-    foreach(QModelIndex ind, indexes) {
-		list += SelectByItem(ind);
-    }
-    mimeData->setUrls(list);
+	if(true) {
+		QMimeData *mimeData = new QMimeData();
+		QVector<STags> tags;
+		foreach(QModelIndex ind, indexes) {
+			tags += TagsByItem(ind);
+		}
+		QByteArray array;
+		QDataStream stream(&array, QIODevice::WriteOnly);
+		stream << tags;
+		mimeData->setData(CUBEROK_MIME_TYPE, array);
+		return mimeData;
+	} else {
+		QMimeData *mimeData = QStandardItemModel::mimeData(indexes);
+		QList<QUrl> list;
+		foreach(QModelIndex ind, indexes) {
+			list += SelectByItem(ind);
+		}
+		mimeData->setUrls(list);
+		return mimeData;
+	}
     /*QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     dataStream << list.count();
@@ -100,8 +115,8 @@ QMimeData *CollectionModel::mimeData( const QModelIndexList & indexes ) const
         dataStream << ind.column();
         dataStream << model.data(ind, Qt::DisplayRole).toString();
     }
-    mimeData->setData("application/x-playlist", itemData);*/
-    return mimeData;
+    mimeData->setData("application/x-playlist", itemData);
+    return mimeData;*/
 }
 
 // select files
@@ -133,6 +148,40 @@ QList<QUrl> CollectionModel::SelectByItem(QModelIndex i) const
 	}
 	//QUrl::fromLocalFile(model.data(ind, Qt::UserRole).toString()));
 	return urls;
+}
+
+QVector<STags> CollectionModel::TagsByItem(QModelIndex i) const
+{
+	QString s = data(i).toString();
+	QList<QString> files;
+	switch(mode) {
+	case M_ARTIST:
+		files = Database::Self().Songs(&s, 0, 0, 0);
+		break;
+	case M_ALBUM:
+		files = Database::Self().Songs(0, Database::Self().AddAlbum(s, itemFromIndex(i)->data().toInt()), 0, 0);
+		break;
+	case M_GENRE:
+		files = Database::Self().Songs(0, 0, &s, 0);
+		break;
+	case M_SONG:
+		files.clear();
+		files << itemFromIndex(i)->data().toString();
+		break;
+	case M_SQLLIST:
+		files = Database::Self().SongsBySQLPlaylist(s);
+		break;
+	}
+	QVector<STags> res;
+	foreach(QString file, files) {
+		STags tag;
+		if(Database::Self().GetTags(file, tag))
+			res << tag;
+		else {
+			// error?
+		}
+	}
+	return res;
 }
 
 bool CollectionModel::dropMimeData ( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent )

@@ -49,6 +49,7 @@ public:
 	QModelIndex mapFromSource(QModelIndex);
 	QModelIndex mapFromSource(int row, int column);
 	void setFilterRegExp(QString s);
+	int rowCount();
     
 protected:
 	virtual void hideEvent ( QHideEvent * event );
@@ -129,7 +130,7 @@ class PlaylistAbstract : public Playlist
     virtual QModelIndex prevItem() = 0;
     void resetTags(QModelIndex& ind);
 	void rateSong(QModelIndex &ind, int r, int offset=0);
-	void refillShuffleQueue(int except = -1, int notstartwith = -1);
+	virtual void refillShuffleQueue(int except = -1, int notstartwith = -1) = 0;
 };
 
 
@@ -167,6 +168,7 @@ signals:
 	void prepareAlbumList(const QString* except=0, const QString* notStartWith=0);
     virtual QModelIndex nextItem();
     virtual QModelIndex prevItem();
+	virtual void refillShuffleQueue(int except = -1, int notstartwith = -1);
 
 	MyTreeView *view;
 	QList<QModelIndex> current_album;
