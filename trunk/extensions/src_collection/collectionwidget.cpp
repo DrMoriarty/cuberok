@@ -18,14 +18,71 @@
  */
 
 #include "collectionwidget.h"
+#include "database.h"
 
 CollectionWidget::CollectionWidget(QWidget *parent)
 	:QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.subsetLabel->setVisible(false);
+	ui.subsetDisableButton->setVisible(false);
+
+	QActionGroup *colmodeGroup = new QActionGroup(this);
+    colmodeGroup->addAction(ui.actionGenreMode);
+    colmodeGroup->addAction(ui.actionArtistMode);
+    colmodeGroup->addAction(ui.actionAlbumMode);
+    colmodeGroup->addAction(ui.actionSongMode);
+    ui.actionGenreMode->setChecked(true);
+	connect(ui.colView, SIGNAL(modeChanged(int)), this, SLOT(colmodeChanged(int)));
+
+	QSettings set;
+	if(set.value("iconview", false).toBool())
+		ui.actionIconView->trigger();
 }
 
 void CollectionWidget::storeState()
 {
-	ui.colview->storeState();
+	QSettings set;
+	//ui.colView->storeState();
+	set.setValue("iconview", ui.actionIconView->isChecked());
+}
+
+void CollectionWidget::colmodeChanged(int m)
+{
+	ui.actionAddToCollection->setDisabled(m == M_SONG);
+	//ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
+	ui.actionSetImage->setDisabled(m == M_SONG);
+	ui.actionGetImageFromLastFM->setDisabled(m != M_ARTIST && m != M_ALBUM);
+	bool needtoclear = false;
+	switch(m) {
+	case M_ARTIST:
+		if(!ui.actionArtistMode->isChecked()) {
+			ui.actionArtistMode->setChecked(true);
+			needtoclear = true;
+		}
+		break;
+	case M_ALBUM:
+		if(!ui.actionAlbumMode->isChecked()) {
+			ui.actionAlbumMode->setChecked(true);
+			needtoclear = true;
+		}
+		break;
+	case M_GENRE:
+		if(!ui.actionGenreMode->isChecked()) {
+			ui.actionGenreMode->setChecked(true);
+			needtoclear = true;
+		}
+		break;
+	case M_SONG:
+		if(!ui.actionSongMode->isChecked()) {
+			ui.actionSongMode->setChecked(true);
+			needtoclear = true;
+		}
+		break;
+	case M_SQLLIST:
+		break;
+	}
+	if(needtoclear) {
+		ui.filterLineEdit->setText("");
+	}
 }

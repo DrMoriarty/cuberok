@@ -20,7 +20,7 @@
 #include "tageditor.h"
 #include "global.h"
 #include "tagger.h"
-#include "database.h"
+//#include "database.h"
 
 static const int genresSize = 148;
 static const QString genres[] = {

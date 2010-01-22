@@ -51,8 +51,9 @@ public:
 		QString data;
 	};
 
-    static Database& Self();
+    static Database& Self(Proxy* p = 0);
     ~Database();
+	static Proxy *proxy;
 
     int AddFile(QString file);
     int AddArtist(QString artist);

@@ -186,7 +186,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QDockWidget" name="dockWidget1">
+  <!--widget class="QDockWidget" name="dockWidget1">
    <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
@@ -314,7 +314,7 @@
      </item>
     </layout>
    </widget>
-  </widget>
+  </widget-->
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -833,7 +833,7 @@
     <string>Look and Feel</string>
    </property>
   </action>
-  <action name="actionArtistMode">
+  <!--action name="actionArtistMode">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -847,8 +847,8 @@
    <property name="statusTip">
     <string>Show artists</string>
    </property>
-  </action>
-  <action name="actionAlbumMode">
+  </action-->
+  <!--action name="actionAlbumMode">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -862,8 +862,8 @@
    <property name="statusTip">
     <string>Show albums</string>
    </property>
-  </action>
-  <action name="actionGenreMode">
+  </action-->
+  <!--action name="actionGenreMode">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -877,8 +877,8 @@
    <property name="statusTip">
     <string>Show genres</string>
    </property>
-  </action>
-  <action name="actionSongMode">
+  </action-->
+  <!--action name="actionSongMode">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -892,8 +892,8 @@
    <property name="statusTip">
     <string>Show songs</string>
    </property>
-  </action>
-  <action name="actionAddToCollection">
+  </action-->
+  <!--action name="actionAddToCollection">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/col_add.png</normaloff>:/icons/col_add.png</iconset>
@@ -916,7 +916,7 @@
    <property name="statusTip">
     <string>Remove selected item from collection</string>
    </property>
-  </action>
+  </action-->
   <action name="actionStop">
    <property name="icon">
     <iconset resource="resource.qrc">
@@ -1024,7 +1024,7 @@
     <string>Ctrl+P</string>
    </property>
   </action>
-  <action name="actionSetImage">
+  <!--action name="actionSetImage">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/col_art.png</normaloff>:/icons/col_art.png</iconset>
@@ -1035,8 +1035,8 @@
    <property name="statusTip">
     <string>Set image for collection item</string>
    </property>
-  </action>
-  <action name="actionIconView">
+  </action-->
+  <!--action name="actionIconView">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1050,7 +1050,7 @@
    <property name="statusTip">
     <string>View icons for collection items</string>
    </property>
-  </action>
+  </action-->
   <action name="actionOpenUrl">
    <property name="icon">
     <iconset resource="resource.qrc">
@@ -1066,7 +1066,7 @@
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="actionGetImageFromLastFM">
+  <!--action name="actionGetImageFromLastFM">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -1080,7 +1080,7 @@
    <property name="statusTip">
     <string>Load image from Last.FM</string>
    </property>
-  </action>
+  </action-->
   <action name="actionConsole">
    <property name="icon">
     <iconset resource="resource.qrc">
@@ -1369,14 +1369,14 @@
    <extends>QProgressBar</extends>
    <header>progressbar.h</header>
   </customwidget>
-  <customwidget>
+  <!--customwidget>
    <class>CollectionView</class>
    <extends>QListView</extends>
    <header>collectionview.h</header>
    <slots>
     <signal>addUrl(QUrl)</signal>
    </slots>
-  </customwidget>
+  </customwidget-->
  </customwidgets>
  <resources>
   <include location="resource.qrc"/>
@@ -1735,7 +1735,7 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+  <!--connection>
    <sender>actionArtistMode</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -1750,8 +1750,8 @@
      <y>219</y>
     </hint>
    </hints>
-  </connection>
-  <connection>
+  </connection-->
+  <!--connection>
    <sender>actionAlbumMode</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -1766,8 +1766,8 @@
      <y>219</y>
     </hint>
    </hints>
-  </connection>
-  <connection>
+  </connection-->
+  <!--connection>
    <sender>actionGenreMode</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -1782,8 +1782,8 @@
      <y>219</y>
     </hint>
    </hints>
-  </connection>
-  <connection>
+  </connection-->
+  <!--connection>
    <sender>actionSongMode</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -1798,8 +1798,8 @@
      <y>219</y>
     </hint>
    </hints>
-  </connection>
-  <connection>
+  </connection-->
+  <!--connection>
    <sender>actionAddToCollection</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -1814,8 +1814,8 @@
      <y>216</y>
     </hint>
    </hints>
-  </connection>
-  <connection>
+  </connection-->
+  <!--connection>
    <sender>actionRemoveFromCollection</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -1830,7 +1830,7 @@
      <y>216</y>
     </hint>
    </hints>
-  </connection>
+  </connection-->
   <connection>
    <sender>colView</sender>
    <signal>status(QString)</signal>
@@ -1879,7 +1879,7 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+  <!--connection>
    <sender>colView</sender>
    <signal>setVisibleSubsetWidgets(bool)</signal>
    <receiver>subsetLabel</receiver>
@@ -1942,7 +1942,7 @@
      <y>128</y>
     </hint>
    </hints>
-  </connection>
+  </connection-->
   <connection>
    <sender>actionStop</sender>
    <signal>triggered()</signal>
@@ -2055,7 +2055,7 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+  <!--connection>
    <sender>actionSetImage</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -2070,8 +2070,8 @@
      <y>253</y>
     </hint>
    </hints>
-  </connection>
-  <connection>
+  </connection-->
+  <!--connection>
    <sender>actionIconView</sender>
    <signal>triggered(bool)</signal>
    <receiver>colView</receiver>
@@ -2086,7 +2086,7 @@
      <y>151</y>
     </hint>
    </hints>
-  </connection>
+  </connection-->
   <connection>
    <sender>actionOpenUrl</sender>
    <signal>triggered()</signal>
@@ -2103,7 +2103,7 @@
     </hint>
    </hints>
   </connection>
-  <connection>
+  <!--connection>
    <sender>actionGetImageFromLastFM</sender>
    <signal>triggered()</signal>
    <receiver>colView</receiver>
@@ -2118,7 +2118,7 @@
      <y>156</y>
     </hint>
    </hints>
-  </connection>
+  </connection-->
   <connection>
    <sender>actionConsole</sender>
    <signal>triggered()</signal>

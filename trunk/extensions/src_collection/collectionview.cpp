@@ -23,8 +23,7 @@
 #include "tagger.h"
 #include "indicator.h"
 //#include "lastfm.h"
-#include "console.h"
-#include "main.h"
+#include "global.h"
 #include "playlistsettings.h"
 #include "collectionfiller.h"
 #include <QtXml>
@@ -394,8 +393,7 @@ CollectionView::CollectionView(QWidget *parent)
 	setDragDropMode(QAbstractItemView::DragDrop);
 	setDropIndicatorShown(true);
 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
-	if(!connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex))))
-		Console::Self().error("connection error (doubleClicked)");
+	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
@@ -841,3 +839,6 @@ void CollectionView::dlCancel(QString)
 	lfmArtist = "";
 }
 
+void CollectionView::storeState()
+{
+}

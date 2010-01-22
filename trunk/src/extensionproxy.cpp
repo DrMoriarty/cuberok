@@ -28,6 +28,7 @@ Q_IMPORT_PLUGIN(info_lastfm)
 Q_IMPORT_PLUGIN(src_browser)
 Q_IMPORT_PLUGIN(src_library)
 Q_IMPORT_PLUGIN(info_lyric)
+Q_IMPORT_PLUGIN(src_collection)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
@@ -43,10 +44,15 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		Extension *ex = qobject_cast<Extension *>(plugin);
 		if (ex) {
+			qDebug("Loading static extension '%s'", (const char*)ex->getName().toLocal8Bit());
 			ex->setProxy(this);
-			extensions.push_back(ex);
 			bool res = ex->prepare();
-			qDebug("Load static extension '%s'", (const char*)ex->getName().toLocal8Bit());
+			if(res) {
+				qDebug("...successfully");
+				extensions.push_back(ex);
+			} else {
+				qDebug("... error");
+			}
 		}
 	}
 

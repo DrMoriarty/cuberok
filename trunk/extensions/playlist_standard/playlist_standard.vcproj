@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="playlist_standard"
-	ProjectGUID="{0EE59742-7709-348E-AFC9-CF5F61058AE6}"
-	Keyword="Qt4VSv1.0"
+	ProjectGUID="{C0C06DF5-F1D1-4498-B323-21914A1AFE7B}"
 	>
 	<Platforms>
 		<Platform
@@ -16,13 +15,12 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="."
-			IntermediateDirectory="..\..\win32\obj\"
+			OutputDirectory=".\..\..\win32-vs\plugins"
+			IntermediateDirectory=".\..\..\win32-vs\obj"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
-			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -38,45 +36,39 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				WarningLevel="0"
-				DefaultCharType="0"
-				EnableErrorChecks="1"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200 -w34100 -w34189 -Zm200 -w34100 -w34189 -w34100 -w34189"
-				Optimization="2"
-				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="&quot;c:\Qt\2009.01\qt\include\QtCore&quot;,&quot;c:\Qt\2009.01\qt\include\QtGui&quot;,&quot;c:\Qt\2009.01\qt\include&quot;,&quot;..\..\src&quot;,&quot;c:\Qt\2009.01\qt\include\ActiveQt&quot;,&quot;..\..\win32\obj&quot;,&quot;.&quot;,c:\Qt\2009.01\qt\mkspecs\win32-msvc2005"
-				PreprocessorDefinitions="QT_NO_DEBUG,NDEBUG,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,CUBEROK_VERSION_MAJ=0,CUBEROK_VERSION_MIN=0,CUBEROK_VERSION_BUI=11,QT_NO_DEBUG,QT_STATICPLUGIN,QT_PLUGIN,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT,NDEBUG"
-				GeneratePreprocessedFile="0"
-				ExceptionHandling="1"
+				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtNetwork /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\QtXml /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				Optimization="1"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\..\src,..\..\include,.,..\taglib\include,..\taglib\include\toolkit,..\taglib\include\mpeg,..\taglib\include\mpeg\id3v2"
+				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_NO_DEBUG;QT_STATICPLUGIN;QT_PLUGIN;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				StringPooling="true"
 				RuntimeLibrary="2"
-				BufferSecurityCheck="false"
-				TreatWChar_tAsBuiltInType="false"
+				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				AssemblerListingLocation="..\..\win32\obj\"
-				ObjectFile="..\..\win32\obj\"
-				ProgramDataBaseFileName=".\"
+				PrecompiledHeaderFile=".\..\..\win32-vs\obj/playlist_standard.pch"
+				AssemblerListingLocation=".\..\..\win32-vs\obj/"
+				ObjectFile=".\..\..\win32-vs\obj/"
+				ProgramDataBaseFileName=".\..\..\win32-vs\obj/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="QT_NO_DEBUG,NDEBUG,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,CUBEROK_VERSION_MAJ=0,CUBEROK_VERSION_MIN=0,CUBEROK_VERSION_BUI=11,QT_NO_DEBUG,QT_STATICPLUGIN,QT_PLUGIN,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT"
-				ResourceOutputFileName="..\..\win32\plugins\/$(InputName).res"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\win32\plugins\playlist_standard.lib"
-				SuppressStartupBanner="true"
+				OutputFile=".\..\..\win32-vs\plugins\playlist_standard.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -86,6 +78,8 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
+				SuppressStartupBanner="true"
+				OutputFile=".\..\..\win32-vs\plugins/playlist_standard.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -96,10 +90,10 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\win32-vs\plugins"
-			IntermediateDirectory="..\..\win32-vs\obj\"
+			OutputDirectory=".\..\..\win32-vs\plugins"
+			IntermediateDirectory=".\..\..\win32-vs\obj"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			>
@@ -117,25 +111,19 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				WarningLevel="0"
-				DefaultCharType="0"
-				EnableErrorChecks="1"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200 -w34100 -w34189 -Zm200 -w34100 -w34189 -w34100 -w34189"
+				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtNetwork /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\QtXml /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
 				Optimization="4"
-				AdditionalIncludeDirectories="&quot;c:\Qt\2009.01\qt\include\QtCore&quot;,&quot;c:\Qt\2009.01\qt\include\QtGui&quot;,&quot;c:\Qt\2009.01\qt\include&quot;,&quot;..\..\src&quot;,&quot;c:\Qt\2009.01\qt\include\ActiveQt&quot;,&quot;..\..\win32\obj&quot;,&quot;.&quot;,c:\Qt\2009.01\qt\mkspecs\win32-msvc2005"
-				PreprocessorDefinitions="UNICODE,WIN32,QT_LARGEFILE_SUPPORT,CUBEROK_VERSION_MAJ=0,CUBEROK_VERSION_MIN=0,CUBEROK_VERSION_BUI=11,QT_STATICPLUGIN,QT_PLUGIN,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT"
-				GeneratePreprocessedFile="0"
-				ExceptionHandling="1"
+				AdditionalIncludeDirectories="..\..\src,..\..\include,.,..\taglib\include,..\taglib\include\toolkit,..\taglib\include\mpeg,..\taglib\include\mpeg\id3v2"
+				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_STATICPLUGIN;QT_PLUGIN;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				RuntimeLibrary="3"
-				BufferSecurityCheck="false"
-				TreatWChar_tAsBuiltInType="false"
 				RuntimeTypeInfo="true"
-				AssemblerListingLocation="..\..\win32-vs\obj\"
-				ObjectFile="..\..\win32-vs\obj\"
-				ProgramDataBaseFileName=".\"
+				PrecompiledHeaderFile=".\..\..\win32-vs\obj/playlist_standard.pch"
+				AssemblerListingLocation=".\..\..\win32-vs\obj/"
+				ObjectFile=".\..\..\win32-vs\obj/"
+				ProgramDataBaseFileName=".\..\..\win32-vs\obj/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -145,16 +133,15 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="UNICODE,WIN32,QT_LARGEFILE_SUPPORT,CUBEROK_VERSION_MAJ=0,CUBEROK_VERSION_MIN=0,CUBEROK_VERSION_BUI=11,QT_STATICPLUGIN,QT_PLUGIN,QT_GUI_LIB,QT_CORE_LIB,QT_THREAD_SUPPORT,_DEBUG"
-				ResourceOutputFileName="..\..\win32\plugins\/$(InputName).res"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="..\..\win32-vs\plugins\playlist_standard.lib"
-				SuppressStartupBanner="true"
+				OutputFile=".\..\..\win32-vs\plugins\playlist_standard.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -164,6 +151,8 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
+				SuppressStartupBanner="true"
+				OutputFile=".\..\..\win32-vs\plugins/playlist_standard.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -178,18 +167,56 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\src\playlistview.cpp"
+				RelativePath="playlistview.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="tageditor.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
 				RelativePath="..\..\src\playlist.h"
@@ -199,10 +226,9 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="MOC ..\..\src\playlist.h"
-						CommandLine="c:/Qt/2009.01/qt/bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;c:\Qt\2009.01\qt\include\QtCore&quot; -I&quot;c:\Qt\2009.01\qt\include\QtGui&quot; -I&quot;c:\Qt\2009.01\qt\include&quot; -I&quot;..\..\src&quot; -I&quot;c:\Qt\2009.01\qt\include\ActiveQt&quot; -I&quot;..\..\win32\obj&quot; -I&quot;.&quot; -Ic:\Qt\2009.01\qt\mkspecs\win32-msvc2005 -D_MSC_VER=1400 -DWIN32 ..\..\src\playlist.h -o ..\..\win32\obj\moc_playlist.cpp&#x0D;&#x0A;"
-						AdditionalDependencies="..\..\src\playlist.h;c:/Qt/2009.01/qt/bin\moc.exe"
-						Outputs="..\..\win32\obj\moc_playlist.cpp"
+						Description="Running MOC on ..\..\src\playlist.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_playlist.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_playlist.cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -210,25 +236,23 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="MOC ..\..\src\playlist.h"
-						CommandLine="c:/Qt/2009.01/qt/bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;c:\Qt\2009.01\qt\include\QtCore&quot; -I&quot;c:\Qt\2009.01\qt\include\QtGui&quot; -I&quot;c:\Qt\2009.01\qt\include&quot; -I&quot;..\..\src&quot; -I&quot;c:\Qt\2009.01\qt\include\ActiveQt&quot; -I&quot;..\..\win32\obj&quot; -I&quot;.&quot; -Ic:\Qt\2009.01\qt\mkspecs\win32-msvc2005 -D_MSC_VER=1400 -DWIN32 ..\..\src\playlist.h -o ..\..\win32\obj\moc_playlist.cpp&#x0D;&#x0A;"
-						AdditionalDependencies="..\..\src\playlist.h;c:/Qt/2009.01/qt/bin\moc.exe"
-						Outputs="..\..\win32\obj\moc_playlist.cpp"
+						Description="Running MOC on ..\..\src\playlist.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_playlist.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_playlist.cpp"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\playlistview.h"
+				RelativePath="playlistview.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="MOC ..\..\src\playlistview.h"
-						CommandLine="c:/Qt/2009.01/qt/bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;c:\Qt\2009.01\qt\include\QtCore&quot; -I&quot;c:\Qt\2009.01\qt\include\QtGui&quot; -I&quot;c:\Qt\2009.01\qt\include&quot; -I&quot;..\..\src&quot; -I&quot;c:\Qt\2009.01\qt\include\ActiveQt&quot; -I&quot;..\..\win32\obj&quot; -I&quot;.&quot; -Ic:\Qt\2009.01\qt\mkspecs\win32-msvc2005 -D_MSC_VER=1400 -DWIN32 ..\..\src\playlistview.h -o ..\..\win32\obj\moc_playlistview.cpp&#x0D;&#x0A;"
-						AdditionalDependencies="..\..\src\playlistview.h;c:/Qt/2009.01/qt/bin\moc.exe"
-						Outputs="..\..\win32\obj\moc_playlistview.cpp"
+						Description="Running MOC on playlistview.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_playlistview.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_playlistview.cpp"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -236,25 +260,141 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="MOC ..\..\src\playlistview.h"
-						CommandLine="c:/Qt/2009.01/qt/bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -I&quot;c:\Qt\2009.01\qt\include\QtCore&quot; -I&quot;c:\Qt\2009.01\qt\include\QtGui&quot; -I&quot;c:\Qt\2009.01\qt\include&quot; -I&quot;..\..\src&quot; -I&quot;c:\Qt\2009.01\qt\include\ActiveQt&quot; -I&quot;..\..\win32\obj&quot; -I&quot;.&quot; -Ic:\Qt\2009.01\qt\mkspecs\win32-msvc2005 -D_MSC_VER=1400 -DWIN32 ..\..\src\playlistview.h -o ..\..\win32\obj\moc_playlistview.cpp&#x0D;&#x0A;"
-						AdditionalDependencies="..\..\src\playlistview.h;c:/Qt/2009.01/qt/bin\moc.exe"
-						Outputs="..\..\win32\obj\moc_playlistview.cpp"
+						Description="Running MOC on playlistview.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_playlistview.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_playlistview.cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="tageditor.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running MOC on tageditor.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_tageditor.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_tageditor.cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running MOC on tageditor.h"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -I. -I..\taglib\include -I..\taglib\include\toolkit -I..\taglib\include\mpeg -I..\taglib\include\mpeg\id3v2 -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_tageditor.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_tageditor.cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\src\tageditor.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Form Files"
+			Filter="ui"
+			>
+			<File
+				RelativePath="tageditor.ui"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running UIC on tageditor.ui"
+						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_tageditor.h&#x0D;&#x0A;"
+						Outputs=".\ui_tageditor.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running UIC on tageditor.ui"
+						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_tageditor.h&#x0D;&#x0A;"
+						Outputs=".\ui_tageditor.h"
 					/>
 				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
-			Name="Generated Files"
-			Filter="cpp;c;cxx;moc;h;def;odl;idl;res;"
-			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
+			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\win32\obj\moc_playlist.cpp"
+				RelativePath="..\..\win32-vs\obj\moc_playlist.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\win32\obj\moc_playlistview.cpp"
+				RelativePath="..\..\win32-vs\obj\moc_playlistview.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\win32-vs\obj\moc_tageditor.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="ui_tageditor.h"
 				>
 			</File>
 		</Filter>

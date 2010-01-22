@@ -32,7 +32,8 @@ class CollectionWidget: public QWidget
 	
  private:
 	Ui::CollectionWidget ui;
-	
+ private slots:
+	void colmodeChanged(int);
 };
 
 #endif //LIBRARYWIDGET_H

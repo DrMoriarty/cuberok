@@ -20,8 +20,7 @@
 #include "collectionfiller.h"
 #include "database.h"
 #include "indicator.h"
-#include "main.h"
-#include "console.h"
+#include "global.h"
 #include "tagger.h"
 
 /************************
@@ -94,10 +93,10 @@ int CollectionFiller::proceed(QString path)
 		}
 		if(cover.size() && _album.size() && _album != " " && _artist.size() && _artist != " ") {
 			Database::Self().ArtForAlbum(_album, cover, Database::Self().AddArtist(_artist));
-			Console::Self().log("set album cover" + cover);
+			//proxy->log("set album cover" + cover);
 		} else if(cover.size() && _artist.size() && _artist != " ") {
 			Database::Self().ArtForArtist(_artist, cover);
-			Console::Self().log("set artist cover" + cover);
+			//proxy->log("set artist cover" + cover);
 		}
 	} else {
 		QString p2 = path.toLower();
