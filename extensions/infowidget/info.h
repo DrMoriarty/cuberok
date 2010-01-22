@@ -41,7 +41,7 @@ class Info: public QWidget
 	QString ar, al, so, ar_mbid, al_mbid;
 	bool ar_complete, al_complete, ar_pic, al_pic;
 	InfoWindow *w_ar, *w_al, *w_ly;
-	Downloader downloader;
+	Downloader *downloader;
 	Proxy *proxy;
 
 	void updateRating();

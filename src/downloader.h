@@ -22,12 +22,13 @@
 
 #include <QtCore>
 #include <QtNetwork>
+#include "interfaces.h"
 
 class Downloader : public QObject
 {
 	Q_OBJECT
  public:
-	Downloader();
+	Downloader(Proxy *p);
 	~Downloader();
 
 	bool download(QUrl, QString file = "");
@@ -45,6 +46,7 @@ class Downloader : public QObject
      void slotAuthenticationRequired(const QString &, quint16, QAuthenticator *);
 
  private:
+	 Proxy *proxy;
      QHttp *http;
      QFile *file;
      int httpGetId, taskID;

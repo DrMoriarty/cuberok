@@ -40,6 +40,7 @@ Info::Info(Proxy* p, QWidget *parent)
 	  proxy(p)
 {
 	ui.setupUi(this);
+	downloader = new Downloader(p);
 	QSettings set;
 	ui.actionShow_Song->setChecked(set.value("info_show_song", true).toBool());
 	ui.actionShow_Album_Image->setChecked(set.value("info_show_album_image", true).toBool());
@@ -48,12 +49,13 @@ Info::Info(Proxy* p, QWidget *parent)
 	ui.actionShow_Artist_Name->setChecked(set.value("info_show_artist_name", false).toBool());
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
-	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
-	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+	connect(downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+	connect(downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 }
 
 Info::~Info()
 {
+	delete downloader;
 	storeState();
 }
 
@@ -151,14 +153,14 @@ void Info::updateInfo()
 	}
 	if(!al_pic && proxy->infoExist(SInfo::AlbumArt)) {
 		QString imageUrl = proxy->getInfo(SInfo::AlbumArt).url;
-		if(imageUrl.size() && downloader.done()) {
-			downloader.download(imageUrl);
+		if(imageUrl.size() && downloader->done()) {
+			downloader->download(imageUrl);
 		}
 	}
 	if(!ar_pic && proxy->infoExist(SInfo::ArtistArt)) {
 		QString imageUrl = proxy->getInfo(SInfo::ArtistArt).url;
-		if(imageUrl.size() && downloader.done()) {
-			downloader.download(imageUrl);
+		if(imageUrl.size() && downloader->done()) {
+			downloader->download(imageUrl);
 		}
 	}
 }
@@ -459,7 +461,7 @@ void Info::getImages()
 	QString newArtist, newAlbum, mbid, imageUrl, information;
 	if(LastFM::Self().parseInfo(info, newArtist, newAlbum, mbid, imageUrl, information)) {
 		if(imageUrl.size() && downloader.done()) {
-			downloader.download(imageUrl);
+			downloader->download(imageUrl);
 			return;
 		}
 	}

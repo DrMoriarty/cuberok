@@ -23,17 +23,15 @@
 #include "downloader.h"
 #include "ui_authenticationdialog.h"
 #include "indicator.h"
-#include "extensionproxy.h"
-#include "console.h"
 
-Downloader::Downloader(): QObject(), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true), file(0)
+Downloader::Downloader(Proxy *p): QObject(), proxy(p), httpGetId(0), taskID(0), httpRequestAborted(false), finished(true), file(0)
 {
 	http = new QHttp(this);
-	if(EProxy.hasVariable("proxyEnabled") && EProxy.getVariable("proxyEnabled") == "true") {
-		http->setProxy(EProxy.getVariable("proxyHost"),
-					  EProxy.getVariable("proxyPort").toInt(),
-					  EProxy.getVariable("proxyUser"),
-					  EProxy.getVariable("proxyPassword"));
+	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
+		http->setProxy(proxy->getVariable("proxyHost"),
+					  proxy->getVariable("proxyPort").toInt(),
+					  proxy->getVariable("proxyUser"),
+					  proxy->getVariable("proxyPassword"));
 	}
 	
 	connect(http, SIGNAL(requestFinished(int, bool)),
@@ -90,7 +88,7 @@ bool Downloader::download(QUrl url, QString f)
 	
 	file = new QFile(tmpath+fileName);
 	if (!file->open(QIODevice::WriteOnly)) {
-		Console::Self().error(QString("Unable to save the file %1: %2.").arg(tmpath+fileName).arg(file->errorString()));
+		proxy->error(QString("Unable to save the file %1: %2.").arg(tmpath+fileName).arg(file->errorString()));
 		delete file;
 		file = 0;
 		return false;
@@ -134,7 +132,7 @@ void Downloader::cancelDownload()
 	httpRequestAborted = true;
 	http->abort();
 	QString w = tr("Operation canceled by user");
-	Console::Self().log(w);
+	proxy->log(w);
 	emit cancel(w);
 }
 
@@ -158,7 +156,7 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 		file->close();
 		file->remove();
 		QString err = tr("Download failed: %1.").arg(http->errorString());
-		Console::Self().error(err);
+		proxy->error(err);
 		httpRequestAborted = true;
 		Indicator::Self().delTask(taskID);
 		emit cancel(err);
@@ -176,7 +174,7 @@ void Downloader::httpRequestFinished(int requestId, bool error)
 void Downloader::readResponseHeader(const QHttpResponseHeader &responseHeader)
 {
 	if (responseHeader.statusCode() != 200) {
-		Console::Self().error(QString("Download failed: %1.").arg(responseHeader.reasonPhrase()));
+		proxy->error(QString("Download failed: %1.").arg(responseHeader.reasonPhrase()));
 		httpRequestAborted = true;
 		http->abort();
 		clean();
@@ -199,6 +197,8 @@ void Downloader::slotAuthenticationRequired(const QString &hostName, quint16, QA
 	}
 } 
 
+#include "extensionproxy.h"
+
 SyncDownloader::SyncDownloader ( QUrl u, QString* f, QObject * parent ) : QThread(parent)
 {
 	url = u;
@@ -212,7 +212,7 @@ SyncDownloader::~SyncDownloader()
 void SyncDownloader::run()
 {
 	mutex.lock();
-	Downloader dl;
+	Downloader dl(&EProxy);
 	connect(&dl, SIGNAL(complete(QString)), this, SLOT(complete(QString)));
 	connect(&dl, SIGNAL(cancel(QString)), this, SLOT(cancel(QString)));
 	if(!dl.download(url)) {

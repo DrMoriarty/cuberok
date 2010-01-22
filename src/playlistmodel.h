@@ -46,7 +46,7 @@ protected:
 	int index;
 	bool cancel;
 	QList<QUrl> processedFiles;
-	Downloader downloader;
+	Downloader *downloader;
 	QList<QUrl> downloadCache;
 
  private slots:
