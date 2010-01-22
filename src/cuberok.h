@@ -79,7 +79,7 @@ private slots:
 	void trayevent(QSystemTrayIcon::ActivationReason);
 	void progressEvent(double);
 	void settings();
-	void colmodeChanged(int);
+	//void colmodeChanged(int);
 	//void libmodeChanged(int);
 	void consoleClosed(QObject*);
 	void newConsoleMessage(QString, int);

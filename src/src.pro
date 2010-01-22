@@ -136,6 +136,7 @@ win32 {
     MSVC {
         CONFIG -= embed_manifest_exe
         LIBS += ../taglib/lib/release/tag.lib
+	LIST += user32.lib
     } else {
         LIBS += ../taglib/lib/release/libtaglib.a
     }
@@ -192,7 +193,11 @@ macx {
 }
 
 win32:exists(../yajl-1.0.5/lib/libyajl.a) {
-    LIBS += ../yajl-1.0.5/lib/libyajl.a
+    MSVC {
+	LIBS += ../yajl-1.0.5/lib/release/yajl_s.lib
+    } else {
+	LIBS += ../yajl-1.0.5/lib/libyajl.a
+    }
 }
 
 unix:exists(/usr/include/yajl/yajl_parse.h) {

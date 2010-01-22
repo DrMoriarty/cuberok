@@ -20,13 +20,13 @@
 #include "database.h"
 #include <QtGui>
 #include <QtSql>
-#include "main.h"
+#include "global.h"
 #include "tagger.h"
-#include "console.h"
 
 #define DB_VERSION 8
 
 static QSqlDatabase db;
+Proxy* Database::proxy = 0;
 
 Database::Database() :QObject(0), subset(false), ssAlbum(0)
 {
@@ -36,7 +36,7 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
     if(QFile::exists(db.databaseName())) {
         if(!db.open()) {
             qDebug("Can not open database");
-            Console::Self().error("Can not open database");
+            proxy->error("Can not open database");
             open = false;
         } else {
             open = true;
@@ -50,13 +50,13 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
                 open = false;
                 db.close();
                 qDebug("Wrong database version (%d)", ver);
-                Console::Self().error("Wrong database version -" + QString::number(ver));
+                proxy->error("Wrong database version -" + QString::number(ver));
             }
         }
     } else {
         if(!QDir().mkpath(QDir::homePath()+"/.cuberok") || !db.open()) {
             qDebug("Can not create database");
-            Console::Self().error("Can not create database");
+            proxy->error("Can not create database");
             open = false;
         } else {
             QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), mbid varchar(50))", db);
@@ -73,7 +73,7 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
 			CreateDefaultSqlPlaylists();
         }
     }
-    if(open) Console::Self().message("Database ready");
+    if(open) proxy->message("Database ready");
 }
 
 Database::~Database()
@@ -185,7 +185,7 @@ bool Database::updateDatabase(int fromver)
 	}
 		QSqlDatabase::removeDatabase("tempLibraryDB");
     }
-    Console::Self().message("Database update from version "+QString::number(fromver));
+    proxy->message("Database update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version", db);
     QSqlQuery q2("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
     return true;
@@ -209,8 +209,9 @@ void Database::CreateDefaultSqlPlaylists()
 }
 
 
-Database& Database::Self()
+Database& Database::Self(Proxy *p)
 {
+	if(p) proxy = p;
     static QMutex mutex;
     QMutexLocker locker(&mutex);
     //mutex.lock();

@@ -87,6 +87,7 @@ public slots:
 	void setImage();
 	void iconView(bool);
 	void loadImage();
+	void storeState();
 private slots:
 	void infoResponse(QString);
 	void dlComplete(QString file);

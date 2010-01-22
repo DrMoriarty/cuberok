@@ -21,7 +21,7 @@
 //#include "playlistview_wa.h"
 #include "player_manager.h"
 #include "tagger.h"
-#include "database.h"
+//#include "database.h"
 #include "stardelegate.h"
 #include "starrating.h"
 #include "playlistsettings.h"

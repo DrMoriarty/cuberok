@@ -18,7 +18,7 @@
  */
 
 #include "firststartwizard.h"
-#include "collectionfiller.h"
+//#include "collectionfiller.h"
 #include "importcollection.h"
 #include "extensionproxy.h"
 
@@ -74,12 +74,12 @@ void FirstStartWizard::doSomething()
      switch (currentId()) {
      case 3: // collect
 		 {
-			 QList<QUrl> urls;
+			 /*QList<QUrl> urls;
 			 urls << QUrl::fromLocalFile(ui.lineEdit_collect->text());
 			 CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
 			 //connect(cf, SIGNAL(finished()), this, SLOT(update()));
 			 cf->start();
-			 EProxy.setVariable("collectionPath", ui.lineEdit_collect->text());
+			 EProxy.setVariable("collectionPath", ui.lineEdit_collect->text());*/
 		 }
 		 break;
      case 4: // import

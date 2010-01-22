@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include "global.h"
 #include "cuberok.h"
-#include "database.h"
+//#include "database.h"
 #include "extensionproxy.h"
 #include "myapplication.h"
 #include "starrating.h"

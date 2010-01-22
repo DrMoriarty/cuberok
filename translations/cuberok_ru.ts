@@ -82,53 +82,53 @@ p, li { white-space: pre-wrap; }
     <name>CollectionFiller</name>
     <message>
         <source>Collect music</source>
-        <translation type="unfinished">Коллекционирование музыки</translation>
+        <translation type="obsolete">Коллекционирование музыки</translation>
     </message>
 </context>
 <context>
     <name>CollectionModel</name>
     <message numerus="yes">
         <source>Collection - %n album(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>Коллекция - %n альбомов
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n artist(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>Коллекция - %n исполнителей
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n genre(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>Коллекция - %n жанров
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n song(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>Коллекция - %n композиций
         </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n song(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>%n композиций
         </numerusform>
         </translation>
     </message>
     <message>
         <source>%1, album &quot;%2&quot;</source>
-        <translation type="unfinished">%1, альбом &quot;%2&quot;</translation>
+        <translation type="obsolete">%1, альбом &quot;%2&quot;</translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n lists(s)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             <numerusform>Коллекция - %n списков
         </numerusform>
         </translation>
@@ -138,82 +138,78 @@ p, li { white-space: pre-wrap; }
     <name>CollectionSettings</name>
     <message>
         <source>Operation complete</source>
-        <translation type="unfinished">Операция выполнена</translation>
+        <translation type="obsolete">Операция выполнена</translation>
     </message>
     <message>
         <source>%1 link(s) has been removed from the collection.</source>
-        <translation type="unfinished">%1 ссылок было удалено из коллекции.</translation>
+        <translation type="obsolete">%1 ссылок было удалено из коллекции.</translation>
     </message>
     <message>
         <source>Select your music folder</source>
-        <translation type="unfinished">Выберите свою папку с музыкой</translation>
+        <translation type="obsolete">Выберите свою папку с музыкой</translation>
     </message>
     <message>
         <source>Collection Settings</source>
-        <translation type="unfinished">Установки коллекции</translation>
+        <translation type="obsolete">Установки коллекции</translation>
     </message>
     <message>
         <source>Path to the music collection</source>
-        <translation type="unfinished">Путь к музыкальной коллекции</translation>
+        <translation type="obsolete">Путь к музыкальной коллекции</translation>
     </message>
     <message>
         <source>Select folder with your music and press &quot;Scan Collection&quot; button. Also you can simply drag-n-drop music files and folders into the collection window.</source>
-        <translation type="unfinished">Выберите папку с музыкой и нажмите &quot;Сканировать коллекцию&quot;. Так же вы можете просто перетащить музыкальные файлы и папки в окно коллекции.</translation>
+        <translation type="obsolete">Выберите папку с музыкой и нажмите &quot;Сканировать коллекцию&quot;. Так же вы можете просто перетащить музыкальные файлы и папки в окно коллекции.</translation>
     </message>
     <message>
         <source>Scan selected folder for music files</source>
-        <translation type="unfinished">Сканировать выбранную папку на музыкальные файлы</translation>
+        <translation type="obsolete">Сканировать выбранную папку на музыкальные файлы</translation>
     </message>
     <message>
         <source>Scan Collection</source>
-        <translation type="unfinished">Сканировать коллекцию</translation>
+        <translation type="obsolete">Сканировать коллекцию</translation>
     </message>
     <message>
         <source>Remove links to unavailable files, remove empty albums and artists</source>
-        <translation type="unfinished">Удалить ссылки на недоступные файлы, удалить пустые альбомы и пустых исполнителей</translation>
+        <translation type="obsolete">Удалить ссылки на недоступные файлы, удалить пустые альбомы и пустых исполнителей</translation>
     </message>
     <message>
         <source>Clean up collection</source>
-        <translation type="unfinished">Очистка коллекции</translation>
+        <translation type="obsolete">Очистка коллекции</translation>
     </message>
     <message>
         <source>Close this window</source>
-        <translation type="unfinished">Закрыть окно</translation>
+        <translation type="obsolete">Закрыть окно</translation>
     </message>
     <message>
         <source>Close collection settings dialog</source>
-        <translation type="unfinished">Закрыть окно настроек коллекции</translation>
+        <translation type="obsolete">Закрыть окно настроек коллекции</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Закрыть</translation>
     </message>
 </context>
 <context>
     <name>CollectionView</name>
     <message>
         <source>New Album</source>
-        <translation type="unfinished">Новый Альбом</translation>
+        <translation type="obsolete">Новый Альбом</translation>
     </message>
     <message>
         <source>New Artist</source>
-        <translation type="unfinished">Новый Исполнитель</translation>
+        <translation type="obsolete">Новый Исполнитель</translation>
     </message>
     <message>
         <source>New Genre</source>
-        <translation type="unfinished">Новый Жанр</translation>
+        <translation type="obsolete">Новый Жанр</translation>
     </message>
     <message>
         <source>Open image</source>
-        <translation type="unfinished">Открыть изображение</translation>
+        <translation type="obsolete">Открыть изображение</translation>
     </message>
     <message>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
-        <translation type="unfinished">Изображения (*.jpg *.gif *.png *.bmp)</translation>
+        <translation type="obsolete">Изображения (*.jpg *.gif *.png *.bmp)</translation>
     </message>
 </context>
 <context>
@@ -290,7 +286,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Add Item</source>
-        <translation type="unfinished">Добавить элемент</translation>
+        <translation type="obsolete">Добавить элемент</translation>
     </message>
     <message>
         <source>Album</source>
@@ -414,7 +410,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Remove Item</source>
-        <translation type="unfinished">Удалить элемент</translation>
+        <translation type="obsolete">Удалить элемент</translation>
     </message>
     <message>
         <source>Remove song</source>
@@ -438,7 +434,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Song</source>
-        <translation type="unfinished">Песня</translation>
+        <translation type="obsolete">Песня</translation>
     </message>
     <message>
         <source>Stop</source>
@@ -498,7 +494,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Drag&apos;n&apos;Drop files to the collection</source>
-        <translation type="unfinished">Перетащите файлы в коллекцию</translation>
+        <translation type="obsolete">Перетащите файлы в коллекцию</translation>
     </message>
     <message>
         <source>Preferences</source>
@@ -506,11 +502,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Set Image</source>
-        <translation type="unfinished">Установить изображение</translation>
+        <translation type="obsolete">Установить изображение</translation>
     </message>
     <message>
         <source>Icon View</source>
-        <translation type="unfinished">Значки</translation>
+        <translation type="obsolete">Значки</translation>
     </message>
     <message>
         <source>Library</source>
@@ -534,7 +530,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Load image from Last.FM</source>
-        <translation type="unfinished">Загрузить изображение с Last.FM</translation>
+        <translation type="obsolete">Загрузить изображение с Last.FM</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -606,23 +602,23 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Show artists</source>
-        <translation type="unfinished">Показать исполнителей</translation>
+        <translation type="obsolete">Показать исполнителей</translation>
     </message>
     <message>
         <source>Show albums</source>
-        <translation type="unfinished">Показать альбомы</translation>
+        <translation type="obsolete">Показать альбомы</translation>
     </message>
     <message>
         <source>Show genres</source>
-        <translation type="unfinished">Показать жанры</translation>
+        <translation type="obsolete">Показать жанры</translation>
     </message>
     <message>
         <source>Show songs</source>
-        <translation type="unfinished">Показать песни</translation>
+        <translation type="obsolete">Показать песни</translation>
     </message>
     <message>
         <source>Create new collection item</source>
-        <translation type="unfinished">Создать новый элемент коллекции</translation>
+        <translation type="obsolete">Создать новый элемент коллекции</translation>
     </message>
     <message>
         <source>Create new library item</source>
@@ -630,7 +626,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Remove selected item from collection</source>
-        <translation type="unfinished">Удалить выбранный элемент из коллекции</translation>
+        <translation type="obsolete">Удалить выбранный элемент из коллекции</translation>
     </message>
     <message>
         <source>Remove selected item from library</source>
@@ -642,7 +638,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Set image for collection item</source>
-        <translation type="unfinished">Установить изображение для элемента коллекции</translation>
+        <translation type="obsolete">Установить изображение для элемента коллекции</translation>
     </message>
     <message>
         <source>Set image for library item</source>
@@ -650,7 +646,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>View icons for collection items</source>
-        <translation type="unfinished">Включить отображение значков для элементов коллекции</translation>
+        <translation type="obsolete">Включить отображение значков для элементов коллекции</translation>
     </message>
     <message>
         <source>Show system log</source>
@@ -710,14 +706,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Cuberok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -892,15 +880,15 @@ p, li { white-space: pre-wrap; }
     <name>Database</name>
     <message>
         <source>The Best</source>
-        <translation type="unfinished">Лучшее</translation>
+        <translation type="obsolete">Лучшее</translation>
     </message>
     <message>
         <source>Good music</source>
-        <translation type="unfinished">Хорошая музыка</translation>
+        <translation type="obsolete">Хорошая музыка</translation>
     </message>
     <message>
         <source>Unrated</source>
-        <translation type="unfinished">Неоценено</translation>
+        <translation type="obsolete">Неоценено</translation>
     </message>
 </context>
 <context>
@@ -1688,11 +1676,11 @@ Do you forget to install proper phonon backend?</source>
     <name>SQLEditDialog</name>
     <message>
         <source>Edit SQL Playlist</source>
-        <translation type="unfinished">Редактировать SQL список</translation>
+        <translation type="obsolete">Редактировать SQL список</translation>
     </message>
     <message>
         <source>Name of playlist</source>
-        <translation type="unfinished">Название списка</translation>
+        <translation type="obsolete">Название списка</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -1701,19 +1689,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Valid field names are File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Don&apos;t forget use &apos;and&apos; and &apos;or&apos; between conditions.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;For example try write &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Корректные названия полей: File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Не забывайте ставить &apos;and&apos; и &apos;or&apos; между условиями.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;На пример, напишите &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

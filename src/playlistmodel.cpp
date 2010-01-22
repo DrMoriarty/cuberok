@@ -19,7 +19,7 @@
 
 #include "playlistmodel.h"
 #include "main.h"
-#include "database.h"
+//#include "database.h"
 #include "tagger.h"
 #include "starrating.h"
 #include "indicator.h"

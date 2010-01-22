@@ -25,7 +25,7 @@
 #include "indicator.h"
 #include "settings.h"
 #include "player_manager.h"
-#include "collectionsettings.h"
+//#include "collectionsettings.h"
 #include "importcollection.h"
 #include "firststartwizard.h"
 #include "messagewindow.h"
@@ -73,8 +73,6 @@ Cuberok::Cuberok(QWidget *parent)
 	if(engine.size()) PlayerManager::Self().setPrefferedPlayer(engine);
 
 	ui.setupUi(this);
-	ui.subsetLabel->setVisible(false);
-	ui.subsetDisableButton->setVisible(false);
 	setWindowIcon(QIcon(":/icons/cuberok_bw.png"));
 	trayIconMenu = new QMenu(this);
 	trayIconMenu->addAction(ui.actionPrev);
@@ -145,14 +143,6 @@ Cuberok::Cuberok(QWidget *parent)
 
 	Indicator::Self().setWidget(*((QAbstractButton*)ui.toolBar_2->widgetForAction(ui.actionBreak)));
 
-	QActionGroup *colmodeGroup = new QActionGroup(this);
-    colmodeGroup->addAction(ui.actionGenreMode);
-    colmodeGroup->addAction(ui.actionArtistMode);
-    colmodeGroup->addAction(ui.actionAlbumMode);
-    colmodeGroup->addAction(ui.actionSongMode);
-    ui.actionGenreMode->setChecked(true);
-	connect(ui.colView, SIGNAL(modeChanged(int)), this, SLOT(colmodeChanged(int)));
-
 	QActionGroup *libmodeGroup = new QActionGroup(this);
 	libmodeGroup->addAction(ui.actionLibraryRegularPlaylist);
 	libmodeGroup->addAction(ui.actionLibrarySQLPlaylist);
@@ -191,8 +181,6 @@ Cuberok::Cuberok(QWidget *parent)
 	ui.toolBar_3->addWidget(ui.volumeSlider);
 	connect(ui.toolBar_3, SIGNAL(orientationChanged(Qt::Orientation)), ui.progressBar, SLOT(setOrientation(Qt::Orientation)));
 	connect(ui.toolBar_3, SIGNAL(orientationChanged(Qt::Orientation)), ui.volumeSlider, SLOT(setOrientation(Qt::Orientation)));
-	if(set.value("iconview", false).toBool())
-		ui.actionIconView->trigger();
 
 	applySettings();
 	switchOrderMode();
@@ -228,7 +216,7 @@ void Cuberok::storeState()
 	set.setValue("volume", ui.volumeSlider->value());
 	//set.setValue("repeat", ui.actionRepeat->isChecked());
 	//set.setValue("shuffle", ui.actionShuffle->isChecked());
-	set.setValue("iconview", ui.actionIconView->isChecked());
+	//set.setValue("iconview", ui.actionIconView->isChecked());
 	ExtensionProxy::Self().storeState();
 	qDebug("Cuberok, state was stored");
 }
@@ -356,7 +344,7 @@ void Cuberok::settings()
 	disconnect(&set);
 }
 
-void Cuberok::colmodeChanged(int m)
+/*void Cuberok::colmodeChanged(int m)
 {
 	ui.actionAddToCollection->setDisabled(m == M_SONG);
 	//ui.actionRemoveFromCollection->setDisabled(m == M_SONG);
@@ -394,7 +382,7 @@ void Cuberok::colmodeChanged(int m)
 	if(needtoclear) {
 		ui.filterLineEdit->setText("");
 	}
-}
+}*/
 
 /*void Cuberok::libmodeChanged(int m)
 {
@@ -536,8 +524,8 @@ void Cuberok::applySettings()
 
 void Cuberok::collectionSettings()
 {
-	CollectionSettings cs;
-	cs.exec();
+	// CollectionSettings cs;
+	// cs.exec();
 }
 
 void Cuberok::importCollection()

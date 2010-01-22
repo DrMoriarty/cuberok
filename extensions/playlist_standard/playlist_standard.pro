@@ -3,7 +3,7 @@
  TEMPLATE      = lib
  CONFIG       += plugin static
  INCLUDEPATH  += ../../src ../../include
- HEADERS       = ../../src/tageditor.h \
+ HEADERS       = tageditor.h \
  	../../src/playlist.h \
  	playlistview.h tageditor.h
 #    ../../src/playlistview_wa.h

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="player_phonon"
-	ProjectGUID="{F85C4633-26E5-4AC1-A130-39A6962FB984}"
+	ProjectGUID="{8B7A637A-876D-47B3-951C-9F6F58B3095C}"
 	>
 	<Platforms>
 		<Platform
@@ -45,10 +45,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\phonon /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\phonon /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 /D CUBEROK_PLUGINS=\&quot;./plugins\&quot;"
 				Optimization="4"
-				AdditionalIncludeDirectories="..\..\src,."
-				PreprocessorDefinitions="_USRDLL;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=10;QT_DLL;QT_PLUGIN;QT_PHONON_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				AdditionalIncludeDirectories="..\..\src,..\..\include,."
+				PreprocessorDefinitions="_USRDLL;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_DLL;QT_PLUGIN;QT_PHONON_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
 				PrecompiledHeaderFile=".\..\..\win32-vs\obj/player_phonon.pch"
@@ -78,7 +78,6 @@
 				OutputFile=".\..\..\win32-vs\plugins/player_phonon.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\..\win32-vs\plugins/player_phonon.pdb"
 				ImportLibrary=".\..\..\win32-vs\plugins/player_phonon.lib"
@@ -142,11 +141,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\phonon /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\phonon /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 /D CUBEROK_PLUGINS=\&quot;./plugins\&quot;"
 				Optimization="1"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\src,."
-				PreprocessorDefinitions="_USRDLL;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=10;QT_DLL;QT_NO_DEBUG;QT_PLUGIN;QT_PHONON_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				AdditionalIncludeDirectories="..\..\src,..\..\include,."
+				PreprocessorDefinitions="_USRDLL;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_DLL;QT_NO_DEBUG;QT_PLUGIN;QT_PHONON_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -177,7 +176,6 @@
 				OutputFile=".\..\..\win32-vs\plugins/player_phonon.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				GenerateManifest="false"
 				ProgramDatabaseFile=".\..\..\win32-vs\plugins/player_phonon.pdb"
 				ImportLibrary=".\..\..\win32-vs\plugins/player_phonon.lib"
 			/>
@@ -252,7 +250,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\src\player.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQT_DLL -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DCUBEROK_PLUGINS=\&quot;./plugins\&quot; -DQT_DLL -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_player.cpp"
 					/>
 				</FileConfiguration>
@@ -262,7 +260,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\src\player.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQT_DLL -DQT_NO_DEBUG -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DCUBEROK_PLUGINS=\&quot;./plugins\&quot; -DQT_DLL -DQT_NO_DEBUG -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_player.cpp"
 					/>
 				</FileConfiguration>
@@ -276,7 +274,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\src\player_phonon.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQT_DLL -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_phonon.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DCUBEROK_PLUGINS=\&quot;./plugins\&quot; -DQT_DLL -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_phonon.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_player_phonon.cpp"
 					/>
 				</FileConfiguration>
@@ -286,7 +284,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\src\player_phonon.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=10 -DQT_DLL -DQT_NO_DEBUG -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_phonon.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DCUBEROK_PLUGINS=\&quot;./plugins\&quot; -DQT_DLL -DQT_NO_DEBUG -DQT_PLUGIN -DQT_PHONON_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\phonon -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_phonon.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_player_phonon.cpp"
 					/>
 				</FileConfiguration>

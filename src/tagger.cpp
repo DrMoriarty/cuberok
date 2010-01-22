@@ -19,7 +19,7 @@
 
 #include "tagger.h"
 #include "main.h"
-#include "database.h"
+//#include "database.h"
 #include "extensionproxy.h"
 #include "downloader.h"
 #include "console.h"
@@ -432,7 +432,7 @@ TagEntry Tagger::readTags(QUrl &url)
 		if(!fr.isNull() && fr.audioProperties()) {
 			tags.length = fr.audioProperties()->length() * 75;
 		}
-		if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length, type)) {
+		/*if(Database::Self().GetTags(file, title, artist, album, comment, genre, track, year, rating, length, type)) {
 			tags.title = title;
 			tags.artist = artist;
 			tags.album = album;
@@ -447,7 +447,7 @@ TagEntry Tagger::readTags(QUrl &url)
 				tags.filetype = getFileType(url);
 				Database::Self().SetFileType(file, tags.filetype);
 			}
-		} else
+			} else*/
 		if(readTags(file, title, artist, album, comment, genre, track, year, length)) {
 			tags.title = title;
 			tags.artist = artist;
