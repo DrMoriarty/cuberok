@@ -71,7 +71,7 @@ private:
 	QString subsetLabel;
 	QVector< QList<QString> > request_stack;
 	bool wait_response;
-	Downloader downloader;
+	//Downloader *downloader;
 	QString lfmArtist, lfmAlbum;
 	
 public slots:

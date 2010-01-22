@@ -19,6 +19,7 @@
 
 #include "url_open.h"
 #include "console.h"
+#include "extensionproxy.h"
 
 UrlOpen::UrlOpen(QWidget *parent): QDialog(parent)
 {
@@ -40,7 +41,7 @@ void UrlOpen::accept()
 		emit append(url);
 		QDialog::accept();
 	} else if(text.indexOf("xspf") > 0 || text.indexOf("m3u") > 0) {
-		dl = new Downloader();
+		dl = new Downloader(&EProxy);
 		connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 		connect(dl, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 		connect(dl, SIGNAL(progress(int, int)), this, SLOT(dlProgress(int, int)));

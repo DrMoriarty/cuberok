@@ -386,16 +386,20 @@ void PlaylistModel::fixPlaylistItem(QString list, QString* file, bool* result)
  * PlaylistFiller
  * 
  ************************/
+#include "extensionproxy.h"
+
 PlaylistFiller::PlaylistFiller(QList<QUrl> dir, int ind, QObject *parent) 
 : QThread(parent), paths(dir), index(ind)
 {
+	downloader = new Downloader(&EProxy);
 	cancel = false;
-	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
-	connect(&downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+	connect(downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+	connect(downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 }
 
 PlaylistFiller::~PlaylistFiller()
 {
+	delete downloader;
 }
 
 void PlaylistFiller::dlCancel(QString)
@@ -414,7 +418,7 @@ void PlaylistFiller::proccessCache()
 	if(downloadCache.size()) {
 		QUrl url = downloadCache.front();
 		downloadCache.pop_front();
-		downloader.download(url);
+		downloader->download(url);
 	}
 }
 
@@ -438,8 +442,8 @@ void PlaylistFiller::proceedUrl(QUrl url)
 	QDir dir;
 	QString path = ToLocalFile(url);
 	if(!path.size() && Tagger::playlistDetected(url)) {
-		if(downloader.done()) {
-			downloader.download(url);
+		if(downloader->done()) {
+			downloader->download(url);
 		} else {
 			downloadCache << url;
 		}
