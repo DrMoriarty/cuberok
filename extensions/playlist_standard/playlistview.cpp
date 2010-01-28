@@ -607,8 +607,11 @@ void PlaylistStandard::play()
 	if(!shuffle_queue.size() && !PlayerManager::Self().playing() && EProxy.getVariable("order_mode") == "shuffle") {
 		if(EProxy.getVariable("play_mode") == "list" || EProxy.getVariable("play_mode") == "song")
 		   refillShuffleQueue(curindex.row());
-		else if(EProxy.getVariable("play_mode") == "album")
+		else if(EProxy.getVariable("play_mode") == "album") {
 			prepareNextAlbum(curindex.row());
+			if(!album_queue.size() && EProxy.getVariable("repeat_mode") == "true")
+				prepareAlbumList(&alb);
+		}
 	}
 	if(EProxy.getVariable("play_mode") == "album" && current_album.size()) {
 		QString ca = model.data(model.index(current_album[0].row(), PlaylistModel::Album), Qt::DisplayRole).toString();
