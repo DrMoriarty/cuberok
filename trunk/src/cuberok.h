@@ -69,6 +69,7 @@ private:
 	QMenu *order_mode, *play_mode;
 	QActionGroup *order_group, *play_group;
 	VolumeEventHandler *volumeEventHandler;
+	QList<QAction*> allactions;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);

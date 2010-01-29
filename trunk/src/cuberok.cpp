@@ -189,6 +189,10 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	useMessageWindow = true;
 
+	foreach(QAction* act, findChildren<QAction*>()) {
+		allactions << act;
+	}
+	
 	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
 		if(ex) {
 			QWidget *widget = ex->getWidget();
@@ -199,6 +203,10 @@ Cuberok::Cuberok(QWidget *parent)
 				dock->setWidget(widget);
 				this->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dock);
 				dock->setWindowTitle(ex->getName());
+				
+				foreach(QAction* act, widget->findChildren<QAction*>()) {
+					allactions << act;
+				}
 			}
 		}
 	}
@@ -338,7 +346,7 @@ void Cuberok::aboutQtMenu()
 
 void Cuberok::settings()
 {
-	Settings set(this);
+	Settings set(&allactions, this);
 	connect(&set, SIGNAL(accepted()), this, SLOT(applySettings()));
 	set.exec();
 	disconnect(&set);

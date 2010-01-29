@@ -79,3 +79,7 @@ void SrcCollection::storeState()
 {
 	if(widget) widget->storeState();
 }
+
+void SrcCollection::settingsUpdate(QObject*)
+{
+}

@@ -42,6 +42,8 @@ class SrcCollection : public Extension
 	virtual int getDisturbs();
 	virtual void storeState();
 
+ private slots:
+	void settingsUpdate(QObject*);
  private:
 	CollectionWidget* widget;
 };
