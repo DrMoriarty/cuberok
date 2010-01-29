@@ -189,9 +189,11 @@ Cuberok::Cuberok(QWidget *parent)
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	useMessageWindow = true;
 
+	QList<QAction*> acts;
 	foreach(QAction* act, findChildren<QAction*>()) {
-		allactions << act;
+		acts << act;
 	}
+	allactions << qMakePair(QString("Cuberok"), acts);
 	
 	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
 		if(ex) {
@@ -204,12 +206,15 @@ Cuberok::Cuberok(QWidget *parent)
 				this->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dock);
 				dock->setWindowTitle(ex->getName());
 				
+				QList<QAction*> acts;
 				foreach(QAction* act, widget->findChildren<QAction*>()) {
-					allactions << act;
+					acts << act;
 				}
+				allactions << qMakePair(ex->getName(), acts);
 			}
 		}
 	}
+	restoreShortcuts();
 }
 
 Cuberok::~Cuberok()
@@ -226,6 +231,7 @@ void Cuberok::storeState()
 	//set.setValue("shuffle", ui.actionShuffle->isChecked());
 	//set.setValue("iconview", ui.actionIconView->isChecked());
 	ExtensionProxy::Self().storeState();
+	storeShortcuts();
 	qDebug("Cuberok, state was stored");
 }
 
@@ -716,3 +722,38 @@ void Cuberok::OrderModeMenu()
 	order_mode->exec(ui.toolBar_2->mapToGlobal(ui.toolBar_2->widgetForAction(order_mode->menuAction())->pos())+QPoint(0,ui.toolBar_2->widgetForAction(order_mode->menuAction())->height()));
 }
 
+void Cuberok::storeShortcuts()
+{
+	QSettings set;
+	set.beginGroup("shortcuts");
+	for(int i = 0; i < allactions.size(); i++)  {
+		foreach(QAction* act, allactions[i].second) {
+			set.setValue(act->objectName(), act->shortcut().toString());
+		}
+	}
+	set.endGroup();
+}
+
+void Cuberok::restoreShortcuts()
+{
+	// loading shortcut
+	QSettings set;
+	set.beginGroup("shortcuts");
+	QStringList vars = set.childKeys();
+	foreach(QString var, vars) {
+		QAction *act = findActionByName(var);
+		if(act) act->setShortcut(QKeySequence::fromString(set.value(var).toString()));
+	}
+	set.endGroup();
+}
+
+QAction* Cuberok::findActionByName(QString name)
+{
+	for(int i = 0; i < allactions.size(); i++)  {
+		foreach(QAction* act, allactions[i].second) {
+			if(act->objectName() == name)
+				return act;
+		}
+	}
+	return 0;
+}

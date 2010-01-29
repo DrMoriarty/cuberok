@@ -34,8 +34,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>322</width>
-            <height>219</height>
+            <width>313</width>
+            <height>257</height>
            </rect>
           </property>
           <attribute name="icon">
@@ -133,8 +133,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>322</width>
-            <height>219</height>
+            <width>296</width>
+            <height>228</height>
            </rect>
           </property>
           <attribute name="icon">
@@ -292,8 +292,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>322</width>
-            <height>219</height>
+            <width>274</width>
+            <height>182</height>
            </rect>
           </property>
           <attribute name="icon">
@@ -421,8 +421,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>322</width>
-            <height>219</height>
+            <width>211</width>
+            <height>184</height>
            </rect>
           </property>
           <attribute name="icon">
@@ -545,7 +545,13 @@
        <item>
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>TextLabel</string>
+          <string>There isn't a pretty shortcut editor yet. But you can edit keys manually. Try something like that: &quot;Ctrl+X, C&quot;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
