@@ -34,7 +34,7 @@ QWidget* NoeditDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 	return 0;
 }
 
-Settings::Settings(QList<QAction*> *actions, QWidget *parent): QDialog(parent), allactions(actions)
+Settings::Settings(QList< QPair<QString, QList<QAction*> > > *actions, QWidget *parent): QDialog(parent), allactions(actions)
 {
 	ui.setupUi(this);
 	ui.tabWidget->addTab(new ExtensionSettings(), tr("Extensions"));
@@ -134,13 +134,18 @@ Settings::Settings(QList<QAction*> *actions, QWidget *parent): QDialog(parent), 
 
 	// actions
 	if(allactions) {
-		foreach(QAction* act, *allactions) {
-			if(act->text().size()) {
-				QTreeWidgetItem *item = new QTreeWidgetItem(ui.shortcutTreeWidget);
-				item->setText(0, act->text());
-				item->setIcon(0, act->icon());
-				item->setText(1, act->shortcut().toString());
-				item->setFlags(item->flags() | Qt::ItemIsEditable);
+		for(int i = 0; i< allactions->size(); i++) {
+			QTreeWidgetItem *it = new QTreeWidgetItem(ui.shortcutTreeWidget);
+			it->setText(0, (*allactions)[i].first);
+			foreach(QAction* act, (*allactions)[i].second) {
+				if(act->text().size()) {
+					QTreeWidgetItem *item = new QTreeWidgetItem(it);
+					item->setText(0, act->text());
+					item->setIcon(0, act->icon());
+					item->setText(1, act->shortcut().toString());
+					item->setFlags(item->flags() | Qt::ItemIsEditable);
+					item->setData(0, Qt::UserRole, QVariant::fromValue((QObject*)act));
+				}
 			}
 		}
 	}
@@ -204,6 +209,14 @@ void Settings::accept()
 	else if(ui.radioButton_pbl->isChecked()) EProxy.setVariable("popupPosition", "2");
 	else if(ui.radioButton_pbr->isChecked()) EProxy.setVariable("popupPosition", "3");
 
+	// action shortcut
+	QTreeWidgetItem *root = ui.shortcutTreeWidget->invisibleRootItem();
+	for(int i=0; i<root->childCount(); i++) {
+		for(int j=0; j<root->child(i)->childCount(); j++) {
+			QAction *act = (QAction*)root->child(i)->child(j)->data(0, Qt::UserRole).value<QObject*>();
+			act->setShortcut(QKeySequence::fromString(root->child(i)->child(j)->data(1, Qt::DisplayRole).toString()));
+		}
+	}
 	PLSet.save();
 	QDialog::accept();
 }
@@ -235,6 +248,4 @@ void Settings::shortcutChanged(QTreeWidgetItem* item, int column)
 	QString key = item->data(column, Qt::DisplayRole).toString();
 	QString key2 = QKeySequence::fromString(key).toString();
 	item->setData(column, Qt::EditRole, key2);
-	key = key + " : " + key2;
-	qDebug((const char*)key.toLocal8Bit());
 }

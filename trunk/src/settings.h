@@ -38,7 +38,7 @@ class Settings : public QDialog
 	Q_OBJECT
 
  public:
-	Settings(QList<QAction*> *actions, QWidget *parent = 0);
+	Settings(QList< QPair<QString, QList<QAction*> > > *actions, QWidget *parent = 0);
 	~Settings();
 
  public slots:
@@ -52,7 +52,7 @@ class Settings : public QDialog
     Ui::Settings ui;
 	QString auto_engine;
 	ComboBoxDelegate *cbd1, *cbd2;
-	QList<QAction*> *allactions;
+	QList< QPair<QString, QList<QAction*> > > *allactions;
 };
 
 #endif // SETTINGS_H

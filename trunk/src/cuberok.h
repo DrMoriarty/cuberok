@@ -69,10 +69,11 @@ private:
 	QMenu *order_mode, *play_mode;
 	QActionGroup *order_group, *play_group;
 	VolumeEventHandler *volumeEventHandler;
-	QList<QAction*> allactions;
+	QList< QPair<QString, QList<QAction*> > > allactions;
 
  protected:
 	virtual void closeEvent(QCloseEvent *event);
+	QAction* findActionByName(QString name);
 
 private slots:
 	void aboutMenu();
@@ -90,6 +91,8 @@ private slots:
 	void storeState();
  	void setPlayPauseIcon  (bool);
 	void timeSlot();
+	void storeShortcuts();
+	void restoreShortcuts();
 
 public slots:
 	void lookAndFeel();
