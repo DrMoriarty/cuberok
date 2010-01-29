@@ -24,12 +24,21 @@
 #include "ui_settings.h"
 #include "comboboxdelegate.h"
 
+class NoeditDelegate: public QItemDelegate
+{
+	Q_OBJECT
+
+public:
+	NoeditDelegate(QObject* parent);
+	QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem & option, const QModelIndex &index) const;
+};
+
 class Settings : public QDialog
 {
 	Q_OBJECT
 
  public:
-	Settings(QWidget *parent = 0);
+	Settings(QList<QAction*> *actions, QWidget *parent = 0);
 	~Settings();
 
  public slots:
@@ -37,12 +46,13 @@ class Settings : public QDialog
 	void engineChanged(QString);
 	void removeRow();
 	void addRow();
+	void shortcutChanged(QTreeWidgetItem* item, int column);
 
  private:
     Ui::Settings ui;
 	QString auto_engine;
 	ComboBoxDelegate *cbd1, *cbd2;
-
+	QList<QAction*> *allactions;
 };
 
 #endif // SETTINGS_H

@@ -25,7 +25,16 @@
 #include "extensionproxy.h"
 #include "extensionsettings.h"
 
-Settings::Settings(QWidget *parent): QDialog(parent)
+NoeditDelegate::NoeditDelegate(QObject* parent) :  QItemDelegate(parent)
+{
+}
+
+QWidget* NoeditDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem & option, const QModelIndex &index) const
+{
+	return 0;
+}
+
+Settings::Settings(QList<QAction*> *actions, QWidget *parent): QDialog(parent), allactions(actions)
 {
 	ui.setupUi(this);
 	ui.tabWidget->addTab(new ExtensionSettings(), tr("Extensions"));
@@ -122,6 +131,20 @@ Settings::Settings(QWidget *parent): QDialog(parent)
 		ui.radioButton_pbr->setChecked(true);
 		break;
 	}
+
+	// actions
+	if(allactions) {
+		foreach(QAction* act, *allactions) {
+			if(act->text().size()) {
+				QTreeWidgetItem *item = new QTreeWidgetItem(ui.shortcutTreeWidget);
+				item->setText(0, act->text());
+				item->setIcon(0, act->icon());
+				item->setText(1, act->shortcut().toString());
+				item->setFlags(item->flags() | Qt::ItemIsEditable);
+			}
+		}
+	}
+	ui.shortcutTreeWidget->setItemDelegateForColumn(0, new NoeditDelegate(ui.shortcutTreeWidget));
 }
 
 Settings::~Settings()
@@ -204,4 +227,14 @@ void Settings::addRow()
 void Settings::removeRow()
 {
 	ui.tableWidget->removeRow(ui.tableWidget->currentRow());
+}
+
+void Settings::shortcutChanged(QTreeWidgetItem* item, int column)
+{
+	if(column == 0) return;
+	QString key = item->data(column, Qt::DisplayRole).toString();
+	QString key2 = QKeySequence::fromString(key).toString();
+	item->setData(column, Qt::EditRole, key2);
+	key = key + " : " + key2;
+	qDebug((const char*)key.toLocal8Bit());
 }
