@@ -126,4 +126,13 @@ bool MyApplication::restoreState(QMainWindow *win)
 void MyApplication::canStore(bool c)
 {
     canstore = c;
+	connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
+	timer.start(300000); // 5 minutes
+}
+
+void MyApplication::timeout()
+{
+	storeState();
+	if(mainwindow) storeState(mainwindow);
+	qDebug("Time to save settings");
 }

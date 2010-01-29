@@ -43,9 +43,13 @@ class MyApplication : public QApplication
 	// main window
 	bool restoreState(QMainWindow *win);
 	void canStore(bool c);
+ private slots:
+	void timeout();
+	
  private:
 	QMainWindow *mainwindow;
 	bool canstore;
+	QTimer timer;
 };
 
 #endif //MYAPPLICATION_H
