@@ -214,6 +214,7 @@ Cuberok::Cuberok(QWidget *parent)
 			}
 		}
 	}
+	allactions.append(ui.listView->getPlaylistActions());
 	restoreShortcuts();
 }
 

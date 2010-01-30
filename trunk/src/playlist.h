@@ -75,6 +75,7 @@ class PlaylistFactory: public QObject
 	virtual void setProxy(Proxy *pr) = 0;
 	virtual QStringList getAvailableTypes() = 0;
 	virtual Playlist* getNewPlaylist(QString type, QWidget* parent, QString name) = 0;
+	virtual QList<QAction*>& actions() = 0;
 };
 
 Q_DECLARE_INTERFACE(Playlist, "Cuberok.Playlist/1.0")

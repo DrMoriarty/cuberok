@@ -32,6 +32,7 @@ public:
 	void prepare();
 	void newList(QString listname = "");
 	QString getCurrentFile();
+	QList< QPair<QString, QList<QAction*> > > getPlaylistActions();
     
 private:
 

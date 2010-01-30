@@ -163,7 +163,6 @@ signals:
 	void songPosition(int);
 	void playPauseIcon (bool); // true means show a "play" icon, false means show "pause"
  protected:
-	void addHardcodedActions(QWidget* w);
 	void prepareNextAlbum(int except = -1);
 	void prepareAlbumList(const QString* except=0, const QString* notStartWith=0);
     virtual QModelIndex nextItem();
@@ -184,8 +183,16 @@ class PlaylistStandardFactory : public PlaylistFactory
 	virtual void setProxy(Proxy *pr);
 	virtual QStringList getAvailableTypes();
 	virtual Playlist* getNewPlaylist(QString type, QWidget* parent, QString name);
+	virtual QList<QAction*>& actions();
  protected:
 	Proxy *proxy;
+	QAction *actionQueueNext;
+	QAction* actionEditTag;
+	QAction *actionReloadTags;
+	QAction *actionRemoveSong;
+	QAction* actionClear_playlist;
+	QList<QAction*> acts;
+	void hardcodedActions();
 };
 
 

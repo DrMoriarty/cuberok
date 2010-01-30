@@ -85,6 +85,16 @@ PlaylistContainer::~PlaylistContainer()
 	delete vboxLayout;
 }
 
+QList< QPair<QString, QList<QAction*> > > PlaylistContainer::getPlaylistActions()
+{
+	QList< QPair<QString, QList<QAction*> > > list;
+	foreach(PlaylistFactory* f, factories) {
+		QList< QAction*> &a = f->actions();
+		list << qMakePair(f->getAvailableTypes()[0], a);
+	}
+	return list;
+}
+
 void PlaylistContainer::storeState()
 {
 	QSettings set;
@@ -169,7 +179,7 @@ void PlaylistContainer::newList(QString listname)
 			}
 		} while(found);
 	}
-	Playlist *pl = factories[0]->getNewPlaylist("Standard", this, listname); 
+	Playlist *pl = factories[0]->getNewPlaylist(factories[0]->getAvailableTypes()[0], this, listname); 
 	lists.append(pl);
 	tabs->addTab(lists.last()->getWidget(), listname);
 	curlist = lists.last();
