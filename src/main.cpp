@@ -27,6 +27,7 @@
 
 #include <QtGui>
 #include "console.h"
+#include "dbusinterface.h"
 
 QString style_name;
 QSharedMemory shm("Cuberok shared memory");
@@ -226,7 +227,15 @@ int main(int argc, char *argv[])
     QPixmap pixmap(":/icons/splash.png");
     QSplashScreen splash(pixmap);
     splash.show();
-    splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::black);
+    splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::white);
+
+	CuberokAdaptor *adaptor = new CuberokAdaptor(&a);
+	// connect to D-Bus and register as an object:
+	if(!QDBusConnection::sessionBus().registerService("org.qtdesktop.cuberok"))
+		qDebug("dbus service doesn't connected!");
+	if(!QDBusConnection::sessionBus().registerObject("/Cuberok", adaptor, QDBusConnection::ExportAllContents))
+		qDebug("dbus object doesn't connected!");
+
     QString locale = QLocale::system().name().left(2);
     QTranslator translator;
     QString trpath;
