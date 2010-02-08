@@ -521,7 +521,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Queue as Next</source>
-        <translation type="unfinished">Поставить в очередь</translation>
+        <translation type="obsolete">Поставить в очередь</translation>
     </message>
     <message>
         <source>Remove Item</source>
@@ -529,7 +529,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Remove song</source>
-        <translation type="unfinished">Удалить песню</translation>
+        <translation type="obsolete">Удалить песню</translation>
     </message>
     <message>
         <source>Repeat</source>
@@ -597,7 +597,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Reload tags</source>
-        <translation type="unfinished">Перечитать теги</translation>
+        <translation type="obsolete">Перечитать теги</translation>
     </message>
     <message>
         <source>Reset filter</source>
@@ -697,7 +697,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Enqueue selected song</source>
-        <translation type="unfinished">Поставить в очередь выбранную песню</translation>
+        <translation type="obsolete">Поставить в очередь выбранную песню</translation>
     </message>
     <message>
         <source>Edit tags</source>
@@ -713,7 +713,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Remove song from the playlist</source>
-        <translation type="unfinished">Удалить песню из списка</translation>
+        <translation type="obsolete">Удалить песню из списка</translation>
     </message>
     <message>
         <source>Show artists</source>
@@ -749,7 +749,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Reload tags in selected song</source>
-        <translation type="unfinished">Перечитать теги для выбранной песни</translation>
+        <translation type="obsolete">Перечитать теги для выбранной песни</translation>
     </message>
     <message>
         <source>Set image for collection item</source>
@@ -848,19 +848,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ctrl+T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Del</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

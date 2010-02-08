@@ -1,5 +1,5 @@
 CONFIG += qt release
-QT += sql xml network webkit
+QT += sql xml network webkit dbus
 
 #TEMPLATE = app
 #TARGET = 
@@ -30,6 +30,7 @@ HEADERS += \
            consoleview.h \
            cuberok.h \
            cuecontrol.h \
+           dbusinterface.h \
 #           database.h \
            downloader.h \
            extensionproxy.h \
@@ -82,6 +83,7 @@ SOURCES += aboutdialog.cpp \
            consoleview.cpp \
            cuberok.cpp \
            cuecontrol.cpp \
+           dbusinterface.cpp \
 #           database.cpp \
            downloader.cpp \
            extensionproxy.cpp \
