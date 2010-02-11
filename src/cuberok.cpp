@@ -26,7 +26,6 @@
 #include "settings.h"
 #include "player_manager.h"
 //#include "collectionsettings.h"
-#include "importcollection.h"
 #include "firststartwizard.h"
 #include "messagewindow.h"
 #include "main.h"
@@ -63,6 +62,7 @@ Cuberok::Cuberok(QWidget *parent)
 #ifdef QTAGCONVERT
 	qtag = 0;
 #endif
+	defaultValues();
 	timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeSlot()));
 	timer->start(100);
@@ -264,6 +264,12 @@ void Cuberok::firstStart()
 
 	FirstStartWizard fsw(this);
 	fsw.exec();
+}
+
+void Cuberok::defaultValues()
+{
+	if(!EProxy.hasVariable("order_mode")) EProxy.setVariable("order_mode", "ordered");
+	if(!EProxy.hasVariable("play_mode")) EProxy.setVariable("play_mode", "song");
 }
 
 void Cuberok::aboutMenu()
@@ -537,18 +543,6 @@ void Cuberok::applySettings()
 	}
 }
 
-void Cuberok::collectionSettings()
-{
-	// CollectionSettings cs;
-	// cs.exec();
-}
-
-void Cuberok::importCollection()
-{
-	ImportCollection ic;
-	ic.exec();
-}
- 
 // a slot to handle setting the play/pause button to "pause" whenever play is activated:
 // playPause of true means show "play" icon, false means show "pause"
 void Cuberok::setPlayPauseIcon (bool playPause) {

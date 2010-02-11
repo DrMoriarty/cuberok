@@ -34,6 +34,7 @@ class CollectionSettings: public QDialog
 	void scan();
 	void cleanup();
 	void selectPath();
+	void importCollection();
 	
  private:
     Ui::CollectionSettings ui;

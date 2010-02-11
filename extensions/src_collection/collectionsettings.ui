@@ -138,6 +138,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_import">
+        <property name="text">
+         <string>Import collection</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_close">
         <property name="toolTip">
          <string>Close this window</string>
@@ -234,10 +241,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_import</sender>
+   <signal>clicked()</signal>
+   <receiver>CollectionSettings</receiver>
+   <slot>importCollection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>268</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>167</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cleanup()</slot>
   <slot>scan()</slot>
   <slot>selectPath()</slot>
+  <slot>importCollection()</slot>
  </slots>
 </ui>

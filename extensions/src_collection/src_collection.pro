@@ -11,10 +11,11 @@
     collectionfiller.h \
     collectionsettings.h \
     sqledit.h \
-    collectionwidget.h
+    collectionwidget.h \
+    importcollection.h
 
- SOURCES       = src_collection.cpp database.cpp collectionview.cpp collectionfiller.cpp collectionsettings.cpp sqledit.cpp collectionwidget.cpp
- FORMS         = collectionwidget.ui collectionsettings.ui sqledit.ui
+ SOURCES       = src_collection.cpp database.cpp collectionview.cpp collectionfiller.cpp collectionsettings.cpp sqledit.cpp collectionwidget.cpp importcollection.cpp
+ FORMS         = collectionwidget.ui collectionsettings.ui sqledit.ui importcollection.ui
  TARGET        = $$qtLibraryTarget(src_collection)
 
 include(../../qmakeroot.pri)
