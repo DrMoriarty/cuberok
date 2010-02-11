@@ -50,6 +50,7 @@ public:
     Cuberok(QWidget *parent = 0);
     ~Cuberok();
 	void firstStart();
+	void defaultValues();
     
 private:
 	void showhide(bool s);
@@ -101,8 +102,6 @@ public slots:
 	bool reallyClose();
 	void qTagConvert();
 	void applySettings();
-	void collectionSettings();
-	void importCollection();
 
 	void showHelp();
 	void goToSite();

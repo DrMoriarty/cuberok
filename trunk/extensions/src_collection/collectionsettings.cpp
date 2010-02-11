@@ -21,6 +21,7 @@
 #include "extensionproxy.h"
 #include "database.h"
 #include "collectionfiller.h"
+#include "importcollection.h"
 
 CollectionSettings::CollectionSettings(QWidget *parent)
     : QDialog(parent)
@@ -68,4 +69,10 @@ void CollectionSettings::selectPath()
 	if(path.size()) {
 		ui.lineEdit_path->setText(path);
 	}
+}
+
+void CollectionSettings::importCollection()
+{
+	ImportCollection ic;
+	ic.exec();
 }

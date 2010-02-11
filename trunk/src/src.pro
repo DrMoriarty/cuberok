@@ -1,5 +1,5 @@
 CONFIG += qt release
-QT += sql xml network webkit dbus
+QT += sql xml network webkit
 
 #TEMPLATE = app
 #TARGET = 
@@ -30,13 +30,12 @@ HEADERS += \
            consoleview.h \
            cuberok.h \
            cuecontrol.h \
-           dbusinterface.h \
 #           database.h \
            downloader.h \
            extensionproxy.h \
            extensionsettings.h \
            firststartwizard.h \
-           importcollection.h \
+#           importcollection.h \
            indicator.h \
            lookandfeel.h \
            main.h \
@@ -69,7 +68,7 @@ FORMS += aboutdialog.ui \
          authenticationdialog.ui \
          console.ui \
 #         sqledit.ui \
-         importcollection.ui \
+#         importcollection.ui \
          firststartwizard.ui \
          cuecontrol.ui 
 TRANSLATIONS = ../translations/cuberok_ru.ts
@@ -83,13 +82,12 @@ SOURCES += aboutdialog.cpp \
            consoleview.cpp \
            cuberok.cpp \
            cuecontrol.cpp \
-           dbusinterface.cpp \
 #           database.cpp \
            downloader.cpp \
            extensionproxy.cpp \
            extensionsettings.cpp \
            firststartwizard.cpp \
-           importcollection.cpp \
+#           importcollection.cpp \
            indicator.cpp \
            interfaces.cpp \
            lookandfeel.cpp \
@@ -204,6 +202,15 @@ win32:exists(../yajl-1.0.5/lib/libyajl.a) {
 
 unix:exists(/usr/include/yajl/yajl_parse.h) {
     LIBS += -lyajl
+}
+
+macx|win32 {
+    message(There isn't any D-Buses!)
+} else {
+    QT += dbus
+    HEADERS += dbusinterface.h
+    SOURCES += dbusinterface.cpp
+    DEFINES += DBUS_ENABLED
 }
 
 

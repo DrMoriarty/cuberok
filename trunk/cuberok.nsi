@@ -7,7 +7,7 @@ OutFile "win32\cuberok_setup-${VERSION}.exe"
 InstallDir $PROGRAMFILES\Cuberok
 
 ; Request application privileges for Windows Vista
-RequestExecutionLevel user
+RequestExecutionLevel admin
 
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)

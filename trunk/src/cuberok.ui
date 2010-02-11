@@ -192,7 +192,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -287,16 +287,8 @@
     <addaction name="actionConsole"/>
     <addaction name="separator"/>
    </widget>
-   <widget class="QMenu" name="menuCollection">
-    <property name="title">
-     <string>Collection</string>
-    </property>
-    <addaction name="actionCollectionPreferences"/>
-    <addaction name="actionImport_Amarok_collection"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
-   <addaction name="menuCollection"/>
    <addaction name="menuControl"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -880,23 +872,6 @@
    </property>
    <property name="toolTip">
     <string>Number</string>
-   </property>
-  </action>
-  <action name="actionCollectionPreferences">
-   <property name="icon">
-    <iconset resource="resource.qrc">
-     <normaloff>:/icons/sql.png</normaloff>:/icons/sql.png</iconset>
-   </property>
-   <property name="text">
-    <string>Settings</string>
-   </property>
-   <property name="toolTip">
-    <string>Collection Settings</string>
-   </property>
-  </action>
-  <action name="actionImport_Amarok_collection">
-   <property name="text">
-    <string>Import Amarok collection</string>
    </property>
   </action>
   <action name="actionViewQueue">
@@ -1648,38 +1623,6 @@
     <hint type="destinationlabel">
      <x>480</x>
      <y>219</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionCollectionPreferences</sender>
-   <signal>triggered()</signal>
-   <receiver>CuberokClass</receiver>
-   <slot>collectionSettings()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>325</x>
-     <y>262</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionImport_Amarok_collection</sender>
-   <signal>triggered()</signal>
-   <receiver>CuberokClass</receiver>
-   <slot>importCollection()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>325</x>
-     <y>262</y>
     </hint>
    </hints>
   </connection>
