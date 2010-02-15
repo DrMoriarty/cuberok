@@ -19,7 +19,7 @@
 
 #include "firststartwizard.h"
 //#include "collectionfiller.h"
-#include "importcollection.h"
+//#include "importcollection.h"
 #include "extensionproxy.h"
 
 FirstStartWizard::FirstStartWizard(QWidget *parent) :QWizard(parent)
@@ -83,7 +83,7 @@ void FirstStartWizard::doSomething()
 		 }
 		 break;
      case 4: // import
-		 ImportCollection::importCollection(ui.lineEdit_import->text(), true);
+		 //ImportCollection::importCollection(ui.lineEdit_import->text(), true);
 		 break;
      case 1:  // selection
      case 2: // listen

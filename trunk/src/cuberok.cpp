@@ -571,6 +571,7 @@ void Cuberok::timeSlot()
 	// remote control
 	shm.lock();
 	char *data = (char*)shm.data();
+	if(!data) return;
 	QStringList list;
 	if(data[0]) {
 		QByteArray bytes(data+1, SHMEM_SIZE-1);
@@ -723,7 +724,8 @@ void Cuberok::storeShortcuts()
 	set.beginGroup("shortcuts");
 	for(int i = 0; i < allactions.size(); i++)  {
 		foreach(QAction* act, allactions[i].second) {
-			set.setValue(act->objectName(), act->shortcut().toString());
+			if(act->objectName().size())
+				set.setValue(act->objectName(), act->shortcut().toString());
 		}
 	}
 	set.endGroup();
