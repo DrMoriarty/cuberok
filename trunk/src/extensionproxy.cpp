@@ -29,6 +29,7 @@ Q_IMPORT_PLUGIN(src_browser)
 Q_IMPORT_PLUGIN(src_library)
 Q_IMPORT_PLUGIN(info_lyric)
 Q_IMPORT_PLUGIN(src_collection)
+Q_IMPORT_PLUGIN(scrobbler_psi)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 {
