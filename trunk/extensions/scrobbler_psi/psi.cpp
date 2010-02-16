@@ -21,13 +21,21 @@
 #include "psi.h"
 #include "psi_settings.h"
 #include <QtGui>
+#ifdef Q_OS_LINUX
+#include <QtDBus>
+#endif
 
 Q_EXPORT_PLUGIN2(scrobbler_psi, PsiTune) 
 
 PsiTune::PsiTune() : Extension(), enabled(false)
 {
 	QSettings set;
+	set.beginGroup("im_tune");
 	psiTuneFile = set.value("PsiTuneFile", DEFAULT_PSI_TUNE).toString();
+	enabled = set.value("PsiTune", false).toBool();
+	kopeteEnabled = set.value("KopeteTune", false).toBool();
+	kopeteStatus = set.value("KopeteStatus", DEFAULT_KOPETE_STATUS).toString();
+	set.endGroup();
 }
 
 PsiTune::~PsiTune()
@@ -36,15 +44,12 @@ PsiTune::~PsiTune()
 
 bool PsiTune::prepare()
 {
-	QSettings set;
-	enabled = set.value("PsiTune", false).toBool();
-//	return enabled;
 	return true;
 }
 
 bool PsiTune::ready()
 {
-	return enabled;
+	return enabled || kopeteEnabled;
 }
 
 void PsiTune::update(int)
@@ -62,20 +67,32 @@ void PsiTune::update(int)
 		changed = true;
 	}
 	if ( changed ) {
-		QFile psiTuneFile(QSettings().value("PsiTuneFile", DEFAULT_PSI_TUNE).toString());
-		psiTuneFile.open(QIODevice::WriteOnly | QIODevice::Text);
-		QTextStream out(&psiTuneFile);
-		if ( listening ) {
-			STags t = proxy->getTags();
-			out << t.tag0.title << '\n';
-			out << t.tag0.artist << '\n';
-			out << t.tag0.album << '\n';
-			out << t.tag0.track << '\n';
-			out << QString::number(t.tag0.length) << '\n';
-		} else {
-			out << '\n';
+		STags t = proxy->getTags();
+		if(enabled) {
+			QFile psiTuneFile(QSettings().value("PsiTuneFile", DEFAULT_PSI_TUNE).toString());
+			psiTuneFile.open(QIODevice::WriteOnly | QIODevice::Text);
+			QTextStream out(&psiTuneFile);
+			if ( listening ) {
+				out << t.tag0.title << '\n';
+				out << t.tag0.artist << '\n';
+				out << t.tag0.album << '\n';
+				out << t.tag0.track << '\n';
+				out << QString::number(t.tag0.length) << '\n';
+			} else {
+				out << '\n';
+			}
+			psiTuneFile.close();
 		}
-		psiTuneFile.close();
+#ifdef Q_OS_LINUX
+		if(kopeteEnabled) {
+			QDBusMessage msg = QDBusMessage::createMethodCall("org.kde.kopete", "/Kopete", "org.kde.Kopete", "setOnlineStatus");
+			QList<QVariant> args;
+			args.append(QVariant(QString("online")));
+			args.append(QVariant(kopeteStatus.replace("%song%", t.tag0.title).replace("%artist%", t.tag0.artist).replace("%album%", t.tag0.album)));
+			msg.setArguments(args);
+			if(!QDBusConnection::sessionBus().send(msg)) qDebug("D-Bus message wasn't sent");
+		}
+#endif
 	}
 }
 

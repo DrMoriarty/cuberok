@@ -40,8 +40,8 @@ class PsiTune : public Extension
 	virtual int getDisturbs();
 
  private:
-	bool enabled;
-	QString psiTuneFile;
+	bool enabled, kopeteEnabled;
+	QString psiTuneFile, kopeteStatus;
 
  private slots:
 	void settingsUpdate(QObject*);

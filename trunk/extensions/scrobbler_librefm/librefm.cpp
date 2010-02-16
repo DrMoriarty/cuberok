@@ -54,7 +54,7 @@ bool LibreFM::prepare()
 	librefmUser = set.value("librefmUser", "").toString();
 	librefmPassword = set.value("librefmPassword", "").toString();
 	if(enabled) handshake(librefmUser, librefmPassword);
-	return enabled;
+	return true;
 }
 
 bool LibreFM::ready()

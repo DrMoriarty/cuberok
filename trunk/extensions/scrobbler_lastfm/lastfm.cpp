@@ -55,7 +55,7 @@ bool LastFM::prepare()
 	lastfmUser = set.value("lastfmUser", "").toString();
 	lastfmPassword = set.value("lastfmPassword", "").toString();
 	if(enabled) handshake(lastfmUser, lastfmPassword);
-	return enabled;
+	return true;
 }
 
 bool LastFM::ready()

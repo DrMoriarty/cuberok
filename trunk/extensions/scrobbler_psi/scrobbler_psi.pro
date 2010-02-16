@@ -1,4 +1,8 @@
 # QT += xml network
+linux-g++ {
+ QT += dbus
+}
+
  CONFIG       += release
  TEMPLATE      = lib
  CONFIG       += plugin static
