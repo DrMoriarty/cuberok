@@ -9,4 +9,5 @@ SUBDIRS      += \
 		src_browser \
 		src_library \
 		info_lyric \
-		src_collection
+		src_collection \
+                scrobbler_psi

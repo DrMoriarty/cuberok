@@ -47,6 +47,7 @@
         <file alias="internet.png" >../images/network.png</file>
         <file alias="lastfm.png" >../images/lastfm.png</file>
         <file alias="librefm.png" >../images/librefm.png</file>
+        <file alias="psi.png" >../images/psi_logo.png</file>
         <file alias="qt.png" >../images/qt.png</file>
         <file alias="splash.png" >../images/cuberok_splash3.png</file>
         <file alias="console_fat.png" >../images/console_fat.png</file>

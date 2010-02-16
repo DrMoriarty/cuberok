@@ -179,7 +179,8 @@ CUBEROK_STATIC_PLUGINS = \
 	src_browser \
 	src_library \
 	info_lyric \
-    src_collection
+        src_collection \
+        scrobbler_psi
 
 LIBS += -L$${DESTDIR}/plugins 
 for(p, CUBEROK_STATIC_PLUGINS) {
