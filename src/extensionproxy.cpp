@@ -49,7 +49,7 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 			ex->setProxy(this);
 			bool res = ex->prepare();
 			if(res) {
-				qDebug("...successfully");
+				qDebug("... successfully");
 				extensions.push_back(ex);
 			} else {
 				qDebug("... error");

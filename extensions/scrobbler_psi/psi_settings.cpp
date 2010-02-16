@@ -19,11 +19,16 @@
 
 #include "psi_settings.h"
 
+
 PsiTuneSettings::PsiTuneSettings(QWidget *parent) : QWidget(parent)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 
-	QGridLayout *gridLayout3 = new QGridLayout(this);
+	QIcon icon4;
+	icon4.addPixmap(QPixmap(QString::fromUtf8(":/icons/psi.png")), QIcon::Normal, QIcon::Off);
+	setWindowIcon(icon4);
+
+	QVBoxLayout *gridLayout3 = new QVBoxLayout(this);
 	gridLayout3->setSpacing(4);
 	gridLayout3->setMargin(4);
 	gridLayout3->setObjectName(QString::fromUtf8("gridLayout3"));
@@ -51,23 +56,56 @@ PsiTuneSettings::PsiTuneSettings(QWidget *parent) : QWidget(parent)
 
 	gridLayout5->addWidget(lineEdit_psiTuneFile, 1, 1, 1, 1);
 
-	gridLayout3->addWidget(checkBox_enable, 1, 0, 2, 1);
-	QSpacerItem *verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	gridLayout3->addItem(verticalSpacer_2, 3, 0, 1, 1);
+	gridLayout3->addWidget(checkBox_enable);
 
-	QIcon icon4;
-	icon4.addPixmap(QPixmap(QString::fromUtf8(":/icons/psi.png")), QIcon::Normal, QIcon::Off);
-	setWindowIcon(icon4);
+
+	groupBox_enableKopete = new QGroupBox(this);
+	groupBox_enableKopete->setObjectName(QString::fromUtf8("groupBox_enableKopete"));
+	groupBox_enableKopete->setFlat(true);
+	groupBox_enableKopete->setCheckable(true);
+	groupBox_enableKopete->setChecked(false);
+	groupBox_enableKopete->setTitle(QApplication::translate("Psi Tune", "Enable kopete publish tune", 0, QApplication::UnicodeUTF8));
+
+	QGridLayout *gridLayout4 = new QGridLayout(groupBox_enableKopete);
+	gridLayout4->setSpacing(4);
+	gridLayout4->setMargin(0);
+	gridLayout4->setObjectName(QString::fromUtf8("gridLayout4"));
+
+	QLabel *label_1 = new QLabel(checkBox_enable);
+	label_1->setObjectName(QString::fromUtf8("label_1"));
+	label_1->setText(QApplication::translate("Psi Tune", "Status line", 0, QApplication::UnicodeUTF8));
+
+	gridLayout4->addWidget(label_1, 1, 0, 1, 1);
+
+	lineEdit_kopeteStatus = new QLineEdit(groupBox_enableKopete);
+	lineEdit_kopeteStatus->setObjectName(QString::fromUtf8("lineEdit_kopeteStatus"));
+
+	gridLayout4->addWidget(lineEdit_kopeteStatus, 1, 1, 1, 1);
+
+	gridLayout3->addWidget(groupBox_enableKopete);
+	QSpacerItem *verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	gridLayout3->addItem(verticalSpacer_2);
 
 	QSettings set;
+	set.beginGroup("im_tune");
 	checkBox_enable->setChecked(set.value("PsiTune", false).toBool());
 	lineEdit_psiTuneFile->setText(set.value("PsiTuneFile", DEFAULT_PSI_TUNE).toString());
 
+	groupBox_enableKopete->setChecked(set.value("KopeteTune", false).toBool());
+	lineEdit_kopeteStatus->setText(set.value("KopeteStatus", DEFAULT_KOPETE_STATUS).toString());
+#ifndef Q_OS_LINUX
+	groupBox_enableKopete->setEnabled(false);
+#endif
+	set.endGroup();
 }
 
 PsiTuneSettings::~PsiTuneSettings()
 {
 	QSettings set;
+	set.beginGroup("im_tune");
 	set.setValue("PsiTune", checkBox_enable->isChecked());
 	set.setValue("PsiTuneFile", lineEdit_psiTuneFile->text());
+	set.setValue("KopeteTune", groupBox_enableKopete->isChecked());
+	set.setValue("KopeteStatus", lineEdit_kopeteStatus->text());
+	set.endGroup();
 }
