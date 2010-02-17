@@ -40,7 +40,7 @@ class PsiTune : public Extension
 	virtual int getDisturbs();
 
  private:
-	bool enabled, kopeteEnabled;
+	bool enabled, kopeteEnabled, kdeNotify;
 	QString psiTuneFile, kopeteStatus;
 
  private slots:
