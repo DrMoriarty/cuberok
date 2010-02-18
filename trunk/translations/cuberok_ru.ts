@@ -1913,6 +1913,14 @@ Do you forget to install proper phonon backend?</source>
 <context>
     <name>PsiTune</name>
     <message>
+        <source>Play %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>by %1 - album %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>PsiTune Scrobbler</source>
         <translation type="unfinished"></translation>
     </message>
