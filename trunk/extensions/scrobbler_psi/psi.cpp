@@ -29,14 +29,6 @@ Q_EXPORT_PLUGIN2(scrobbler_psi, PsiTune)
 
 PsiTune::PsiTune() : Extension(), enabled(false)
 {
-	QSettings set;
-	set.beginGroup("im_tune");
-	psiTuneFile = set.value("PsiTuneFile", DEFAULT_PSI_TUNE).toString();
-	enabled = set.value("PsiTune", false).toBool();
-	kopeteEnabled = set.value("KopeteTune", false).toBool();
-	kopeteStatus = set.value("KopeteStatus", DEFAULT_KOPETE_STATUS).toString();
-	kdeNotify = true;
-	set.endGroup();
 }
 
 PsiTune::~PsiTune()
@@ -45,6 +37,14 @@ PsiTune::~PsiTune()
 
 bool PsiTune::prepare()
 {
+	QSettings set;
+	set.beginGroup("im_tune");
+	psiTuneFile = set.value("PsiTuneFile", DEFAULT_PSI_TUNE).toString();
+	enabled = set.value("PsiTune", false).toBool();
+	kopeteEnabled = set.value("KopeteTune", false).toBool();
+	kopeteStatus = set.value("KopeteStatus", DEFAULT_KOPETE_STATUS).toString();
+	kdeNotify = set.value("KdeNotify", true).toBool();
+	set.endGroup();
 	return true;
 }
 
@@ -85,39 +85,50 @@ void PsiTune::update(int)
 			psiTuneFile.close();
 		}
 #ifdef Q_OS_LINUX
-		if(kopeteEnabled) {
-			QDBusMessage msg = QDBusMessage::createMethodCall("org.kde.kopete", "/Kopete", "org.kde.Kopete", "setStatusMessage");
-			QList<QVariant> args;
-			//args.append(QVariant(QString("online")));
-			args.append(QVariant(kopeteStatus.replace("%song%", t.tag0.title).replace("%artist%", t.tag0.artist).replace("%album%", t.tag0.album)));
-			msg.setArguments(args);
-			if(!QDBusConnection::sessionBus().send(msg)) qDebug("D-Bus error");
-		}
-		if(kdeNotify) {
-			QDBusMessage m = QDBusMessage::createMethodCall( "org.kde.VisualNotifications", "/VisualNotifications", "org.kde.VisualNotifications", "Notify" );
-			QList<QVariant> args;
-			args.append(QString("Cuberok") ); // app_name
-			args.append((uint)0 ); // replaces_id
-			args.append(QString("")); // app_icon
-			args.append(tr("Play %1").arg(t.tag0.title)); // summary
-			args.append(tr("by %1 - album %2").arg(t.tag0.artist).arg(t.tag0.album)); // body
-			QStringList actionList;
-			args.append( actionList ); // actions
-			args.append( QVariantMap() ); // hints - unused atm
-			args.append( 1000 ); // expire timout
-			m.setArguments( args );
-			QDBusMessage replyMsg = QDBusConnection::sessionBus().call(m);
-			if(replyMsg.type() == QDBusMessage::ReplyMessage) {
-				if (!replyMsg.arguments().isEmpty()) {
-					uint dbus_id = replyMsg.arguments().at(0).toUInt();
+		if(listening) {
+			if(kopeteEnabled) {
+				QDBusMessage msg = QDBusMessage::createMethodCall("org.kde.kopete", "/Kopete", "org.kde.Kopete", "setOnlineStatus");
+				QList<QVariant> args;
+				args.append(QVariant(QString("online")));
+				args.append(QVariant(kopeteStatus.replace("%song%", t.tag0.title).replace("%artist%", t.tag0.artist).replace("%album%", t.tag0.album)));
+				msg.setArguments(args);
+				//if(!QDBusConnection::sessionBus().send(msg)) qDebug("D-Bus error");
+				QDBusMessage replyMsg = QDBusConnection::sessionBus().call(msg);
+				if(replyMsg.type() == QDBusMessage::ErrorMessage) {
+					qDebug("error: failed to send dbus message");
+					qDebug("error text is:%s", (const char*)replyMsg.errorMessage().toUtf8());
+				} else if(replyMsg.type() == QDBusMessage::ReplyMessage) {
 				} else {
-					qDebug("error: received reply with no arguments");
+					qDebug("unexpected reply type");
 				}
-			} else if (replyMsg.type() == QDBusMessage::ErrorMessage) {
-				qDebug("error: failed to send dbus message");
-				qDebug("error text is:%s", (const char*)replyMsg.errorMessage().toUtf8());
-			} else {
-				qDebug("unexpected reply type");
+			}
+			if(kdeNotify) {
+				QDBusMessage m = QDBusMessage::createMethodCall( "org.kde.VisualNotifications", "/VisualNotifications", "org.kde.VisualNotifications", "Notify" );
+				QList<QVariant> args;
+				args.append(QString("Cuberok") ); // app_name
+				args.append((uint)0 ); // replaces_id
+				args.append(QString("")); // event_id
+				args.append(QString("")); // app_icon
+				args.append(tr("Play '%1'").arg(t.tag0.title)); // summary
+				args.append(tr("by %1 - album '%2'").arg(t.tag0.artist).arg(t.tag0.album)); // body
+				QStringList actionList;
+				args.append( actionList ); // actions
+				args.append( QVariantMap() ); // hints - unused atm
+				args.append( 5000 ); // expire timout
+				m.setArguments( args );
+				QDBusMessage replyMsg = QDBusConnection::sessionBus().call(m);
+				if(replyMsg.type() == QDBusMessage::ReplyMessage) {
+					if (!replyMsg.arguments().isEmpty()) {
+						uint dbus_id = replyMsg.arguments().at(0).toUInt();
+					} else {
+						qDebug("error: received reply with no arguments");
+					}
+				} else if (replyMsg.type() == QDBusMessage::ErrorMessage) {
+					qDebug("error: failed to send dbus message");
+					qDebug("error text is:%s", (const char*)replyMsg.errorMessage().toUtf8());
+				} else {
+					qDebug("unexpected reply type");
+				}
 			}
 		}
 #endif
@@ -151,8 +162,13 @@ void PsiTune::settingsUpdate(QObject* o)
 {
 	o->disconnect();
 	QSettings set;
+	set.beginGroup("im_tune");
 	bool newEnabled = set.value("PsiTune", false).toBool();
 	QString newPsiTuneFile = set.value("PsiTuneFile", DEFAULT_PSI_TUNE).toString();
+	kopeteEnabled = set.value("KopeteTune", false).toBool();
+	kopeteStatus = set.value("KopeteStatus", DEFAULT_KOPETE_STATUS).toString();
+	kdeNotify = set.value("KdeNotify", true).toBool();
+	set.endGroup();
 	if(newEnabled != enabled || newPsiTuneFile != psiTuneFile) {
 		enabled = newEnabled;
 		psiTuneFile = newPsiTuneFile;

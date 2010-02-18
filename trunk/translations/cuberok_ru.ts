@@ -4,7 +4,7 @@
 <context>
     <name></name>
     <message>
-        <source>[Cuberok] I am listening to %song% by %artist%</source>
+        <source>[Cuberok] I am listening to &apos;%song%&apos; by %artist%</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1909,15 +1909,19 @@ Do you forget to install proper phonon backend?</source>
         <source>Status line</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable KDE4 notification</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PsiTune</name>
     <message>
-        <source>Play %1</source>
+        <source>Play &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>by %1 - album %2</source>
+        <source>by %1 - album &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

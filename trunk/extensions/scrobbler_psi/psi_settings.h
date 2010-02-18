@@ -28,7 +28,7 @@
 #define DEFAULT_PSI_TUNE (QDir::homePath()+"/.psi/tune")
 #endif
 
-#define DEFAULT_KOPETE_STATUS (tr("[Cuberok] I am listening to %song% by %artist%"))
+#define DEFAULT_KOPETE_STATUS (tr("[Cuberok] I am listening to '%song%' by %artist%"))
 
 class PsiTuneSettings : public QWidget
 {
@@ -40,6 +40,7 @@ class PsiTuneSettings : public QWidget
  private:
     QLineEdit *lineEdit_psiTuneFile, *lineEdit_kopeteStatus;
     QGroupBox *checkBox_enable, *groupBox_enableKopete;
+	QCheckBox *checkBox_notifyEnable;
 };
 
 #endif //PSI_SETTINGS_H
