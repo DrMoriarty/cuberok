@@ -50,7 +50,7 @@ bool PsiTune::prepare()
 
 bool PsiTune::ready()
 {
-	return enabled || kopeteEnabled;
+	return enabled || kopeteEnabled || kdeNotify;
 }
 
 void PsiTune::update(int)
