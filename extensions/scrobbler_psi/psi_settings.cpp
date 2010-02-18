@@ -81,8 +81,13 @@ PsiTuneSettings::PsiTuneSettings(QWidget *parent) : QWidget(parent)
 	lineEdit_kopeteStatus->setObjectName(QString::fromUtf8("lineEdit_kopeteStatus"));
 
 	gridLayout4->addWidget(lineEdit_kopeteStatus, 1, 1, 1, 1);
-
 	gridLayout3->addWidget(groupBox_enableKopete);
+
+	checkBox_notifyEnable = new QCheckBox(this);
+	checkBox_notifyEnable->setObjectName(QString::fromUtf8("checkBox_notifyEnable"));
+	checkBox_notifyEnable->setText(QApplication::translate("Psi Tune", "Enable KDE4 notification", 0, QApplication::UnicodeUTF8));
+	gridLayout3->addWidget(checkBox_notifyEnable);
+
 	QSpacerItem *verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	gridLayout3->addItem(verticalSpacer_2);
 
@@ -90,13 +95,14 @@ PsiTuneSettings::PsiTuneSettings(QWidget *parent) : QWidget(parent)
 	set.beginGroup("im_tune");
 	checkBox_enable->setChecked(set.value("PsiTune", false).toBool());
 	lineEdit_psiTuneFile->setText(set.value("PsiTuneFile", DEFAULT_PSI_TUNE).toString());
-
 	groupBox_enableKopete->setChecked(set.value("KopeteTune", false).toBool());
 	lineEdit_kopeteStatus->setText(set.value("KopeteStatus", DEFAULT_KOPETE_STATUS).toString());
+	checkBox_notifyEnable->setChecked(set.value("KdeNotify", true).toBool());
+	set.endGroup();
 #ifndef Q_OS_LINUX
 	groupBox_enableKopete->setEnabled(false);
+	checkBox_notifyEnable->setEnabled(false);
 #endif
-	set.endGroup();
 }
 
 PsiTuneSettings::~PsiTuneSettings()
@@ -107,5 +113,6 @@ PsiTuneSettings::~PsiTuneSettings()
 	set.setValue("PsiTuneFile", lineEdit_psiTuneFile->text());
 	set.setValue("KopeteTune", groupBox_enableKopete->isChecked());
 	set.setValue("KopeteStatus", lineEdit_kopeteStatus->text());
+	set.setValue("KdeNotify", checkBox_enable->isChecked());
 	set.endGroup();
 }
