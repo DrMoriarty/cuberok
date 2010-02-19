@@ -88,6 +88,16 @@ QString LastFM::getName()
 	return tr("Last.FM Scrobbler");
 }
 
+QString InfoWidget::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString InfoWidget::getDescription()
+{
+	return tr("Last.FM Scrobbler");
+}
+
 QWidget* LastFM::getWidget()
 {
 	return 0;

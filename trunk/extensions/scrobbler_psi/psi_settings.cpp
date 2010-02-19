@@ -20,7 +20,7 @@
 #include "psi_settings.h"
 
 
-PsiTuneSettings::PsiTuneSettings(QWidget *parent) : QWidget(parent)
+PsiTuneSettings::PsiTuneSettings(QWidget *parent) : ExtensionSetupWidget(parent)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 
@@ -106,6 +106,10 @@ PsiTuneSettings::PsiTuneSettings(QWidget *parent) : QWidget(parent)
 }
 
 PsiTuneSettings::~PsiTuneSettings()
+{
+}
+
+void PsiTuneSettings::storeState()
 {
 	QSettings set;
 	set.beginGroup("im_tune");

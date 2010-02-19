@@ -23,12 +23,13 @@
 #include <QtGui>
 #include "interfaces.h"
 
-class LyricWidget : public QWidget
+class LyricWidget : public ExtensionSetupWidget
 {
 	Q_OBJECT
  public:
 	LyricWidget(Proxy *pr, QWidget *parent = 0);
 	~LyricWidget();
+	virtual void storeState();
 
  private:
 	Proxy *proxy;

@@ -70,7 +70,8 @@ FORMS += aboutdialog.ui \
 #         sqledit.ui \
 #         importcollection.ui \
          firststartwizard.ui \
-         cuecontrol.ui 
+         cuecontrol.ui \
+         extensionsettings.ui
 TRANSLATIONS = ../translations/cuberok_ru.ts
 
 SOURCES += aboutdialog.cpp \

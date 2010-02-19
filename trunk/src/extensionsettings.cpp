@@ -22,29 +22,36 @@
 
 ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 {
+	ui.setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
-	vboxLayout = new QVBoxLayout(this);
-	vboxLayout->setContentsMargins(0,0,0,0);
-	vboxLayout->setSpacing(2);
-	tabs = new QTabWidget(this);
-	vboxLayout->addWidget(tabs);
-	/*newButton = new QToolButton();
-	closeButton = new QToolButton();
-	newButton->setIcon(QIcon(":/icons/newtab.png"));
-	closeButton->setIcon(QIcon(":/icons/deltab.png"));
-	connect(newButton, SIGNAL(pressed()), this, SLOT(addList()));
-	connect(closeButton, SIGNAL(pressed()), this, SLOT(delList()));
-	tabs->setCornerWidget(newButton, Qt::TopLeftCorner);
-	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);*/
-#if QT_VERSION >= 0x040500
-	tabs->setMovable(true);
-#endif
 
 	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
 		if(ex) {
 			QWidget *setup = ex->getSetupWidget();
-			if(setup) tabs->addTab(setup, setup->windowIcon(), ex->getName());
+			if(setup) {
+				QListWidgetItem *it = new QListWidgetItem(setup->windowIcon(), ex->getName(), ui.listWidget);
+				it->setData(Qt::UserRole, ui.stackedWidget->count());
+				it->setData(Qt::UserRole+1, ex->getName());
+				it->setData(Qt::UserRole+2, ex->getAuthor());
+				it->setData(Qt::UserRole+3, ex->getDescription());
+				ui.stackedWidget->addWidget(setup);
+			}
 		}
 	}
 	tabs->setCurrentIndex(0);
+}
+
+void ExtensionSettings::selectExtension(QListWidgetItem* it)
+{
+	ui.stackedWidget->setCurrentIndex(it->data(Qt::UserRole).toInt());
+	ui.label_Name->setText(it->data(Qt::UserRole+1).toString());
+	ui.label_Author->setText(it->data(Qt::UserRole+2).toString());
+	ui.label_Description->setText(it->data(Qt::UserRole+3).toString());
+}
+
+void ExtensionSettings::storeState()
+{
+	for(int i=0; i<ui.stackedWidget->count(); i++) {
+		((ExtensionSetupWidget*)ui.stackedWidget->widget(i))->storeState();
+	}
 }

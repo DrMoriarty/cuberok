@@ -30,12 +30,13 @@
 
 #define DEFAULT_KOPETE_STATUS (tr("[Cuberok] I am listening to '%song%' by %artist%"))
 
-class PsiTuneSettings : public QWidget
+class PsiTuneSettings : public ExtensionSetupWidget
 {
 	Q_OBJECT
  public:
 	PsiTuneSettings(QWidget *parent = 0);
 	~PsiTuneSettings();
+	virtual void storeState();
 
  private:
     QLineEdit *lineEdit_psiTuneFile, *lineEdit_kopeteStatus;

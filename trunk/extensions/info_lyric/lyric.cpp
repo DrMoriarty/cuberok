@@ -73,6 +73,16 @@ QString Lyric::getName()
 	return tr("Lyric");
 }
 
+QString Lyric::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString Lyric::getDescription()
+{
+	return tr("This extension loads lyrics from the Internet");
+}
+
 QWidget* Lyric::getWidget()
 {
 	return 0;

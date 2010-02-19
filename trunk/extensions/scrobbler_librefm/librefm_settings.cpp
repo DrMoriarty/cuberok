@@ -19,7 +19,7 @@
 
 #include "librefm_settings.h"
 
-LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
+LibreFMSettings::LibreFMSettings(QWidget *parent) : ExtensionSetupWidget(parent)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 
@@ -76,6 +76,10 @@ LibreFMSettings::LibreFMSettings(QWidget *parent) : QWidget(parent)
 }
 
 LibreFMSettings::~LibreFMSettings()
+{
+}
+
+void LibreFMSettings::storeState()
 {
 	QSettings set;
 	set.setValue("librefmScrobbler", checkBox_librefmScrobbling->isChecked());

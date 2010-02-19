@@ -137,6 +137,15 @@ class Proxy : public QObject
 	virtual void error(QString) = 0;
 };
 
+class ExtensionSetupWidget : public QWidget
+{
+	Q_OBJECT
+ public:
+	ExtensionSetupWidget(QWidget *parent = 0) : QWidget(parent) {};
+	virtual ~ExtensionSetupWidget() {};
+	virtual void storeState() = 0;
+};
+
 // 
 class Extension : public QObject
 {
@@ -150,8 +159,10 @@ class Extension : public QObject
 	virtual bool ready() = 0;
 	virtual void update(int) = 0;
 	virtual QString getName() = 0;
+	virtual QString getAuthor() = 0;
+	virtual QString getDescription() = 0;
 	virtual QWidget* getWidget() = 0;
-	virtual QWidget* getSetupWidget() = 0;
+	virtual ExtensionSetupWidget* getSetupWidget() = 0;
 	virtual int getDisturbs() = 0;
 	virtual void storeState() {};
 

@@ -19,7 +19,7 @@
 
 #include "lastfm_settings.h"
 
-LastFMSettings::LastFMSettings(QWidget *parent) : QWidget(parent)
+LastFMSettings::LastFMSettings(QWidget *parent) : ExtensionSetupWidget(parent)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 
@@ -77,6 +77,10 @@ LastFMSettings::LastFMSettings(QWidget *parent) : QWidget(parent)
 }
 
 LastFMSettings::~LastFMSettings()
+{
+}
+
+void LastFMSettings::storeState()
 {
 	QSettings set;
 	set.setValue("lastfmScrobbler", checkBox_lastfmScrobbling->isChecked());

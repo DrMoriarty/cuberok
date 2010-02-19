@@ -36,8 +36,10 @@ class InfoWidget : public Extension
 	virtual bool ready();
 	virtual void update(int);
 	virtual QString getName();
+	virtual QString getAuthor();
+	virtual QString getDescription();
 	virtual QWidget* getWidget();
-	virtual QWidget* getSetupWidget();
+	virtual ExtensionSetupWidget* getSetupWidget();
 	virtual int getDisturbs();
 
  public slots:

@@ -19,7 +19,7 @@
 
 #include "lyricwidget.h"
 
-LyricWidget::LyricWidget(Proxy *pr, QWidget *parent) : QWidget(parent), proxy(pr)
+LyricWidget::LyricWidget(Proxy *pr, QWidget *parent) : ExtensionSetupWidget(parent), proxy(pr)
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 
@@ -52,6 +52,10 @@ LyricWidget::LyricWidget(Proxy *pr, QWidget *parent) : QWidget(parent), proxy(pr
 }
 
 LyricWidget::~LyricWidget()
+{
+}
+
+LyricWidget::storeState()
 {
 	proxy->setVariable("lyricSearchType", QString::number(comboBox->currentIndex()));
 }
