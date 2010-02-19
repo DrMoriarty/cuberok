@@ -87,12 +87,22 @@ QString LibreFM::getName()
 	return tr("Libre.FM Scrobbler");
 }
 
+QString LibreFM::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString LibreFM::getDescription()
+{
+	return tr("Libre.FM Scrobbler");
+}
+
 QWidget* LibreFM::getWidget()
 {
 	return 0;
 }
 
-QWidget* LibreFM::getSetupWidget()
+ExtensionSetupWidget* LibreFM::getSetupWidget()
 {
 	LibreFMSettings *set = new LibreFMSettings();
 	connect(set, SIGNAL(destroyed(QObject*)), this, SLOT(settingsUpdate(QObject*)));

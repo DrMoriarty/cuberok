@@ -54,6 +54,16 @@ QString InfoWidget::getName()
 	return tr("Info widget");
 }
 
+QString InfoWidget::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString InfoWidget::getDescription()
+{
+	return tr("This extension shows information about current song");
+}
+
 QWidget* InfoWidget::getWidget()
 {
 	if(!info) {
@@ -63,7 +73,7 @@ QWidget* InfoWidget::getWidget()
 	return info;
 }
 
-QWidget* InfoWidget::getSetupWidget()
+ExtensionSetupWidget* InfoWidget::getSetupWidget()
 {
 	return 0;
 }

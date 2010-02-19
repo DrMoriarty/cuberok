@@ -21,17 +21,19 @@
 #define EXTENSIONSETTINGS_H
 
 #include <QtGui>
+#include "ui_extensionsettings.h"
 
 class ExtensionSettings: public QWidget
 {
 	Q_OBJECT
  public:
 	ExtensionSettings(QWidget* parent = 0);
+ public slots:
+	void selectExtension(QListWidgetItem*);
+	void storeState();
+	
  private:
-    QVBoxLayout *vboxLayout;
-    QTabWidget *tabs;
-	QToolButton *newButton;
-	QToolButton *closeButton;
+	Ui::ExtensionSettings ui;
 };
 
 #endif //EXTENSIONSETTINGS_H

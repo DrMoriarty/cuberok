@@ -140,12 +140,22 @@ QString PsiTune::getName()
 	return tr("PsiTune Scrobbler");
 }
 
+QString PsiTune::getAuthor()
+{
+	return QString("Nomen Infitior");
+}
+
+QString PsiTune::getDescription()
+{
+	return tr("TODO");
+}
+
 QWidget* PsiTune::getWidget()
 {
 	return 0;
 }
 
-QWidget* PsiTune::getSetupWidget()
+ExtenisonSetupWidget* PsiTune::getSetupWidget()
 {
 	PsiTuneSettings *set = new PsiTuneSettings();
 	connect(set, SIGNAL(destroyed(QObject*)), this, SLOT(settingsUpdate(QObject*)));

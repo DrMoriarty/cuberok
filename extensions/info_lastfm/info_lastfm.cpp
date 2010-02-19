@@ -72,12 +72,22 @@ QString InfoLastFM::getName()
 	return tr("Last.FM Info");
 }
 
+QString InfoLastFM::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString InfoLastFM::getDescription()
+{
+	return tr("This extension tries to load information about your music from Last.FM");
+}
+
 QWidget* InfoLastFM::getWidget()
 {
 	return 0;
 }
 
-QWidget* InfoLastFM::getSetupWidget()
+ExtensionSetupWidget* InfoLastFM::getSetupWidget()
 {
 	return 0;
 }

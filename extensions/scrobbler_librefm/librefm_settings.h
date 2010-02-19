@@ -22,12 +22,13 @@
 
 #include <QtGui>
 
-class LibreFMSettings : public QWidget
+class LibreFMSettings : public ExtensionSetupWidget
 {
 	Q_OBJECT
  public:
 	LibreFMSettings(QWidget *parent = 0);
 	~LibreFMSettings();
+	virtual void storeState();
 
  private:
     QSpacerItem *verticalSpacer_2;
