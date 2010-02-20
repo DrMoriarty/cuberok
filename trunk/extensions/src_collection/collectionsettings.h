@@ -20,15 +20,16 @@
 #ifndef COLLECTIONSETTINGS_H
 #define COLLECTIONSETTINGS_H
 
-#include <QtGui>
+#include "interfaces.h"
 #include "ui_collectionsettings.h"
 
-class CollectionSettings: public QDialog
+class CollectionSettings: public ExtensionSetupWidget
 {
 	Q_OBJECT
  public:
     CollectionSettings(QWidget *parent = 0);
     ~CollectionSettings();
+	virtual void storeState();
 
  public slots:
 	void scan();

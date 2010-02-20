@@ -20,7 +20,7 @@
 #ifndef LIBREFM_SETTINGS_H
 #define LIBREFM_SETTINGS_H
 
-#include <QtGui>
+#include "interfaces.h"
 
 class LibreFMSettings : public ExtensionSetupWidget
 {

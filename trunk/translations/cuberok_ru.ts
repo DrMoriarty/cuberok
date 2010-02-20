@@ -205,15 +205,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Close this window</source>
-        <translation type="unfinished">Закрыть окно</translation>
+        <translation type="obsolete">Закрыть окно</translation>
     </message>
     <message>
         <source>Close collection settings dialog</source>
-        <translation type="unfinished">Закрыть окно настроек коллекции</translation>
+        <translation type="obsolete">Закрыть окно настроек коллекции</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation type="obsolete">Закрыть</translation>
     </message>
     <message>
         <source>...</source>
@@ -1056,9 +1056,36 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>ExtensionSettings</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable this extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FileBrowser</name>
     <message>
         <source>File Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The browser of your file system</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1393,6 +1420,10 @@ p, li { white-space: pre-wrap; }
         <source>Last.FM Info</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This extension tries to load information about your music from Last.FM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InfoWidget</name>
@@ -1408,6 +1439,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Info widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This extension shows information about current song</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1622,6 +1657,10 @@ p, li { white-space: pre-wrap; }
     <name>Lyric</name>
     <message>
         <source>Lyric</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This extension loads lyrics from the Internet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1928,6 +1967,10 @@ Do you forget to install proper phonon backend?</source>
         <source>PsiTune Scrobbler</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>TODO</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SQLEditDialog</name>
@@ -2182,6 +2225,10 @@ p, li { white-space: pre-wrap; }
         <source>Collection</source>
         <translation type="unfinished">Коллекция</translation>
     </message>
+    <message>
+        <source>The collection of your music files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SrcLibrary</name>
@@ -2189,12 +2236,20 @@ p, li { white-space: pre-wrap; }
         <source>Library</source>
         <translation type="unfinished">Библиотека</translation>
     </message>
+    <message>
+        <source>This extension is a place for your playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Src_Browser</name>
     <message>
         <source>Internet Services</source>
         <translation type="unfinished">Сервисы интернет</translation>
+    </message>
+    <message>
+        <source>The browser of the Internet services</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

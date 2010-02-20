@@ -51,12 +51,22 @@ QString Src_Browser::getName()
 	return tr("Internet Services");
 }
 
+QString Src_Browser::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString Src_Browser::getDescription()
+{
+	return tr("The browser of the Internet services");
+}
+
 QWidget* Src_Browser::getWidget()
 {
 	return widget;
 }
 
-QWidget* Src_Browser::getSetupWidget()
+ExtensionSetupWidget* Src_Browser::getSetupWidget()
 {
 	return 0;
 }

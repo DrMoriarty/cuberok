@@ -20,7 +20,7 @@
 #ifndef LASTFM_SETTINGS_H
 #define LASTFM_SETTINGS_H
 
-#include <QtGui>
+#include "interfaces.h"
 
 class LastFMSettings : public ExtensionSetupWidget
 {

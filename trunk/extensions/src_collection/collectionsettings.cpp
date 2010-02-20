@@ -24,7 +24,7 @@
 #include "importcollection.h"
 
 CollectionSettings::CollectionSettings(QWidget *parent)
-    : QDialog(parent)
+    : ExtensionSetupWidget(parent)
 {
     ui.setupUi(this);
 	ui.lineEdit_path->setText(EProxy.getVariable("collectionPath"));
@@ -49,7 +49,6 @@ void CollectionSettings::cleanup()
 		}
 	}
 	QMessageBox::information(this, tr("Operation complete"), tr("%1 link(s) has been removed from the collection.").arg(QString::number(count)));
-	accept();
 }
 
 void CollectionSettings::scan()
@@ -60,7 +59,6 @@ void CollectionSettings::scan()
 	//connect(cf, SIGNAL(finished()), this, SLOT(update()));
 	cf->start();
 	EProxy.setVariable("collectionPath", ui.lineEdit_path->text());
-	accept();
 }
 
 void CollectionSettings::selectPath()
@@ -75,4 +73,8 @@ void CollectionSettings::importCollection()
 {
 	ImportCollection ic;
 	ic.exec();
+}
+
+void CollectionSettings::storeState()
+{
 }

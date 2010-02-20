@@ -58,12 +58,22 @@ QString SrcCollection::getName()
 	return tr("Collection");
 }
 
+QString SrcCollection::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString SrcCollection::getDescription()
+{
+	return tr("The collection of your music files");
+}
+
 QWidget* SrcCollection::getWidget()
 {
 	return widget;
 }
 
-QWidget* SrcCollection::getSetupWidget()
+ExtensionSetupWidget* SrcCollection::getSetupWidget()
 {
 	CollectionSettings *set = new CollectionSettings();
 	connect(set, SIGNAL(destroyed(QObject*)), this, SLOT(settingsUpdate(QObject*)));

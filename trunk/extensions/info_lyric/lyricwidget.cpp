@@ -55,7 +55,7 @@ LyricWidget::~LyricWidget()
 {
 }
 
-LyricWidget::storeState()
+void LyricWidget::storeState()
 {
 	proxy->setVariable("lyricSearchType", QString::number(comboBox->currentIndex()));
 }

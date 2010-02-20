@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CollectionSettings</class>
- <widget class="QDialog" name="CollectionSettings">
+ <widget class="QWidget" name="CollectionSettings">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
+    <width>340</width>
     <height>173</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Collection Settings</string>
-  </property>
-  <property name="modal">
-   <bool>true</bool>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -145,19 +142,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_close">
-        <property name="toolTip">
-         <string>Close this window</string>
-        </property>
-        <property name="statusTip">
-         <string>Close collection settings dialog</string>
-        </property>
-        <property name="text">
-         <string>Close</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -177,22 +161,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>pushButton_close</sender>
-   <signal>clicked()</signal>
-   <receiver>CollectionSettings</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>325</x>
-     <y>93</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton_cleanup</sender>
    <signal>clicked()</signal>

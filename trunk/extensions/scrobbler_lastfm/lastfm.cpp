@@ -88,12 +88,12 @@ QString LastFM::getName()
 	return tr("Last.FM Scrobbler");
 }
 
-QString InfoWidget::getAuthor()
+QString LastFM::getAuthor()
 {
 	return QString("DrMoriarty");
 }
 
-QString InfoWidget::getDescription()
+QString LastFM::getDescription()
 {
 	return tr("Last.FM Scrobbler");
 }
@@ -103,7 +103,7 @@ QWidget* LastFM::getWidget()
 	return 0;
 }
 
-QWidget* LastFM::getSetupWidget()
+ExtensionSetupWidget* LastFM::getSetupWidget()
 {
 	LastFMSettings *set = new LastFMSettings();
 	connect(set, SIGNAL(destroyed(QObject*)), this, SLOT(settingsUpdate(QObject*)));
