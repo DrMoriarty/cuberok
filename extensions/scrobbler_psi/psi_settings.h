@@ -20,7 +20,7 @@
 #ifndef PSI_SETTINGS_H
 #define PSI_SETTINGS_H
 
-#include <QtGui>
+#include "interfaces.h"
 
 #ifdef WIN32
 #define DEFAULT_PSI_TUNE (QDir::homePath()+"/PsiData/tune")

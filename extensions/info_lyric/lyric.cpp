@@ -88,7 +88,7 @@ QWidget* Lyric::getWidget()
 	return 0;
 }
 
-QWidget* Lyric::getSetupWidget()
+ExtensionSetupWidget* Lyric::getSetupWidget()
 {
 	return new LyricWidget(proxy);
 }

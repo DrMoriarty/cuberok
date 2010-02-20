@@ -51,12 +51,22 @@ QString FileBrowser::getName()
 	return tr("File Browser");
 }
 
+QString FileBrowser::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString FileBrowser::getDescription()
+{
+	return tr("The browser of your file system");
+}
+
 QWidget* FileBrowser::getWidget()
 {
 	return widget;
 }
 
-QWidget* FileBrowser::getSetupWidget()
+ExtensionSetupWidget* FileBrowser::getSetupWidget()
 {
 	return 0;
 }

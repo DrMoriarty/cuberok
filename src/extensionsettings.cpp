@@ -38,7 +38,10 @@ ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 			}
 		}
 	}
-	tabs->setCurrentIndex(0);
+	if(ui.stackedWidget->count() > 0) {
+		ui.stackedWidget->setCurrentIndex(0);
+		ui.listWidget->setCurrentRow(0);
+	}
 }
 
 void ExtensionSettings::selectExtension(QListWidgetItem* it)
@@ -51,6 +54,7 @@ void ExtensionSettings::selectExtension(QListWidgetItem* it)
 
 void ExtensionSettings::storeState()
 {
+	qDebug("store extension settings");
 	for(int i=0; i<ui.stackedWidget->count(); i++) {
 		((ExtensionSetupWidget*)ui.stackedWidget->widget(i))->storeState();
 	}

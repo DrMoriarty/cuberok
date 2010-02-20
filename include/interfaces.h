@@ -25,6 +25,7 @@
 #include "global.h"
 #include "tagentry.h"
 #include <QtCore>
+#include <QtGui>
 
 enum Disturbs {
 	DoNotDisturb = 0,

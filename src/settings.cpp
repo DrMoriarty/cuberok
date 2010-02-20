@@ -37,7 +37,9 @@ QWidget* NoeditDelegate::createEditor(QWidget *parent, const QStyleOptionViewIte
 Settings::Settings(QList< QPair<QString, QList<QAction*> > > *actions, QWidget *parent): QDialog(parent), allactions(actions)
 {
 	ui.setupUi(this);
-	ui.tabWidget->addTab(new ExtensionSettings(), tr("Extensions"));
+	ExtensionSettings * es = new ExtensionSettings();
+	ui.tabWidget->addTab(es, tr("Extensions"));
+	connect(this, SIGNAL(accepted()), es, SLOT(storeState()));
 
 	QSettings set;
 	auto_engine = tr("Auto");

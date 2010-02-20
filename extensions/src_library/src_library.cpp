@@ -55,12 +55,22 @@ QString SrcLibrary::getName()
 	return tr("Library");
 }
 
+QString SrcLibrary::getAuthor()
+{
+	return QString("DrMoriarty");
+}
+
+QString SrcLibrary::getDescription()
+{
+	return tr("This extension is a place for your playlists");
+}
+
 QWidget* SrcLibrary::getWidget()
 {
 	return widget;
 }
 
-QWidget* SrcLibrary::getSetupWidget()
+ExtensionSetupWidget* SrcLibrary::getSetupWidget()
 {
 	return 0;
 }

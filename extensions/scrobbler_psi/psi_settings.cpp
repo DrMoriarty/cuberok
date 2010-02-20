@@ -117,6 +117,6 @@ void PsiTuneSettings::storeState()
 	set.setValue("PsiTuneFile", lineEdit_psiTuneFile->text());
 	set.setValue("KopeteTune", groupBox_enableKopete->isChecked());
 	set.setValue("KopeteStatus", lineEdit_kopeteStatus->text());
-	set.setValue("KdeNotify", checkBox_enable->isChecked());
+	set.setValue("KdeNotify", checkBox_notifyEnable->isChecked());
 	set.endGroup();
 }

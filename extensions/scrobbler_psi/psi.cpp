@@ -155,7 +155,7 @@ QWidget* PsiTune::getWidget()
 	return 0;
 }
 
-ExtenisonSetupWidget* PsiTune::getSetupWidget()
+ExtensionSetupWidget* PsiTune::getSetupWidget()
 {
 	PsiTuneSettings *set = new PsiTuneSettings();
 	connect(set, SIGNAL(destroyed(QObject*)), this, SLOT(settingsUpdate(QObject*)));
