@@ -49,6 +49,7 @@ class Lyric : public Extension
 	int searchType, trueSearchType;
 	bool foundUrl;
 	QString url;
+	long reqId;
 	
 	void getSong(QString artist, QString song);
 	QString getLuckyLink(QString json);

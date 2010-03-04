@@ -32,7 +32,7 @@ typedef int (*yajl_strcallback)(void*, const unsigned char*, unsigned int);
 
 Q_EXPORT_PLUGIN2(info_lyric, Lyric) 
 
-Lyric::Lyric() : Extension(), reply(0), searchType(-1)
+Lyric::Lyric() : Extension(), reply(0), searchType(-1), reqId(-1)
 {
 	manager = new QNetworkAccessManager(this);
 	connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
@@ -56,11 +56,13 @@ bool Lyric::ready()
 void Lyric::update(int f)
 {
 	if(f & DisturbOnRequest) {
-		STags t = proxy->getTags();
 		SRequest r = proxy->getRequest();
+		STags &t = r.tags;
+		reqId = r.id;
 		switch(r.type) {
 		case SInfo::Lyric:
-			getSong(t.tag0.artist, t.tag0.title);
+			if(!r.info.url.size() && !r.info.text.size())
+				getSong(t.tag0.artist, t.tag0.title);
 			break;
 		default:
 			break;
@@ -150,7 +152,7 @@ QString Lyric::linkDigger(const QByteArray& data)
 void Lyric::lyricDigger(QString reply)
 {
 	searchType = trueSearchType;
-	if(proxy->infoExist(SInfo::Lyric) || !reply.size()) return;
+	if(!reply.size()) return;
 	proxy->log("Lyric response:" + reply);
 // #if QT_VERSION >= 0x040600
 // 	switch(searchType) {
@@ -166,7 +168,7 @@ void Lyric::lyricDigger(QString reply)
 // 		break;
 // 	}
 // #else
-		proxy->setInfo(SInfo(SInfo::Lyric, reply, ""));
+	proxy->setResponse(reqId, SInfo(SInfo::Lyric, reply, ""));
 // #endif
 }
 

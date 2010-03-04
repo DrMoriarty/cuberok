@@ -95,10 +95,18 @@ class SInfo {
 
 class SRequest {
  public:
-	int type;
-
-	SRequest() : type(0) {};
-	SRequest(int t) : type(t) {};
+	SInfo info;
+	STags tags;
+	long id;
+ 
+	SRequest() {};
+	SRequest(int t) {
+		info.type = t;
+	};
+	SRequest(int t, const STags& tag) {
+		info.type = t;
+		tags = tag;
+	}
 };
 
 // proxy object for sending messages between plugins
@@ -112,12 +120,14 @@ class Proxy : public QObject
 	virtual void beginTransaction() = 0;
 	virtual void endTransaction() = 0;
 	
-	virtual void setControl(SControl control) = 0;
-	virtual void setStatus(SStatus status) = 0;
-	virtual void setTags(STags tags) = 0;
-	virtual void setUrl(QUrl url) = 0;
-	virtual void setInfo(SInfo info) = 0;
-	virtual void setRequest(SRequest request) = 0;
+	virtual void setControl(const SControl& control) = 0;
+	virtual void setStatus(const SStatus& status) = 0;
+	virtual void setTags(const STags& tags) = 0;
+	virtual void setUrl(const QUrl& url) = 0;
+	virtual void setInfo(const SInfo& info) = 0;
+	virtual long setRequest(const SRequest& request) = 0;
+	virtual void setResponse(long requestId, const SInfo& info) = 0;
+	virtual void delRequest(long requestId);
 
 	virtual SControl getControl() = 0;
 	virtual SStatus  getStatus() = 0;
