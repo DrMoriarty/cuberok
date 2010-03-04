@@ -46,7 +46,9 @@ void InfoWidget::update(int d)
 		info = new Info(proxy);
 	}
 	if(d & DisturbOnTags) info->updateTags(proxy->getTags());
-	if(d & DisturbOnInfo) info->updateInfo();
+	//if(d & DisturbOnInfo)
+	if(d & DisturbOnRequest)
+		info->updateInfo();
 }
 
 QString InfoWidget::getName()

@@ -37,7 +37,10 @@ Info::Info(Proxy* p, QWidget *parent)
 	  w_ar(0),
 	  w_al(0),
 	  w_ly(0),
-	  proxy(p)
+	  proxy(p),
+	  lyricRequestId(-1),
+	  artistRequestId(-1),
+	  albumRequestId(-1)
 {
 	ui.setupUi(this);
 	downloader = new Downloader(p);
@@ -125,43 +128,54 @@ void Info::updateTags(STags tags)
 
 void Info::updateInfo()
 {
-	if(!ar_complete && proxy->infoExist(SInfo::ArtistText)) {
-		QString text = proxy->getInfo(SInfo::ArtistText).text;
-		if(text.size()) {
-			ui.textEdit->setHtml(text);
-			ui.textEdit->update();
-			if(w_ar) {
-				w_ar->setText(text);
+	SRequest req = proxy->getRequest();
+	if(req.id == albumRequestId) {
+		if(!al_complete && req.info.type == SInfo::AlbumText) {
+			QString text = req.info.text;
+			if(text.size()) {
+				ui.textEdit_2->setHtml(text);
+				ui.textEdit_2->update();
+				if(w_al) {
+					w_al->setText(text);
+				}
+				al_complete = true;
 			}
-			ar_complete = true;
 		}
-	}
-	if(!al_complete && proxy->infoExist(SInfo::AlbumText)) {
-		QString text = proxy->getInfo(SInfo::AlbumText).text;
-		if(text.size()) {
-			ui.textEdit_2->setHtml(text);
-			ui.textEdit_2->update();
-			if(w_al) {
-				w_al->setText(text);
+		if(!al_pic && req.info.type == SInfo::AlbumArt) {
+			QString imageUrl = req.info.url;
+			if(imageUrl.size() && downloader->done()) {
+				downloader->download(imageUrl);
 			}
-			al_complete = true;
 		}
-	}
-	if(w_ly && proxy->infoExist(SInfo::Lyric)) {
-		QString text = proxy->getInfo(SInfo::Lyric).text;
-		if(text.size()) w_ly->setText(text);
-	}
-	if(!al_pic && proxy->infoExist(SInfo::AlbumArt)) {
-		QString imageUrl = proxy->getInfo(SInfo::AlbumArt).url;
-		if(imageUrl.size() && downloader->done()) {
-			downloader->download(imageUrl);
+		proxy->delRequest(albumRequestId);
+		albumRequestId = -1;
+	} else if(req.id == artistRequestId) {
+		if(!ar_complete && req.info.type == SInfo::ArtistText) {
+			QString text = req.info.text;
+			if(text.size()) {
+				ui.textEdit->setHtml(text);
+				ui.textEdit->update();
+				if(w_ar) {
+					w_ar->setText(text);
+				}
+				ar_complete = true;
+			}
 		}
-	}
-	if(!ar_pic && proxy->infoExist(SInfo::ArtistArt)) {
-		QString imageUrl = proxy->getInfo(SInfo::ArtistArt).url;
-		if(imageUrl.size() && downloader->done()) {
-			downloader->download(imageUrl);
+		if(!ar_pic && req.info.type == SInfo::ArtistArt) {
+			QString imageUrl = req.info.url;
+			if(imageUrl.size() && downloader->done()) {
+				downloader->download(imageUrl);
+			}
 		}
+		proxy->delRequest(artistRequestId);
+		artistRequestId = -1;
+	} else if(req.id == lyricRequestId) {
+		if(w_ly && req.info.type == SInfo::Lyric) {
+			QString text = req.info.text;
+			if(text.size()) w_ly->setText(text);
+		}
+		proxy->delRequest(lyricRequestId);
+		lyricRequestId = -1;
 	}
 }
 
@@ -170,44 +184,15 @@ void Info::tabChanged(int t)
 	switch(t) {
 	case 0:
 		break;
-	case 1: if(!ar_complete && ar.size()) {
-			proxy->setRequest(SInfo::ArtistText);
-			/*QString text;
-		if(ar_mbid.size()) {
-			text = Database::Self().getInfo(ar_mbid);
+	case 1:
+		if(!ar_complete && ar.size()) {
+			artistRequestId = proxy->setRequest(SRequest(SInfo::ArtistText, proxy->getTags()));
 		}
-		if(!text.size()) {
-			connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(artistInfo(QString)));
-			LastFM::Self().artistInfo(ar);
-		} else {
-			ui.textEdit->setHtml(text);
-			ui.textEdit->update();
-			if(w_ar) {
-				w_ar->setText(text);
-			}
-			ar_complete = true;
-			}*/
-	}
 		break;
-	case 2: if(!al_complete && al.size()) {
-			proxy->setRequest(SInfo::AlbumText);
-			/*QString text;
-		if(al_mbid.size()) {
-			text = Database::Self().getInfo(al_mbid);
+	case 2:
+		if(!al_complete && al.size()) {
+			albumRequestId = proxy->setRequest(SRequest(SInfo::AlbumText, proxy->getTags()));
 		}
-		if(!text.size()) {
-			if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(albumInfo(QString))))
-				proxy->error("Unable connection to xmlInfo");
-			LastFM::Self().albumInfo(ar, al);
-		} else {
-			ui.textEdit_2->setHtml(text);
-			ui.textEdit_2->update();
-			if(w_al) {
-				w_al->setText(text);
-			}
-			al_complete = true;
-			}*/
-	}
 		break;
 	}
 }
@@ -422,7 +407,7 @@ void Info::showLyric()
 		w_ly->setWindowTitle(so);
 		connect(w_ly, SIGNAL( destroyed(QObject*)), this, SLOT(lyricClosed(QObject*)));
 		w_ly->show();
-		proxy->setRequest(SRequest(SInfo::Lyric));
+		lyricRequestId = proxy->setRequest(SRequest(SInfo::Lyric, proxy->getTags()));
 		//connect(&LyricWiki::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(lyricInfo(QString)));
 		//LyricWiki::Self().getSong(ar, so);
 	}
@@ -445,13 +430,10 @@ void Info::lyricClosed(QObject*)
 
 void Info::getImages()
 {
-	//connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
 	if(!al_pic) {
-		proxy->setRequest(SRequest(SInfo::AlbumArt));
-		//LastFM::Self().albumInfo(ar, al);
+		albumRequestId = proxy->setRequest(SRequest(SInfo::AlbumArt, proxy->getTags()));
 	} else if(!ar_pic) {
-		proxy->setRequest(SRequest(SInfo::ArtistArt));
-		//LastFM::Self().artistInfo(ar);
+		artistRequestId = proxy->setRequest(SRequest(SInfo::ArtistArt, proxy->getTags()));
 	}
 }
 
