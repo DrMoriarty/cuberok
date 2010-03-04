@@ -706,6 +706,8 @@ void CollectionView::loadImage()
 		list << ind.row();
 	}
 	if(!wait_response) doRequest();
+	proxy->setRequest(SRequest(SInfo::AlbumArt));
+	proxy->setRequest(SRequest(SInfo::ArtistArt));
 }
 
 void CollectionView::doRequest()

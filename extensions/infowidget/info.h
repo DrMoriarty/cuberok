@@ -43,6 +43,7 @@ class Info: public QWidget
 	InfoWindow *w_ar, *w_al, *w_ly;
 	Downloader *downloader;
 	Proxy *proxy;
+	long lyricRequestId, artistRequestId, albumRequestId;
 
 	void updateRating();
 
