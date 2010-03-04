@@ -32,6 +32,7 @@ Q_IMPORT_PLUGIN(src_collection)
 Q_IMPORT_PLUGIN(scrobbler_psi)
 
 ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
+, nextRequest(1)
 {
 	// loading variables
 	QSettings set;
@@ -109,14 +110,14 @@ void ExtensionProxy::endTransaction()
 	update(transflag);
 }
 
-void ExtensionProxy::setControl(SControl c)
+void ExtensionProxy::setControl(const SControl& c)
 {
 	control = c;
 	if(transaction) transflag |= DisturbOnControl;
 	else update(DisturbOnControl);
 }
 
-void ExtensionProxy::setStatus(SStatus s)
+void ExtensionProxy::setStatus(const SStatus& s)
 {
 	prevstatus = status;
 	status = s;
@@ -124,7 +125,7 @@ void ExtensionProxy::setStatus(SStatus s)
 	else update(DisturbOnStatus);
 }
 
-void ExtensionProxy::setTags(STags t)
+void ExtensionProxy::setTags(const STags& t)
 {
 	if(tags.tag0.title != t.tag0.title) info.remove(SInfo::Lyric);
 	if(tags.tag0.artist != t.tag0.artist) {
@@ -144,14 +145,14 @@ void ExtensionProxy::setTags(STags t)
 	else update(DisturbOnTags);
 }
 
-void ExtensionProxy::setUrl(QUrl u)
+void ExtensionProxy::setUrl(const QUrl& u)
 {
 	url = u;
 	if(transaction) transflag |= DisturbOnUrl;
 	else update(DisturbOnUrl);
 }
 
-void ExtensionProxy::setInfo(SInfo i)
+void ExtensionProxy::setInfo(const SInfo& i)
 {
 	info[i.type] = i;
 	if(transaction) {
@@ -163,15 +164,45 @@ void ExtensionProxy::setInfo(SInfo i)
 	}
 }
 
-void ExtensionProxy::setRequest(SRequest r)
+long ExtensionProxy::setRequest(const SRequest& r)
 {
-	request = r;
+	requests.push_front(r);
+	requests.first().id = nextRequest++;
 	if(transaction) {
 		transflag |= DisturbOnRequest;
 		log("Proxy: request in transaction");
 	} else {
 		log("Proxy: request");
 		update(DisturbOnRequest);
+	}
+	return requests.first().id;
+}
+
+void ExtensionProxy::setResponse(long requestId, const SInfo& info)
+{
+	for(int i=0; i<requests.size(); i++) {
+		if(requests[i].id == requestId) {
+			SRequest r = requests[i];
+			requests.remove(i);
+			if(!r.info.text.size()) r.info.text = info.text;
+			if(!r.info.url.size()) r.info.url = info.url;
+			requests.push_front(r);
+			if(transaction) {
+				transflag |= DisturbOnRequest;
+			} else {
+				update(DisturbOnRequest);
+			}
+			return;
+		}
+	}
+}
+
+void ExtensionProxy::delRequest(long requestId)
+{
+	for(int i=0; i<requests.size(); i++) {
+		if(requests[i].id == requestId) {
+			requests.remove(i);
+		}
 	}
 }
 
@@ -213,7 +244,7 @@ bool ExtensionProxy::infoExist(int type)
 
 SRequest ExtensionProxy::getRequest()
 {
-	return request;
+	return requests.first();
 }
 
 bool ExtensionProxy::hasVariable(QString varname)

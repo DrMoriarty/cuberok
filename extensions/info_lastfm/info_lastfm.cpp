@@ -27,7 +27,7 @@ static QHttp http;
 
 Q_EXPORT_PLUGIN2(info_lastfm, InfoLastFM) 
 
-InfoLastFM::InfoLastFM() : Extension(), httpGetId(0), httpPostId(0), needInfo(false)
+InfoLastFM::InfoLastFM() : Extension(), httpGetId(0), httpPostId(0), needInfo(false), requestId(-1)
 {
 	connect(&http, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
 	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(requestStarted(int)));
@@ -50,15 +50,19 @@ bool InfoLastFM::ready()
 void InfoLastFM::update(int f)
 {
 	if(f & DisturbOnRequest) {
-		STags t = proxy->getTags();
 		SRequest r = proxy->getRequest();
-		switch(r.type) {
+		STags &t = r.tags;
+		switch(r.info.type) {
 		case SInfo::ArtistArt:
+			if(r.info.url.size()) break;
 		case SInfo::ArtistText:
+			if(r.info.text.size()) break;
 			artistInfo(t.tag0.artist);
 			break;
 		case SInfo::AlbumArt:
+			if(r.info.url.size()) break;
 		case SInfo::AlbumText:
+			if(r.info.text.size()) break;
 			albumInfo(t.tag0.artist, t.tag0.album);
 			break;
 		default:
@@ -118,15 +122,15 @@ void InfoLastFM::requestFinished(int id, bool err)
 				QString artist, album, mbid, imageUrl, info;
 				parseInfo(text, artist, album, mbid, imageUrl, info);
 				if(album.size()) { // album found
-					if(!proxy->infoExist(SInfo::AlbumArt) && imageUrl.size())
-						proxy->setInfo(SInfo(SInfo::AlbumArt, "", imageUrl));
-					if(!proxy->infoExist(SInfo::AlbumText) && info.size())
-						proxy->setInfo(SInfo(SInfo::AlbumText, info, ""));
+					if(imageUrl.size())
+						proxy->setResponse(requestId, SInfo(SInfo::AlbumArt, "", imageUrl));
+					if(info.size())
+						proxy->setResponse(requestId, SInfo(SInfo::AlbumText, info, ""));
 				} else if(artist.size()) { // artist found
-					if(!proxy->infoExist(SInfo::ArtistArt) && imageUrl.size())
-						proxy->setInfo(SInfo(SInfo::ArtistArt, "", imageUrl));
-					if(!proxy->infoExist(SInfo::ArtistText) && info.size())
-						proxy->setInfo(SInfo(SInfo::ArtistText, info, ""));
+					if(imageUrl.size())
+						proxy->setResponse(requestId, SInfo(SInfo::ArtistArt, "", imageUrl));
+					if(info.size())
+						proxy->setResponse(requestId, SInfo(SInfo::ArtistText, info, ""));
 				}
 				//emit xmlInfo(QString::fromUtf8((const char*)arr));
 				needInfo = false;
@@ -152,11 +156,11 @@ void InfoLastFM::doQueue()
 		if(item.size() == 0) {
 			//handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
 			stack.pop_front();
-		} else if(item.size() == 1) {
-			artistInfo(item[0].toString());
-			stack.pop_front();
 		} else if(item.size() == 2) {
-			albumInfo(item[0].toString(), item[1].toString());
+			artistInfo(item[0].toString(), item[1].toLong());
+			stack.pop_front();
+		} else if(item.size() == 3) {
+			albumInfo(item[0].toString(), item[1].toString(), item[2].toLong());
 			stack.pop_front();
 		} else if(item.size() == 6) {
 			//nowplaying(item[0].toString(), item[1].toString(), item[2].toString(), item[3].toInt(), item[4].toInt(), item[5].toString());
@@ -164,18 +168,20 @@ void InfoLastFM::doQueue()
 		} else if(item.size() == 9) {
 			//submission(item[0].toString(), item[1].toString(), item[2].toInt(), item[3].toString(), item[4].toInt(), item[5].toString(), item[6].toString(), item[7].toInt(), item[8].toString());
 			stack.pop_front();
-		}
+		} else stack.pop_front();
 	}
 }
 
-void InfoLastFM::artistInfo(QString artist)
+void InfoLastFM::artistInfo(QString artist, long reqId)
 {
 	if(httpGetId) {
 		QList<QVariant> item;
 		item << artist;
+		item << reqId;
 		stack << item;
 		return;
 	}
+	requestId = reqId;
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
 		http.setProxy(proxy->getVariable("proxyHost"),
 					  proxy->getVariable("proxyPort").toInt(),
@@ -196,15 +202,17 @@ void InfoLastFM::artistInfo(QString artist)
 	httpGetId = http.get(QString(url.toEncoded()));
 }
 
-void InfoLastFM::albumInfo(QString artist, QString album)
+void InfoLastFM::albumInfo(QString artist, QString album, long reqId)
 {
 	if(httpGetId) {
 		QList<QVariant> item;
 		item << artist;
 		item << album;
+		item << reqId;
 		stack << item;
 		return;
 	}
+	requestId = reqId;
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
 		http.setProxy(proxy->getVariable("proxyHost"),
 					  proxy->getVariable("proxyPort").toInt(),

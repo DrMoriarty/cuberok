@@ -36,12 +36,14 @@ class ExtensionProxy : public Proxy {
 	virtual void beginTransaction();
 	virtual void endTransaction();
 	
-	virtual void setControl(SControl control);
-	virtual void setStatus(SStatus status);
-	virtual void setTags(STags tags);
-	virtual void setUrl(QUrl url);
-	virtual void setInfo(SInfo info);
-	virtual void setRequest(SRequest request);
+	virtual void setControl(const SControl& control);
+	virtual void setStatus(const SStatus& status);
+	virtual void setTags(const STags& tags);
+	virtual void setUrl(const QUrl& url);
+	virtual void setInfo(const SInfo& info);
+	virtual long setRequest(const SRequest& request);
+	virtual void setResponse(long requestId, const SInfo& info);
+	virtual void delRequest(long requestId);
 
 	virtual SControl getControl();
 	virtual SStatus  getStatus();
@@ -75,9 +77,10 @@ class ExtensionProxy : public Proxy {
 	STags tags;
 	QUrl url;
 	QMap<int, SInfo> info;
-	SRequest request;
+	QVector<SRequest> requests;
 	bool transaction;
 	int transflag;
+	long nextRequest;
 };
 
 #endif //EXTENSIONPROXY_H
