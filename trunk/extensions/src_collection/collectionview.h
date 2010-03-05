@@ -70,7 +70,7 @@ private:
 	void doRequest();
 	QString subsetLabel;
 	QVector< QList<QString> > request_stack;
-	bool wait_response;
+	long wait_response;
 	//Downloader *downloader;
 	QString lfmArtist, lfmAlbum;
 	
@@ -88,8 +88,9 @@ public slots:
 	void iconView(bool);
 	void loadImage();
 	void storeState();
+	void infoResponse();
+	
 private slots:
-	void infoResponse(QString);
 	void dlComplete(QString file);
 	void dlCancel(QString);
 signals:

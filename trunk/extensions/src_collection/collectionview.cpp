@@ -706,36 +706,44 @@ void CollectionView::loadImage()
 		list << ind.row();
 	}
 	if(!wait_response) doRequest();
-	proxy->setRequest(SRequest(SInfo::AlbumArt));
-	proxy->setRequest(SRequest(SInfo::ArtistArt));
 }
 
 void CollectionView::doRequest()
-{/*
+{
 	if(wait_response || !request_stack.size()) return;
 	QList<QString> &item = *request_stack.begin();
 	
 	if(item.size() == 1) {  // artist
-		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
-			Console::Self().error("Unable connection to xmlInfo");
-		wait_response = true;
 		lfmArtist = item[0];
 		lfmAlbum = "";
-		LastFM::Self().artistInfo(item[0]);
+		STags tags;
+		tags.tag0.artist = lfmArtist;
+		wait_response = proxy->setRequest(SRequest(SInfo::ArtistArt, tags));
 	} else if(item.size() == 2) {  // album
-		if(!connect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString))))
-			Console::Self().error("Unable connection to xmlInfo");
-		wait_response = true;
 		lfmArtist = item[0];
 		lfmAlbum = item[1];
-		LastFM::Self().albumInfo(item[0], item[1]);
+		STags tags;
+		tags.tag0.artist = lfmArtist;
+		tags.tag0.album = lfmAlbum;
+		wait_response = proxy->setRequest(SRequest(SInfo::AlbumArt, tags));
 	}
 
 	request_stack.pop_front();
- */}
+}
 
-void CollectionView::infoResponse(QString info)
-{/*
+void CollectionView::infoResponse()
+{
+	SRequest req = proxy->getRequest();
+	if(req.id == wait_response) {
+		switch(req.info.type) {
+		case SInfo::ArtistArt:
+			break;
+		case SInfo::AlbumArt:
+			break;
+		}
+		if(request_stack.size()) doRequest();
+	}
+	/*
 	wait_response = false;
 	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
 	QString newArtist, newAlbum, mbid, imageUrl, information;

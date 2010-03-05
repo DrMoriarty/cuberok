@@ -59,7 +59,7 @@ void Lyric::update(int f)
 		SRequest r = proxy->getRequest();
 		STags &t = r.tags;
 		reqId = r.id;
-		switch(r.type) {
+		switch(r.info.type) {
 		case SInfo::Lyric:
 			if(!r.info.url.size() && !r.info.text.size())
 				getSong(t.tag0.artist, t.tag0.title);
