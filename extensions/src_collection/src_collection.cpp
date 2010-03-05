@@ -49,8 +49,10 @@ bool SrcCollection::ready()
 	return widget;
 }
 
-void SrcCollection::update(int)
+void SrcCollection::update(int d)
 {
+	if(d & DisturbOnRequest)
+		widget->
 }
 
 QString SrcCollection::getName()
@@ -82,7 +84,7 @@ ExtensionSetupWidget* SrcCollection::getSetupWidget()
 
 int SrcCollection::getDisturbs()
 {
-	return DoNotDisturb;
+	return DisturbOnRequest;
 }
 
 void SrcCollection::storeState()

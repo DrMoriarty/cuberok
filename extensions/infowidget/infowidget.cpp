@@ -82,5 +82,5 @@ ExtensionSetupWidget* InfoWidget::getSetupWidget()
 
 int InfoWidget::getDisturbs()
 {
-	return /*DisturbOnStatus |*/ DisturbOnTags | DisturbOnInfo;
+	return /*DisturbOnStatus |*/ DisturbOnTags | DisturbOnRequest;
 }

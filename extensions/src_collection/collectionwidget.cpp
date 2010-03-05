@@ -86,3 +86,8 @@ void CollectionWidget::colmodeChanged(int m)
 		ui.filterLineEdit->setText("");
 	}
 }
+
+void CollectionWidget::updateInfo()
+{
+	ui.colView->infoResponse();
+}

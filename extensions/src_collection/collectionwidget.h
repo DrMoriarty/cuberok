@@ -29,6 +29,7 @@ class CollectionWidget: public QWidget
  public:
 	CollectionWidget(QWidget* parent = 0);
 	void storeState();
+	void updateInfo();
 	
  private:
 	Ui::CollectionWidget ui;

@@ -57,13 +57,13 @@ void InfoLastFM::update(int f)
 			if(r.info.url.size()) break;
 		case SInfo::ArtistText:
 			if(r.info.text.size()) break;
-			artistInfo(t.tag0.artist);
+			artistInfo(t.tag0.artist, r.id);
 			break;
 		case SInfo::AlbumArt:
 			if(r.info.url.size()) break;
 		case SInfo::AlbumText:
 			if(r.info.text.size()) break;
-			albumInfo(t.tag0.artist, t.tag0.album);
+			albumInfo(t.tag0.artist, t.tag0.album, r.id);
 			break;
 		default:
 			break;
@@ -157,10 +157,10 @@ void InfoLastFM::doQueue()
 			//handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
 			stack.pop_front();
 		} else if(item.size() == 2) {
-			artistInfo(item[0].toString(), item[1].toLong());
+			artistInfo(item[0].toString(), item[1].toLongLong());
 			stack.pop_front();
 		} else if(item.size() == 3) {
-			albumInfo(item[0].toString(), item[1].toString(), item[2].toLong());
+			albumInfo(item[0].toString(), item[1].toString(), item[2].toLongLong());
 			stack.pop_front();
 		} else if(item.size() == 6) {
 			//nowplaying(item[0].toString(), item[1].toString(), item[2].toString(), item[3].toInt(), item[4].toInt(), item[5].toString());
@@ -177,7 +177,7 @@ void InfoLastFM::artistInfo(QString artist, long reqId)
 	if(httpGetId) {
 		QList<QVariant> item;
 		item << artist;
-		item << reqId;
+		item << (long long int)reqId;
 		stack << item;
 		return;
 	}
@@ -208,7 +208,7 @@ void InfoLastFM::albumInfo(QString artist, QString album, long reqId)
 		QList<QVariant> item;
 		item << artist;
 		item << album;
-		item << reqId;
+		item << (long long int)reqId;
 		stack << item;
 		return;
 	}
