@@ -378,9 +378,8 @@ void CollectionModel::drawStars(QPixmap &bg, int rating, bool song)
  ***********************/
 
 CollectionView::CollectionView(QWidget *parent)
-    : QListView(parent), wait_response(false)
+    : QListView(parent), wait_response(false), downloader(0), proxy(0)
 {
-	//downloader = new Downloader(proxy);
 	setModel(&model);
 	//setViewMode(QListView::IconMode);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -396,14 +395,22 @@ CollectionView::CollectionView(QWidget *parent)
 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
-	//connect(downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
-	//connect(downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 	model.updateMode(M_GENRE);
 }
 
 CollectionView::~CollectionView()
 {
+	delete downloader;
+}
 
+void CollectionView::setProxy(Proxy* pr)
+{
+	if(pr) {
+		proxy = pr;
+		downloader = new Downloader(proxy);
+		connect(downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
+		connect(downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+	}
 }
 
 // start drag&drop block
@@ -737,10 +744,17 @@ void CollectionView::infoResponse()
 	if(req.id == wait_response) {
 		switch(req.info.type) {
 		case SInfo::ArtistArt:
+			if(downloader) downloader->download(req.info.url);
 			break;
 		case SInfo::AlbumArt:
+			if(downloader) downloader->download(req.info.url);
+			break;
+		default:
+			lfmAlbum = "";
+			lfmArtist = "";
 			break;
 		}
+		proxy->delRequest(req.id);
 		if(request_stack.size()) doRequest();
 	}
 	/*

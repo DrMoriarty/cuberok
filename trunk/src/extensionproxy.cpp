@@ -202,8 +202,11 @@ void ExtensionProxy::delRequest(long requestId)
 	for(int i=0; i<requests.size(); i++) {
 		if(requests[i].id == requestId) {
 			requests.remove(i);
+			qDebug("remove request %ld\n", requestId);
+			return;
 		}
 	}
+	qDebug("not found request %ld\n", requestId);
 }
 
 SControl ExtensionProxy::getControl()

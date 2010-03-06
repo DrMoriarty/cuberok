@@ -22,12 +22,13 @@
 
 #include <QtGui>
 #include "ui_collectionwidget.h"
+#include "interfaces.h"
 
 class CollectionWidget: public QWidget
 {
 	Q_OBJECT
  public:
-	CollectionWidget(QWidget* parent = 0);
+	CollectionWidget(Proxy* proxy, QWidget* parent = 0);
 	void storeState();
 	void updateInfo();
 	

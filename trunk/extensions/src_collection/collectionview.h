@@ -57,6 +57,7 @@ class CollectionView : public QListView//QAbstractItemView
 public:
 	CollectionView(QWidget *parent = 0);
 	~CollectionView();
+	void setProxy(Proxy* pr);
 	
 private:
 	CollectionModel model;
@@ -71,8 +72,9 @@ private:
 	QString subsetLabel;
 	QVector< QList<QString> > request_stack;
 	long wait_response;
-	//Downloader *downloader;
+	Downloader *downloader;
 	QString lfmArtist, lfmAlbum;
+	Proxy *proxy;
 	
 public slots:
 	void artistMode();

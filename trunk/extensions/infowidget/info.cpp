@@ -27,6 +27,7 @@
 #include <QtXml>
 
 const int MAXLEN = 25;
+const int picsize = 128;
 
 Info::Info(Proxy* p, QWidget *parent)
     : QWidget(parent),
@@ -75,15 +76,27 @@ void Info::storeState()
 void Info::updateTags(STags tags)
 {
 	QString artist = tags.tag0.artist, album = tags.tag0.album, song = tags.tag0.title;
-	ar_pic = false;
-	al_pic = false;
-	if(ar != artist) {
+	QString art(":/icons/def_artist.png"), text;
+	QString art_al = ":/icons/def_album.png";
+	if(ar != artist || !artist.size()) {
 		ar_complete = false;
 		ui.textEdit->setText("");
+		ar_pic = false;
+		QPixmap pm = QPixmap(art);
+		QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
+		ui.label_ar0->setPixmap(pm2);
+		ui.label_ar0->setMinimumSize(pm2.size());
+		ui.label_ar0->setMaximumSize(pm2.size());
 	}	
-	if(al != album) {
+	if(al != album || album.size()) {
 		al_complete = false;
 		ui.textEdit_2->setText("");
+		al_pic = false;
+		QPixmap pm = QPixmap(art_al);
+		QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
+		ui.label_al0->setPixmap(pm2);
+		ui.label_al0->setMinimumSize(pm2.size());
+		ui.label_al0->setMaximumSize(pm2.size());
 	}
 	ar = artist;
 	al = album;
@@ -93,26 +106,13 @@ void Info::updateTags(STags tags)
 	ui.actionRateDown->setDisabled(true);
 	ui.actionRateUp->setDisabled(true);
 	ui.actionLoveIt->setDisabled(true);
-	QString art(":/icons/def_artist.png"), text;
 	int rating = 0;
-	int picsize = 128;
-	QPixmap pm = QPixmap(art);
-	QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
- 	ui.label_ar0->setPixmap(pm2);
- 	ui.label_ar0->setMinimumSize(pm2.size());
- 	ui.label_ar0->setMaximumSize(pm2.size());
 	if(artist.size() > MAXLEN) artist = artist.left(MAXLEN) + "...";
  	ui.label_ar1->setText(artist);
 	ui.artistRating->setStarRating(StarRating(rating, 5, 2));
 	ui.artistRating->noEdit();
 
-	QString art_al = ":/icons/def_album.png";
 	rating = 0;
-	pm = QPixmap(art_al);
-	pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
-	ui.label_al0->setPixmap(pm2);
-	ui.label_al0->setMinimumSize(pm2.size());
-	ui.label_al0->setMaximumSize(pm2.size());
 	if(album.size() > MAXLEN) album = album.left(MAXLEN) + "...";
 	ui.label_al1->setText(album);
 	ui.albumRating->setStarRating(StarRating(rating, 5, 2));
@@ -126,7 +126,7 @@ void Info::updateTags(STags tags)
 	tabChanged(ui.tabWidget->currentIndex());
 }
 
-void Info::updateInfo()
+void Info::updateRequest()
 {
 	SRequest req = proxy->getRequest();
 	if(req.id == albumRequestId) {
@@ -176,6 +176,26 @@ void Info::updateInfo()
 		}
 		proxy->delRequest(lyricRequestId);
 		lyricRequestId = -1;
+	}
+}
+
+void Info::updateInfo()
+{
+	if(!ar_pic && proxy->infoExist(SInfo::ArtistArt)) {
+		QPixmap pm = QPixmap(proxy->getInfo(SInfo::ArtistArt).text);
+		QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
+		ui.label_ar0->setPixmap(pm2);
+		ui.label_ar0->setMinimumSize(pm2.size());
+		ui.label_ar0->setMaximumSize(pm2.size());
+		ar_pic = true;
+	}
+	if(!al_pic && proxy->infoExist(SInfo::AlbumArt)) {
+		QPixmap pm = QPixmap(proxy->getInfo(SInfo::AlbumArt).text);
+		QPixmap pm2 = pm.size().height() > pm.size().width() ? pm.scaledToHeight(picsize, Qt::SmoothTransformation) : pm.scaledToWidth(picsize, Qt::SmoothTransformation);
+		ui.label_al0->setPixmap(pm2);
+		ui.label_al0->setMinimumSize(pm2.size());
+		ui.label_al0->setMaximumSize(pm2.size());
+		al_pic = true;
 	}
 }
 
