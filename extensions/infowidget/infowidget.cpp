@@ -46,9 +46,8 @@ void InfoWidget::update(int d)
 		info = new Info(proxy);
 	}
 	if(d & DisturbOnTags) info->updateTags(proxy->getTags());
-	//if(d & DisturbOnInfo)
-	if(d & DisturbOnRequest)
-		info->updateInfo();
+	if(d & DisturbOnInfo) info->updateInfo();
+	if(d & DisturbOnRequest) info->updateRequest();
 }
 
 QString InfoWidget::getName()
@@ -82,5 +81,5 @@ ExtensionSetupWidget* InfoWidget::getSetupWidget()
 
 int InfoWidget::getDisturbs()
 {
-	return /*DisturbOnStatus |*/ DisturbOnTags | DisturbOnRequest;
+	return DisturbOnInfo | DisturbOnTags | DisturbOnRequest;
 }

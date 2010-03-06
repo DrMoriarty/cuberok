@@ -127,7 +127,7 @@ class Proxy : public QObject
 	virtual void setInfo(const SInfo& info) = 0;
 	virtual long setRequest(const SRequest& request) = 0;
 	virtual void setResponse(long requestId, const SInfo& info) = 0;
-	virtual void delRequest(long requestId);
+	virtual void delRequest(long requestId) = 0;
 
 	virtual SControl getControl() = 0;
 	virtual SStatus  getStatus() = 0;

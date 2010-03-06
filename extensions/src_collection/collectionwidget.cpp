@@ -20,10 +20,11 @@
 #include "collectionwidget.h"
 #include "database.h"
 
-CollectionWidget::CollectionWidget(QWidget *parent)
+CollectionWidget::CollectionWidget(Proxy* proxy, QWidget *parent)
 	:QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.colView->setProxy(proxy);
 	ui.subsetLabel->setVisible(false);
 	ui.subsetDisableButton->setVisible(false);
 

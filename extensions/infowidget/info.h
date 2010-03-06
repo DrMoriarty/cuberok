@@ -35,6 +35,7 @@ class Info: public QWidget
 	~Info();
 	void updateTags(STags tags);
 	void updateInfo();
+	void updateRequest();
 
  private:
 	Ui::Info ui;

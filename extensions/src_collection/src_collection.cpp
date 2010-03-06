@@ -38,7 +38,7 @@ bool SrcCollection::prepare()
 		qDebug("Collection database");
 		Database::Self(proxy).proxy = proxy;
 		qDebug("Collection widget");
-		widget = new CollectionWidget();
+		widget = new CollectionWidget(proxy);
 		qDebug("done");
 	}
 	return widget;
@@ -52,7 +52,28 @@ bool SrcCollection::ready()
 void SrcCollection::update(int d)
 {
 	if(d & DisturbOnRequest)
-		widget->
+		widget->updateInfo();
+	if(d & DisturbOnTags) {
+		// read path to the image (if exist)
+		proxy->beginTransaction();
+		STags tags = proxy->getTags();
+		Database::Self().pushSubset();
+		Database::Self().subsetArtist(tags.tag0.artist);
+		if(!proxy->infoExist(SInfo::ArtistArt)) {
+			QList<struct Database::Attr> attr =  Database::Self().Artists();
+			if(attr.size() && attr[0].name == tags.tag0.artist && attr[0].art.size()) {
+				proxy->setInfo(SInfo(SInfo::ArtistArt, attr[0].art, ""));
+			}
+		}
+		if(!proxy->infoExist(SInfo::AlbumArt)) {
+			QList<struct Database::AttrAl> attrl = Database::Self().Albums(&tags.tag0.album);
+			if(attrl.size() && attrl[0].art.size()) {
+				proxy->setInfo(SInfo(SInfo::AlbumArt, attrl[0].art, ""));
+			}
+		}
+		Database::Self().popSubset();
+		proxy->endTransaction();
+	}
 }
 
 QString SrcCollection::getName()
@@ -84,7 +105,7 @@ ExtensionSetupWidget* SrcCollection::getSetupWidget()
 
 int SrcCollection::getDisturbs()
 {
-	return DisturbOnRequest;
+	return DisturbOnRequest | DisturbOnTags;
 }
 
 void SrcCollection::storeState()

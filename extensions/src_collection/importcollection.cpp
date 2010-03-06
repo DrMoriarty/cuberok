@@ -19,7 +19,7 @@
 
 #include "importcollection.h"
 //#include "database.h"
-//#include "collectionfiller.h"
+#include "collectionfiller.h"
 #include <QtSql>
 
 ImportCollection::ImportCollection(QWidget *parent) : QDialog(parent)
@@ -91,8 +91,8 @@ bool ImportCollection::importCollection(QString amarokdb, bool messages)
 		if(messages) QMessageBox::warning(0, tr("Surprise"), tr("There aren't any local folders in Amarok's collection."));
 		return false;
 	}
-	//CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
+	CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
 	//connect(cf, SIGNAL(finished()), this, SLOT(update()));
-	//cf->start();
+	cf->start();
 	return true;
 }
