@@ -78,7 +78,9 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 			qDebug((const char*)("Can't load extension " + fileName).toLocal8Bit());
 			qDebug((const char*)loader.errorString().toLocal8Bit());
 		}
-	} 
+	}
+	connect(&reqTimer, SIGNAL(timeout()), this, SLOT(requestTimeout()));
+	reqTimer.start(1000);
 }
 
 ExtensionProxy::~ExtensionProxy()
@@ -247,7 +249,9 @@ bool ExtensionProxy::infoExist(int type)
 
 SRequest ExtensionProxy::getRequest()
 {
-	return requests.first();
+	if(requests.size())
+		return requests.first();
+	else return SRequest();
 }
 
 bool ExtensionProxy::hasVariable(QString varname)
@@ -313,4 +317,22 @@ void ExtensionProxy::storeState()
 		set.setValue(var, variables[var]);
 	}
 	set.endGroup();
+}
+
+void ExtensionProxy::requestTimeout()
+{
+	for(QVector<SRequest>::iterator r = requests.begin(); r != requests.end(); r ++) {
+		if(r->elapsed() > 10000) {
+			SRequest r2 = *r;
+			requests.erase(r);
+			requests.push_front(r2);
+			// say 'good bye'
+			update(DisturbOnRequest);
+			if(requests.size() && r2.id == requests.front(). id)
+				requests.pop_front();
+			// drop one request per second
+			qDebug("drop request");
+			return;
+		}
+	}
 }

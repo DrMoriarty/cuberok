@@ -378,7 +378,7 @@ void CollectionModel::drawStars(QPixmap &bg, int rating, bool song)
  ***********************/
 
 CollectionView::CollectionView(QWidget *parent)
-    : QListView(parent), wait_response(false), downloader(0), proxy(0)
+    : QListView(parent), wait_response(0), downloader(0), proxy(0)
 {
 	setModel(&model);
 	//setViewMode(QListView::IconMode);
@@ -742,81 +742,31 @@ void CollectionView::infoResponse()
 {
 	SRequest req = proxy->getRequest();
 	if(req.id == wait_response) {
-		switch(req.info.type) {
-		case SInfo::ArtistArt:
-			if(downloader) downloader->download(req.info.url);
-			break;
-		case SInfo::AlbumArt:
-			if(downloader) downloader->download(req.info.url);
-			break;
-		default:
+		if(!req.info.url.size()) {
+			// there isn't an image
+			wait_response = 0;
 			lfmAlbum = "";
 			lfmArtist = "";
-			break;
+			if(request_stack.size()) doRequest();
+		} else {
+			switch(req.info.type) {
+			case SInfo::ArtistArt:
+				if(downloader) downloader->download(req.info.url);
+				break;
+			case SInfo::AlbumArt:
+				if(downloader) downloader->download(req.info.url);
+				break;
+			default:
+				lfmAlbum = "";
+				lfmArtist = "";
+				wait_response = 0;
+				if(request_stack.size()) doRequest();
+				break;
+			}
 		}
 		proxy->delRequest(req.id);
-		if(request_stack.size()) doRequest();
 	}
-	/*
-	wait_response = false;
-	disconnect(&LastFM::Self(), SIGNAL(xmlInfo(QString)), this, SLOT(infoResponse(QString)));
-	QString newArtist, newAlbum, mbid, imageUrl, information;
-	if(LastFM::Self().parseInfo(info, newArtist, newAlbum, mbid, imageUrl, information)) {
-		if(newAlbum.size()) { // album info
-			if(mbid.size()) Database::Self().MbidForAlbum(lfmAlbum, mbid, Database::Self().AddArtist(lfmArtist));
-			if(mbid.size() && PLSet.cacheInfo && info.size()) {
-				Database::Self().setInfo(mbid, information);
-			}
-			if(lfmArtist != newArtist) {
-				Database::Self().RenameArtist(lfmArtist, newArtist);
-				Database::Self().pushSubset();
-				QList<QString> list = Database::Self().Songs(&newArtist);
-				foreach(QString file, list) {
-					Tagger::updateArtist(file, newArtist);
-				}
-				Database::Self().popSubset();
-			}
-			if(lfmAlbum != newAlbum) {
-				Database::Self().RenameAlbum(lfmAlbum, newAlbum, Database::Self().AddArtist(newArtist));
-				Database::Self().pushSubset();
-				QList<QString> list = Database::Self().Songs(&newArtist, Database::Self().AddAlbum(newAlbum, Database::Self().AddArtist(newArtist)));
-				foreach(QString file, list) {
-					Tagger::updateAlbum(file, newAlbum);
-				}
-				Database::Self().popSubset();
-			}
-			if(downloader.done()) {
-				lfmArtist = newArtist;
-				lfmAlbum = newAlbum;
-				downloader.download(imageUrl);
-			} else { // download queue
-			}
-		} else {  // artist info
-			if(mbid.size()) Database::Self().MbidForArtist(lfmArtist, mbid);
-			if(mbid.size() && PLSet.cacheInfo && information.size()) {
-				Database::Self().setInfo(mbid, information);
-			}
-			if(lfmArtist != newArtist) {
-				Database::Self().RenameArtist(lfmArtist, newArtist);
-				Database::Self().pushSubset();
-				QList<QString> list = Database::Self().Songs(&newArtist);
-				foreach(QString file, list) {
-					Tagger::updateArtist(file, newArtist);
-				}
-				Database::Self().popSubset();
-			}
-			if(downloader.done()) {
-				lfmArtist = newArtist;
-				lfmAlbum = "";
-				downloader.download(imageUrl);
-			} else { // download queue
-			}
-		}
-	}
-
-	if(request_stack.size())
-		doRequest();
- */}
+}
 
 void CollectionView::dlComplete(QString file)
 {
@@ -856,6 +806,8 @@ void CollectionView::dlComplete(QString file)
 
 	lfmAlbum = "";
 	lfmArtist = "";
+	wait_response = 0;
+	if(request_stack.size()) doRequest();
 }
 
 void CollectionView::dlCancel(QString)
