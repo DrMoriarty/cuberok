@@ -99,14 +99,24 @@ class SRequest {
 	STags tags;
 	long id;
  
-	SRequest() {};
+	SRequest() {
+		time.start();
+	};
+	
 	SRequest(int t) {
+		time.start();
 		info.type = t;
 	};
 	SRequest(int t, const STags& tag) {
+		time.start();
 		info.type = t;
 		tags = tag;
 	}
+	int elapsed() {
+		return time.elapsed();
+	}
+ protected:
+	QTime time;
 };
 
 // proxy object for sending messages between plugins

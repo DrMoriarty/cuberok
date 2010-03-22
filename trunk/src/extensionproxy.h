@@ -81,6 +81,10 @@ class ExtensionProxy : public Proxy {
 	bool transaction;
 	int transflag;
 	long nextRequest;
+	QTimer reqTimer;
+
+ private slots:
+	void requestTimeout();
 };
 
 #endif //EXTENSIONPROXY_H
