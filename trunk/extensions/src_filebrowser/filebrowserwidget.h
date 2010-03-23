@@ -43,10 +43,12 @@ class FileBrowserWidget : public QWidget
 	void oneLevelUp();
 	void changeRootIndex_files(const QModelIndex &index);
 	void rememberStart_files();
+	void showFiles(bool);
 
  private:
 	Ui::FileBrowserWidget ui;
     QDirModel dirmodel;
+	bool filesShowed;
 };
 
 #endif //FILEBROWSERWIDGET_H
