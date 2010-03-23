@@ -23,7 +23,9 @@ FileBrowserWidget::FileBrowserWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	QSettings set;
-	dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+	filesShowed = set.value("FileBrowserShowsFiles", false).toBool();
+	showFiles(filesShowed);
+	//dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
 	ui.treeView_2->setModel(&dirmodel);
 	ui.treeView_2->hideColumn(1);
 	ui.treeView_2->hideColumn(2);
@@ -55,6 +57,7 @@ void FileBrowserWidget::storeState()
 	QByteArray arr;
 	arr = ui.widget->saveState();
 	set.setValue("filesplitter", arr);
+	set.setValue("FileBrowserShowsFiles", filesShowed);
 }
 
 void FileBrowserWidget::refreshTree()
@@ -127,7 +130,8 @@ void FileBrowserWidget::changeRootIndex_files(const QModelIndex &index_) {
 	// if it is a zero-level, turn to ald style (only dirs)
 	// if not - show files and set label text to pathname
 	if ( index == dirmodel.parent(dirmodel.index(QDir::rootPath())) ) {
-		dirmodel.setFilter( QDir::AllDirs | QDir::NoDotAndDotDot );
+		//dirmodel.setFilter( QDir::AllDirs | QDir::NoDotAndDotDot );
+		showFiles(filesShowed);
 		setCurrent_files(dirmodel.index(oldRoot));
 		ui.actionSetRootCurrentDir->setChecked(false);
 		ui.treeViewLabel->setVisible(false);
@@ -149,3 +153,11 @@ void FileBrowserWidget::rememberStart_files() {
 	set.setValue("filesStartDir", dirmodel.filePath(index));
 }
 
+void FileBrowserWidget::showFiles(bool sh)
+{
+	filesShowed = sh;
+	if(filesShowed)
+		dirmodel.setFilter( QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Files );
+	else
+		dirmodel.setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+}

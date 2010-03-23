@@ -1,357 +1,410 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-  <class>FileBrowserWidget</class>
-  <widget class="QWidget" name="FileBrowserWidget">
-	<layout class="QVBoxLayout" name="verticalLayout_2">
-	  <property name="spacing">
-		<number>4</number>
-	  </property>
-	  <property name="margin">
-		<number>0</number>
-	  </property>
-	  <item>
-		<widget class="QSplitter" name="widget">
-		  <property name="orientation">
-			<enum>Qt::Vertical</enum>
-		  </property>
-		  <widget class="MarkListWidget" name="list_bookmarks">
-			<property name="sizePolicy">
-			  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-				<horstretch>0</horstretch>
-				<verstretch>0</verstretch>
-			  </sizepolicy>
-			</property>
-			<property name="maximumSize">
-			  <size>
-				<width>16777215</width>
-				<height>16777215</height>
-			  </size>
-			</property>
-			<property name="contextMenuPolicy">
-			  <enum>Qt::ActionsContextMenu</enum>
-			</property>
-			<property name="acceptDrops">
-			  <bool>true</bool>
-			</property>
-			<property name="editTriggers">
-			  <set>QAbstractItemView::NoEditTriggers</set>
-			</property>
-			<property name="dragDropMode">
-			  <enum>QAbstractItemView::DropOnly</enum>
-			</property>
-			<property name="alternatingRowColors">
-			  <bool>true</bool>
-			</property>
-			<addaction name="actionRemoveBookmark"/>
-		  </widget>
-		  <widget class="QWidget" name="treeViewLabelAndToolBar">
-			<property name="sizePolicy">
-			  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-				<horstretch>0</horstretch>
-				<verstretch>0</verstretch>
-			  </sizepolicy>
-			</property>
-			<property name="maximumSize">
-			  <size>
-				<width>16777215</width>
-				<height>37</height>
-			  </size>
-			</property>
-			<layout class="QVBoxLayout" name="treeViewVerticalLayout">
-			  <property name="spacing">
-				<number>0</number>
-			  </property>
-			  <property name="sizeConstraint">
-				<enum>QLayout::SetMinimumSize</enum>
-			  </property>
-			  <item>
-				<widget class="QToolBar" name="treeViewToolbar">
-				  <property name="sizePolicy">
-					<sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-					  <horstretch>1</horstretch>
-					  <verstretch>0</verstretch>
-					</sizepolicy>
-				  </property>
-				  <property name="minimumSize">
-					<size>
-					  <width>0</width>
-					  <height>39</height>
-					</size>
-				  </property>
-				  <property name="maximumSize">
-					<size>
-					  <width>16777215</width>
-					  <height>39</height>
-					</size>
-				  </property>
-				  <addaction name="actionRefreshTree"/>
-				  <addaction name="actionBookmarkFolder"/>
-				  <addaction name="actionRemoveBookmark"/>
-				  <addaction name="separator"/>
-				  <addaction name="actionSetRootCurrentDir"/>
-				  <addaction name="actionOneLevelUp"/>
-				</widget>
-			  </item>
-			  <item>
-				<widget class="KSqueezedTextLabel" name="treeViewLabel">
-				  <property name="sizePolicy">
-					<sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-					  <horstretch>0</horstretch>
-					  <verstretch>0</verstretch>
-					</sizepolicy>
-				  </property>
-				  <property name="frameShape">
-					<enum>QFrame::StyledPanel</enum>
-				  </property>
-				</widget>
-			  </item>
-			</layout>
-		  </widget>
-		  <widget class="QTreeView" name="treeView_2">
-			<property name="contextMenuPolicy">
-			  <enum>Qt::ActionsContextMenu</enum>
-			</property>
-			<property name="dragEnabled">
-			  <bool>true</bool>
-			</property>
-			<property name="dragDropMode">
-			  <enum>QAbstractItemView::DragOnly</enum>
-			</property>
-			<property name="selectionMode">
-			  <enum>QAbstractItemView::ExtendedSelection</enum>
-			</property>
-			<property name="verticalScrollMode">
-			  <enum>QAbstractItemView::ScrollPerItem</enum>
-			</property>
-			<property name="autoExpandDelay">
-			  <number>5</number>
-			</property>
-			<property name="uniformRowHeights">
-			  <bool>true</bool>
-			</property>
-			<property name="sortingEnabled">
-			  <bool>true</bool>
-			</property>
-			<property name="animated">
-			  <bool>false</bool>
-			</property>
-			<property name="headerHidden">
-			  <bool>true</bool>
-			</property>
-			<addaction name="actionRefreshTree"/>
-			<addaction name="actionBookmarkFolder"/>
-			<addaction name="actionSetCurrentStart"/>
-			<addaction name="actionSetRootCurrentDir"/>
-		  </widget>
-		</widget>
-	  </item>
-	</layout>
-	<action name="actionSetCurrentStart">
-	  <property name="icon">
-		<iconset resource="resource.qrc">
-		  <normaloff>:/icons/user-home.png</normaloff>:/icons/user-home.png</iconset>
-	  </property>
-	  <property name="text">
-		<string>Set This Dir as Start Directory</string>
-	  </property>
-	  <property name="toolTip">
-		<string>Set current selected directory as a startup directory</string>
-	  </property>
-	</action>
-	<action name="actionOneLevelUp">
-	  <property name="enabled">
-		<bool>false</bool>
-	  </property>
-	  <property name="icon">
-		<iconset resource="resource.qrc">
-		  <normaloff>:/icons/go-up.png</normaloff>:/icons/go-up.png</iconset>
-	  </property>
-	  <property name="text">
-		<string>One Level Up</string>
-	  </property>
-	  <property name="iconText">
-		<string>One Level Up</string>
-	  </property>
-	  <property name="toolTip">
-		<string>Change root to one level up directory</string>
-	  </property>
-	  <property name="whatsThis">
-		<string>Locks directory tree below to directory one level up form current</string>
-	  </property>
-	</action>
-	<action name="actionRemoveBookmark">
-	  <property name="icon">
-		<iconset resource="resource.qrc">
-		  <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
-	  </property>
-	  <property name="text">
-		<string>Remove mark</string>
-	  </property>
-	</action>
-	<action name="actionBookmarkFolder">
-	  <property name="icon">
-		<iconset resource="resource.qrc">
-		  <normaloff>:/icons/star.png</normaloff>:/icons/star.png</iconset>
-	  </property>
-	  <property name="text">
-		<string>Mark this folder</string>
-	  </property>
-	</action>
-	<action name="actionRefreshTree">
-	  <property name="icon">
-		<iconset resource="resource.qrc">
-		  <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
-	  </property>
-	  <property name="text">
-		<string>Refresh Tree</string>
-	  </property>
-	  <property name="statusTip">
-		<string>Refresh Tree</string>
-	  </property>
-	</action>
-	<action name="actionSetRootCurrentDir">
-	  <property name="checkable">
-		<bool>true</bool>
-	  </property>
-	  <property name="icon">
-		<iconset resource="resource.qrc">
-		  <normaloff>:/icons/folder-locked.png</normaloff>:/icons/folder-locked.png</iconset>
-	  </property>
-	  <property name="text">
-		<string>Set Current Dir as Root</string>
-	  </property>
-	  <property name="whatsThis">
-		<string>Locks directory tree below to currently selected directory</string>
-	  </property>
-	</action>
-  </widget>
-  <customwidgets>
-	<customwidget>
-	  <class>MarkListWidget</class>
-	  <extends>QListWidget</extends>
-	  <header location="global">marklistwidget.h</header>
-	</customwidget>
-	<customwidget>
-	  <class>KSqueezedTextLabel</class>
-	  <extends>QLabel</extends>
-	  <header>ksqueezedtextlabel.h</header>
-	</customwidget>
-  </customwidgets>
-  <resources>
-	<include location="../../src/resource.qrc"/>
-  </resources>
-  <connections>
-	<connection>
-	  <sender>actionRemoveBookmark</sender>
-	  <signal>triggered()</signal>
-	  <receiver>FileBrowserWidget</receiver>
-	  <slot>removeBookmark()</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>325</x>
-		  <y>262</y>
-		</hint>
-	  </hints>
-	</connection>
-	<connection>
-	  <sender>actionRefreshTree</sender>
-	  <signal>triggered()</signal>
-	  <receiver>FileBrowserWidget</receiver>
-	  <slot>refreshTree()</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>325</x>
-		  <y>262</y>
-		</hint>
-	  </hints>
-	</connection>
-	<connection>
-	  <sender>actionBookmarkFolder</sender>
-	  <signal>triggered()</signal>
-	  <receiver>FileBrowserWidget</receiver>
-	  <slot>setBookmark()</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>325</x>
-		  <y>262</y>
-		</hint>
-	  </hints>
-	</connection>
-	<connection>
-	  <sender>actionSetRootCurrentDir</sender>
-	  <signal>activated()</signal>
-	  <receiver>FileBrowserWidget</receiver>
-	  <slot>setRootCurrent()</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>325</x>
-		  <y>262</y>
-		</hint>
-	  </hints>
-	</connection>
-	<connection>
-	  <sender>actionOneLevelUp</sender>
-	  <signal>activated()</signal>
-	  <receiver>FileBrowserWidget</receiver>
-	  <slot>oneLevelUp()</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>325</x>
-		  <y>262</y>
-		</hint>
-	  </hints>
-	</connection>
-	<connection>
-	  <sender>actionSetRootCurrentDir</sender>
-	  <signal>toggled(bool)</signal>
-	  <receiver>actionOneLevelUp</receiver>
-	  <slot>setEnabled(bool)</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-	  </hints>
-	</connection>
-	<connection>
-	  <sender>actionSetCurrentStart</sender>
-	  <signal>activated()</signal>
-	  <receiver>FileBrowserWidget</receiver>
-	  <slot>rememberStart_files()</slot>
-	  <hints>
-		<hint type="sourcelabel">
-		  <x>-1</x>
-		  <y>-1</y>
-		</hint>
-		<hint type="destinationlabel">
-		  <x>325</x>
-		  <y>267</y>
-		</hint>
-	  </hints>
-	</connection>
-  </connections>
+ <class>FileBrowserWidget</class>
+ <widget class="QWidget" name="FileBrowserWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>256</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>4</number>
+   </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QSplitter" name="widget">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="MarkListWidget" name="list_bookmarks">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DropOnly</enum>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <addaction name="actionRemoveBookmark"/>
+     </widget>
+     <widget class="QWidget" name="treeViewLabelAndToolBar">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>37</height>
+       </size>
+      </property>
+      <layout class="QVBoxLayout" name="treeViewVerticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetMinimumSize</enum>
+       </property>
+       <item>
+        <widget class="QToolBar" name="treeViewToolbar">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>39</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>39</height>
+          </size>
+         </property>
+         <addaction name="actionRefreshTree"/>
+         <addaction name="actionBookmarkFolder"/>
+         <addaction name="actionRemoveBookmark"/>
+         <addaction name="separator"/>
+         <addaction name="actionSetRootCurrentDir"/>
+         <addaction name="actionOneLevelUp"/>
+        </widget>
+       </item>
+       <item>
+        <widget class="KSqueezedTextLabel" name="treeViewLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QTreeView" name="treeView_2">
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DragOnly</enum>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollPerItem</enum>
+      </property>
+      <property name="autoExpandDelay">
+       <number>5</number>
+      </property>
+      <property name="uniformRowHeights">
+       <bool>true</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="animated">
+       <bool>false</bool>
+      </property>
+      <property name="headerHidden">
+       <bool>true</bool>
+      </property>
+      <addaction name="actionRefreshTree"/>
+      <addaction name="actionBookmarkFolder"/>
+      <addaction name="actionSetCurrentStart"/>
+      <addaction name="actionSetRootCurrentDir"/>
+      <addaction name="actionShowFiles"/>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionSetCurrentStart">
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/user-home.png</normaloff>:/icons/user-home.png</iconset>
+   </property>
+   <property name="text">
+    <string>Set This Dir as Start Directory</string>
+   </property>
+   <property name="toolTip">
+    <string>Set current selected directory as a startup directory</string>
+   </property>
+  </action>
+  <action name="actionOneLevelUp">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/go-up.png</normaloff>:/icons/go-up.png</iconset>
+   </property>
+   <property name="text">
+    <string>One Level Up</string>
+   </property>
+   <property name="iconText">
+    <string>One Level Up</string>
+   </property>
+   <property name="toolTip">
+    <string>Change root to one level up directory</string>
+   </property>
+   <property name="whatsThis">
+    <string>Locks directory tree below to directory one level up form current</string>
+   </property>
+  </action>
+  <action name="actionRemoveBookmark">
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/col_rem.png</normaloff>:/icons/col_rem.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove mark</string>
+   </property>
+  </action>
+  <action name="actionBookmarkFolder">
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/star.png</normaloff>:/icons/star.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mark this folder</string>
+   </property>
+  </action>
+  <action name="actionRefreshTree">
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
+   </property>
+   <property name="text">
+    <string>Refresh Tree</string>
+   </property>
+   <property name="statusTip">
+    <string>Refresh Tree</string>
+   </property>
+  </action>
+  <action name="actionSetRootCurrentDir">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/folder-locked.png</normaloff>:/icons/folder-locked.png</iconset>
+   </property>
+   <property name="text">
+    <string>Set Current Dir as Root</string>
+   </property>
+   <property name="whatsThis">
+    <string>Locks directory tree below to currently selected directory</string>
+   </property>
+  </action>
+  <action name="actionShowFiles">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Files</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MarkListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">marklistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KSqueezedTextLabel</class>
+   <extends>QLabel</extends>
+   <header>ksqueezedtextlabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../src/resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionRemoveBookmark</sender>
+   <signal>triggered()</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>removeBookmark()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRefreshTree</sender>
+   <signal>triggered()</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>refreshTree()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionBookmarkFolder</sender>
+   <signal>triggered()</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>setBookmark()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSetRootCurrentDir</sender>
+   <signal>activated()</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>setRootCurrent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOneLevelUp</sender>
+   <signal>activated()</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>oneLevelUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSetRootCurrentDir</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>actionOneLevelUp</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSetCurrentStart</sender>
+   <signal>activated()</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>rememberStart_files()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_bookmarks</sender>
+   <signal>itemActivated(QListWidgetItem*)</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>selectBookmark(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>127</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowFiles</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>FileBrowserWidget</receiver>
+   <slot>showFiles(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>selectBookmark(QListWidgetItem*)</slot>
+  <slot>showFiles(bool)</slot>
+ </slots>
 </ui>
