@@ -191,6 +191,7 @@ class PlaylistStandardFactory : public PlaylistFactory
 	QAction *actionReloadTags;
 	QAction *actionRemoveSong;
 	QAction* actionClear_playlist;
+	QAction *actionDeleteSong;
 	QList<QAction*> acts;
 	void hardcodedActions();
 };

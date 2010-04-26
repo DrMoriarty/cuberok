@@ -1753,6 +1753,18 @@ Do you forget to install proper phonon backend?</source>
         <source>Clear</source>
         <translation type="obsolete">Очистить</translation>
     </message>
+    <message>
+        <source>Delete song from disk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove song from the playlist and from the disk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+Del</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlaylistView</name>
