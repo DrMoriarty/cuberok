@@ -1033,5 +1033,16 @@ void PlaylistStandardFactory::hardcodedActions()
 	actionClear_playlist->setIconText(QApplication::translate("PlaylistStandard", "Clear", 0, QApplication::UnicodeUTF8));
 	actionClear_playlist->setStatusTip(QApplication::translate("PlaylistStandard", "Clear playlist", 0, QApplication::UnicodeUTF8));
 	actionClear_playlist->setShortcut(QApplication::translate("PlaylistStandard", "Ctrl+L", 0, QApplication::UnicodeUTF8));
+	// delete from disk
+	actionDeleteSong = new QAction(this);
+	actionDeleteSong->setObjectName(QString::fromUtf8("actionDeleteSong"));
+	QIcon icon14;
+	icon14.addFile(QString::fromUtf8(":/icons/antistar.png"), QSize(), QIcon::Normal, QIcon::Off);
+	actionDeleteSong->setIcon(icon14);
+	actionDeleteSong->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+	acts << actionDeleteSong;
+	actionDeleteSong->setText(QApplication::translate("PlaylistStandard", "Delete song from disk", 0, QApplication::UnicodeUTF8));
+	actionDeleteSong->setStatusTip(QApplication::translate("PlaylistStandard", "Remove song from the playlist and from the disk", 0, QApplication::UnicodeUTF8));
+	actionDeleteSong->setShortcut(QApplication::translate("PlaylistStandard", "Ctrl+Del", 0, QApplication::UnicodeUTF8));
 }
 
