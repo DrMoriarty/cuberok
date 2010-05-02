@@ -59,6 +59,7 @@ void CollectionSettings::scan()
 	//connect(cf, SIGNAL(finished()), this, SLOT(update()));
 	cf->start();
 	EProxy.setVariable("collectionPath", ui.lineEdit_path->text());
+	QMessageBox::information(this, tr("Operation was started in background"), tr("Scaning collection will take a couple minutes"));
 }
 
 void CollectionSettings::selectPath()

@@ -95,6 +95,8 @@ public slots:
 private slots:
 	void dlComplete(QString file);
 	void dlCancel(QString);
+	void dataUpdate();
+	
 signals:
 	void status(QString);
 	void setVisibleSubsetWidgets(bool);

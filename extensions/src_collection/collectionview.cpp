@@ -395,6 +395,7 @@ CollectionView::CollectionView(QWidget *parent)
 	connect(&model, SIGNAL(status(QString)), this, SIGNAL(status(QString)));
 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
+	connect(&Database::Self(), SIGNAL(DataUpdate()), this, SLOT(dataUpdate()));
 	model.updateMode(M_GENRE);
 }
 
@@ -819,3 +820,8 @@ void CollectionView::dlCancel(QString)
 void CollectionView::storeState()
 {
 }
+
+ void CollectionView::dataUpdate()
+ {
+	 model.update();
+ }

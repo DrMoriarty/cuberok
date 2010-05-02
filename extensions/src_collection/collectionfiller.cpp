@@ -50,6 +50,7 @@ void CollectionFiller::run()
 		proceed(ToLocalFile(url));
 	}
 	Indicator::Self().delTask(taskID);
+	Database::Self().GenSignalUpdate();
 }
 
 int CollectionFiller::proceed(QString path)
