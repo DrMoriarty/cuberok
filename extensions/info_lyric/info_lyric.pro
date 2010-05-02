@@ -1,7 +1,8 @@
  QT += xml network webkit
  CONFIG       += release
  TEMPLATE      = lib
- CONFIG       += plugin static
+ CONFIG       += plugin static precompile_header
+ PRECOMPILED_HEADER = ../../include/stable.h
  INCLUDEPATH  += ../../src ../../include
  HEADERS       = \
  	../../include/interfaces.h \

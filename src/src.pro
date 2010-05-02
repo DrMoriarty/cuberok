@@ -1,5 +1,6 @@
-CONFIG += qt release
+CONFIG += qt release precompile_header
 QT += sql xml network webkit
+PRECOMPILED_HEADER = ../include/stable.h
 
 #TEMPLATE = app
 #TARGET = 

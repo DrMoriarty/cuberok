@@ -23,7 +23,7 @@
 #include "global.h"
 #include "tagger.h"
 
-#define DB_VERSION 8
+#define DB_VERSION 9
 
 static QSqlDatabase db;
 Proxy* Database::proxy = 0;
@@ -62,11 +62,9 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
             QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), mbid varchar(50))", db);
             QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer, mbid varchar(50))", db);
             QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
-            //QSqlQuery q3("create table Mark (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer)", db);
-            QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer, Type varchar(30))", db);
+            QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer, Type varchar(30), Date varchar(50))", db);
             QSqlQuery q5("create table Version (value integer)", db);
             QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
-            //QSqlQuery q7("create table Playlist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), list varchar(250))", db);
 			QSqlQuery q8("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
             QSqlQuery q9("create table SQLPlaylist (ID integer primary key autoincrement, value varchar(200), art varchar(250), data varchar(250))", db);
             open = true;
@@ -181,9 +179,13 @@ bool Database::updateDatabase(int fromver)
 			}
 		}
         QSqlQuery q2("drop table Playlist", db);
+		QSqlDatabase::removeDatabase("tempLibraryDB");
 		qDebug("Update database from version 7");
 	}
-		QSqlDatabase::removeDatabase("tempLibraryDB");
+	case 8: {
+		QSqlQuery q0("alter table Song add column Date varchar(50)", db);
+		qDebug("Update database from version 8");
+	}
     }
     proxy->message("Database update from version "+QString::number(fromver));
     QSqlQuery q1("delete from Version", db);
@@ -243,7 +245,7 @@ int Database::AddFile(QString file)
         int gen = _AddGenre(genre);
         //QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment) values ('%1', %2, '%3', %4, %5, %6, %7, '%8')")
         //.arg(file, QString::number(fr.tag()->track()), QS(fr.tag()->title()), QString::number(art), QString::number(alb), QString::number(gen), QString::number(fr.tag()->year()), QS(fr.tag()->comment()));
-        QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment, Length, Type) values (:file, %1, :title, %2, %3, %4, %5, :comment, :length, :type) ")
+        QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment, Length, Type, Date) values (:file, %1, :title, %2, %3, %4, %5, :comment, :length, :type, :date) ")
         .arg(QString::number(track), QString::number(art), QString::number(alb), QString::number(gen), QString::number(year));
         QSqlQuery q("", db);
         q.prepare(com);
@@ -252,6 +254,7 @@ int Database::AddFile(QString file)
         q.bindValue(":comment", comment);
         q.bindValue(":length", length);
 		q.bindValue(":type", type);
+		q.bindValue(":date", QDateTime::currentDateTime().toString(Qt::ISODate));
         q.exec();
         QSqlQuery q1("", db);
         q1.prepare("select ID from Song where File = :file");

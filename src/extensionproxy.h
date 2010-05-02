@@ -44,6 +44,7 @@ class ExtensionProxy : public Proxy {
 	virtual long setRequest(const SRequest& request);
 	virtual void setResponse(long requestId, const SInfo& info);
 	virtual void delRequest(long requestId);
+	virtual void setPlControl(const SPlControl& plcontrol);
 
 	virtual SControl getControl();
 	virtual SStatus  getStatus();
@@ -53,6 +54,7 @@ class ExtensionProxy : public Proxy {
 	virtual SInfo    getInfo(int type);
 	virtual SRequest getRequest();
 	virtual bool     infoExist(int type);
+	virtual SPlControl getPlControl();
 
 	virtual bool hasVariable(QString varname);
 	virtual QString getVariable(QString varname);
@@ -66,6 +68,10 @@ class ExtensionProxy : public Proxy {
 	void storeState();
 
 	const QVector<Extension*>& extensionList();
+
+ signals:
+	void aboutToUpdate(int);
+
  protected:
 	ExtensionProxy();
 	void update(int);
@@ -82,6 +88,7 @@ class ExtensionProxy : public Proxy {
 	int transflag;
 	long nextRequest;
 	QTimer reqTimer;
+	SPlControl plcontrol;
 
  private slots:
 	void requestTimeout();

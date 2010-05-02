@@ -68,6 +68,7 @@ class BrowserViewer: public QWidget
 	void itemActivated(QListWidgetItem*);
 	//void dlComplete(QString);
 	//void dlCancel(QString);
+	void addUrl(QString);
 };
 
 #endif // BROWSER_VIEWER_H
