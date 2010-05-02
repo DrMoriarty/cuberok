@@ -812,6 +812,27 @@ void PlaylistStandard::removeSong()
 	}
 }
 
+void PlaylistStandard::deleteSong()
+{
+	QList<int> list;
+	foreach(QModelIndex ind, view->getSelectedIndexes()) {
+		if(!list.contains(ind.row())) 
+			list << ind.row();
+	}
+	qSort(list.begin(), list.end(), qGreater<int>());
+	foreach(int ind, list) {
+		if(curindex.row() == view->mapToSource(ind, 0).row()) {
+			curindex = model.index(-1, 0);
+			view->setCurrentIndex(curindex);
+		}
+		view->model()->removeRows(ind, 1);
+		QString file = view->model()->data(model.index(ind, PlaylistModel::File), Qt::UserRole).toUrl().toLocalFile();
+		if(file.size() && QFile::exists(file)) {
+			QFile::remove(file);
+		}
+	}
+}
+
 void PlaylistStandard::reloadTags()
 {
 	foreach(QModelIndex ind, view->getSelectedIndexes()) {
@@ -968,6 +989,7 @@ Playlist* PlaylistStandardFactory::getNewPlaylist(QString type, QWidget* parent,
 		QObject::connect(actionReloadTags, SIGNAL(triggered()), pl, SLOT(reloadTags()));
 		QObject::connect(actionRemoveSong, SIGNAL(triggered()), pl, SLOT(removeSong()));
 		QObject::connect(actionClear_playlist, SIGNAL(triggered()), pl, SLOT(clear()));
+		QObject::connect(actionDeleteSong, SIGNAL(triggered()), pl, SLOT(deleteSong()));
 		return pl;
 	}
 //	if(type == "WinAmp style") return new PlaylistWinamp(name, parent);

@@ -150,6 +150,7 @@ public slots:
 	virtual void queueNext();
 	virtual void editTag();
 	virtual void removeSong();
+	virtual void deleteSong();
 	virtual void reloadTags();
 	virtual void setFilter(QString s);
 private slots:
