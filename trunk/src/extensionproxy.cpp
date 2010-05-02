@@ -211,6 +211,13 @@ void ExtensionProxy::delRequest(long requestId)
 	qDebug("not found request %ld\n", requestId);
 }
 
+void ExtensionProxy::setPlControl(const SPlControl& plcontrol)
+{
+	this->plcontrol = plcontrol;
+	if(transaction) transflag |= DisturbOnPlControl;
+	else update(DisturbOnPlControl);
+}
+
 SControl ExtensionProxy::getControl()
 {
 	return control;
@@ -247,6 +254,12 @@ bool ExtensionProxy::infoExist(int type)
 	return info.contains(type);
 }
 
+SPlControl ExtensionProxy::getPlControl()
+{
+	return plcontrol;
+}
+
+
 SRequest ExtensionProxy::getRequest()
 {
 	if(requests.size())
@@ -271,6 +284,7 @@ void ExtensionProxy::setVariable(QString varname, QString value)
 
 void ExtensionProxy::update(int flag)
 {
+	emit aboutToUpdate(flag);
 	if(flag) {
 		foreach(Extension* e, extensions) {
 			if(!e->ready()) continue;

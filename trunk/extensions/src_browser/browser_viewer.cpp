@@ -137,18 +137,18 @@ void BrowserViewer::itemActivated(QListWidgetItem* it)
 		pathItems << it->data(Qt::DisplayRole).toString();
 		history << current;
 		goTo(id, it->text());
-	} /*else if(url.size()) {
-		if(url.toLower().indexOf("xspf") >= 0) { // need to download a playlist
+	} else if(url.size()) {
+		/*if(url.toLower().indexOf("xspf") >= 0) { // need to download a playlist
 			dl = new Downloader();
 			connect(dl, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 			connect(dl, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
 			if(!dl->download(QUrl(url))) {
 				delete dl;
 			}
-		} else {  // this is a direct link to stream
-			emit openUrl(QUrl(url));
+			} else*/ {  // this is a direct link to stream
+			addUrl(url);
 		}
-	}*/
+	}
 }
 
 void BrowserViewer::back()
@@ -228,4 +228,9 @@ void BrowserViewer::dlCancel(QString err)
 */
 void BrowserViewer::storeState()
 {
+}
+
+void BrowserViewer::addUrl(QString url)
+{
+	//proxy->setPlControl(SPlControl(SPlControl::Append, url));
 }

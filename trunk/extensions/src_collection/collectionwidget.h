@@ -34,8 +34,10 @@ class CollectionWidget: public QWidget
 	
  private:
 	Ui::CollectionWidget ui;
+	Proxy *proxy;
  private slots:
 	void colmodeChanged(int);
+	void addUrl(QUrl);
 };
 
 #endif //LIBRARYWIDGET_H

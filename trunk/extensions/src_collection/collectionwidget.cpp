@@ -21,7 +21,7 @@
 #include "database.h"
 
 CollectionWidget::CollectionWidget(Proxy* proxy, QWidget *parent)
-	:QWidget(parent)
+	:QWidget(parent), proxy(proxy)
 {
 	ui.setupUi(this);
 	ui.colView->setProxy(proxy);
@@ -33,8 +33,10 @@ CollectionWidget::CollectionWidget(Proxy* proxy, QWidget *parent)
     colmodeGroup->addAction(ui.actionArtistMode);
     colmodeGroup->addAction(ui.actionAlbumMode);
     colmodeGroup->addAction(ui.actionSongMode);
+	colmodeGroup->addAction(ui.actionSqlMode);
     ui.actionGenreMode->setChecked(true);
 	connect(ui.colView, SIGNAL(modeChanged(int)), this, SLOT(colmodeChanged(int)));
+	connect(ui.colView, SIGNAL(addUrl(QUrl)), this, SLOT(addUrl(QUrl)));
 
 	QSettings set;
 	if(set.value("iconview", false).toBool())
@@ -91,4 +93,9 @@ void CollectionWidget::colmodeChanged(int m)
 void CollectionWidget::updateInfo()
 {
 	ui.colView->infoResponse();
+}
+
+void CollectionWidget::addUrl(QUrl url)
+{
+	proxy->setPlControl(SPlControl(SPlControl::Append, url.toString()));
 }

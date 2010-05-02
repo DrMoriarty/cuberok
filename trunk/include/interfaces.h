@@ -35,6 +35,7 @@ enum Disturbs {
 	DisturbOnUrl = 0x08,
 	DisturbOnInfo = 0x10,
 	DisturbOnRequest = 0x20,
+	DisturbOnPlControl = 0x40,
 	DisturbAlways = 0xffff
 };
 
@@ -49,6 +50,19 @@ class SControl {
 
 	SControl() : command(0), value(.0f) {};
 	SControl(int c, float v = .0f) :command(c), value(v) {};
+};
+
+class SPlControl {
+	public:
+	enum Command {
+		Nothing = 0,
+		Append, New, Close, Next, Previous
+	};
+	int command;
+	QString value;
+
+	SPlControl() : command(0) {};
+	SPlControl(int c, QString val = QString()): command(c), value(val) {};
 };
 
 class SStatus {
@@ -138,6 +152,7 @@ class Proxy : public QObject
 	virtual long setRequest(const SRequest& request) = 0;
 	virtual void setResponse(long requestId, const SInfo& info) = 0;
 	virtual void delRequest(long requestId) = 0;
+	virtual void setPlControl(const SPlControl& plcontrol) = 0;
 
 	virtual SControl getControl() = 0;
 	virtual SStatus  getStatus() = 0;
@@ -147,6 +162,7 @@ class Proxy : public QObject
 	virtual SInfo    getInfo(int type) = 0;
 	virtual SRequest getRequest() = 0;
 	virtual bool     infoExist(int type) = 0;
+	virtual SPlControl getPlControl() = 0;
 
 	virtual bool hasVariable(QString varname) = 0;
 	virtual QString getVariable(QString varname) = 0;

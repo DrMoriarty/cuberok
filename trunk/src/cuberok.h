@@ -94,6 +94,7 @@ private slots:
 	void timeSlot();
 	void storeShortcuts();
 	void restoreShortcuts();
+	void extensionSupervisor(int flag);
 
 public slots:
 	void lookAndFeel();

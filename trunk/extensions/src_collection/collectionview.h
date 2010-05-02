@@ -81,6 +81,7 @@ public slots:
 	void albumMode();
 	void genreMode();
 	void songMode();
+	void sqlMode();
 	void addItem();
 	void removeItem();
 	void filter(QString);

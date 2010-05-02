@@ -538,6 +538,11 @@ void CollectionView::songMode()
 	model.updateMode(M_SONG);
 }
 
+ void CollectionView::sqlMode()
+ {
+	 model.updateMode(M_SQLLIST);
+ }
+
 void CollectionView::addItem()
 {
 	switch(model.mode) {
@@ -552,6 +557,9 @@ void CollectionView::addItem()
 		break;
 	case M_SONG:
 		return;
+	case M_SQLLIST:
+		Database::Self().AddSQLPlaylist("New SQL Playlist");
+		break;
 	}
 	model.update();
 }
@@ -572,6 +580,9 @@ void CollectionView::removeItem()
 		case M_SONG:
 			Database::Self().RemoveFile(model.itemFromIndex(ind)->data().toString());
 			break;
+		case M_SQLLIST:
+			Database::Self().RemoveSQLPlaylist(model.itemFromIndex(ind)->data().toString());
+			break;
 		}
     }
 	//model.updateMode(model.mode);
@@ -587,7 +598,6 @@ void CollectionView::filter(QString patt)
 
 void CollectionView::applySubset(QModelIndex ind)
 {
-	emit setVisibleSubsetWidgets(true);
 	QString value = model.data(ind).toString();
 	switch(model.mode) {
 	case M_ALBUM:
@@ -605,7 +615,15 @@ void CollectionView::applySubset(QModelIndex ind)
 	case M_SONG:  // add a song into the playlist
 		emit addUrl(QUrl::fromLocalFile(model.itemFromIndex(ind)->data().toString()));
 		return;
+	case M_SQLLIST: {
+		QList<QString> songs = Database::Self().SongsBySQLPlaylist(value);
+		foreach(QString str, songs) {
+			emit addUrl(QUrl(str));
+		}
+		return;
 	}
+	}
+	emit setVisibleSubsetWidgets(true);
 	subsetLabel += QDir::separator() + value;
 	emit setSubsetLabel(subsetLabel);
 	//model.update();
@@ -637,6 +655,8 @@ void CollectionView::setImage()
 		break;
 	case M_SONG:
 		return;
+	case M_SQLLIST:
+		break;
 	}
 	QString path = "";
 	if(data.size()) {
@@ -661,6 +681,8 @@ void CollectionView::setImage()
 				break;
 			case M_SONG:
 				return;
+			case M_SQLLIST:
+				Database::Self().ArtForSQLPlaylist(model.data(ind).toString(), filename);
 			}
 		}
 		model.update();

@@ -20,8 +20,9 @@
      <addaction name="actionArtistMode"/>
      <addaction name="actionAlbumMode"/>
      <addaction name="actionSongMode"/>
-     <addaction name="actionIconView"/>
+     <addaction name="actionSqlMode"/>
      <addaction name="separator"/>
+     <addaction name="actionIconView"/>
      <addaction name="actionSetImage"/>
      <addaction name="actionGetImageFromLastFM"/>
     </widget>
@@ -249,12 +250,30 @@
     <string>Remove selected item from collection</string>
    </property>
   </action>
+  <action name="actionSqlMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/def_sqllist.png</normaloff>:/icons/def_sqllist.png</iconset>
+   </property>
+   <property name="text">
+    <string>SQL Playlists</string>
+   </property>
+   <property name="toolTip">
+    <string>SQL Playlists</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
    <class>CollectionView</class>
    <extends>QListView</extends>
    <header>collectionview.h</header>
+   <slots>
+    <slot>sqlMode()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
@@ -466,6 +485,22 @@
     <hint type="destinationlabel">
      <x>149</x>
      <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlMode</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>sqlMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>175</y>
     </hint>
    </hints>
   </connection>

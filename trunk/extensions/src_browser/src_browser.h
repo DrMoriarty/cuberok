@@ -45,6 +45,7 @@ class Src_Browser : public Extension
 
  private:
 	BrowserViewer* widget;
+
 };
 
 #endif //SRC_BROWSER_H

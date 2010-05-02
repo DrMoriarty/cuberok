@@ -345,6 +345,10 @@ p, li { white-space: pre-wrap; }
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>SQL Playlists</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsoleWindow</name>
