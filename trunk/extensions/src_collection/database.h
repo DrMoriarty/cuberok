@@ -110,6 +110,12 @@ public:
 	void cleanUpArtists();
 	void cleanUpGenres();
 
+ signals:
+	void DataUpdate();
+
+ public slots:
+	void GenSignalUpdate();
+	
  private:
     Database();
     bool open;

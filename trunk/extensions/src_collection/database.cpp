@@ -1347,3 +1347,8 @@ void Database::SetFileType(QString file, QString type)
 	q.bindValue(":file", file);
 	q.exec();
 }
+
+void Database::GenSignalUpdate()
+{
+	emit DataUpdate();
+}

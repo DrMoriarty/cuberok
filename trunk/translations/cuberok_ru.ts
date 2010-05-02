@@ -216,6 +216,14 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Закрыть</translation>
     </message>
     <message>
+        <source>Operation was started in background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scaning collection will take a couple minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
