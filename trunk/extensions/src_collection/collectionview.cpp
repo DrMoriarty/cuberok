@@ -27,6 +27,7 @@
 #include "playlistsettings.h"
 #include "collectionfiller.h"
 #include <QtXml>
+#include "sqledit.h"
 
 /************************
  * 
@@ -443,7 +444,7 @@ void CollectionView::dropEvent(QDropEvent *event)
     if (event->mimeData()->hasUrls()) {
     	QList<QUrl> urls = event->mimeData()->urls();
     	foreach(QUrl url, urls) {
-    		Database::Self().AddFile(url.toLocalFile());
+    		Database::Self().AddFile(ToLocalFile(url));
     	}
         event->acceptProposedAction();
         updateModel(mode);
@@ -843,7 +844,26 @@ void CollectionView::storeState()
 {
 }
 
- void CollectionView::dataUpdate()
- {
-	 model.update();
- }
+void CollectionView::dataUpdate()
+{
+	model.update();
+}
+
+void CollectionView::editItem()
+{
+	if(!this->selectedIndexes().size()) return;
+	QModelIndex ind = this->selectedIndexes()[0];
+	switch(model.mode) {
+	case M_ALBUM:
+	case M_ARTIST:
+	case M_GENRE:
+	case M_SONG:
+		edit(ind);
+		break;
+	case M_SQLLIST: {
+		SQLEdit *ed = new SQLEdit(model.data(ind).toString(), this);
+		ed->exec();
+	}
+		break;
+	}
+}

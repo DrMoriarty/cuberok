@@ -349,6 +349,10 @@ p, li { white-space: pre-wrap; }
         <source>SQL Playlists</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsoleWindow</name>

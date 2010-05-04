@@ -107,6 +107,7 @@ class PlaylistAbstract : public Playlist
 	void updateStatus();
  private slots:
 	void timerSlot();
+	void dnComplete(QString);
 
  protected:
 	Proxy *proxy;
@@ -125,6 +126,7 @@ class PlaylistAbstract : public Playlist
 	int error_count;
     QString info;
 	QTimer timer;
+	MultyDownloader downloader;
 
     virtual QModelIndex nextItem() = 0;
     virtual QModelIndex prevItem() = 0;

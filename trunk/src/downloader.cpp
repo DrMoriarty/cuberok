@@ -235,3 +235,56 @@ void SyncDownloader::cancel(QString err)
 	mutex.unlock();
 }
 
+MultyDownloader::MultyDownloader(Proxy *p)
+{
+	Proxy *pr = p;
+	if(!pr) pr = &EProxy;
+	dn = new Downloader(pr);
+	connect(dn, SIGNAL(complete(QString)), this, SLOT(dnComplete(QString)));
+	connect(dn, SIGNAL(cancel(QString)), this, SLOT(dnCancel(QString)));
+}
+
+MultyDownloader::~MultyDownloader()
+{
+	delete dn;
+}
+
+void MultyDownloader::download(QUrl url, QString file)
+{
+	if(dn->done()) {
+		dn->download(url, file);
+	} else {
+		cache << url.toString();
+		cache << file;
+	}
+}
+
+void MultyDownloader::dnComplete(QString file)
+{
+	emit complete(file);
+	processCache();
+}
+
+void MultyDownloader::dnCancel(QString err)
+{
+	processCache();
+}
+
+void MultyDownloader::processCache()
+{
+	if(cache.size()) {
+		QUrl url = QUrl(cache.front());
+		cache.pop_front();
+		QString file;
+		if(cache.size()) {
+			file = cache.front();
+			cache.pop_front();
+		}
+		dn->download(url, file);
+	}
+}
+
+bool MultyDownloader::done()
+{
+	return !cache.size() && dn->done();
+}

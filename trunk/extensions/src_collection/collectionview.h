@@ -92,6 +92,7 @@ public slots:
 	void loadImage();
 	void storeState();
 	void infoResponse();
+	void editItem();
 	
 private slots:
 	void dlComplete(QString file);

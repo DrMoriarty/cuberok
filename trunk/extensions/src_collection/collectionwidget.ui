@@ -118,6 +118,7 @@
       <bool>true</bool>
      </property>
      <addaction name="actionAddToCollection"/>
+     <addaction name="actionEdit"/>
      <addaction name="actionRemoveFromCollection"/>
      <addaction name="actionSetImage"/>
      <addaction name="actionGetImageFromLastFM"/>
@@ -265,6 +266,15 @@
     <string>SQL Playlists</string>
    </property>
   </action>
+  <action name="actionEdit">
+   <property name="icon">
+    <iconset resource="../../src/resource.qrc">
+     <normaloff>:/icons/def_list.png</normaloff>:/icons/def_list.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -273,6 +283,7 @@
    <header>collectionview.h</header>
    <slots>
     <slot>sqlMode()</slot>
+    <slot>editItem()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -493,6 +504,22 @@
    <signal>triggered()</signal>
    <receiver>colView</receiver>
    <slot>sqlMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEdit</sender>
+   <signal>triggered()</signal>
+   <receiver>colView</receiver>
+   <slot>editItem()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

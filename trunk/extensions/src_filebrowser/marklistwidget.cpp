@@ -17,6 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "global.h"
 #include "marklistwidget.h"
 
 MarkListWidget::MarkListWidget(QWidget* parent) : QListWidget(parent)
@@ -39,7 +40,7 @@ bool MarkListWidget::dropMimeData(int index, const QMimeData* data, Qt::DropActi
     
 	if(data->hasUrls()) {
 		foreach(QUrl url, data->urls()) {
-			addItem(url.toLocalFile());
+			addItem(ToLocalFile(url));
 		}
 	} else if(data->hasText()) {
 		addItem(data->text());

@@ -72,5 +72,27 @@ class SyncDownloader : public QThread
 	void cancel(QString);
 };
 
+class MultyDownloader: public QObject
+{
+	Q_OBJECT
+ public:
+	MultyDownloader(Proxy* p = 0);
+	~MultyDownloader();
+	void download(QUrl url, QString file = "");
+	bool done();
+	
+ signals:
+	void complete(QString);
+
+ private:
+	Downloader *dn;
+	QStringList cache;
+	void processCache();
+
+ private slots:
+	void dnComplete(QString);
+	void dnCancel(QString);
+	
+};
 
 #endif //DOWNLOADER_H
