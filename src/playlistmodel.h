@@ -40,19 +40,19 @@ public:
     void run();
 protected:
 	void proceedUrl(QUrl url);
-	void proccessCache();
+	/* void proccessCache(); */
 	
 	QList<QUrl> paths;
 	int index;
 	bool cancel;
 	QList<QUrl> processedFiles;
-	Downloader *downloader;
-	QList<QUrl> downloadCache;
+	MultyDownloader *downloader;
+	/* QList<QUrl> downloadCache; */
 
  private slots:
 	void cancelEvent();
 	void dlComplete(QString);
-	void dlCancel(QString);
+	/* void dlCancel(QString); */
 
 signals:
 	void sendFile(QUrl str, int index, QList<QVariant>, long, long);

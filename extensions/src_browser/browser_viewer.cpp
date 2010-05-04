@@ -232,5 +232,6 @@ void BrowserViewer::storeState()
 
 void BrowserViewer::addUrl(QString url)
 {
-	//proxy->setPlControl(SPlControl(SPlControl::Append, url));
+	qDebug() << "Append url " << url;
+	proxy->setPlControl(SPlControl(SPlControl::Append, url));
 }

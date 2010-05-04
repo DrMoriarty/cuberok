@@ -179,13 +179,14 @@ int MyTreeView::rowCount()
  ***********************/ 
 
 PlaylistAbstract::PlaylistAbstract(QString &str, Proxy *pr, QWidget *parent) : Playlist(str, parent)
-, proxy(pr), autosave(false), playing(false), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0)
+																			 , proxy(pr), autosave(false), playing(false), delayedPlay(false), delayedIndex(-1), delayedPos(0.0), error_count(0), downloader(pr)
 {
 	timer.setSingleShot(true);
 	timer.setInterval(500);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
 	connect(&model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(updateStatus()));
 	connect(&model, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(updateStatus()));
+	connect(&downloader, SIGNAL(complete(QString)), this, SLOT(dnComplete(QString)));
 }
 
 PlaylistAbstract::~PlaylistAbstract()
@@ -275,9 +276,19 @@ void PlaylistAbstract::loadList(QString fname)
 
 void PlaylistAbstract::addUrl(QUrl url)
 {
-	QList<TagEntry> list = Tagger::readEntry(url);
-	proxy->log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
-	model.appendList(list);
+	QString path = ToLocalFile(url);
+	if(!path.size() && Tagger::playlistDetected(url)) {
+		downloader.download(url);
+	} else {
+		QList<TagEntry> list = Tagger::readEntry(url);
+		proxy->log("Add URL: "+url.toString() + " " + QString::number(list.size()) + " record(s)");
+		model.appendList(list);
+	}
+}
+
+void PlaylistAbstract::dnComplete(QString file)
+{
+	addUrl(QUrl::fromLocalFile(file));
 }
 
 bool PlaylistAbstract::isPlaying()
@@ -826,7 +837,7 @@ void PlaylistStandard::deleteSong()
 			view->setCurrentIndex(curindex);
 		}
 		view->model()->removeRows(ind, 1);
-		QString file = view->model()->data(model.index(ind, PlaylistModel::File), Qt::UserRole).toUrl().toLocalFile();
+		QString file = ToLocalFile(view->model()->data(model.index(ind, PlaylistModel::File), Qt::UserRole).toUrl());
 		if(file.size() && QFile::exists(file)) {
 			QFile::remove(file);
 		}
