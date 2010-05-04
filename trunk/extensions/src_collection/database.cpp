@@ -208,6 +208,18 @@ void Database::CreateDefaultSqlPlaylists()
 	q0.bindValue(":val", tr("Unrated"));
 	q0.bindValue(":dat", "SongRating = 0");
 	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Added today"));
+	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) < 1");
+	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Added this week"));
+	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) <= 7");
+	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Added this month"));
+	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) <= 30");
+	q0.exec();
 }
 
 
