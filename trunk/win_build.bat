@@ -1,6 +1,6 @@
 rem set QTDIR=C:\Qt\4.3.1
 rem set QTDIR=C:\Qt\2009.03\qt
-set QTDIR=C:\Qt\4.6.0
+set QTDIR=C:\Qt\4.6.2
 
 %QTDIR%\bin\lupdate.exe Cuberok.pro 
 %QTDIR%\bin\lrelease.exe translations\cuberok_ru.ts -qm translations\cuberok_ru.qm

@@ -308,7 +308,7 @@
   </connection>
   <connection>
    <sender>actionSetRootCurrentDir</sender>
-   <signal>activated()</signal>
+   <signal>toggled(bool)</signal>
    <receiver>FileBrowserWidget</receiver>
    <slot>setRootCurrent()</slot>
    <hints>
@@ -324,7 +324,7 @@
   </connection>
   <connection>
    <sender>actionOneLevelUp</sender>
-   <signal>activated()</signal>
+   <signal>toggled(bool)</signal>
    <receiver>FileBrowserWidget</receiver>
    <slot>oneLevelUp()</slot>
    <hints>
@@ -356,7 +356,7 @@
   </connection>
   <connection>
    <sender>actionSetCurrentStart</sender>
-   <signal>activated()</signal>
+   <signal>toggled(bool)</signal>
    <receiver>FileBrowserWidget</receiver>
    <slot>rememberStart_files()</slot>
    <hints>
