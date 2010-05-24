@@ -45,6 +45,7 @@ public:
 	virtual void rateCurrent(int offset, int value = 0) = 0;
 	virtual QString curFile() = 0;
 	virtual void setCurrent(int index)= 0;
+	virtual void update(int flag) = 0;
 public slots:
 	virtual void prev() = 0;
 	virtual void next() = 0;

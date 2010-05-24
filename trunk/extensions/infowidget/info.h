@@ -46,7 +46,7 @@ class Info: public QWidget
 	Proxy *proxy;
 	long lyricRequestId, artistRequestId, albumRequestId;
 
-	void updateRating();
+	void updateRating(int rating);
 
  signals:
 	void ban();

@@ -599,6 +599,7 @@ void PlaylistStandard::play()
 	t.tag0.album = alb;
 	t.tag0.track = n;
 	t.tag0.length = len * 75;
+	t.tag0.rating = model.data(model.index(plindex.row(), PlaylistModel::Rating), Qt::UserRole).toInt();
 	proxy->setTags(t);
 
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
@@ -963,6 +964,18 @@ void PlaylistStandard::prepareAlbumList(const QString* except, const QString* no
 			notStartWith = 0;
 			album_queue << cache[i];
 			cache.erase(cache.begin() + i);
+		}
+	}
+}
+
+void PlaylistStandard::update(int flag)
+{
+	if(flag == DisturbOnTags && plindex.row() >= 0) {
+		QString ar = model.data(model.index(plindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
+		QString alb = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
+		STags tags = proxy->getTags();
+		if(tags.tag0.artist == ar && tags.tag0.album == alb) {
+			
 		}
 	}
 }

@@ -145,6 +145,7 @@ public:
     virtual ~PlaylistStandard();
 	virtual QWidget* getWidget();
 	virtual void setCurrent(int index);
+	virtual void update(int flag);
 public slots:
 	virtual void play();
 	virtual void stop();

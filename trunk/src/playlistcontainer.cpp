@@ -70,7 +70,7 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 
 	connect(qApp, SIGNAL(commitDataRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
-
+	connect(&EProxy, SIGNAL(aboutToUpdate(int)), this, SLOT(extensionUpdate(int)));
 }
 
 PlaylistContainer::~PlaylistContainer()
@@ -474,4 +474,9 @@ void PlaylistContainer::findCurrent()
 // a "true" argument means show a "play" icon, false means show "pause"
 void PlaylistContainer::detectPlayPauseIcon (bool playPause) {
      emit updatePlayPauseButton (playPause);
+}
+
+void PlaylistContainer::extensionUpdate(int flag)
+{
+	foreach(Playlist *pl, lists) pl->update(flag);
 }

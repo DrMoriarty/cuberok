@@ -55,15 +55,19 @@ void InfoLastFM::update(int f)
 		switch(r.info.type) {
 		case SInfo::ArtistArt:
 			if(r.info.url.size()) break;
+			artistInfo(t.tag0.artist, r.id, r.info.type);
+			break;
 		case SInfo::ArtistText:
 			if(r.info.text.size()) break;
-			artistInfo(t.tag0.artist, r.id);
+			artistInfo(t.tag0.artist, r.id, r.info.type);
 			break;
 		case SInfo::AlbumArt:
 			if(r.info.url.size()) break;
+			albumInfo(t.tag0.artist, t.tag0.album, r.id, r.info.type);
+			break;
 		case SInfo::AlbumText:
 			if(r.info.text.size()) break;
-			albumInfo(t.tag0.artist, t.tag0.album, r.id);
+			albumInfo(t.tag0.artist, t.tag0.album, r.id, r.info.type);
 			break;
 		default:
 			break;
@@ -122,14 +126,14 @@ void InfoLastFM::requestFinished(int id, bool err)
 				QString artist, album, mbid, imageUrl, info;
 				parseInfo(text, artist, album, mbid, imageUrl, info);
 				if(album.size()) { // album found
-					if(imageUrl.size())
+					if(imageUrl.size() && infoType == SInfo::AlbumArt)
 						proxy->setResponse(requestId, SInfo(SInfo::AlbumArt, "", imageUrl));
-					if(info.size())
+					if(info.size() && infoType == SInfo::AlbumText)
 						proxy->setResponse(requestId, SInfo(SInfo::AlbumText, info, ""));
 				} else if(artist.size()) { // artist found
-					if(imageUrl.size())
+					if(imageUrl.size() && infoType == SInfo::ArtistArt)
 						proxy->setResponse(requestId, SInfo(SInfo::ArtistArt, "", imageUrl));
-					if(info.size())
+					if(info.size() && infoType == SInfo::ArtistText)
 						proxy->setResponse(requestId, SInfo(SInfo::ArtistText, info, ""));
 				}
 				//emit xmlInfo(QString::fromUtf8((const char*)arr));
@@ -156,11 +160,11 @@ void InfoLastFM::doQueue()
 		if(item.size() == 0) {
 			//handshake(PLSet.lastfmUser, PLSet.lastfmPassword);
 			stack.pop_front();
-		} else if(item.size() == 2) {
-			artistInfo(item[0].toString(), item[1].toLongLong());
-			stack.pop_front();
 		} else if(item.size() == 3) {
-			albumInfo(item[0].toString(), item[1].toString(), item[2].toLongLong());
+			artistInfo(item[0].toString(), item[1].toLongLong(), item[2].toInt());
+			stack.pop_front();
+		} else if(item.size() == 4) {
+			albumInfo(item[0].toString(), item[1].toString(), item[2].toLongLong(), item[3].toInt());
 			stack.pop_front();
 		} else if(item.size() == 6) {
 			//nowplaying(item[0].toString(), item[1].toString(), item[2].toString(), item[3].toInt(), item[4].toInt(), item[5].toString());
@@ -172,16 +176,18 @@ void InfoLastFM::doQueue()
 	}
 }
 
-void InfoLastFM::artistInfo(QString artist, long reqId)
+void InfoLastFM::artistInfo(QString artist, long reqId, int itype)
 {
 	if(httpGetId) {
 		QList<QVariant> item;
 		item << artist;
 		item << (long long int)reqId;
+		item << itype;
 		stack << item;
 		return;
 	}
 	requestId = reqId;
+	infoType = itype;
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
 		http.setProxy(proxy->getVariable("proxyHost"),
 					  proxy->getVariable("proxyPort").toInt(),
@@ -202,17 +208,19 @@ void InfoLastFM::artistInfo(QString artist, long reqId)
 	httpGetId = http.get(QString(url.toEncoded()));
 }
 
-void InfoLastFM::albumInfo(QString artist, QString album, long reqId)
+void InfoLastFM::albumInfo(QString artist, QString album, long reqId, int itype)
 {
 	if(httpGetId) {
 		QList<QVariant> item;
 		item << artist;
 		item << album;
 		item << (long long int)reqId;
+		item << itype;
 		stack << item;
 		return;
 	}
 	requestId = reqId;
+	infoType = itype;
 	if(proxy->hasVariable("proxyEnabled") && proxy->getVariable("proxyEnabled") == "true") {
 		http.setProxy(proxy->getVariable("proxyHost"),
 					  proxy->getVariable("proxyPort").toInt(),
