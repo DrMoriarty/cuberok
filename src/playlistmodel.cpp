@@ -122,7 +122,7 @@ void PlaylistModel::addItem(STags tag)
 		*_data.at(row).values[Length] = tag.tag0.slength;
 		*_data.at(row).values[Track] = tag.tag0.track;
 		*_data.at(row).values[Year] = tag.tag0.year;
-		*_data.at(row).values[Rating] = tag.tag0.rating;
+		*_data.at(row).values[Rating] = qVariantFromValue(StarRating(tag.tag0.rating));
 		*_data.at(row).values[CueStart] = QVariant((qlonglong)tag.tag0.start);
 		*_data.at(row).values[CueLength] = QVariant((qlonglong)tag.tag0.length);
 		*_data.at(row).values[DBIndex] = QVariant((qlonglong)tag.tag0.dbindex);
@@ -209,6 +209,10 @@ QVariant PlaylistModel::data(const QModelIndex &index, int role) const
     	if(role == Qt::FontRole) return QVariant(QFont("arial", 10, 75, false));
     	else if(role == Qt::BackgroundRole) return QVariant(QBrush(QColor::fromRgb(128, 200, 200)));
     }
+
+	if(index.column() == Rating && role == Qt::UserRole) {
+		return QVariant(qvariant_cast<StarRating>(*_data.at(index.row()).values[index.column()]).rating());
+	}
     
     switch(role) {
     case Qt::DisplayRole: return *_data.at(index.row()).values[index.column()];

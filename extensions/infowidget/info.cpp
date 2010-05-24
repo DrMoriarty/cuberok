@@ -55,6 +55,10 @@ Info::Info(Proxy* p, QWidget *parent)
 	connect(qApp, SIGNAL(saveStateRequest(QSessionManager&)), this, SLOT(storeState()), Qt::DirectConnection);
 	connect(downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 	connect(downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+	ui.actionBan->setDisabled(true);
+	ui.actionRateDown->setDisabled(true);
+	ui.actionRateUp->setDisabled(true);
+	ui.actionLoveIt->setDisabled(true);
 }
 
 Info::~Info()
@@ -88,7 +92,7 @@ void Info::updateTags(STags tags)
 		ui.label_ar0->setMinimumSize(pm2.size());
 		ui.label_ar0->setMaximumSize(pm2.size());
 	}	
-	if(al != album || album.size()) {
+	if(al != album || !album.size()) {
 		al_complete = false;
 		ui.textEdit_2->setText("");
 		al_pic = false;
@@ -102,10 +106,11 @@ void Info::updateTags(STags tags)
 	al = album;
 	so = song;
 
-	ui.actionBan->setDisabled(true);
-	ui.actionRateDown->setDisabled(true);
-	ui.actionRateUp->setDisabled(true);
-	ui.actionLoveIt->setDisabled(true);
+	bool rr = artist.size() && album.size();
+	ui.actionBan->setEnabled(rr);
+	ui.actionRateDown->setEnabled(rr);
+	ui.actionRateUp->setEnabled(rr);
+	ui.actionLoveIt->setEnabled(rr);
 	int rating = 0;
 	if(artist.size() > MAXLEN) artist = artist.left(MAXLEN) + "...";
  	ui.label_ar1->setText(artist);
@@ -120,8 +125,9 @@ void Info::updateTags(STags tags)
 
 	if(song.size()>MAXLEN) song = song.left(MAXLEN) + "...";
 	ui.label_so1->setText(song);
-	ui.songRating->setStarRating(StarRating(rating));
+	ui.songRating->setStarRating(StarRating(tags.tag0.rating));
 	ui.songRating->noEdit();
+	ui.songRating->update();
 
 	tabChanged(ui.tabWidget->currentIndex());
 }
@@ -139,6 +145,8 @@ void Info::updateRequest()
 					w_al->setText(text);
 				}
 				al_complete = true;
+			} else {
+				proxy->log(tr("No album info"));
 			}
 		}
 		if(!al_pic && req.info.type == SInfo::AlbumArt) {
@@ -159,6 +167,8 @@ void Info::updateRequest()
 					w_ar->setText(text);
 				}
 				ar_complete = true;
+			} else {
+				proxy->log(tr("No artist info"));
 			}
 		}
 		if(!ar_pic && req.info.type == SInfo::ArtistArt) {
@@ -219,30 +229,48 @@ void Info::tabChanged(int t)
 
 void Info::slot_ban()
 {
-	emit ban();
-	updateRating();
+	//emit ban();
+	STags tags = proxy->getTags();
+	tags.tag0.rating = -50;
+	proxy->setTags(tags);
+	updateRating(tags.tag0.rating);
 }
 
 void Info::slot_loveIt()
 {
-	emit loveIt();
-	updateRating();
+	//emit loveIt();
+	STags tags = proxy->getTags();
+	tags.tag0.rating = 50;
+	proxy->setTags(tags);
+	updateRating(tags.tag0.rating);
 }
 
 void Info::slot_rateUp()
 {
-	emit rateUp();
-	updateRating();
+	//emit rateUp();
+	STags tags = proxy->getTags();
+	tags.tag0.rating += 10;
+	if(tags.tag0.rating > 50) tags.tag0.rating = 50;
+	proxy->setTags(tags);
+	updateRating(tags.tag0.rating);
 }
 
 void Info::slot_rateDown()
 {
-	emit rateDown();
-	updateRating();
+	//emit rateDown();
+	STags tags = proxy->getTags();
+	tags.tag0.rating -= 10;
+	if(tags.tag0.rating < -50) tags.tag0.rating = -50;
+	proxy->setTags(tags);
+	updateRating(tags.tag0.rating);
 }
 
-void Info::updateRating()
-{/*
+void Info::updateRating(int rating)
+{
+	ui.songRating->setStarRating(StarRating(rating));
+	ui.songRating->noEdit();
+	ui.songRating->update();
+	/*
 	int rating = 0;
 	Database::Self().pushSubset();
 	Database::Self().subsetArtist(ar);

@@ -43,8 +43,8 @@ class InfoLastFM : public Extension
 
  private:
 
-	void artistInfo(QString artist, long reqId);
-	void albumInfo(QString artist, QString album, long reqId);
+	void artistInfo(QString artist, long reqId, int itype);
+	void albumInfo(QString artist, QString album, long reqId, int itype);
 
 	bool parseInfo(const QString& xml, QString& artist, QString& album, QString& mbid, QString& imageUrl, QString& info);
 
@@ -54,6 +54,7 @@ class InfoLastFM : public Extension
 	QVector< QList<QVariant> > stack;
 	bool needInfo;
 	long requestId;
+	int infoType;
 
  private slots:
 	void requestFinished(int, bool);
