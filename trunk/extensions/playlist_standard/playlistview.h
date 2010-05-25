@@ -132,6 +132,7 @@ class PlaylistAbstract : public Playlist
     virtual QModelIndex prevItem() = 0;
     void resetTags(QModelIndex& ind);
 	void rateSong(QModelIndex &ind, int r, int offset=0);
+	void fillTags(STags& t, int row);
 	virtual void refillShuffleQueue(int except = -1, int notstartwith = -1) = 0;
 };
 

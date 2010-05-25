@@ -284,6 +284,7 @@
    <slots>
     <slot>sqlMode()</slot>
     <slot>editItem()</slot>
+    <slot>filter(QString)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -528,6 +529,22 @@
     <hint type="destinationlabel">
      <x>127</x>
      <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filterLineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>colView</receiver>
+   <slot>filter(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>179</y>
     </hint>
    </hints>
   </connection>

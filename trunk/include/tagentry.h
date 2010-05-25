@@ -50,5 +50,7 @@ typedef struct _TagEntry: _CueEntry {
 
 QDataStream& operator<<(QDataStream& s, const TagEntry& t);
 QDataStream& operator>>(QDataStream& s, TagEntry& t);
+bool operator == (const TagEntry& t1, const TagEntry& t2);
+bool operator != (const TagEntry& t1, const TagEntry& t2);
 
 #endif // TAGENTRY_H
