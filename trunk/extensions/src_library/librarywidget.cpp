@@ -19,10 +19,11 @@
 
 #include "librarywidget.h"
 
-LibraryWidget::LibraryWidget(QWidget *parent)
+LibraryWidget::LibraryWidget(QWidget *parent, Proxy* proxy)
 	:QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.libview->setProxy(proxy);
 }
 
 void LibraryWidget::storeState()

@@ -36,7 +36,7 @@ bool SrcLibrary::prepare()
 	QSettings set;
 	if(proxy) {
 		LibraryDB::Self(proxy).proxy = proxy;
-		widget = new LibraryWidget();
+		widget = new LibraryWidget(0, proxy);
 	}
 	return widget;
 }

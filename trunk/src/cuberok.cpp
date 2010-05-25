@@ -758,26 +758,4 @@ QAction* Cuberok::findActionByName(QString name)
 
 void Cuberok::extensionSupervisor(int flag)
 {
-	switch(flag) {
-	case DisturbOnPlControl:
-		SPlControl pc = ExtensionProxy::Self().getPlControl();
-		switch(pc.command) {
-		case SPlControl::Append:
-			ui.listView->addUrl(QUrl(pc.value));
-			break;
-		case SPlControl::New:
-			ui.listView->addList();
-			break;
-		case SPlControl::Close:
-			ui.listView->delList();
-			break;
-		case SPlControl::Next:
-			ui.listView->next();
-			break;
-		case SPlControl::Previous:
-			ui.listView->prev();
-			break;
-		}
-		break;
-	}
 }

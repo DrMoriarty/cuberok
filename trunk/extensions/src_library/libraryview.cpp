@@ -192,7 +192,7 @@ void LibraryModel::drawStars(QPixmap &bg, int rating, bool song)
  * 
  ************************/
 
-LibraryView::LibraryView(QWidget *parent): QListView(parent)
+LibraryView::LibraryView(QWidget *parent): QListView(parent), proxy(0)
 {
 	setModel(&model);
 	//setViewMode(QListView::IconMode);
@@ -263,12 +263,19 @@ void LibraryView::enterEvent ( QEvent * event )
 
 void LibraryView::sendToPlaylist(QModelIndex ind)
 {
+	proxy->setPlControl(SPlControl(SPlControl::New, model.data(ind).toString()));
 	QList<QUrl> list = model.SelectByItem(ind);
 	foreach(QUrl url, list) {
-		emit addUrl(url);
+		proxy->setPlControl(SPlControl(SPlControl::Append, url.toString()));
+		//emit addUrl(url);
 	}
 }
 
 void LibraryView::storeState()
 {
+}
+
+void LibraryView::setProxy(Proxy* p)
+{
+	proxy = p;
 }
