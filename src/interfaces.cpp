@@ -30,3 +30,26 @@ QDataStream& operator>>(QDataStream& s, STags& v) {
 	s >> v.tag0;
 	return s;
 }
+
+bool operator == (const TagEntry& t1, const TagEntry& t2)
+{
+	return t1.url == t2.url &&
+		t1.start == t2.start &&
+		t1.length == t2.length &&
+		t1.artist == t2.artist &&
+		t1.album == t2.album &&
+		t1.title == t2.title &&
+		t1.track == t2.track &&
+		t1.slength == t2.slength &&
+		t1.comment == t2.comment &&
+		t1.genre == t2.genre &&
+		t1.year == t2.year &&
+		t1.dbindex == t2.dbindex &&
+		t1.rating == t2.rating &&
+		t1.filetype == t2.filetype;
+}
+
+bool operator != (const TagEntry& t1, const TagEntry& t2)
+{
+	return !(t1 == t2);
+}

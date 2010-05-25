@@ -73,6 +73,16 @@ void SrcCollection::update(int d)
 		}
 		Database::Self().popSubset();
 		proxy->endTransaction();
+		// update tags in the DB
+		QString file = ToLocalFile(tags.tag0.url);
+		if(file.size()) {
+			STags oldtags;
+			if(Database::Self().GetTags(file, oldtags)) {
+				if(tags.tag0 != oldtags.tag0) {
+					Database::Self().SetTags(file, tags);
+				}
+			}
+		}
 	}
 }
 

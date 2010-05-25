@@ -389,6 +389,9 @@ void PlaylistAbstract::updateTag(TagEditor* ed)
 	addItem(QString::number(ed->tag.tag0.track), PlaylistModel::Track, &ind);
 	addItem(ed->tag.tag0.genre, PlaylistModel::Genre, &ind);
 	addItem(qVariantFromValue(StarRating(ed->tag.tag0.rating)), PlaylistModel::Rating, &ind);
+	if(ed->index == plindex.row()) {
+		proxy->setTags(ed->tag);
+	}
 }
 
 void PlaylistAbstract::resetTags(QModelIndex& ind)
@@ -506,6 +509,20 @@ void PlaylistAbstract::findCurrent()
 	}
 }
 
+void PlaylistAbstract::fillTags(STags& t, int row)
+{
+	t.tag0.url = model.data(model.index(row, PlaylistModel::File), Qt::UserRole).toUrl();
+	t.tag0.title = model.data(model.index(row, PlaylistModel::Title), Qt::DisplayRole).toString();
+	t.tag0.artist = model.data(model.index(row, PlaylistModel::Artist), Qt::DisplayRole).toString();
+	t.tag0.album = model.data(model.index(row, PlaylistModel::Album), Qt::DisplayRole).toString();
+	t.tag0.genre = model.data(model.index(row, PlaylistModel::Genre), Qt::DisplayRole).toString();
+	t.tag0.track = model.data(model.index(row, PlaylistModel::Track), Qt::DisplayRole).toInt();
+	t.tag0.year = model.data(model.index(row, PlaylistModel::Year), Qt::DisplayRole).toInt();
+	t.tag0.comment = model.data(model.index(row, PlaylistModel::Comment), Qt::DisplayRole).toString();
+	t.tag0.rating = model.data(model.index(row, PlaylistModel::Rating), Qt::UserRole).toInt();
+	t.tag0.length = model.data(model.index(plindex.row(), PlaylistModel::CueLength), Qt::DisplayRole).toLongLong();
+}
+
 /***********************
  * 
  *    PlaylistStandard
@@ -594,12 +611,7 @@ void PlaylistStandard::play()
 		LibreFM::Self().nowplaying(ar, info, alb, 0, n);
 	}*/
 	STags t;
-	t.tag0.title = info;
-	t.tag0.artist = ar;
-	t.tag0.album = alb;
-	t.tag0.track = n;
-	t.tag0.length = len * 75;
-	t.tag0.rating = model.data(model.index(plindex.row(), PlaylistModel::Rating), Qt::UserRole).toInt();
+	fillTags(t, plindex.row());
 	proxy->setTags(t);
 
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
@@ -789,14 +801,7 @@ void PlaylistStandard::editTag()
 {
 	if(curindex.row() >= 0) {
 		STags t;
-		t.tag0.url = model.data(model.index(curindex.row(), PlaylistModel::File), Qt::UserRole).toUrl();
-		t.tag0.title = model.data(model.index(curindex.row(), PlaylistModel::Title), Qt::DisplayRole).toString();
-		t.tag0.artist = model.data(model.index(curindex.row(), PlaylistModel::Artist), Qt::DisplayRole).toString();
-		t.tag0.album = model.data(model.index(curindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
-		t.tag0.genre = model.data(model.index(curindex.row(), PlaylistModel::Genre), Qt::DisplayRole).toString();
-		t.tag0.track = model.data(model.index(curindex.row(), PlaylistModel::Track), Qt::DisplayRole).toInt();
-		t.tag0.year = model.data(model.index(curindex.row(), PlaylistModel::Year), Qt::DisplayRole).toInt();
-		t.tag0.comment = model.data(model.index(curindex.row(), PlaylistModel::Comment), Qt::DisplayRole).toString();
+		fillTags(t, curindex.row());
 
 		TagEditor *te = new TagEditor(t, 0);
 		te->index = curindex.row();
@@ -975,7 +980,8 @@ void PlaylistStandard::update(int flag)
 		QString alb = model.data(model.index(plindex.row(), PlaylistModel::Album), Qt::DisplayRole).toString();
 		STags tags = proxy->getTags();
 		if(tags.tag0.artist == ar && tags.tag0.album == alb) {
-			
+			model.setData(model.index(plindex.row(), PlaylistModel::Rating), qVariantFromValue(StarRating(tags.tag0.rating)), Qt::EditRole);
+			view->update();
 		}
 	}
 }
