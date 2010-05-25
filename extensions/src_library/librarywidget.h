@@ -22,12 +22,13 @@
 
 #include <QtGui>
 #include "ui_librarywidget.h"
+#include "interfaces.h"
 
 class LibraryWidget: public QWidget
 {
 	Q_OBJECT
  public:
-	LibraryWidget(QWidget* parent = 0);
+	LibraryWidget(QWidget* parent = 0, Proxy* proxy = 0);
 	void storeState();
 	
  private:

@@ -478,5 +478,30 @@ void PlaylistContainer::detectPlayPauseIcon (bool playPause) {
 
 void PlaylistContainer::extensionUpdate(int flag)
 {
+	switch(flag) {
+	case DisturbOnPlControl: {
+		SPlControl pc = ExtensionProxy::Self().getPlControl();
+		switch(pc.command) {
+		case SPlControl::Append:
+			addUrl(QUrl(pc.value));
+			break;
+		case SPlControl::New:
+			newList(pc.value);
+			break;
+		case SPlControl::Close:
+			delList();
+			break;
+		case SPlControl::Next:
+			next();
+			break;
+		case SPlControl::Previous:
+			prev();
+			break;
+		}
+		break;
+	}
+	default:
+		break;
+	}
 	foreach(Playlist *pl, lists) pl->update(flag);
 }

@@ -21,6 +21,7 @@
 #define LIBRARYVIEW_H
 
 #include <QtGui>
+#include "interfaces.h"
 
 class LibraryModel : public QStandardItemModel
 {
@@ -51,6 +52,7 @@ class LibraryView: public QListView
 public:
 	LibraryView(QWidget *parent = 0);
 	~LibraryView();
+	void setProxy(Proxy* proxy);
 
 public slots:
 	void addItem();
@@ -64,11 +66,12 @@ public slots:
 
  signals:
 	void status(QString);
-	void addUrl(QUrl);
+	//void addUrl(QUrl);
 
  private:
 	LibraryModel model;
 	QString stat;
+	Proxy* proxy;
 
  protected:
 	virtual void enterEvent ( QEvent * event );
