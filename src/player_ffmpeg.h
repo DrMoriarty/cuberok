@@ -20,12 +20,14 @@
 #ifndef PLAYER_FFMPEG_H
 #define PLAYER_FFMPEG_H
 
-#include <QtCore>
-#include "player.h"
 extern "C" {
+#define uint64_t UINT64_C
+//#include <stdint.h>
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 }
+#include <QtCore>
+#include "player.h"
 
 class PlayThread : public QThread
 {
