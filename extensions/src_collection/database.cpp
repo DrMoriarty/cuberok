@@ -184,6 +184,7 @@ bool Database::updateDatabase(int fromver)
 	}
 	case 8: {
 		QSqlQuery q0("alter table Song add column Date varchar(50)", db);
+		CreateDefaultSqlPlaylists2();
 		qDebug("Update database from version 8");
 	}
     }
@@ -208,6 +209,24 @@ void Database::CreateDefaultSqlPlaylists()
 	q0.bindValue(":val", tr("Unrated"));
 	q0.bindValue(":dat", "SongRating = 0");
 	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Added today"));
+	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) < 1");
+	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Added this week"));
+	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) <= 7");
+	q0.exec();
+	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
+	q0.bindValue(":val", tr("Added this month"));
+	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) <= 30");
+	q0.exec();
+	CreateDefaultSqlPlaylists2();
+}
+
+void Database::CreateDefaultSqlPlaylists2()
+{
+	QSqlQuery q0("", db);
 	q0.prepare("insert into SQLPlaylist (value, data) values (:val, :dat)");
 	q0.bindValue(":val", tr("Added today"));
 	q0.bindValue(":dat", "(julianday('now') - julianday(Date, 'utc')) < 1");

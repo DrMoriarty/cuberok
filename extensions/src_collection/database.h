@@ -148,6 +148,7 @@ public:
     bool updateDatabase(int fromver);
     QString subsetFilter();
 	void CreateDefaultSqlPlaylists();
+	void CreateDefaultSqlPlaylists2();
     QMutex lock;
 };
 
