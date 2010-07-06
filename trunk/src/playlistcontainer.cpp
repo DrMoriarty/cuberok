@@ -101,10 +101,13 @@ void PlaylistContainer::storeState()
 	if(actlist) {
 		set.setValue("curlist", actlist->getName());
 		set.setValue("curindex", actlist->curIndex());
-		if(actlist->isPlaying()) {
+		if(actlist->isPlaying() && PlayerManager::Self().playing()) {
 			set.setValue("playing", 1);
 			set.setValue("curpos", actlist->curPosition());
-		} else set.setValue("playing", 0);
+		} else {
+			set.setValue("playing", 0);
+			set.setValue("curpos", actlist->curPosition());
+		}
 	} else {
 		set.remove("curlist");
 		set.remove("curindex");
@@ -136,11 +139,16 @@ void PlaylistContainer::prepare()
 		actlist = p;
  		connect(actlist, SIGNAL(playPauseIcon (bool) ), this, SLOT(detectPlayPauseIcon (bool) ));
 		tabs->setCurrentIndex(tabs->indexOf(p->getWidget()));
-		if(set.value("playing", false).toBool() && curlistname.size()) {
+		if(set.value("playing", 0).toInt() && curlistname.size()) {
 			actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
- 		        emit updatePlayPauseButton (false); // we are playing, so set play/pause to "pause" mode
+			emit updatePlayPauseButton (false); // we are playing, so set play/pause to "pause" mode
 		} else {
 			actlist->setCurrent(set.value("curindex", 0).toInt());
+			if(set.value("curpos", 0.0).toDouble() > 0.0) {
+				//actlist->play(set.value("curindex", 0).toInt(), set.value("curpos", 0.0).toDouble());
+				//PlayerManager::Self().setPause(true);
+			}
+			emit updatePlayPauseButton (true);
 		}
 		break;
 	}
