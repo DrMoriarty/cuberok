@@ -1,4 +1,4 @@
-!define VERSION "0.0.11"
+!define VERSION "0.1.0-rc0"
 
 Name "Cuberok ${VERSION}"
 
@@ -35,8 +35,8 @@ Section "Cuberok"
 
   SectionIn RO
 
-  KillProcDLL::KillProc "cuberok.exe"
-  Sleep 100
+  ;KillProcDLL::KillProc "cuberok.exe"
+  ;Sleep 100
   
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR

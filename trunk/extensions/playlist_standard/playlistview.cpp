@@ -774,6 +774,7 @@ void PlaylistStandard::position(double pos)
 
 void PlaylistStandard::clear()
 {
+	if(!view->isVisible()) return;
 	plindex = curindex = insindex = model.index(-1, 0);
 	queue.clear();
 	prev_queue.clear();
@@ -783,6 +784,7 @@ void PlaylistStandard::clear()
 
 void PlaylistStandard::queueNext()
 {
+	if(!view->isVisible()) return;
 	foreach(QModelIndex i1, view->getSelectedIndexes()) {
 		QModelIndex ind = view->mapToSource(i1);
 		bool duplicate = false;
@@ -799,6 +801,7 @@ void PlaylistStandard::queueNext()
 
 void PlaylistStandard::editTag()
 {
+	if(!view->isVisible()) return;
 	if(curindex.row() >= 0) {
 		STags t;
 		fillTags(t, curindex.row());
@@ -814,6 +817,7 @@ void PlaylistStandard::editTag()
 
 void PlaylistStandard::removeSong()
 {
+	if(!view->isVisible()) return;
 	QList<int> list;
 	foreach(QModelIndex ind, view->getSelectedIndexes()) {
 		if(!list.contains(ind.row())) 
@@ -831,6 +835,7 @@ void PlaylistStandard::removeSong()
 
 void PlaylistStandard::deleteSong()
 {
+	if(!view->isVisible()) return;
 	QList<int> list;
 	foreach(QModelIndex ind, view->getSelectedIndexes()) {
 		if(!list.contains(ind.row())) 
@@ -852,6 +857,7 @@ void PlaylistStandard::deleteSong()
 
 void PlaylistStandard::reloadTags()
 {
+	if(!view->isVisible()) return;
 	foreach(QModelIndex ind, view->getSelectedIndexes()) {
 		QModelIndex i2 = view->mapToSource(ind);
 		resetTags(i2);
