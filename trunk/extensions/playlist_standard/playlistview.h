@@ -98,6 +98,7 @@ class PlaylistAbstract : public Playlist
 	virtual void prev();
 	virtual void next();
 	virtual void play() = 0;
+	virtual void load() = 0;
 	virtual void stop();
 	virtual void findCurrent();
 
@@ -149,6 +150,7 @@ public:
 	virtual void update(int flag);
 public slots:
 	virtual void play();
+	virtual void load();
 	virtual void stop();
 	virtual void clear();
 	virtual void queueNext();

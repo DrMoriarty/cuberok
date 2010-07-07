@@ -145,9 +145,9 @@ void PlaylistContainer::prepare()
 		} else {
 			actlist->setCurrent(set.value("curindex", 0).toInt());
 			if(set.value("curpos", 0.0).toDouble() > 0.0) {
-				//actlist->play(set.value("curindex", 0).toInt(), -(set.value("curpos", 0.0).toDouble()));
+				actlist->play(set.value("curindex", 0).toInt(), -(set.value("curpos", 0.0).toDouble()));
 			}
-			//emit updatePlayPauseButton (true);
+			emit updatePlayPauseButton (true);
 		}
 		break;
 	}

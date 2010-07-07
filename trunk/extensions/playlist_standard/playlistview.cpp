@@ -336,12 +336,12 @@ void PlaylistAbstract::play(int index, double pos)
 {
 	if(index >= 0 && index < model.rowCount()) {
 		setCurrent(index);
-		play();
 		if(pos >= 0 && pos <= 1) {
+			play();
 			PlayerManager::Self().setPosition(pos);
 			//position(pos);
 		} else if(pos >= -1.0 && pos < 0.0) {
-			PlayerManager::Self().setPause(true);
+			load();
 			PlayerManager::Self().setPosition(-pos);
 		}
 	} else {
@@ -559,7 +559,7 @@ QWidget* PlaylistStandard::getWidget()
 	return view;
 }
 
-void PlaylistStandard::play()
+void PlaylistStandard::load()
 {
 	if(curindex.row() < 0) {
 		curindex = view->mapToSource(0, 0);
@@ -620,6 +620,11 @@ void PlaylistStandard::play()
 
 	connect(&PlayerManager::Self(), SIGNAL(finish()), this, SLOT(playFinished()));
 	connect(&PlayerManager::Self(), SIGNAL(position(double)), this, SLOT(position(double)));
+}
+
+void PlaylistStandard::play()
+{
+	load();
 	PlayerManager::Self().play();
 	playing = true;
 	emit started(this);
