@@ -61,7 +61,7 @@ class PlayerPhonon : public Player
 
  private:
 	qint64 Pstart, Plength, _pos;
-	bool needPos;
+	bool needPos, needPlay;
 	QMap<QString, QString> mimeTypes;
 	
 	Phonon::AudioOutput *audioOutput;

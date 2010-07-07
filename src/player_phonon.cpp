@@ -26,7 +26,7 @@
 
 Q_EXPORT_PLUGIN2(player_phonon, PlayerPhonon) 
 
-PlayerPhonon::PlayerPhonon() : needPos(false)
+PlayerPhonon::PlayerPhonon() : needPos(false), needPlay(false)
 {
 	audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
 	mediaObject = new Phonon::MediaObject(this);
@@ -135,6 +135,7 @@ bool PlayerPhonon::open(QUrl fname, long start, long length)
 
 bool PlayerPhonon::play()
 {
+	needPlay = true;
 	mediaObject->play();
 	//bool wasPlaying = mediaObject->state() == Phonon::PlayingState;
 	
@@ -210,8 +211,10 @@ void PlayerPhonon::stateChanged(Phonon::State newState, Phonon::State oldState )
 {
     switch (oldState) {
 	case Phonon::LoadingState:
-	    /*if(newState == Phonon::StoppedState)*/ {
-		play();
+	    /*if(newState == Phonon::StoppedState)*/
+		if(needPlay)
+		{
+			play();
 	    }
 	    break;
 	default:
