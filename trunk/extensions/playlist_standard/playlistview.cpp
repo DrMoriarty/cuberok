@@ -337,9 +337,13 @@ void PlaylistAbstract::play(int index, double pos)
 	if(index >= 0 && index < model.rowCount()) {
 		setCurrent(index);
 		play();
-		if(pos >= 0 && pos <= 1)
+		if(pos >= 0 && pos <= 1) {
 			PlayerManager::Self().setPosition(pos);
 			//position(pos);
+		} else if(pos >= -1.0 && pos < 0.0) {
+			PlayerManager::Self().setPause(true);
+			PlayerManager::Self().setPosition(-pos);
+		}
 	} else {
 		delayedPlay = true;
 		delayedIndex = index;
