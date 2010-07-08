@@ -25,6 +25,6 @@ unix {
     DESTDIR = ../../unix/plugins
 }
 
-OBJECTS_DIR = $${DESTDIR}/../obj
+OBJECTS_DIR = $${DESTDIR}/../obj/info_lastfm
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj

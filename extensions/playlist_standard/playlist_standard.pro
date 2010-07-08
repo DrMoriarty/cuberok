@@ -46,6 +46,6 @@ mac {
     ICON = ../images/cuberok.icns
 }
 
-OBJECTS_DIR = $${DESTDIR}/../obj
+OBJECTS_DIR = $${DESTDIR}/../obj/playlist_standard
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj

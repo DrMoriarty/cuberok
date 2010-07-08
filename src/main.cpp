@@ -41,20 +41,20 @@ QSharedMemory shm("Cuberok shared memory");
 #include <windows.h>
 void GlobalWinKeys(WId hwnd)
 {
-    RegisterHotKey(hwnd, 100, MOD_SHIFT | MOD_ALT, 'Z');
+    /*RegisterHotKey(hwnd, 100, MOD_SHIFT | MOD_ALT, 'Z');
     RegisterHotKey(hwnd, 200, MOD_SHIFT | MOD_ALT, 'X');
     RegisterHotKey(hwnd, 300, MOD_SHIFT | MOD_ALT, 'C');
     RegisterHotKey(hwnd, 400, MOD_SHIFT | MOD_ALT, 'V');
-    RegisterHotKey(hwnd, 500, MOD_SHIFT | MOD_ALT, 'B');
+    RegisterHotKey(hwnd, 500, MOD_SHIFT | MOD_ALT, 'B');*/
 }
 
 void UnregisterWinKeys(WId hwnd)
 {
-    UnregisterHotKey(hwnd, 100);
+    /*UnregisterHotKey(hwnd, 100);
     UnregisterHotKey(hwnd, 200);
     UnregisterHotKey(hwnd, 300);
     UnregisterHotKey(hwnd, 400);
-    UnregisterHotKey(hwnd, 500);
+    UnregisterHotKey(hwnd, 500);*/
 }
 #endif
 

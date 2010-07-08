@@ -69,6 +69,7 @@ Section "Qt4 library"
   File "win32\QtNetwork4.dll"
   File "win32\QtSql4.dll"
   File "win32\QtXml4.dll"
+  File "win32\QtWebKit4.dll"
   CreateDirectory $INSTDIR\sqldrivers
   File /oname=sqldrivers\qsqlite4.dll "win32\sqldrivers\qsqlite4.dll"
   CreateDirectory $INSTDIR\imageformats

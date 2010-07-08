@@ -34,6 +34,6 @@ unix {
     INSTALLS += target
 }
 
-OBJECTS_DIR = $${DESTDIR}/../obj
+OBJECTS_DIR = $${DESTDIR}/../obj/player_ffmpeg
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj
