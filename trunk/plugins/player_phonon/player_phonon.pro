@@ -34,6 +34,6 @@ unix {
 }
 
 
-OBJECTS_DIR = $${DESTDIR}/../obj
+OBJECTS_DIR = $${DESTDIR}/../obj/player_phonon
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj

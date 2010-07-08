@@ -28,6 +28,8 @@
 class Console: public QObject
 {
 	Q_OBJECT
+private:
+	bool enabled;
  public:
 	enum C_TYPE {C_NONE=0, C_MES, C_WAR, C_ERR, C_FAT};
 
@@ -45,6 +47,7 @@ class Console: public QObject
 	void message(const QString&);
 
 	void log(const QString&, C_TYPE t = C_NONE);
+	void disableLog();
 
 	QStringList plainText(C_TYPE t = C_NONE);
 	QString htmlText(C_TYPE t = C_NONE);

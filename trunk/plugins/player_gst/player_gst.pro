@@ -24,6 +24,6 @@ unix {
     INSTALLS += target
 }
 
-OBJECTS_DIR = $${DESTDIR}/../obj
+OBJECTS_DIR = $${DESTDIR}/../obj/player_gst
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj

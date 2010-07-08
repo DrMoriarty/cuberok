@@ -58,7 +58,7 @@ macx {
     LIBS += -L$${DESTDIR}/plugins -lplayer_phonon
 }
 
-OBJECTS_DIR = $${DESTDIR}/obj
+OBJECTS_DIR = $${DESTDIR}/obj/daemon
 MOC_DIR = $${DESTDIR}/obj
 RCC_DIR = $${DESTDIR}/obj
 UI_DIR = .

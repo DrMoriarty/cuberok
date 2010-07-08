@@ -26,6 +26,6 @@ unix {
     DESTDIR = ../../unix/plugins
 }
 
-OBJECTS_DIR = $${DESTDIR}/../obj
+OBJECTS_DIR = $${DESTDIR}/../obj/scrobbler_librefm
 MOC_DIR = $${DESTDIR}/../obj
 RCC_DIR = $${DESTDIR}/../obj

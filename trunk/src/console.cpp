@@ -25,7 +25,7 @@
  *
  **************/
 
-Console::Console() : level(C_NONE)
+Console::Console() : level(C_NONE), enabled(true)
 {
 }
 
@@ -61,6 +61,7 @@ void Console::message(const QString& s)
 
 void Console::log(const QString& s, C_TYPE t)
 {
+	if(!enabled) return;
 	Log log;
 	
 	log.type = t;
@@ -82,6 +83,11 @@ void Console::log(const QString& s, C_TYPE t)
 		}
 	}
 	emit newMessage(s, t);
+}
+
+void Console::disableLog()
+{
+	enabled = false;
 }
 
 QStringList Console::plainText(C_TYPE t)

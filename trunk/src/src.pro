@@ -217,7 +217,7 @@ macx|win32 {
 }
 
 
-OBJECTS_DIR = $${DESTDIR}/obj
+OBJECTS_DIR = $${DESTDIR}/obj/cuberok
 MOC_DIR = $${DESTDIR}/obj
 RCC_DIR = $${DESTDIR}/obj
 UI_DIR = .

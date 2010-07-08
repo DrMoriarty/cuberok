@@ -80,6 +80,7 @@ Section "Qt4 library"
   File "win32-vs\QtNetwork4.dll"
   File "win32-vs\QtSql4.dll"
   File "win32-vs\QtXml4.dll"
+  File "win32-vs\QtWebKit4.dll"
   File "win32-vs\phonon4.dll"
   CreateDirectory $INSTDIR\phonon_backend
   File /oname=phonon_backend\phonon_ds94.dll "win32-vs\phonon_backend\phonon_ds94.dll"
@@ -135,7 +136,7 @@ Section /o "Sources"
 SectionEnd
 
 Section "Uninstall"
-  KillProcDLL::KillProc "cuberok.exe"
+  ;KillProcDLL::KillProc "cuberok.exe"
   Sleep 100
 
   ; Remove registry keys

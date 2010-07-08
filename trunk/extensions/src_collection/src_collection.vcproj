@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="src_collection"
-	ProjectGUID="{7D29401C-5F98-4B32-B340-53605945D78C}"
+	ProjectGUID="{927B49FD-1233-455C-A669-EE852B398B7F}"
 	>
 	<Platforms>
 		<Platform
@@ -16,7 +16,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\..\..\win32-vs\plugins"
-			IntermediateDirectory=".\..\..\win32-vs\obj"
+			IntermediateDirectory=".\..\..\win32-vs\obj\src_collection"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -39,21 +39,24 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtNetwork /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\QtXml /Ic:\Qt\4.5.0-vs\include\QtSql /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				AdditionalOptions="/Ic:\Qt\4.6.2-vs\include\QtCore /Ic:\Qt\4.6.2-vs\include\QtNetwork /Ic:\Qt\4.6.2-vs\include\QtGui /Ic:\Qt\4.6.2-vs\include\QtXml /Ic:\Qt\4.6.2-vs\include\QtSql /Ic:\Qt\4.6.2-vs\include /Ic:\Qt\4.6.2-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -Zm200 /Fp..\..\win32-vs\obj\src_collection\src_collection_pch.pch "
 				Optimization="1"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\src,..\..\include,."
-				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_NO_DEBUG;QT_STATICPLUGIN;QT_PLUGIN;QT_SQL_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=1;CUBEROK_VERSION_BUI=0;QT_NO_DEBUG;QT_STATICPLUGIN;QT_PLUGIN;QT_SQL_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\..\..\win32-vs\obj/src_collection.pch"
-				AssemblerListingLocation=".\..\..\win32-vs\obj/"
-				ObjectFile=".\..\..\win32-vs\obj/"
-				ProgramDataBaseFileName=".\..\..\win32-vs\obj/"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="stable.h"
+				PrecompiledHeaderFile=".\..\..\win32-vs\obj\src_collection/src_collection.pch"
+				AssemblerListingLocation=".\..\..\win32-vs\obj\src_collection/"
+				ObjectFile=".\..\..\win32-vs\obj\src_collection/"
+				ProgramDataBaseFileName=".\..\..\win32-vs\obj\src_collection/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				ForcedIncludeFiles="stable.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -91,7 +94,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\..\..\win32-vs\plugins"
-			IntermediateDirectory=".\..\..\win32-vs\obj"
+			IntermediateDirectory=".\..\..\win32-vs\obj\src_collection"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -114,19 +117,22 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtNetwork /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include\QtXml /Ic:\Qt\4.5.0-vs\include\QtSql /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				AdditionalOptions="/Ic:\Qt\4.6.2-vs\include\QtCore /Ic:\Qt\4.6.2-vs\include\QtNetwork /Ic:\Qt\4.6.2-vs\include\QtGui /Ic:\Qt\4.6.2-vs\include\QtXml /Ic:\Qt\4.6.2-vs\include\QtSql /Ic:\Qt\4.6.2-vs\include /Ic:\Qt\4.6.2-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -Zm200 /Fp..\..\win32-vs\obj\src_collection\src_collection_pch.pch "
 				Optimization="4"
 				AdditionalIncludeDirectories="..\..\src,..\..\include,."
-				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_STATICPLUGIN;QT_PLUGIN;QT_SQL_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=1;CUBEROK_VERSION_BUI=0;QT_STATICPLUGIN;QT_PLUGIN;QT_SQL_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\..\..\win32-vs\obj/src_collection.pch"
-				AssemblerListingLocation=".\..\..\win32-vs\obj/"
-				ObjectFile=".\..\..\win32-vs\obj/"
-				ProgramDataBaseFileName=".\..\..\win32-vs\obj/"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="stable.h"
+				PrecompiledHeaderFile=".\..\..\win32-vs\obj\src_collection/src_collection.pch"
+				AssemblerListingLocation=".\..\..\win32-vs\obj\src_collection/"
+				ObjectFile=".\..\..\win32-vs\obj\src_collection/"
+				ProgramDataBaseFileName=".\..\..\win32-vs\obj\src_collection/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
+				ForcedIncludeFiles="stable.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -179,6 +185,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -188,6 +195,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -201,6 +209,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -210,6 +219,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -223,6 +233,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -232,6 +243,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -245,6 +257,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -254,6 +267,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -267,6 +281,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -276,6 +291,31 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="importcollection.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -289,6 +329,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -298,6 +339,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -311,6 +353,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -320,6 +363,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -337,7 +381,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionfiller.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionfiller.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionfiller.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionfiller.cpp"
 					/>
 				</FileConfiguration>
@@ -347,7 +391,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionfiller.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionfiller.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionfiller.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionfiller.cpp"
 					/>
 				</FileConfiguration>
@@ -361,7 +405,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionsettings.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionsettings.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionsettings.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionsettings.cpp"
 					/>
 				</FileConfiguration>
@@ -371,7 +415,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionsettings.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionsettings.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionsettings.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionsettings.cpp"
 					/>
 				</FileConfiguration>
@@ -385,7 +429,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionview.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionview.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionview.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionview.cpp"
 					/>
 				</FileConfiguration>
@@ -395,7 +439,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionview.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionview.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionview.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionview.cpp"
 					/>
 				</FileConfiguration>
@@ -409,7 +453,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionwidget.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionwidget.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionwidget.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionwidget.cpp"
 					/>
 				</FileConfiguration>
@@ -419,7 +463,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on collectionwidget.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionwidget.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_collectionwidget.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_collectionwidget.cpp"
 					/>
 				</FileConfiguration>
@@ -433,7 +477,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on database.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_database.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_database.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_database.cpp"
 					/>
 				</FileConfiguration>
@@ -443,8 +487,32 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on database.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_database.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_database.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_database.cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="importcollection.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running MOC on importcollection.h"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_importcollection.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_importcollection.cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running MOC on importcollection.h"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_importcollection.cpp&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\plugins\..\obj\moc_importcollection.cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -457,7 +525,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\include\interfaces.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_interfaces.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_interfaces.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_interfaces.cpp"
 					/>
 				</FileConfiguration>
@@ -467,7 +535,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\include\interfaces.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_interfaces.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_interfaces.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_interfaces.cpp"
 					/>
 				</FileConfiguration>
@@ -481,7 +549,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on sqledit.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_sqledit.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_sqledit.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_sqledit.cpp"
 					/>
 				</FileConfiguration>
@@ -491,7 +559,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on sqledit.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_sqledit.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_sqledit.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_sqledit.cpp"
 					/>
 				</FileConfiguration>
@@ -505,7 +573,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on src_collection.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_src_collection.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_src_collection.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_src_collection.cpp"
 					/>
 				</FileConfiguration>
@@ -515,8 +583,32 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on src_collection.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtNetwork -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include\QtXml -Ic:\Qt\4.5.0-vs\include\QtSql -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_src_collection.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_SQL_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtNetwork -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include\QtXml -Ic:\Qt\4.6.2-vs\include\QtSql -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_src_collection.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_src_collection.cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\include\stable.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating precompiled header from ..\..\include\stable.h..."
+						CommandLine="cl /TP /W3 /FD /c /Yc /Fp..\..\win32-vs\obj\src_collection\src_collection_pch.pch /Fo..\..\win32-vs\obj\src_collection\src_collection_pch.obj /Fd&quot;$(IntDir)\\&quot; ..\..\include\stable.h /Ic:\Qt\4.6.2-vs\include\QtCore /Ic:\Qt\4.6.2-vs\include\QtNetwork /Ic:\Qt\4.6.2-vs\include\QtGui /Ic:\Qt\4.6.2-vs\include\QtXml /Ic:\Qt\4.6.2-vs\include\QtSql /Ic:\Qt\4.6.2-vs\include /I..\..\src /I..\..\include /Ic:\Qt\4.6.2-vs\include\ActiveQt /I..\..\win32-vs\obj /I. /Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc  /D &quot;_LIB&quot;  /D UNICODE /D QT_LARGEFILE_SUPPORT /D CUBEROK_VERSION_MAJ=0 /D CUBEROK_VERSION_MIN=1 /D CUBEROK_VERSION_BUI=0 /D QT_NO_DEBUG /D QT_STATICPLUGIN /D QT_PLUGIN /D QT_SQL_LIB /D QT_XML_LIB /D QT_GUI_LIB /D QT_NETWORK_LIB /D QT_CORE_LIB /D QT_THREAD_SUPPORT  /D &quot;WIN32&quot;  -nologo -Zm200 -O1 -MD -GR -GX -W3&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\obj\src_collection\src_collection_pch.pch"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Creating precompiled header from ..\..\include\stable.h..."
+						CommandLine="cl /TP /W3 /FD /c /Yc /Fp..\..\win32-vs\obj\src_collection\src_collection_pch.pch /Fo..\..\win32-vs\obj\src_collection\src_collection_pch.obj /Fd&quot;$(IntDir)\\&quot; ..\..\include\stable.h /Ic:\Qt\4.6.2-vs\include\QtCore /Ic:\Qt\4.6.2-vs\include\QtNetwork /Ic:\Qt\4.6.2-vs\include\QtGui /Ic:\Qt\4.6.2-vs\include\QtXml /Ic:\Qt\4.6.2-vs\include\QtSql /Ic:\Qt\4.6.2-vs\include /I..\..\src /I..\..\include /Ic:\Qt\4.6.2-vs\include\ActiveQt /I..\..\win32-vs\obj /I. /Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc  /D &quot;_LIB&quot;  /D UNICODE /D QT_LARGEFILE_SUPPORT /D CUBEROK_VERSION_MAJ=0 /D CUBEROK_VERSION_MIN=1 /D CUBEROK_VERSION_BUI=0 /D QT_STATICPLUGIN /D QT_PLUGIN /D QT_SQL_LIB /D QT_XML_LIB /D QT_GUI_LIB /D QT_NETWORK_LIB /D QT_CORE_LIB /D QT_THREAD_SUPPORT  /D &quot;WIN32&quot;  -nologo -Zm200 -Zi -MDd -GR -GX -W3&#x0D;&#x0A;"
+						Outputs="..\..\win32-vs\obj\src_collection\src_collection_pch.pch"
 					/>
 				</FileConfiguration>
 			</File>
@@ -534,7 +626,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running UIC on collectionsettings.ui"
-						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_collectionsettings.h&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_collectionsettings.h&#x0D;&#x0A;"
 						Outputs=".\ui_collectionsettings.h"
 					/>
 				</FileConfiguration>
@@ -544,7 +636,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running UIC on collectionsettings.ui"
-						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_collectionsettings.h&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_collectionsettings.h&#x0D;&#x0A;"
 						Outputs=".\ui_collectionsettings.h"
 					/>
 				</FileConfiguration>
@@ -558,7 +650,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running UIC on collectionwidget.ui"
-						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_collectionwidget.h&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_collectionwidget.h&#x0D;&#x0A;"
 						Outputs=".\ui_collectionwidget.h"
 					/>
 				</FileConfiguration>
@@ -568,8 +660,32 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running UIC on collectionwidget.ui"
-						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_collectionwidget.h&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_collectionwidget.h&#x0D;&#x0A;"
 						Outputs=".\ui_collectionwidget.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="importcollection.ui"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running UIC on importcollection.ui"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_importcollection.h&#x0D;&#x0A;"
+						Outputs=".\ui_importcollection.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Running UIC on importcollection.ui"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_importcollection.h&#x0D;&#x0A;"
+						Outputs=".\ui_importcollection.h"
 					/>
 				</FileConfiguration>
 			</File>
@@ -582,7 +698,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running UIC on sqledit.ui"
-						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_sqledit.h&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_sqledit.h&#x0D;&#x0A;"
 						Outputs=".\ui_sqledit.h"
 					/>
 				</FileConfiguration>
@@ -592,7 +708,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running UIC on sqledit.ui"
-						CommandLine="C:\Qt\4.5.0-vs\bin\uic.exe $(InputPath) -o .\ui_sqledit.h&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\uic.exe $(InputPath) -o .\ui_sqledit.h&#x0D;&#x0A;"
 						Outputs=".\ui_sqledit.h"
 					/>
 				</FileConfiguration>
@@ -611,6 +727,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -620,6 +737,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -633,6 +751,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -642,6 +761,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -655,6 +775,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -664,6 +785,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -677,6 +799,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -686,6 +809,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -699,6 +823,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -708,6 +833,31 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\win32-vs\obj\moc_importcollection.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -721,6 +871,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -730,6 +881,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -743,6 +895,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -752,6 +905,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -765,6 +919,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -774,6 +929,7 @@
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						ForcedIncludeFiles=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -783,6 +939,10 @@
 			</File>
 			<File
 				RelativePath="ui_collectionwidget.h"
+				>
+			</File>
+			<File
+				RelativePath="ui_importcollection.h"
 				>
 			</File>
 			<File

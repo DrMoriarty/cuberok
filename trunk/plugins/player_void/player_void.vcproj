@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="player_void"
-	ProjectGUID="{865BFA22-D03C-49B4-814D-0EEEBC143DC9}"
+	ProjectGUID="{1F22F9AC-CB9D-4F74-B5CE-1134FB591006}"
 	>
 	<Platforms>
 		<Platform
@@ -16,7 +16,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\..\..\win32-vs\plugins"
-			IntermediateDirectory=".\..\..\win32-vs\obj"
+			IntermediateDirectory=".\..\..\win32-vs\obj\player_void"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -39,19 +39,19 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				AdditionalOptions="/Ic:\Qt\4.6.2-vs\include\QtCore /Ic:\Qt\4.6.2-vs\include\QtGui /Ic:\Qt\4.6.2-vs\include /Ic:\Qt\4.6.2-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -Zm200 "
 				Optimization="1"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\src,..\..\include,."
-				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_NO_DEBUG;QT_STATICPLUGIN;QT_PLUGIN;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				AdditionalIncludeDirectories="..\..\src,..\..\include"
+				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=1;CUBEROK_VERSION_BUI=0;QT_NO_DEBUG;QT_STATICPLUGIN;QT_PLUGIN;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\..\..\win32-vs\obj/player_void.pch"
-				AssemblerListingLocation=".\..\..\win32-vs\obj/"
-				ObjectFile=".\..\..\win32-vs\obj/"
-				ProgramDataBaseFileName=".\..\..\win32-vs\obj/"
+				PrecompiledHeaderFile=".\..\..\win32-vs\obj\player_void/player_void.pch"
+				AssemblerListingLocation=".\..\..\win32-vs\obj\player_void/"
+				ObjectFile=".\..\..\win32-vs\obj\player_void/"
+				ProgramDataBaseFileName=".\..\..\win32-vs\obj\player_void/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 			/>
@@ -91,7 +91,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\..\..\win32-vs\plugins"
-			IntermediateDirectory=".\..\..\win32-vs\obj"
+			IntermediateDirectory=".\..\..\win32-vs\obj\player_void"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -114,16 +114,16 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Ic:\Qt\4.5.0-vs\include\QtCore /Ic:\Qt\4.5.0-vs\include\QtGui /Ic:\Qt\4.5.0-vs\include /Ic:\Qt\4.5.0-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -Zm200 "
+				AdditionalOptions="/Ic:\Qt\4.6.2-vs\include\QtCore /Ic:\Qt\4.6.2-vs\include\QtGui /Ic:\Qt\4.6.2-vs\include /Ic:\Qt\4.6.2-vs\include\ActiveQt /I..\..\win32-vs\obj /Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -Zm200 "
 				Optimization="4"
-				AdditionalIncludeDirectories="..\..\src,..\..\include,."
-				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=0;CUBEROK_VERSION_BUI=11;QT_STATICPLUGIN;QT_PLUGIN;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
+				AdditionalIncludeDirectories="..\..\src,..\..\include"
+				PreprocessorDefinitions="_LIB;UNICODE;QT_LARGEFILE_SUPPORT;CUBEROK_VERSION_MAJ=0;CUBEROK_VERSION_MIN=1;CUBEROK_VERSION_BUI=0;QT_STATICPLUGIN;QT_PLUGIN;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;WIN32"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\..\..\win32-vs\obj/player_void.pch"
-				AssemblerListingLocation=".\..\..\win32-vs\obj/"
-				ObjectFile=".\..\..\win32-vs\obj/"
-				ProgramDataBaseFileName=".\..\..\win32-vs\obj/"
+				PrecompiledHeaderFile=".\..\..\win32-vs\obj\player_void/player_void.pch"
+				AssemblerListingLocation=".\..\..\win32-vs\obj\player_void/"
+				ObjectFile=".\..\..\win32-vs\obj\player_void/"
+				ProgramDataBaseFileName=".\..\..\win32-vs\obj\player_void/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="3"
@@ -205,7 +205,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\src\player_void.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_void.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_NO_DEBUG -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_void.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_player_void.cpp"
 					/>
 				</FileConfiguration>
@@ -215,7 +215,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Running MOC on ..\..\src\player_void.h"
-						CommandLine="C:\Qt\4.5.0-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=0 -DCUBEROK_VERSION_BUI=11 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.5.0-vs\include\QtCore -Ic:\Qt\4.5.0-vs\include\QtGui -Ic:\Qt\4.5.0-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.5.0-vs\include\ActiveQt -I..\..\win32-vs\obj -I. -Ic:\Qt\4.5.0-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_void.cpp&#x0D;&#x0A;"
+						CommandLine="C:\Qt\4.6.2-vs\bin\moc.exe  -DUNICODE -DQT_LARGEFILE_SUPPORT -DCUBEROK_VERSION_MAJ=0 -DCUBEROK_VERSION_MIN=1 -DCUBEROK_VERSION_BUI=0 -DQT_STATICPLUGIN -DQT_PLUGIN -DQT_GUI_LIB -DQT_CORE_LIB -DQT_THREAD_SUPPORT -Ic:\Qt\4.6.2-vs\include\QtCore -Ic:\Qt\4.6.2-vs\include\QtGui -Ic:\Qt\4.6.2-vs\include -I..\..\src -I..\..\include -Ic:\Qt\4.6.2-vs\include\ActiveQt -I..\..\win32-vs\obj -Ic:\Qt\4.6.2-vs\mkspecs\win32-msvc -D_MSC_VER=1200 -DWIN32 $(InputPath) -o ..\..\win32-vs\plugins\..\obj\moc_player_void.cpp&#x0D;&#x0A;"
 						Outputs="..\..\win32-vs\plugins\..\obj\moc_player_void.cpp"
 					/>
 				</FileConfiguration>
