@@ -42,6 +42,7 @@ HEADERS += \
            main.h \
            messagewindow.h \
            myapplication.h \
+           mysplashscreen.h \
            player.h \
            player_manager.h \
            playlist.h \
@@ -96,6 +97,7 @@ SOURCES += aboutdialog.cpp \
            main.cpp \
            messagewindow.cpp \
            myapplication.cpp \
+           mysplashscreen.cpp \
            player_manager.cpp \
            playlistcontainer.cpp \
            playlistmodel.cpp \
