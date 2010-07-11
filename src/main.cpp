@@ -24,6 +24,7 @@
 #include "extensionproxy.h"
 #include "myapplication.h"
 #include "starrating.h"
+#include "mysplashscreen.h"
 
 #include <QtGui>
 #include "console.h"
@@ -225,11 +226,11 @@ int main(int argc, char *argv[])
 		*(char*)shm.data() = 0;
 		shm.unlock();
 	}
-	QString splashstring = QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
+	//QString splashstring = QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
     QPixmap pixmap(":/icons/splash.png");
-    QSplashScreen splash(pixmap);
+    MySplashScreen splash(pixmap);
     splash.show();
-    splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::white);
+    //splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::white);
 
 #ifdef DBUS_ENABLED
 	CuberokAdaptor *adaptor = new CuberokAdaptor(&a);
