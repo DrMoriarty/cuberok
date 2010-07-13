@@ -226,11 +226,22 @@ int main(int argc, char *argv[])
 		*(char*)shm.data() = 0;
 		shm.unlock();
 	}
-	//QString splashstring = QString("Cuberok v %1.%2.%3").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
+	QString splashstring = QString("Cuberok v %1.%2.%3\n").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
+	splashstring += QString("build: ") + __TIME__ + " " + __DATE__ + "\n";
+	splashstring += QString("Qt: ") + QT_VERSION_STR + " ";
+#ifdef Q_WS_X11
+	splashstring += "X11";
+#endif
+#ifdef Q_WS_MAC
+	splashstring += "Mac OS";
+#endif
+#ifdef Q_WS_WIN
+	splashstring += "MS Windows";
+#endif
     QPixmap pixmap(":/icons/splash.png");
     MySplashScreen splash(pixmap);
     splash.show();
-    //splash.showMessage(splashstring, Qt::AlignBottom/*Qt::AlignCenter*/, Qt::white);
+    splash.showMessage(splashstring, Qt::AlignBottom | Qt::AlignLeft, Qt::yellow);
 
 #ifdef DBUS_ENABLED
 	CuberokAdaptor *adaptor = new CuberokAdaptor(&a);

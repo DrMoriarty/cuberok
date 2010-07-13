@@ -68,6 +68,8 @@ class ExtensionProxy : public Proxy {
 	void storeState();
 
 	const QVector<Extension*>& extensionList();
+	bool isExtensionEnabled(QString name);
+	void enableExtension(QString name, bool en);
 
  signals:
 	void aboutToUpdate(int);
@@ -78,6 +80,7 @@ class ExtensionProxy : public Proxy {
 
 	QVector<Extension*> extensions;
 	QMap<QString, QString> variables;
+	QMap<QString, bool> enabledFlags;
 	SControl control;
 	SStatus status, prevstatus;
 	STags tags;

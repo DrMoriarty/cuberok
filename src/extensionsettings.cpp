@@ -18,7 +18,18 @@
  */
 
 #include "extensionsettings.h"
-#include "extensionproxy.h"
+
+DummyExtensionSetupWidget::DummyExtensionSetupWidget(QWidget *parent) : ExtensionSetupWidget(parent)
+{
+	setAttribute(Qt::WA_DeleteOnClose);
+	QVBoxLayout *layout = new QVBoxLayout(this);
+	QLabel* label = new QLabel(tr("This extension doesn't have any settings"), this);
+	label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+	layout->addWidget(label);
+}
+
+void DummyExtensionSetupWidget::storeState()
+{}
 
 ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 {
@@ -27,15 +38,19 @@ ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 
 	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
 		if(ex) {
+			QListWidgetItem *it;
 			QWidget *setup = ex->getSetupWidget();
 			if(setup) {
-				QListWidgetItem *it = new QListWidgetItem(setup->windowIcon(), ex->getName(), ui.listWidget);
-				it->setData(Qt::UserRole, ui.stackedWidget->count());
-				it->setData(Qt::UserRole+1, ex->getName());
-				it->setData(Qt::UserRole+2, ex->getAuthor());
-				it->setData(Qt::UserRole+3, ex->getDescription());
+				it = new QListWidgetItem(setup->windowIcon(), ex->getName(), ui.listWidget);
 				ui.stackedWidget->addWidget(setup);
+			} else {
+				it = new QListWidgetItem(QIcon(":/icons/star.png"), ex->getName(), ui.listWidget);
+				ui.stackedWidget->addWidget(new DummyExtensionSetupWidget(this));
 			}
+			it->setData(Qt::UserRole, ui.stackedWidget->count()-1);
+			it->setData(Qt::UserRole+1, ex->getName());
+			it->setData(Qt::UserRole+2, ex->getAuthor());
+			it->setData(Qt::UserRole+3, ex->getDescription());
 		}
 	}
 	if(ui.stackedWidget->count() > 0) {
@@ -47,9 +62,11 @@ ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 void ExtensionSettings::selectExtension(QListWidgetItem* it)
 {
 	ui.stackedWidget->setCurrentIndex(it->data(Qt::UserRole).toInt());
-	ui.label_Name->setText(it->data(Qt::UserRole+1).toString());
+	QString name = it->data(Qt::UserRole+1).toString();
+	ui.label_Name->setText(name);
 	ui.label_Author->setText(it->data(Qt::UserRole+2).toString());
 	ui.label_Description->setText(it->data(Qt::UserRole+3).toString());
+	ui.checkBox_Enabled->setCheckState(ExtensionProxy::Self().isExtensionEnabled(name) ? Qt::Checked : Qt::Unchecked);
 }
 
 void ExtensionSettings::storeState()
@@ -57,5 +74,15 @@ void ExtensionSettings::storeState()
 	qDebug("store extension settings");
 	for(int i=0; i<ui.stackedWidget->count(); i++) {
 		((ExtensionSetupWidget*)ui.stackedWidget->widget(i))->storeState();
+	}
+}
+
+void ExtensionSettings::enableExtension(int st)
+{
+	QString name = ui.listWidget->currentItem()->data(Qt::UserRole+1).toString();
+	if(st == Qt::Checked) {
+		ExtensionProxy::Self().enableExtension(name, true);
+	} else {
+		ExtensionProxy::Self().enableExtension(name, false);
 	}
 }

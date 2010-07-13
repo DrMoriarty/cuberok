@@ -42,6 +42,7 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 		variables[var] = set.value(var).toString();
 	set.endGroup();
 
+	set.beginGroup("extensions");
 	// loading extensions
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		Extension *ex = qobject_cast<Extension *>(plugin);
@@ -52,6 +53,7 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 			if(res) {
 				qDebug("... successfully");
 				extensions.push_back(ex);
+				enabledFlags[ex->getName()] = set.value(ex->getName(), true).toBool();
 			} else {
 				qDebug("... error");
 			}
@@ -73,12 +75,14 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 				extensions.push_back(ex);
 				bool res = ex->prepare();
 				qDebug("Load extension %s", (const char*)ex->getName().toLocal8Bit());
+				enabledFlags[ex->getName()] = set.value(ex->getName(), true).toBool();
 			}
 		} else {
 			qDebug((const char*)("Can't load extension " + fileName).toLocal8Bit());
 			qDebug((const char*)loader.errorString().toLocal8Bit());
 		}
 	}
+	set.endGroup();
 	connect(&reqTimer, SIGNAL(timeout()), this, SLOT(requestTimeout()));
 	reqTimer.start(1000);
 }
@@ -287,7 +291,7 @@ void ExtensionProxy::update(int flag)
 	emit aboutToUpdate(flag);
 	if(flag) {
 		foreach(Extension* e, extensions) {
-			if(!e->ready()) continue;
+			if(!e->ready() || !isExtensionEnabled(e->getName())) continue;
 			if(e->getDisturbs() & flag) {
 				e->update(flag);
 			}
@@ -331,6 +335,11 @@ void ExtensionProxy::storeState()
 		set.setValue(var, variables[var]);
 	}
 	set.endGroup();
+	set.beginGroup("extensions");
+	foreach(QString key, enabledFlags.keys()) {
+		set.setValue(key, enabledFlags[key]);
+	}
+	set.endGroup();
 }
 
 void ExtensionProxy::requestTimeout()
@@ -349,4 +358,14 @@ void ExtensionProxy::requestTimeout()
 			return;
 		}
 	}
+}
+
+bool ExtensionProxy::isExtensionEnabled(QString name)
+{
+	return enabledFlags.contains(name) && enabledFlags[name];
+}
+
+void ExtensionProxy::enableExtension(QString name, bool en)
+{
+	enabledFlags[name] = en;
 }

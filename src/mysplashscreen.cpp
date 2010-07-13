@@ -28,21 +28,22 @@ void MySplashScreen::drawContents(QPainter * painter)
 {
 	QPixmap pm = QSplashScreen::pixmap();
 	QRect r(0, 0, pm.width(), pm.height());
-	QString splashstring = QString("Cuberok v %1.%2.%3\n").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
-	splashstring += QString("build: ") + __TIME__ + " " + __DATE__ + "\n";
-	splashstring += QString("Qt: ") + QT_VERSION_STR + " ";
-#ifdef Q_WS_X11
-	splashstring += "X11";
-#endif
-#ifdef Q_WS_MAC
-	splashstring += "Mac OS";
-#endif
-#ifdef Q_WS_WIN
-	splashstring += "MS Windows";
-#endif
-	painter->setPen(Qt::white);
-	painter->drawText(r, Qt::AlignLeft | Qt::AlignBottom, splashstring);
-	painter->drawText(r, Qt::AlignRight | Qt::AlignBottom, tr("© DrMoriarty,\n2008—2010"));
+// 	QString splashstring = QString("Cuberok v %1.%2.%3\n").arg(QString::number(CUBEROK_VERSION_MAJ), QString::number(CUBEROK_VERSION_MIN), QString::number(CUBEROK_VERSION_BUI));
+// 	splashstring += QString("build: ") + __TIME__ + " " + __DATE__ + "\n";
+// 	splashstring += QString("Qt: ") + QT_VERSION_STR + " ";
+// #ifdef Q_WS_X11
+// 	splashstring += "X11";
+// #endif
+// #ifdef Q_WS_MAC
+// 	splashstring += "Mac OS";
+// #endif
+// #ifdef Q_WS_WIN
+// 	splashstring += "MS Windows";
+// #endif
+	painter->setPen(Qt::yellow);
+	painter->setFont(QFont("arial", 8));
+	//painter->drawText(r, Qt::AlignLeft | Qt::AlignBottom, splashstring);
+	painter->drawText(r, Qt::AlignRight | Qt::AlignBottom, tr("(c) DrMoriarty, 2008-2010"));
 
 	QSplashScreen::drawContents(painter);
 }
