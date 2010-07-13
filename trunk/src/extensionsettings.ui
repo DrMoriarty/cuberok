@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>305</width>
+    <width>324</width>
     <height>259</height>
    </rect>
   </property>
@@ -175,8 +175,57 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>checkBox_Enabled</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>ExtensionSettings</receiver>
+   <slot>enableExtension(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>228</x>
+     <y>89</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>161</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>itemEntered(QListWidgetItem*)</signal>
+   <receiver>ExtensionSettings</receiver>
+   <slot>selectExtension(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>161</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>itemPressed(QListWidgetItem*)</signal>
+   <receiver>ExtensionSettings</receiver>
+   <slot>selectExtension(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>161</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>selectExtension(QListWidgetItem*)</slot>
+  <slot>enableExtension(int)</slot>
  </slots>
 </ui>

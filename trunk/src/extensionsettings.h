@@ -21,7 +21,16 @@
 #define EXTENSIONSETTINGS_H
 
 #include <QtGui>
+#include "extensionproxy.h"
 #include "ui_extensionsettings.h"
+
+class DummyExtensionSetupWidget: public ExtensionSetupWidget
+{
+	Q_OBJECT
+ public:
+	DummyExtensionSetupWidget(QWidget *parent = 0);
+	virtual void storeState();
+};
 
 class ExtensionSettings: public QWidget
 {
@@ -31,6 +40,7 @@ class ExtensionSettings: public QWidget
  public slots:
 	void selectExtension(QListWidgetItem*);
 	void storeState();
+	void enableExtension(int);
 	
  private:
 	Ui::ExtensionSettings ui;
