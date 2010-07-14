@@ -51,6 +51,7 @@ ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 			it->setData(Qt::UserRole+1, ex->getName());
 			it->setData(Qt::UserRole+2, ex->getAuthor());
 			it->setData(Qt::UserRole+3, ex->getDescription());
+			it->setData(Qt::UserRole+4, ExtensionProxy::Self().isExtensionEnabled(ex->getName()));
 		}
 	}
 	if(ui.stackedWidget->count() > 0) {
@@ -66,7 +67,8 @@ void ExtensionSettings::selectExtension(QListWidgetItem* it)
 	ui.label_Name->setText(name);
 	ui.label_Author->setText(it->data(Qt::UserRole+2).toString());
 	ui.label_Description->setText(it->data(Qt::UserRole+3).toString());
-	ui.checkBox_Enabled->setCheckState(ExtensionProxy::Self().isExtensionEnabled(name) ? Qt::Checked : Qt::Unchecked);
+	//ui.checkBox_Enabled->setCheckState(ExtensionProxy::Self().isExtensionEnabled(name) ? Qt::Checked : Qt::Unchecked);
+	ui.checkBox_Enabled->setCheckState(it->data(Qt::UserRole+4).toBool() ? Qt::Checked : Qt::Unchecked);
 }
 
 void ExtensionSettings::storeState()
@@ -75,14 +77,22 @@ void ExtensionSettings::storeState()
 	for(int i=0; i<ui.stackedWidget->count(); i++) {
 		((ExtensionSetupWidget*)ui.stackedWidget->widget(i))->storeState();
 	}
+	for(int i=0; i< ui.listWidget->count(); i++) {
+		QListWidgetItem* it = ui.listWidget->item(i);
+		QString name = it->data(Qt::UserRole+1).toString();
+		ExtensionProxy::Self().enableExtension(name, it->data(Qt::UserRole+4).toBool());
+	}
 }
 
 void ExtensionSettings::enableExtension(int st)
 {
-	QString name = ui.listWidget->currentItem()->data(Qt::UserRole+1).toString();
+	QListWidgetItem *it = ui.listWidget->currentItem();
+	//QString name = it->data(Qt::UserRole+1).toString();
 	if(st == Qt::Checked) {
-		ExtensionProxy::Self().enableExtension(name, true);
+		it->setData(Qt::UserRole+4, true);
+		//ExtensionProxy::Self().enableExtension(name, true);
 	} else {
-		ExtensionProxy::Self().enableExtension(name, false);
+		it->setData(Qt::UserRole+4, false);
+		//ExtensionProxy::Self().enableExtension(name, false);
 	}
 }
