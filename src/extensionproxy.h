@@ -59,6 +59,7 @@ class ExtensionProxy : public Proxy {
 	virtual bool hasVariable(QString varname);
 	virtual QString getVariable(QString varname);
 	virtual void setVariable(QString varname, QString value);
+	virtual void delVariable(QString varname);
 
 	virtual void log(QString);
 	virtual void message(QString);

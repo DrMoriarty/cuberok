@@ -19,6 +19,8 @@
 
 #include "collectionwidget.h"
 #include "database.h"
+#include "collectionfiller.h"
+#include "importcollection.h"
 
 CollectionWidget::CollectionWidget(Proxy* proxy, QWidget *parent)
 	:QWidget(parent), proxy(proxy)
@@ -93,6 +95,22 @@ void CollectionWidget::colmodeChanged(int m)
 void CollectionWidget::updateInfo()
 {
 	ui.colView->infoResponse();
+}
+
+void CollectionWidget::updateSettings()
+{
+	if(proxy->hasVariable("FirstStartWizard_collectionPath")) {
+		QString path = proxy->getVariable("FirstStartWizard_collectionPath");
+		QList<QUrl> urls;
+		urls << QUrl::fromLocalFile(path);
+		CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
+		//connect(cf, SIGNAL(finished()), this, SLOT(update()));
+		cf->start();
+		proxy->setVariable("collectionPath", path);
+	} else if(proxy->hasVariable("FirstStartWizard_importPath")) {
+		QString import = proxy->getVariable("FirstStartWizard_importPath");
+		ImportCollection::importCollection(import, false);
+	}
 }
 
 void CollectionWidget::addUrl(QUrl url)

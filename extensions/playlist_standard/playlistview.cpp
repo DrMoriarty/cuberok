@@ -191,6 +191,7 @@ PlaylistAbstract::PlaylistAbstract(QString &str, Proxy *pr, QWidget *parent) : P
 
 PlaylistAbstract::~PlaylistAbstract()
 {
+	timer.stop();
 	model.disconnect();
 }
 
@@ -263,9 +264,13 @@ void PlaylistAbstract::storeListXSPF(QString fname)
 void PlaylistAbstract::storeState(bool save)
 {
 	QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
-	if(save) storeListXSPF(fname);
-	else QFile::remove(fname);
-	qDebug("storeState");
+	if(save) {
+		storeListXSPF(fname);
+		qDebug("storeState");
+	} else {
+		QFile::remove(fname);
+		qDebug("clearState");
+	}
 }
 
 void PlaylistAbstract::loadList(QString fname)
@@ -539,6 +544,7 @@ PlaylistStandard::PlaylistStandard(QString &str, Proxy *pr, QWidget *parent) : P
 	connect(view, SIGNAL(needUpdate()), this, SLOT(updateStatus()));
 	connect(view, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onClick(const QModelIndex &)));
 	connect(view, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(onDoubleClick(const QModelIndex &)));
+	// setAttribute(Qt::WA_DeleteOnClose);
 	if(plistname.size()) {  // read stored playlist
 		QString fname = QDir::homePath() + "/.cuberok/" + plistname + ".xspf";
 		if(QFile::exists(fname)) loadList(fname);
@@ -552,6 +558,7 @@ PlaylistStandard::PlaylistStandard(QString &str, Proxy *pr, QWidget *parent) : P
 PlaylistStandard::~PlaylistStandard()
 {
 	storeState(autosave);
+	delete view;
 }
 
 QWidget* PlaylistStandard::getWidget()

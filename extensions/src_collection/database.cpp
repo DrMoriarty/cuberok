@@ -41,9 +41,11 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
         } else {
             open = true;
             QSqlQuery q1("select value from Version", db);
-            int ver = 0;
+            int ver = -1;
             if(q1.next()) ver = q1.value(0).toString().toInt();
-            if(ver < DB_VERSION) {
+			if(ver == -1) {
+				open = createDatabase();
+			} else if(ver < DB_VERSION) {
                 open = updateDatabase(ver);
                 if(!open) db.close();
             } else if(ver > DB_VERSION) {
@@ -59,16 +61,7 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
             proxy->error("Can not create database");
             open = false;
         } else {
-            QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), mbid varchar(50))", db);
-            QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer, mbid varchar(50))", db);
-            QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
-            QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer, Type varchar(30), Date varchar(50))", db);
-            QSqlQuery q5("create table Version (value integer)", db);
-            QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
-			QSqlQuery q8("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
-            QSqlQuery q9("create table SQLPlaylist (ID integer primary key autoincrement, value varchar(200), art varchar(250), data varchar(250))", db);
-            open = true;
-			CreateDefaultSqlPlaylists();
+			open = createDatabase();
         }
     }
     if(open) proxy->message("Database ready");
@@ -78,6 +71,20 @@ Database::~Database()
 {
     db.close();
 	QSqlDatabase::removeDatabase("CollectionDB");
+}
+
+bool Database::createDatabase()
+{
+	QSqlQuery q0("create table Artist (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), mbid varchar(50))", db);
+	QSqlQuery q1("create table Album (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250), artist integer, mbid varchar(50))", db);
+	QSqlQuery q2("create table Genre (ID integer primary key autoincrement, value varchar(200), refs integer, rating integer, art varchar(250))", db);
+	QSqlQuery q4("create table Song (ID integer primary key autoincrement, File varchar(250), Track integer, Title varchar(200), Artist integer, Album integer, Genre integer, Year integer, Comment varchar(200), Length varchar(20), Rating integer, Type varchar(30), Date varchar(50))", db);
+	QSqlQuery q5("create table Version (value integer)", db);
+	QSqlQuery q6("insert into Version (value) values ("+QString::number(DB_VERSION)+")", db);
+	QSqlQuery q8("create table Info(Mbid varchar(50) primary key, text varchar(10000))", db);
+	QSqlQuery q9("create table SQLPlaylist (ID integer primary key autoincrement, value varchar(200), art varchar(250), data varchar(250))", db);
+	CreateDefaultSqlPlaylists();
+	return true;
 }
 
 bool Database::updateDatabase(int fromver)
@@ -266,25 +273,27 @@ int Database::AddFile(QString file)
     q0.bindValue(":file", file);
     q0.exec();
     if(q0.next()) return q0.value(0).toString().toInt();
-    QString title, artist, album, comment, genre, length, type;
-    int track, year;
-    if(Tagger::readTags(file, title, artist, album, comment, genre, track, year, length)) {
-		type = Tagger::getFileType(QUrl::fromLocalFile(file));
+	QUrl url = QUrl::fromLocalFile(file);
+    //QString title, artist, album, comment, genre, length, type;
+    //int track, year;
+	TagEntry tags = Tagger::readTags(url);
+    if(tags.title.size()) {
+		// type = Tagger::getFileType(url);
     //	TagLib::FileRef fr(file.toLocal8Bit().constData());
-        int art = _AddArtist(artist);
-        int alb = _AddAlbum(album, art);
-        int gen = _AddGenre(genre);
+        int art = _AddArtist(tags.artist);
+        int alb = _AddAlbum(tags.album, art);
+        int gen = _AddGenre(tags.genre);
         //QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment) values ('%1', %2, '%3', %4, %5, %6, %7, '%8')")
         //.arg(file, QString::number(fr.tag()->track()), QS(fr.tag()->title()), QString::number(art), QString::number(alb), QString::number(gen), QString::number(fr.tag()->year()), QS(fr.tag()->comment()));
         QString com = QString("insert into Song (File, Track, Title, Artist, Album, Genre, Year, Comment, Length, Type, Date) values (:file, %1, :title, %2, %3, %4, %5, :comment, :length, :type, :date) ")
-        .arg(QString::number(track), QString::number(art), QString::number(alb), QString::number(gen), QString::number(year));
+        .arg(QString::number(tags.track), QString::number(art), QString::number(alb), QString::number(gen), QString::number(tags.year));
         QSqlQuery q("", db);
         q.prepare(com);
         q.bindValue(":file", file);
-        q.bindValue(":title", title);
-        q.bindValue(":comment", comment);
-        q.bindValue(":length", length);
-		q.bindValue(":type", type);
+        q.bindValue(":title", tags.title);
+        q.bindValue(":comment", tags.comment);
+        q.bindValue(":length", tags.slength);
+		q.bindValue(":type", tags.filetype);
 		q.bindValue(":date", QDateTime::currentDateTime().toString(Qt::ISODate));
         q.exec();
         QSqlQuery q1("", db);
@@ -296,8 +305,8 @@ int Database::AddFile(QString file)
             RefAttribute(nAlbum, alb, 1, 0);
             RefAttribute(nGenre, gen, 1, 0);
             return q1.value(0).toString().toInt();
-        }
-    }
+        } else qDebug() << "something went wrong...";
+    } else qDebug() << "can't read tags for file" << file;
     return -1;
 }
 

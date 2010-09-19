@@ -36,6 +36,7 @@ enum Disturbs {
 	DisturbOnInfo = 0x10,
 	DisturbOnRequest = 0x20,
 	DisturbOnPlControl = 0x40,
+	DisturbOnChangeSettings = 0x80,
 	DisturbAlways = 0xffff
 };
 
@@ -167,6 +168,7 @@ class Proxy : public QObject
 	virtual bool hasVariable(QString varname) = 0;
 	virtual QString getVariable(QString varname) = 0;
 	virtual void setVariable(QString varname, QString value) = 0;
+	virtual void delVariable(QString varname) = 0;
 
 	virtual void log(QString) = 0;
 	virtual void message(QString) = 0;
