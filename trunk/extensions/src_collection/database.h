@@ -145,6 +145,7 @@ public:
     void RenameAttribute(const QString attr, QString oldval, QString newval);
     QList<struct Attr> Attributes(const QString attr, QString *patt = 0);
     void ArtForAttribute(const QString attr, QString val, QString art);
+	bool createDatabase();
     bool updateDatabase(int fromver);
     QString subsetFilter();
 	void CreateDefaultSqlPlaylists();

@@ -1,6 +1,6 @@
 CONFIG += qt release precompile_header
 QT += sql xml network webkit
-PRECOMPILED_HEADER = pch.h
+#PRECOMPILED_HEADER = pch.h
 
 #TEMPLATE = app
 #TARGET = 

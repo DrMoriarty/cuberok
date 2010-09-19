@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>433</width>
+    <width>485</width>
     <height>248</height>
    </rect>
   </property>
@@ -24,10 +24,10 @@
     <string>Welcome to the Cuberok</string>
    </property>
    <property name="subTitle">
-    <string>Cuberok is a lightweight music player and collection manager</string>
+    <string>Cuberok is a lightweight music player and a collection manager</string>
    </property>
    <attribute name="pageId">
-    <string>1</string>
+    <string notr="true">1</string>
    </attribute>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -101,7 +101,7 @@
     <string>Cuberok is ready for playing your music</string>
    </property>
    <attribute name="pageId">
-    <string>2</string>
+    <string notr="true">2</string>
    </attribute>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
@@ -155,7 +155,7 @@ p, li { white-space: pre-wrap; }
     <string>Your will can to select songs by genre or by artist</string>
    </property>
    <attribute name="pageId">
-    <string>3</string>
+    <string notr="true">3</string>
    </attribute>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
@@ -263,7 +263,7 @@ p, li { white-space: pre-wrap; }
     <string>Only Amarok 1.4 sqlite database is possible to import now</string>
    </property>
    <attribute name="pageId">
-    <string>4</string>
+    <string notr="true">4</string>
    </attribute>
    <layout class="QHBoxLayout" name="horizontalLayout_5">
     <item>

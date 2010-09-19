@@ -80,10 +80,12 @@ void FirstStartWizard::doSomething()
 			 //connect(cf, SIGNAL(finished()), this, SLOT(update()));
 			 cf->start();
 			 EProxy.setVariable("collectionPath", ui.lineEdit_collect->text());*/
+			 EProxy.setVariable("FirstStartWizard_collectionPath", ui.lineEdit_collect->text());
 		 }
 		 break;
      case 4: // import
 		 //ImportCollection::importCollection(ui.lineEdit_import->text(), true);
+		 EProxy.setVariable("FirstStartWizard_importPath", ui.lineEdit_import->text());
 		 break;
      case 1:  // selection
      case 2: // listen

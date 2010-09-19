@@ -83,6 +83,8 @@ void SrcCollection::update(int d)
 				}
 			}
 		}
+	} else if(d & DisturbOnChangeSettings) {
+		widget->updateSettings();
 	}
 }
 
@@ -115,7 +117,7 @@ ExtensionSetupWidget* SrcCollection::getSetupWidget()
 
 int SrcCollection::getDisturbs()
 {
-	return DisturbOnRequest | DisturbOnTags;
+	return DisturbOnRequest | DisturbOnTags | DisturbOnChangeSettings;
 }
 
 void SrcCollection::storeState()

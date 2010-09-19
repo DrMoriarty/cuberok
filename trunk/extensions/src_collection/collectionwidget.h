@@ -31,6 +31,7 @@ class CollectionWidget: public QWidget
 	CollectionWidget(Proxy* proxy, QWidget* parent = 0);
 	void storeState();
 	void updateInfo();
+	void updateSettings();
 	
  private:
 	Ui::CollectionWidget ui;

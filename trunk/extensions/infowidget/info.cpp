@@ -478,7 +478,7 @@ void Info::lyricClosed(QObject*)
 
 void Info::getImages()
 {
-	if(!al_pic) {
+	if(!al_pic && !albumRequestId) {
 		albumRequestId = proxy->setRequest(SRequest(SInfo::AlbumArt, proxy->getTags()));
 	} else if(!ar_pic) {
 		artistRequestId = proxy->setRequest(SRequest(SInfo::ArtistArt, proxy->getTags()));

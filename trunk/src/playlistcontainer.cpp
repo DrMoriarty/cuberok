@@ -213,11 +213,12 @@ void PlaylistContainer::delList()
 		int i;
 		for(i=0; i<lists.count(); i++)
 			if(lists[i] == curlist) {
+				curlist->setAutosave(false);
 				curlist->getWidget()->disconnect();
 				curlist->disconnect();
 				tabs->removeTab(tabs->currentIndex());
 				lists.removeAt(i);
-				//delete curlist;
+				delete curlist;
 				break;
 			}
 		if(i<tabs->count()) {

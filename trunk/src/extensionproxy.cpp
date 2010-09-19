@@ -284,6 +284,13 @@ QString ExtensionProxy::getVariable(QString varname)
 void ExtensionProxy::setVariable(QString varname, QString value)
 {
 	variables[varname] = value;
+	update(DisturbOnChangeSettings);
+}
+
+void ExtensionProxy::delVariable(QString varname)
+{
+	if(variables.find(varname) != variables.end())
+		variables.erase(variables.find(varname));
 }
 
 void ExtensionProxy::update(int flag)
