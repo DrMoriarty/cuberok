@@ -75,6 +75,7 @@ private:
 	Downloader *downloader;
 	QString lfmArtist, lfmAlbum;
 	Proxy *proxy;
+	QString storedFilterString;
 	
 public slots:
 	void artistMode();
@@ -85,6 +86,7 @@ public slots:
 	void addItem();
 	void removeItem();
 	void filter(QString);
+	void slowFilter();
 	void applySubset(QModelIndex);
 	void clearSubset();
 	void setImage();

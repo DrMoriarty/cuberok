@@ -593,8 +593,21 @@ void CollectionView::removeItem()
 
 void CollectionView::filter(QString patt)
 {
-	model.searchPattern = patt;
-	model.update();
+	if(!proxy->hasVariable("slowFilter") || proxy->getVariable("slowFilter") != "true") {
+		model.searchPattern = patt;
+		model.update();
+	} else {
+		storedFilterString = patt;
+	}
+}
+
+void CollectionView::slowFilter()
+{
+	if(proxy->hasVariable("slowFilter") && proxy->getVariable("slowFilter") == "true") {
+		model.searchPattern = storedFilterString;
+		model.update();
+		storedFilterString = "";
+	}
 }
 
 void CollectionView::applySubset(QModelIndex ind)

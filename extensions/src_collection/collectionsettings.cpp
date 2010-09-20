@@ -28,11 +28,17 @@ CollectionSettings::CollectionSettings(QWidget *parent)
 {
     ui.setupUi(this);
 	ui.lineEdit_path->setText(EProxy.getVariable("collectionPath"));
+	if(EProxy.hasVariable("slowFilter") && EProxy.getVariable("slowFilter") == "true") {
+		ui.checkBox_fastFilter->setCheckState(Qt::Unchecked);
+	} else {
+		ui.checkBox_fastFilter->setCheckState(Qt::Checked);
+	}
 }
 
 CollectionSettings::~CollectionSettings()
 {
 	EProxy.setVariable("collectionPath", ui.lineEdit_path->text());
+	EProxy.setVariable("slowFilter", ui.checkBox_fastFilter->checkState() == Qt::Checked ? "false" : "true");
 }
 
 void CollectionSettings::cleanup()
