@@ -325,7 +325,7 @@ bool PlaylistModel::removeRows(int position, int rows, const QModelIndex &parent
 void PlaylistModel::appendList(QList<TagEntry> list)
 {
 	if(!list.size()) {
-		Console::Self().warning("append empty list");
+		//Console::Self().warning("append empty list");
 		return;
 	}
     beginInsertRows(QModelIndex(), rowCount(), rowCount()+list.size()-1);

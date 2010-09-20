@@ -194,12 +194,13 @@ Cuberok::Cuberok(QWidget *parent)
 		acts << act;
 	}
 	allactions << qMakePair(QString("Cuberok"), acts);
-	
+
+	QDockWidget *dock = 0, *dock2 = 0;
 	foreach(Extension *ex, ExtensionProxy::Self().extensionList()) {
 		if(ex) {
 			QWidget *widget = ex->getWidget();
 			if(widget) {
-				QDockWidget *dock = new QDockWidget(this);
+				dock = new QDockWidget(this);
 				dock->setObjectName(ex->getName());
 				dock->setFeatures(QDockWidget::AllDockWidgetFeatures);
 				dock->setWidget(widget);
@@ -211,6 +212,8 @@ Cuberok::Cuberok(QWidget *parent)
 					acts << act;
 				}
 				allactions << qMakePair(ex->getName(), acts);
+				if(dock2) tabifyDockWidget(dock2, dock);
+				dock2 = dock;
 			}
 		}
 	}
@@ -239,10 +242,7 @@ void Cuberok::storeState()
 
 void Cuberok::firstStart()
 {
-	//tabifyDockWidget(ui.dockWidget, ui.dockWidget3);
-	//tabifyDockWidget(ui.dockWidget3, ui.dockWidget1);
-	//tabifyDockWidget(ui.dockWidget2, ui.dockWidget1);
-	//tabifyDockWidget(ui.dockWidget1, ui.dockWidget4);
+	PLSet.setColumnVisible(PlaylistModel::Empty, false);
 	PLSet.setColumnVisible(PlaylistModel::File, false);
 	PLSet.setColumnVisible(PlaylistModel::Comment, false);
 	PLSet.setColumnVisible(PlaylistModel::Genre, false);

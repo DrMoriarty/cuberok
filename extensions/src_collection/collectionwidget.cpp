@@ -101,6 +101,7 @@ void CollectionWidget::updateSettings()
 {
 	if(proxy->hasVariable("FirstStartWizard_collectionPath")) {
 		QString path = proxy->getVariable("FirstStartWizard_collectionPath");
+		proxy->delVariable("FirstStartWizard_collectionPath");
 		QList<QUrl> urls;
 		urls << QUrl::fromLocalFile(path);
 		CollectionFiller * cf = new CollectionFiller(urls, M_SONG, "");
@@ -109,6 +110,7 @@ void CollectionWidget::updateSettings()
 		proxy->setVariable("collectionPath", path);
 	} else if(proxy->hasVariable("FirstStartWizard_importPath")) {
 		QString import = proxy->getVariable("FirstStartWizard_importPath");
+		proxy->delVariable("FirstStartWizard_importPath");
 		ImportCollection::importCollection(import, false);
 	}
 }
