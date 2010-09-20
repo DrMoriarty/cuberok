@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
-    <height>173</height>
+    <width>413</width>
+    <height>210</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,6 +80,13 @@
         </property>
         <property name="wordWrap">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_fastFilter">
+        <property name="text">
+         <string>Fast collection filter</string>
         </property>
        </widget>
       </item>

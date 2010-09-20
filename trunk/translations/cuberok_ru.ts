@@ -173,6 +173,10 @@
         <source>Import collection</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fast collection filter</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CollectionView</name>

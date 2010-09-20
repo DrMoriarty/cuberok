@@ -285,6 +285,7 @@
     <slot>sqlMode()</slot>
     <slot>editItem()</slot>
     <slot>filter(QString)</slot>
+    <slot>slowFilter()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -545,6 +546,22 @@
     <hint type="destinationlabel">
      <x>127</x>
      <y>179</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filterLineEdit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>colView</receiver>
+   <slot>slowFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>127</x>
+     <y>187</y>
     </hint>
    </hints>
   </connection>
