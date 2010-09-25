@@ -44,7 +44,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset resource="resource.qrc">
+         <iconset resource="../../src/resource.qrc">
           <normaloff>:/icons/back.png</normaloff>:/icons/back.png</iconset>
         </property>
         <property name="autoRaise">
@@ -61,7 +61,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset resource="resource.qrc">
+         <iconset resource="../../src/resource.qrc">
           <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
         </property>
         <property name="autoRaise">
@@ -78,7 +78,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset resource="resource.qrc">
+         <iconset resource="../../src/resource.qrc">
           <normaloff>:/icons/gohome.png</normaloff>:/icons/gohome.png</iconset>
         </property>
         <property name="autoRaise">
@@ -114,7 +114,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -147,7 +147,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="resource.qrc"/>
+  <include location="../../src/resource.qrc"/>
  </resources>
  <connections>
   <connection>

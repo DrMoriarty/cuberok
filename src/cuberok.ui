@@ -192,7 +192,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -292,34 +292,7 @@
    <addaction name="menuControl"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar">
-   <widget class="QLabel" name="listStatus">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>List</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="collectionStatus">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Collection</string>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>Playing Controls</string>
@@ -1367,22 +1340,6 @@
     <hint type="destinationlabel">
      <x>480</x>
      <y>357</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listView</sender>
-   <signal>status(QString)</signal>
-   <receiver>listStatus</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>480</x>
-     <y>219</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>49</x>
-     <y>535</y>
     </hint>
    </hints>
   </connection>
