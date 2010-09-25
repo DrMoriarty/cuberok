@@ -70,8 +70,8 @@ unix {
     }
 }
 
-client_server {
-    SUBDIRS += cuberok_client cuberok_daemon
-} else {
+#client_server {
+#    SUBDIRS += cuberok_client cuberok_daemon
+#} else {
     SUBDIRS += src
-}
+#}

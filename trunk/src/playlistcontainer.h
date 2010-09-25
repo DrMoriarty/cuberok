@@ -54,6 +54,7 @@ private slots:
 	void storeState();
 	void detectPlayPauseIcon (bool);
 	void extensionUpdate(int);
+	void tabCloseRequested(int t);
 
 public slots:
 	void addList();

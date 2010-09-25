@@ -65,6 +65,8 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
 #if QT_VERSION >= 0x040500
 	tabs->setMovable(true);
+	tabs->setTabsClosable(true);
+	connect(tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(tabCloseRequested(int)));
 #endif
 	setContextMenuPolicy(Qt::ActionsContextMenu);
 
@@ -236,6 +238,25 @@ void PlaylistContainer::delList()
 		}
 	}
 }
+
+void PlaylistContainer::tabCloseRequested(int t)
+{
+	for(int i=0; i<lists.count(); i++)
+		if(lists[i]->getWidget() == tabs->widget(t)) {
+			if(lists[i] == curlist) curlist = 0;
+			if(lists[i] == actlist) actlist = 0;
+			lists[i]->setAutosave(false);
+			lists[i]->getWidget()->disconnect();
+			lists[i]->disconnect();
+			tabs->removeTab(t);
+			delete lists[i];
+			lists.removeAt(i);
+		}
+	if(!lists.size()) {
+		addList();
+	}
+}
+
 void PlaylistContainer::renameList()
 {
 	// TODO

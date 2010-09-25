@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>AboutDialogClass</name>
     <message>
@@ -27,11 +27,11 @@
         <translation type="unfinished">Домой</translation>
     </message>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
     </message>
     <message>
-        <source>...</source>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -40,10 +40,6 @@
     </message>
     <message>
         <source>Jamendo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -61,6 +57,8 @@
         <translation type="unfinished">
             <numerusform>Коллекция - %n альбомов
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -68,6 +66,8 @@
         <translation type="unfinished">
             <numerusform>Коллекция - %n исполнителей
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -75,6 +75,8 @@
         <translation type="unfinished">
             <numerusform>Коллекция - %n жанров
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -82,6 +84,8 @@
         <translation type="unfinished">
             <numerusform>Коллекция - %n композиций
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -89,6 +93,8 @@
         <translation type="unfinished">
             <numerusform>%n композиций
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -100,6 +106,8 @@
         <translation type="unfinished">
             <numerusform>Коллекция - %n списков
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -159,23 +167,23 @@
     </message>
     <message>
         <source>Operation was started in background</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Операция была запущена в фоновом режиме</translation>
     </message>
     <message>
         <source>Scaning collection will take a couple minutes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сканирование коллекции займёт несколько минут</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">...</translation>
     </message>
     <message>
         <source>Import collection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Импорт коллекции</translation>
     </message>
     <message>
         <source>Fast collection filter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Быстрый фильтр коллекции</translation>
     </message>
 </context>
 <context>
@@ -284,19 +292,19 @@
         <translation type="unfinished">Удалить выбранный элемент из коллекции</translation>
     </message>
     <message>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">...</translation>
     </message>
     <message>
         <source>SQL Playlists</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Списки SQL</translation>
     </message>
     <message>
         <source>Edit</source>
+        <translation type="unfinished">Редактировать</translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -823,6 +831,10 @@
         <source>You can select correct image file and save it into the CUE sheet or simply use it now</source>
         <translation type="obsolete">Вы можете выбрать правильный образ и сохранить его в файл CUE, или просто использовать образ сейчас</translation>
     </message>
+    <message>
+        <source>...</source>
+        <translation type="obsolete">...</translation>
+    </message>
 </context>
 <context>
     <name>Database</name>
@@ -840,15 +852,15 @@
     </message>
     <message>
         <source>Added today</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавлено сегодня</translation>
     </message>
     <message>
         <source>Added this week</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавлено на этой неделе</translation>
     </message>
     <message>
         <source>Added this month</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавлено в этом месяце</translation>
     </message>
 </context>
 <context>
@@ -897,11 +909,11 @@
     <name>FileBrowser</name>
     <message>
         <source>File Browser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обозреватель файлов</translation>
     </message>
     <message>
         <source>The browser of your file system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обозреватель Вашей файловой системы</translation>
     </message>
 </context>
 <context>
@@ -912,7 +924,7 @@
     </message>
     <message>
         <source>Mark this folder</source>
-        <translation type="unfinished">Отметить эту папку</translation>
+        <translation type="unfinished">Отметить этот каталог</translation>
     </message>
     <message>
         <source>Refresh Tree</source>
@@ -920,34 +932,34 @@
     </message>
     <message>
         <source>Set This Dir as Start Directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Установить стартовый каталог</translation>
     </message>
     <message>
         <source>Set current selected directory as a startup directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Установить текущий каталог как стартовый</translation>
     </message>
     <message>
         <source>One Level Up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Один уровень вверх</translation>
     </message>
     <message>
         <source>Change root to one level up directory</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изменить корень на каталог уровнем выше</translation>
+    </message>
+    <message>
+        <source>Set Current Dir as Root</source>
+        <translation type="unfinished">Установить текущий каталог как корень</translation>
+    </message>
+    <message>
+        <source>Show Files</source>
+        <translation type="unfinished">Показать файлы</translation>
     </message>
     <message>
         <source>Locks directory tree below to directory one level up form current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set Current Dir as Root</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Locks directory tree below to currently selected directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Files</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1061,6 +1073,10 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Все папки из коллекции Amarok будут просканированы на музыкальные файлы.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
+    <message>
+        <source>...</source>
+        <translation type="obsolete">...</translation>
+    </message>
 </context>
 <context>
     <name>ImportCollection</name>
@@ -1112,7 +1128,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">...</translation>
     </message>
 </context>
 <context>
@@ -1214,22 +1230,22 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>No album info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нет информации об альбоме</translation>
     </message>
     <message>
         <source>No artist info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нет информации об исполнителе</translation>
     </message>
 </context>
 <context>
     <name>InfoLastFM</name>
     <message>
         <source>Last.FM Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Информация Last.FM</translation>
     </message>
     <message>
         <source>This extension tries to load information about your music from Last.FM</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Это расширение пытается загрузить информацию о вашей музыке из Last.FM</translation>
     </message>
 </context>
 <context>
@@ -1246,11 +1262,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Info widget</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Информация</translation>
     </message>
     <message>
         <source>This extension shows information about current song</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Это расширение показывает информацию о текущей песне</translation>
     </message>
 </context>
 <context>
@@ -1288,11 +1304,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Jamendo: Wrong response &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jamendo: Неправильный ответ &apos;%1&apos;</translation>
     </message>
     <message>
         <source>There is an error during download data from the jamendo.com</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ошибка в процессе получения данных с jamendo.com</translation>
     </message>
 </context>
 <context>
@@ -1311,7 +1327,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Last.FM Scrobbler</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Last.FM Скробблер</translation>
     </message>
 </context>
 <context>
@@ -1321,6 +1337,8 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">
             <numerusform>Коллекция - %n списков
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -1386,7 +1404,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Libre.FM Scrobbler</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Libre.FM Скробблер</translation>
     </message>
 </context>
 <context>
@@ -1464,27 +1482,27 @@ p, li { white-space: pre-wrap; }
     <name>Lyric</name>
     <message>
         <source>Lyric</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Текст</translation>
     </message>
     <message>
         <source>This extension loads lyrics from the Internet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Это расширение загружает тексты из сети Интернет</translation>
     </message>
     <message>
         <source>Lyric: search lyric at &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Текст: искать тексты в &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Lyric: Network error!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Текст: Сетевая ошибка!</translation>
     </message>
     <message>
         <source>Lucky Google: JSON parse error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Счастливый Гугль: ошибка парсера JSON: %1</translation>
     </message>
     <message>
         <source>Select preffered lyric source</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выбрать предпочтительный источник текстов</translation>
     </message>
 </context>
 <context>
@@ -1554,6 +1572,8 @@ Do you forget to install proper phonon backend?</source>
         <translation type="unfinished">
             <numerusform>Список - %n композиций
         </numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -1685,6 +1705,14 @@ Do you forget to install proper phonon backend?</source>
         <translation type="unfinished">Очистить</translation>
     </message>
     <message>
+        <source>Delete song from disk</source>
+        <translation type="unfinished">Удалить песню с диска</translation>
+    </message>
+    <message>
+        <source>Remove song from the playlist and from the disk</source>
+        <translation type="unfinished">Удалить песню из списка воспроизведения и с диска</translation>
+    </message>
+    <message>
         <source>Ctrl+D</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1694,14 +1722,6 @@ Do you forget to install proper phonon backend?</source>
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete song from disk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove song from the playlist and from the disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1725,38 +1745,38 @@ Do you forget to install proper phonon backend?</source>
     <name>Psi Tune</name>
     <message>
         <source>Enable psi publish tune</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить публикацию статуса psi</translation>
     </message>
     <message>
         <source>File to publish tune</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Файл для публикования статуса</translation>
     </message>
     <message>
         <source>Enable kopete publish tune</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить публикацию статуса kopete</translation>
     </message>
     <message>
         <source>Status line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Строка статуса</translation>
     </message>
     <message>
         <source>Enable KDE4 notification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить уведомления KDE4</translation>
     </message>
 </context>
 <context>
     <name>PsiTune</name>
     <message>
         <source>Play &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Играть &apos;%1&apos;</translation>
     </message>
     <message>
         <source>by %1 - album &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">, %1 - альбом &apos;%2&apos;</translation>
     </message>
     <message>
         <source>PsiTune Scrobbler</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PsiTune Скробблер</translation>
     </message>
     <message>
         <source>TODO</source>
@@ -1792,17 +1812,23 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Valid field names are File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating and Date.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Don&apos;t forget to use &apos;and&apos; and &apos;or&apos; between conditions.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;For example try to write &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;ArtistName like &amp;quot;The%&amp;quot; and SongRating &amp;gt; 10&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Корректные названия полей: File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating и Date.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Не забудьте изпользовать &apos;and&apos; и &apos;or&apos; между условиями.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Например попробуйте написать &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;ArtistName like &amp;quot;The%&amp;quot; and SongRating &amp;gt; 10&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Valid field names are File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating and Date.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Don&apos;t forget to use &apos;and&apos; and &apos;or&apos; between conditions.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;For example try to write &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;ArtistName like &amp;quot;The%&amp;quot; and SongRating &amp;gt; 10&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1941,7 +1967,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>The collection of your music files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Коллекция Ваших музыкальных файлов</translation>
     </message>
 </context>
 <context>
@@ -1952,7 +1978,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>This extension is a place for your playlists</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Это расширение управляет Вашими списками воспроизведения</translation>
     </message>
 </context>
 <context>
@@ -1963,7 +1989,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>The browser of the Internet services</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обозреватель сервисов Интернет</translation>
     </message>
 </context>
 <context>

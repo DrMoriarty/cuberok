@@ -59,6 +59,9 @@ Info::Info(Proxy* p, QWidget *parent)
 	ui.actionRateDown->setDisabled(true);
 	ui.actionRateUp->setDisabled(true);
 	ui.actionLoveIt->setDisabled(true);
+	ui.artistRating->noEdit();
+	ui.albumRating->noEdit();
+	ui.songRating->noEdit();
 }
 
 Info::~Info()
