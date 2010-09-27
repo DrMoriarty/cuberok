@@ -94,6 +94,7 @@ void usage()
 	printf("Usage:\n\
 cuberok [OPTIONS] [FILES]\n\
 \tOptions are:\n\
+--show\t-o\tShow window\n\
 --new\t-n\tCreate a new playlist\n\
 --url URL\t-u URL\tOpen given URL\n\
 --volume NN\t-v NN\tSet volume to NN percent\n\
@@ -107,6 +108,43 @@ cuberok [OPTIONS] [FILES]\n\
 \tFILES: local files or playlists to open\n");
 }
 
+void sendCommands(QStringList& list)
+{
+	QByteArray bytes;
+	QDataStream stream(&bytes, QIODevice::WriteOnly);
+	stream << list;
+	if(bytes.size() >= SHMEM_SIZE) {
+		fprintf(stderr, "Arguments too long! These size is greater than %d bytes\n", SHMEM_SIZE);
+	}
+	bool success = false;
+	long long time = 0;
+	while(!success) {
+		shm.lock();
+		char *data = (char*)shm.data();
+		if(!data[0]) {
+			memcpy(data+1, bytes.data(), bytes.size());
+			data[0] = list.size() > 255 ? 255 : list.size();
+			shm.unlock();
+			success = true;
+		} else {
+			shm.unlock();
+			//msleep(100);
+			time += 1;
+		}
+		if(!success && time > 10000) {
+			fprintf(stderr, "Timeout!");
+			return;
+		}
+	}
+}
+
+void defaultAction()
+{
+	QStringList list;
+	list << "#show";
+	sendCommands(list);
+}
+
 void putCommands(int argc, char *argv[])
 {
 	QStringList list;
@@ -115,6 +153,9 @@ void putCommands(int argc, char *argv[])
 		if(!strcmp(argv[i], "-h") || !strcmp(argv[i], "--help")) {
 			usage();
 			return;
+		} else
+		if(!strcmp(argv[i], "-o") || !strcmp(argv[i], "--show")) {
+			list << "#show";
 		} else
 		if(!strcmp(argv[i], "-n") || !strcmp(argv[i], "--new")) {
 			//if(list.size() && list.back().size()) 
@@ -168,32 +209,7 @@ void putCommands(int argc, char *argv[])
 			list << QUrl::fromLocalFile(file).toString();
 		}
 	}
-	QByteArray bytes;
-	QDataStream stream(&bytes, QIODevice::WriteOnly);
-	stream << list;
-	if(bytes.size() >= SHMEM_SIZE) {
-		fprintf(stderr, "Arguments too long! These size is greater than %d bytes\n", SHMEM_SIZE);
-	}
-	bool success = false;
-	long long time = 0;
-	while(!success) {
-		shm.lock();
-		char *data = (char*)shm.data();
-		if(!data[0]) {
-			memcpy(data+1, bytes.data(), bytes.size());
-			data[0] = list.size() > 255 ? 255 : list.size();
-			shm.unlock();
-			success = true;
-		} else {
-			shm.unlock();
-			//msleep(100);
-			time += 1;
-		}
-		if(!success && time > 10000) {
-			fprintf(stderr, "Timeout!");
-			return;
-		}
-	}
+	sendCommands(list);
 }
 
 int main(int argc, char *argv[])
@@ -203,6 +219,7 @@ int main(int argc, char *argv[])
         if(argc == 1) {
             qDebug("Cuberok already started\n exiting...");
             usage();
+			defaultAction();
             return 1;
         } else {
             putCommands(argc, argv);

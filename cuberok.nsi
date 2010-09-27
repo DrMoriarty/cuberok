@@ -42,6 +42,7 @@ Section "Cuberok"
   File "win32\Cuberok.exe"
   CreateDirectory $INSTDIR\translations
   File /oname=translations\cuberok_ru.qm "win32\translations\cuberok_ru.qm"
+  File "win32\libgcc_s_dw2-1.dll"
   File "win32\mingwm10.dll"
   File "win32\libtag.dll"
   File "license.txt"
