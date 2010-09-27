@@ -62,11 +62,12 @@ PlaylistContainer::PlaylistContainer(QWidget *parent)
 	connect(newButton, SIGNAL(pressed()), this, SLOT(addList()));
 	connect(closeButton, SIGNAL(pressed()), this, SLOT(delList()));
 	tabs->setCornerWidget(newButton, Qt::TopLeftCorner);
-	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
 #if QT_VERSION >= 0x040500
 	tabs->setMovable(true);
 	tabs->setTabsClosable(true);
 	connect(tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(tabCloseRequested(int)));
+#else
+	tabs->setCornerWidget(closeButton, Qt::TopRightCorner);
 #endif
 	setContextMenuPolicy(Qt::ActionsContextMenu);
 

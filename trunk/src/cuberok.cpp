@@ -604,6 +604,10 @@ void Cuberok::timeSlot()
 				ui.actionPlayPause->trigger();
 			} else if(arg[0] == "#stop") {
 				ui.actionStop->trigger();
+			} else if(arg[0] == "#show") {
+				setVisible(true);
+				activateWindow(); // for windows
+				showNormal(); // for linux
 			}
 			continue;
 		}
