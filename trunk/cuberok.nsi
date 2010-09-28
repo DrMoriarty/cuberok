@@ -1,4 +1,4 @@
-!define VERSION "0.1.0-rc0"
+!define VERSION "0.1.0"
 
 Name "Cuberok ${VERSION}"
 
@@ -61,6 +61,15 @@ Section "Cuberok"
   CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok.lnk" "$INSTDIR\Cuberok.exe" "" "$INSTDIR\Cuberok.exe" 0
   CreateShortCut "$SMPROGRAMS\Cuberok\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   
+SectionEnd
+
+Section "Global Shortcuts"
+  CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok-prev.lnk" "$INSTDIR\Cuberok.exe" "--prev" "$INSTDIR\Cuberok.exe" 0 SW_SHOWNORMAL ALT|CONTROL|1
+  CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok-play.lnk" "$INSTDIR\Cuberok.exe" "--play" "$INSTDIR\Cuberok.exe" 0 SW_SHOWNORMAL ALT|CONTROL|2
+  CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok-stop.lnk" "$INSTDIR\Cuberok.exe" "--stop" "$INSTDIR\Cuberok.exe" 0 SW_SHOWNORMAL ALT|CONTROL|3
+  CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok-next.lnk" "$INSTDIR\Cuberok.exe" "--next" "$INSTDIR\Cuberok.exe" 0 SW_SHOWNORMAL ALT|CONTROL|4
+  CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok-mute.lnk" "$INSTDIR\Cuberok.exe" "--volume 0" "$INSTDIR\Cuberok.exe" 0 SW_SHOWNORMAL ALT|CONTROL|M
+  CreateShortCut "$SMPROGRAMS\Cuberok\Cuberok-unmute.lnk" "$INSTDIR\Cuberok.exe" "--volume 100" "$INSTDIR\Cuberok.exe" 0 SW_SHOWNORMAL ALT|CONTROL|V
 SectionEnd
 
 ; Optional section (can be disabled by the user)
