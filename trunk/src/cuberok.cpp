@@ -217,7 +217,7 @@ Cuberok::Cuberok(QWidget *parent)
 			}
 		}
 	}
-	allactions.append(ui.listView->getPlaylistActions());
+	allactions << ui.listView->getPlaylistActions();
 	restoreShortcuts();
 	connect(&ExtensionProxy::Self(), SIGNAL(aboutToUpdate(int)), this, SLOT(extensionSupervisor(int)));
 }
