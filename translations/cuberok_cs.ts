@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutDialogClass</name>
     <message>
@@ -9,15 +9,15 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished">О Программе</translation>
+        <translation>O programu</translation>
     </message>
     <message>
         <source>Cuberok</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuberok</translation>
     </message>
     <message>
         <source>Version 0.0.0</source>
-        <translation type="unfinished"></translation>
+        <translation>Verze 0.0.0</translation>
     </message>
     <message utf8="true">
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -31,13 +31,13 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;©Василий Макаров, 2008-2010&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;©Vasiliy Makarov, 2008-2010&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://sites.google.com/site/cuberok/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#00458a;&quot;&gt;https://sites.google.com/site/cuberok/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Лицензия: &lt;a href=&quot;www.gnu.org/licenses/gpl-3.0.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Povolení: &lt;a href=&quot;www.gnu.org/licenses/gpl-3.0.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation>Авторы</translation>
+        <translation>Autoři</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -58,129 +58,120 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Пожалуйста, шлите сообщения об ошибках в &lt;a href=&quot;http://code.google.com/p/cuberok/issues/entry&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://code.google.com/p/cuberok/issues/entry&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Василий Макаров&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hlášení chyb, prosím, posílejte &lt;a href=&quot;http://code.google.com/p/cuberok/issues/entry&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://code.google.com/p/cuberok/issues/entry&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vasiliy Makarov&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:drmoriarty.0@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;drmoriarty.0@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Разработчик&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Vývojář&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;nomen.infitior&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:nomen.infitior@gmail.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;nomen.infitior@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Разработчик, тестировщик&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Vývojář, zkoušeč&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Delidov.George&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://delidov.ru&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://delidov.ru&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Дизайнер&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Návrhář&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Translation</source>
-        <translation>Перевод</translation>
+        <translation>Překlad</translation>
     </message>
     <message>
         <source>Information about translator</source>
-        <translation>Если Вы нашли ошибки или 
-неточности в русском переводе, 
-сообщите пожалуйста по адресу 
-drmoriarty.0@gmail.com</translation>
+        <translation>Pavel Fric</translation>
     </message>
     <message>
         <source>Informaton</source>
-        <translation>Информация</translation>
+        <translation>Informace</translation>
     </message>
 </context>
 <context>
     <name>BrowserViewer</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished">Назад</translation>
+        <translation>Zpět</translation>
     </message>
     <message>
         <source>Reload</source>
-        <translation type="unfinished">Перечитать</translation>
+        <translation>Nahrát znovu</translation>
     </message>
     <message>
         <source>Home</source>
-        <translation type="unfinished">Домой</translation>
+        <translation>Domov</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <source>MagnaTune</source>
-        <translation type="unfinished"></translation>
+        <translation>MagnaTune</translation>
     </message>
     <message>
         <source>Jamendo</source>
-        <translation type="unfinished"></translation>
+        <translation>Jamendo</translation>
     </message>
 </context>
 <context>
     <name>CollectionFiller</name>
     <message>
         <source>Collect music</source>
-        <translation type="unfinished">Коллекционирование музыки</translation>
+        <translation>Shromáždit hudbu</translation>
     </message>
 </context>
 <context>
     <name>CollectionModel</name>
     <message numerus="yes">
         <source>Collection - %n album(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n альбомов
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sbírka - jedno album</numerusform>
+            <numerusform>Sbírka - %n alba</numerusform>
+            <numerusform>Sbírka - %n alb</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n artist(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n исполнителей
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sbírka - jeden umělec</numerusform>
+            <numerusform>Sbírka - %n umělci</numerusform>
+            <numerusform>Sbírka - %n umělců</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n genre(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n жанров
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sbírka - jeden žánr</numerusform>
+            <numerusform>Sbírka - %n žánry</numerusform>
+            <numerusform>Sbírka - %n žánrů</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n song(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n композиций
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sbírka - jedna písnička</numerusform>
+            <numerusform>Sbírka - %n písničky</numerusform>
+            <numerusform>Sbírka - %n písniček</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n song(s)</source>
-        <translation type="unfinished">
-            <numerusform>%n композиций
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Jedna písnička</numerusform>
+            <numerusform>%n písničky</numerusform>
+            <numerusform>%n písniček</numerusform>
         </translation>
     </message>
     <message>
         <source>%1, album &quot;%2&quot;</source>
-        <translation type="unfinished">%1, альбом &quot;%2&quot;</translation>
+        <translation>%1, album &quot;%2&quot;</translation>
     </message>
     <message numerus="yes">
         <source>Collection - %n lists(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n списков
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sbírka - jeden seznam</numerusform>
+            <numerusform>Sbírka - %n seznamy</numerusform>
+            <numerusform>Sbírka - %n seznamů</numerusform>
         </translation>
     </message>
 </context>
@@ -188,270 +179,270 @@ drmoriarty.0@gmail.com</translation>
     <name>CollectionSettings</name>
     <message>
         <source>Operation complete</source>
-        <translation type="unfinished">Операция выполнена</translation>
+        <translation>Operace dokončena</translation>
     </message>
     <message>
         <source>%1 link(s) has been removed from the collection.</source>
-        <translation type="unfinished">%1 ссылок было удалено из коллекции.</translation>
+        <translation>%1 odkazů bylo ze sbírky odstraněno.</translation>
     </message>
     <message>
         <source>Select your music folder</source>
-        <translation type="unfinished">Выберите свою папку с музыкой</translation>
+        <translation>Vyberte složku se svou hudbou</translation>
     </message>
     <message>
         <source>Collection Settings</source>
-        <translation type="unfinished">Установки коллекции</translation>
+        <translation>Nastavení sbírky</translation>
     </message>
     <message>
         <source>Path to the music collection</source>
-        <translation type="unfinished">Путь к музыкальной коллекции</translation>
+        <translation>Cesta k hudební sbírce</translation>
     </message>
     <message>
         <source>Select folder with your music and press &quot;Scan Collection&quot; button. Also you can simply drag-n-drop music files and folders into the collection window.</source>
-        <translation type="unfinished">Выберите папку с музыкой и нажмите &quot;Сканировать коллекцию&quot;. Так же вы можете просто перетащить музыкальные файлы и папки в окно коллекции.</translation>
+        <translation>Vyberte složku se svou hudbou a stiskněte tlačítko &quot;Prohledat sbírku&quot;. Hudební soubory a složky můžete také jednoduše přetáhnout a upustit v okně se sbírkou.</translation>
     </message>
     <message>
         <source>Scan selected folder for music files</source>
-        <translation type="unfinished">Сканировать выбранную папку на музыкальные файлы</translation>
+        <translation>Prohledat vybrané složky kvůli hudebním souborům</translation>
     </message>
     <message>
         <source>Scan Collection</source>
-        <translation type="unfinished">Сканировать коллекцию</translation>
+        <translation>Prohledat sbírku</translation>
     </message>
     <message>
         <source>Remove links to unavailable files, remove empty albums and artists</source>
-        <translation type="unfinished">Удалить ссылки на недоступные файлы, удалить пустые альбомы и пустых исполнителей</translation>
+        <translation>Odstranit odkazy a nedostupné soubory, odstranit prázdná alba a umělce</translation>
     </message>
     <message>
         <source>Clean up collection</source>
-        <translation type="unfinished">Очистка коллекции</translation>
+        <translation>Udělat pořádek ve sbírce</translation>
     </message>
     <message>
         <source>Close this window</source>
-        <translation type="unfinished">Закрыть окно</translation>
+        <translation>Zavřít toto okno</translation>
     </message>
     <message>
         <source>Close collection settings dialog</source>
-        <translation type="unfinished">Закрыть окно настроек коллекции</translation>
+        <translation>Zavřít dialog pro nastavení sbírky</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Закрыть</translation>
+        <translation>Zavřít</translation>
     </message>
     <message>
         <source>Operation was started in background</source>
-        <translation type="unfinished">Операция была запущена в фоновом режиме</translation>
+        <translation>Operace byla spuštěna na pozadí</translation>
     </message>
     <message>
         <source>Scaning collection will take a couple minutes</source>
-        <translation type="unfinished">Сканирование коллекции займёт несколько минут</translation>
+        <translation>Prohledání sbírky zabere několik minut</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Import collection</source>
-        <translation type="unfinished">Импорт коллекции</translation>
+        <translation>Zavést sbírku</translation>
     </message>
     <message>
         <source>Fast collection filter</source>
-        <translation type="unfinished">Быстрый фильтр коллекции</translation>
+        <translation>Rychlý sbírkový filtr</translation>
     </message>
 </context>
 <context>
     <name>CollectionView</name>
     <message>
         <source>New Album</source>
-        <translation type="unfinished">Новый Альбом</translation>
+        <translation>Nové album</translation>
     </message>
     <message>
         <source>New Artist</source>
-        <translation type="unfinished">Новый Исполнитель</translation>
+        <translation>Nový umělec</translation>
     </message>
     <message>
         <source>New Genre</source>
-        <translation type="unfinished">Новый Жанр</translation>
+        <translation>Nový žánr</translation>
     </message>
     <message>
         <source>Open image</source>
-        <translation type="unfinished">Открыть изображение</translation>
+        <translation>Otevřít obrázek</translation>
     </message>
     <message>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
-        <translation type="unfinished">Изображения (*.jpg *.gif *.png *.bmp)</translation>
+        <translation>Obrázky (*.jpg *.gif *.png *.bmp)</translation>
     </message>
 </context>
 <context>
     <name>CollectionWidget</name>
     <message>
         <source>Reset filter</source>
-        <translation type="unfinished">Снять фильтр</translation>
+        <translation>Nastavit filtr znovu</translation>
     </message>
     <message>
         <source>Enter search substring</source>
-        <translation type="unfinished">Введите строку поиска</translation>
+        <translation>Zadat podřetězec pro hledání</translation>
     </message>
     <message>
         <source>Drag&apos;n&apos;Drop files to the collection</source>
-        <translation type="unfinished">Перетащите файлы в коллекцию</translation>
+        <translation>Táhnout a upustit soubory do sbírky</translation>
     </message>
     <message>
         <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
+        <translation>Žánr</translation>
     </message>
     <message>
         <source>Show genres</source>
-        <translation type="unfinished">Показать жанры</translation>
+        <translation>Ukázat žánry</translation>
     </message>
     <message>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation>Umělec</translation>
     </message>
     <message>
         <source>Show artists</source>
-        <translation type="unfinished">Показать исполнителей</translation>
+        <translation>Ukázat umělce</translation>
     </message>
     <message>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation>Album</translation>
     </message>
     <message>
         <source>Show albums</source>
-        <translation type="unfinished">Показать альбомы</translation>
+        <translation>Ukázat album</translation>
     </message>
     <message>
         <source>Song</source>
-        <translation type="unfinished">Песня</translation>
+        <translation>Písnička</translation>
     </message>
     <message>
         <source>Show songs</source>
-        <translation type="unfinished">Показать песни</translation>
+        <translation>Ukázat písničky</translation>
     </message>
     <message>
         <source>Icon View</source>
-        <translation type="unfinished">Значки</translation>
+        <translation>Pohled s ikonami</translation>
     </message>
     <message>
         <source>View icons for collection items</source>
-        <translation type="unfinished">Включить отображение значков для элементов коллекции</translation>
+        <translation>Zobrazit ikony pro položky ve sbírce</translation>
     </message>
     <message>
         <source>Set Image</source>
-        <translation type="unfinished">Установить изображение</translation>
+        <translation>Nastavit obrázek</translation>
     </message>
     <message>
         <source>Set image for collection item</source>
-        <translation type="unfinished">Установить изображение для элемента коллекции</translation>
+        <translation>Nastavit obrázek pro položku ve sbírce</translation>
     </message>
     <message>
         <source>Load image from Last.FM</source>
-        <translation type="unfinished">Загрузить изображение с Last.FM</translation>
+        <translation>Nahrát obrázek z Last.FM</translation>
     </message>
     <message>
         <source>Add Item</source>
-        <translation type="unfinished">Добавить элемент</translation>
+        <translation>Přidat položku</translation>
     </message>
     <message>
         <source>Create new collection item</source>
-        <translation type="unfinished">Создать новый элемент коллекции</translation>
+        <translation>Vytvořit novou sbírkovou položku</translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation type="unfinished">Удалить элемент</translation>
+        <translation>Odstranit položku</translation>
     </message>
     <message>
         <source>Remove selected item from collection</source>
-        <translation type="unfinished">Удалить выбранный элемент из коллекции</translation>
+        <translation>Odstranit vybranou položku ze sbírky</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>SQL Playlists</source>
-        <translation type="unfinished">Списки SQL</translation>
+        <translation>Seznamy skladeb SQL</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished">Редактировать</translation>
+        <translation>Upravit</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>Textový štítek</translation>
     </message>
 </context>
 <context>
     <name>ConsoleWindow</name>
     <message>
         <source>Messages</source>
-        <translation type="unfinished">Сообщения</translation>
+        <translation>Zprávy</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished">Просмотр</translation>
+        <translation>Pohled</translation>
     </message>
     <message>
         <source>Commands</source>
-        <translation type="unfinished">Команды</translation>
+        <translation>Příkazy</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Всё</translation>
+        <translation>Vše</translation>
     </message>
     <message>
         <source>Warnings</source>
-        <translation type="unfinished">Предупреждения</translation>
+        <translation>Varování</translation>
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished">Ошибки</translation>
+        <translation>Chyby</translation>
     </message>
     <message>
         <source>Fatal Errors</source>
-        <translation type="unfinished">Фатальные ошибки</translation>
+        <translation>Vážné chyby</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished">Выход</translation>
+        <translation>Ukončit</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished">Обновить</translation>
+        <translation>Obnovit</translation>
     </message>
     <message>
         <source>Auto Refresh</source>
-        <translation type="unfinished">Авто обновление</translation>
+        <translation>Automatické obnovení</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Очистить</translation>
+        <translation>Smazat</translation>
     </message>
 </context>
 <context>
     <name>Cuberok</name>
     <message>
         <source>Addons</source>
-        <translation type="unfinished">Дополнения</translation>
+        <translation>Přídavky</translation>
     </message>
     <message>
         <source>Something wrong</source>
-        <translation>Что-то неправильно</translation>
+        <translation>Něco je špatně</translation>
     </message>
     <message>
         <source>It seems your browser isn&apos;t configured properly</source>
-        <translation>Похоже что ваш браузер не сконфигурирован подходящим образом</translation>
+        <translation>Zdá se, že váš prohlížeč není nastaven správně</translation>
     </message>
 </context>
 <context>
     <name>CuberokClass</name>
     <message>
         <source>About</source>
-        <translation type="unfinished">О Программе</translation>
+        <translation>O programu</translation>
     </message>
     <message>
         <source>About dialog</source>
-        <translation type="unfinished">Информация о программе</translation>
+        <translation>O programu</translation>
     </message>
     <message>
         <source>Add Item</source>
@@ -459,31 +450,31 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation>Album</translation>
     </message>
     <message>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation>Umělec</translation>
     </message>
     <message>
         <source>Break</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Přerušit</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Очистить</translation>
+        <translation>Vyprázdnit</translation>
     </message>
     <message>
         <source>Clear playlist</source>
-        <translation type="unfinished">Очистить список</translation>
+        <translation>Vyprázdnit seznam skladeb</translation>
     </message>
     <message>
         <source>Close playlist</source>
-        <translation type="unfinished">Закрыть список</translation>
+        <translation>Zavřít seznam skladeb</translation>
     </message>
     <message>
         <source>Close the program</source>
-        <translation type="unfinished">Закрыть программу</translation>
+        <translation>Zavřít program</translation>
     </message>
     <message>
         <source>Collection</source>
@@ -491,31 +482,31 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Columns</source>
-        <translation type="unfinished">Столбцы</translation>
+        <translation>Sloupce</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished">Комментарий</translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>Control</source>
-        <translation type="unfinished">Управление</translation>
+        <translation>Ovládání</translation>
     </message>
     <message>
         <source>Edit Tag</source>
-        <translation type="unfinished">Редактировать теги</translation>
+        <translation>Upravit značku</translation>
     </message>
     <message>
         <source>Enter search substring</source>
-        <translation type="unfinished">Введите строку поиска</translation>
+        <translation>Zadat podřetězec pro hledání</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished">Выход</translation>
+        <translation>Ukončit</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Файл</translation>
+        <translation>Soubor</translation>
     </message>
     <message>
         <source>Files</source>
@@ -523,15 +514,15 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
+        <translation>Žánr</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished">Помощь</translation>
+        <translation>Nápověda</translation>
     </message>
     <message>
         <source>Length</source>
-        <translation type="unfinished">Длительность</translation>
+        <translation>Délka</translation>
     </message>
     <message>
         <source>List</source>
@@ -539,19 +530,19 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation type="unfinished">Внешний вид</translation>
+        <translation>Vzhled</translation>
     </message>
     <message>
         <source>New playlist</source>
-        <translation type="unfinished">Новый список</translation>
+        <translation>Nový seznam skladeb</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished">Следующий</translation>
+        <translation>Další</translation>
     </message>
     <message>
         <source>Next track</source>
-        <translation type="unfinished">Следующий трек</translation>
+        <translation>Další skladba</translation>
     </message>
     <message>
         <source>Pause</source>
@@ -559,19 +550,19 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Play</source>
-        <translation type="unfinished">Играть</translation>
+        <translation>Přehrát</translation>
     </message>
     <message>
         <source>Play track</source>
-        <translation type="unfinished">Играть трек</translation>
+        <translation>Přehrát skladbu</translation>
     </message>
     <message>
         <source>Previous</source>
-        <translation type="unfinished">Предыдущий</translation>
+        <translation>Předchozí</translation>
     </message>
     <message>
         <source>Previous track</source>
-        <translation type="unfinished">Предыдущий трек</translation>
+        <translation>Předchozí skladba</translation>
     </message>
     <message>
         <source>Queue as Next</source>
@@ -587,15 +578,15 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Repeat</source>
-        <translation type="unfinished">Повторять</translation>
+        <translation>Opakovat</translation>
     </message>
     <message>
         <source>Repeat mode</source>
-        <translation type="unfinished">Режим повтора</translation>
+        <translation>Režim opakování</translation>
     </message>
     <message>
         <source>Shuffle</source>
-        <translation type="unfinished">Тасовать</translation>
+        <translation>Zamíchat</translation>
     </message>
     <message>
         <source>Shuffle mode</source>
@@ -607,15 +598,15 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished">Стоп</translation>
+        <translation>Zastavit</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation type="unfinished">Теги</translation>
+        <translation>Značka</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <source>Toolbar</source>
@@ -623,31 +614,31 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Track</source>
-        <translation type="unfinished">Трек</translation>
+        <translation>Skladba</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished">Вид</translation>
+        <translation>Pohled</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished">Год</translation>
+        <translation>Rok</translation>
     </message>
     <message>
         <source>Save playlist</source>
-        <translation type="unfinished">Записать список</translation>
+        <translation>Uložit seznam skladeb</translation>
     </message>
     <message>
         <source>Save playlist into file</source>
-        <translation type="unfinished">Записать список в файл</translation>
+        <translation>Uložit seznam skladeb do souboru</translation>
     </message>
     <message>
         <source>Open playlist</source>
-        <translation type="unfinished">Открыть список</translation>
+        <translation>Otevřít seznam skladeb</translation>
     </message>
     <message>
         <source>Load playlist from a file</source>
-        <translation type="unfinished">Загрузить список из файла</translation>
+        <translation>Nahrát seznam skladeb ze souboru</translation>
     </message>
     <message>
         <source>Reload tags</source>
@@ -655,11 +646,11 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Reset filter</source>
-        <translation type="unfinished">Снять фильтр</translation>
+        <translation>Nastavit filtr znovu</translation>
     </message>
     <message>
         <source>Rating</source>
-        <translation type="unfinished">Рейтинг</translation>
+        <translation>Hodnocení</translation>
     </message>
     <message>
         <source>Drag&apos;n&apos;Drop files to the collection</source>
@@ -667,7 +658,7 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished">Параметры</translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <source>Set Image</source>
@@ -687,7 +678,7 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Open Url</source>
-        <translation type="unfinished">Открыть URL</translation>
+        <translation>Otevřít adresu (URL)</translation>
     </message>
     <message>
         <source>Information</source>
@@ -695,7 +686,7 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished">О Qt</translation>
+        <translation>O Qt</translation>
     </message>
     <message>
         <source>Load image from Last.FM</source>
@@ -703,23 +694,23 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Messages</source>
-        <translation type="unfinished">Сообщения</translation>
+        <translation>Zprávy</translation>
     </message>
     <message>
         <source>View SQL Playlists</source>
-        <translation type="unfinished">SQL Списки</translation>
+        <translation>Zobrazit seznamy skladeb SQL</translation>
     </message>
     <message>
         <source>View Regular Playlists</source>
-        <translation type="unfinished">Обычные списки</translation>
+        <translation>Zobrazit pravidelné seznamy skladeb</translation>
     </message>
     <message>
         <source>Edit SQL Playist</source>
-        <translation type="unfinished">Редактировать SQL список</translation>
+        <translation>Upravit seznamy skladeb SQL</translation>
     </message>
     <message>
         <source>Edit tags with QTagConvert</source>
-        <translation type="unfinished">Редактирование тегов в QTagConvert</translation>
+        <translation>Upravit značky pomocí QTagConvert</translation>
     </message>
     <message>
         <source>Refresh Tree</source>
@@ -727,27 +718,27 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Mute</source>
-        <translation type="unfinished">Выкл. звук</translation>
+        <translation>Ztlumit</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished">Номер</translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Find current song</source>
-        <translation type="unfinished">Найти текущую песню</translation>
+        <translation>Najít nynější písničku</translation>
     </message>
     <message>
         <source>Find now playing song</source>
-        <translation type="unfinished">Найти песню, играющую сейчас</translation>
+        <translation>Najít nyní přehrávanou písničku</translation>
     </message>
     <message>
         <source>Current</source>
-        <translation type="unfinished">Текущая</translation>
+        <translation>Nynější</translation>
     </message>
     <message>
         <source>Cancel task</source>
-        <translation type="unfinished">Отменить задание</translation>
+        <translation>Zrušit úkol</translation>
     </message>
     <message>
         <source>Enqueue selected song</source>
@@ -755,15 +746,15 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Edit tags</source>
-        <translation type="unfinished">Редактировать теги</translation>
+        <translation>Upravit značky</translation>
     </message>
     <message>
         <source>Create new playlist</source>
-        <translation type="unfinished">Создать новый список воспроизведения</translation>
+        <translation>Vytvořit nový seznam skladeb</translation>
     </message>
     <message>
         <source>Close current playlist</source>
-        <translation type="unfinished">Закрыть текущий список воспроизведения</translation>
+        <translation>Zavřít současný seznam skladeb</translation>
     </message>
     <message>
         <source>Remove song from the playlist</source>
@@ -819,27 +810,27 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Show system log</source>
-        <translation type="unfinished">Показать системные сообщения</translation>
+        <translation>Ukázat systémové hlášení</translation>
     </message>
     <message>
         <source>Show SQL playlists</source>
-        <translation type="unfinished">Показать SQL списки</translation>
+        <translation>Ukázat seznamy skladeb SQL</translation>
     </message>
     <message>
         <source>Show regular playlists</source>
-        <translation type="unfinished">Показать обычные списки</translation>
+        <translation>Ukázat pravidelné seznamy skladeb</translation>
     </message>
     <message>
         <source>Playing Controls</source>
-        <translation type="unfinished">Управление проигрыванием</translation>
+        <translation>Ovládání přehrávání</translation>
     </message>
     <message>
         <source>Playlist Controls</source>
-        <translation type="unfinished">Управление списками</translation>
+        <translation>Ovládání seznamu skladeb</translation>
     </message>
     <message>
         <source>Track Controls</source>
-        <translation type="unfinished">Управление дорожкой</translation>
+        <translation>Ovládání skladeb</translation>
     </message>
     <message>
         <source>Internet Services</source>
@@ -859,11 +850,11 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Queue</source>
-        <translation type="unfinished">Очередь</translation>
+        <translation>Řada</translation>
     </message>
     <message>
         <source>Queue position</source>
-        <translation type="unfinished">Позиция в очереди</translation>
+        <translation>Poloha v řadě</translation>
     </message>
     <message>
         <source>Mark this folder</source>
@@ -875,346 +866,346 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Cuberok</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuberok</translation>
     </message>
     <message>
         <source>Alt+F1</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F1</translation>
     </message>
     <message>
         <source>Alt+Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+Z</translation>
     </message>
     <message>
         <source>Alt+V</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+X</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <source>Ctrl+T</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+P</translation>
     </message>
     <message>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <source>QTagConvert</source>
-        <translation type="unfinished"></translation>
+        <translation>QTagConvert</translation>
     </message>
     <message>
         <source>Ctrl+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>F1</source>
-        <translation type="unfinished"></translation>
+        <translation>F1</translation>
     </message>
     <message>
         <source>Cuberok online</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuberok připojen</translation>
     </message>
     <message>
         <source>Song mode</source>
-        <translation>Режим песни</translation>
+        <translation>Režim písničky</translation>
     </message>
     <message>
         <source>Play one song</source>
-        <translation>Играть одну песню</translation>
+        <translation>Přehrát jednu písničku</translation>
     </message>
     <message>
         <source>Album mode</source>
-        <translation>Режим альбома</translation>
+        <translation>Režim alba</translation>
     </message>
     <message>
         <source>Play albums</source>
-        <translation>Играть альбомы</translation>
+        <translation>Přehrát alba</translation>
     </message>
     <message>
         <source>Playlist mode</source>
-        <translation>Режим списка</translation>
+        <translation>Režim seznamu skladeb</translation>
     </message>
     <message>
         <source>Play whole playlist</source>
-        <translation>Играть весь список</translation>
+        <translation>Přehrát celý seznam skladeb</translation>
     </message>
     <message>
         <source>Ordered</source>
-        <translation>Упорядоченный</translation>
+        <translation>Seřazené</translation>
     </message>
     <message>
         <source>Ordered playing</source>
-        <translation>Играть по порядку</translation>
+        <translation>Přehrát seřazené</translation>
     </message>
     <message>
         <source>Shuffle playing</source>
-        <translation>Играть в перемешку</translation>
+        <translation>Přehrát zamíchané</translation>
     </message>
     <message>
         <source>Random</source>
-        <translation>Случайно</translation>
+        <translation>Náhodné</translation>
     </message>
     <message>
         <source>Random playing</source>
-        <translation>Играть в случайном порядке</translation>
+        <translation>Náhodné přehrávání</translation>
     </message>
 </context>
 <context>
     <name>CueControl</name>
     <message>
         <source>Select an image file</source>
-        <translation type="unfinished">Выберите файл образа</translation>
+        <translation>Vybrat obrázkový soubor</translation>
     </message>
     <message>
         <source>Audio images (*.flac *.ape *.wav);;All files (*.*)</source>
-        <translation type="unfinished">Аудио форматы (*.flac *.ape *.wav);;Все файлы (*.*)</translation>
+        <translation>Zvukové soubory (*.flac *.ape *.wav);;Všechny soubory (*.*)</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Ошибка</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <source>File %1 not found!</source>
-        <translation type="unfinished">Файл %1 не найден!</translation>
+        <translation>Soubor %1 nenalezen!</translation>
     </message>
     <message>
         <source>Unable to create file %1</source>
-        <translation type="unfinished">Невозможно создать файл %1</translation>
+        <translation>Nelze vytvořit soubor %1</translation>
     </message>
     <message>
         <source>Success</source>
-        <translation type="unfinished">Успех</translation>
+        <translation>Úspěch</translation>
     </message>
     <message>
         <source>New CUE sheet stored as %1</source>
-        <translation type="unfinished">Новый файл CUE сохранён как %1</translation>
+        <translation>Nový soubor CUE uložen jako %1</translation>
     </message>
     <message>
         <source>Fix CUE sheet</source>
-        <translation type="unfinished">Исправить CUE файл</translation>
+        <translation>Opravit soubor CUE</translation>
     </message>
     <message>
         <source>You can select correct image file and save it into the CUE sheet or simply use it now</source>
-        <translation type="unfinished">Вы можете выбрать правильный образ и сохранить его в файл CUE, или просто использовать образ сейчас</translation>
+        <translation>Můžete vybrat správný obrázkový soubor a uložit jej do souboru CUE, nebo jej jednoduše použít nyní</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
     <name>Database</name>
     <message>
         <source>The Best</source>
-        <translation type="unfinished">Лучшее</translation>
+        <translation>Nejlepší</translation>
     </message>
     <message>
         <source>Good music</source>
-        <translation type="unfinished">Хорошая музыка</translation>
+        <translation>Dobrá hudba</translation>
     </message>
     <message>
         <source>Unrated</source>
-        <translation type="unfinished">Неоценено</translation>
+        <translation>Nehodnoceno</translation>
     </message>
     <message>
         <source>Added today</source>
-        <translation type="unfinished">Добавлено сегодня</translation>
+        <translation>Přidána dnes</translation>
     </message>
     <message>
         <source>Added this week</source>
-        <translation type="unfinished">Добавлено на этой неделе</translation>
+        <translation>Přidána tento týden</translation>
     </message>
     <message>
         <source>Added this month</source>
-        <translation type="unfinished">Добавлено в этом месяце</translation>
+        <translation>Přidána tento měsíc</translation>
     </message>
 </context>
 <context>
     <name>Dialog</name>
     <message>
         <source>Http authentication required</source>
-        <translation type="unfinished">Требуется аутентификация HTTP</translation>
+        <translation>Požadována autentizace HTTP</translation>
     </message>
     <message>
         <source>You need to supply a Username and a Password to access this site</source>
-        <translation type="unfinished">Необходимо сообщить имя пользователя и пароль для доступа к сайту</translation>
+        <translation>byste mohl přistoupit k těmto stránkám, musíte vyplnit uživatelské jméno a heslo</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished">Имя пользователя:</translation>
+        <translation>Uživatelské jméno:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished">Пароль:</translation>
+        <translation>Heslo:</translation>
     </message>
     <message>
         <source>Site:</source>
-        <translation type="unfinished">Сайт:</translation>
+        <translation>Stránky:</translation>
     </message>
     <message>
         <source>%1 at %2</source>
-        <translation type="unfinished">%1 на %2</translation>
+        <translation>%1 na %2</translation>
     </message>
 </context>
 <context>
     <name>Downloader</name>
     <message>
         <source>Download file %1</source>
-        <translation type="unfinished">Скачать файл %1</translation>
+        <translation>Stáhnout soubor %1</translation>
     </message>
     <message>
         <source>Download failed: %1.</source>
-        <translation type="unfinished">Закачка прервана: %1.</translation>
+        <translation>Stahování se nezdařilo: %1.</translation>
     </message>
     <message>
         <source>%1 at %2</source>
-        <translation type="unfinished">%1 на %2</translation>
+        <translation>%1 na %2</translation>
     </message>
     <message>
         <source>Operation canceled by user</source>
-        <translation>Операция прервана пользователем</translation>
+        <translation>Operace byla zrušena uživatelem</translation>
     </message>
 </context>
 <context>
     <name>DummyExtensionSetupWidget</name>
     <message>
         <source>This extension doesn&apos;t have any settings</source>
-        <translation>Это расширение не имеет настроек</translation>
+        <translation>Toto rozšíření nemá žádné nastavení</translation>
     </message>
 </context>
 <context>
     <name>ExtensionSettings</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Название</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation>Автор</translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>Описание</translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <source>Enable this extension</source>
-        <translation>Включить это расширение</translation>
+        <translation>Povolit toto rozšíření</translation>
     </message>
 </context>
 <context>
     <name>FileBrowser</name>
     <message>
         <source>File Browser</source>
-        <translation type="unfinished">Обозреватель файлов</translation>
+        <translation>Prohlížeč souborů</translation>
     </message>
     <message>
         <source>The browser of your file system</source>
-        <translation type="unfinished">Обозреватель Вашей файловой системы</translation>
+        <translation>Prohlížeč vašeho souborového systému</translation>
     </message>
 </context>
 <context>
     <name>FileBrowserWidget</name>
     <message>
         <source>Remove mark</source>
-        <translation type="unfinished">Снять отметку</translation>
+        <translation>Odstranit značku</translation>
     </message>
     <message>
         <source>Mark this folder</source>
-        <translation type="unfinished">Отметить этот каталог</translation>
+        <translation>Označit tuto složku</translation>
     </message>
     <message>
         <source>Refresh Tree</source>
-        <translation type="unfinished">Обновить дерево каталогов</translation>
+        <translation>Obnovit strom</translation>
     </message>
     <message>
         <source>Set This Dir as Start Directory</source>
-        <translation type="unfinished">Установить стартовый каталог</translation>
+        <translation>Nastavit tento adresář jako počáteční adresář</translation>
     </message>
     <message>
         <source>Set current selected directory as a startup directory</source>
-        <translation type="unfinished">Установить текущий каталог как стартовый</translation>
+        <translation>Nastavit nyní vybraný adresář jako počáteční adresář</translation>
     </message>
     <message>
         <source>One Level Up</source>
-        <translation type="unfinished">Один уровень вверх</translation>
+        <translation>O jednu úroveň nahoru</translation>
     </message>
     <message>
         <source>Change root to one level up directory</source>
-        <translation type="unfinished">Изменить корень на каталог уровнем выше</translation>
+        <translation>Změnit kořen na adresář o jednu úroveň výše</translation>
     </message>
     <message>
         <source>Set Current Dir as Root</source>
-        <translation type="unfinished">Установить текущий каталог как корень</translation>
+        <translation>Nastavit nynější adresář jako kořen</translation>
     </message>
     <message>
         <source>Show Files</source>
-        <translation type="unfinished">Показать файлы</translation>
+        <translation>Ukázat soubory</translation>
     </message>
     <message>
         <source>Locks directory tree below to directory one level up form current</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzamkne adresářový strom níže k adresáři o jednu úroveň nahoru od současného</translation>
     </message>
     <message>
         <source>Locks directory tree below to currently selected directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzamkne adresářový strom níže k nyní vybranému adresáři</translation>
     </message>
 </context>
 <context>
     <name>FirstStartWizard</name>
     <message>
         <source>Select your music folder</source>
-        <translation type="unfinished">Выберите вашу папку с музыкой</translation>
+        <translation>Vyberte složku se svou hudbou</translation>
     </message>
     <message>
         <source>Select Amarok music collection</source>
-        <translation type="unfinished">Выберите коллекцию Amarok</translation>
+        <translation>Vyberte hudební sbírku Amaroku</translation>
     </message>
     <message>
         <source>First start settings</source>
-        <translation type="unfinished">Настройки первого запуска</translation>
+        <translation>Nastavení prvního spuštění</translation>
     </message>
     <message>
         <source>Welcome to the Cuberok</source>
-        <translation type="unfinished">Добро пожаловать в Cuberok</translation>
+        <translation>Vítejte v Cuberoku</translation>
     </message>
     <message>
         <source>Cuberok is a lightweight music player and collection manager</source>
@@ -1222,27 +1213,27 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>What do you want to do?</source>
-        <translation type="unfinished">Что вы хотите делать?</translation>
+        <translation>Co chcete dělat?</translation>
     </message>
     <message>
         <source>Listen to music now!</source>
-        <translation type="unfinished">Слушать музыку сейчас!</translation>
+        <translation>Poslouchat nyní hudbu!</translation>
     </message>
     <message>
         <source>Create a music collection from local files</source>
-        <translation type="unfinished">Создать музыкальную коллекцию из локальных файлов</translation>
+        <translation>Vytvořit hudební sbírku z místních souborů</translation>
     </message>
     <message>
         <source>Import music collection from the Amarok 1.4</source>
-        <translation type="unfinished">Импортировать музыкальную коллекцию из Amarok 1.4</translation>
+        <translation>Zavést hudební sbírku z Amaroku 1.4</translation>
     </message>
     <message>
         <source>Listening to music</source>
-        <translation type="unfinished">Прослушивание музыки</translation>
+        <translation>Poslouchání hudby</translation>
     </message>
     <message>
         <source>Cuberok is ready for playing your music</source>
-        <translation type="unfinished">Cuberok готов проигрывать вашу музыку</translation>
+        <translation>Cuberok je připraven k přehrávání vaší hudby</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1252,25 +1243,25 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;In order to play music files simply drag-n-drop files into the playlist.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Also you can add your music into the collection. Just drag-n-drop songs from the playlist or from anywhere to the collection window.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Для того чтобы проиграть музыкальные файлы, просто перетащите их в плейлист.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Pro přehrání hudebních souborů soubory jednoduše přetáhněte a upusťte v seznamu skladeb.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Так же вы можете добавить вашу музыку в коллекцию. Просто перетащите песни из плейлиста или откуда угодно в окно коллекции.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Svoji hudbu také můžete přidat do sbírky. Prostě přetáhněte a upusťte písničky ze seznamu skladeb nebo odkudkoli do okna se sbírkou.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Creating a music collection</source>
-        <translation type="unfinished">Создание музыкальной коллекции</translation>
+        <translation>Vytvoření hudební sbírky</translation>
     </message>
     <message>
         <source>Your will can to select songs by genre or by artist</source>
-        <translation type="unfinished">Вы сможете выбирать песни по автору или по жанру</translation>
+        <translation>Písničky můžete vybrat podle žánru nebo podle umělce</translation>
     </message>
     <message>
         <source>Select a folder with your music files:</source>
-        <translation type="unfinished">Выберите папку с вашими музыкальными файлами:</translation>
+        <translation>Vyberte složku se svými hudebními soubory:</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1278,23 +1269,23 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;The music files will be looked for in s&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;elected folder. You can find them in the collection window.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Музыкальные файлы в выбранной папке. будут найдены Вы сможете найти их в окне коллекции.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Hudební soubory budou hledány ve&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;vybrané složce. Můžete je nalézt v okně se sbírkou.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Importing Amarok collection</source>
-        <translation type="unfinished">Импортирование коллекции Amarok</translation>
+        <translation>Zavedení sbírky z Amaroku</translation>
     </message>
     <message>
         <source>Only Amarok 1.4 sqlite database is possible to import now</source>
-        <translation type="unfinished">Сейчас возможен только импорт базы данных sqlite из Amarok 1.4</translation>
+        <translation>Nyní je možné zavést pouze databázi sqlite pro Amarok 1.4</translation>
     </message>
     <message>
         <source>Select an amarok collection file:</source>
-        <translation type="unfinished">Выберите файл коллекции Amarok:</translation>
+        <translation>Vyberte soubor se sbírkou Amaroku:</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1302,54 +1293,54 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;All folders from the Amarok 1.4 collection will be scanned for the music files.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Все папки из коллекции Amarok будут просканированы на музыкальные файлы.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Všechny složky ze sbírky Amaroku 1.4 budou prohledány kvůli hudebním souborům.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Cuberok is a lightweight music player and a collection manager</source>
-        <translation>Cuberok это легковесный музыкальный проигрыватель и менеджер коллекций</translation>
+        <translation>Cuberok je odlehčený hudební přehrávač a správce sbírky</translation>
     </message>
 </context>
 <context>
     <name>ImportCollection</name>
     <message>
         <source>Select Amarok music collection</source>
-        <translation type="unfinished">Выберите музыкальную коллекцию Amarok</translation>
+        <translation>Vyberte hudební sbírku Amaroku</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation type="unfinished">Файл не найден</translation>
+        <translation>Soubor nebyl nalezen</translation>
     </message>
     <message>
         <source>File %1 doesn&apos;t exist</source>
-        <translation type="unfinished">Файл %1 не существует</translation>
+        <translation>Soubor %1 neexistuje</translation>
     </message>
     <message>
         <source>Can not open Amarok database from %1</source>
-        <translation type="unfinished">Не могу открыть базу данных Amarok из %1</translation>
+        <translation>Nelze otevřít databázi Amaroku z %1</translation>
     </message>
     <message>
         <source>Database error</source>
-        <translation type="unfinished">Ошибка базы данных</translation>
+        <translation>Chyba v databázi</translation>
     </message>
     <message>
         <source>Surprise</source>
-        <translation type="unfinished">Сюрприз</translation>
+        <translation>Překvapení</translation>
     </message>
     <message>
         <source>There aren&apos;t any local folders in Amarok&apos;s collection.</source>
-        <translation type="unfinished">Не существует ни одной папки в коллекции Amarok.</translation>
+        <translation>Ve sbírce Amaroku nejsou žádné místní složky.</translation>
     </message>
     <message>
         <source>Import Collecton</source>
-        <translation type="unfinished">Импорт коллекции</translation>
+        <translation>Zavést sbírku</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1358,133 +1349,133 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Select an amarok collectoin file:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Only Amarok 1.4 sqlite database is possible to import now.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Выберите файл коллекции Amarok:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Сейчас возможен только импорт базы данных sqlite из Amarok 1.4.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;vyberte soubor se sbírkou Amaroku:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Nyní je možné zavést pouze databázi sqlite pro Amarok 1.4.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
 </context>
 <context>
     <name>Indicator</name>
     <message>
         <source>(Press to cancel this task)</source>
-        <translation type="unfinished">(Нажми чтобы отменить задание)</translation>
+        <translation>(Stisknout pro zrušení tohoto úkolu)</translation>
     </message>
     <message>
         <source>None to cancel</source>
-        <translation type="unfinished">Нечего отменять</translation>
+        <translation>Nic ke zrušení</translation>
     </message>
 </context>
 <context>
     <name>Info</name>
     <message>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation>Umělec</translation>
     </message>
     <message>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation>Album</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished">Информация</translation>
+        <translation>Informace</translation>
     </message>
     <message>
         <source>Now Playing</source>
-        <translation type="unfinished">Сейчас играет</translation>
+        <translation>Nyní se přehrává</translation>
     </message>
     <message>
         <source>Song Title</source>
-        <translation type="unfinished">Название песни</translation>
+        <translation>Název písničky</translation>
     </message>
     <message>
         <source>Album Title</source>
-        <translation type="unfinished">Название альбома</translation>
+        <translation>Název alba</translation>
     </message>
     <message>
         <source>Rate Up</source>
-        <translation type="unfinished">Оценить выше</translation>
+        <translation>Hodnotit nahoru</translation>
     </message>
     <message>
         <source>Rate Down</source>
-        <translation type="unfinished">Оценить ниже</translation>
+        <translation>Hodnotit dolů</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Запретить</translation>
+        <translation>Zakázat</translation>
     </message>
     <message>
         <source>Show Artist Info</source>
-        <translation type="unfinished">Показать информацию об исполнителе</translation>
+        <translation>Ukázat informace o umělci</translation>
     </message>
     <message>
         <source>Show Album Info</source>
-        <translation type="unfinished">Показать информацию об альбоме</translation>
+        <translation>Ukázat informace o albu</translation>
     </message>
     <message>
         <source>Show Lyrics</source>
-        <translation type="unfinished">Показать текст</translation>
+        <translation>Ukázat text písně</translation>
     </message>
     <message>
         <source>Love it</source>
-        <translation type="unfinished">Любимое</translation>
+        <translation>Milovat</translation>
     </message>
     <message>
         <source>Artist Name</source>
-        <translation type="unfinished">Имя исполнителя</translation>
+        <translation>Umělcovo jméno</translation>
     </message>
     <message>
         <source>Show Song</source>
-        <translation type="unfinished">Показать песню</translation>
+        <translation>Ukázat písničku</translation>
     </message>
     <message>
         <source>Show Album Image</source>
-        <translation type="unfinished">Показать изображение альбома</translation>
+        <translation>Ukázat obrázek alba</translation>
     </message>
     <message>
         <source>Show Album Title</source>
-        <translation type="unfinished">Показать название альбома</translation>
+        <translation>Ukázat název alba</translation>
     </message>
     <message>
         <source>Show Artist Image</source>
-        <translation type="unfinished">Показать изображение исполнителя</translation>
+        <translation>Ukázat obrázek s umělcem</translation>
     </message>
     <message>
         <source>Show Artist Name</source>
-        <translation type="unfinished">Показать имя исполнителя</translation>
+        <translation>Ukázat umělcovo jméno</translation>
     </message>
     <message>
         <source>Get Images</source>
-        <translation type="unfinished">Получить изображения</translation>
+        <translation>Získat obrázky</translation>
     </message>
     <message>
         <source>Get images from Last.FM</source>
-        <translation type="unfinished">Получить изображения с Last.FM</translation>
+        <translation>Získat obrázky z Last.FM</translation>
     </message>
     <message>
         <source>No album info</source>
-        <translation type="unfinished">Нет информации об альбоме</translation>
+        <translation>Žádné informace o albu</translation>
     </message>
     <message>
         <source>No artist info</source>
-        <translation type="unfinished">Нет информации об исполнителе</translation>
+        <translation>Žádné informace o umělci</translation>
     </message>
 </context>
 <context>
     <name>InfoLastFM</name>
     <message>
         <source>Last.FM Info</source>
-        <translation type="unfinished">Информация Last.FM</translation>
+        <translation>Informace o Last.FM</translation>
     </message>
     <message>
         <source>This extension tries to load information about your music from Last.FM</source>
-        <translation type="unfinished">Это расширение пытается загрузить информацию о вашей музыке из Last.FM</translation>
+        <translation>Toto rozšíření se pokouší o nahrání informací o vaší hudbě z Last.FM</translation>
     </message>
 </context>
 <context>
@@ -1501,18 +1492,18 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Info widget</source>
-        <translation type="unfinished">Информация</translation>
+        <translation>Informace</translation>
     </message>
     <message>
         <source>This extension shows information about current song</source>
-        <translation type="unfinished">Это расширение показывает информацию о текущей песне</translation>
+        <translation>Toto rozšíření ukazuje informace o nynější písničce</translation>
     </message>
 </context>
 <context>
     <name>InfoWindow</name>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Информация</translation>
+        <translation>Informace</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -1528,14 +1519,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>about:blank</source>
-        <translation type="unfinished"></translation>
+        <translation>o:prázdný</translation>
     </message>
 </context>
 <context>
     <name>JamendoBrowser</name>
     <message>
         <source>Network error!</source>
-        <translation type="unfinished">Сетевая ошибка!</translation>
+        <translation>Síťová chyba!</translation>
     </message>
     <message>
         <source>There is error during download data from the jamendo.com</source>
@@ -1543,41 +1534,40 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Jamendo: Wrong response &apos;%1&apos;</source>
-        <translation type="unfinished">Jamendo: Неправильный ответ &apos;%1&apos;</translation>
+        <translation>Jamendo: Nesprávná odpověď &apos;%1&apos;</translation>
     </message>
     <message>
         <source>There is an error during download data from the jamendo.com</source>
-        <translation type="unfinished">Ошибка в процессе получения данных с jamendo.com</translation>
+        <translation>Chyba při stahování dat z jamendo.com</translation>
     </message>
 </context>
 <context>
     <name>LastFM</name>
     <message>
         <source>Enable Last.FM scrobbling</source>
-        <translation type="unfinished">Включить Last.FM scrobbling</translation>
+        <translation>Povolit Last.FM to, čemu se říká &quot;scrobble&quot;</translation>
     </message>
     <message>
         <source>User name</source>
-        <translation type="unfinished">Пользователь</translation>
+        <translation>Uživatelské jméno</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Пароль</translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <source>Last.FM Scrobbler</source>
-        <translation type="unfinished">Last.FM Скробблер</translation>
+        <translation>Scrobbler Last.FM</translation>
     </message>
 </context>
 <context>
     <name>LibraryModel</name>
     <message numerus="yes">
         <source>Collection - %n lists(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n списков
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sbírka - jeden seznam</numerusform>
+            <numerusform>Sbírka - %n seznamy</numerusform>
+            <numerusform>Sbírka - %n seznamů</numerusform>
         </translation>
     </message>
 </context>
@@ -1585,238 +1575,238 @@ p, li { white-space: pre-wrap; }
     <name>LibraryView</name>
     <message>
         <source>New Playlist</source>
-        <translation type="unfinished">Новый список</translation>
+        <translation>Nový seznam skladeb</translation>
     </message>
     <message>
         <source>Open image</source>
-        <translation type="unfinished">Открыть изображение</translation>
+        <translation>Otevřít obrázek</translation>
     </message>
     <message>
         <source>Images (*.jpg *.gif *.png *.bmp)</source>
-        <translation type="unfinished">Изображения (*.jpg *.gif *.png *.bmp)</translation>
+        <translation>Obrázky (*.jpg *.gif *.png *.bmp)</translation>
     </message>
 </context>
 <context>
     <name>LibraryWidget</name>
     <message>
         <source>Drag&apos;n&apos;Drop playlists to the library</source>
-        <translation type="unfinished">Перетащите списки проигрывания в библиотеку</translation>
+        <translation>Táhnout a upustit seznamy skladeb v knihovně</translation>
     </message>
     <message>
         <source>Add Item</source>
-        <translation type="unfinished">Добавить элемент</translation>
+        <translation>Přidat položku</translation>
     </message>
     <message>
         <source>Create new library item</source>
-        <translation type="unfinished">Создать новый элемент библиотеки</translation>
+        <translation>Vytvořit novou knihovní položku</translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation type="unfinished">Удалить элемент</translation>
+        <translation>Odstranit položku</translation>
     </message>
     <message>
         <source>Remove selected item from library</source>
-        <translation type="unfinished">Удалить выбранный элемент из библиотеки</translation>
+        <translation>Odstranit vybranou položku z knihovny</translation>
     </message>
     <message>
         <source>Set Image</source>
-        <translation type="unfinished">Установить изображение</translation>
+        <translation>Nastavit obrázek</translation>
     </message>
     <message>
         <source>Set image for library item</source>
-        <translation type="unfinished">Установить изображение для элемента библиотеки</translation>
+        <translation>Nastavit obrázek pro položku v knihovně</translation>
     </message>
 </context>
 <context>
     <name>LibreFM</name>
     <message>
         <source>Enable Libre.FM scrobbling</source>
-        <translation type="unfinished">Включить скробблинг Libre.FM</translation>
+        <translation>Povolit Libre.FM to, čemu se říká &quot;scrobble&quot;</translation>
     </message>
     <message>
         <source>User name</source>
-        <translation type="unfinished">Пользователь</translation>
+        <translation>Uživatelské jméno</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Пароль</translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <source>Libre.FM Scrobbler</source>
-        <translation type="unfinished">Libre.FM Скробблер</translation>
+        <translation>Scrobbler Libre.FM</translation>
     </message>
 </context>
 <context>
     <name>LookAndFeelClass</name>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Применить</translation>
+        <translation>Použít</translation>
     </message>
     <message>
         <source>Brush</source>
-        <translation type="unfinished">Кисть</translation>
+        <translation>Štětec</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <source>CheckBox</source>
-        <translation type="unfinished">Кнопка-флаг</translation>
+        <translation>Zaškrtávací okénko</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Цвет</translation>
+        <translation>Barva</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Цвета</translation>
+        <translation>Barvy</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished">Шрифты</translation>
+        <translation>Písma</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Группа</translation>
+        <translation>Skupina</translation>
     </message>
     <message>
         <source>GroupBox</source>
-        <translation type="unfinished">Группа</translation>
+        <translation>Seskupovací okénko</translation>
     </message>
     <message>
         <source>Line Edit</source>
-        <translation type="unfinished">Строка текста</translation>
+        <translation>Úprava řádku</translation>
     </message>
     <message>
         <source>LookAndFeel</source>
-        <translation type="unfinished">Внешний вид</translation>
+        <translation>Vzhled</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished">Да</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>PushButton</source>
-        <translation type="unfinished">Кнопка</translation>
+        <translation>Tlačítko na postrčení</translation>
     </message>
     <message>
         <source>Quick colors</source>
-        <translation type="unfinished">Быстрые цвета</translation>
+        <translation>Rychlé barvy</translation>
     </message>
     <message>
         <source>RadioButton</source>
-        <translation type="unfinished">Радио-кнопка</translation>
+        <translation>Rádiové tlačítko</translation>
     </message>
     <message>
         <source>Role</source>
-        <translation type="unfinished">Роль</translation>
+        <translation>Role</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation type="unfinished">Стиль</translation>
+        <translation>Styl</translation>
     </message>
 </context>
 <context>
     <name>Lyric</name>
     <message>
         <source>Lyric</source>
-        <translation type="unfinished">Текст</translation>
+        <translation>Text písně</translation>
     </message>
     <message>
         <source>This extension loads lyrics from the Internet</source>
-        <translation type="unfinished">Это расширение загружает тексты из сети Интернет</translation>
+        <translation>Toto rozšíření nahraje texty z internetu</translation>
     </message>
     <message>
         <source>Lyric: search lyric at &apos;%1&apos;</source>
-        <translation type="unfinished">Текст: искать тексты в &apos;%1&apos;</translation>
+        <translation>Text písně: hledat text v &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Lyric: Network error!</source>
-        <translation type="unfinished">Текст: Сетевая ошибка!</translation>
+        <translation>Text písně: Síťová chyba!</translation>
     </message>
     <message>
         <source>Lucky Google: JSON parse error: %1</source>
-        <translation type="unfinished">Счастливый Гугль: ошибка парсера JSON: %1</translation>
+        <translation>Šťastný Google: chyba při zpracování JSON: %1</translation>
     </message>
     <message>
         <source>Select preffered lyric source</source>
-        <translation type="unfinished">Выбрать предпочтительный источник текстов</translation>
+        <translation>Vyberte upřednostňovaný zdroj písňových textů</translation>
     </message>
 </context>
 <context>
     <name>MagnatuneBrowser</name>
     <message>
         <source>MagnaTune error: %1 at line %2 column %3</source>
-        <translation type="unfinished">MagnaTune ошибка: %1 на линии %2 столбец %3</translation>
+        <translation>Chyba MagnaTune: %1 na řádku %2 sloupce %3</translation>
     </message>
     <message>
         <source>Network error!</source>
-        <translation type="unfinished">Сетевая ошибка!</translation>
+        <translation>Síťová chyba!</translation>
     </message>
     <message>
         <source>There is error during download a page from the magnatune.com</source>
-        <translation type="unfinished">Произошла ошибка в процессе получения страницы с magnatune.com</translation>
+        <translation>Chyba při stahování stránky z magnatune.com</translation>
     </message>
 </context>
 <context>
     <name>MessageWindow</name>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Ошибка</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <source>Cuberok</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuberok</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Предупреждение</translation>
+        <translation>Varování</translation>
     </message>
     <message>
         <source>Fatal error</source>
-        <translation>Фатальная ошибка</translation>
+        <translation>Vážná chyba:</translation>
     </message>
 </context>
 <context>
     <name>MySplashScreen</name>
     <message>
         <source>(c) DrMoriarty, 2008-2010</source>
-        <translation type="unfinished"></translation>
+        <translation>(c) DrMoriarty, 2008-2010</translation>
     </message>
 </context>
 <context>
     <name>PlayerManager</name>
     <message>
         <source>Can&apos;t start engine %1</source>
-        <translation type="unfinished">Не могу запустить вывод звука %1</translation>
+        <translation>Nelze spustit stroj %1</translation>
     </message>
     <message>
         <source>Selected engine: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybraný stroj: %1</translation>
     </message>
     <message>
         <source>%1 engine is selected by user</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 stroj je vybrán uživatelem</translation>
     </message>
 </context>
 <context>
     <name>PlayerPhonon</name>
     <message>
         <source>This mime type is not supported by phonon: </source>
-        <translation type="unfinished">Phonon не поддерживат этот mime-тип: </translation>
+        <translation>Phonon nepodporuje tento mime typ: </translation>
     </message>
     <message>
         <source>
 Do you forget to install phonon-backend-xine or libxine1-ffmpeg?</source>
-        <translation type="unfinished">
-Вы не забыли установить phonon-backend-xine или libxine1-ffmpeg?</translation>
+        <translation>
+Zapomněl jste nainstalovat phonon-backend-xine nebo libxine1-ffmpeg?</translation>
     </message>
     <message>
         <source>
 Do you forget to install proper phonon backend?</source>
-        <translation type="unfinished">
-Вы не забыли установить подходящий бакэнд для phonon?</translation>
+        <translation>
+Zapomněl jste nainstalovat správné jádro Phononu?</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1835,11 +1825,10 @@ Do you forget to install proper phonon backend?</source>
     <name>PlaylistAbstract</name>
     <message numerus="yes">
         <source>Playlist - %n song(s)</source>
-        <translation type="unfinished">
-            <numerusform>Список - %n композиций
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Seznam skladeb - jedna písnička</numerusform>
+            <numerusform>Seznam skladeb - %n písničky</numerusform>
+            <numerusform>Seznam skladeb - %n písniček</numerusform>
         </translation>
     </message>
 </context>
@@ -1847,19 +1836,19 @@ Do you forget to install proper phonon backend?</source>
     <name>PlaylistContainer</name>
     <message>
         <source>Playlist</source>
-        <translation type="unfinished">Список</translation>
+        <translation>Seznam skladeb</translation>
     </message>
     <message>
         <source>Open playlist</source>
-        <translation type="unfinished">Открыть список</translation>
+        <translation>Otevřít seznam skladeb</translation>
     </message>
     <message>
         <source>Save playlist</source>
-        <translation type="unfinished">Записать список</translation>
+        <translation>Uložit seznam skladeb</translation>
     </message>
     <message>
         <source>Drag&apos;n&apos;Drop files to the playlist</source>
-        <translation type="unfinished">Перетащите файлы в список</translation>
+        <translation>Táhnout a upustit soubory v seznamu skladeb</translation>
     </message>
 </context>
 <context>
@@ -1873,134 +1862,134 @@ Do you forget to install proper phonon backend?</source>
     <name>PlaylistModel</name>
     <message>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation>Album</translation>
     </message>
     <message>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation>Umělec</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished">Комментарий</translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Файл</translation>
+        <translation>Soubor</translation>
     </message>
     <message>
         <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
+        <translation>Žánr</translation>
     </message>
     <message>
         <source>Length</source>
-        <translation type="unfinished">Длительность</translation>
+        <translation>Délka</translation>
     </message>
     <message>
         <source>Rating</source>
-        <translation type="unfinished">Рейтинг</translation>
+        <translation>Hodnocení</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <source>Track</source>
-        <translation type="unfinished">Трек</translation>
+        <translation>Skladba</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished">Год</translation>
+        <translation>Rok</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished">Номер</translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Queue</source>
-        <translation type="unfinished">Очередь</translation>
+        <translation>Řada</translation>
     </message>
     <message>
         <source>Empty</source>
-        <translation>Пустой</translation>
+        <translation>Prázdný</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Тип</translation>
+        <translation>Typ</translation>
     </message>
 </context>
 <context>
     <name>PlaylistStandard</name>
     <message>
         <source>Can not open %1</source>
-        <translation type="unfinished">Не могу открыть %1</translation>
+        <translation>Nelze otevřít %1</translation>
     </message>
     <message>
         <source>Queue as Next</source>
-        <translation type="unfinished">Поставить в очередь</translation>
+        <translation>Zařadit jako další</translation>
     </message>
     <message>
         <source>Enqueue selected song</source>
-        <translation type="unfinished">Поставить в очередь выбранную песню</translation>
+        <translation>Zařadit vybranou písničku</translation>
     </message>
     <message>
         <source>Edit Tag</source>
-        <translation type="unfinished">Редактировать теги</translation>
+        <translation>Upravit značku</translation>
     </message>
     <message>
         <source>Tag</source>
-        <translation type="unfinished">Теги</translation>
+        <translation>Značka</translation>
     </message>
     <message>
         <source>Edit tags</source>
-        <translation type="unfinished">Редактировать теги</translation>
+        <translation>Upravit značky</translation>
     </message>
     <message>
         <source>Reload tags</source>
-        <translation type="unfinished">Перечитать теги</translation>
+        <translation>Nahrát značky znovu</translation>
     </message>
     <message>
         <source>Reload tags in selected song</source>
-        <translation type="unfinished">Перечитать теги для выбранной песни</translation>
+        <translation>Nahrát znovu značky ve vybrané písničce</translation>
     </message>
     <message>
         <source>Remove song</source>
-        <translation type="unfinished">Удалить песню</translation>
+        <translation>Odstranit písničku</translation>
     </message>
     <message>
         <source>Remove song from the playlist</source>
-        <translation type="unfinished">Удалить песню из списка</translation>
+        <translation>Odstranit písničku ze seznamu skladeb</translation>
     </message>
     <message>
         <source>Clear playlist</source>
-        <translation type="unfinished">Очистить список</translation>
+        <translation>Vyprázdnit seznam skladeb</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Очистить</translation>
+        <translation>Vyprázdnit</translation>
     </message>
     <message>
         <source>Delete song from disk</source>
-        <translation type="unfinished">Удалить песню с диска</translation>
+        <translation>Smazat písničku z disku</translation>
     </message>
     <message>
         <source>Remove song from the playlist and from the disk</source>
-        <translation type="unfinished">Удалить песню из списка воспроизведения и с диска</translation>
+        <translation>Odstranit písničku ze seznamu skladeb a z disku</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <source>Del</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete</translation>
     </message>
     <message>
         <source>Ctrl+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <source>Ctrl+Del</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Delete</translation>
     </message>
 </context>
 <context>
@@ -2019,53 +2008,53 @@ Do you forget to install proper phonon backend?</source>
     <name>Psi Tune</name>
     <message>
         <source>Enable psi publish tune</source>
-        <translation type="unfinished">Включить публикацию статуса psi</translation>
+        <translation>Povolit veřejný stav psi</translation>
     </message>
     <message>
         <source>File to publish tune</source>
-        <translation type="unfinished">Файл для публикования статуса</translation>
+        <translation>Soubor pro veřejný stav</translation>
     </message>
     <message>
         <source>Enable kopete publish tune</source>
-        <translation type="unfinished">Включить публикацию статуса kopete</translation>
+        <translation>Povolit veřejný stav kopete</translation>
     </message>
     <message>
         <source>Status line</source>
-        <translation type="unfinished">Строка статуса</translation>
+        <translation>Stavový řádek</translation>
     </message>
     <message>
         <source>Enable KDE4 notification</source>
-        <translation type="unfinished">Включить уведомления KDE4</translation>
+        <translation>Povolit oznamování KDE 4</translation>
     </message>
 </context>
 <context>
     <name>PsiTune</name>
     <message>
         <source>Play &apos;%1&apos;</source>
-        <translation type="unfinished">Играть &apos;%1&apos;</translation>
+        <translation>Přehrát &apos;%1&apos;</translation>
     </message>
     <message>
         <source>by %1 - album &apos;%2&apos;</source>
-        <translation type="unfinished">, %1 - альбом &apos;%2&apos;</translation>
+        <translation>, %1 - album &apos;%2&apos;</translation>
     </message>
     <message>
         <source>PsiTune Scrobbler</source>
-        <translation type="unfinished">PsiTune Скробблер</translation>
+        <translation>Scrobbler PsiTune</translation>
     </message>
     <message>
         <source>TODO</source>
-        <translation type="unfinished"></translation>
+        <translation>KUDĚLÁNÍ</translation>
     </message>
 </context>
 <context>
     <name>SQLEditDialog</name>
     <message>
         <source>Edit SQL Playlist</source>
-        <translation type="unfinished">Редактировать SQL список</translation>
+        <translation>Upravit seznam skladeb SQL</translation>
     </message>
     <message>
         <source>Name of playlist</source>
-        <translation type="unfinished">Название списка</translation>
+        <translation>Název seznamu skladeb</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2074,12 +2063,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Valid field names are File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Don&apos;t forget use &apos;and&apos; and &apos;or&apos; between conditions.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;For example try write &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Корректные названия полей: File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Не забывайте ставить &apos;and&apos; и &apos;or&apos; между условиями.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;На пример, напишите &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;ArtistName like &quot;The%&quot; and SongRating &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Platnými názvy polí jsou Soubor, Skladba, Název, Umělcovo jméno, Název alba, Název žánru, Rok, Poznámka, Hodnocení písničky.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Nezapomeňte použít &apos;and&apos; a &apos;or&apos; mezi podmínkami.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Například zkuste napsat &quot;&lt;span style=&quot; font-weight:600;&quot;&gt;Umělcovo jméno jako &quot;The%&quot; a Hodnocení písničky &amp;gt; 10&lt;/span&gt;&quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -2089,13 +2078,13 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Valid field names are File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating and Date.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Don&apos;t forget to use &apos;and&apos; and &apos;or&apos; between conditions.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;For example try to write &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;ArtistName like &amp;quot;The%&amp;quot; and SongRating &amp;gt; 10&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Корректные названия полей: File, Track, Title, ArtistName, AlbumName, GenreName, Year, Comment, SongRating и Date.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Не забудьте изпользовать &apos;and&apos; и &apos;or&apos; между условиями.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Например попробуйте написать &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;ArtistName like &amp;quot;The%&amp;quot; and SongRating &amp;gt; 10&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Platnými názvy polí jsou Soubor, Skladba, Název, Umělcovo jméno, Název alba, Název žánru, Rok, Poznámka, Hodnocení písničky a Datum.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Nezapomeňte použít &apos;and&apos; a &apos;or&apos; mezi podmínkami.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Například zkuste napsat &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Umělcovo jméno jako &amp;quot;The%&amp;quot; a Hodnocení písničky &amp;gt; 10&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -2103,77 +2092,84 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
     <name>Settings</name>
     <message>
         <source>Common settings</source>
-        <translation type="unfinished">Общие настройки</translation>
+        <translation>Obecná nastavení</translation>
     </message>
     <message>
         <source>Preffered audio engine</source>
-        <translation type="unfinished">Предпочтительный вывод звука</translation>
+        <translation>Upřednostňovaný zvukový stroj</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished">Язык</translation>
+        <translation>Jazyk</translation>
     </message>
     <message>
         <source>Engine Settings</source>
-        <translation type="unfinished">Настройки звука</translation>
+        <translation>Nastavení stroje</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Автоматически</translation>
+        <translation>Automaticky</translation>
     </message>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished">Параметры</translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <source>Enable auto rating</source>
-        <translation type="unfinished">Включить авто-рейтинг</translation>
+        <translation>Povolit automatické hodnocení</translation>
     </message>
     <message>
         <source>Codepage for CUE sheets</source>
-        <translation type="unfinished">Кодировка для файлов CUE</translation>
+        <translation>Kódová stránka pro soubory CUE</translation>
     </message>
     <message>
         <source>Use hack for cp1251</source>
-        <translation type="unfinished">Использовать хак для CP1251</translation>
+        <translation>Použít hack pro CP1251</translation>
     </message>
     <message>
         <source>Internet connection</source>
-        <translation type="unfinished">Соединение с Интернет</translation>
+        <translation>Internetové připojení</translation>
     </message>
     <message>
         <source>Use proxy</source>
-        <translation type="unfinished">Использовать прокси</translation>
+        <translation>Použít proxy</translation>
     </message>
     <message>
         <source>Proxy host</source>
-        <translation type="unfinished">Прокси</translation>
+        <translation>Hostitel proxy</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Порт</translation>
+        <translation>Přípojka</translation>
     </message>
     <message>
         <source>User name</source>
-        <translation type="unfinished">Пользователь</translation>
+        <translation>Uživatelské jméno</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Пароль</translation>
+        <translation>Heslo</translation>
     </message>
     <message>
         <source>Last.FM</source>
@@ -2185,35 +2181,35 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Hide nameless albums</source>
-        <translation type="unfinished">Не показывать безымянные альбомы</translation>
+        <translation>Skrýt alba bez názvu</translation>
     </message>
     <message>
         <source>Cache downloaded information</source>
-        <translation type="unfinished">Кешировать информацию полученную из Интернет</translation>
+        <translation>Uložit stažené informace do vyrovnávací paměti</translation>
     </message>
     <message>
         <source>Interface settings</source>
-        <translation type="unfinished">Настройки интерфейса</translation>
+        <translation>Nastavení rozhraní</translation>
     </message>
     <message>
         <source>Size of tool buttons</source>
-        <translation type="unfinished">Размер кнопок</translation>
+        <translation>Velikost nástrojových tlačítek</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation type="unfinished">Маленький</translation>
+        <translation>Malá</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Обычный</translation>
+        <translation>Obvyklá</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation type="unfinished">Большой</translation>
+        <translation>Velká</translation>
     </message>
     <message>
         <source>Show text below tool buttons</source>
-        <translation type="unfinished">Показывать подписи к кнопкам</translation>
+        <translation>Ukázat text pod nástrojovými tlačítky</translation>
     </message>
     <message>
         <source>Scrobbling</source>
@@ -2225,95 +2221,95 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Check existance of CUE image</source>
-        <translation type="unfinished">Проверять существование образа CUE</translation>
+        <translation>Ověřit bytí obrazu CUE</translation>
     </message>
     <message>
         <source>Check image path in CUE sheets</source>
-        <translation type="unfinished">Проверять путь образа в CUE файлах</translation>
+        <translation>Ověřit cestu k obrazu v souborech CUE</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Настройки</translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation type="unfinished">Действие</translation>
+        <translation>Činnost</translation>
     </message>
     <message>
         <source>Show messages in the system tray</source>
-        <translation>Показывать сообщения в системном лотке</translation>
+        <translation>Ukázat zprávy oznamovací oblasti panelu</translation>
     </message>
     <message>
         <source>Show popup messages</source>
-        <translation>Показывать всплывающие сообщения</translation>
+        <translation>Ukázat vyskakovací zprávy</translation>
     </message>
     <message>
         <source>Top left corner</source>
-        <translation>Верхний левый угол</translation>
+        <translation>Horní levý roh</translation>
     </message>
     <message>
         <source>Bottom left corner</source>
-        <translation>Нижний левый угол</translation>
+        <translation>Dolní levý roh</translation>
     </message>
     <message>
         <source>Top right corner</source>
-        <translation>Верхний правый угол</translation>
+        <translation>Horní pravý roh</translation>
     </message>
     <message>
         <source>Bottom right corner</source>
-        <translation>Нижний правый угол</translation>
+        <translation>Dolní pravý roh</translation>
     </message>
     <message>
         <source>small</source>
-        <translation>маленький</translation>
+        <translation>Malá</translation>
     </message>
     <message>
         <source>medium</source>
-        <translation>средний</translation>
+        <translation>Střední</translation>
     </message>
     <message>
         <source>large</source>
-        <translation>большой</translation>
+        <translation>Velká</translation>
     </message>
     <message>
         <source>Popup window size</source>
-        <translation>Размер всплывающего окна</translation>
+        <translation>Velikost vyskakovacího okna</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation>Textový štítek</translation>
     </message>
     <message>
         <source>There aren&apos;t any settings for selected engine</source>
-        <translation>Для выбранного вывода звука нет настроек</translation>
+        <translation>Nejsou žádná nastavení pro vybraný stroj</translation>
     </message>
     <message>
         <source>Mime-Type</source>
-        <translation>Тип Mime</translation>
+        <translation>Typ mime</translation>
     </message>
     <message>
         <source>Engine</source>
-        <translation>Вывод звука</translation>
+        <translation>Stroj</translation>
     </message>
     <message>
         <source>Add Row</source>
-        <translation>Добавить ряд</translation>
+        <translation>Přidat řádek</translation>
     </message>
     <message>
         <source>Remove Row</source>
-        <translation>Удалить ряд</translation>
+        <translation>Odstranit řádek</translation>
     </message>
     <message>
         <source>Default engine for other mime-types:</source>
-        <translation>Вывод звука по умолчанию для других типов mime:</translation>
+        <translation>Výchozí stroj pro jiné mime-typy:</translation>
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation>Горячие клавиши</translation>
+        <translation>Zkratky</translation>
     </message>
     <message>
         <source>There isn&apos;t a pretty shortcut editor yet. But you can edit keys manually. Try something like that: &quot;Ctrl+X, C&quot;</source>
-        <translation>Сейчас нет хорошего редактора горячих клавиш, но Вы можете редактировать клавиши вручную. Попробуйте что-то типа такого: &quot;Ctrl+X, C&quot;</translation>
+        <translation>Ještě není po ruce nějaký hezký editor klávesových zkratek, ale můžete zkratky upravovat ručně. Vyzkoušejte něco na tento způsob: &quot;Ctrl+X, C&quot;</translation>
     </message>
     <message>
         <source>Shortcut</source>
@@ -2321,122 +2317,122 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Extensions</source>
-        <translation>Расширение</translation>
+        <translation>Rozšíření</translation>
     </message>
     <message>
         <source>Current engine is &apos;%1&apos;</source>
-        <translation>Текущий вывод звука &apos;%1&apos;</translation>
+        <translation>Nynějším strojem je &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
     <name>SrcCollection</name>
     <message>
         <source>Collection</source>
-        <translation type="unfinished">Коллекция</translation>
+        <translation>Sbírka</translation>
     </message>
     <message>
         <source>The collection of your music files</source>
-        <translation type="unfinished">Коллекция Ваших музыкальных файлов</translation>
+        <translation>Sbírka s vašimi hudebními soubory</translation>
     </message>
 </context>
 <context>
     <name>SrcLibrary</name>
     <message>
         <source>Library</source>
-        <translation type="unfinished">Библиотека</translation>
+        <translation>Knihovna</translation>
     </message>
     <message>
         <source>This extension is a place for your playlists</source>
-        <translation type="unfinished">Это расширение управляет Вашими списками воспроизведения</translation>
+        <translation>Toto rozšíření je místem pro vaše seznamy skladeb</translation>
     </message>
 </context>
 <context>
     <name>Src_Browser</name>
     <message>
         <source>Internet Services</source>
-        <translation type="unfinished">Сервисы интернет</translation>
+        <translation>Internetové služby</translation>
     </message>
     <message>
         <source>The browser of the Internet services</source>
-        <translation type="unfinished">Обозреватель сервисов Интернет</translation>
+        <translation>Prohlížeč internetových služeb</translation>
     </message>
 </context>
 <context>
     <name>TagEditorClass</name>
     <message>
         <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
+        <translation>Album</translation>
     </message>
     <message>
         <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
+        <translation>Umělec</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished">Комментарий</translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Файл</translation>
+        <translation>Soubor</translation>
     </message>
     <message>
         <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
+        <translation>Žánr</translation>
     </message>
     <message>
         <source>Rating</source>
-        <translation type="unfinished">Рейтинг</translation>
+        <translation>Hodnocení</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Записать</translation>
+        <translation>Uložit</translation>
     </message>
     <message>
         <source>TagEditor</source>
-        <translation type="unfinished">Редактор тегов</translation>
+        <translation>Editor značek</translation>
     </message>
     <message>
         <source>Correct 8bit locale</source>
-        <translation type="unfinished">Исправить 8битную локаль</translation>
+        <translation>Opravit 8bitové místo</translation>
     </message>
     <message>
         <source>Correct broken UTF</source>
-        <translation type="unfinished">Исправить испорченный UTF</translation>
+        <translation>Opravit poškozené UTF</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <source>Track</source>
-        <translation type="unfinished">Трек</translation>
+        <translation>Skladba</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="unfinished">Год</translation>
+        <translation>Rok</translation>
     </message>
 </context>
 <context>
     <name>UrlOpen</name>
     <message>
         <source>URL:</source>
-        <translation type="unfinished">URL:</translation>
+        <translation>Adresa (URL):</translation>
     </message>
     <message>
         <source>Please enter the URL you want to append</source>
-        <translation type="unfinished">Пожалуйста введите URL, который вы хотите добавить</translation>
+        <translation>Zadejte, prosím, internetovou adresu (URL), kterou chcete přidat</translation>
     </message>
     <message>
         <source>Open URL</source>
-        <translation type="unfinished">Открыть URL</translation>
+        <translation>Otevřít adresu (URL)</translation>
     </message>
     <message>
         <source>Downloading... %1/%2 bytes.</source>
-        <translation type="unfinished">Закачка... %1/%2 байтов.</translation>
+        <translation>Stahuje se %1/%2 bytů.</translation>
     </message>
 </context>
 <context>
