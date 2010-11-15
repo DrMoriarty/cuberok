@@ -80,6 +80,7 @@ Section "Qt4 library"
   File "win32\QtSql4.dll"
   File "win32\QtXml4.dll"
   File "win32\QtWebKit4.dll"
+  File "win32\phonon4.dll"
   CreateDirectory $INSTDIR\sqldrivers
   File /oname=sqldrivers\qsqlite4.dll "win32\sqldrivers\qsqlite4.dll"
   CreateDirectory $INSTDIR\imageformats
@@ -88,6 +89,8 @@ Section "Qt4 library"
   File /oname=imageformats\qmng4.dll "win32\imageformats\qmng4.dll"
   File /oname=imageformats\qsvg4.dll "win32\imageformats\qsvg4.dll"
   File /oname=imageformats\qtiff4.dll "win32\imageformats\qtiff4.dll"
+  CreateDirectory $INSTDIR\phonon_backend
+  File /oname=phonon_backend\phonon_ds94.dll "win32\phonon_backend\phonon_ds94.dll"
 SectionEnd
 
 Section "Audiere plugin"

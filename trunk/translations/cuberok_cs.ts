@@ -2313,7 +2313,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Shortcut</source>
-        <translation>Горячая клавиша</translation>
+        <translation>Zkratka</translation>
     </message>
     <message>
         <source>Extensions</source>

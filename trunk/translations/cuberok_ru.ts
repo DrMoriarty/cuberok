@@ -4,10 +4,6 @@
 <context>
     <name>AboutDialogClass</name>
     <message>
-        <source>AboutDialog</source>
-        <translation type="obsolete">О Программе</translation>
-    </message>
-    <message>
         <source>About</source>
         <translation type="unfinished">О Программе</translation>
     </message>
@@ -113,6 +109,10 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Jamendo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -454,10 +454,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Информация о программе</translation>
     </message>
     <message>
-        <source>Add Item</source>
-        <translation type="obsolete">Добавить элемент</translation>
-    </message>
-    <message>
         <source>Album</source>
         <translation type="unfinished">Альбом</translation>
     </message>
@@ -484,10 +480,6 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Close the program</source>
         <translation type="unfinished">Закрыть программу</translation>
-    </message>
-    <message>
-        <source>Collection</source>
-        <translation type="obsolete">Коллекция</translation>
     </message>
     <message>
         <source>Columns</source>
@@ -518,10 +510,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
-        <source>Files</source>
-        <translation type="obsolete">Файлы</translation>
-    </message>
-    <message>
         <source>Genre</source>
         <translation type="unfinished">Жанр</translation>
     </message>
@@ -532,10 +520,6 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Length</source>
         <translation type="unfinished">Длительность</translation>
-    </message>
-    <message>
-        <source>List</source>
-        <translation type="obsolete">Список</translation>
     </message>
     <message>
         <source>Look and Feel</source>
@@ -554,10 +538,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Следующий трек</translation>
     </message>
     <message>
-        <source>Pause</source>
-        <translation type="obsolete">Пауза</translation>
-    </message>
-    <message>
         <source>Play</source>
         <translation type="unfinished">Играть</translation>
     </message>
@@ -574,18 +554,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Предыдущий трек</translation>
     </message>
     <message>
-        <source>Queue as Next</source>
-        <translation type="obsolete">Поставить в очередь</translation>
-    </message>
-    <message>
-        <source>Remove Item</source>
-        <translation type="obsolete">Удалить элемент</translation>
-    </message>
-    <message>
-        <source>Remove song</source>
-        <translation type="obsolete">Удалить песню</translation>
-    </message>
-    <message>
         <source>Repeat</source>
         <translation type="unfinished">Повторять</translation>
     </message>
@@ -598,14 +566,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Тасовать</translation>
     </message>
     <message>
-        <source>Shuffle mode</source>
-        <translation type="obsolete">Режим перетасовки</translation>
-    </message>
-    <message>
-        <source>Song</source>
-        <translation type="obsolete">Песня</translation>
-    </message>
-    <message>
         <source>Stop</source>
         <translation type="unfinished">Стоп</translation>
     </message>
@@ -616,10 +576,6 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Title</source>
         <translation type="unfinished">Название</translation>
-    </message>
-    <message>
-        <source>Toolbar</source>
-        <translation type="obsolete">Инструменты</translation>
     </message>
     <message>
         <source>Track</source>
@@ -650,10 +606,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Загрузить список из файла</translation>
     </message>
     <message>
-        <source>Reload tags</source>
-        <translation type="obsolete">Перечитать теги</translation>
-    </message>
-    <message>
         <source>Reset filter</source>
         <translation type="unfinished">Снять фильтр</translation>
     </message>
@@ -662,44 +614,16 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Рейтинг</translation>
     </message>
     <message>
-        <source>Drag&apos;n&apos;Drop files to the collection</source>
-        <translation type="obsolete">Перетащите файлы в коллекцию</translation>
-    </message>
-    <message>
         <source>Preferences</source>
         <translation type="unfinished">Параметры</translation>
-    </message>
-    <message>
-        <source>Set Image</source>
-        <translation type="obsolete">Установить изображение</translation>
-    </message>
-    <message>
-        <source>Icon View</source>
-        <translation type="obsolete">Значки</translation>
-    </message>
-    <message>
-        <source>Library</source>
-        <translation type="obsolete">Библиотека</translation>
-    </message>
-    <message>
-        <source>Drag&apos;n&apos;Drop playlists to the library</source>
-        <translation type="obsolete">Перетащите списки проигрывания в библиотеку</translation>
     </message>
     <message>
         <source>Open Url</source>
         <translation type="unfinished">Открыть URL</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="obsolete">Информация</translation>
-    </message>
-    <message>
         <source>About Qt</source>
         <translation type="unfinished">О Qt</translation>
-    </message>
-    <message>
-        <source>Load image from Last.FM</source>
-        <translation type="obsolete">Загрузить изображение с Last.FM</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -720,10 +644,6 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Edit tags with QTagConvert</source>
         <translation type="unfinished">Редактирование тегов в QTagConvert</translation>
-    </message>
-    <message>
-        <source>Refresh Tree</source>
-        <translation type="obsolete">Обновить дерево каталогов</translation>
     </message>
     <message>
         <source>Mute</source>
@@ -750,10 +670,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Отменить задание</translation>
     </message>
     <message>
-        <source>Enqueue selected song</source>
-        <translation type="obsolete">Поставить в очередь выбранную песню</translation>
-    </message>
-    <message>
         <source>Edit tags</source>
         <translation type="unfinished">Редактировать теги</translation>
     </message>
@@ -764,58 +680,6 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Close current playlist</source>
         <translation type="unfinished">Закрыть текущий список воспроизведения</translation>
-    </message>
-    <message>
-        <source>Remove song from the playlist</source>
-        <translation type="obsolete">Удалить песню из списка</translation>
-    </message>
-    <message>
-        <source>Show artists</source>
-        <translation type="obsolete">Показать исполнителей</translation>
-    </message>
-    <message>
-        <source>Show albums</source>
-        <translation type="obsolete">Показать альбомы</translation>
-    </message>
-    <message>
-        <source>Show genres</source>
-        <translation type="obsolete">Показать жанры</translation>
-    </message>
-    <message>
-        <source>Show songs</source>
-        <translation type="obsolete">Показать песни</translation>
-    </message>
-    <message>
-        <source>Create new collection item</source>
-        <translation type="obsolete">Создать новый элемент коллекции</translation>
-    </message>
-    <message>
-        <source>Create new library item</source>
-        <translation type="obsolete">Создать новый элемент библиотеки</translation>
-    </message>
-    <message>
-        <source>Remove selected item from collection</source>
-        <translation type="obsolete">Удалить выбранный элемент из коллекции</translation>
-    </message>
-    <message>
-        <source>Remove selected item from library</source>
-        <translation type="obsolete">Удалить выбранный элемент из библиотеки</translation>
-    </message>
-    <message>
-        <source>Reload tags in selected song</source>
-        <translation type="obsolete">Перечитать теги для выбранной песни</translation>
-    </message>
-    <message>
-        <source>Set image for collection item</source>
-        <translation type="obsolete">Установить изображение для элемента коллекции</translation>
-    </message>
-    <message>
-        <source>Set image for library item</source>
-        <translation type="obsolete">Установить изображение для элемента библиотеки</translation>
-    </message>
-    <message>
-        <source>View icons for collection items</source>
-        <translation type="obsolete">Включить отображение значков для элементов коллекции</translation>
     </message>
     <message>
         <source>Show system log</source>
@@ -842,36 +706,12 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Управление дорожкой</translation>
     </message>
     <message>
-        <source>Internet Services</source>
-        <translation type="obsolete">Сервисы интернет</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="obsolete">Настройки</translation>
-    </message>
-    <message>
-        <source>Collection Settings</source>
-        <translation type="obsolete">Установки коллекции</translation>
-    </message>
-    <message>
-        <source>Import Amarok collection</source>
-        <translation type="obsolete">Импортировать коллекцию Amarok</translation>
-    </message>
-    <message>
         <source>Queue</source>
         <translation type="unfinished">Очередь</translation>
     </message>
     <message>
         <source>Queue position</source>
         <translation type="unfinished">Позиция в очереди</translation>
-    </message>
-    <message>
-        <source>Mark this folder</source>
-        <translation type="obsolete">Отметить эту папку</translation>
-    </message>
-    <message>
-        <source>Remove mark</source>
-        <translation type="obsolete">Снять отметку</translation>
     </message>
     <message>
         <source>Cuberok</source>
@@ -1217,10 +1057,6 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">Добро пожаловать в Cuberok</translation>
     </message>
     <message>
-        <source>Cuberok is a lightweight music player and collection manager</source>
-        <translation type="obsolete">Cuberok это лёгкий музыкальный проигрыватель и менеджер коллекции</translation>
-    </message>
-    <message>
         <source>What do you want to do?</source>
         <translation type="unfinished">Что вы хотите делать?</translation>
     </message>
@@ -1490,16 +1326,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InfoWidget</name>
     <message>
-        <source>%n song(s)</source>
-        <translation type="obsolete">%n композиций
-        </translation>
-    </message>
-    <message>
-        <source>%n album(s)</source>
-        <translation type="obsolete">%n альбомов
-        </translation>
-    </message>
-    <message>
         <source>Info widget</source>
         <translation type="unfinished">Информация</translation>
     </message>
@@ -1520,7 +1346,7 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Please wait while information loading...&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation type="unfinished">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;Пожалуйста, дождитесь загрузки информации...&lt;/p&gt;
@@ -1536,10 +1362,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Network error!</source>
         <translation type="unfinished">Сетевая ошибка!</translation>
-    </message>
-    <message>
-        <source>There is error during download data from the jamendo.com</source>
-        <translation type="obsolete">Произошла ошибка в процессе получения данных с jamendo.com</translation>
     </message>
     <message>
         <source>Jamendo: Wrong response &apos;%1&apos;</source>
@@ -1818,18 +1640,6 @@ Do you forget to install proper phonon backend?</source>
         <translation type="unfinished">
 Вы не забыли установить подходящий бакэнд для phonon?</translation>
     </message>
-    <message>
-        <source>Error</source>
-        <translation type="obsolete">Ошибка</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation type="obsolete">Фатальная ошибка</translation>
-    </message>
-    <message>
-        <source>Error opening files</source>
-        <translation type="obsolete">Ошибка при открытии файла</translation>
-    </message>
 </context>
 <context>
     <name>PlaylistAbstract</name>
@@ -1860,13 +1670,6 @@ Do you forget to install proper phonon backend?</source>
     <message>
         <source>Drag&apos;n&apos;Drop files to the playlist</source>
         <translation type="unfinished">Перетащите файлы в список</translation>
-    </message>
-</context>
-<context>
-    <name>PlaylistFiller</name>
-    <message>
-        <source>Filling playlist</source>
-        <translation type="obsolete">Заполнение списка</translation>
     </message>
 </context>
 <context>
@@ -2001,18 +1804,6 @@ Do you forget to install proper phonon backend?</source>
     <message>
         <source>Ctrl+Del</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PlaylistView</name>
-    <message>
-        <source>Playlist - %n song(s)</source>
-        <translation type="obsolete">Список - %n композиций
-        </translation>
-    </message>
-    <message>
-        <source>Can not open %1</source>
-        <translation type="obsolete">Не могу открыть %1</translation>
     </message>
 </context>
 <context>
@@ -2176,14 +1967,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Пароль</translation>
     </message>
     <message>
-        <source>Last.FM</source>
-        <translation type="obsolete">Last.FM</translation>
-    </message>
-    <message>
-        <source>Enable Last.FM scrobbling</source>
-        <translation type="obsolete">Включить Last.FM scrobbling</translation>
-    </message>
-    <message>
         <source>Hide nameless albums</source>
         <translation type="unfinished">Не показывать безымянные альбомы</translation>
     </message>
@@ -2214,14 +1997,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Show text below tool buttons</source>
         <translation type="unfinished">Показывать подписи к кнопкам</translation>
-    </message>
-    <message>
-        <source>Scrobbling</source>
-        <translation type="obsolete">Скробблинг</translation>
-    </message>
-    <message>
-        <source>Enable Libre.FM scrobbling</source>
-        <translation type="obsolete">Включить скробблинг Libre.FM</translation>
     </message>
     <message>
         <source>Check existance of CUE image</source>
@@ -2442,196 +2217,808 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>mp3Dialog</name>
     <message>
-        <source>Ready</source>
-        <translation type="obsolete">Готово</translation>
-    </message>
-    <message>
-        <source> of </source>
-        <translation type="obsolete"> из </translation>
-    </message>
-    <message>
         <source>Go up</source>
-        <translation type="obsolete">Переместиться вверх</translation>
+        <translation type="unfinished">Переместиться вверх</translation>
     </message>
     <message>
         <source>Up</source>
-        <translation type="obsolete">Вверх</translation>
+        <translation type="unfinished">Вверх</translation>
     </message>
     <message>
         <source>Select file or folder</source>
-        <translation type="obsolete">Выберите файл или папку</translation>
+        <translation type="unfinished">Выберите файл или папку</translation>
     </message>
     <message>
         <source>Go Home</source>
-        <translation type="obsolete">Домой</translation>
+        <translation type="unfinished">Домой</translation>
     </message>
     <message>
         <source>Convert Settings</source>
-        <translation type="obsolete">Параметры преобразования</translation>
+        <translation type="unfinished">Параметры преобразования</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation type="obsolete">Действие</translation>
-    </message>
-    <message>
-        <source>From codepage</source>
-        <translation type="obsolete">Из кодовой страницы</translation>
+        <translation type="unfinished">Действие</translation>
     </message>
     <message>
         <source>Select action from combo box</source>
-        <translation type="obsolete">Выберите действие из списка</translation>
+        <translation type="unfinished">Выберите действие из списка</translation>
     </message>
     <message>
         <source>Convert</source>
-        <translation type="obsolete">Конвертировать</translation>
+        <translation type="unfinished">Конвертировать</translation>
     </message>
     <message>
         <source>Fix broken UTF</source>
-        <translation type="obsolete">Исправить сломанный UTF</translation>
+        <translation type="unfinished">Исправить сломанный UTF</translation>
     </message>
     <message>
         <source>What codepage tags will be converted from?</source>
-        <translation type="obsolete">Из какой кодовой страницы будут конвертированы теги?</translation>
+        <translation type="unfinished">Из какой кодовой страницы будут конвертированы теги?</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="obsolete">Название</translation>
+        <translation type="unfinished">Название</translation>
     </message>
     <message>
         <source>Artist</source>
-        <translation type="obsolete">Исполнитель</translation>
+        <translation type="unfinished">Исполнитель</translation>
     </message>
     <message>
         <source>Album</source>
-        <translation type="obsolete">Альбом</translation>
+        <translation type="unfinished">Альбом</translation>
     </message>
     <message>
         <source>Genre</source>
-        <translation type="obsolete">Жанр</translation>
+        <translation type="unfinished">Жанр</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="obsolete">Год</translation>
+        <translation type="unfinished">Год</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="obsolete">Комментарий</translation>
-    </message>
-    <message>
-        <source>Reload</source>
-        <translation type="obsolete">Перечитать</translation>
+        <translation type="unfinished">Комментарий</translation>
     </message>
     <message>
         <source>Copy ID3v1 tags into ID3v2</source>
-        <translation type="obsolete">Копировать ID3v1 теги в ID3v2</translation>
+        <translation type="unfinished">Копировать ID3v1 теги в ID3v2</translation>
     </message>
     <message>
         <source>Copy ID3v2 tags into ID3v1</source>
-        <translation type="obsolete">Копировать ID3v2 теги в ID3v1</translation>
-    </message>
-    <message>
-        <source>Save selected tags in file</source>
-        <translation type="obsolete">Сохранить выбранные теги в файл</translation>
+        <translation type="unfinished">Копировать ID3v2 теги в ID3v1</translation>
     </message>
     <message>
         <source>Save Tags</source>
-        <translation type="obsolete">Сохранить теги</translation>
+        <translation type="unfinished">Сохранить теги</translation>
     </message>
     <message>
         <source>Save ID3v1 tags or remove them</source>
-        <translation type="obsolete">Сохранить теги ID3v1 или удалить их</translation>
+        <translation type="unfinished">Сохранить теги ID3v1 или удалить их</translation>
     </message>
     <message>
         <source>Save ID3v2 tags or remove them</source>
-        <translation type="obsolete">Сохранить теги ID3v2 или удалить их</translation>
+        <translation type="unfinished">Сохранить теги ID3v2 или удалить их</translation>
     </message>
     <message>
         <source>Save selected tags from ID3v2 group in all files in current directory</source>
-        <translation type="obsolete">Сохранить выбранные теги из группы ID3v2 во все файлы текущей директории</translation>
+        <translation type="unfinished">Сохранить выбранные теги из группы ID3v2 во все файлы текущей директории</translation>
     </message>
     <message>
         <source>Save for all mp3 files in folder</source>
-        <translation type="obsolete">Применить для всех mp3-файлов в открытом каталоге</translation>
+        <translation type="unfinished">Применить для всех mp3-файлов в открытом каталоге</translation>
     </message>
     <message>
         <source>Use this Genre tag for all files</source>
-        <translation type="obsolete">Использовать данный тег жанра для всех файлов</translation>
+        <translation type="unfinished">Использовать данный тег жанра для всех файлов</translation>
     </message>
     <message>
         <source>Use this Artist tag for all files</source>
-        <translation type="obsolete">Использовать данный тег автора для всех файлов</translation>
+        <translation type="unfinished">Использовать данный тег автора для всех файлов</translation>
     </message>
     <message>
         <source>Use this Album tag for all files</source>
-        <translation type="obsolete">Использовать данный тег альбома для всех файлов</translation>
+        <translation type="unfinished">Использовать данный тег альбома для всех файлов</translation>
     </message>
     <message>
         <source>Use this Year tag for all files</source>
-        <translation type="obsolete">Использовать данный тег года для всех файлов</translation>
+        <translation type="unfinished">Использовать данный тег года для всех файлов</translation>
     </message>
     <message>
         <source>Use this Comment tag for all files</source>
-        <translation type="obsolete">Использовать данный тег коментария для всех файлов</translation>
+        <translation type="unfinished">Использовать данный тег коментария для всех файлов</translation>
     </message>
     <message>
         <source>Save selected tags for all files</source>
-        <translation type="obsolete">Сохранить выбранные теги во все файлы</translation>
+        <translation type="unfinished">Сохранить выбранные теги во все файлы</translation>
     </message>
     <message>
         <source>Save All</source>
-        <translation type="obsolete">Сохранить всё</translation>
+        <translation type="unfinished">Сохранить всё</translation>
     </message>
     <message>
         <source>Convert codepage for all mp3 files in folder</source>
-        <translation type="obsolete">Преобразовать кодовую страницу для всех файлов в каталоге</translation>
+        <translation type="unfinished">Преобразовать кодовую страницу для всех файлов в каталоге</translation>
     </message>
     <message>
         <source>Convert selected groups of tags for all files in current directory</source>
-        <translation type="obsolete">Преобразовать выбранные группы тегов во всех файлах текущей директории</translation>
+        <translation type="unfinished">Преобразовать выбранные группы тегов во всех файлах текущей директории</translation>
     </message>
     <message>
         <source>Convert ID3v1 tags or keep them as is</source>
-        <translation type="obsolete">Преобразовать теги ID3v1 или оставить их как есть</translation>
+        <translation type="unfinished">Преобразовать теги ID3v1 или оставить их как есть</translation>
     </message>
     <message>
         <source>Convert ID3v1</source>
-        <translation type="obsolete">Преобразовать ID3v1</translation>
+        <translation type="unfinished">Преобразовать ID3v1</translation>
     </message>
     <message>
         <source>Convert ID3v2 tags or keep them as is</source>
-        <translation type="obsolete">Преобразовать теги ID3v2 или оставить их как есть</translation>
+        <translation type="unfinished">Преобразовать теги ID3v2 или оставить их как есть</translation>
     </message>
     <message>
         <source>Convert ID3v2</source>
-        <translation type="obsolete">Преобразовать ID3v2</translation>
+        <translation type="unfinished">Преобразовать ID3v2</translation>
     </message>
     <message>
         <source>&amp;Menu</source>
-        <translation type="obsolete">&amp;Меню</translation>
+        <translation type="unfinished">&amp;Меню</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="obsolete">Помощь</translation>
+        <translation type="unfinished">Помощь</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="obsolete">В&amp;ыход</translation>
+        <translation type="unfinished">В&amp;ыход</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="obsolete">Выход</translation>
+        <translation type="unfinished">Выход</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="obsolete">О Программе</translation>
+        <translation type="unfinished">О Программе</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="obsolete">О Qt</translation>
+        <translation type="unfinished">О Qt</translation>
     </message>
     <message>
         <source>Files</source>
-        <translation type="obsolete">Файлы</translation>
+        <translation type="unfinished">Файлы</translation>
+    </message>
+    <message>
+        <source>QTagConvert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Batch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ID3v1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Classic Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Country</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disco</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Funk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grunge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hip-Hop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jazz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Age</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oldies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>R&amp;B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reggae</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Techno</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Industrial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alternative</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ska</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Death Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pranks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Soundtrack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Euro-Techno</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ambient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trip-Hop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vocal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jazz+Funk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fusion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Classical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instrumental</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Acid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>House</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Clip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gospel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt. Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bass</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Soul</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Punk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Meditative</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instrumental Pop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instrumental Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ethnic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gothic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darkwave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Techno-Industrial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Electronic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pop-Folk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Eurodance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Southern Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comedy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cult</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gangsta Rap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top 40</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Christian Rap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pop/Funk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jungle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Native American</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cabaret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Wave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Psychedelic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Showtunes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trailer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lo-Fi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tribal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Acid Punk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Acid Jazz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polka</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Musical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rock &amp; Roll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Folk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Folk/Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>National Folk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fast-Fusion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bebob</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revival</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Celtic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bluegrass</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Avantgarde</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gothic Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Progressive Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Psychedelic Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Symphonic Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slow Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Big Band</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chorus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Easy Listening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Acoustic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Humour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chanson</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chamber Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sonata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Symphony</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Booty Bass</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Primus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Porn Groove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Satire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slow Jam</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Club</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tango</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Samba</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Folklore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ballad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Power Ballad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rhythmic Soul</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freestyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Punk Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drum Solo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A Cappella</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Euro-House</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dance Hall</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Goa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drum &amp; Bass</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Club-House</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hardcore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Terror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BritPop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Negerpunk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polsk Punk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Christian Gangsta Rap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heavy Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Black Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Crossover</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contemporary Christian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Christian Rock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merengue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Salsa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thrash Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Synthpop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>0000; </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ID3v2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Codepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save selected tags into the file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get from ID3v2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get from ID3v1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

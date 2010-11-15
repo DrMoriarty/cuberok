@@ -227,6 +227,7 @@ int main(int argc, char *argv[])
         }
     }
 #ifdef WIN32
+	QFile::remove(QDir::homePath()+"/.cuberok/log.txt");
     qInstallMsgHandler(myMessageOutput);
 #endif
     MyApplication a(argc, argv);
