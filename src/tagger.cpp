@@ -735,7 +735,8 @@ bool Tagger::garbageDetected(QUrl url)
 	QString suf = file.suffix().toLower();
 	QString base = file.completeBaseName().toLower();
 	if(file.isFile()) {
-		if(suf == "jpg" ||
+		if(suf == "pdf" ||
+		   suf == "jpg" ||
 		   suf == "png" ||
 		   suf == "txt" ||
 		   suf == "doc" ||
