@@ -748,6 +748,8 @@ bool Tagger::garbageDetected(QUrl url)
 				return true;
 			}
 	}
+	QString mt = getFileType(url);
+	if(!mt.size() || !mt.startsWith("audio")) return true;
 	return false;
 }
 
