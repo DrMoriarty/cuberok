@@ -460,6 +460,7 @@ void Cuberok::newConsoleMessage(QString mes, int type)
 
 bool Cuberok::reallyClose()
 {
+	Indicator::Self().terminateAll();
 	needToClose = true;
 	Console::Self().disableLog();
 	return QMainWindow::close();

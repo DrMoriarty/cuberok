@@ -50,11 +50,12 @@ void Indicator::setWidget(QAbstractButton &w)
 	updateWidget();
 }
 
-int  Indicator::addTask(QString message)
+int  Indicator::addTask(QString message, QThread* thread)
 {
 	Task task;
 	task.id = counter++;
 	task.message = message;
+	task.thread = thread;
 	tasks << task;
 	updateWidget();
 	if(tasks.size()) time = QTime::currentTime();
@@ -110,5 +111,15 @@ void Indicator::updateWidget()
 // 		icon2.addPixmap(tasks.size()?pxN:pxD);
 // 		widget->setIcon(icon2);
 		widget->setEnabled(tasks.size());
+	}
+}
+
+void Indicator::terminateAll()
+{
+	for(int i=0; i<tasks.size(); i++) {
+		struct Task &t = tasks[i];
+		if(t.thread) {
+			t.thread->terminate();
+		}
 	}
 }

@@ -30,7 +30,7 @@ class Indicator: public QObject
 	static Indicator& Self();
 	~Indicator();
 	void setWidget(QAbstractButton &w);
-	int  addTask(QString message);
+	int  addTask(QString message, QThread* thread = 0);
 	void delTask(int ID);
 
  signals:
@@ -39,6 +39,7 @@ class Indicator: public QObject
  public slots:
 	void stop();
 	void update();
+	void terminateAll();
 
  private:
 	Indicator();
@@ -47,6 +48,7 @@ class Indicator: public QObject
 	struct Task {
 		int id;
 		QString message;
+		QThread* thread;
 	};
 	QList<struct Task> tasks;
 	int counter;

@@ -28,11 +28,38 @@
 static QSqlDatabase db;
 Proxy* Database::proxy = 0;
 
-Database::Database() :QObject(0), subset(false), ssAlbum(0)
+class TransactionGuard {
+private:
+	static bool trn;
+	bool ltrn;
+public:
+	TransactionGuard(): ltrn(false) {
+		if(!trn) {
+			ltrn = db.transaction();
+			trn = ltrn;
+		}
+	}
+
+	~TransactionGuard() {
+		if(ltrn) {
+			db.commit();
+			trn = false;
+		}
+	}
+
+	static bool TrnFlag() { return trn; }
+};
+
+bool TransactionGuard::trn = false;
+#define TRN TransactionGuard ___trn
+TransactionGuard *globalTrn = 0;
+
+Database::Database() :QObject(0), subset(false), ssAlbum(0), fillingProgress(0), filling(false)
 {
     QMutexLocker locker(&lock);
     db = QSqlDatabase::addDatabase("QSQLITE", "CollectionDB");
     db.setDatabaseName(QDir::homePath()+"/.cuberok/collection.db");
+	// db.setConnectOptions("QSQLITE_ENABLE_SHARED_CACHE=1");
     if(QFile::exists(db.databaseName())) {
         if(!db.open()) {
             qDebug("Can not open database");
@@ -69,6 +96,7 @@ Database::Database() :QObject(0), subset(false), ssAlbum(0)
 
 Database::~Database()
 {
+	if(TransactionGuard::TrnFlag()) db.rollback();
     db.close();
 	QSqlDatabase::removeDatabase("CollectionDB");
 }
@@ -268,6 +296,7 @@ int Database::AddFile(QString file)
 {
     if(!open) return 0;
     QMutexLocker locker(&lock);
+	TRN;
     QSqlQuery q0("", db);
     q0.prepare("select ID from Song where File = :file");
     q0.bindValue(":file", file);
@@ -304,13 +333,17 @@ int Database::AddFile(QString file)
             RefAttribute(nArtist, art, 1, 0);
             RefAttribute(nAlbum, alb, 1, 0);
             RefAttribute(nGenre, gen, 1, 0);
+			if(filling) {
+				fillingProgress ++;
+				emit status(tr("proccessed %n file(s)", "", fillingProgress));
+			}
             return q1.value(0).toString().toInt();
         } else qDebug() << "something went wrong...";
     } else qDebug() << "can't read tags for file" << file;
     return -1;
 }
 
-int Database::AddAttribute(QString attr, QString val)
+int Database::AddAttribute(QString attr, QString val, bool *newattr)
 {
     if(!open) return 0;
     if(!val.length()) val = " ";
@@ -327,7 +360,10 @@ int Database::AddAttribute(QString attr, QString val)
         q.bindValue(":val", val);
         q.exec();
         q.next();
-    }
+		if(newattr) *newattr = true;
+    } else {
+		if(newattr) *newattr = false;
+	}
     return q.value(0).toString().toInt();
 }
 
@@ -340,7 +376,10 @@ int Database::AddArtist(QString artist)
 
 int Database::_AddArtist(QString artist)
 {
-    return AddAttribute(nArtist, artist);
+	bool newar = false;
+    int ar = AddAttribute(nArtist, artist, &newar);
+	if(newar) emit appendNewArtist(artist);
+	return ar;
 }
 
 int Database::GetArtist(QString artist)
@@ -390,6 +429,10 @@ int Database::_AddAlbum(QString album, int artist)
         q.bindValue(":val", album);
         q.exec();
         if(!q.next()) {
+			QString artistName;
+			q.prepare("select value from Artist where ID = "+QString::number(artist));
+			q.exec();
+			if(q.next()) artistName = q.value(0).toString();
             q.prepare("insert into Album (value,artist) values (:val,"+QString::number(artist)+")");
             q.bindValue(":val", album);
             q.exec();
@@ -398,6 +441,7 @@ int Database::_AddAlbum(QString album, int artist)
             q.bindValue(":val", album);
             q.exec();
             q.next();
+			emit appendNewAlbum(artistName, album);
         }
         return q.value(0).toString().toInt();
     }
@@ -443,6 +487,7 @@ void Database::RemoveFile(QString file)
 {
     if(!open) return;
     QMutexLocker locker(&lock);
+	TRN;
     _RemoveFile(file);
 }
 
@@ -485,6 +530,7 @@ void Database::RemoveArtist(QString artist)
 {
     if(!open) return;
     QMutexLocker locker(&lock);
+	TRN;
     RemoveAttribute(nArtist, artist);
 }
 
@@ -492,6 +538,7 @@ void Database::RemoveAlbum(QString album, int artist)
 {
     if(!open) return;
     QMutexLocker locker(&lock);
+	TRN;
     _RemoveAlbum(album, artist);
 }
 
@@ -518,6 +565,7 @@ void Database::RemoveGenre(QString genre)
 {
     if(!open) return;
     QMutexLocker locker(&lock);
+	TRN;
     RemoveAttribute(nGenre, genre);
 }
 
@@ -565,12 +613,14 @@ void Database::RenameArtist(QString oldval, QString newval)
 {
     if(!open) return;
     QMutexLocker locker(&lock);
+	TRN;
     RenameAttribute(nArtist, oldval, newval);
 }
 
 void Database::RenameAlbum(QString oldval, QString newval, int artist)
 {
     QMutexLocker locker(&lock);
+	TRN;
     if(!artist)
         RenameAttribute(nAlbum, oldval, newval);
     else {
@@ -611,6 +661,7 @@ void Database::RenameAlbum(QString oldval, QString newval, int artist)
 void Database::RenameGenre(QString oldval, QString newval)
 {
     QMutexLocker locker(&lock);
+	TRN;
     RenameAttribute(nGenre, oldval, newval);
 }
 
@@ -1394,4 +1445,32 @@ void Database::SetFileType(QString file, QString type)
 void Database::GenSignalUpdate()
 {
 	emit DataUpdate();
+}
+
+void Database::StartFilling()
+{
+	fillingProgress = 0;
+	filling = true;
+}
+
+void Database::EndFilling()
+{
+	fillingProgress = 0;
+	filling = false;
+	emit status("");
+}
+
+void Database::BeginTransaction()
+{
+	if(!globalTrn) {
+		globalTrn = new TransactionGuard();
+	}
+}
+
+void Database::EndTransaction()
+{
+	if(globalTrn) {
+		delete globalTrn;
+		globalTrn = 0;
+	}
 }

@@ -30,7 +30,7 @@
  ************************/
 
 CollectionFiller::CollectionFiller(QList<QUrl> _urls, ListMode _mode, QString _attrname, int _param, QObject * parent) 
-	: QThread(parent), urls(_urls), mode(_mode), attrname(_attrname), param(_param)
+	: QThread(parent), urls(_urls), mode(_mode), attrname(_attrname), param(_param), filesCounter(0)
 {
 	cancel = false;
 	connect(&Indicator::Self(), SIGNAL(userStop()), this, SLOT(cancelEvent()), Qt::QueuedConnection);
@@ -44,11 +44,15 @@ CollectionFiller::~CollectionFiller()
 
 void CollectionFiller::run()
 {
-	int taskID = Indicator::Self().addTask(tr("Collect music"));
+	int taskID = Indicator::Self().addTask(tr("Collect music"), this);
+	Database::Self().StartFilling();
+	Database::Self().BeginTransaction();
 	foreach(QUrl url, urls) {
 		if(cancel) break;
 		proceed(ToLocalFile(url));
 	}
+	Database::Self().EndTransaction();
+	Database::Self().EndFilling();
 	Indicator::Self().delTask(taskID);
 	Database::Self().GenSignalUpdate();
 }
@@ -100,6 +104,11 @@ int CollectionFiller::proceed(QString path)
 			//proxy->log("set artist cover" + cover);
 		}
 	} else {
+		if(filesCounter && !(filesCounter % 100)) {
+			// save progress
+			Database::Self().EndTransaction();
+			Database::Self().BeginTransaction();
+		}
 		QString p2 = path.toLower();
 		// check playlists
 		/*if(Tagger::playlistDetected(QUrl::fromLocalFile(path))) {
@@ -148,9 +157,13 @@ int CollectionFiller::proceed(QString path)
 			case M_SQLLIST:
 				return -1;
 			}
+			filesCounter ++;
 			if(exist) Database::Self().SetTags(path, title, artist, album, comment, genre, track, year, rating); 
 			else return Database::Self().AddFile(path);
-		} else return Database::Self().AddFile(path);
+		} else {
+			filesCounter ++;
+			return Database::Self().AddFile(path);
+		}
 	}
 	return -1;
 }

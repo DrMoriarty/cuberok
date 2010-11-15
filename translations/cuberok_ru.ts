@@ -126,48 +126,11 @@ drmoriarty.0@gmail.com</translation>
 <context>
     <name>CollectionModel</name>
     <message numerus="yes">
-        <source>Collection - %n album(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n альбомов
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>Collection - %n artist(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n исполнителей
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>Collection - %n genre(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n жанров
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>Collection - %n song(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n композиций
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
         <source>%n song(s)</source>
-        <translation type="unfinished">
-            <numerusform>%n композиций
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n композиция</numerusform>
+            <numerusform>%n композиции</numerusform>
+            <numerusform>%n композиций</numerusform>
         </translation>
     </message>
     <message>
@@ -175,12 +138,35 @@ drmoriarty.0@gmail.com</translation>
         <translation type="unfinished">%1, альбом &quot;%2&quot;</translation>
     </message>
     <message numerus="yes">
-        <source>Collection - %n lists(s)</source>
-        <translation type="unfinished">
-            <numerusform>Коллекция - %n списков
-        </numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <source>%n artist(s)</source>
+        <translation>
+            <numerusform>%n исполнитель</numerusform>
+            <numerusform>%n исполнителя</numerusform>
+            <numerusform>%n исполнителей</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n album(s)</source>
+        <translation>
+            <numerusform>%n альбом</numerusform>
+            <numerusform>%n альбома</numerusform>
+            <numerusform>%n альбомов</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n genre(s)</source>
+        <translation>
+            <numerusform>%n жанр</numerusform>
+            <numerusform>%n жанра</numerusform>
+            <numerusform>%n жанров</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%n lists(s)</source>
+        <translation>
+            <numerusform>%n список</numerusform>
+            <numerusform>%n списка</numerusform>
+            <numerusform>%n списков</numerusform>
         </translation>
     </message>
 </context>
@@ -257,6 +243,10 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Fast collection filter</source>
         <translation type="unfinished">Быстрый фильтр коллекции</translation>
+    </message>
+    <message>
+        <source>Download images for new artist and albums</source>
+        <translation>Загружать изображения исполнителей и альбомов</translation>
     </message>
 </context>
 <context>
@@ -779,7 +769,7 @@ drmoriarty.0@gmail.com</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>F1</source>
@@ -902,6 +892,14 @@ drmoriarty.0@gmail.com</translation>
     <message>
         <source>Added this month</source>
         <translation type="unfinished">Добавлено в этом месяце</translation>
+    </message>
+    <message numerus="yes">
+        <source>proccessed %n file(s)</source>
+        <translation>
+            <numerusform>обработано %n файл</numerusform>
+            <numerusform>обработано %n файла</numerusform>
+            <numerusform>обработано %n файлов</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2217,160 +2215,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>mp3Dialog</name>
     <message>
-        <source>Go up</source>
-        <translation type="unfinished">Переместиться вверх</translation>
-    </message>
-    <message>
-        <source>Up</source>
-        <translation type="unfinished">Вверх</translation>
-    </message>
-    <message>
-        <source>Select file or folder</source>
-        <translation type="unfinished">Выберите файл или папку</translation>
-    </message>
-    <message>
-        <source>Go Home</source>
-        <translation type="unfinished">Домой</translation>
-    </message>
-    <message>
-        <source>Convert Settings</source>
-        <translation type="unfinished">Параметры преобразования</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation type="unfinished">Действие</translation>
-    </message>
-    <message>
-        <source>Select action from combo box</source>
-        <translation type="unfinished">Выберите действие из списка</translation>
-    </message>
-    <message>
-        <source>Convert</source>
-        <translation type="unfinished">Конвертировать</translation>
-    </message>
-    <message>
-        <source>Fix broken UTF</source>
-        <translation type="unfinished">Исправить сломанный UTF</translation>
-    </message>
-    <message>
-        <source>What codepage tags will be converted from?</source>
-        <translation type="unfinished">Из какой кодовой страницы будут конвертированы теги?</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="unfinished">Название</translation>
-    </message>
-    <message>
-        <source>Artist</source>
-        <translation type="unfinished">Исполнитель</translation>
-    </message>
-    <message>
-        <source>Album</source>
-        <translation type="unfinished">Альбом</translation>
-    </message>
-    <message>
-        <source>Genre</source>
-        <translation type="unfinished">Жанр</translation>
-    </message>
-    <message>
-        <source>Year</source>
-        <translation type="unfinished">Год</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="unfinished">Комментарий</translation>
-    </message>
-    <message>
-        <source>Copy ID3v1 tags into ID3v2</source>
-        <translation type="unfinished">Копировать ID3v1 теги в ID3v2</translation>
-    </message>
-    <message>
-        <source>Copy ID3v2 tags into ID3v1</source>
-        <translation type="unfinished">Копировать ID3v2 теги в ID3v1</translation>
-    </message>
-    <message>
-        <source>Save Tags</source>
-        <translation type="unfinished">Сохранить теги</translation>
-    </message>
-    <message>
-        <source>Save ID3v1 tags or remove them</source>
-        <translation type="unfinished">Сохранить теги ID3v1 или удалить их</translation>
-    </message>
-    <message>
-        <source>Save ID3v2 tags or remove them</source>
-        <translation type="unfinished">Сохранить теги ID3v2 или удалить их</translation>
-    </message>
-    <message>
-        <source>Save selected tags from ID3v2 group in all files in current directory</source>
-        <translation type="unfinished">Сохранить выбранные теги из группы ID3v2 во все файлы текущей директории</translation>
-    </message>
-    <message>
-        <source>Save for all mp3 files in folder</source>
-        <translation type="unfinished">Применить для всех mp3-файлов в открытом каталоге</translation>
-    </message>
-    <message>
-        <source>Use this Genre tag for all files</source>
-        <translation type="unfinished">Использовать данный тег жанра для всех файлов</translation>
-    </message>
-    <message>
-        <source>Use this Artist tag for all files</source>
-        <translation type="unfinished">Использовать данный тег автора для всех файлов</translation>
-    </message>
-    <message>
-        <source>Use this Album tag for all files</source>
-        <translation type="unfinished">Использовать данный тег альбома для всех файлов</translation>
-    </message>
-    <message>
-        <source>Use this Year tag for all files</source>
-        <translation type="unfinished">Использовать данный тег года для всех файлов</translation>
-    </message>
-    <message>
-        <source>Use this Comment tag for all files</source>
-        <translation type="unfinished">Использовать данный тег коментария для всех файлов</translation>
-    </message>
-    <message>
-        <source>Save selected tags for all files</source>
-        <translation type="unfinished">Сохранить выбранные теги во все файлы</translation>
-    </message>
-    <message>
-        <source>Save All</source>
-        <translation type="unfinished">Сохранить всё</translation>
-    </message>
-    <message>
-        <source>Convert codepage for all mp3 files in folder</source>
-        <translation type="unfinished">Преобразовать кодовую страницу для всех файлов в каталоге</translation>
-    </message>
-    <message>
-        <source>Convert selected groups of tags for all files in current directory</source>
-        <translation type="unfinished">Преобразовать выбранные группы тегов во всех файлах текущей директории</translation>
-    </message>
-    <message>
-        <source>Convert ID3v1 tags or keep them as is</source>
-        <translation type="unfinished">Преобразовать теги ID3v1 или оставить их как есть</translation>
-    </message>
-    <message>
-        <source>Convert ID3v1</source>
-        <translation type="unfinished">Преобразовать ID3v1</translation>
-    </message>
-    <message>
-        <source>Convert ID3v2 tags or keep them as is</source>
-        <translation type="unfinished">Преобразовать теги ID3v2 или оставить их как есть</translation>
-    </message>
-    <message>
-        <source>Convert ID3v2</source>
-        <translation type="unfinished">Преобразовать ID3v2</translation>
-    </message>
-    <message>
-        <source>&amp;Menu</source>
-        <translation type="unfinished">&amp;Меню</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="unfinished">Помощь</translation>
+        <source>QTagConvert</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished">В&amp;ыход</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Exit</source>
@@ -2385,11 +2235,107 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">О Qt</translation>
     </message>
     <message>
-        <source>Files</source>
-        <translation type="unfinished">Файлы</translation>
+        <source>Go Home</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>QTagConvert</source>
+        <source>Go up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select file or folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save selected tags from ID3v2 group in all files in current directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save for all mp3 files in folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this Genre tag for all files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Genre</source>
+        <translation type="unfinished">Жанр</translation>
+    </message>
+    <message>
+        <source>Use this Artist tag for all files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist</source>
+        <translation type="unfinished">Исполнитель</translation>
+    </message>
+    <message>
+        <source>Use this Album tag for all files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Album</source>
+        <translation type="unfinished">Альбом</translation>
+    </message>
+    <message>
+        <source>Use this Year tag for all files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Year</source>
+        <translation type="unfinished">Год</translation>
+    </message>
+    <message>
+        <source>Use this Comment tag for all files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished">Комментарий</translation>
+    </message>
+    <message>
+        <source>Save selected tags for all files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert codepage for all mp3 files in folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert selected groups of tags for all files in current directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert ID3v1 tags or keep them as is</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert ID3v1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert ID3v2 tags or keep them as is</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert ID3v2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2993,6 +2939,10 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Title</source>
+        <translation type="unfinished">Название</translation>
+    </message>
+    <message>
         <source>0000; </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3001,7 +2951,31 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Save ID3v1 tags or remove them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save ID3v2 tags or remove them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished">Действие</translation>
+    </message>
+    <message>
+        <source>Fix broken UTF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select action from combo box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3009,7 +2983,19 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>What codepage tags will be converted from?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Save selected tags into the file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy ID3v2 tags into ID3v1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3017,8 +3003,20 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Copy ID3v1 tags into ID3v2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Get from ID3v1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished">Помощь</translation>
     </message>
 </context>
 </TS>

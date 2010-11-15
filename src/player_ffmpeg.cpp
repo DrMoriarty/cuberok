@@ -632,7 +632,10 @@ double PlayerFfmpeg::getPosition()
 	if(ffmpeg.stopts) {
 		return (double)(ffmpeg.curts - ffmpeg.startts) / (ffmpeg.stopts - ffmpeg.startts);
 	}
-	return (double)ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num*ffmpeg.curts / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / ffmpeg.pFormatCtx->duration * AV_TIME_BASE;
+	if(ffmpeg.pFormatCtx) {
+		return (double)ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.num*ffmpeg.curts / ffmpeg.pFormatCtx->streams[ffmpeg.audioStream]->time_base.den / ffmpeg.pFormatCtx->duration * AV_TIME_BASE;
+	}
+	return 0;
 }
 
 int  PlayerFfmpeg::volume()

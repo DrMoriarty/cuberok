@@ -33,12 +33,18 @@ CollectionSettings::CollectionSettings(QWidget *parent)
 	} else {
 		ui.checkBox_fastFilter->setCheckState(Qt::Checked);
 	}
+	if(EProxy.hasVariable("autoDownloadImages") && EProxy.getVariable("autoDownloadImages") == "true") {
+		ui.checkBox_autoDownload->setCheckState(Qt::Checked);
+	} else {
+		ui.checkBox_autoDownload->setCheckState(Qt::Unchecked);
+	}
 }
 
 CollectionSettings::~CollectionSettings()
 {
 	EProxy.setVariable("collectionPath", ui.lineEdit_path->text());
 	EProxy.setVariable("slowFilter", ui.checkBox_fastFilter->checkState() == Qt::Checked ? "false" : "true");
+	EProxy.setVariable("autoDownloadImages", ui.checkBox_autoDownload->checkState() != Qt::Checked ? "false" : "true");
 }
 
 void CollectionSettings::cleanup()
