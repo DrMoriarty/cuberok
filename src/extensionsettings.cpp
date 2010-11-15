@@ -18,6 +18,7 @@
  */
 
 #include "extensionsettings.h"
+#include "console.h"
 
 DummyExtensionSetupWidget::DummyExtensionSetupWidget(QWidget *parent) : ExtensionSetupWidget(parent)
 {
@@ -73,7 +74,7 @@ void ExtensionSettings::selectExtension(QListWidgetItem* it)
 
 void ExtensionSettings::storeState()
 {
-	qDebug("store extension settings");
+	Console::Self().log("store extension settings");
 	for(int i=0; i<ui.stackedWidget->count(); i++) {
 		((ExtensionSetupWidget*)ui.stackedWidget->widget(i))->storeState();
 	}

@@ -192,7 +192,7 @@
      <x>0</x>
      <y>0</y>
      <width>651</width>
-     <height>24</height>
+     <height>18</height>
     </rect>
    </property>
    <property name="defaultUp">
@@ -244,6 +244,7 @@
     </property>
     <addaction name="actionPrev"/>
     <addaction name="actionPlayPause"/>
+    <addaction name="actionStop"/>
     <addaction name="actionNext"/>
     <addaction name="separator"/>
     <addaction name="separator"/>

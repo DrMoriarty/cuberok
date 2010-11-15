@@ -62,6 +62,7 @@ void Console::message(const QString& s)
 void Console::log(const QString& s, C_TYPE t)
 {
 	if(!enabled) return;
+	fprintf(stderr, "%s\n", (const char*)s.toLocal8Bit());
 	Log log;
 	
 	log.type = t;

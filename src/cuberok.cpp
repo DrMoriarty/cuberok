@@ -237,7 +237,7 @@ void Cuberok::storeState()
 	//set.setValue("iconview", ui.actionIconView->isChecked());
 	ExtensionProxy::Self().storeState();
 	storeShortcuts();
-	qDebug("Cuberok, state was stored");
+	Console::Self().log("Cuberok, state was stored");
 }
 
 void Cuberok::firstStart()

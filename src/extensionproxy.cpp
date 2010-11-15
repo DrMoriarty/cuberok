@@ -47,25 +47,25 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {
 		Extension *ex = qobject_cast<Extension *>(plugin);
 		if (ex) {
-			qDebug("Loading static extension '%s'", (const char*)ex->getName().toLocal8Bit());
+			Console::Self().log(QString("Loading static extension '%1'").arg(ex->getName()));
 			ex->setProxy(this);
 			bool res = ex->prepare();
 			if(res) {
-				qDebug("... successfully");
+				Console::Self().log("... successfully");
 				extensions.push_back(ex);
 				enabledFlags[ex->getName()] = set.value(ex->getName(), true).toBool();
 			} else {
-				qDebug("... error");
+				Console::Self().log("... error");
 			}
 		}
 	}
 
 	QDir pluginsDir = QDir(qApp->applicationDirPath());
 	pluginsDir.cd(CUBEROK_PLUGINS);
-	qDebug((const char*)("Extension dir is "+pluginsDir.canonicalPath()).toLocal8Bit());
+	Console::Self().log(QString("Extension dir is ")+pluginsDir.canonicalPath());
 	foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
 		if(!QLibrary::isLibrary(fileName)) continue;
-	    qDebug((const char*)("Try to load extension " + fileName).toLocal8Bit());
+		Console::Self().log(QString("Try to load extension ") + fileName);
 		QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
 		QObject *plugin = loader.instance();
 		if (plugin) {
@@ -74,12 +74,12 @@ ExtensionProxy::ExtensionProxy() : Proxy(), transaction(false), transflag(0)
 				ex->setProxy(this);
 				extensions.push_back(ex);
 				bool res = ex->prepare();
-				qDebug("Load extension %s", (const char*)ex->getName().toLocal8Bit());
+				Console::Self().log(QString("Load extension ")+ex->getName());
 				enabledFlags[ex->getName()] = set.value(ex->getName(), true).toBool();
 			}
 		} else {
-			qDebug((const char*)("Can't load extension " + fileName).toLocal8Bit());
-			qDebug((const char*)loader.errorString().toLocal8Bit());
+			Console::Self().error(QString("Can't load extension ") + fileName);
+			Console::Self().error(loader.errorString());
 		}
 	}
 	set.endGroup();
@@ -208,11 +208,11 @@ void ExtensionProxy::delRequest(long requestId)
 	for(int i=0; i<requests.size(); i++) {
 		if(requests[i].id == requestId) {
 			requests.remove(i);
-			qDebug("remove request %ld\n", requestId);
+			Console::Self().log(QString("remove request %1").arg(requestId));
 			return;
 		}
 	}
-	qDebug("not found request %ld\n", requestId);
+	Console::Self().log(QString("not found request %1").arg(requestId));
 }
 
 void ExtensionProxy::setPlControl(const SPlControl& plcontrol)
@@ -361,7 +361,7 @@ void ExtensionProxy::requestTimeout()
 			if(requests.size() && r2.id == requests.front(). id)
 				requests.pop_front();
 			// drop one request per second
-			qDebug("drop request");
+			Console::Self().log("drop request");
 			return;
 		}
 	}
