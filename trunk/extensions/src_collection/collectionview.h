@@ -100,6 +100,8 @@ private slots:
 	void dlComplete(QString file);
 	void dlCancel(QString);
 	void dataUpdate();
+	void newArtist(QString ar);
+	void newAlbum(QString ar, QString al);
 	
 signals:
 	void status(QString);

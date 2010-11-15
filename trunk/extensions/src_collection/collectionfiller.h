@@ -38,6 +38,7 @@ private:
 	int  proceed(QString);
 	bool cancel;
 	int param;
+	int filesCounter;
 private slots:
 	void cancelEvent();
 signals:

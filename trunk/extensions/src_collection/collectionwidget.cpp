@@ -39,6 +39,8 @@ CollectionWidget::CollectionWidget(Proxy* proxy, QWidget *parent)
     ui.actionGenreMode->setChecked(true);
 	connect(ui.colView, SIGNAL(modeChanged(int)), this, SLOT(colmodeChanged(int)));
 	connect(ui.colView, SIGNAL(addUrl(QUrl)), this, SLOT(addUrl(QUrl)));
+	connect(ui.colView, SIGNAL(status(QString)), ui.label1, SLOT(setText(QString)));
+	connect(&Database::Self(), SIGNAL(status(QString)), ui.label2, SLOT(setText(QString)));
 
 	QSettings set;
 	if(set.value("iconview", false).toBool())

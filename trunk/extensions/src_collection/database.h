@@ -112,9 +112,17 @@ public:
 
  signals:
 	void DataUpdate();
+	void status(QString);
+	void appendNewArtist(QString ar);
+	void appendNewAlbum(QString ar, QString al);
 
  public slots:
 	void GenSignalUpdate();
+	void StartFilling();
+	void EndFilling();
+	// that calls can not be nested
+	void BeginTransaction();
+	void EndTransaction();
 	
  private:
     Database();
@@ -125,6 +133,8 @@ public:
     QString ssGenre;
     QVector < QList<QString> > sstack;
     QString ssFilter;
+	int fillingProgress;
+	bool filling;
 
     QString _GetArtist(int);
     QString _GetAlbum(int);
@@ -140,7 +150,7 @@ public:
 	void _MbidForArtist(QString val, QString mbid);
 
     void RefAttribute(const QString attr, int id, int v, int r);
-    int AddAttribute(const QString attr, QString val);
+    int AddAttribute(const QString attr, QString val, bool *newattr = 0);
     void RemoveAttribute(const QString attr, QString val);
     void RenameAttribute(const QString attr, QString oldval, QString newval);
     QList<struct Attr> Attributes(const QString attr, QString *patt = 0);

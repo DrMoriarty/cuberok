@@ -42,7 +42,10 @@ ExtensionSettings::ExtensionSettings(QWidget *parent) : QWidget(parent)
 			QListWidgetItem *it;
 			QWidget *setup = ex->getSetupWidget();
 			if(setup) {
-				it = new QListWidgetItem(setup->windowIcon(), ex->getName(), ui.listWidget);
+				if(setup->windowIcon().isNull())
+					it = new QListWidgetItem(QIcon(":/icons/star.png"), ex->getName(), ui.listWidget);
+				else 
+					it = new QListWidgetItem(setup->windowIcon(), ex->getName(), ui.listWidget);
 				ui.stackedWidget->addWidget(setup);
 			} else {
 				it = new QListWidgetItem(QIcon(":/icons/star.png"), ex->getName(), ui.listWidget);

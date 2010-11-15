@@ -230,7 +230,7 @@ void CollectionModel::updateMode(ListMode m)
 		else data = Database::Self().Artists();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
 		icon.load(":/icons/def_artist.png");
-		stat = tr("Collection - %n artist(s)", "", data.count());
+		stat = tr("%n artist(s)", "", data.count());
 		break;
 	case M_ALBUM: {
 		QList<struct Database::AttrAl> dataAl;
@@ -254,7 +254,7 @@ void CollectionModel::updateMode(ListMode m)
 			i->setData(attr.artist);
 			appendRow(i);
 		}
-		stat = tr("Collection - %n album(s)", "", count);
+		stat = tr("%n album(s)", "", count);
 		emit status(stat);
 		emit modeChanged(mode);
 		return;
@@ -264,7 +264,7 @@ void CollectionModel::updateMode(ListMode m)
 		else data = Database::Self().Genres();
 		//icon = QApplication::style()->standardIcon(QStyle::SP_DirIcon);
 		icon.load(":/icons/def_genre.png");
-		stat = tr("Collection - %n genre(s)", "", data.count());
+		stat = tr("%n genre(s)", "", data.count());
 		break;
 	case M_SONG: {
 		// TODO if(searchPattern.length()) data = Database::Self().Songs(&searchPattern);
@@ -273,7 +273,7 @@ void CollectionModel::updateMode(ListMode m)
 		if(searchPattern.length()) data = Database::Self().Songs(0, 0, 0, &searchPattern);
 		else data = Database::Self().Songs();
 		icon.load(":/icons/def_song.png");
-		stat = tr("Collection - %n song(s)", "", data.count());
+		stat = tr("%n song(s)", "", data.count());
 		foreach(QString it, data) {
 			QString title, artist, album, comment, genre, length, type;
 			int track, year, rating;
@@ -293,7 +293,7 @@ void CollectionModel::updateMode(ListMode m)
 	case M_SQLLIST: {
 		QList<struct Database::SAttr> data = Database::Self().SQLPlaylists();
 		icon.load(":/icons/def_sqllist.png");
-		stat = tr("Collection - %n lists(s)", "", data.count());
+		stat = tr("%n lists(s)", "", data.count());
 		QString tt("");
 		QStandardItem *i;
 		foreach(struct Database::SAttr attr, data) {
@@ -397,6 +397,8 @@ CollectionView::CollectionView(QWidget *parent)
 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(applySubset(QModelIndex)));
 	connect(&model, SIGNAL(modeChanged(int)), this, SIGNAL(modeChanged(int)));
 	connect(&Database::Self(), SIGNAL(DataUpdate()), this, SLOT(dataUpdate()));
+	connect(&Database::Self(), SIGNAL(appendNewArtist(QString)), this, SLOT(newArtist(QString)));
+	connect(&Database::Self(), SIGNAL(appendNewAlbum(QString, QString)), this, SLOT(newAlbum(QString, QString)));
 	model.updateMode(M_GENRE);
 }
 
@@ -412,6 +414,8 @@ void CollectionView::setProxy(Proxy* pr)
 		downloader = new Downloader(proxy);
 		connect(downloader, SIGNAL(complete(QString)), this, SLOT(dlComplete(QString)));
 		connect(downloader, SIGNAL(cancel(QString)), this, SLOT(dlCancel(QString)));
+		if(!proxy->hasVariable("autoDownloadImages"))
+			proxy->setVariable("autoDownloadImages", "true");
 	}
 }
 
@@ -879,4 +883,23 @@ void CollectionView::editItem()
 	}
 		break;
 	}
+}
+
+void CollectionView::newArtist(QString ar)
+{
+	if(!proxy->hasVariable("autoDownloadImages") || proxy->getVariable("autoDownloadImages") != "true") return;
+	QList<QString> item;
+	item << ar;
+	request_stack << item;
+	if(!wait_response) doRequest();
+}
+
+void CollectionView::newAlbum(QString ar, QString al)
+{
+	if(!proxy->hasVariable("autoDownloadImages") || proxy->getVariable("autoDownloadImages") != "true") return;
+	QList<QString> item;
+	item << ar;
+	item << al;
+	request_stack << item;
+	if(!wait_response) doRequest();
 }
